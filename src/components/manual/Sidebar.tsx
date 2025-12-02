@@ -61,13 +61,13 @@ export function Sidebar({ activeChapter, onChapterChange }: SidebarProps) {
         mobileOpen ? "translate-x-0" : "-translate-x-full"
       )}>
         {/* Logo */}
-        <div className="p-6 border-b border-sidebar-border">
+        <div className="p-6 border-b border-sidebar-border bg-white rounded-b-lg">
           <img 
             src={rossikLogo} 
             alt="Rossik Transport & Logistic" 
-            className="h-12 object-contain brightness-0 invert"
+            className="h-14 object-contain"
           />
-          <p className="text-sidebar-foreground/60 text-xs mt-2 font-sans">
+          <p className="text-sidebar-background/70 text-xs mt-2 font-sans font-medium">
             Freight Forwarding Training Manual
           </p>
         </div>
