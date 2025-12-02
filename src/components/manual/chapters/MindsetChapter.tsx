@@ -1,4 +1,6 @@
 import { InfoCard } from "../InfoCard";
+import { Quiz } from "../Quiz";
+import { quizzes } from "@/data/quizData";
 import { Target, MessageSquare, Brain, FileText, Scale, Users } from "lucide-react";
 
 export function MindsetChapter() {
@@ -94,6 +96,9 @@ export function MindsetChapter() {
           </InfoCard>
         </div>
       </div>
+
+      {/* Quiz */}
+      <Quiz title="🎯 Knowledge Check: Role & Mindset" questions={quizzes.mindset} />
     </div>
   );
 }

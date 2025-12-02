@@ -1,5 +1,7 @@
 import { InfoCard } from "../InfoCard";
-import { 
+import { Quiz } from "../Quiz";
+import { quizzes } from "@/data/quizData";
+import {
   ClipboardList, Search, Calculator, Play, Package, 
   ArrowRight, CheckCircle2, AlertCircle
 } from "lucide-react";
@@ -200,6 +202,9 @@ export function WorkflowChapter() {
           </div>
         </div>
       </div>
+
+      {/* Quiz */}
+      <Quiz title="🎯 Knowledge Check: Operational Workflow" questions={quizzes.workflow} />
     </div>
   );
 }

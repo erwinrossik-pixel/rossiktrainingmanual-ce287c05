@@ -1,5 +1,7 @@
 import { DataTable } from "../DataTable";
 import { InfoCard } from "../InfoCard";
+import { Quiz } from "../Quiz";
+import { quizzes } from "@/data/quizData";
 import { Clock, Users, AlertTriangle, Gauge, Car, Ban } from "lucide-react";
 import { Badge } from "../Badge";
 
@@ -207,6 +209,9 @@ export function DrivingTimeChapter() {
           </div>
         </div>
       </div>
+
+      {/* Quiz */}
+      <Quiz title="🎯 Knowledge Check: Driving Time" questions={quizzes["driving-time"]} />
     </div>
   );
 }
