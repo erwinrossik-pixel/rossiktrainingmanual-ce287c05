@@ -1,4 +1,6 @@
 import { InfoCard } from "../InfoCard";
+import { Quiz } from "../Quiz";
+import { quizzes } from "@/data/quizData";
 import { Truck, Ruler, Weight, Package, Shield, CheckCircle2 } from "lucide-react";
 
 export function VehicleChapter() {
@@ -93,6 +95,9 @@ export function VehicleChapter() {
           ))}
         </div>
       </div>
+
+      {/* Quiz */}
+      <Quiz title="🎯 Knowledge Check: Vehicle Reference" questions={quizzes.vehicle} />
     </div>
   );
 }

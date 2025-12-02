@@ -1,5 +1,7 @@
 import { InfoCard } from "../InfoCard";
-import { 
+import { Quiz } from "../Quiz";
+import { quizzes } from "@/data/quizData";
+import {
   Monitor, Users, Truck, Package, CalendarDays, FileText, 
   BarChart3, Settings, Link, CheckCircle2, ArrowRight
 } from "lucide-react";
@@ -184,6 +186,9 @@ export function TranslogicaChapter() {
           ))}
         </div>
       </div>
+
+      {/* Quiz */}
+      <Quiz title="🎯 Knowledge Check: Translogica TMS" questions={quizzes.translogica} />
     </div>
   );
 }

@@ -1,4 +1,6 @@
 import { AlertTriangle, Lightbulb, X, Check } from "lucide-react";
+import { Quiz } from "../Quiz";
+import { quizzes } from "@/data/quizData";
 
 export function RedFlagsChapter() {
   return (
@@ -130,6 +132,9 @@ export function RedFlagsChapter() {
           ))}
         </div>
       </div>
+
+      {/* Quiz */}
+      <Quiz title="🎯 Knowledge Check: Red Flags & Tips" questions={quizzes["red-flags"]} />
     </div>
   );
 }

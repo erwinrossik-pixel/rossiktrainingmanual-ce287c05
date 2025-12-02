@@ -1,5 +1,7 @@
 import { DataTable } from "../DataTable";
 import { InfoCard } from "../InfoCard";
+import { Quiz } from "../Quiz";
+import { quizzes } from "@/data/quizData";
 import { Globe, Shield, MessageSquare, Search, Star, CreditCard } from "lucide-react";
 import { Badge } from "../Badge";
 
@@ -168,6 +170,9 @@ export function ExchangesChapter() {
           </ul>
         </div>
       </div>
+
+      {/* Quiz */}
+      <Quiz title="🎯 Knowledge Check: Freight Exchanges" questions={quizzes.exchanges} />
     </div>
   );
 }

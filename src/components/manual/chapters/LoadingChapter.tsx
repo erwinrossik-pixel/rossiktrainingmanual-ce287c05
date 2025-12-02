@@ -1,4 +1,6 @@
 import { Checklist } from "../Checklist";
+import { Quiz } from "../Quiz";
+import { quizzes } from "@/data/quizData";
 import { Package, Camera, FileText, AlertTriangle, Shield } from "lucide-react";
 
 export function LoadingChapter() {
@@ -112,6 +114,9 @@ export function LoadingChapter() {
           ]}
         />
       </div>
+
+      {/* Quiz */}
+      <Quiz title="🎯 Knowledge Check: Loading & Securing" questions={quizzes.loading} />
     </div>
   );
 }

@@ -1,5 +1,7 @@
 import { DataTable } from "../DataTable";
 import { InfoCard } from "../InfoCard";
+import { Quiz } from "../Quiz";
+import { quizzes } from "@/data/quizData";
 import { Calculator, Euro, Route, TrendingUp } from "lucide-react";
 
 export function PricingChapter() {
@@ -145,6 +147,9 @@ export function PricingChapter() {
           <li>• Add waiting time fees upfront in your quote terms</li>
         </ul>
       </div>
+
+      {/* Quiz */}
+      <Quiz title="🎯 Knowledge Check: Pricing & Tolls" questions={quizzes.pricing} />
     </div>
   );
 }

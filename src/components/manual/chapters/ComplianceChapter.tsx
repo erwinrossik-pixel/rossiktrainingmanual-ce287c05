@@ -1,5 +1,7 @@
 import { DataTable } from "../DataTable";
 import { InfoCard } from "../InfoCard";
+import { Quiz } from "../Quiz";
+import { quizzes } from "@/data/quizData";
 import { Clock, AlertCircle, Moon, Calendar } from "lucide-react";
 
 export function ComplianceChapter() {
@@ -103,6 +105,9 @@ export function ComplianceChapter() {
           </p>
         </div>
       </div>
+
+      {/* Quiz */}
+      <Quiz title="🎯 Knowledge Check: Compliance" questions={quizzes.compliance} />
     </div>
   );
 }
