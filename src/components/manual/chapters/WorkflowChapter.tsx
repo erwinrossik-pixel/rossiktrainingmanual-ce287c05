@@ -1,5 +1,6 @@
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
+import { FlowDiagram, ProcessMap } from "../FlowDiagram";
 import { quizzes } from "@/data/quizData";
 import {
   ClipboardList, Search, Calculator, Play, Package, 
@@ -16,26 +17,90 @@ export function WorkflowChapter() {
         </p>
       </div>
 
-      {/* Visual Flow */}
-      <div className="flex flex-wrap items-center justify-center gap-2 p-6 bg-muted/50 rounded-xl">
-        {[
-          { icon: ClipboardList, label: "Intake" },
-          { icon: Search, label: "Sourcing" },
-          { icon: Calculator, label: "Costing" },
-          { icon: Play, label: "Execution" },
-          { icon: Package, label: "Delivery" },
-        ].map((step, i) => (
-          <div key={i} className="flex items-center gap-2">
-            <div className="flex flex-col items-center">
-              <div className="w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center">
-                <step.icon className="w-6 h-6" />
-              </div>
-              <span className="text-xs font-medium mt-1">{step.label}</span>
-            </div>
-            {i < 4 && <ArrowRight className="w-5 h-5 text-muted-foreground mx-2" />}
-          </div>
-        ))}
-      </div>
+      {/* Visual Flow Diagram */}
+      <FlowDiagram
+        title="End-to-End Workflow Process"
+        steps={[
+          { id: "intake", label: "Intake", description: "Customer request", color: "primary" },
+          { id: "sourcing", label: "Sourcing", description: "Find capacity", color: "info" },
+          { id: "costing", label: "Costing", description: "Calculate price", color: "warning" },
+          { id: "execution", label: "Execution", description: "Plan & track", color: "success" },
+          { id: "delivery", label: "Delivery", description: "POD & close", color: "primary" },
+        ]}
+      />
+
+      {/* Detailed Process Map */}
+      <ProcessMap
+        title="Detailed Process Breakdown"
+        phases={[
+          {
+            name: "Intake Phase",
+            color: "primary",
+            steps: [
+              "Collect shipment details",
+              "Verify addresses & contacts",
+              "Check time windows",
+              "Confirm Incoterms",
+              "Assess feasibility"
+            ]
+          },
+          {
+            name: "Sourcing Phase",
+            color: "info",
+            steps: [
+              "Check own fleet availability",
+              "Contact preferred carriers",
+              "Post on spot market",
+              "Verify carrier documents",
+              "Confirm vehicle specs"
+            ]
+          },
+          {
+            name: "Costing Phase",
+            color: "warning",
+            steps: [
+              "Calculate base cost (€/km)",
+              "Add tolls & ferries",
+              "Include accessorials",
+              "Apply margin (8-18%)",
+              "Prepare quote options"
+            ]
+          },
+          {
+            name: "Execution Phase",
+            color: "success",
+            steps: [
+              "Plan route & breaks",
+              "Send loading instructions",
+              "Track milestones",
+              "Communicate delays",
+              "Update ETA proactively"
+            ]
+          },
+          {
+            name: "Delivery Phase",
+            color: "primary",
+            steps: [
+              "Confirm delivery time",
+              "Collect signed POD",
+              "Check for damages",
+              "Calculate actual margin",
+              "Rate carrier performance"
+            ]
+          },
+          {
+            name: "Post-Trip Phase",
+            color: "info",
+            steps: [
+              "Archive all documents",
+              "Invoice customer",
+              "Pay carrier",
+              "Analyze profitability",
+              "Update lane database"
+            ]
+          }
+        ]}
+      />
 
       {/* 1. Intake */}
       <div className="info-card">

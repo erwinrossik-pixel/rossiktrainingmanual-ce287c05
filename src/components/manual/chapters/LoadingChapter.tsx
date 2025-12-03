@@ -1,5 +1,6 @@
 import { Checklist } from "../Checklist";
 import { Quiz } from "../Quiz";
+import { FlowDiagram, DecisionDiagram } from "../FlowDiagram";
 import { quizzes } from "@/data/quizData";
 import { Package, Camera, FileText, AlertTriangle, Shield } from "lucide-react";
 
@@ -12,6 +13,33 @@ export function LoadingChapter() {
           Standard Operating Procedure for safe cargo loading and securing.
         </p>
       </div>
+
+      {/* Visual Flow Diagram */}
+      <FlowDiagram
+        title="Loading Process Flow"
+        steps={[
+          { id: "slot", label: "Confirm Slot", description: "Verify booking", color: "primary" },
+          { id: "position", label: "Position", description: "Park & secure", color: "info" },
+          { id: "inspect", label: "Inspect", description: "Check trailer", color: "warning" },
+          { id: "load", label: "Load", description: "Distribute evenly", color: "success" },
+          { id: "secure", label: "Secure", description: "EN 12195-1", color: "primary" },
+          { id: "document", label: "Document", description: "Photos + CMR", color: "info" },
+        ]}
+      />
+
+      {/* Decision Diagram */}
+      <DecisionDiagram
+        title="Damage Found at Loading?"
+        question="Cargo damaged before loading?"
+        yesPath={{
+          label: "Document & Notify",
+          result: "Note on CMR, take photos, contact dispatcher"
+        }}
+        noPath={{
+          label: "Proceed with Loading",
+          result: "Continue standard loading procedure"
+        }}
+      />
 
       {/* Step by Step */}
       <div className="space-y-4">

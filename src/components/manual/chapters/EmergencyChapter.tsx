@@ -1,5 +1,6 @@
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
+import { FlowDiagram, DecisionDiagram, ProcessMap } from "../FlowDiagram";
 import { quizzes } from "@/data/quizData";
 import { AlertTriangle, Phone, FileText, Shield, Truck, MapPin, Clock, CheckCircle } from "lucide-react";
 
@@ -19,6 +20,83 @@ export function EmergencyChapter() {
           </p>
         </div>
       </div>
+
+      {/* Emergency Response Flow */}
+      <FlowDiagram
+        title="Emergency Response Protocol"
+        steps={[
+          { id: "secure", label: "Secure Scene", description: "Hazards & safety", color: "destructive" },
+          { id: "call", label: "Call 112", description: "Emergency services", color: "warning" },
+          { id: "document", label: "Document", description: "Photos & info", color: "info" },
+          { id: "notify", label: "Notify", description: "Dispatcher", color: "primary" },
+          { id: "wait", label: "Wait", description: "Follow instructions", color: "success" },
+        ]}
+      />
+
+      {/* Decision Diagram */}
+      <DecisionDiagram
+        title="Injury Assessment"
+        question="Are there injuries?"
+        yesPath={{
+          label: "Call 112 First",
+          result: "Provide first aid, wait for ambulance"
+        }}
+        noPath={{
+          label: "Secure & Document",
+          result: "Exchange info, call dispatcher"
+        }}
+      />
+
+      {/* Emergency Response Process Map */}
+      <ProcessMap
+        title="Emergency Situation Handling"
+        phases={[
+          {
+            name: "Road Accident",
+            color: "destructive",
+            steps: [
+              "Turn on hazard lights",
+              "Place warning triangle",
+              "Put on high-vis vest",
+              "Call 112 immediately",
+              "Document with photos"
+            ]
+          },
+          {
+            name: "Vehicle Breakdown",
+            color: "warning",
+            steps: [
+              "Pull off the road",
+              "Activate hazards",
+              "Exit on safe side",
+              "Call breakdown service",
+              "Notify dispatcher"
+            ]
+          },
+          {
+            name: "Cargo Damage",
+            color: "info",
+            steps: [
+              "Stop and assess",
+              "Take timestamped photos",
+              "Note CMR reservation",
+              "Do NOT sign clean POD",
+              "Inform all parties"
+            ]
+          },
+          {
+            name: "Theft/Security",
+            color: "primary",
+            steps: [
+              "Do NOT confront",
+              "Call police (112)",
+              "Preserve crime scene",
+              "Document everything",
+              "Notify insurance"
+            ]
+          }
+        ]}
+      />
 
       {/* Emergency Contacts */}
       <section>
