@@ -324,7 +324,7 @@ export function ADRChapter() {
 
       {/* Quiz */}
       {quizzes.adr && (
-        <Quiz title="ADR Dangerous Goods Quiz" questions={quizzes.adr} />
+        <Quiz title="ADR Dangerous Goods Quiz" questions={quizzes.adr} chapterId="adr" />
       )}
     </div>
   );

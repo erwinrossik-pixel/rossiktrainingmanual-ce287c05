@@ -313,7 +313,7 @@ export function CommunicationChapter() {
 
       {/* Quiz */}
       {quizzes.communication && (
-        <Quiz title="Client Communication Quiz" questions={quizzes.communication} />
+        <Quiz title="Client Communication Quiz" questions={quizzes.communication} chapterId="communication" />
       )}
     </div>
   );

@@ -107,7 +107,7 @@ export function ComplianceChapter() {
       </div>
 
       {/* Quiz */}
-      <Quiz title="🎯 Knowledge Check: Compliance" questions={quizzes.compliance} />
+      <Quiz title="🎯 Knowledge Check: Compliance" questions={quizzes.compliance} chapterId="compliance" />
     </div>
   );
 }

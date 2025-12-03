@@ -2,11 +2,12 @@ import {
   BookOpen, Users, Truck, Package, Shield, Calculator, 
   Building2, Route, Clock, Laptop, GraduationCap, AlertTriangle, 
   ClipboardList, Target, Menu, X, Phone, MessageSquare, Scale,
-  FileText, Flame, Book, Lightbulb
+  FileText, Flame, Book, Lightbulb, CheckCircle2, RotateCcw
 } from "lucide-react";
 import rossikLogo from "@/assets/rossik-logo.jpg";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
+import { useProgressContext } from "@/contexts/ProgressContext";
 
 interface SidebarProps {
   activeChapter: string;
@@ -40,6 +41,9 @@ const chapters = [
 
 export function Sidebar({ activeChapter, onChapterChange }: SidebarProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { progress, getOverallProgress, resetProgress, getChapterProgress } = useProgressContext();
+
+  const overallProgress = getOverallProgress();
 
   return (
     <>
@@ -81,12 +85,44 @@ export function Sidebar({ activeChapter, onChapterChange }: SidebarProps) {
           </p>
         </div>
 
+        {/* Progress Overview */}
+        <div className="px-4 py-3 border-b border-sidebar-border">
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-xs font-medium text-sidebar-foreground/70">Progress</span>
+            <span className="text-xs font-bold text-primary">{overallProgress}%</span>
+          </div>
+          <div className="w-full bg-sidebar-border rounded-full h-2">
+            <div 
+              className="bg-primary h-2 rounded-full transition-all duration-500"
+              style={{ width: `${overallProgress}%` }}
+            />
+          </div>
+          <div className="flex items-center justify-between mt-2">
+            <span className="text-xs text-sidebar-foreground/50">
+              {progress.totalCompleted}/{progress.totalChapters} chapters
+            </span>
+            {progress.totalCompleted > 0 && (
+              <button
+                onClick={resetProgress}
+                className="text-xs text-sidebar-foreground/50 hover:text-sidebar-foreground flex items-center gap-1"
+                title="Reset progress"
+              >
+                <RotateCcw className="w-3 h-3" />
+              </button>
+            )}
+          </div>
+        </div>
+
         {/* Navigation */}
         <nav className="flex-1 overflow-y-auto py-4 px-3">
           <ul className="space-y-1">
             {chapters.map((chapter) => {
               const Icon = chapter.icon;
               const isActive = activeChapter === chapter.id;
+              const chapterProgress = getChapterProgress(chapter.id);
+              const isCompleted = chapterProgress?.completed;
+              const hasQuizScore = chapterProgress?.quizScore !== undefined;
+              
               return (
                 <li key={chapter.id}>
                   <button
@@ -95,12 +131,27 @@ export function Sidebar({ activeChapter, onChapterChange }: SidebarProps) {
                       setMobileOpen(false);
                     }}
                     className={cn(
-                      "nav-item w-full text-left",
+                      "nav-item w-full text-left group relative",
                       isActive && "nav-item-active"
                     )}
                   >
-                    <Icon className="w-4 h-4 flex-shrink-0" />
-                    <span>{chapter.label}</span>
+                    <div className="relative">
+                      <Icon className="w-4 h-4 flex-shrink-0" />
+                      {isCompleted && (
+                        <CheckCircle2 className="w-3 h-3 text-success absolute -top-1 -right-1" />
+                      )}
+                    </div>
+                    <span className="flex-1">{chapter.label}</span>
+                    {hasQuizScore && (
+                      <span className={cn(
+                        "text-xs px-1.5 py-0.5 rounded-full",
+                        chapterProgress.quizScore! >= (chapterProgress.quizTotal! * 0.7)
+                          ? "bg-success/20 text-success"
+                          : "bg-warning/20 text-warning"
+                      )}>
+                        {chapterProgress.quizScore}/{chapterProgress.quizTotal}
+                      </span>
+                    )}
                   </button>
                 </li>
               );

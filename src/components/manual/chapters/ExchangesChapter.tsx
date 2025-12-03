@@ -172,7 +172,7 @@ export function ExchangesChapter() {
       </div>
 
       {/* Quiz */}
-      <Quiz title="🎯 Knowledge Check: Freight Exchanges" questions={quizzes.exchanges} />
+      <Quiz title="🎯 Knowledge Check: Freight Exchanges" questions={quizzes.exchanges} chapterId="exchanges" />
     </div>
   );
 }

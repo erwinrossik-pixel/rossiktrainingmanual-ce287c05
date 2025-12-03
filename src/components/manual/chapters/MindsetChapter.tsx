@@ -98,7 +98,7 @@ export function MindsetChapter() {
       </div>
 
       {/* Quiz */}
-      <Quiz title="🎯 Knowledge Check: Role & Mindset" questions={quizzes.mindset} />
+      <Quiz title="🎯 Knowledge Check: Role & Mindset" questions={quizzes.mindset} chapterId="mindset" />
     </div>
   );
 }

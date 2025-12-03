@@ -149,7 +149,7 @@ export function PricingChapter() {
       </div>
 
       {/* Quiz */}
-      <Quiz title="🎯 Knowledge Check: Pricing & Tolls" questions={quizzes.pricing} />
+      <Quiz title="🎯 Knowledge Check: Pricing & Tolls" questions={quizzes.pricing} chapterId="pricing" />
     </div>
   );
 }

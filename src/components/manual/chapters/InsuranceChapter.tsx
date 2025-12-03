@@ -272,7 +272,7 @@ export function InsuranceChapter() {
 
       {/* Quiz */}
       {quizzes.insurance && (
-        <Quiz title="Transport Insurance Quiz" questions={quizzes.insurance} />
+        <Quiz title="Transport Insurance Quiz" questions={quizzes.insurance} chapterId="insurance" />
       )}
     </div>
   );

@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { CheckCircle2, XCircle, RotateCcw, Trophy, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useProgressContext } from "@/contexts/ProgressContext";
 
 interface QuizQuestion {
   question: string;
@@ -12,17 +13,23 @@ interface QuizQuestion {
 interface QuizProps {
   title: string;
   questions: QuizQuestion[];
+  chapterId?: string;
 }
 
-export function Quiz({ title, questions }: QuizProps) {
+export function Quiz({ title, questions, chapterId }: QuizProps) {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [showResult, setShowResult] = useState(false);
   const [score, setScore] = useState(0);
   const [answeredQuestions, setAnsweredQuestions] = useState<boolean[]>(new Array(questions.length).fill(false));
   const [quizCompleted, setQuizCompleted] = useState(false);
+  
+  const { saveQuizScore, getChapterProgress } = useProgressContext();
 
   const question = questions[currentQuestion];
+
+  // Check if we have a previous score
+  const previousProgress = chapterId ? getChapterProgress(chapterId) : undefined;
 
   const handleAnswer = (index: number) => {
     if (answeredQuestions[currentQuestion]) return;
@@ -46,6 +53,10 @@ export function Quiz({ title, questions }: QuizProps) {
       setShowResult(false);
     } else {
       setQuizCompleted(true);
+      // Save the quiz score
+      if (chapterId) {
+        saveQuizScore(chapterId, score + (selectedAnswer === question.correctIndex ? 1 : 0), questions.length);
+      }
     }
   };
 
@@ -58,7 +69,9 @@ export function Quiz({ title, questions }: QuizProps) {
     setQuizCompleted(false);
   };
 
-  const percentage = Math.round((score / questions.length) * 100);
+  const finalScore = quizCompleted ? score : score + (selectedAnswer === question?.correctIndex ? 1 : 0);
+  const percentage = Math.round((finalScore / questions.length) * 100);
+  const passed = percentage >= 70;
 
   if (quizCompleted) {
     return (
@@ -75,12 +88,19 @@ export function Quiz({ title, questions }: QuizProps) {
           </div>
           
           <h3 className="text-2xl font-bold font-serif mb-2">Quiz Complete!</h3>
-          <p className="text-4xl font-bold text-primary mb-2">{score}/{questions.length}</p>
-          <p className="text-muted-foreground mb-6">
+          <p className="text-4xl font-bold text-primary mb-2">{finalScore}/{questions.length}</p>
+          <p className="text-muted-foreground mb-2">
             {percentage >= 80 ? "Excellent work! You've mastered this chapter." :
              percentage >= 60 ? "Good job! Review the missed questions." :
              "Keep studying! Review the chapter and try again."}
           </p>
+          
+          {passed && (
+            <p className="text-success text-sm font-medium mb-4 flex items-center justify-center gap-2">
+              <CheckCircle2 className="w-4 h-4" />
+              Chapter marked as complete!
+            </p>
+          )}
           
           <div className="w-full bg-muted rounded-full h-3 mb-6">
             <div 
@@ -106,12 +126,27 @@ export function Quiz({ title, questions }: QuizProps) {
 
   return (
     <div className="mt-12 p-6 md:p-8 bg-card rounded-2xl border border-border shadow-card">
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex items-center justify-between mb-4">
         <h3 className="text-xl font-bold font-serif text-primary">{title}</h3>
         <span className="text-sm text-muted-foreground">
           Question {currentQuestion + 1} of {questions.length}
         </span>
       </div>
+
+      {/* Previous score badge */}
+      {previousProgress?.quizScore !== undefined && (
+        <div className="mb-4 text-sm text-muted-foreground flex items-center gap-2">
+          <span>Previous best:</span>
+          <span className={cn(
+            "px-2 py-0.5 rounded-full text-xs font-medium",
+            previousProgress.quizScore >= (previousProgress.quizTotal! * 0.7)
+              ? "bg-success/20 text-success"
+              : "bg-warning/20 text-warning"
+          )}>
+            {previousProgress.quizScore}/{previousProgress.quizTotal}
+          </span>
+        </div>
+      )}
       
       {/* Progress bar */}
       <div className="w-full bg-muted rounded-full h-2 mb-6">
