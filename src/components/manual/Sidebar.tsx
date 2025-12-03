@@ -8,6 +8,7 @@ import rossikLogo from "@/assets/rossik-logo.jpg";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { useProgressContext } from "@/contexts/ProgressContext";
+import { GlobalSearch } from "./GlobalSearch";
 
 interface SidebarProps {
   activeChapter: string;
@@ -111,6 +112,14 @@ export function Sidebar({ activeChapter, onChapterChange }: SidebarProps) {
               </button>
             )}
           </div>
+        </div>
+
+        {/* Global Search */}
+        <div className="px-3 py-3 border-b border-sidebar-border">
+          <GlobalSearch onNavigate={(chapterId) => {
+            onChapterChange(chapterId);
+            setMobileOpen(false);
+          }} />
         </div>
 
         {/* Navigation */}
