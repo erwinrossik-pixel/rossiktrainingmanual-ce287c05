@@ -26,6 +26,38 @@ export const quizzes: Record<string, QuizQuestion[]> = {
       explanation: "Treating drivers as partners with respect directly improves punctuality and cooperation.",
     },
   ],
+  clients: [
+    {
+      question: "What is the most important factor when approaching a new potential client?",
+      options: ["Lowest price", "Value proposition and reliability", "Largest fleet size", "Longest company history"],
+      correctIndex: 1,
+      explanation: "Lead with value (service quality, reliability, tracking) before discussing price. Clients remember service, not just cost.",
+    },
+    {
+      question: "What should you always do before extending credit to a new customer?",
+      options: ["Nothing needed", "Check credit rating and trade references", "Only ask for prepayment", "Trust their word"],
+      correctIndex: 1,
+      explanation: "Always verify creditworthiness through rating agencies (Creditsafe, D&B) and request trade references before offering payment terms.",
+    },
+    {
+      question: "Which clients should receive most of your business development attention?",
+      options: ["All clients equally", "Strategic (A) and Growing (B) segments", "Only the largest clients", "Only new prospects"],
+      correctIndex: 1,
+      explanation: "Focus 80% of BD time on A (strategic) and B (growing) clients. They offer the best return on relationship investment.",
+    },
+    {
+      question: "What is an appropriate on-time delivery target for client KPIs?",
+      options: ["80%", "85%", "95%+", "100%"],
+      correctIndex: 2,
+      explanation: "Target 95%+ on-time delivery. This is achievable with good planning and demonstrates reliable service.",
+    },
+    {
+      question: "When should you notify a client about a delivery delay?",
+      options: ["After delivery", "When they ask", "As soon as you know (ASAP)", "Never - hope it works out"],
+      correctIndex: 2,
+      explanation: "Proactive communication is essential. Notify clients about delays immediately - bad news travels better from you than discovered by them.",
+    },
+  ],
   workflow: [
     {
       question: "What is the correct priority order for capacity sourcing?",
@@ -366,6 +398,166 @@ export const quizzes: Record<string, QuizQuestion[]> = {
       options: ["Ignore it", "Note reservations on CMR Box 18", "Refuse the load entirely", "Call the police"],
       correctIndex: 1,
       explanation: "Any discrepancies (damaged packaging, quantity differences) should be noted as reservations in CMR Box 18.",
+    },
+  ],
+  reefer: [
+    {
+      question: "What does ATP certification relate to?",
+      options: ["Driver training", "Temperature-controlled vehicle standards", "Fuel efficiency", "Route planning"],
+      correctIndex: 1,
+      explanation: "ATP (Agreement on Transport of Perishables) establishes standards for temperature-controlled vehicles used in international transport.",
+    },
+    {
+      question: "What is the typical temperature range for chilled goods?",
+      options: ["-25°C to -18°C", "-18°C to -12°C", "+2°C to +8°C", "+15°C to +25°C"],
+      correctIndex: 2,
+      explanation: "Chilled goods (fresh meat, dairy, pharmaceuticals) are typically transported at +2°C to +8°C.",
+    },
+    {
+      question: "What should you do BEFORE loading temperature-sensitive cargo?",
+      options: ["Nothing special needed", "Pre-cool the trailer to required temperature", "Turn off the reefer unit", "Load as fast as possible"],
+      correctIndex: 1,
+      explanation: "Always pre-cool the trailer to the required temperature before loading. Never load warm cargo into a cold trailer.",
+    },
+    {
+      question: "What is the ATP code for a refrigerated trailer capable of -20°C?",
+      options: ["IN", "FNA", "FRC", "ATP-X"],
+      correctIndex: 2,
+      explanation: "FRC indicates a mechanically refrigerated vehicle with heavy insulation capable of reaching -20°C.",
+    },
+    {
+      question: "What tolerance is acceptable for pharmaceutical cold chain?",
+      options: ["+/- 5°C", "+/- 2°C", "ZERO tolerance", "+/- 10°C"],
+      correctIndex: 2,
+      explanation: "Pharmaceutical products under GDP have zero tolerance for temperature deviations - reject shipment if limits exceeded.",
+    },
+  ],
+  customs: [
+    {
+      question: "What is the T1 document used for?",
+      options: ["EU internal transport", "Non-EU goods transiting through EU", "Driver identification", "Vehicle registration"],
+      correctIndex: 1,
+      explanation: "T1 (External Transit) is used for non-EU goods moving through EU territory under customs supervision.",
+    },
+    {
+      question: "What must happen to customs seals during T1 transit?",
+      options: ["They can be removed at any time", "They must remain intact until destination customs", "They expire after 24 hours", "They are optional"],
+      correctIndex: 1,
+      explanation: "Customs seals must remain intact throughout transit. Breaking seals results in customs violations and guarantee claims.",
+    },
+    {
+      question: "What is an EORI number?",
+      options: ["Vehicle registration", "Economic Operator Registration for customs", "Driver license number", "Insurance certificate"],
+      correctIndex: 1,
+      explanation: "EORI (Economic Operators Registration and Identification) is required for any business conducting customs activities in the EU.",
+    },
+    {
+      question: "What system is required for UK imports/exports post-Brexit?",
+      options: ["T1 only", "GVMS and GMR", "No system needed", "TIR Carnet only"],
+      correctIndex: 1,
+      explanation: "GVMS (Goods Vehicle Movement Service) and GMR (Goods Movement Reference) are required for UK border crossings post-Brexit.",
+    },
+    {
+      question: "What is the EUR.1 certificate used for?",
+      options: ["Temperature control", "Proof of preferential origin for reduced duties", "Driver training", "Vehicle inspection"],
+      correctIndex: 1,
+      explanation: "EUR.1 provides proof of preferential origin, allowing reduced or zero customs duties under trade agreements.",
+    },
+  ],
+  fleet: [
+    {
+      question: "What is a key benefit of GPS fleet tracking?",
+      options: ["Only useful for theft", "Real-time visibility and accurate ETAs", "Increases fuel consumption", "Slows down operations"],
+      correctIndex: 1,
+      explanation: "GPS tracking provides real-time vehicle location, accurate ETA calculations, and operational visibility.",
+    },
+    {
+      question: "What is a typical target for vehicle utilization rate?",
+      options: ["50-60%", "65-75%", "85-95%", "100%"],
+      correctIndex: 2,
+      explanation: "Target vehicle utilization is typically 85-95%. 100% is unrealistic due to maintenance, weekends, and repositioning.",
+    },
+    {
+      question: "What is geofencing used for in fleet management?",
+      options: ["Blocking GPS signals", "Automatic alerts when vehicles enter/exit defined areas", "Fuel monitoring only", "Driver communication"],
+      correctIndex: 1,
+      explanation: "Geofencing creates virtual boundaries that trigger automatic alerts/actions when vehicles enter or exit zones.",
+    },
+    {
+      question: "What fuel consumption is typical for long-haul trucks?",
+      options: ["15-20 l/100km", "28-32 l/100km", "45-55 l/100km", "60-70 l/100km"],
+      correctIndex: 1,
+      explanation: "Long-haul trucks typically consume 28-32 liters per 100km. Regional and distribution routes consume more.",
+    },
+    {
+      question: "What legal requirement applies to GPS tracking of drivers?",
+      options: ["No requirements", "GDPR compliance and driver notification", "Only insurance requirement", "Police approval needed"],
+      correctIndex: 1,
+      explanation: "Under GDPR, drivers must be informed about tracking, and companies must have clear policies on data usage.",
+    },
+  ],
+  environment: [
+    {
+      question: "What is the current standard for new truck emissions in the EU?",
+      options: ["Euro 4", "Euro 5", "Euro 6", "Euro 7"],
+      correctIndex: 2,
+      explanation: "Euro 6 is the current emission standard for new trucks. Euro 7 is expected around 2027.",
+    },
+    {
+      question: "How much CO₂ is produced per liter of diesel burned?",
+      options: ["~1.0 kg", "~2.64 kg", "~5.0 kg", "~10 kg"],
+      correctIndex: 1,
+      explanation: "Burning one liter of diesel produces approximately 2.64 kg of CO₂.",
+    },
+    {
+      question: "What is the German Umweltzone requirement?",
+      options: ["No requirements", "Green sticker (Euro 4+ diesel minimum)", "Only electric vehicles", "Euro 6 only"],
+      correctIndex: 1,
+      explanation: "German environmental zones (Umweltzonen) require a green sticker, which means Euro 4 diesel or cleaner.",
+    },
+    {
+      question: "What can eco-driving training typically achieve?",
+      options: ["No measurable impact", "5-15% fuel reduction", "50% fuel reduction", "Increased fuel use"],
+      correctIndex: 1,
+      explanation: "Eco-driving training typically achieves 5-15% fuel reduction through better driving techniques.",
+    },
+    {
+      question: "What affects German Maut toll rates since 2023?",
+      options: ["Only distance", "Distance, axles, and CO₂ emission class", "Only vehicle weight", "Nothing - flat rate"],
+      correctIndex: 1,
+      explanation: "Since December 2023, German tolls include distance, axle count, and a CO₂ component based on emission class.",
+    },
+  ],
+  payment: [
+    {
+      question: "What payment term means payment within 30 days of invoice?",
+      options: ["COD", "Prepayment", "Net 30", "EOM"],
+      correctIndex: 2,
+      explanation: "Net 30 means payment is due within 30 days from the invoice date.",
+    },
+    {
+      question: "What should you always verify before extending credit to a new customer?",
+      options: ["Their truck color", "Credit rating and trade references", "Their social media", "Nothing needed"],
+      correctIndex: 1,
+      explanation: "Always check credit ratings (Creditsafe, D&B) and trade references before extending payment terms.",
+    },
+    {
+      question: "How does VAT work for B2B intra-EU transport?",
+      options: ["Standard VAT rate", "Reverse charge (0% VAT)", "No VAT ever", "Double VAT"],
+      correctIndex: 1,
+      explanation: "B2B intra-EU transport uses reverse charge mechanism - 0% VAT with customer accounting for VAT in their country.",
+    },
+    {
+      question: "What is DSO in financial terms?",
+      options: ["Daily Sales Order", "Days Sales Outstanding", "Direct Sales Operation", "Discount Sales Offer"],
+      correctIndex: 1,
+      explanation: "DSO (Days Sales Outstanding) measures average number of days to collect payment after invoicing. Target: <45 days.",
+    },
+    {
+      question: "When should you invoice for completed transport?",
+      options: ["Within 30 days", "Within 48 hours of delivery", "Monthly batch only", "When customer requests"],
+      correctIndex: 1,
+      explanation: "Best practice is to invoice within 48 hours of delivery, attaching signed POD/CMR for faster payment.",
     },
   ],
 };
