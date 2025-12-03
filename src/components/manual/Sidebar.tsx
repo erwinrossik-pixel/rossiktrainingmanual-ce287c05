@@ -1,7 +1,8 @@
 import { 
   BookOpen, Users, Truck, Package, Shield, Calculator, 
   Building2, Route, Clock, Laptop, GraduationCap, AlertTriangle, 
-  ClipboardList, Target, Menu, X
+  ClipboardList, Target, Menu, X, Phone, MessageSquare, Scale,
+  FileText, Flame, Book, Lightbulb
 } from "lucide-react";
 import rossikLogo from "@/assets/rossik-logo.jpg";
 import { cn } from "@/lib/utils";
@@ -24,6 +25,14 @@ const chapters = [
   { id: "clients", label: "Finding Clients", icon: Building2 },
   { id: "exchanges", label: "Freight Exchanges", icon: Users },
   { id: "translogica", label: "Translogica TMS", icon: Laptop },
+  { id: "emergency", label: "Emergency Procedures", icon: Phone },
+  { id: "communication", label: "Client Communication", icon: MessageSquare },
+  { id: "claims", label: "Claims & Disputes", icon: Scale },
+  { id: "insurance", label: "Transport Insurance", icon: Shield },
+  { id: "adr", label: "ADR Dangerous Goods", icon: Flame },
+  { id: "documents", label: "Transport Documents", icon: FileText },
+  { id: "case-studies", label: "Case Studies", icon: Lightbulb },
+  { id: "glossary", label: "Glossary", icon: Book },
   { id: "training", label: "Training Exercises", icon: GraduationCap },
   { id: "red-flags", label: "Red Flags & Tips", icon: AlertTriangle },
   { id: "checklists", label: "Checklists", icon: ClipboardList },

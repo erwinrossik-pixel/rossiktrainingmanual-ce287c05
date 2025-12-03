@@ -12,6 +12,14 @@ import { TranslogicaChapter } from "./chapters/TranslogicaChapter";
 import { TrainingChapter } from "./chapters/TrainingChapter";
 import { RedFlagsChapter } from "./chapters/RedFlagsChapter";
 import { ChecklistsChapter } from "./chapters/ChecklistsChapter";
+import { EmergencyChapter } from "./chapters/EmergencyChapter";
+import { CommunicationChapter } from "./chapters/CommunicationChapter";
+import { ClaimsChapter } from "./chapters/ClaimsChapter";
+import { InsuranceChapter } from "./chapters/InsuranceChapter";
+import { ADRChapter } from "./chapters/ADRChapter";
+import { DocumentsChapter } from "./chapters/DocumentsChapter";
+import { GlossaryChapter } from "./chapters/GlossaryChapter";
+import { CaseStudiesChapter } from "./chapters/CaseStudiesChapter";
 
 interface ManualContentProps {
   activeChapter: string;
@@ -30,6 +38,14 @@ export function ManualContent({ activeChapter }: ManualContentProps) {
     clients: <ClientsChapter />,
     exchanges: <ExchangesChapter />,
     translogica: <TranslogicaChapter />,
+    emergency: <EmergencyChapter />,
+    communication: <CommunicationChapter />,
+    claims: <ClaimsChapter />,
+    insurance: <InsuranceChapter />,
+    adr: <ADRChapter />,
+    documents: <DocumentsChapter />,
+    "case-studies": <CaseStudiesChapter />,
+    glossary: <GlossaryChapter />,
     training: <TrainingChapter />,
     "red-flags": <RedFlagsChapter />,
     checklists: <ChecklistsChapter />,
