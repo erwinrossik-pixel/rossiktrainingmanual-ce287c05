@@ -212,4 +212,160 @@ export const quizzes: Record<string, QuizQuestion[]> = {
       explanation: "Always document with timestamped photos. Without documentation, you have no defense in disputes.",
     },
   ],
+  emergency: [
+    {
+      question: "What is the European emergency number that works in all EU countries?",
+      options: ["911", "999", "112", "100"],
+      correctIndex: 2,
+      explanation: "112 is the universal European emergency number for police, ambulance, and fire services in all EU countries.",
+    },
+    {
+      question: "How far behind the vehicle should you place a warning triangle on a highway?",
+      options: ["50m", "100-200m", "300m", "500m"],
+      correctIndex: 1,
+      explanation: "Warning triangles should be placed 100-200m behind the vehicle on highways to give approaching traffic adequate warning.",
+    },
+    {
+      question: "What should you do first when discovering cargo damage?",
+      options: ["Continue delivery normally", "Take detailed photos with timestamps", "Call the police immediately", "Throw away damaged goods"],
+      correctIndex: 1,
+      explanation: "Always document damage with timestamped photos first. Do NOT sign a clean POD if cargo is damaged.",
+    },
+    {
+      question: "What is TAPA certification related to?",
+      options: ["Driver training", "Vehicle emissions", "Secure parking facilities", "Customs clearance"],
+      correctIndex: 2,
+      explanation: "TAPA (Transported Asset Protection Association) certifies secure parking facilities for high-value cargo.",
+    },
+  ],
+  communication: [
+    {
+      question: "What is the best channel for urgent issues requiring immediate response?",
+      options: ["Email", "TMS notification", "Phone call", "Letter"],
+      correctIndex: 2,
+      explanation: "Phone calls are best for urgent issues as they allow immediate two-way communication and quick resolution.",
+    },
+    {
+      question: "What is the target response time for an urgent spot quote?",
+      options: ["1 hour", "30 minutes", "15 minutes", "Same day"],
+      correctIndex: 2,
+      explanation: "Urgent spot quotes should be responded to within 15 minutes, with a maximum of 30 minutes.",
+    },
+    {
+      question: "What should you always do after an important phone call?",
+      options: ["Nothing needed", "Send written confirmation", "Call again to verify", "Wait for client to confirm"],
+      correctIndex: 1,
+      explanation: "Always follow up important phone calls with written confirmation via email to create documentation.",
+    },
+    {
+      question: "What is the first step when dealing with an angry client?",
+      options: ["Defend yourself immediately", "Listen and let them express frustration", "Transfer to manager", "Hang up"],
+      correctIndex: 1,
+      explanation: "The LASAP method starts with Listen - let the client express their frustration before responding.",
+    },
+  ],
+  claims: [
+    {
+      question: "What is the CMR time limit for visible damage claims?",
+      options: ["24 hours", "7 days", "21 days", "1 year"],
+      correctIndex: 1,
+      explanation: "Visible damage must be noted on the CMR at delivery. Claims should be filed within 7 days for visible damage.",
+    },
+    {
+      question: "What is the maximum liability limit per kg under CMR convention?",
+      options: ["€5/kg", "€8.33/kg (SDR)", "€12/kg", "€20/kg"],
+      correctIndex: 1,
+      explanation: "CMR limits carrier liability to 8.33 SDR (Special Drawing Rights) per kg of gross weight, approximately €10/kg.",
+    },
+    {
+      question: "What should you NEVER sign when receiving damaged cargo?",
+      options: ["The CMR", "A clean POD", "The invoice", "The driver's log"],
+      correctIndex: 1,
+      explanation: "Never sign a clean POD (Proof of Delivery) when cargo is damaged. Always note damages and reservations.",
+    },
+    {
+      question: "Within how many days must hidden damage claims be submitted?",
+      options: ["3 days", "7 days", "21 days", "30 days"],
+      correctIndex: 1,
+      explanation: "Hidden damage that wasn't visible at delivery must be claimed within 7 days of delivery.",
+    },
+  ],
+  insurance: [
+    {
+      question: "What type of insurance covers carrier's liability for cargo damage?",
+      options: ["Vehicle insurance", "CMR liability insurance", "Health insurance", "Property insurance"],
+      correctIndex: 1,
+      explanation: "CMR liability insurance covers the carrier's legal liability for cargo damage during transport.",
+    },
+    {
+      question: "What is the typical coverage limit for standard CMR insurance?",
+      options: ["€50,000", "€100,000-500,000", "€1 million", "Unlimited"],
+      correctIndex: 1,
+      explanation: "Standard CMR insurance typically provides coverage between €100,000 and €500,000 per occurrence.",
+    },
+    {
+      question: "What is 'goods in transit' insurance also known as?",
+      options: ["Vehicle insurance", "Cargo insurance", "Public liability", "Fleet insurance"],
+      correctIndex: 1,
+      explanation: "Goods in transit insurance (cargo insurance) protects the actual value of the goods being transported.",
+    },
+    {
+      question: "Why might you need additional insurance beyond CMR liability?",
+      options: ["CMR is optional", "CMR limits may be insufficient for high-value cargo", "CMR only covers trucks", "CMR doesn't exist"],
+      correctIndex: 1,
+      explanation: "CMR liability limits (~€10/kg) may be insufficient for high-value cargo, requiring additional coverage.",
+    },
+  ],
+  adr: [
+    {
+      question: "What does ADR stand for?",
+      options: ["Advanced Driving Regulations", "Agreement on Dangerous goods by Road", "Automated Delivery Route", "Area Distribution Requirements"],
+      correctIndex: 1,
+      explanation: "ADR stands for 'Accord européen relatif au transport international des marchandises Dangereuses par Route' (Agreement on Dangerous goods by Road).",
+    },
+    {
+      question: "What shape are ADR hazard placards/labels?",
+      options: ["Circle", "Square tilted 45° (diamond)", "Triangle", "Rectangle"],
+      correctIndex: 1,
+      explanation: "ADR hazard labels are diamond-shaped (square tilted 45°) and display the hazard class and symbol.",
+    },
+    {
+      question: "What document must accompany ADR shipments?",
+      options: ["Only CMR", "ADR Transport Document with UN numbers", "Driver's license only", "No special document"],
+      correctIndex: 1,
+      explanation: "ADR shipments require a specific transport document showing UN numbers, proper shipping names, and emergency contacts.",
+    },
+    {
+      question: "Who needs ADR training certification?",
+      options: ["Only the shipper", "Drivers transporting dangerous goods", "Only warehouse staff", "No one specifically"],
+      correctIndex: 1,
+      explanation: "Drivers transporting dangerous goods must have valid ADR training certification for the classes they transport.",
+    },
+  ],
+  documents: [
+    {
+      question: "What is the CMR consignment note used for?",
+      options: ["Customs only", "International road freight contract evidence", "Driver identification", "Vehicle registration"],
+      correctIndex: 1,
+      explanation: "The CMR (Convention on the Contract for International Carriage of Goods by Road) is the standard consignment note for international road transport.",
+    },
+    {
+      question: "How many original copies of a CMR are typically created?",
+      options: ["1 copy", "2 copies", "3-4 copies", "6 copies"],
+      correctIndex: 2,
+      explanation: "CMRs are typically issued in 3-4 copies: for the sender, carrier, consignee, and sometimes an additional copy.",
+    },
+    {
+      question: "What customs document is required for goods crossing EU borders to non-EU countries?",
+      options: ["CMR only", "T1 Transit Document", "Packing list only", "Invoice only"],
+      correctIndex: 1,
+      explanation: "T1 (external transit) documents are required for non-EU goods or goods leaving the EU customs territory.",
+    },
+    {
+      question: "What should a driver do if they notice discrepancies during loading?",
+      options: ["Ignore it", "Note reservations on CMR Box 18", "Refuse the load entirely", "Call the police"],
+      correctIndex: 1,
+      explanation: "Any discrepancies (damaged packaging, quantity differences) should be noted as reservations in CMR Box 18.",
+    },
+  ],
 };
