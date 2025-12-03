@@ -453,6 +453,250 @@ export const searchableContent: SearchableItem[] = [
     section: "Pre-Trip",
     content: "Pre-trip checklists for drivers and dispatchers covering all essential checks.",
     keywords: ["checklist", "pre-trip", "check", "inspection", "verification"]
+  },
+
+  // Reefer Chapter
+  {
+    chapterId: "reefer",
+    chapterTitle: "Reefer Transport",
+    section: "Temperature Zones",
+    content: "Temperature zones: Frozen (-18°C to -25°C), Chilled (+2°C to +8°C), Fresh (+12°C to +15°C), Controlled (+15°C to +25°C).",
+    keywords: ["reefer", "temperature", "frozen", "chilled", "fresh", "controlled", "cooling"]
+  },
+  {
+    chapterId: "reefer",
+    chapterTitle: "Reefer Transport",
+    section: "Pre-Cooling",
+    content: "Reefer pre-cooling: Must bring trailer to required temperature before loading. Never load warm product into cold trailer.",
+    keywords: ["pre-cooling", "trailer", "temperature", "loading", "cold chain"]
+  },
+  {
+    chapterId: "reefer",
+    chapterTitle: "Reefer Transport",
+    section: "Temperature Recording",
+    content: "Temperature recording: Continuous monitoring required. Print temperature strips at delivery for proof of cold chain compliance.",
+    keywords: ["temperature", "recording", "monitoring", "cold chain", "strips", "compliance"]
+  },
+  {
+    chapterId: "reefer",
+    chapterTitle: "Reefer Transport",
+    section: "ATP Certificate",
+    content: "ATP Certificate: Required for international transport of perishable goods. Valid for 6 years, then renewable.",
+    keywords: ["atp", "certificate", "perishable", "international", "6 years"]
+  },
+
+  // Customs Chapter
+  {
+    chapterId: "customs",
+    chapterTitle: "Customs & Border",
+    section: "T1 Transit",
+    content: "T1 Transit procedure for non-EU goods moving through EU territory under customs control.",
+    keywords: ["t1", "transit", "customs", "non-eu", "procedure", "control"]
+  },
+  {
+    chapterId: "customs",
+    chapterTitle: "Customs & Border",
+    section: "NCTS System",
+    content: "NCTS (New Computerised Transit System): Electronic system for managing transit declarations across EU.",
+    keywords: ["ncts", "electronic", "transit", "declaration", "system"]
+  },
+  {
+    chapterId: "customs",
+    chapterTitle: "Customs & Border",
+    section: "Customs Seals",
+    content: "Customs seals: Never break without authorization. Record seal numbers on all documents.",
+    keywords: ["seal", "customs", "break", "authorization", "number", "record"]
+  },
+  {
+    chapterId: "customs",
+    chapterTitle: "Customs & Border",
+    section: "AEO Status",
+    content: "AEO (Authorized Economic Operator): EU trusted trader status for faster customs clearance.",
+    keywords: ["aeo", "authorized", "economic", "operator", "trusted", "clearance"]
+  },
+  {
+    chapterId: "customs",
+    chapterTitle: "Customs & Border",
+    section: "Brexit UK",
+    content: "UK post-Brexit: Full customs declarations required. GVMS system for port entries.",
+    keywords: ["uk", "brexit", "customs", "gvms", "port", "declaration"]
+  },
+
+  // Fleet Chapter
+  {
+    chapterId: "fleet",
+    chapterTitle: "Fleet Management",
+    section: "GPS Tracking",
+    content: "GPS tracking enables real-time vehicle location, ETA updates, and geofencing alerts.",
+    keywords: ["gps", "tracking", "location", "eta", "geofencing", "real-time"]
+  },
+  {
+    chapterId: "fleet",
+    chapterTitle: "Fleet Management",
+    section: "Telematics",
+    content: "Telematics data: Fuel consumption, driving behavior, maintenance alerts, tachograph integration.",
+    keywords: ["telematics", "fuel", "consumption", "driving", "behavior", "maintenance"]
+  },
+  {
+    chapterId: "fleet",
+    chapterTitle: "Fleet Management",
+    section: "Vehicle Scheduling",
+    content: "Vehicle scheduling: Optimize routes, minimize empty runs, balance driver hours.",
+    keywords: ["scheduling", "routes", "optimize", "empty runs", "driver hours"]
+  },
+  {
+    chapterId: "fleet",
+    chapterTitle: "Fleet Management",
+    section: "Maintenance Planning",
+    content: "Preventive maintenance: Regular inspections, oil changes, brake checks, tire rotation schedules.",
+    keywords: ["maintenance", "preventive", "inspection", "oil", "brake", "tire"]
+  },
+
+  // Environment Chapter
+  {
+    chapterId: "environment",
+    chapterTitle: "Environmental Compliance",
+    section: "Euro Emission Standards",
+    content: "Euro emission standards: Euro 6d is current requirement for new trucks. Lower classes may face restrictions.",
+    keywords: ["euro", "emission", "euro 6", "standards", "trucks", "environment"]
+  },
+  {
+    chapterId: "environment",
+    chapterTitle: "Environmental Compliance",
+    section: "Low Emission Zones",
+    content: "Low Emission Zones (LEZ): Many European cities restrict truck access based on emission class.",
+    keywords: ["lez", "low emission", "zone", "city", "restriction", "access"]
+  },
+  {
+    chapterId: "environment",
+    chapterTitle: "Environmental Compliance",
+    section: "CO2 Reporting",
+    content: "CO2 reporting increasingly required by customers. Calculate emissions per tonne-km transported.",
+    keywords: ["co2", "carbon", "reporting", "emissions", "tonne-km", "sustainability"]
+  },
+  {
+    chapterId: "environment",
+    chapterTitle: "Environmental Compliance",
+    section: "Eco-Driving",
+    content: "Eco-driving techniques: Steady speed, anticipate traffic, correct tire pressure, reduce idling.",
+    keywords: ["eco-driving", "fuel", "efficiency", "speed", "tire", "idling"]
+  },
+
+  // Payment Chapter
+  {
+    chapterId: "payment",
+    chapterTitle: "Payment & Invoicing",
+    section: "Payment Terms",
+    content: "Standard payment terms: 30-60 days after invoice. Spot market often requires faster payment.",
+    keywords: ["payment", "terms", "30 days", "60 days", "invoice", "spot"]
+  },
+  {
+    chapterId: "payment",
+    chapterTitle: "Payment & Invoicing",
+    section: "Invoice Requirements",
+    content: "Invoice must include: CMR number, route details, weight, agreed rate, VAT, bank details.",
+    keywords: ["invoice", "cmr", "route", "rate", "vat", "bank", "requirements"]
+  },
+  {
+    chapterId: "payment",
+    chapterTitle: "Payment & Invoicing",
+    section: "Credit Checks",
+    content: "Credit checks: Verify new customers before extending credit. Use services like Coface, Euler Hermes.",
+    keywords: ["credit", "check", "coface", "euler", "hermes", "verify", "customer"]
+  },
+  {
+    chapterId: "payment",
+    chapterTitle: "Payment & Invoicing",
+    section: "Fuel Cards",
+    content: "Fuel cards: Centralized fleet fuel management, discounts at network stations, expense tracking.",
+    keywords: ["fuel", "card", "fleet", "discount", "dkv", "uta", "as24"]
+  },
+
+  // Clients Chapter - Extended
+  {
+    chapterId: "clients",
+    chapterTitle: "Clients & Partners",
+    section: "Client Segmentation",
+    content: "Client segmentation: A (key accounts), B (regular), C (occasional). Different service levels per segment.",
+    keywords: ["client", "segmentation", "key account", "regular", "service level"]
+  },
+  {
+    chapterId: "clients",
+    chapterTitle: "Clients & Partners",
+    section: "Carrier Vetting",
+    content: "Carrier vetting checklist: Operating license, CMR insurance, vehicle documents, driver ADR certificates.",
+    keywords: ["carrier", "vetting", "license", "insurance", "documents", "verification"]
+  },
+  {
+    chapterId: "clients",
+    chapterTitle: "Clients & Partners",
+    section: "Performance Scoring",
+    content: "Carrier performance scoring: On-time delivery, damage rate, communication, flexibility, pricing.",
+    keywords: ["performance", "scoring", "on-time", "damage", "rating", "carrier"]
+  },
+
+  // Workflow Diagrams
+  {
+    chapterId: "workflow",
+    chapterTitle: "Operational Workflow",
+    section: "Process Flow Diagram",
+    content: "Visual workflow diagram: Intake → Sourcing → Costing → Execution → Delivery → Post-Trip phases.",
+    keywords: ["diagram", "flowchart", "process", "visual", "workflow", "phases"]
+  },
+  {
+    chapterId: "workflow",
+    chapterTitle: "Operational Workflow",
+    section: "Margin Calculation",
+    content: "Margin calculation: (Selling Price - Cost) / Selling Price × 100. Target 8-18% profit margin.",
+    keywords: ["margin", "calculation", "profit", "formula", "percentage"]
+  },
+
+  // Loading Diagrams
+  {
+    chapterId: "loading",
+    chapterTitle: "Loading & Securing",
+    section: "Loading Process Flow",
+    content: "Loading process flow: Confirm Slot → Position → Inspect → Load → Secure → Document.",
+    keywords: ["loading", "process", "flow", "diagram", "steps", "sequence"]
+  },
+  {
+    chapterId: "loading",
+    chapterTitle: "Loading & Securing",
+    section: "Axle Weight Distribution",
+    content: "Axle weight distribution: Front axle max ~7t, drive axle ~11.5t, trailer axles ~24t. Check country limits.",
+    keywords: ["axle", "weight", "distribution", "front", "drive", "trailer", "limit"]
+  },
+
+  // Claims Diagrams
+  {
+    chapterId: "claims",
+    chapterTitle: "Claims & Disputes",
+    section: "Claims Process Flow",
+    content: "Claims process flow: Damage Found → CMR Reserve → Notify (7 days) → Quantify → Settle.",
+    keywords: ["claims", "process", "flow", "diagram", "steps", "settlement"]
+  },
+  {
+    chapterId: "claims",
+    chapterTitle: "Claims & Disputes",
+    section: "SDR Calculation",
+    content: "SDR (Special Drawing Rights) calculation: 8.33 SDR × gross weight in kg = maximum liability.",
+    keywords: ["sdr", "calculation", "special drawing rights", "liability", "weight"]
+  },
+
+  // Emergency Diagrams
+  {
+    chapterId: "emergency",
+    chapterTitle: "Emergency Procedures",
+    section: "Emergency Response Flow",
+    content: "Emergency response flow: Secure Scene → Call 112 → Document → Notify Dispatcher → Wait Instructions.",
+    keywords: ["emergency", "response", "flow", "112", "procedure", "steps"]
+  },
+  {
+    chapterId: "emergency",
+    chapterTitle: "Emergency Procedures",
+    section: "Situation Handling Map",
+    content: "Emergency situation handling: Road Accident, Vehicle Breakdown, Cargo Damage, Theft/Security - each with specific protocols.",
+    keywords: ["situation", "handling", "accident", "breakdown", "damage", "theft", "protocol"]
   }
 ];
 
