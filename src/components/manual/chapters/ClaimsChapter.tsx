@@ -1,5 +1,6 @@
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
+import { FlowDiagram, DecisionDiagram } from "../FlowDiagram";
 import { quizzes } from "@/data/quizData";
 import { FileText, AlertTriangle, Shield, Clock, Euro, CheckCircle, Scale, Camera } from "lucide-react";
 
@@ -90,6 +91,32 @@ export function ClaimsChapter() {
           </InfoCard>
         </div>
       </section>
+
+      {/* Visual Claims Flow */}
+      <FlowDiagram
+        title="Claims Process Overview"
+        steps={[
+          { id: "damage", label: "Damage Found", description: "Document immediately", color: "destructive" },
+          { id: "reserve", label: "CMR Reserve", description: "Note on delivery", color: "warning" },
+          { id: "notify", label: "Notify", description: "Within 7 days", color: "info" },
+          { id: "quantify", label: "Quantify", description: "Calculate value", color: "primary" },
+          { id: "settle", label: "Settle", description: "Negotiate claim", color: "success" },
+        ]}
+      />
+
+      {/* Decision Diagram */}
+      <DecisionDiagram
+        title="Claim Decision Point"
+        question="Damage visible at delivery?"
+        yesPath={{
+          label: "Immediate Reservation",
+          result: "Note on CMR before signing"
+        }}
+        noPath={{
+          label: "Hidden Damage",
+          result: "Written claim within 7 days"
+        }}
+      />
 
       {/* Claim Process Flowchart */}
       <section>
