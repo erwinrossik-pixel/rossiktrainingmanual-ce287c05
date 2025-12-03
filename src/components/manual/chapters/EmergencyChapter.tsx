@@ -297,7 +297,7 @@ export function EmergencyChapter() {
 
       {/* Quiz */}
       {quizzes.emergency && (
-        <Quiz title="Emergency Procedures Quiz" questions={quizzes.emergency} />
+        <Quiz title="Emergency Procedures Quiz" questions={quizzes.emergency} chapterId="emergency" />
       )}
     </div>
   );

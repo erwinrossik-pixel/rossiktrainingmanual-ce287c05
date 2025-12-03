@@ -204,7 +204,7 @@ export function WorkflowChapter() {
       </div>
 
       {/* Quiz */}
-      <Quiz title="🎯 Knowledge Check: Operational Workflow" questions={quizzes.workflow} />
+      <Quiz title="🎯 Knowledge Check: Operational Workflow" questions={quizzes.workflow} chapterId="workflow" />
     </div>
   );
 }

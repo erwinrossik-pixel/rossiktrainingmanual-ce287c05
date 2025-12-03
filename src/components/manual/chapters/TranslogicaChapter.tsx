@@ -188,7 +188,7 @@ export function TranslogicaChapter() {
       </div>
 
       {/* Quiz */}
-      <Quiz title="🎯 Knowledge Check: Translogica TMS" questions={quizzes.translogica} />
+      <Quiz title="🎯 Knowledge Check: Translogica TMS" questions={quizzes.translogica} chapterId="translogica" />
     </div>
   );
 }

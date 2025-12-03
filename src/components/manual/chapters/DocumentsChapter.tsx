@@ -330,7 +330,7 @@ export function DocumentsChapter() {
 
       {/* Quiz */}
       {quizzes.documents && (
-        <Quiz title="Transport Documents Quiz" questions={quizzes.documents} />
+        <Quiz title="Transport Documents Quiz" questions={quizzes.documents} chapterId="documents" />
       )}
     </div>
   );

@@ -134,7 +134,7 @@ export function RedFlagsChapter() {
       </div>
 
       {/* Quiz */}
-      <Quiz title="🎯 Knowledge Check: Red Flags & Tips" questions={quizzes["red-flags"]} />
+      <Quiz title="🎯 Knowledge Check: Red Flags & Tips" questions={quizzes["red-flags"]} chapterId="red-flags" />
     </div>
   );
 }

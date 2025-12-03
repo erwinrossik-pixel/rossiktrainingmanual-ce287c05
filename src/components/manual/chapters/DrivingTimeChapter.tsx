@@ -211,7 +211,7 @@ export function DrivingTimeChapter() {
       </div>
 
       {/* Quiz */}
-      <Quiz title="🎯 Knowledge Check: Driving Time" questions={quizzes["driving-time"]} />
+      <Quiz title="🎯 Knowledge Check: Driving Time" questions={quizzes["driving-time"]} chapterId="driving-time" />
     </div>
   );
 }

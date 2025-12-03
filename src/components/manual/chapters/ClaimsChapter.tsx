@@ -312,7 +312,7 @@ export function ClaimsChapter() {
 
       {/* Quiz */}
       {quizzes.claims && (
-        <Quiz title="Claims & Disputes Quiz" questions={quizzes.claims} />
+        <Quiz title="Claims & Disputes Quiz" questions={quizzes.claims} chapterId="claims" />
       )}
     </div>
   );

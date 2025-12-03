@@ -97,7 +97,7 @@ export function VehicleChapter() {
       </div>
 
       {/* Quiz */}
-      <Quiz title="🎯 Knowledge Check: Vehicle Reference" questions={quizzes.vehicle} />
+      <Quiz title="🎯 Knowledge Check: Vehicle Reference" questions={quizzes.vehicle} chapterId="vehicle" />
     </div>
   );
 }

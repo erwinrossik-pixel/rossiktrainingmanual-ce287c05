@@ -116,7 +116,7 @@ export function LoadingChapter() {
       </div>
 
       {/* Quiz */}
-      <Quiz title="🎯 Knowledge Check: Loading & Securing" questions={quizzes.loading} />
+      <Quiz title="🎯 Knowledge Check: Loading & Securing" questions={quizzes.loading} chapterId="loading" />
     </div>
   );
 }
