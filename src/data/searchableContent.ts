@@ -183,6 +183,118 @@ export const searchableContent: SearchableItem[] = [
     content: "German toll rates approximately €0.45/km, varying by CO₂ class and axle count.",
     keywords: ["german", "toll", "maut", "0.45", "co2", "axle"]
   },
+  {
+    chapterId: "pricing",
+    chapterTitle: "Pricing & Tolls",
+    section: "European Toll Rates",
+    content: "Toll rates by country: Germany €0.45/km, France €0.35/km, Austria €0.38/km, Italy €0.30/km, Spain €0.25/km, Belgium €0.20/km, Poland €0.15/km, Netherlands free.",
+    keywords: ["toll", "rates", "europe", "france", "austria", "italy", "spain", "belgium", "poland", "netherlands"]
+  },
+  {
+    chapterId: "pricing",
+    chapterTitle: "Pricing & Tolls",
+    section: "Route Munich-Paris",
+    content: "Route pricing example Munich to Paris (~830km): Base €913 + DE toll €68 + FR toll €238 = €1,219 cost. Offer price €1,350-1,420.",
+    keywords: ["munich", "paris", "route", "example", "pricing", "830km"]
+  },
+  {
+    chapterId: "pricing",
+    chapterTitle: "Pricing & Tolls",
+    section: "Route Rotterdam-Barcelona",
+    content: "Route pricing example Rotterdam to Barcelona (~1,450km): Base €1,595 + BE toll €30 + FR toll €298 + ES toll €113 = €2,036 cost. Offer price €2,240.",
+    keywords: ["rotterdam", "barcelona", "route", "example", "pricing", "1450km", "spain"]
+  },
+  {
+    chapterId: "pricing",
+    chapterTitle: "Pricing & Tolls",
+    section: "Route Hamburg-Warsaw",
+    content: "Route pricing example Hamburg to Warsaw (~680km): Base €748 + DE toll €171 + PL toll €45 = €964 cost. Offer price €1,099.",
+    keywords: ["hamburg", "warsaw", "route", "example", "pricing", "680km", "poland"]
+  },
+  {
+    chapterId: "pricing",
+    chapterTitle: "Pricing & Tolls",
+    section: "Route Prague-Lyon",
+    content: "Route pricing example Prague to Lyon (~1,100km): Base €1,210 + CZ toll €18 + DE toll €180 + FR toll €210 = €1,618 cost. Offer price €1,796.",
+    keywords: ["prague", "lyon", "route", "example", "pricing", "1100km", "czech"]
+  },
+  {
+    chapterId: "pricing",
+    chapterTitle: "Pricing & Tolls",
+    section: "Route Budapest-Amsterdam",
+    content: "Route pricing example Budapest to Amsterdam (~1,320km): Base €1,452 + HU toll €24 + AT toll €57 + DE toll €315 = €1,848 cost. Offer price €2,088.",
+    keywords: ["budapest", "amsterdam", "route", "example", "pricing", "1320km", "hungary"]
+  },
+  {
+    chapterId: "pricing",
+    chapterTitle: "Pricing & Tolls",
+    section: "Margin Tiers",
+    content: "Margin tiers by lane type: Regular/Spot 10-15%, Dedicated/Contract 8-12%, Premium/Express 15-20%, Return Load 5-10%, New Customer 12-18%.",
+    keywords: ["margin", "tiers", "spot", "contract", "express", "return load", "dedicated"]
+  },
+  {
+    chapterId: "pricing",
+    chapterTitle: "Pricing & Tolls",
+    section: "Margin Adjustments",
+    content: "Margin adjustment factors: Tight delivery window +3-5%, Weekend/Holiday +5-8%, ADR cargo +8-15%, Reefer transport +10-20%, Express same day +25-40%.",
+    keywords: ["margin", "adjustment", "weekend", "adr", "reefer", "express", "surcharge"]
+  },
+  {
+    chapterId: "pricing",
+    chapterTitle: "Pricing & Tolls",
+    section: "Seasonal January-February",
+    content: "January-February pricing: -5 to -10% due to post-holiday slowdown. Strategy: Accept lower margins, focus on volume.",
+    keywords: ["seasonal", "january", "february", "winter", "slowdown", "low season"]
+  },
+  {
+    chapterId: "pricing",
+    chapterTitle: "Pricing & Tolls",
+    section: "Seasonal Peak Q4",
+    content: "September-November peak season: +10 to +25% pricing. Black Friday and Christmas logistics surge. Maximum margin period.",
+    keywords: ["seasonal", "peak", "september", "november", "christmas", "black friday", "q4"]
+  },
+  {
+    chapterId: "pricing",
+    chapterTitle: "Pricing & Tolls",
+    section: "December Christmas",
+    content: "December 1-15 Christmas rush: +20 to +30% pricing, highest demand. December 16-31 shutdown: -10 to -20% minimal operations.",
+    keywords: ["december", "christmas", "peak", "shutdown", "holiday", "pricing"]
+  },
+  {
+    chapterId: "pricing",
+    chapterTitle: "Pricing & Tolls",
+    section: "Summer Reefer",
+    content: "Summer reefer transport: +20-30% premium due to higher demand and increased fuel consumption for cooling.",
+    keywords: ["summer", "reefer", "temperature", "cooling", "premium", "seasonal"]
+  },
+  {
+    chapterId: "pricing",
+    chapterTitle: "Pricing & Tolls",
+    section: "Regional Spain Italy",
+    content: "Spain/Italy seasonal patterns: March-June fruit/vegetable export peak +15-25%, August factory closures, September wine harvest transport surge.",
+    keywords: ["spain", "italy", "fruit", "vegetable", "wine", "harvest", "seasonal", "regional"]
+  },
+  {
+    chapterId: "pricing",
+    chapterTitle: "Pricing & Tolls",
+    section: "Regional Germany Netherlands",
+    content: "Germany/Netherlands seasonal: March-April Easter retail, September trade fairs (IAA), October-November Christmas goods distribution.",
+    keywords: ["germany", "netherlands", "easter", "trade fair", "iaa", "christmas", "seasonal"]
+  },
+  {
+    chapterId: "pricing",
+    chapterTitle: "Pricing & Tolls",
+    section: "Accessorial Charges",
+    content: "Standard accessorial charges: Waiting time €35-50/hour, overnight parking €50-100, ADR surcharge €100-300, weekend delivery €100-200, multi-drop €50-100/stop.",
+    keywords: ["accessorial", "waiting time", "parking", "adr", "weekend", "multi-drop", "surcharge", "fees"]
+  },
+  {
+    chapterId: "pricing",
+    chapterTitle: "Pricing & Tolls",
+    section: "Pricing Formula",
+    content: "Cost calculation formula: Cost = (km × €1.10) + Σ(tolls) + accessorials. Price = Cost × (1 + margin%).",
+    keywords: ["formula", "calculation", "cost", "price", "margin", "tolls"]
+  },
 
   // Exchanges Chapter
   {
