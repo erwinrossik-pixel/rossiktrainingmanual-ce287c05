@@ -2,7 +2,7 @@ import {
   BookOpen, Users, Truck, Package, Shield, Calculator, 
   Building2, Route, Clock, Laptop, GraduationCap, AlertTriangle, 
   ClipboardList, Target, Menu, X, Phone, MessageSquare, Scale,
-  FileText, Flame, Book, Lightbulb, CheckCircle2, RotateCcw
+  FileText, Flame, Book, Lightbulb, CheckCircle2, RotateCcw, BarChart3
 } from "lucide-react";
 import rossikLogo from "@/assets/rossik-logo.jpg";
 import { cn } from "@/lib/utils";
@@ -13,6 +13,7 @@ import { GlobalSearch } from "./GlobalSearch";
 interface SidebarProps {
   activeChapter: string;
   onChapterChange: (chapter: string) => void;
+  onShowDashboard: () => void;
 }
 
 const chapters = [
@@ -45,7 +46,7 @@ const chapters = [
   { id: "checklists", label: "Checklists", icon: ClipboardList },
 ];
 
-export function Sidebar({ activeChapter, onChapterChange }: SidebarProps) {
+export function Sidebar({ activeChapter, onChapterChange, onShowDashboard }: SidebarProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const { progress, getOverallProgress, resetProgress, getChapterProgress } = useProgressContext();
 
@@ -107,15 +108,17 @@ export function Sidebar({ activeChapter, onChapterChange }: SidebarProps) {
             <span className="text-xs text-sidebar-foreground/50">
               {progress.totalCompleted}/{progress.totalChapters} chapters
             </span>
-            {progress.totalCompleted > 0 && (
-              <button
-                onClick={resetProgress}
-                className="text-xs text-sidebar-foreground/50 hover:text-sidebar-foreground flex items-center gap-1"
-                title="Reset progress"
-              >
-                <RotateCcw className="w-3 h-3" />
-              </button>
-            )}
+            <button
+              onClick={() => {
+                onShowDashboard();
+                setMobileOpen(false);
+              }}
+              className="text-xs text-primary hover:text-primary/80 flex items-center gap-1 font-medium"
+              title="View detailed progress"
+            >
+              <BarChart3 className="w-3 h-3" />
+              Details
+            </button>
           </div>
         </div>
 
