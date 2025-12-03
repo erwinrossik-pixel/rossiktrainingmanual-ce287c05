@@ -18,7 +18,7 @@ const STORAGE_KEY = 'rossik-manual-progress';
 const defaultProgress: ProgressData = {
   chapters: {},
   totalCompleted: 0,
-  totalChapters: 22,
+  totalChapters: 27,
 };
 
 export function useProgress() {
