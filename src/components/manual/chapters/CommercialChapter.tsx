@@ -371,7 +371,7 @@ export function CommercialChapter() {
           <div className="bg-success/10 border border-success/30 p-4 rounded-lg">
             <h4 className="font-semibold text-success mb-2">Credit Approval Indicators</h4>
             <ul className="text-sm space-y-1">
-              <li>• Company >3 years old</li>
+              <li>• Company {">"}3 years old</li>
               <li>• Strong credit score (A/B rated)</li>
               <li>• Positive trade references</li>
               <li>• Established industry presence</li>
@@ -381,7 +381,7 @@ export function CommercialChapter() {
           <div className="bg-destructive/10 border border-destructive/30 p-4 rounded-lg">
             <h4 className="font-semibold text-destructive mb-2">Credit Warning Signs</h4>
             <ul className="text-sm space-y-1">
-              <li>• Company <1 year old</li>
+              <li>• Company {"<"}1 year old</li>
               <li>• Poor/no credit history</li>
               <li>• References not verifiable</li>
               <li>• Pressure for immediate credit</li>

@@ -104,7 +104,7 @@ export function KPIChapter() {
             </h4>
             <ul className="text-sm space-y-1">
               <li>• On-Time Delivery: 98%+</li>
-              <li>• Claims Rate: <0.5%</li>
+              <li>• Claims Rate: {"<"}0.5%</li>
               <li>• Order Accuracy: 99.5%+</li>
               <li>• Customer Satisfaction: 4.5+/5</li>
             </ul>
@@ -115,9 +115,9 @@ export function KPIChapter() {
               Performance Warning Signs
             </h4>
             <ul className="text-sm space-y-1">
-              <li>• On-Time Delivery: <90%</li>
-              <li>• Claims Rate: >2%</li>
-              <li>• Order Accuracy: <95%</li>
+              <li>• On-Time Delivery: {"<"}90%</li>
+              <li>• Claims Rate: {">"}2%</li>
+              <li>• Order Accuracy: {"<"}95%</li>
               <li>• Customer Complaints: Rising trend</li>
             </ul>
           </div>
