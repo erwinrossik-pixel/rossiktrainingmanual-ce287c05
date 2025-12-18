@@ -1,6 +1,7 @@
 import { DataTable } from "../DataTable";
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
+import { PriceCalculator } from "../PriceCalculator";
 import { quizzes } from "@/data/quizData";
 import { Calculator, Euro, Route, TrendingUp, Calendar, AlertTriangle, Percent, MapPin, Fuel, Clock, Truck, ArrowRight, CheckCircle2, XCircle, Info, Zap, Shield } from "lucide-react";
 
@@ -246,6 +247,9 @@ export function PricingChapter() {
           <p className="text-sm">💡 <strong>Sfat:</strong> Rezervă feriboturi în avans pentru tarife mai bune. Diferența poate fi €100-200 între booking last-minute și anticipat.</p>
         </div>
       </div>
+
+      {/* Interactive Price Calculator */}
+      <PriceCalculator />
 
       {/* Extended Route Examples - Redesigned */}
       <div>
