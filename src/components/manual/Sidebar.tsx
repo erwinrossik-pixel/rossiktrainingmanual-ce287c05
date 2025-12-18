@@ -17,45 +17,58 @@ interface SidebarProps {
 }
 
 const chapters = [
-  { id: "intro", label: "Introduction", icon: BookOpen },
-  { id: "mindset", label: "Role & Mindset", icon: Target },
-  { id: "workflow", label: "Operational Workflow", icon: Route },
-  { id: "vehicle", label: "Vehicle Reference", icon: Truck },
-  { id: "loading", label: "Loading & Securing", icon: Package },
-  { id: "reefer", label: "Temperature Transport", icon: Package },
-  { id: "compliance", label: "Drivers' Hours", icon: Clock },
-  { id: "driving-time", label: "Shift vs Driving Time", icon: Shield },
-  { id: "pricing", label: "Pricing & Tolls", icon: Calculator },
-  { id: "payment", label: "Payment & Invoicing", icon: Calculator },
-  { id: "clients", label: "Finding Clients", icon: Building2 },
-  { id: "carrier-management", label: "Carrier Management", icon: Users },
-  { id: "commercial", label: "Commercial Fundamentals", icon: Target },
-  { id: "negotiation", label: "Negotiation Skills", icon: Users },
-  { id: "exchanges", label: "Freight Exchanges", icon: Users },
-  { id: "translogica", label: "Translogica TMS", icon: Laptop },
-  { id: "fleet", label: "Fleet & GPS", icon: Truck },
-  { id: "customs", label: "Customs & Borders", icon: Shield },
-  { id: "incoterms", label: "Incoterms & Trade", icon: Book },
-  { id: "europe-zones", label: "European Zones", icon: Route },
-  { id: "warehouse", label: "Warehouse & Cross-Dock", icon: Package },
-  { id: "supply-chain", label: "Supply Chain", icon: Route },
-  { id: "emergency", label: "Emergency Procedures", icon: Phone },
-  { id: "communication", label: "Client Communication", icon: MessageSquare },
-  { id: "claims", label: "Claims & Disputes", icon: Scale },
-  { id: "insurance", label: "Transport Insurance", icon: Shield },
-  { id: "adr", label: "ADR Dangerous Goods", icon: Flame },
-  { id: "documents", label: "Transport Documents", icon: FileText },
-  { id: "environment", label: "Environmental Compliance", icon: Target },
-  { id: "risk-management", label: "Risk Management", icon: Shield },
-  { id: "accounting", label: "Accounting & Finance", icon: Calculator },
-  { id: "kpi", label: "KPIs & Performance", icon: Target },
-  { id: "soft-skills", label: "Soft Skills", icon: Users },
-  { id: "technology", label: "Technology & Digital", icon: Laptop },
-  { id: "case-studies", label: "Case Studies", icon: Lightbulb },
-  { id: "glossary", label: "Glossary", icon: Book },
-  { id: "training", label: "Training Exercises", icon: GraduationCap },
-  { id: "red-flags", label: "Red Flags & Tips", icon: AlertTriangle },
-  { id: "checklists", label: "Checklists", icon: ClipboardList },
+  // SECTION 1: Foundation (1-4)
+  { id: "intro", label: "1. Introduction", icon: BookOpen },
+  { id: "mindset", label: "2. Role & Mindset", icon: Target },
+  { id: "soft-skills", label: "3. Soft Skills", icon: Users },
+  { id: "workflow", label: "4. Operational Workflow", icon: Route },
+  
+  // SECTION 2: Equipment & Handling (5-10)
+  { id: "vehicle", label: "5. Vehicle Reference", icon: Truck },
+  { id: "loading", label: "6. Loading & Securing", icon: Package },
+  { id: "reefer", label: "7. Temperature Transport", icon: Package },
+  { id: "warehouse", label: "8. Warehouse & Cross-Dock", icon: Package },
+  { id: "adr", label: "9. ADR Dangerous Goods", icon: Flame },
+  { id: "documents", label: "10. Transport Documents", icon: FileText },
+  
+  // SECTION 3: Trade & Regulations (11-17)
+  { id: "incoterms", label: "11. Incoterms & Trade", icon: Book },
+  { id: "compliance", label: "12. Drivers' Hours", icon: Clock },
+  { id: "driving-time", label: "13. Shift vs Driving Time", icon: Shield },
+  { id: "customs", label: "14. Customs & Borders", icon: Shield },
+  { id: "europe-zones", label: "15. European Zones", icon: Route },
+  { id: "environment", label: "16. Environmental", icon: Target },
+  { id: "supply-chain", label: "17. Supply Chain", icon: Route },
+  
+  // SECTION 4: Commercial Skills (18-25)
+  { id: "pricing", label: "18. Pricing & Tolls", icon: Calculator },
+  { id: "commercial", label: "19. Commercial Skills", icon: Target },
+  { id: "negotiation", label: "20. Negotiation", icon: Users },
+  { id: "clients", label: "21. Finding Clients", icon: Building2 },
+  { id: "carrier-management", label: "22. Carrier Management", icon: Users },
+  { id: "exchanges", label: "23. Freight Exchanges", icon: Users },
+  { id: "communication", label: "24. Communication", icon: MessageSquare },
+  { id: "kpi", label: "25. KPIs & Performance", icon: Target },
+  
+  // SECTION 5: Systems & Technology (26-28)
+  { id: "translogica", label: "26. Translogica TMS", icon: Laptop },
+  { id: "fleet", label: "27. Fleet & GPS", icon: Truck },
+  { id: "technology", label: "28. Technology & Digital", icon: Laptop },
+  
+  // SECTION 6: Risk & Finance (29-33)
+  { id: "risk-management", label: "29. Risk Management", icon: Shield },
+  { id: "insurance", label: "30. Transport Insurance", icon: Shield },
+  { id: "claims", label: "31. Claims & Disputes", icon: Scale },
+  { id: "payment", label: "32. Payment & Invoicing", icon: Calculator },
+  { id: "accounting", label: "33. Accounting & Finance", icon: Calculator },
+  
+  // SECTION 7: Practical Application (34-39)
+  { id: "emergency", label: "34. Emergency Procedures", icon: Phone },
+  { id: "case-studies", label: "35. Case Studies", icon: Lightbulb },
+  { id: "training", label: "36. Training Exercises", icon: GraduationCap },
+  { id: "red-flags", label: "37. Red Flags & Tips", icon: AlertTriangle },
+  { id: "glossary", label: "38. Glossary", icon: Book },
+  { id: "checklists", label: "39. Checklists", icon: ClipboardList },
 ];
 
 export function Sidebar({ activeChapter, onChapterChange, onShowDashboard }: SidebarProps) {
