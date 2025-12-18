@@ -39,7 +39,7 @@ function ManualApp() {
           />
         </main>
       ) : (
-        <ManualContent activeChapter={activeChapter} />
+        <ManualContent activeChapter={activeChapter} onChapterChange={setActiveChapter} />
       )}
     </div>
   );
