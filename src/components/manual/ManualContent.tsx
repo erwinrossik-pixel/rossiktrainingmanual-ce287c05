@@ -90,11 +90,16 @@ export function ManualContent({ activeChapter, onChapterChange }: ManualContentP
   return (
     <main className="lg:ml-72 min-h-screen p-6 lg:p-10">
       <div className="max-w-4xl mx-auto">
-        {chapters[activeChapter] || <IntroChapter />}
-        <ChapterNavigation 
-          activeChapter={activeChapter} 
-          onChapterChange={onChapterChange} 
-        />
+        <div 
+          key={activeChapter}
+          className="animate-chapter-enter"
+        >
+          {chapters[activeChapter] || <IntroChapter />}
+          <ChapterNavigation 
+            activeChapter={activeChapter} 
+            onChapterChange={onChapterChange} 
+          />
+        </div>
       </div>
     </main>
   );
