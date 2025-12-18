@@ -9,33 +9,58 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 const chapters = [
-  { id: "intro", label: "Introduction" },
-  { id: "mindset", label: "Role & Mindset" },
-  { id: "workflow", label: "Operational Workflow" },
-  { id: "vehicle", label: "Vehicle Reference" },
-  { id: "loading", label: "Loading & Securing" },
-  { id: "reefer", label: "Temperature Transport" },
-  { id: "compliance", label: "Drivers' Hours" },
-  { id: "driving-time", label: "Shift vs Driving Time" },
-  { id: "pricing", label: "Pricing & Tolls" },
-  { id: "payment", label: "Payment & Invoicing" },
-  { id: "clients", label: "Finding Clients" },
-  { id: "exchanges", label: "Freight Exchanges" },
-  { id: "translogica", label: "Translogica TMS" },
-  { id: "fleet", label: "Fleet & GPS" },
-  { id: "customs", label: "Customs & Borders" },
-  { id: "emergency", label: "Emergency Procedures" },
-  { id: "communication", label: "Client Communication" },
-  { id: "claims", label: "Claims & Disputes" },
-  { id: "insurance", label: "Transport Insurance" },
-  { id: "adr", label: "ADR Dangerous Goods" },
-  { id: "documents", label: "Transport Documents" },
-  { id: "environment", label: "Environmental Compliance" },
-  { id: "case-studies", label: "Case Studies" },
-  { id: "glossary", label: "Glossary" },
-  { id: "training", label: "Training Exercises" },
-  { id: "red-flags", label: "Red Flags & Tips" },
-  { id: "checklists", label: "Checklists" },
+  // SECTION 1: Foundation
+  { id: "intro", label: "1. Introduction", section: "Foundation" },
+  { id: "mindset", label: "2. Role & Mindset", section: "Foundation" },
+  { id: "soft-skills", label: "3. Soft Skills", section: "Foundation" },
+  { id: "workflow", label: "4. Operational Workflow", section: "Foundation" },
+  
+  // SECTION 2: Equipment & Handling
+  { id: "vehicle", label: "5. Vehicle Reference", section: "Equipment" },
+  { id: "loading", label: "6. Loading & Securing", section: "Equipment" },
+  { id: "reefer", label: "7. Temperature Transport", section: "Equipment" },
+  { id: "warehouse", label: "8. Warehouse & Cross-Dock", section: "Equipment" },
+  { id: "adr", label: "9. ADR Dangerous Goods", section: "Equipment" },
+  { id: "documents", label: "10. Transport Documents", section: "Equipment" },
+  
+  // SECTION 3: Trade & Regulations
+  { id: "incoterms", label: "11. Incoterms & Trade", section: "Regulations" },
+  { id: "compliance", label: "12. Drivers' Hours", section: "Regulations" },
+  { id: "driving-time", label: "13. Shift vs Driving Time", section: "Regulations" },
+  { id: "customs", label: "14. Customs & Borders", section: "Regulations" },
+  { id: "europe-zones", label: "15. European Zones", section: "Regulations" },
+  { id: "environment", label: "16. Environmental", section: "Regulations" },
+  { id: "supply-chain", label: "17. Supply Chain", section: "Regulations" },
+  
+  // SECTION 4: Commercial Skills
+  { id: "pricing", label: "18. Pricing & Tolls", section: "Commercial" },
+  { id: "commercial", label: "19. Commercial Skills", section: "Commercial" },
+  { id: "negotiation", label: "20. Negotiation", section: "Commercial" },
+  { id: "clients", label: "21. Finding Clients", section: "Commercial" },
+  { id: "carrier-management", label: "22. Carrier Management", section: "Commercial" },
+  { id: "exchanges", label: "23. Freight Exchanges", section: "Commercial" },
+  { id: "communication", label: "24. Communication", section: "Commercial" },
+  { id: "kpi", label: "25. KPIs & Performance", section: "Commercial" },
+  
+  // SECTION 5: Systems & Technology
+  { id: "translogica", label: "26. Translogica TMS", section: "Technology" },
+  { id: "fleet", label: "27. Fleet & GPS", section: "Technology" },
+  { id: "technology", label: "28. Technology & Digital", section: "Technology" },
+  
+  // SECTION 6: Risk & Finance
+  { id: "risk-management", label: "29. Risk Management", section: "Finance" },
+  { id: "insurance", label: "30. Transport Insurance", section: "Finance" },
+  { id: "claims", label: "31. Claims & Disputes", section: "Finance" },
+  { id: "payment", label: "32. Payment & Invoicing", section: "Finance" },
+  { id: "accounting", label: "33. Accounting & Finance", section: "Finance" },
+  
+  // SECTION 7: Practical Application
+  { id: "emergency", label: "34. Emergency Procedures", section: "Practical" },
+  { id: "case-studies", label: "35. Case Studies", section: "Practical" },
+  { id: "training", label: "36. Training Exercises", section: "Practical" },
+  { id: "red-flags", label: "37. Red Flags & Tips", section: "Practical" },
+  { id: "glossary", label: "38. Glossary", section: "Practical" },
+  { id: "checklists", label: "39. Checklists", section: "Practical" },
 ];
 
 interface ProgressDashboardProps {
