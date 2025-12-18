@@ -37,12 +37,14 @@ import { RiskManagementChapter } from "./chapters/RiskManagementChapter";
 import { AccountingChapter } from "./chapters/AccountingChapter";
 import { NegotiationChapter } from "./chapters/NegotiationChapter";
 import { WarehouseChapter } from "./chapters/WarehouseChapter";
+import { ChapterNavigation } from "./ChapterNavigation";
 
 interface ManualContentProps {
   activeChapter: string;
+  onChapterChange: (chapterId: string) => void;
 }
 
-export function ManualContent({ activeChapter }: ManualContentProps) {
+export function ManualContent({ activeChapter, onChapterChange }: ManualContentProps) {
   const chapters: Record<string, React.ReactNode> = {
     intro: <IntroChapter />,
     mindset: <MindsetChapter />,
@@ -89,6 +91,10 @@ export function ManualContent({ activeChapter }: ManualContentProps) {
     <main className="lg:ml-72 min-h-screen p-6 lg:p-10">
       <div className="max-w-4xl mx-auto">
         {chapters[activeChapter] || <IntroChapter />}
+        <ChapterNavigation 
+          activeChapter={activeChapter} 
+          onChapterChange={onChapterChange} 
+        />
       </div>
     </main>
   );
