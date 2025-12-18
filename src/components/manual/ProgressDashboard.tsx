@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-
+import { Certificate } from "./Certificate";
 const chapters = [
   // SECTION 1: Foundation
   { id: "intro", label: "1. Introduction", section: "Foundation" },
@@ -97,6 +97,12 @@ export function ProgressDashboard({ onNavigate, onClose }: ProgressDashboardProp
   const passRate = quizStats.totalQuizzes > 0 
     ? Math.round((quizStats.passedQuizzes / quizStats.totalQuizzes) * 100) 
     : 0;
+
+  // Certificate eligibility: all chapters completed AND all quizzes passed with 70%+
+  const isCertificateEligible = 
+    quizStats.completedChapters === chapters.length && 
+    quizStats.totalQuizzes > 0 &&
+    quizStats.passedQuizzes === quizStats.totalQuizzes;
 
   // Get recent activity
   const recentActivity = chapters
@@ -364,6 +370,16 @@ export function ProgressDashboard({ onNavigate, onClose }: ProgressDashboardProp
           </div>
         </CardContent>
       </Card>
+
+      {/* Certificate */}
+      <Certificate
+        isEligible={isCertificateEligible}
+        completedChapters={quizStats.completedChapters}
+        totalChapters={chapters.length}
+        averageScore={averageScore}
+        passedQuizzes={quizStats.passedQuizzes}
+        totalQuizzes={quizStats.totalQuizzes}
+      />
 
       {/* Reset Progress */}
       {progress.totalCompleted > 0 && (
