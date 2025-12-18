@@ -1,6 +1,7 @@
 import { IntroChapter } from "./chapters/IntroChapter";
 import { MindsetChapter } from "./chapters/MindsetChapter";
 import { WorkflowChapter } from "./chapters/WorkflowChapter";
+import { ReadingProgress } from "./ReadingProgress";
 import { VehicleChapter } from "./chapters/VehicleChapter";
 import { LoadingChapter } from "./chapters/LoadingChapter";
 import { ReeferChapter } from "./chapters/ReeferChapter";
@@ -88,19 +89,22 @@ export function ManualContent({ activeChapter, onChapterChange }: ManualContentP
   };
 
   return (
-    <main className="lg:ml-72 min-h-screen p-6 lg:p-10">
-      <div className="max-w-4xl mx-auto">
-        <div 
-          key={activeChapter}
-          className="animate-chapter-enter"
-        >
-          {chapters[activeChapter] || <IntroChapter />}
-          <ChapterNavigation 
-            activeChapter={activeChapter} 
-            onChapterChange={onChapterChange} 
-          />
+    <>
+      <ReadingProgress />
+      <main className="lg:ml-72 min-h-screen p-6 lg:p-10">
+        <div className="max-w-4xl mx-auto">
+          <div 
+            key={activeChapter}
+            className="animate-chapter-enter"
+          >
+            {chapters[activeChapter] || <IntroChapter />}
+            <ChapterNavigation 
+              activeChapter={activeChapter} 
+              onChapterChange={onChapterChange} 
+            />
+          </div>
         </div>
-      </div>
-    </main>
+      </main>
+    </>
   );
 }
