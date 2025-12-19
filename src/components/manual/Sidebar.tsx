@@ -8,7 +8,9 @@ import rossikLogo from "@/assets/rossik-logo.jpg";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { useProgressContext } from "@/contexts/ProgressContext";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { GlobalSearch } from "./GlobalSearch";
+import { LanguageSelector } from "./LanguageSelector";
 
 interface SidebarProps {
   activeChapter: string;
@@ -16,80 +18,80 @@ interface SidebarProps {
   onShowDashboard: () => void;
 }
 
-const sections = [
+const getSections = (t: (key: string) => string) => [
   {
-    title: "Fundament",
+    title: t('section.foundation'),
     chapters: [
-      { id: "intro", label: "Introducere", icon: BookOpen },
-      { id: "mindset", label: "Rol & Mentalitate", icon: Target },
-      { id: "soft-skills", label: "Soft Skills", icon: Users },
-      { id: "workflow", label: "Flux Operațional", icon: Route },
+      { id: "intro", labelKey: "chapter.intro", icon: BookOpen },
+      { id: "mindset", labelKey: "chapter.mindset", icon: Target },
+      { id: "soft-skills", labelKey: "chapter.soft-skills", icon: Users },
+      { id: "workflow", labelKey: "chapter.workflow", icon: Route },
     ]
   },
   {
-    title: "Echipamente",
+    title: t('section.equipment'),
     chapters: [
-      { id: "vehicle", label: "Referință Vehicule", icon: Truck },
-      { id: "loading", label: "Încărcare & Fixare", icon: Package },
-      { id: "reefer", label: "Transport Frigorific", icon: Package },
-      { id: "warehouse", label: "Depozit & Cross-Dock", icon: Package },
-      { id: "adr", label: "ADR Mărfuri Periculoase", icon: Flame },
-      { id: "documents", label: "Documente Transport", icon: FileText },
+      { id: "vehicle", labelKey: "chapter.vehicle", icon: Truck },
+      { id: "loading", labelKey: "chapter.loading", icon: Package },
+      { id: "reefer", labelKey: "chapter.reefer", icon: Package },
+      { id: "warehouse", labelKey: "chapter.warehouse", icon: Package },
+      { id: "adr", labelKey: "chapter.adr", icon: Flame },
+      { id: "documents", labelKey: "chapter.documents", icon: FileText },
     ]
   },
   {
-    title: "Comerț & Reglementări",
+    title: t('section.trade'),
     chapters: [
-      { id: "incoterms", label: "Incoterms & Comerț", icon: Book },
-      { id: "compliance", label: "Ore de Condus", icon: Clock },
-      { id: "driving-time", label: "Schimb vs Condus", icon: Shield },
-      { id: "customs", label: "Vamă & Frontiere", icon: Shield },
-      { id: "europe-zones", label: "Zone Europene", icon: Route },
-      { id: "environment", label: "Mediu", icon: Target },
-      { id: "supply-chain", label: "Lanț Aprovizionare", icon: Route },
+      { id: "incoterms", labelKey: "chapter.incoterms", icon: Book },
+      { id: "compliance", labelKey: "chapter.compliance", icon: Clock },
+      { id: "driving-time", labelKey: "chapter.driving-time", icon: Shield },
+      { id: "customs", labelKey: "chapter.customs", icon: Shield },
+      { id: "europe-zones", labelKey: "chapter.europe-zones", icon: Route },
+      { id: "environment", labelKey: "chapter.environment", icon: Target },
+      { id: "supply-chain", labelKey: "chapter.supply-chain", icon: Route },
     ]
   },
   {
-    title: "Abilități Comerciale",
+    title: t('section.commercial'),
     chapters: [
-      { id: "pricing", label: "Prețuri & Taxe", icon: Calculator },
-      { id: "commercial", label: "Abilități Comerciale", icon: Target },
-      { id: "negotiation", label: "Negociere", icon: Users },
-      { id: "clients", label: "Găsirea Clienților", icon: Building2 },
-      { id: "carrier-management", label: "Gestiune Transportatori", icon: Users },
-      { id: "exchanges", label: "Burse de Marfă", icon: Users },
-      { id: "communication", label: "Comunicare", icon: MessageSquare },
-      { id: "kpi", label: "KPI & Performanță", icon: Target },
+      { id: "pricing", labelKey: "chapter.pricing", icon: Calculator },
+      { id: "commercial", labelKey: "chapter.commercial", icon: Target },
+      { id: "negotiation", labelKey: "chapter.negotiation", icon: Users },
+      { id: "clients", labelKey: "chapter.clients", icon: Building2 },
+      { id: "carrier-management", labelKey: "chapter.carrier-management", icon: Users },
+      { id: "exchanges", labelKey: "chapter.exchanges", icon: Users },
+      { id: "communication", labelKey: "chapter.communication", icon: MessageSquare },
+      { id: "kpi", labelKey: "chapter.kpi", icon: Target },
     ]
   },
   {
-    title: "Sisteme & Tehnologie",
+    title: t('section.technology'),
     chapters: [
-      { id: "translogica", label: "Translogica TMS", icon: Laptop },
-      { id: "fleet", label: "Flotă & GPS", icon: Truck },
-      { id: "technology", label: "Tehnologie & Digital", icon: Laptop },
+      { id: "translogica", labelKey: "chapter.translogica", icon: Laptop },
+      { id: "fleet", labelKey: "chapter.fleet", icon: Truck },
+      { id: "technology", labelKey: "chapter.technology", icon: Laptop },
     ]
   },
   {
-    title: "Risc & Finanțe",
+    title: t('section.finance'),
     chapters: [
-      { id: "risk-management", label: "Managementul Riscului", icon: Shield },
-      { id: "insurance", label: "Asigurări Transport", icon: Shield },
-      { id: "claims", label: "Daune & Dispute", icon: Scale },
-      { id: "payment", label: "Plăți & Facturare", icon: Calculator },
-      { id: "accounting", label: "Contabilitate", icon: Calculator },
+      { id: "risk-management", labelKey: "chapter.risk-management", icon: Shield },
+      { id: "insurance", labelKey: "chapter.insurance", icon: Shield },
+      { id: "claims", labelKey: "chapter.claims", icon: Scale },
+      { id: "payment", labelKey: "chapter.payment", icon: Calculator },
+      { id: "accounting", labelKey: "chapter.accounting", icon: Calculator },
     ]
   },
   {
-    title: "Aplicare Practică",
+    title: t('section.practical'),
     chapters: [
-      { id: "emergency", label: "Proceduri Urgență", icon: Phone },
-      { id: "case-studies", label: "Studii de Caz", icon: Lightbulb },
-      { id: "training", label: "Exerciții Training", icon: GraduationCap },
-      { id: "red-flags", label: "Red Flags & Sfaturi", icon: AlertTriangle },
-      { id: "glossary", label: "Glosar", icon: Book },
-      { id: "checklists", label: "Checklists", icon: ClipboardList },
-      { id: "licenses-oversize", label: "Licențe & Agabaritic", icon: Award },
+      { id: "emergency", labelKey: "chapter.emergency", icon: Phone },
+      { id: "case-studies", labelKey: "chapter.case-studies", icon: Lightbulb },
+      { id: "training", labelKey: "chapter.training", icon: GraduationCap },
+      { id: "red-flags", labelKey: "chapter.red-flags", icon: AlertTriangle },
+      { id: "glossary", labelKey: "chapter.glossary", icon: Book },
+      { id: "checklists", labelKey: "chapter.checklists", icon: ClipboardList },
+      { id: "licenses-oversize", labelKey: "chapter.licenses-oversize", icon: Award },
     ]
   },
 ];
@@ -97,8 +99,10 @@ const sections = [
 export function Sidebar({ activeChapter, onChapterChange, onShowDashboard }: SidebarProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const { progress, getOverallProgress, getChapterProgress } = useProgressContext();
+  const { t } = useLanguage();
 
   const overallProgress = getOverallProgress();
+  const sections = getSections(t);
 
   return (
     <>
@@ -137,15 +141,20 @@ export function Sidebar({ activeChapter, onChapterChange, onShowDashboard }: Sid
               className="w-full h-auto object-contain rounded-xl"
             />
             <p className="text-sm font-medium text-muted-foreground">
-              Manual Freight Forwarding
+              {t('sidebar.title')}
             </p>
           </div>
+        </div>
+
+        {/* Language Selector */}
+        <div className="px-4 py-3 border-b border-border flex justify-center">
+          <LanguageSelector />
         </div>
 
         {/* Progress Overview */}
         <div className="px-5 py-4 border-b border-border">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-xs font-medium text-muted-foreground">Progres General</span>
+            <span className="text-xs font-medium text-muted-foreground">{t('sidebar.progress')}</span>
             <span className="text-xs font-bold text-primary">{overallProgress}%</span>
           </div>
           <div className="relative w-full h-1.5 bg-muted rounded-full overflow-hidden">
@@ -156,7 +165,7 @@ export function Sidebar({ activeChapter, onChapterChange, onShowDashboard }: Sid
           </div>
           <div className="flex items-center justify-between mt-2">
             <span className="text-xs text-muted-foreground">
-              {progress.totalCompleted} / 40 capitole
+              {progress.totalCompleted} / 40 {t('sidebar.chapters')}
             </span>
             <button
               onClick={() => {
@@ -166,7 +175,7 @@ export function Sidebar({ activeChapter, onChapterChange, onShowDashboard }: Sid
               className="text-xs text-primary hover:text-primary/80 flex items-center gap-1 font-medium transition-colors"
             >
               <BarChart3 className="w-3 h-3" />
-              Detalii
+              {t('sidebar.details')}
             </button>
           </div>
         </div>
@@ -224,7 +233,7 @@ export function Sidebar({ activeChapter, onChapterChange, onShowDashboard }: Sid
                           "flex-1 truncate text-[13px]",
                           isActive ? "text-primary" : "text-foreground/80 group-hover:text-foreground"
                         )}>
-                          {chapter.label}
+                          {t(chapter.labelKey)}
                         </span>
                         {hasQuizScore && (
                           <span className={cn(
@@ -248,9 +257,9 @@ export function Sidebar({ activeChapter, onChapterChange, onShowDashboard }: Sid
         {/* Footer */}
         <div className="p-4 border-t border-border">
           <div className="flex items-center justify-center gap-2 text-muted-foreground/50">
-            <span className="text-[10px] font-medium">Versiunea 2025</span>
+            <span className="text-[10px] font-medium">{t('sidebar.version')}</span>
             <span className="w-1 h-1 rounded-full bg-current" />
-            <span className="text-[10px] font-medium">Ediție Completă</span>
+            <span className="text-[10px] font-medium">{t('sidebar.edition')}</span>
           </div>
         </div>
       </aside>

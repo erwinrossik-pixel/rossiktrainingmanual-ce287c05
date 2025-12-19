@@ -3,6 +3,7 @@ import { Sidebar } from "@/components/manual/Sidebar";
 import { ManualContent } from "@/components/manual/ManualContent";
 import { ProgressDashboard } from "@/components/manual/ProgressDashboard";
 import { ProgressProvider, useProgressContext } from "@/contexts/ProgressContext";
+import { LanguageProvider } from "@/contexts/LanguageContext";
 
 function ManualApp() {
   const [activeChapter, setActiveChapter] = useState("intro");
@@ -47,9 +48,11 @@ function ManualApp() {
 
 const Index = () => {
   return (
-    <ProgressProvider>
-      <ManualApp />
-    </ProgressProvider>
+    <LanguageProvider>
+      <ProgressProvider>
+        <ManualApp />
+      </ProgressProvider>
+    </LanguageProvider>
   );
 };
 
