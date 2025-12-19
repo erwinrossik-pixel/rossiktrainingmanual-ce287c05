@@ -129,18 +129,18 @@ export function Sidebar({ activeChapter, onChapterChange, onShowDashboard }: Sid
         mobileOpen ? "translate-x-0" : "-translate-x-full"
       )}>
         {/* Logo Header */}
-        <div className="p-5 border-b border-border">
+        <div className="p-4 border-b border-border">
           <div className="flex items-center gap-3">
             <img 
               src={rossikLogo} 
               alt="Rossik Transport & Logistic" 
-              className="h-11 w-11 object-cover rounded-lg"
+              className="h-14 w-14 object-contain rounded-lg flex-shrink-0"
             />
-            <div>
-              <h1 className="text-base font-bold text-foreground tracking-tight">
+            <div className="min-w-0">
+              <h1 className="text-sm font-bold text-foreground tracking-tight leading-tight">
                 Rossik Training
               </h1>
-              <p className="text-xs text-muted-foreground">
+              <p className="text-[11px] text-muted-foreground leading-tight">
                 Manual Freight Forwarding
               </p>
             </div>
@@ -161,7 +161,7 @@ export function Sidebar({ activeChapter, onChapterChange, onShowDashboard }: Sid
           </div>
           <div className="flex items-center justify-between mt-2">
             <span className="text-xs text-muted-foreground">
-              {progress.totalCompleted} / {progress.totalChapters} capitole
+              {progress.totalCompleted} / 40 capitole
             </span>
             <button
               onClick={() => {
