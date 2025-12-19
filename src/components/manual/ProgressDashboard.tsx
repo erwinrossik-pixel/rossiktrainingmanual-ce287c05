@@ -3,6 +3,7 @@ import {
   Award, BarChart3, Percent, BookOpen, RotateCcw, ArrowLeft
 } from "lucide-react";
 import { useProgressContext } from "@/contexts/ProgressContext";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
@@ -10,59 +11,46 @@ import { cn } from "@/lib/utils";
 import { Certificate } from "./Certificate";
 
 const chapters = [
-  // SECTION 1: Foundation
-  { id: "intro", label: "1. Introducere", section: "Fundament" },
-  { id: "mindset", label: "2. Rol & Mentalitate", section: "Fundament" },
-  { id: "soft-skills", label: "3. Soft Skills", section: "Fundament" },
-  { id: "workflow", label: "4. Flux Operațional", section: "Fundament" },
-  
-  // SECTION 2: Equipment & Handling
-  { id: "vehicle", label: "5. Referință Vehicule", section: "Echipamente" },
-  { id: "loading", label: "6. Încărcare & Fixare", section: "Echipamente" },
-  { id: "reefer", label: "7. Transport Frigorific", section: "Echipamente" },
-  { id: "warehouse", label: "8. Depozit & Cross-Dock", section: "Echipamente" },
-  { id: "adr", label: "9. ADR Mărfuri Periculoase", section: "Echipamente" },
-  { id: "documents", label: "10. Documente Transport", section: "Echipamente" },
-  
-  // SECTION 3: Trade & Regulations
-  { id: "incoterms", label: "11. Incoterms & Comerț", section: "Reglementări" },
-  { id: "compliance", label: "12. Ore de Condus", section: "Reglementări" },
-  { id: "driving-time", label: "13. Schimb vs Condus", section: "Reglementări" },
-  { id: "customs", label: "14. Vamă & Frontiere", section: "Reglementări" },
-  { id: "europe-zones", label: "15. Zone Europene", section: "Reglementări" },
-  { id: "environment", label: "16. Mediu", section: "Reglementări" },
-  { id: "supply-chain", label: "17. Lanț Aprovizionare", section: "Reglementări" },
-  
-  // SECTION 4: Commercial Skills
-  { id: "pricing", label: "18. Prețuri & Taxe", section: "Comercial" },
-  { id: "commercial", label: "19. Abilități Comerciale", section: "Comercial" },
-  { id: "negotiation", label: "20. Negociere", section: "Comercial" },
-  { id: "clients", label: "21. Găsirea Clienților", section: "Comercial" },
-  { id: "carrier-management", label: "22. Gestiune Transportatori", section: "Comercial" },
-  { id: "exchanges", label: "23. Burse de Marfă", section: "Comercial" },
-  { id: "communication", label: "24. Comunicare", section: "Comercial" },
-  { id: "kpi", label: "25. KPI & Performanță", section: "Comercial" },
-  
-  // SECTION 5: Systems & Technology
-  { id: "translogica", label: "26. Translogica TMS", section: "Tehnologie" },
-  { id: "fleet", label: "27. Flotă & GPS", section: "Tehnologie" },
-  { id: "technology", label: "28. Tehnologie & Digital", section: "Tehnologie" },
-  
-  // SECTION 6: Risk & Finance
-  { id: "risk-management", label: "29. Managementul Riscului", section: "Finanțe" },
-  { id: "insurance", label: "30. Asigurări Transport", section: "Finanțe" },
-  { id: "claims", label: "31. Daune & Dispute", section: "Finanțe" },
-  { id: "payment", label: "32. Plăți & Facturare", section: "Finanțe" },
-  { id: "accounting", label: "33. Contabilitate", section: "Finanțe" },
-  
-  // SECTION 7: Practical Application
-  { id: "emergency", label: "34. Proceduri Urgență", section: "Practică" },
-  { id: "case-studies", label: "35. Studii de Caz", section: "Practică" },
-  { id: "training", label: "36. Exerciții Training", section: "Practică" },
-  { id: "red-flags", label: "37. Red Flags & Sfaturi", section: "Practică" },
-  { id: "glossary", label: "38. Glosar", section: "Practică" },
-  { id: "checklists", label: "39. Checklists", section: "Practică" },
-  { id: "licenses-oversize", label: "40. Licențe & Agabaritic", section: "Practică" },
+  { id: "intro", labelKey: "chapter.intro", section: "section.foundation" },
+  { id: "mindset", labelKey: "chapter.mindset", section: "section.foundation" },
+  { id: "soft-skills", labelKey: "chapter.soft-skills", section: "section.foundation" },
+  { id: "workflow", labelKey: "chapter.workflow", section: "section.foundation" },
+  { id: "vehicle", labelKey: "chapter.vehicle", section: "section.equipment" },
+  { id: "loading", labelKey: "chapter.loading", section: "section.equipment" },
+  { id: "reefer", labelKey: "chapter.reefer", section: "section.equipment" },
+  { id: "warehouse", labelKey: "chapter.warehouse", section: "section.equipment" },
+  { id: "adr", labelKey: "chapter.adr", section: "section.equipment" },
+  { id: "documents", labelKey: "chapter.documents", section: "section.equipment" },
+  { id: "incoterms", labelKey: "chapter.incoterms", section: "section.trade" },
+  { id: "compliance", labelKey: "chapter.compliance", section: "section.trade" },
+  { id: "driving-time", labelKey: "chapter.driving-time", section: "section.trade" },
+  { id: "customs", labelKey: "chapter.customs", section: "section.trade" },
+  { id: "europe-zones", labelKey: "chapter.europe-zones", section: "section.trade" },
+  { id: "environment", labelKey: "chapter.environment", section: "section.trade" },
+  { id: "supply-chain", labelKey: "chapter.supply-chain", section: "section.trade" },
+  { id: "pricing", labelKey: "chapter.pricing", section: "section.commercial" },
+  { id: "commercial", labelKey: "chapter.commercial", section: "section.commercial" },
+  { id: "negotiation", labelKey: "chapter.negotiation", section: "section.commercial" },
+  { id: "clients", labelKey: "chapter.clients", section: "section.commercial" },
+  { id: "carrier-management", labelKey: "chapter.carrier-management", section: "section.commercial" },
+  { id: "exchanges", labelKey: "chapter.exchanges", section: "section.commercial" },
+  { id: "communication", labelKey: "chapter.communication", section: "section.commercial" },
+  { id: "kpi", labelKey: "chapter.kpi", section: "section.commercial" },
+  { id: "translogica", labelKey: "chapter.translogica", section: "section.technology" },
+  { id: "fleet", labelKey: "chapter.fleet", section: "section.technology" },
+  { id: "technology", labelKey: "chapter.technology", section: "section.technology" },
+  { id: "risk-management", labelKey: "chapter.risk-management", section: "section.finance" },
+  { id: "insurance", labelKey: "chapter.insurance", section: "section.finance" },
+  { id: "claims", labelKey: "chapter.claims", section: "section.finance" },
+  { id: "payment", labelKey: "chapter.payment", section: "section.finance" },
+  { id: "accounting", labelKey: "chapter.accounting", section: "section.finance" },
+  { id: "emergency", labelKey: "chapter.emergency", section: "section.practical" },
+  { id: "case-studies", labelKey: "chapter.case-studies", section: "section.practical" },
+  { id: "training", labelKey: "chapter.training", section: "section.practical" },
+  { id: "red-flags", labelKey: "chapter.red-flags", section: "section.practical" },
+  { id: "glossary", labelKey: "chapter.glossary", section: "section.practical" },
+  { id: "checklists", labelKey: "chapter.checklists", section: "section.practical" },
+  { id: "licenses-oversize", labelKey: "chapter.licenses-oversize", section: "section.practical" },
 ];
 
 interface ProgressDashboardProps {
@@ -72,6 +60,7 @@ interface ProgressDashboardProps {
 
 export function ProgressDashboard({ onNavigate, onClose }: ProgressDashboardProps) {
   const { progress, getOverallProgress, getChapterProgress, resetProgress } = useProgressContext();
+  const { t, language } = useLanguage();
   
   const overallProgress = getOverallProgress();
   
@@ -100,13 +89,11 @@ export function ProgressDashboard({ onNavigate, onClose }: ProgressDashboardProp
     ? Math.round((quizStats.passedQuizzes / quizStats.totalQuizzes) * 100) 
     : 0;
 
-  // Certificate eligibility: all chapters completed AND all quizzes passed with 70%+
   const isCertificateEligible = 
     quizStats.completedChapters === chapters.length && 
     quizStats.totalQuizzes > 0 &&
     quizStats.passedQuizzes === quizStats.totalQuizzes;
 
-  // Get recent activity
   const recentActivity = chapters
     .map(chapter => ({
       ...chapter,
@@ -123,7 +110,8 @@ export function ProgressDashboard({ onNavigate, onClose }: ProgressDashboardProp
   const formatDate = (dateString?: string) => {
     if (!dateString) return '';
     const date = new Date(dateString);
-    return date.toLocaleDateString('ro-RO', { 
+    const locale = language === 'de' ? 'de-DE' : language === 'en' ? 'en-GB' : 'ro-RO';
+    return date.toLocaleDateString(locale, { 
       day: 'numeric', 
       month: 'short',
       hour: '2-digit',
@@ -140,9 +128,9 @@ export function ProgressDashboard({ onNavigate, onClose }: ProgressDashboardProp
             <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
               <BarChart3 className="w-5 h-5 text-primary" />
             </div>
-            Dashboard Progres
+            {t('dashboard.title')}
           </h1>
-          <p className="text-muted-foreground mt-1 text-sm">Urmărește progresul tău de învățare</p>
+          <p className="text-muted-foreground mt-1 text-sm">{t('dashboard.subtitle')}</p>
         </div>
         <Button 
           variant="outline" 
@@ -151,7 +139,7 @@ export function ProgressDashboard({ onNavigate, onClose }: ProgressDashboardProp
           className="gap-2"
         >
           <ArrowLeft className="w-4 h-4" />
-          Înapoi
+          {t('dashboard.back')}
         </Button>
       </div>
 
@@ -165,7 +153,7 @@ export function ProgressDashboard({ onNavigate, onClose }: ProgressDashboardProp
               </div>
               <span className="text-2xl font-bold text-primary">{overallProgress}%</span>
             </div>
-            <p className="text-xs text-muted-foreground">Progres General</p>
+            <p className="text-xs text-muted-foreground">{t('dashboard.overall')}</p>
             <Progress value={overallProgress} className="mt-2 h-1.5" />
           </CardContent>
         </Card>
@@ -178,8 +166,8 @@ export function ProgressDashboard({ onNavigate, onClose }: ProgressDashboardProp
               </div>
               <span className="text-2xl font-bold text-success">{quizStats.completedChapters}</span>
             </div>
-            <p className="text-xs text-muted-foreground">Capitole Completate</p>
-            <p className="text-[10px] text-muted-foreground/70 mt-1">din {chapters.length} total</p>
+            <p className="text-xs text-muted-foreground">{t('dashboard.completed')}</p>
+            <p className="text-[10px] text-muted-foreground/70 mt-1">{t('dashboard.total')} {chapters.length}</p>
           </CardContent>
         </Card>
 
@@ -191,8 +179,8 @@ export function ProgressDashboard({ onNavigate, onClose }: ProgressDashboardProp
               </div>
               <span className="text-2xl font-bold text-warning">{quizStats.totalQuizzes}</span>
             </div>
-            <p className="text-xs text-muted-foreground">Teste Completate</p>
-            <p className="text-[10px] text-muted-foreground/70 mt-1">{quizStats.passedQuizzes} promovate</p>
+            <p className="text-xs text-muted-foreground">{t('dashboard.quizzes')}</p>
+            <p className="text-[10px] text-muted-foreground/70 mt-1">{quizStats.passedQuizzes} {t('dashboard.passed')}</p>
           </CardContent>
         </Card>
 
@@ -204,8 +192,8 @@ export function ProgressDashboard({ onNavigate, onClose }: ProgressDashboardProp
               </div>
               <span className="text-2xl font-bold text-info">{averageScore}%</span>
             </div>
-            <p className="text-xs text-muted-foreground">Scor Mediu</p>
-            <p className="text-[10px] text-muted-foreground/70 mt-1">{passRate}% rată promovare</p>
+            <p className="text-xs text-muted-foreground">{t('dashboard.average')}</p>
+            <p className="text-[10px] text-muted-foreground/70 mt-1">{passRate}% {t('dashboard.passRate')}</p>
           </CardContent>
         </Card>
       </div>
@@ -217,7 +205,7 @@ export function ProgressDashboard({ onNavigate, onClose }: ProgressDashboardProp
           <CardHeader className="pb-3">
             <CardTitle className="flex items-center gap-2 text-base">
               <Clock className="w-4 h-4 text-primary" />
-              Activitate Recentă
+              {t('dashboard.recent')}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -236,7 +224,7 @@ export function ProgressDashboard({ onNavigate, onClose }: ProgressDashboardProp
                         <BookOpen className="w-4 h-4 text-muted-foreground" />
                       )}
                       <div>
-                        <p className="font-medium text-sm group-hover:text-primary transition-colors">{item.label}</p>
+                        <p className="font-medium text-sm group-hover:text-primary transition-colors">{t(item.labelKey)}</p>
                         <p className="text-xs text-muted-foreground">
                           {formatDate(item.progress?.lastVisited)}
                         </p>
@@ -259,7 +247,7 @@ export function ProgressDashboard({ onNavigate, onClose }: ProgressDashboardProp
               <div className="text-center py-8">
                 <BookOpen className="w-8 h-8 text-muted-foreground/30 mx-auto mb-2" />
                 <p className="text-sm text-muted-foreground">
-                  Nicio activitate încă. Începe să citești capitolele!
+                  {t('dashboard.noActivity')}
                 </p>
               </div>
             )}
@@ -271,41 +259,39 @@ export function ProgressDashboard({ onNavigate, onClose }: ProgressDashboardProp
           <CardHeader className="pb-3">
             <CardTitle className="flex items-center gap-2 text-base">
               <Award className="w-4 h-4 text-primary" />
-              Performanță Teste
+              {t('dashboard.quizPerformance')}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              {/* Performance Summary */}
               <div className="grid grid-cols-2 gap-3">
                 <div className="p-4 bg-success/5 rounded-lg text-center border border-success/10">
                   <Percent className="w-5 h-5 mx-auto text-success mb-1" />
                   <p className="text-xl font-bold text-success">{passRate}%</p>
-                  <p className="text-xs text-muted-foreground">Rată Promovare</p>
+                  <p className="text-xs text-muted-foreground">{t('dashboard.passRateLabel')}</p>
                 </div>
                 <div className="p-4 bg-primary/5 rounded-lg text-center border border-primary/10">
                   <Target className="w-5 h-5 mx-auto text-primary mb-1" />
                   <p className="text-xl font-bold text-primary">
                     {quizStats.totalScore}/{quizStats.totalQuestions}
                   </p>
-                  <p className="text-xs text-muted-foreground">Scor Total</p>
+                  <p className="text-xs text-muted-foreground">{t('dashboard.totalScore')}</p>
                 </div>
               </div>
 
-              {/* Pass/Fail Breakdown */}
               {quizStats.totalQuizzes > 0 && (
                 <div className="space-y-2 p-3 bg-muted/30 rounded-lg">
                   <div className="flex items-center justify-between text-sm">
                     <span className="flex items-center gap-2">
                       <CheckCircle2 className="w-3.5 h-3.5 text-success" />
-                      <span>Promovate</span>
+                      <span>{t('dashboard.passedLabel')}</span>
                     </span>
                     <span className="font-semibold text-success">{quizStats.passedQuizzes}</span>
                   </div>
                   <div className="flex items-center justify-between text-sm">
                     <span className="flex items-center gap-2">
                       <XCircle className="w-3.5 h-3.5 text-destructive" />
-                      <span>De Îmbunătățit</span>
+                      <span>{t('dashboard.needImprovement')}</span>
                     </span>
                     <span className="font-semibold text-destructive">
                       {quizStats.totalQuizzes - quizStats.passedQuizzes}
@@ -323,7 +309,7 @@ export function ProgressDashboard({ onNavigate, onClose }: ProgressDashboardProp
         <CardHeader className="pb-3">
           <CardTitle className="flex items-center gap-2 text-base">
             <BookOpen className="w-4 h-4 text-primary" />
-            Toate Capitolele
+            {t('dashboard.allChapters')}
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -351,9 +337,9 @@ export function ProgressDashboard({ onNavigate, onClose }: ProgressDashboardProp
                         "font-medium text-sm truncate transition-colors",
                         isCompleted ? "text-success" : "text-foreground group-hover:text-primary"
                       )}>
-                        {chapter.label}
+                        {t(chapter.labelKey)}
                       </p>
-                      <p className="text-[10px] text-muted-foreground mt-0.5">{chapter.section}</p>
+                      <p className="text-[10px] text-muted-foreground mt-0.5">{t(chapter.section)}</p>
                     </div>
                     <div className="flex items-center gap-1.5 ml-2">
                       {hasQuiz && (
@@ -383,8 +369,8 @@ export function ProgressDashboard({ onNavigate, onClose }: ProgressDashboardProp
                 <Award className="w-5 h-5 text-success" />
               </div>
               <div>
-                <h3 className="font-semibold text-success">Felicitări!</h3>
-                <p className="text-sm text-muted-foreground">Ai completat toate capitolele și testele</p>
+                <h3 className="font-semibold text-success">{t('dashboard.congratulations')}</h3>
+                <p className="text-sm text-muted-foreground">{t('dashboard.completedAll')}</p>
               </div>
             </div>
             <Certificate 
@@ -405,14 +391,14 @@ export function ProgressDashboard({ onNavigate, onClose }: ProgressDashboardProp
           variant="ghost" 
           size="sm"
           onClick={() => {
-            if (confirm('Ești sigur că vrei să resetezi tot progresul?')) {
+            if (confirm(t('dashboard.resetConfirm'))) {
               resetProgress();
             }
           }}
           className="text-muted-foreground hover:text-destructive gap-2"
         >
           <RotateCcw className="w-3.5 h-3.5" />
-          Resetează Progresul
+          {t('dashboard.reset')}
         </Button>
       </div>
     </div>
