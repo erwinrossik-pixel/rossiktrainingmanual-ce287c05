@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Search, X, FileText, ArrowRight } from "lucide-react";
+import { Search, X, FileText, ArrowRight, Command } from "lucide-react";
 import { searchContent, SearchableItem } from "@/data/searchableContent";
 import { cn } from "@/lib/utils";
 
@@ -88,12 +88,13 @@ export function GlobalSearch({ onNavigate }: GlobalSearchProps) {
           setIsOpen(true);
           setTimeout(() => inputRef.current?.focus(), 100);
         }}
-        className="flex items-center gap-2 px-3 py-2 bg-sidebar-accent/50 hover:bg-sidebar-accent rounded-lg text-sm text-sidebar-foreground/70 hover:text-sidebar-foreground transition-colors w-full"
+        className="flex items-center gap-3 px-4 py-2.5 bg-sidebar-accent/30 hover:bg-sidebar-accent/50 rounded-xl text-sm text-sidebar-foreground/60 hover:text-sidebar-foreground transition-all duration-200 w-full group"
       >
         <Search className="w-4 h-4" />
-        <span className="flex-1 text-left">Search...</span>
-        <kbd className="hidden sm:inline-flex items-center gap-1 px-1.5 py-0.5 bg-sidebar-border rounded text-xs">
-          <span>⌘</span>K
+        <span className="flex-1 text-left">Search manual...</span>
+        <kbd className="hidden sm:inline-flex items-center gap-1 px-2 py-1 bg-sidebar-muted/50 rounded-lg text-[10px] font-medium group-hover:bg-sidebar-muted transition-colors">
+          <Command className="w-3 h-3" />
+          <span>K</span>
         </kbd>
       </button>
 
@@ -101,27 +102,30 @@ export function GlobalSearch({ onNavigate }: GlobalSearchProps) {
       {isOpen && (
         <div className="fixed inset-0 z-50 flex items-start justify-center pt-[10vh]">
           {/* Backdrop */}
-          <div className="absolute inset-0 bg-background/80 backdrop-blur-sm" onClick={() => setIsOpen(false)} />
+          <div 
+            className="absolute inset-0 bg-foreground/20 backdrop-blur-sm animate-fade-in" 
+            onClick={() => setIsOpen(false)} 
+          />
           
           {/* Search Panel */}
-          <div className="relative w-full max-w-lg mx-4 bg-card border border-border rounded-xl shadow-elevated overflow-hidden">
+          <div className="relative w-full max-w-xl mx-4 bg-card border border-border/50 rounded-2xl shadow-2xl overflow-hidden animate-scale-in">
             {/* Search Input */}
-            <div className="flex items-center gap-3 p-4 border-b border-border">
-              <Search className="w-5 h-5 text-muted-foreground" />
+            <div className="flex items-center gap-4 p-5 border-b border-border/50">
+              <Search className="w-5 h-5 text-primary" />
               <input
                 ref={inputRef}
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 onKeyDown={handleInputKeyDown}
-                placeholder="Search manual content..."
-                className="flex-1 bg-transparent outline-none text-foreground placeholder:text-muted-foreground"
+                placeholder="Search chapters, topics, keywords..."
+                className="flex-1 bg-transparent outline-none text-foreground placeholder:text-muted-foreground text-base"
                 autoFocus
               />
               {query && (
                 <button
                   onClick={() => setQuery("")}
-                  className="p-1 hover:bg-muted rounded"
+                  className="p-1.5 hover:bg-muted rounded-lg transition-colors"
                 >
                   <X className="w-4 h-4 text-muted-foreground" />
                 </button>
@@ -129,14 +133,20 @@ export function GlobalSearch({ onNavigate }: GlobalSearchProps) {
             </div>
 
             {/* Results */}
-            <div className="max-h-[60vh] overflow-y-auto">
+            <div className="max-h-[50vh] overflow-y-auto scrollbar-thin">
               {query.length < 2 ? (
-                <div className="p-4 text-center text-muted-foreground text-sm">
-                  Type at least 2 characters to search
+                <div className="p-8 text-center">
+                  <Search className="w-12 h-12 text-muted-foreground/30 mx-auto mb-3" />
+                  <p className="text-muted-foreground text-sm">
+                    Type at least 2 characters to search
+                  </p>
                 </div>
               ) : results.length === 0 ? (
-                <div className="p-4 text-center text-muted-foreground text-sm">
-                  No results found for "{query}"
+                <div className="p-8 text-center">
+                  <FileText className="w-12 h-12 text-muted-foreground/30 mx-auto mb-3" />
+                  <p className="text-muted-foreground text-sm">
+                    No results found for "<span className="font-medium text-foreground">{query}</span>"
+                  </p>
                 </div>
               ) : (
                 <ul className="py-2">
@@ -145,18 +155,23 @@ export function GlobalSearch({ onNavigate }: GlobalSearchProps) {
                       <button
                         onClick={() => handleSelect(item)}
                         className={cn(
-                          "w-full px-4 py-3 text-left flex items-start gap-3 transition-colors",
-                          selectedIndex === index ? "bg-muted" : "hover:bg-muted/50"
+                          "w-full px-5 py-4 text-left flex items-start gap-4 transition-all duration-150",
+                          selectedIndex === index 
+                            ? "bg-primary/5 border-l-2 border-primary" 
+                            : "hover:bg-muted/50 border-l-2 border-transparent"
                         )}
                       >
-                        <FileText className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                        <FileText className={cn(
+                          "w-5 h-5 mt-0.5 flex-shrink-0 transition-colors",
+                          selectedIndex === index ? "text-primary" : "text-muted-foreground"
+                        )} />
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2 mb-1">
-                            <span className="font-medium text-foreground">{item.chapterTitle}</span>
+                            <span className="font-semibold text-foreground">{item.chapterTitle}</span>
                             <ArrowRight className="w-3 h-3 text-muted-foreground" />
-                            <span className="text-sm text-muted-foreground">{item.section}</span>
+                            <span className="text-sm text-primary font-medium">{item.section}</span>
                           </div>
-                          <p className="text-sm text-muted-foreground line-clamp-2">
+                          <p className="text-sm text-muted-foreground line-clamp-2 leading-relaxed">
                             {highlightMatch(item.content, query)}
                           </p>
                         </div>
@@ -168,20 +183,20 @@ export function GlobalSearch({ onNavigate }: GlobalSearchProps) {
             </div>
 
             {/* Footer */}
-            <div className="flex items-center justify-between px-4 py-2 border-t border-border bg-muted/30 text-xs text-muted-foreground">
-              <div className="flex items-center gap-4">
-                <span className="flex items-center gap-1">
-                  <kbd className="px-1.5 py-0.5 bg-muted rounded">↑↓</kbd>
-                  navigate
+            <div className="flex items-center justify-between px-5 py-3 border-t border-border/50 bg-muted/30 text-xs text-muted-foreground">
+              <div className="flex items-center gap-6">
+                <span className="flex items-center gap-2">
+                  <kbd className="px-2 py-1 bg-muted rounded-lg font-medium">↑↓</kbd>
+                  <span>navigate</span>
                 </span>
-                <span className="flex items-center gap-1">
-                  <kbd className="px-1.5 py-0.5 bg-muted rounded">↵</kbd>
-                  select
+                <span className="flex items-center gap-2">
+                  <kbd className="px-2 py-1 bg-muted rounded-lg font-medium">↵</kbd>
+                  <span>select</span>
                 </span>
               </div>
-              <span className="flex items-center gap-1">
-                <kbd className="px-1.5 py-0.5 bg-muted rounded">esc</kbd>
-                close
+              <span className="flex items-center gap-2">
+                <kbd className="px-2 py-1 bg-muted rounded-lg font-medium">esc</kbd>
+                <span>close</span>
               </span>
             </div>
           </div>

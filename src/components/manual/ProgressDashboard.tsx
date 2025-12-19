@@ -1,6 +1,6 @@
 import { 
   Trophy, Target, Clock, CheckCircle2, XCircle, TrendingUp, 
-  Award, BarChart3, Percent, BookOpen, RotateCcw
+  Award, BarChart3, Percent, BookOpen, RotateCcw, Sparkles, ArrowLeft
 } from "lucide-react";
 import { useProgressContext } from "@/contexts/ProgressContext";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -8,6 +8,7 @@ import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Certificate } from "./Certificate";
+
 const chapters = [
   // SECTION 1: Foundation
   { id: "intro", label: "1. Introduction", section: "Foundation" },
@@ -130,71 +131,87 @@ export function ProgressDashboard({ onNavigate, onClose }: ProgressDashboardProp
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8 max-w-5xl mx-auto">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-foreground flex items-center gap-3">
-            <BarChart3 className="w-8 h-8 text-primary" />
+          <h1 className="text-4xl font-bold text-foreground flex items-center gap-4 font-display">
+            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary to-rossik-dark flex items-center justify-center shadow-lg">
+              <BarChart3 className="w-7 h-7 text-primary-foreground" />
+            </div>
             Progress Dashboard
           </h1>
-          <p className="text-muted-foreground mt-1">Track your learning journey</p>
+          <p className="text-muted-foreground mt-2 text-lg">Track your learning journey</p>
         </div>
-        <Button variant="outline" size="sm" onClick={onClose}>
+        <Button 
+          variant="outline" 
+          size="lg" 
+          onClick={onClose}
+          className="rounded-xl gap-2 hover:bg-muted/50"
+        >
+          <ArrowLeft className="w-4 h-4" />
           Back to Manual
         </Button>
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <Card className="bg-gradient-to-br from-primary/10 to-primary/5 border-primary/20">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+        <Card className="bg-gradient-to-br from-primary/10 via-primary/5 to-transparent border-primary/20 shadow-sm hover:shadow-md transition-shadow">
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-muted-foreground">Overall Progress</p>
-                <p className="text-3xl font-bold text-primary">{overallProgress}%</p>
+                <p className="text-sm text-muted-foreground font-medium">Overall Progress</p>
+                <p className="text-4xl font-bold text-primary mt-1">{overallProgress}%</p>
               </div>
-              <Target className="w-10 h-10 text-primary/50" />
+              <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center">
+                <Target className="w-7 h-7 text-primary" />
+              </div>
             </div>
-            <Progress value={overallProgress} className="mt-3 h-2" />
+            <Progress value={overallProgress} className="mt-4 h-2" />
           </CardContent>
         </Card>
 
-        <Card className="bg-gradient-to-br from-success/10 to-success/5 border-success/20">
+        <Card className="bg-gradient-to-br from-success/10 via-success/5 to-transparent border-success/20 shadow-sm hover:shadow-md transition-shadow">
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-muted-foreground">Chapters Completed</p>
-                <p className="text-3xl font-bold text-success">{quizStats.completedChapters}</p>
-                <p className="text-xs text-muted-foreground">of {chapters.length} total</p>
+                <p className="text-sm text-muted-foreground font-medium">Chapters Completed</p>
+                <p className="text-4xl font-bold text-success mt-1">{quizStats.completedChapters}</p>
+                <p className="text-xs text-muted-foreground mt-1">of {chapters.length} total</p>
               </div>
-              <CheckCircle2 className="w-10 h-10 text-success/50" />
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card className="bg-gradient-to-br from-warning/10 to-warning/5 border-warning/20">
-          <CardContent className="pt-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-muted-foreground">Quizzes Taken</p>
-                <p className="text-3xl font-bold text-warning">{quizStats.totalQuizzes}</p>
-                <p className="text-xs text-muted-foreground">{quizStats.passedQuizzes} passed</p>
+              <div className="w-14 h-14 rounded-2xl bg-success/10 flex items-center justify-center">
+                <CheckCircle2 className="w-7 h-7 text-success" />
               </div>
-              <Trophy className="w-10 h-10 text-warning/50" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-gradient-to-br from-info/10 to-info/5 border-info/20">
+        <Card className="bg-gradient-to-br from-warning/10 via-warning/5 to-transparent border-warning/20 shadow-sm hover:shadow-md transition-shadow">
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-muted-foreground">Average Score</p>
-                <p className="text-3xl font-bold text-info">{averageScore}%</p>
-                <p className="text-xs text-muted-foreground">{passRate}% pass rate</p>
+                <p className="text-sm text-muted-foreground font-medium">Quizzes Taken</p>
+                <p className="text-4xl font-bold text-warning mt-1">{quizStats.totalQuizzes}</p>
+                <p className="text-xs text-muted-foreground mt-1">{quizStats.passedQuizzes} passed</p>
               </div>
-              <TrendingUp className="w-10 h-10 text-info/50" />
+              <div className="w-14 h-14 rounded-2xl bg-warning/10 flex items-center justify-center">
+                <Trophy className="w-7 h-7 text-warning" />
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="bg-gradient-to-br from-info/10 via-info/5 to-transparent border-info/20 shadow-sm hover:shadow-md transition-shadow">
+          <CardContent className="pt-6">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-sm text-muted-foreground font-medium">Average Score</p>
+                <p className="text-4xl font-bold text-info mt-1">{averageScore}%</p>
+                <p className="text-xs text-muted-foreground mt-1">{passRate}% pass rate</p>
+              </div>
+              <div className="w-14 h-14 rounded-2xl bg-info/10 flex items-center justify-center">
+                <TrendingUp className="w-7 h-7 text-info" />
+              </div>
             </div>
           </CardContent>
         </Card>
@@ -203,10 +220,12 @@ export function ProgressDashboard({ onNavigate, onClose }: ProgressDashboardProp
       {/* Two Column Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Recent Activity */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Clock className="w-5 h-5 text-primary" />
+        <Card className="shadow-sm border-border/50">
+          <CardHeader className="pb-4">
+            <CardTitle className="flex items-center gap-3 text-xl">
+              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                <Clock className="w-5 h-5 text-primary" />
+              </div>
               Recent Activity
             </CardTitle>
           </CardHeader>
@@ -217,27 +236,31 @@ export function ProgressDashboard({ onNavigate, onClose }: ProgressDashboardProp
                   <button
                     key={item.id}
                     onClick={() => onNavigate(item.id)}
-                    className="w-full flex items-center justify-between p-3 rounded-lg bg-muted/50 hover:bg-muted transition-colors text-left"
+                    className="w-full flex items-center justify-between p-4 rounded-xl bg-muted/30 hover:bg-muted/50 border border-transparent hover:border-border/50 transition-all duration-200 text-left group"
                   >
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-4">
                       {item.progress?.completed ? (
-                        <CheckCircle2 className="w-5 h-5 text-success" />
+                        <div className="w-10 h-10 rounded-xl bg-success/10 flex items-center justify-center">
+                          <CheckCircle2 className="w-5 h-5 text-success" />
+                        </div>
                       ) : (
-                        <BookOpen className="w-5 h-5 text-muted-foreground" />
+                        <div className="w-10 h-10 rounded-xl bg-muted flex items-center justify-center">
+                          <BookOpen className="w-5 h-5 text-muted-foreground" />
+                        </div>
                       )}
                       <div>
-                        <p className="font-medium text-sm">{item.label}</p>
-                        <p className="text-xs text-muted-foreground">
+                        <p className="font-semibold text-sm group-hover:text-primary transition-colors">{item.label}</p>
+                        <p className="text-xs text-muted-foreground mt-0.5">
                           {formatDate(item.progress?.lastVisited)}
                         </p>
                       </div>
                     </div>
                     {item.progress?.quizScore !== undefined && (
                       <span className={cn(
-                        "text-xs px-2 py-1 rounded-full font-medium",
+                        "text-xs px-3 py-1.5 rounded-full font-semibold",
                         item.progress.quizScore >= (item.progress.quizTotal! * 0.7)
-                          ? "bg-success/20 text-success"
-                          : "bg-warning/20 text-warning"
+                          ? "bg-success/15 text-success"
+                          : "bg-warning/15 text-warning"
                       )}>
                         {item.progress.quizScore}/{item.progress.quizTotal}
                       </span>
@@ -246,55 +269,64 @@ export function ProgressDashboard({ onNavigate, onClose }: ProgressDashboardProp
                 ))}
               </div>
             ) : (
-              <p className="text-muted-foreground text-center py-8">
-                No activity yet. Start reading chapters to track your progress!
-              </p>
+              <div className="text-center py-12">
+                <Sparkles className="w-12 h-12 text-muted-foreground/30 mx-auto mb-3" />
+                <p className="text-muted-foreground">
+                  No activity yet. Start reading chapters to track your progress!
+                </p>
+              </div>
             )}
           </CardContent>
         </Card>
 
         {/* Quiz Performance */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Award className="w-5 h-5 text-primary" />
+        <Card className="shadow-sm border-border/50">
+          <CardHeader className="pb-4">
+            <CardTitle className="flex items-center gap-3 text-xl">
+              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+                <Award className="w-5 h-5 text-primary" />
+              </div>
               Quiz Performance
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="space-y-4">
+            <div className="space-y-5">
               {/* Performance Summary */}
               <div className="grid grid-cols-2 gap-4">
-                <div className="p-4 bg-success/10 rounded-lg text-center">
-                  <Percent className="w-6 h-6 mx-auto text-success mb-2" />
-                  <p className="text-2xl font-bold text-success">{passRate}%</p>
-                  <p className="text-xs text-muted-foreground">Pass Rate</p>
+                <div className="p-5 bg-success/10 rounded-2xl text-center border border-success/20">
+                  <Percent className="w-7 h-7 mx-auto text-success mb-2" />
+                  <p className="text-3xl font-bold text-success">{passRate}%</p>
+                  <p className="text-xs text-muted-foreground mt-1">Pass Rate</p>
                 </div>
-                <div className="p-4 bg-primary/10 rounded-lg text-center">
-                  <Target className="w-6 h-6 mx-auto text-primary mb-2" />
-                  <p className="text-2xl font-bold text-primary">
+                <div className="p-5 bg-primary/10 rounded-2xl text-center border border-primary/20">
+                  <Target className="w-7 h-7 mx-auto text-primary mb-2" />
+                  <p className="text-3xl font-bold text-primary">
                     {quizStats.totalScore}/{quizStats.totalQuestions}
                   </p>
-                  <p className="text-xs text-muted-foreground">Total Score</p>
+                  <p className="text-xs text-muted-foreground mt-1">Total Score</p>
                 </div>
               </div>
 
               {/* Pass/Fail Breakdown */}
               {quizStats.totalQuizzes > 0 && (
-                <div className="space-y-2">
+                <div className="space-y-3 p-4 bg-muted/30 rounded-xl">
                   <div className="flex items-center justify-between text-sm">
-                    <span className="flex items-center gap-2">
-                      <CheckCircle2 className="w-4 h-4 text-success" />
-                      Passed
+                    <span className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-lg bg-success/10 flex items-center justify-center">
+                        <CheckCircle2 className="w-4 h-4 text-success" />
+                      </div>
+                      <span className="font-medium">Passed</span>
                     </span>
-                    <span className="font-medium text-success">{quizStats.passedQuizzes}</span>
+                    <span className="font-bold text-success">{quizStats.passedQuizzes}</span>
                   </div>
                   <div className="flex items-center justify-between text-sm">
-                    <span className="flex items-center gap-2">
-                      <XCircle className="w-4 h-4 text-destructive" />
-                      Need Improvement
+                    <span className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-lg bg-destructive/10 flex items-center justify-center">
+                        <XCircle className="w-4 h-4 text-destructive" />
+                      </div>
+                      <span className="font-medium">Need Improvement</span>
                     </span>
-                    <span className="font-medium text-destructive">
+                    <span className="font-bold text-destructive">
                       {quizStats.totalQuizzes - quizStats.passedQuizzes}
                     </span>
                   </div>
@@ -306,10 +338,12 @@ export function ProgressDashboard({ onNavigate, onClose }: ProgressDashboardProp
       </div>
 
       {/* All Chapters Progress */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <BookOpen className="w-5 h-5 text-primary" />
+      <Card className="shadow-sm border-border/50">
+        <CardHeader className="pb-4">
+          <CardTitle className="flex items-center gap-3 text-xl">
+            <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
+              <BookOpen className="w-5 h-5 text-primary" />
+            </div>
             All Chapters Progress
           </CardTitle>
         </CardHeader>
@@ -326,22 +360,22 @@ export function ProgressDashboard({ onNavigate, onClose }: ProgressDashboardProp
                   key={chapter.id}
                   onClick={() => onNavigate(chapter.id)}
                   className={cn(
-                    "p-3 rounded-lg border text-left transition-all hover:shadow-md",
+                    "p-4 rounded-xl border text-left transition-all duration-200 hover:shadow-md group",
                     isCompleted 
-                      ? "bg-success/5 border-success/30 hover:bg-success/10" 
-                      : "bg-card border-border hover:bg-muted/50"
+                      ? "bg-success/5 border-success/20 hover:bg-success/10 hover:border-success/30" 
+                      : "bg-card border-border/50 hover:bg-muted/50 hover:border-primary/20"
                   )}
                 >
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
                       <p className={cn(
-                        "font-medium text-sm",
-                        isCompleted ? "text-success" : "text-foreground"
+                        "font-semibold text-sm transition-colors",
+                        isCompleted ? "text-success" : "text-foreground group-hover:text-primary"
                       )}>
                         {chapter.label}
                       </p>
                       {chapterProgress?.lastVisited && (
-                        <p className="text-xs text-muted-foreground mt-1">
+                        <p className="text-xs text-muted-foreground mt-1.5">
                           Last: {formatDate(chapterProgress.lastVisited)}
                         </p>
                       )}
@@ -349,10 +383,10 @@ export function ProgressDashboard({ onNavigate, onClose }: ProgressDashboardProp
                     <div className="flex items-center gap-2">
                       {hasQuiz && (
                         <span className={cn(
-                          "text-xs px-2 py-0.5 rounded-full font-medium",
+                          "text-xs px-2 py-1 rounded-full font-semibold",
                           quizPassed
-                            ? "bg-success/20 text-success"
-                            : "bg-warning/20 text-warning"
+                            ? "bg-success/15 text-success"
+                            : "bg-warning/15 text-warning"
                         )}>
                           {chapterProgress.quizScore}/{chapterProgress.quizTotal}
                         </span>
@@ -383,18 +417,18 @@ export function ProgressDashboard({ onNavigate, onClose }: ProgressDashboardProp
 
       {/* Reset Progress */}
       {progress.totalCompleted > 0 && (
-        <Card className="border-destructive/20">
+        <Card className="border-destructive/20 bg-destructive/5">
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="font-medium text-destructive">Reset All Progress</p>
-                <p className="text-sm text-muted-foreground">
+                <p className="font-semibold text-destructive">Reset All Progress</p>
+                <p className="text-sm text-muted-foreground mt-1">
                   This will clear all completed chapters and quiz scores.
                 </p>
               </div>
               <Button 
                 variant="outline" 
-                className="border-destructive text-destructive hover:bg-destructive hover:text-destructive-foreground"
+                className="border-destructive/50 text-destructive hover:bg-destructive hover:text-destructive-foreground rounded-xl"
                 onClick={() => {
                   if (confirm('Are you sure you want to reset all progress?')) {
                     resetProgress();
@@ -402,7 +436,7 @@ export function ProgressDashboard({ onNavigate, onClose }: ProgressDashboardProp
                 }}
               >
                 <RotateCcw className="w-4 h-4 mr-2" />
-                Reset
+                Reset Progress
               </Button>
             </div>
           </CardContent>

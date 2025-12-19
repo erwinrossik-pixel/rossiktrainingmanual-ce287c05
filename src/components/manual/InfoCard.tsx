@@ -11,11 +11,11 @@ interface InfoCardProps {
 
 export function InfoCard({ title, children, icon: Icon, variant = "default", className }: InfoCardProps) {
   const variants = {
-    default: "bg-card border-border",
-    highlight: "bg-accent border-primary/20",
-    warning: "bg-warning/5 border-warning/30",
-    success: "bg-success/5 border-success/30",
-    info: "bg-info/5 border-info/30",
+    default: "bg-card border-border/50",
+    highlight: "bg-gradient-to-br from-accent to-accent/50 border-primary/20",
+    warning: "bg-gradient-to-br from-warning/5 to-warning/10 border-warning/20",
+    success: "bg-gradient-to-br from-success/5 to-success/10 border-success/20",
+    info: "bg-gradient-to-br from-info/5 to-info/10 border-info/20",
   };
 
   const iconColors = {
@@ -26,27 +26,32 @@ export function InfoCard({ title, children, icon: Icon, variant = "default", cla
     info: "text-info",
   };
 
+  const iconBg = {
+    default: "bg-primary/10",
+    highlight: "bg-primary/15",
+    warning: "bg-warning/15",
+    success: "bg-success/15",
+    info: "bg-info/15",
+  };
+
   return (
     <div className={cn(
-      "rounded-xl p-6 border shadow-card",
+      "rounded-2xl p-6 border shadow-sm transition-all duration-300 hover:shadow-md hover:-translate-y-0.5",
       variants[variant],
       className
     )}>
       <div className="flex items-start gap-4">
         {Icon && (
           <div className={cn(
-            "w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0",
-            variant === "default" ? "bg-primary/10" : 
-            variant === "highlight" ? "bg-primary/20" :
-            variant === "warning" ? "bg-warning/10" :
-            variant === "success" ? "bg-success/10" : "bg-info/10"
+            "w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 shadow-sm",
+            iconBg[variant]
           )}>
             <Icon className={cn("w-5 h-5", iconColors[variant])} />
           </div>
         )}
         <div className="flex-1 min-w-0">
-          <h3 className="font-semibold text-foreground mb-2 font-serif">{title}</h3>
-          <div className="text-sm text-muted-foreground space-y-2">
+          <h3 className="font-semibold text-foreground mb-3 font-display text-lg tracking-tight">{title}</h3>
+          <div className="text-sm text-muted-foreground space-y-2 leading-relaxed">
             {children}
           </div>
         </div>
