@@ -2,7 +2,7 @@ import {
   FileText, Award, Shield, AlertTriangle, Truck, Scale, Route, 
   CheckCircle2, Clock, Euro, Globe, Building2, Phone, MapPin,
   FileCheck, Users, Ruler, Weight, Calendar, Info, X, Lightbulb,
-  ArrowRight, Timer, Zap, Target
+  ArrowRight, Timer, Zap, Target, Calculator
 } from "lucide-react";
 import { InfoCard } from "../InfoCard";
 import { DataTable } from "../DataTable";
@@ -559,11 +559,11 @@ export function LicensesOversizeChapter() {
               </div>
               <div className="p-3 bg-destructive/10 rounded-lg">
                 <p className="font-semibold text-destructive text-sm">Categoria III (Greu)</p>
-                <p className="text-xs text-muted-foreground">Depășiri majore: lățime > 3.5m, lungime > 30m, greutate > 80t</p>
+                <p className="text-xs text-muted-foreground">Depășiri majore: lățime {'>'} 3.5m, lungime {'>'} 30m, greutate {'>'} 80t</p>
               </div>
               <div className="p-3 bg-primary/10 rounded-lg">
                 <p className="font-semibold text-primary text-sm">Mega Transport</p>
-                <p className="text-xs text-muted-foreground">Mărfuri extrem de grele (100t+) sau lungi (50m+)</p>
+                <p className="text-xs text-muted-foreground">Mărfuri extrem de grele (100+ tone) sau lungi (50+ metri)</p>
               </div>
             </div>
           </InfoCard>
@@ -1009,37 +1009,10 @@ export function LicensesOversizeChapter() {
       {/* Quiz Section */}
       {quizzes["licenses-oversize"] && (
         <section className="content-section">
-          <Quiz questions={quizzes["licenses-oversize"]} chapterKey="licenses-oversize" />
+          <Quiz title="Test Licențe & Transport Agabaritic" questions={quizzes["licenses-oversize"]} chapterId="licenses-oversize" />
         </section>
       )}
     </div>
   );
 }
 
-function Calculator(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      {...props}
-    >
-      <rect width="16" height="20" x="4" y="2" rx="2" />
-      <line x1="8" x2="16" y1="6" y2="6" />
-      <line x1="16" x2="16" y1="14" y2="18" />
-      <path d="M16 10h.01" />
-      <path d="M12 10h.01" />
-      <path d="M8 10h.01" />
-      <path d="M12 14h.01" />
-      <path d="M8 14h.01" />
-      <path d="M12 18h.01" />
-      <path d="M8 18h.01" />
-    </svg>
-  );
-}

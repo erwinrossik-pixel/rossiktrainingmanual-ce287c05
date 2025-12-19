@@ -2,7 +2,7 @@ import {
   BookOpen, Users, Truck, Package, Shield, Calculator, 
   Building2, Route, Clock, Laptop, GraduationCap, AlertTriangle, 
   ClipboardList, Target, Menu, X, Phone, MessageSquare, Scale,
-  FileText, Flame, Book, Lightbulb, CheckCircle2, BarChart3, Sparkles, Award
+  FileText, Flame, Book, Lightbulb, CheckCircle2, BarChart3, Award
 } from "lucide-react";
 import rossikLogo from "@/assets/rossik-logo.jpg";
 import { cn } from "@/lib/utils";
@@ -18,76 +18,76 @@ interface SidebarProps {
 
 const sections = [
   {
-    title: "Foundation",
+    title: "Fundament",
     chapters: [
-      { id: "intro", label: "Introduction", icon: BookOpen },
-      { id: "mindset", label: "Role & Mindset", icon: Target },
+      { id: "intro", label: "Introducere", icon: BookOpen },
+      { id: "mindset", label: "Rol & Mentalitate", icon: Target },
       { id: "soft-skills", label: "Soft Skills", icon: Users },
-      { id: "workflow", label: "Operational Workflow", icon: Route },
+      { id: "workflow", label: "Flux Operațional", icon: Route },
     ]
   },
   {
-    title: "Equipment & Handling",
+    title: "Echipamente",
     chapters: [
-      { id: "vehicle", label: "Vehicle Reference", icon: Truck },
-      { id: "loading", label: "Loading & Securing", icon: Package },
-      { id: "reefer", label: "Temperature Transport", icon: Package },
-      { id: "warehouse", label: "Warehouse & Cross-Dock", icon: Package },
-      { id: "adr", label: "ADR Dangerous Goods", icon: Flame },
-      { id: "documents", label: "Transport Documents", icon: FileText },
+      { id: "vehicle", label: "Referință Vehicule", icon: Truck },
+      { id: "loading", label: "Încărcare & Fixare", icon: Package },
+      { id: "reefer", label: "Transport Frigorific", icon: Package },
+      { id: "warehouse", label: "Depozit & Cross-Dock", icon: Package },
+      { id: "adr", label: "ADR Mărfuri Periculoase", icon: Flame },
+      { id: "documents", label: "Documente Transport", icon: FileText },
     ]
   },
   {
-    title: "Trade & Regulations",
+    title: "Comerț & Reglementări",
     chapters: [
-      { id: "incoterms", label: "Incoterms & Trade", icon: Book },
-      { id: "compliance", label: "Drivers' Hours", icon: Clock },
-      { id: "driving-time", label: "Shift vs Driving Time", icon: Shield },
-      { id: "customs", label: "Customs & Borders", icon: Shield },
-      { id: "europe-zones", label: "European Zones", icon: Route },
-      { id: "environment", label: "Environmental", icon: Target },
-      { id: "supply-chain", label: "Supply Chain", icon: Route },
+      { id: "incoterms", label: "Incoterms & Comerț", icon: Book },
+      { id: "compliance", label: "Ore de Condus", icon: Clock },
+      { id: "driving-time", label: "Schimb vs Condus", icon: Shield },
+      { id: "customs", label: "Vamă & Frontiere", icon: Shield },
+      { id: "europe-zones", label: "Zone Europene", icon: Route },
+      { id: "environment", label: "Mediu", icon: Target },
+      { id: "supply-chain", label: "Lanț Aprovizionare", icon: Route },
     ]
   },
   {
-    title: "Commercial Skills",
+    title: "Abilități Comerciale",
     chapters: [
-      { id: "pricing", label: "Pricing & Tolls", icon: Calculator },
-      { id: "commercial", label: "Commercial Skills", icon: Target },
-      { id: "negotiation", label: "Negotiation", icon: Users },
-      { id: "clients", label: "Finding Clients", icon: Building2 },
-      { id: "carrier-management", label: "Carrier Management", icon: Users },
-      { id: "exchanges", label: "Freight Exchanges", icon: Users },
-      { id: "communication", label: "Communication", icon: MessageSquare },
-      { id: "kpi", label: "KPIs & Performance", icon: Target },
+      { id: "pricing", label: "Prețuri & Taxe", icon: Calculator },
+      { id: "commercial", label: "Abilități Comerciale", icon: Target },
+      { id: "negotiation", label: "Negociere", icon: Users },
+      { id: "clients", label: "Găsirea Clienților", icon: Building2 },
+      { id: "carrier-management", label: "Gestiune Transportatori", icon: Users },
+      { id: "exchanges", label: "Burse de Marfă", icon: Users },
+      { id: "communication", label: "Comunicare", icon: MessageSquare },
+      { id: "kpi", label: "KPI & Performanță", icon: Target },
     ]
   },
   {
-    title: "Systems & Technology",
+    title: "Sisteme & Tehnologie",
     chapters: [
       { id: "translogica", label: "Translogica TMS", icon: Laptop },
-      { id: "fleet", label: "Fleet & GPS", icon: Truck },
-      { id: "technology", label: "Technology & Digital", icon: Laptop },
+      { id: "fleet", label: "Flotă & GPS", icon: Truck },
+      { id: "technology", label: "Tehnologie & Digital", icon: Laptop },
     ]
   },
   {
-    title: "Risk & Finance",
+    title: "Risc & Finanțe",
     chapters: [
-      { id: "risk-management", label: "Risk Management", icon: Shield },
-      { id: "insurance", label: "Transport Insurance", icon: Shield },
-      { id: "claims", label: "Claims & Disputes", icon: Scale },
-      { id: "payment", label: "Payment & Invoicing", icon: Calculator },
-      { id: "accounting", label: "Accounting & Finance", icon: Calculator },
+      { id: "risk-management", label: "Managementul Riscului", icon: Shield },
+      { id: "insurance", label: "Asigurări Transport", icon: Shield },
+      { id: "claims", label: "Daune & Dispute", icon: Scale },
+      { id: "payment", label: "Plăți & Facturare", icon: Calculator },
+      { id: "accounting", label: "Contabilitate", icon: Calculator },
     ]
   },
   {
-    title: "Practical Application",
+    title: "Aplicare Practică",
     chapters: [
-      { id: "emergency", label: "Emergency Procedures", icon: Phone },
-      { id: "case-studies", label: "Case Studies", icon: Lightbulb },
-      { id: "training", label: "Training Exercises", icon: GraduationCap },
-      { id: "red-flags", label: "Red Flags & Tips", icon: AlertTriangle },
-      { id: "glossary", label: "Glossary", icon: Book },
+      { id: "emergency", label: "Proceduri Urgență", icon: Phone },
+      { id: "case-studies", label: "Studii de Caz", icon: Lightbulb },
+      { id: "training", label: "Exerciții Training", icon: GraduationCap },
+      { id: "red-flags", label: "Red Flags & Sfaturi", icon: AlertTriangle },
+      { id: "glossary", label: "Glosar", icon: Book },
       { id: "checklists", label: "Checklists", icon: ClipboardList },
       { id: "licenses-oversize", label: "Licențe & Agabaritic", icon: Award },
     ]
@@ -104,87 +104,80 @@ export function Sidebar({ activeChapter, onChapterChange, onShowDashboard }: Sid
     <>
       {/* Mobile toggle */}
       <button
-        className="fixed top-4 left-4 z-50 lg:hidden bg-sidebar p-3 rounded-xl shadow-elevated transition-transform duration-200 hover:scale-105 active:scale-95"
+        className="fixed top-4 left-4 z-50 lg:hidden bg-card p-2.5 rounded-lg shadow-md border border-border transition-transform duration-150 hover:scale-105 active:scale-95"
         onClick={() => setMobileOpen(!mobileOpen)}
       >
         {mobileOpen ? (
-          <X className="w-5 h-5 text-sidebar-foreground" />
+          <X className="w-5 h-5 text-foreground" />
         ) : (
-          <Menu className="w-5 h-5 text-sidebar-foreground" />
+          <Menu className="w-5 h-5 text-foreground" />
         )}
       </button>
 
       {/* Overlay */}
       {mobileOpen && (
         <div 
-          className="fixed inset-0 bg-foreground/60 backdrop-blur-sm z-40 lg:hidden animate-fade-in"
+          className="fixed inset-0 bg-foreground/20 backdrop-blur-sm z-40 lg:hidden animate-fade-in"
           onClick={() => setMobileOpen(false)}
         />
       )}
 
       {/* Sidebar */}
       <aside className={cn(
-        "fixed left-0 top-0 h-full w-80 bg-gradient-sidebar z-40 flex flex-col transition-transform duration-300 ease-out shadow-2xl",
+        "fixed left-0 top-0 h-full w-72 bg-card border-r border-border z-40 flex flex-col transition-transform duration-300 ease-out",
         "lg:translate-x-0",
         mobileOpen ? "translate-x-0" : "-translate-x-full"
       )}>
         {/* Logo Header */}
-        <div className="p-6 border-b border-sidebar-border/50">
-          <div className="flex items-center gap-4">
-            <div className="relative">
-              <img 
-                src={rossikLogo} 
-                alt="Rossik Transport & Logistic" 
-                className="h-12 w-12 object-cover rounded-xl shadow-lg"
-              />
-              <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-success rounded-full border-2 border-sidebar" />
-            </div>
+        <div className="p-5 border-b border-border">
+          <div className="flex items-center gap-3">
+            <img 
+              src={rossikLogo} 
+              alt="Rossik Transport & Logistic" 
+              className="h-11 w-11 object-cover rounded-lg"
+            />
             <div>
-              <h1 className="text-lg font-bold text-sidebar-foreground tracking-tight font-sans">
+              <h1 className="text-base font-bold text-foreground tracking-tight">
                 Rossik Training
               </h1>
-              <p className="text-xs text-sidebar-foreground/50 font-medium">
-                Freight Forwarding Manual
+              <p className="text-xs text-muted-foreground">
+                Manual Freight Forwarding
               </p>
             </div>
           </div>
         </div>
 
         {/* Progress Overview */}
-        <div className="px-6 py-5 border-b border-sidebar-border/50">
-          <div className="flex items-center justify-between mb-3">
-            <div className="flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-primary" />
-              <span className="text-sm font-semibold text-sidebar-foreground">Progress</span>
-            </div>
-            <span className="text-sm font-bold text-primary">{overallProgress}%</span>
+        <div className="px-5 py-4 border-b border-border">
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-xs font-medium text-muted-foreground">Progres General</span>
+            <span className="text-xs font-bold text-primary">{overallProgress}%</span>
           </div>
-          <div className="relative w-full h-2 bg-sidebar-accent rounded-full overflow-hidden">
+          <div className="relative w-full h-1.5 bg-muted rounded-full overflow-hidden">
             <div 
-              className="absolute left-0 top-0 h-full bg-gradient-to-r from-primary to-primary/80 rounded-full transition-all duration-700 ease-out"
+              className="absolute left-0 top-0 h-full bg-primary rounded-full transition-all duration-500 ease-out"
               style={{ width: `${overallProgress}%` }}
             />
           </div>
-          <div className="flex items-center justify-between mt-3">
-            <span className="text-xs text-sidebar-foreground/50">
-              {progress.totalCompleted} of {progress.totalChapters} chapters
+          <div className="flex items-center justify-between mt-2">
+            <span className="text-xs text-muted-foreground">
+              {progress.totalCompleted} / {progress.totalChapters} capitole
             </span>
             <button
               onClick={() => {
                 onShowDashboard();
                 setMobileOpen(false);
               }}
-              className="text-xs text-primary hover:text-primary/80 flex items-center gap-1.5 font-semibold transition-colors"
-              title="View detailed progress"
+              className="text-xs text-primary hover:text-primary/80 flex items-center gap-1 font-medium transition-colors"
             >
-              <BarChart3 className="w-3.5 h-3.5" />
-              View Details
+              <BarChart3 className="w-3 h-3" />
+              Detalii
             </button>
           </div>
         </div>
 
         {/* Global Search */}
-        <div className="px-4 py-4 border-b border-sidebar-border/50">
+        <div className="px-4 py-3 border-b border-border">
           <GlobalSearch onNavigate={(chapterId) => {
             onChapterChange(chapterId);
             setMobileOpen(false);
@@ -192,15 +185,14 @@ export function Sidebar({ activeChapter, onChapterChange, onShowDashboard }: Sid
         </div>
 
         {/* Navigation */}
-        <nav className="flex-1 overflow-y-auto py-4 px-3 scrollbar-thin">
+        <nav className="flex-1 overflow-y-auto py-3 px-3 scrollbar-thin">
           {sections.map((section, sectionIndex) => (
-            <div key={section.title} className={cn(sectionIndex > 0 && "mt-6")}>
+            <div key={section.title} className={cn(sectionIndex > 0 && "mt-5")}>
               {/* Section Header */}
-              <div className="flex items-center gap-3 px-3 mb-2">
-                <span className="text-[10px] font-bold uppercase tracking-widest text-sidebar-foreground/40">
+              <div className="px-2 mb-1.5">
+                <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground/70">
                   {section.title}
                 </span>
-                <div className="flex-1 h-px bg-sidebar-border/50" />
               </div>
               
               {/* Section Chapters */}
@@ -227,24 +219,24 @@ export function Sidebar({ activeChapter, onChapterChange, onShowDashboard }: Sid
                         <div className="relative flex-shrink-0">
                           <Icon className={cn(
                             "w-4 h-4 transition-colors",
-                            isActive ? "text-primary" : "text-sidebar-foreground/50 group-hover:text-sidebar-foreground/70"
+                            isActive ? "text-primary" : "text-muted-foreground group-hover:text-foreground"
                           )} />
                           {isCompleted && (
-                            <CheckCircle2 className="w-3 h-3 text-success absolute -top-1 -right-1.5" />
+                            <CheckCircle2 className="w-2.5 h-2.5 text-success absolute -top-0.5 -right-1" />
                           )}
                         </div>
                         <span className={cn(
-                          "flex-1 truncate transition-colors",
-                          isActive ? "text-sidebar-foreground" : "text-sidebar-foreground/70 group-hover:text-sidebar-foreground"
+                          "flex-1 truncate text-[13px]",
+                          isActive ? "text-primary" : "text-foreground/80 group-hover:text-foreground"
                         )}>
                           {chapter.label}
                         </span>
                         {hasQuizScore && (
                           <span className={cn(
-                            "text-[10px] px-2 py-0.5 rounded-full font-bold",
+                            "text-[10px] px-1.5 py-0.5 rounded font-medium",
                             chapterProgress.quizScore! >= (chapterProgress.quizTotal! * 0.7)
-                              ? "bg-success/20 text-success"
-                              : "bg-warning/20 text-warning"
+                              ? "bg-success/10 text-success"
+                              : "bg-warning/10 text-warning"
                           )}>
                             {chapterProgress.quizScore}/{chapterProgress.quizTotal}
                           </span>
@@ -259,11 +251,11 @@ export function Sidebar({ activeChapter, onChapterChange, onShowDashboard }: Sid
         </nav>
 
         {/* Footer */}
-        <div className="p-4 border-t border-sidebar-border/50">
-          <div className="flex items-center justify-center gap-2 text-sidebar-foreground/30">
-            <span className="text-xs font-medium">Version 2025</span>
-            <span className="w-1 h-1 rounded-full bg-sidebar-foreground/30" />
-            <span className="text-xs font-medium">Complete Edition</span>
+        <div className="p-4 border-t border-border">
+          <div className="flex items-center justify-center gap-2 text-muted-foreground/50">
+            <span className="text-[10px] font-medium">Versiunea 2025</span>
+            <span className="w-1 h-1 rounded-full bg-current" />
+            <span className="text-[10px] font-medium">Ediție Completă</span>
           </div>
         </div>
       </aside>

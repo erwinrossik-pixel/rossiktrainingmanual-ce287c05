@@ -11,11 +11,11 @@ interface InfoCardProps {
 
 export function InfoCard({ title, children, icon: Icon, variant = "default", className }: InfoCardProps) {
   const variants = {
-    default: "bg-card border-border/50",
-    highlight: "bg-gradient-to-br from-accent to-accent/50 border-primary/20",
-    warning: "bg-gradient-to-br from-warning/5 to-warning/10 border-warning/20",
-    success: "bg-gradient-to-br from-success/5 to-success/10 border-success/20",
-    info: "bg-gradient-to-br from-info/5 to-info/10 border-info/20",
+    default: "bg-card border-border",
+    highlight: "bg-accent border-primary/10",
+    warning: "bg-warning/5 border-warning/20",
+    success: "bg-success/5 border-success/20",
+    info: "bg-info/5 border-info/20",
   };
 
   const iconColors = {
@@ -28,29 +28,29 @@ export function InfoCard({ title, children, icon: Icon, variant = "default", cla
 
   const iconBg = {
     default: "bg-primary/10",
-    highlight: "bg-primary/15",
-    warning: "bg-warning/15",
-    success: "bg-success/15",
-    info: "bg-info/15",
+    highlight: "bg-primary/10",
+    warning: "bg-warning/10",
+    success: "bg-success/10",
+    info: "bg-info/10",
   };
 
   return (
     <div className={cn(
-      "rounded-2xl p-6 border shadow-sm transition-all duration-300 hover:shadow-md hover:-translate-y-0.5",
+      "rounded-xl p-5 border transition-all duration-200 hover:shadow-sm",
       variants[variant],
       className
     )}>
-      <div className="flex items-start gap-4">
+      <div className="flex items-start gap-3">
         {Icon && (
           <div className={cn(
-            "w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0 shadow-sm",
+            "w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0",
             iconBg[variant]
           )}>
-            <Icon className={cn("w-5 h-5", iconColors[variant])} />
+            <Icon className={cn("w-4 h-4", iconColors[variant])} />
           </div>
         )}
         <div className="flex-1 min-w-0">
-          <h3 className="font-semibold text-foreground mb-3 font-display text-lg tracking-tight">{title}</h3>
+          <h3 className="font-semibold text-foreground mb-2 text-base">{title}</h3>
           <div className="text-sm text-muted-foreground space-y-2 leading-relaxed">
             {children}
           </div>
