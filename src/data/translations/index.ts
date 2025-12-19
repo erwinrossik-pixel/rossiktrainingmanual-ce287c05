@@ -5,6 +5,11 @@ import { softskillsTranslations } from './chapters/softskills';
 import { workflowTranslations } from './chapters/workflow';
 import { vehicleTranslations } from './chapters/vehicle';
 import { loadingTranslations } from './chapters/loading';
+import { documentsTranslations } from './chapters/documents';
+import { customsTranslations } from './chapters/customs';
+import { pricingTranslations } from './chapters/pricing';
+import { incotermsTranslations } from './chapters/incoterms';
+import { adrTranslations } from './chapters/adr';
 
 // Chapter translations type
 type ChapterTranslations = Record<string, Record<string, string>>;
@@ -17,6 +22,11 @@ const allTranslations: Record<string, ChapterTranslations> = {
   workflow: workflowTranslations,
   vehicle: vehicleTranslations,
   loading: loadingTranslations,
+  documents: documentsTranslations,
+  customs: customsTranslations,
+  pricing: pricingTranslations,
+  incoterms: incotermsTranslations,
+  adr: adrTranslations,
 };
 
 // Hook to get chapter translations
