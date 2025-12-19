@@ -1,5 +1,10 @@
 import { Language } from '@/contexts/LanguageContext';
 import { introTranslations } from './chapters/intro';
+import { mindsetTranslations } from './chapters/mindset';
+import { softskillsTranslations } from './chapters/softskills';
+import { workflowTranslations } from './chapters/workflow';
+import { vehicleTranslations } from './chapters/vehicle';
+import { loadingTranslations } from './chapters/loading';
 
 // Chapter translations type
 type ChapterTranslations = Record<string, Record<string, string>>;
@@ -7,6 +12,11 @@ type ChapterTranslations = Record<string, Record<string, string>>;
 // All chapter translations
 const allTranslations: Record<string, ChapterTranslations> = {
   intro: introTranslations,
+  mindset: mindsetTranslations,
+  'soft-skills': softskillsTranslations,
+  workflow: workflowTranslations,
+  vehicle: vehicleTranslations,
+  loading: loadingTranslations,
 };
 
 // Hook to get chapter translations
