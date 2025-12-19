@@ -1160,4 +1160,54 @@ export const quizzes: Record<string, QuizQuestion[]> = {
       explanation: "Provide: number of pallets, weight, delivery reference, vehicle type, accurate ETA, and any special requirements.",
     },
   ],
+  "licenses-oversize": [
+    {
+      question: "Care este valabilitatea standard a unei licențe comunitare de transport?",
+      options: ["3 ani", "5 ani", "10 ani", "Nelimitat"],
+      correctIndex: 1,
+      explanation: "Licența comunitară de transport are o valabilitate standard de 5 ani și trebuie reînnoită înainte de expirare.",
+    },
+    {
+      question: "Ce reprezintă 'cabotajul' în transportul rutier?",
+      options: ["Transport între două țări UE", "Transport național efectuat de un operator străin", "Transport internațional de mărfuri periculoase", "Transport cu vehicule sub 3.5t"],
+      correctIndex: 1,
+      explanation: "Cabotajul reprezintă operațiunile de transport național de mărfuri efectuate de un operator de transport dintr-un alt stat membru pe teritoriul unui stat gazdă.",
+    },
+    {
+      question: "Câte operațiuni de cabotaj sunt permise în termen de 7 zile conform regulamentelor actuale?",
+      options: ["1 operațiune", "3 operațiuni", "5 operațiuni", "Nelimitat"],
+      correctIndex: 1,
+      explanation: "Conform Pachetului de Mobilitate, sunt permise maximum 3 operațiuni de cabotaj în termen de 7 zile de la ultima descărcare internațională.",
+    },
+    {
+      question: "Care este capacitatea financiară minimă necesară pentru primul vehicul peste 3.5t?",
+      options: ["5.000€", "9.000€", "15.000€", "20.000€"],
+      correctIndex: 1,
+      explanation: "Pentru obținerea licenței de transport, operatorul trebuie să demonstreze o capacitate financiară de minimum 9.000€ pentru primul vehicul și 5.000€ pentru fiecare vehicul adițional.",
+    },
+    {
+      question: "Un transport este considerat agabaritic când depășește lățimea de:",
+      options: ["2.00m", "2.55m", "3.00m", "3.50m"],
+      correctIndex: 1,
+      explanation: "Un transport este considerat agabaritic când depășește lățimea standard de 2.55m (sau 2.60m pentru vehicule frigorifice).",
+    },
+    {
+      question: "Ce document trebuie să fie prezent în fiecare vehicul de transport internațional peste 3.5t?",
+      options: ["Doar permisul șoferului", "Copia conformă a licenței comunitare", "Doar CMR-ul", "Contract de muncă"],
+      correctIndex: 1,
+      explanation: "Fiecare vehicul din flotă care depășește 3.5 tone GVW trebuie să aibă la bord o copie conformă a licenței comunitare.",
+    },
+    {
+      question: "Ce este 'cooling-off period' în regulile de cabotaj?",
+      options: ["Perioada de odihnă a șoferului", "4 zile de pauză înainte de noi operațiuni de cabotaj în același stat", "Timpul de răcire pentru mărfuri", "Perioada de expirare a licenței"],
+      correctIndex: 1,
+      explanation: "Cooling-off period reprezintă cele 4 zile obligatorii de pauză înainte ca un operator să poată efectua noi operațiuni de cabotaj în același stat membru.",
+    },
+    {
+      question: "Ce semnalizare este obligatorie pentru transportul agabaritic?",
+      options: ["Doar lumini de avarie", "Panouri 'Transport Agabaritic', lumini galbene intermitente și reflectoare", "Doar panouri cu dimensiuni", "Nu este necesară semnalizare specială"],
+      correctIndex: 1,
+      explanation: "Transportul agabaritic necesită panouri 'Transport Agabaritic' față/spate, lumini galbene intermitente, reflectoare suplimentare și panouri cu dimensiunile mărfii.",
+    },
+  ],
 };

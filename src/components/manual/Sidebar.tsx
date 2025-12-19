@@ -2,7 +2,7 @@ import {
   BookOpen, Users, Truck, Package, Shield, Calculator, 
   Building2, Route, Clock, Laptop, GraduationCap, AlertTriangle, 
   ClipboardList, Target, Menu, X, Phone, MessageSquare, Scale,
-  FileText, Flame, Book, Lightbulb, CheckCircle2, BarChart3, Sparkles
+  FileText, Flame, Book, Lightbulb, CheckCircle2, BarChart3, Sparkles, Award
 } from "lucide-react";
 import rossikLogo from "@/assets/rossik-logo.jpg";
 import { cn } from "@/lib/utils";
@@ -89,6 +89,7 @@ const sections = [
       { id: "red-flags", label: "Red Flags & Tips", icon: AlertTriangle },
       { id: "glossary", label: "Glossary", icon: Book },
       { id: "checklists", label: "Checklists", icon: ClipboardList },
+      { id: "licenses-oversize", label: "Licențe & Agabaritic", icon: Award },
     ]
   },
 ];

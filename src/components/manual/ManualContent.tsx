@@ -38,6 +38,7 @@ import { RiskManagementChapter } from "./chapters/RiskManagementChapter";
 import { AccountingChapter } from "./chapters/AccountingChapter";
 import { NegotiationChapter } from "./chapters/NegotiationChapter";
 import { WarehouseChapter } from "./chapters/WarehouseChapter";
+import { LicensesOversizeChapter } from "./chapters/LicensesOversizeChapter";
 import { ChapterNavigation } from "./ChapterNavigation";
 
 interface ManualContentProps {
@@ -86,6 +87,7 @@ export function ManualContent({ activeChapter, onChapterChange }: ManualContentP
     training: <TrainingChapter />,
     "red-flags": <RedFlagsChapter />,
     checklists: <ChecklistsChapter />,
+    "licenses-oversize": <LicensesOversizeChapter />,
   };
 
   return (
