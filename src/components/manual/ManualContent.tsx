@@ -91,17 +91,25 @@ export function ManualContent({ activeChapter, onChapterChange }: ManualContentP
   return (
     <>
       <ReadingProgress />
-      <main className="lg:ml-72 min-h-screen p-6 lg:p-10">
-        <div className="max-w-4xl mx-auto">
-          <div 
-            key={activeChapter}
-            className="animate-chapter-enter"
-          >
-            {chapters[activeChapter] || <IntroChapter />}
-            <ChapterNavigation 
-              activeChapter={activeChapter} 
-              onChapterChange={onChapterChange} 
-            />
+      <main className="lg:ml-80 min-h-screen bg-background">
+        {/* Decorative background elements */}
+        <div className="fixed inset-0 lg:left-80 pointer-events-none overflow-hidden -z-10">
+          <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/3 rounded-full blur-3xl translate-x-1/2 -translate-y-1/2" />
+          <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-info/3 rounded-full blur-3xl -translate-x-1/2 translate-y-1/2" />
+        </div>
+        
+        <div className="p-6 lg:p-12">
+          <div className="max-w-4xl mx-auto">
+            <div 
+              key={activeChapter}
+              className="animate-chapter-enter"
+            >
+              {chapters[activeChapter] || <IntroChapter />}
+              <ChapterNavigation 
+                activeChapter={activeChapter} 
+                onChapterChange={onChapterChange} 
+              />
+            </div>
           </div>
         </div>
       </main>

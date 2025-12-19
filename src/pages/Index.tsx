@@ -32,7 +32,7 @@ function ManualApp() {
         onShowDashboard={() => setShowDashboard(true)}
       />
       {showDashboard ? (
-        <main className="lg:ml-72 min-h-screen p-6 lg:p-8">
+        <main className="lg:ml-80 min-h-screen p-6 lg:p-10">
           <ProgressDashboard 
             onNavigate={handleNavigateFromDashboard}
             onClose={() => setShowDashboard(false)}
