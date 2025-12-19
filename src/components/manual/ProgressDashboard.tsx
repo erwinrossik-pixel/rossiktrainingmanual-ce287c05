@@ -1,6 +1,6 @@
 import { 
   Trophy, Target, Clock, CheckCircle2, XCircle, TrendingUp, 
-  Award, BarChart3, Percent, BookOpen, RotateCcw, Sparkles, ArrowLeft
+  Award, BarChart3, Percent, BookOpen, RotateCcw, ArrowLeft
 } from "lucide-react";
 import { useProgressContext } from "@/contexts/ProgressContext";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -11,57 +11,58 @@ import { Certificate } from "./Certificate";
 
 const chapters = [
   // SECTION 1: Foundation
-  { id: "intro", label: "1. Introduction", section: "Foundation" },
-  { id: "mindset", label: "2. Role & Mindset", section: "Foundation" },
-  { id: "soft-skills", label: "3. Soft Skills", section: "Foundation" },
-  { id: "workflow", label: "4. Operational Workflow", section: "Foundation" },
+  { id: "intro", label: "1. Introducere", section: "Fundament" },
+  { id: "mindset", label: "2. Rol & Mentalitate", section: "Fundament" },
+  { id: "soft-skills", label: "3. Soft Skills", section: "Fundament" },
+  { id: "workflow", label: "4. Flux Operațional", section: "Fundament" },
   
   // SECTION 2: Equipment & Handling
-  { id: "vehicle", label: "5. Vehicle Reference", section: "Equipment" },
-  { id: "loading", label: "6. Loading & Securing", section: "Equipment" },
-  { id: "reefer", label: "7. Temperature Transport", section: "Equipment" },
-  { id: "warehouse", label: "8. Warehouse & Cross-Dock", section: "Equipment" },
-  { id: "adr", label: "9. ADR Dangerous Goods", section: "Equipment" },
-  { id: "documents", label: "10. Transport Documents", section: "Equipment" },
+  { id: "vehicle", label: "5. Referință Vehicule", section: "Echipamente" },
+  { id: "loading", label: "6. Încărcare & Fixare", section: "Echipamente" },
+  { id: "reefer", label: "7. Transport Frigorific", section: "Echipamente" },
+  { id: "warehouse", label: "8. Depozit & Cross-Dock", section: "Echipamente" },
+  { id: "adr", label: "9. ADR Mărfuri Periculoase", section: "Echipamente" },
+  { id: "documents", label: "10. Documente Transport", section: "Echipamente" },
   
   // SECTION 3: Trade & Regulations
-  { id: "incoterms", label: "11. Incoterms & Trade", section: "Regulations" },
-  { id: "compliance", label: "12. Drivers' Hours", section: "Regulations" },
-  { id: "driving-time", label: "13. Shift vs Driving Time", section: "Regulations" },
-  { id: "customs", label: "14. Customs & Borders", section: "Regulations" },
-  { id: "europe-zones", label: "15. European Zones", section: "Regulations" },
-  { id: "environment", label: "16. Environmental", section: "Regulations" },
-  { id: "supply-chain", label: "17. Supply Chain", section: "Regulations" },
+  { id: "incoterms", label: "11. Incoterms & Comerț", section: "Reglementări" },
+  { id: "compliance", label: "12. Ore de Condus", section: "Reglementări" },
+  { id: "driving-time", label: "13. Schimb vs Condus", section: "Reglementări" },
+  { id: "customs", label: "14. Vamă & Frontiere", section: "Reglementări" },
+  { id: "europe-zones", label: "15. Zone Europene", section: "Reglementări" },
+  { id: "environment", label: "16. Mediu", section: "Reglementări" },
+  { id: "supply-chain", label: "17. Lanț Aprovizionare", section: "Reglementări" },
   
   // SECTION 4: Commercial Skills
-  { id: "pricing", label: "18. Pricing & Tolls", section: "Commercial" },
-  { id: "commercial", label: "19. Commercial Skills", section: "Commercial" },
-  { id: "negotiation", label: "20. Negotiation", section: "Commercial" },
-  { id: "clients", label: "21. Finding Clients", section: "Commercial" },
-  { id: "carrier-management", label: "22. Carrier Management", section: "Commercial" },
-  { id: "exchanges", label: "23. Freight Exchanges", section: "Commercial" },
-  { id: "communication", label: "24. Communication", section: "Commercial" },
-  { id: "kpi", label: "25. KPIs & Performance", section: "Commercial" },
+  { id: "pricing", label: "18. Prețuri & Taxe", section: "Comercial" },
+  { id: "commercial", label: "19. Abilități Comerciale", section: "Comercial" },
+  { id: "negotiation", label: "20. Negociere", section: "Comercial" },
+  { id: "clients", label: "21. Găsirea Clienților", section: "Comercial" },
+  { id: "carrier-management", label: "22. Gestiune Transportatori", section: "Comercial" },
+  { id: "exchanges", label: "23. Burse de Marfă", section: "Comercial" },
+  { id: "communication", label: "24. Comunicare", section: "Comercial" },
+  { id: "kpi", label: "25. KPI & Performanță", section: "Comercial" },
   
   // SECTION 5: Systems & Technology
-  { id: "translogica", label: "26. Translogica TMS", section: "Technology" },
-  { id: "fleet", label: "27. Fleet & GPS", section: "Technology" },
-  { id: "technology", label: "28. Technology & Digital", section: "Technology" },
+  { id: "translogica", label: "26. Translogica TMS", section: "Tehnologie" },
+  { id: "fleet", label: "27. Flotă & GPS", section: "Tehnologie" },
+  { id: "technology", label: "28. Tehnologie & Digital", section: "Tehnologie" },
   
   // SECTION 6: Risk & Finance
-  { id: "risk-management", label: "29. Risk Management", section: "Finance" },
-  { id: "insurance", label: "30. Transport Insurance", section: "Finance" },
-  { id: "claims", label: "31. Claims & Disputes", section: "Finance" },
-  { id: "payment", label: "32. Payment & Invoicing", section: "Finance" },
-  { id: "accounting", label: "33. Accounting & Finance", section: "Finance" },
+  { id: "risk-management", label: "29. Managementul Riscului", section: "Finanțe" },
+  { id: "insurance", label: "30. Asigurări Transport", section: "Finanțe" },
+  { id: "claims", label: "31. Daune & Dispute", section: "Finanțe" },
+  { id: "payment", label: "32. Plăți & Facturare", section: "Finanțe" },
+  { id: "accounting", label: "33. Contabilitate", section: "Finanțe" },
   
   // SECTION 7: Practical Application
-  { id: "emergency", label: "34. Emergency Procedures", section: "Practical" },
-  { id: "case-studies", label: "35. Case Studies", section: "Practical" },
-  { id: "training", label: "36. Training Exercises", section: "Practical" },
-  { id: "red-flags", label: "37. Red Flags & Tips", section: "Practical" },
-  { id: "glossary", label: "38. Glossary", section: "Practical" },
-  { id: "checklists", label: "39. Checklists", section: "Practical" },
+  { id: "emergency", label: "34. Proceduri Urgență", section: "Practică" },
+  { id: "case-studies", label: "35. Studii de Caz", section: "Practică" },
+  { id: "training", label: "36. Exerciții Training", section: "Practică" },
+  { id: "red-flags", label: "37. Red Flags & Sfaturi", section: "Practică" },
+  { id: "glossary", label: "38. Glosar", section: "Practică" },
+  { id: "checklists", label: "39. Checklists", section: "Practică" },
+  { id: "licenses-oversize", label: "40. Licențe & Agabaritic", section: "Practică" },
 ];
 
 interface ProgressDashboardProps {
@@ -131,136 +132,122 @@ export function ProgressDashboard({ onNavigate, onClose }: ProgressDashboardProp
   };
 
   return (
-    <div className="space-y-8 max-w-5xl mx-auto">
+    <div className="space-y-6 max-w-5xl mx-auto">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-4xl font-bold text-foreground flex items-center gap-4 font-display">
-            <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary to-rossik-dark flex items-center justify-center shadow-lg">
-              <BarChart3 className="w-7 h-7 text-primary-foreground" />
+          <h1 className="text-2xl font-bold text-foreground flex items-center gap-3">
+            <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+              <BarChart3 className="w-5 h-5 text-primary" />
             </div>
-            Progress Dashboard
+            Dashboard Progres
           </h1>
-          <p className="text-muted-foreground mt-2 text-lg">Track your learning journey</p>
+          <p className="text-muted-foreground mt-1 text-sm">Urmărește progresul tău de învățare</p>
         </div>
         <Button 
           variant="outline" 
-          size="lg" 
+          size="sm" 
           onClick={onClose}
-          className="rounded-xl gap-2 hover:bg-muted/50"
+          className="gap-2"
         >
           <ArrowLeft className="w-4 h-4" />
-          Back to Manual
+          Înapoi
         </Button>
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-        <Card className="bg-gradient-to-br from-primary/10 via-primary/5 to-transparent border-primary/20 shadow-sm hover:shadow-md transition-shadow">
-          <CardContent className="pt-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-muted-foreground font-medium">Overall Progress</p>
-                <p className="text-4xl font-bold text-primary mt-1">{overallProgress}%</p>
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <Card className="border-border">
+          <CardContent className="pt-5 pb-4">
+            <div className="flex items-center justify-between mb-3">
+              <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center">
+                <Target className="w-4 h-4 text-primary" />
               </div>
-              <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center">
-                <Target className="w-7 h-7 text-primary" />
-              </div>
+              <span className="text-2xl font-bold text-primary">{overallProgress}%</span>
             </div>
-            <Progress value={overallProgress} className="mt-4 h-2" />
+            <p className="text-xs text-muted-foreground">Progres General</p>
+            <Progress value={overallProgress} className="mt-2 h-1.5" />
           </CardContent>
         </Card>
 
-        <Card className="bg-gradient-to-br from-success/10 via-success/5 to-transparent border-success/20 shadow-sm hover:shadow-md transition-shadow">
-          <CardContent className="pt-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-muted-foreground font-medium">Chapters Completed</p>
-                <p className="text-4xl font-bold text-success mt-1">{quizStats.completedChapters}</p>
-                <p className="text-xs text-muted-foreground mt-1">of {chapters.length} total</p>
+        <Card className="border-border">
+          <CardContent className="pt-5 pb-4">
+            <div className="flex items-center justify-between mb-3">
+              <div className="w-9 h-9 rounded-lg bg-success/10 flex items-center justify-center">
+                <CheckCircle2 className="w-4 h-4 text-success" />
               </div>
-              <div className="w-14 h-14 rounded-2xl bg-success/10 flex items-center justify-center">
-                <CheckCircle2 className="w-7 h-7 text-success" />
-              </div>
+              <span className="text-2xl font-bold text-success">{quizStats.completedChapters}</span>
             </div>
+            <p className="text-xs text-muted-foreground">Capitole Completate</p>
+            <p className="text-[10px] text-muted-foreground/70 mt-1">din {chapters.length} total</p>
           </CardContent>
         </Card>
 
-        <Card className="bg-gradient-to-br from-warning/10 via-warning/5 to-transparent border-warning/20 shadow-sm hover:shadow-md transition-shadow">
-          <CardContent className="pt-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-muted-foreground font-medium">Quizzes Taken</p>
-                <p className="text-4xl font-bold text-warning mt-1">{quizStats.totalQuizzes}</p>
-                <p className="text-xs text-muted-foreground mt-1">{quizStats.passedQuizzes} passed</p>
+        <Card className="border-border">
+          <CardContent className="pt-5 pb-4">
+            <div className="flex items-center justify-between mb-3">
+              <div className="w-9 h-9 rounded-lg bg-warning/10 flex items-center justify-center">
+                <Trophy className="w-4 h-4 text-warning" />
               </div>
-              <div className="w-14 h-14 rounded-2xl bg-warning/10 flex items-center justify-center">
-                <Trophy className="w-7 h-7 text-warning" />
-              </div>
+              <span className="text-2xl font-bold text-warning">{quizStats.totalQuizzes}</span>
             </div>
+            <p className="text-xs text-muted-foreground">Teste Completate</p>
+            <p className="text-[10px] text-muted-foreground/70 mt-1">{quizStats.passedQuizzes} promovate</p>
           </CardContent>
         </Card>
 
-        <Card className="bg-gradient-to-br from-info/10 via-info/5 to-transparent border-info/20 shadow-sm hover:shadow-md transition-shadow">
-          <CardContent className="pt-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm text-muted-foreground font-medium">Average Score</p>
-                <p className="text-4xl font-bold text-info mt-1">{averageScore}%</p>
-                <p className="text-xs text-muted-foreground mt-1">{passRate}% pass rate</p>
+        <Card className="border-border">
+          <CardContent className="pt-5 pb-4">
+            <div className="flex items-center justify-between mb-3">
+              <div className="w-9 h-9 rounded-lg bg-info/10 flex items-center justify-center">
+                <TrendingUp className="w-4 h-4 text-info" />
               </div>
-              <div className="w-14 h-14 rounded-2xl bg-info/10 flex items-center justify-center">
-                <TrendingUp className="w-7 h-7 text-info" />
-              </div>
+              <span className="text-2xl font-bold text-info">{averageScore}%</span>
             </div>
+            <p className="text-xs text-muted-foreground">Scor Mediu</p>
+            <p className="text-[10px] text-muted-foreground/70 mt-1">{passRate}% rată promovare</p>
           </CardContent>
         </Card>
       </div>
 
       {/* Two Column Layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
         {/* Recent Activity */}
-        <Card className="shadow-sm border-border/50">
-          <CardHeader className="pb-4">
-            <CardTitle className="flex items-center gap-3 text-xl">
-              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-                <Clock className="w-5 h-5 text-primary" />
-              </div>
-              Recent Activity
+        <Card className="border-border">
+          <CardHeader className="pb-3">
+            <CardTitle className="flex items-center gap-2 text-base">
+              <Clock className="w-4 h-4 text-primary" />
+              Activitate Recentă
             </CardTitle>
           </CardHeader>
           <CardContent>
             {recentActivity.length > 0 ? (
-              <div className="space-y-3">
+              <div className="space-y-2">
                 {recentActivity.map(item => (
                   <button
                     key={item.id}
                     onClick={() => onNavigate(item.id)}
-                    className="w-full flex items-center justify-between p-4 rounded-xl bg-muted/30 hover:bg-muted/50 border border-transparent hover:border-border/50 transition-all duration-200 text-left group"
+                    className="w-full flex items-center justify-between p-3 rounded-lg bg-muted/30 hover:bg-muted/50 transition-colors text-left group"
                   >
-                    <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-3">
                       {item.progress?.completed ? (
-                        <div className="w-10 h-10 rounded-xl bg-success/10 flex items-center justify-center">
-                          <CheckCircle2 className="w-5 h-5 text-success" />
-                        </div>
+                        <CheckCircle2 className="w-4 h-4 text-success" />
                       ) : (
-                        <div className="w-10 h-10 rounded-xl bg-muted flex items-center justify-center">
-                          <BookOpen className="w-5 h-5 text-muted-foreground" />
-                        </div>
+                        <BookOpen className="w-4 h-4 text-muted-foreground" />
                       )}
                       <div>
-                        <p className="font-semibold text-sm group-hover:text-primary transition-colors">{item.label}</p>
-                        <p className="text-xs text-muted-foreground mt-0.5">
+                        <p className="font-medium text-sm group-hover:text-primary transition-colors">{item.label}</p>
+                        <p className="text-xs text-muted-foreground">
                           {formatDate(item.progress?.lastVisited)}
                         </p>
                       </div>
                     </div>
                     {item.progress?.quizScore !== undefined && (
                       <span className={cn(
-                        "text-xs px-3 py-1.5 rounded-full font-semibold",
+                        "text-xs px-2 py-1 rounded font-medium",
                         item.progress.quizScore >= (item.progress.quizTotal! * 0.7)
-                          ? "bg-success/15 text-success"
-                          : "bg-warning/15 text-warning"
+                          ? "bg-success/10 text-success"
+                          : "bg-warning/10 text-warning"
                       )}>
                         {item.progress.quizScore}/{item.progress.quizTotal}
                       </span>
@@ -269,10 +256,10 @@ export function ProgressDashboard({ onNavigate, onClose }: ProgressDashboardProp
                 ))}
               </div>
             ) : (
-              <div className="text-center py-12">
-                <Sparkles className="w-12 h-12 text-muted-foreground/30 mx-auto mb-3" />
-                <p className="text-muted-foreground">
-                  No activity yet. Start reading chapters to track your progress!
+              <div className="text-center py-8">
+                <BookOpen className="w-8 h-8 text-muted-foreground/30 mx-auto mb-2" />
+                <p className="text-sm text-muted-foreground">
+                  Nicio activitate încă. Începe să citești capitolele!
                 </p>
               </div>
             )}
@@ -280,53 +267,47 @@ export function ProgressDashboard({ onNavigate, onClose }: ProgressDashboardProp
         </Card>
 
         {/* Quiz Performance */}
-        <Card className="shadow-sm border-border/50">
-          <CardHeader className="pb-4">
-            <CardTitle className="flex items-center gap-3 text-xl">
-              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-                <Award className="w-5 h-5 text-primary" />
-              </div>
-              Quiz Performance
+        <Card className="border-border">
+          <CardHeader className="pb-3">
+            <CardTitle className="flex items-center gap-2 text-base">
+              <Award className="w-4 h-4 text-primary" />
+              Performanță Teste
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="space-y-5">
+            <div className="space-y-4">
               {/* Performance Summary */}
-              <div className="grid grid-cols-2 gap-4">
-                <div className="p-5 bg-success/10 rounded-2xl text-center border border-success/20">
-                  <Percent className="w-7 h-7 mx-auto text-success mb-2" />
-                  <p className="text-3xl font-bold text-success">{passRate}%</p>
-                  <p className="text-xs text-muted-foreground mt-1">Pass Rate</p>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="p-4 bg-success/5 rounded-lg text-center border border-success/10">
+                  <Percent className="w-5 h-5 mx-auto text-success mb-1" />
+                  <p className="text-xl font-bold text-success">{passRate}%</p>
+                  <p className="text-xs text-muted-foreground">Rată Promovare</p>
                 </div>
-                <div className="p-5 bg-primary/10 rounded-2xl text-center border border-primary/20">
-                  <Target className="w-7 h-7 mx-auto text-primary mb-2" />
-                  <p className="text-3xl font-bold text-primary">
+                <div className="p-4 bg-primary/5 rounded-lg text-center border border-primary/10">
+                  <Target className="w-5 h-5 mx-auto text-primary mb-1" />
+                  <p className="text-xl font-bold text-primary">
                     {quizStats.totalScore}/{quizStats.totalQuestions}
                   </p>
-                  <p className="text-xs text-muted-foreground mt-1">Total Score</p>
+                  <p className="text-xs text-muted-foreground">Scor Total</p>
                 </div>
               </div>
 
               {/* Pass/Fail Breakdown */}
               {quizStats.totalQuizzes > 0 && (
-                <div className="space-y-3 p-4 bg-muted/30 rounded-xl">
+                <div className="space-y-2 p-3 bg-muted/30 rounded-lg">
                   <div className="flex items-center justify-between text-sm">
-                    <span className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-lg bg-success/10 flex items-center justify-center">
-                        <CheckCircle2 className="w-4 h-4 text-success" />
-                      </div>
-                      <span className="font-medium">Passed</span>
+                    <span className="flex items-center gap-2">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-success" />
+                      <span>Promovate</span>
                     </span>
-                    <span className="font-bold text-success">{quizStats.passedQuizzes}</span>
+                    <span className="font-semibold text-success">{quizStats.passedQuizzes}</span>
                   </div>
                   <div className="flex items-center justify-between text-sm">
-                    <span className="flex items-center gap-3">
-                      <div className="w-8 h-8 rounded-lg bg-destructive/10 flex items-center justify-center">
-                        <XCircle className="w-4 h-4 text-destructive" />
-                      </div>
-                      <span className="font-medium">Need Improvement</span>
+                    <span className="flex items-center gap-2">
+                      <XCircle className="w-3.5 h-3.5 text-destructive" />
+                      <span>De Îmbunătățit</span>
                     </span>
-                    <span className="font-bold text-destructive">
+                    <span className="font-semibold text-destructive">
                       {quizStats.totalQuizzes - quizStats.passedQuizzes}
                     </span>
                   </div>
@@ -338,17 +319,15 @@ export function ProgressDashboard({ onNavigate, onClose }: ProgressDashboardProp
       </div>
 
       {/* All Chapters Progress */}
-      <Card className="shadow-sm border-border/50">
-        <CardHeader className="pb-4">
-          <CardTitle className="flex items-center gap-3 text-xl">
-            <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-              <BookOpen className="w-5 h-5 text-primary" />
-            </div>
-            All Chapters Progress
+      <Card className="border-border">
+        <CardHeader className="pb-3">
+          <CardTitle className="flex items-center gap-2 text-base">
+            <BookOpen className="w-4 h-4 text-primary" />
+            Toate Capitolele
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
             {chapters.map(chapter => {
               const chapterProgress = getChapterProgress(chapter.id);
               const isCompleted = chapterProgress?.completed;
@@ -360,42 +339,32 @@ export function ProgressDashboard({ onNavigate, onClose }: ProgressDashboardProp
                   key={chapter.id}
                   onClick={() => onNavigate(chapter.id)}
                   className={cn(
-                    "p-4 rounded-xl border text-left transition-all duration-200 hover:shadow-md group",
+                    "p-3 rounded-lg border text-left transition-all duration-150 group",
                     isCompleted 
-                      ? "bg-success/5 border-success/20 hover:bg-success/10 hover:border-success/30" 
-                      : "bg-card border-border/50 hover:bg-muted/50 hover:border-primary/20"
+                      ? "bg-success/5 border-success/20 hover:bg-success/10" 
+                      : "bg-card border-border hover:bg-muted/50 hover:border-primary/20"
                   )}
                 >
-                  <div className="flex items-start justify-between">
-                    <div className="flex-1">
+                  <div className="flex items-center justify-between">
+                    <div className="flex-1 min-w-0">
                       <p className={cn(
-                        "font-semibold text-sm transition-colors",
+                        "font-medium text-sm truncate transition-colors",
                         isCompleted ? "text-success" : "text-foreground group-hover:text-primary"
                       )}>
                         {chapter.label}
                       </p>
-                      {chapterProgress?.lastVisited && (
-                        <p className="text-xs text-muted-foreground mt-1.5">
-                          Last: {formatDate(chapterProgress.lastVisited)}
-                        </p>
-                      )}
+                      <p className="text-[10px] text-muted-foreground mt-0.5">{chapter.section}</p>
                     </div>
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-1.5 ml-2">
                       {hasQuiz && (
                         <span className={cn(
-                          "text-xs px-2 py-1 rounded-full font-semibold",
-                          quizPassed
-                            ? "bg-success/15 text-success"
-                            : "bg-warning/15 text-warning"
+                          "text-[10px] px-1.5 py-0.5 rounded font-medium",
+                          quizPassed ? "bg-success/10 text-success" : "bg-warning/10 text-warning"
                         )}>
                           {chapterProgress.quizScore}/{chapterProgress.quizTotal}
                         </span>
                       )}
-                      {isCompleted ? (
-                        <CheckCircle2 className="w-5 h-5 text-success" />
-                      ) : (
-                        <div className="w-5 h-5 rounded-full border-2 border-muted-foreground/30" />
-                      )}
+                      {isCompleted && <CheckCircle2 className="w-3.5 h-3.5 text-success" />}
                     </div>
                   </div>
                 </button>
@@ -405,43 +374,44 @@ export function ProgressDashboard({ onNavigate, onClose }: ProgressDashboardProp
         </CardContent>
       </Card>
 
-      {/* Certificate */}
-      <Certificate
-        isEligible={isCertificateEligible}
-        completedChapters={quizStats.completedChapters}
-        totalChapters={chapters.length}
-        averageScore={averageScore}
-        passedQuizzes={quizStats.passedQuizzes}
-        totalQuizzes={quizStats.totalQuizzes}
-      />
-
-      {/* Reset Progress */}
-      {progress.totalCompleted > 0 && (
-        <Card className="border-destructive/20 bg-destructive/5">
-          <CardContent className="pt-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="font-semibold text-destructive">Reset All Progress</p>
-                <p className="text-sm text-muted-foreground mt-1">
-                  This will clear all completed chapters and quiz scores.
-                </p>
+      {/* Certificate Section */}
+      {isCertificateEligible && (
+        <Card className="border-success/20 bg-success/5">
+          <CardContent className="pt-5">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 rounded-lg bg-success/10 flex items-center justify-center">
+                <Award className="w-5 h-5 text-success" />
               </div>
-              <Button 
-                variant="outline" 
-                className="border-destructive/50 text-destructive hover:bg-destructive hover:text-destructive-foreground rounded-xl"
-                onClick={() => {
-                  if (confirm('Are you sure you want to reset all progress?')) {
-                    resetProgress();
-                  }
-                }}
-              >
-                <RotateCcw className="w-4 h-4 mr-2" />
-                Reset Progress
-              </Button>
+              <div>
+                <h3 className="font-semibold text-success">Felicitări!</h3>
+                <p className="text-sm text-muted-foreground">Ai completat toate capitolele și testele</p>
+              </div>
             </div>
+            <Certificate 
+              completedChapters={quizStats.completedChapters}
+              totalChapters={chapters.length}
+              averageScore={averageScore}
+            />
           </CardContent>
         </Card>
       )}
+
+      {/* Reset Progress */}
+      <div className="flex justify-center">
+        <Button 
+          variant="ghost" 
+          size="sm"
+          onClick={() => {
+            if (confirm('Ești sigur că vrei să resetezi tot progresul?')) {
+              resetProgress();
+            }
+          }}
+          className="text-muted-foreground hover:text-destructive gap-2"
+        >
+          <RotateCcw className="w-3.5 h-3.5" />
+          Resetează Progresul
+        </Button>
+      </div>
     </div>
   );
 }

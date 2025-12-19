@@ -93,11 +93,11 @@ export function ManualContent({ activeChapter, onChapterChange }: ManualContentP
   return (
     <>
       <ReadingProgress />
-      <main className="lg:ml-80 min-h-screen bg-background">
-        {/* Decorative background elements */}
-        <div className="fixed inset-0 lg:left-80 pointer-events-none overflow-hidden -z-10">
-          <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary/3 rounded-full blur-3xl translate-x-1/2 -translate-y-1/2" />
-          <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-info/3 rounded-full blur-3xl -translate-x-1/2 translate-y-1/2" />
+      <main className="lg:ml-72 min-h-screen bg-background">
+        {/* Clean background */}
+        <div className="fixed inset-0 lg:left-72 pointer-events-none overflow-hidden -z-10">
+          <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/[0.02] rounded-full blur-3xl translate-x-1/3 -translate-y-1/3" />
+          <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-muted rounded-full blur-3xl -translate-x-1/3 translate-y-1/3" />
         </div>
         
         <div className="p-6 lg:p-12">
