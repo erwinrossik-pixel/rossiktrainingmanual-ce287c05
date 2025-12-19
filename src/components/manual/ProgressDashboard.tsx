@@ -388,9 +388,12 @@ export function ProgressDashboard({ onNavigate, onClose }: ProgressDashboardProp
               </div>
             </div>
             <Certificate 
+              isEligible={isCertificateEligible}
               completedChapters={quizStats.completedChapters}
               totalChapters={chapters.length}
               averageScore={averageScore}
+              passedQuizzes={quizStats.passedQuizzes}
+              totalQuizzes={quizStats.totalQuizzes}
             />
           </CardContent>
         </Card>
