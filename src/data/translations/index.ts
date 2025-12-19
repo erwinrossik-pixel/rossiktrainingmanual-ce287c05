@@ -10,6 +10,11 @@ import { customsTranslations } from './chapters/customs';
 import { pricingTranslations } from './chapters/pricing';
 import { incotermsTranslations } from './chapters/incoterms';
 import { adrTranslations } from './chapters/adr';
+import { claimsTranslations } from './chapters/claims';
+import { insuranceTranslations } from './chapters/insurance';
+import { paymentTranslations } from './chapters/payment';
+import { negotiationTranslations } from './chapters/negotiation';
+import { communicationTranslations } from './chapters/communication';
 
 // Chapter translations type
 type ChapterTranslations = Record<string, Record<string, string>>;
@@ -27,6 +32,11 @@ const allTranslations: Record<string, ChapterTranslations> = {
   pricing: pricingTranslations,
   incoterms: incotermsTranslations,
   adr: adrTranslations,
+  claims: claimsTranslations,
+  insurance: insuranceTranslations,
+  payment: paymentTranslations,
+  negotiation: negotiationTranslations,
+  communication: communicationTranslations,
 };
 
 // Hook to get chapter translations
