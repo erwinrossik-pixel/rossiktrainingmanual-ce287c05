@@ -129,12 +129,12 @@ export function Sidebar({ activeChapter, onChapterChange, onShowDashboard }: Sid
         mobileOpen ? "translate-x-0" : "-translate-x-full"
       )}>
         {/* Logo Header */}
-        <div className="p-6 border-b border-border">
-          <div className="flex flex-col items-center text-center gap-4">
+        <div className="p-4 border-b border-border">
+          <div className="flex flex-col items-center text-center gap-3">
             <img 
               src={rossikLogo} 
               alt="Rossik Transport & Logistic" 
-              className="h-28 w-28 object-contain rounded-2xl shadow-sm"
+              className="w-full h-auto object-contain rounded-xl"
             />
             <p className="text-sm font-medium text-muted-foreground">
               Manual Freight Forwarding
