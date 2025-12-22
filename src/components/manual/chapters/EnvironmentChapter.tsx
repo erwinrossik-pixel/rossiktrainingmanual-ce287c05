@@ -3,8 +3,11 @@ import { DataTable } from "../DataTable";
 import { Quiz } from "../Quiz";
 import { quizzes } from "@/data/quizData";
 import { Leaf, Truck, BarChart3, FileText, Globe, Fuel, TrendingDown, Award } from "lucide-react";
+import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 
 export function EnvironmentChapter() {
+  const { ct } = useChapterTranslation("environment");
+  
   return (
     <div className="space-y-8 animate-fade-in">
       {/* Hero Section */}
@@ -13,10 +16,10 @@ export function EnvironmentChapter() {
         <div className="relative">
           <Leaf className="w-12 h-12 mb-4" />
           <h1 className="text-3xl md:text-5xl font-bold mb-4 font-serif">
-            Environmental Compliance
+            {ct("title")}
           </h1>
           <p className="text-lg md:text-xl opacity-90 max-w-2xl">
-            CO₂ emissions, Euro standards, green logistics, and sustainability in transport.
+            {ct("subtitle")}
           </p>
         </div>
       </div>

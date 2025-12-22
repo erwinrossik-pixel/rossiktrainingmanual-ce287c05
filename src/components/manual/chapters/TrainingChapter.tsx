@@ -1,13 +1,16 @@
 import { InfoCard } from "../InfoCard";
 import { GraduationCap, Calculator, Search, Settings, FileText } from "lucide-react";
+import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 
 export function TrainingChapter() {
+  const { ct } = useChapterTranslation("training");
+  
   return (
     <div className="space-y-8 animate-fade-in">
       <div>
-        <h1 className="chapter-title">Training Assignments</h1>
+        <h1 className="chapter-title">{ct("title")}</h1>
         <p className="text-lg text-muted-foreground">
-          Practical exercises to apply your knowledge.
+          {ct("subtitle")}
         </p>
       </div>
 

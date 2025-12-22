@@ -3,8 +3,11 @@ import { DataTable } from "../DataTable";
 import { Quiz } from "../Quiz";
 import { quizzes } from "@/data/quizData";
 import { MapPin, Truck, BarChart3, Clock, Shield, Fuel, Settings, AlertTriangle } from "lucide-react";
+import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 
 export function FleetChapter() {
+  const { ct } = useChapterTranslation("fleet");
+  
   return (
     <div className="space-y-8 animate-fade-in">
       {/* Hero Section */}
@@ -13,10 +16,10 @@ export function FleetChapter() {
         <div className="relative">
           <MapPin className="w-12 h-12 mb-4" />
           <h1 className="text-3xl md:text-5xl font-bold mb-4 font-serif">
-            Fleet Management & GPS
+            {ct("title")}
           </h1>
           <p className="text-lg md:text-xl opacity-90 max-w-2xl">
-            Telematics, real-time tracking, route optimization, and fleet efficiency management.
+            {ct("subtitle")}
           </p>
         </div>
       </div>

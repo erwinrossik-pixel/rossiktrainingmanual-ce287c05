@@ -3,14 +3,17 @@ import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { quizzes } from "@/data/quizData";
 import { Link, Factory, Truck, Package, BarChart3, Users, Globe, TrendingUp, CheckCircle2, AlertTriangle, ArrowRight, Zap, Target } from "lucide-react";
+import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 
 export function SupplyChainChapter() {
+  const { ct } = useChapterTranslation("supply-chain");
+  
   return (
     <div className="space-y-8 animate-fade-in">
       <div>
-        <h1 className="chapter-title">Supply Chain Integration</h1>
+        <h1 className="chapter-title">{ct("title")}</h1>
         <p className="text-lg text-muted-foreground">
-          Understanding supply chains, logistics networks, and how freight forwarding fits into the broader picture of global trade and commerce.
+          {ct("subtitle")}
         </p>
       </div>
 

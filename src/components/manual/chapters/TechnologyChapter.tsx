@@ -3,14 +3,17 @@ import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { quizzes } from "@/data/quizData";
 import { Cpu, Smartphone, Cloud, Globe, BarChart3, Zap, Shield, TrendingUp, CheckCircle2, AlertTriangle, Bot, Wifi, Database, MapPin } from "lucide-react";
+import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 
 export function TechnologyChapter() {
+  const { ct } = useChapterTranslation("technology");
+  
   return (
     <div className="space-y-8 animate-fade-in">
       <div>
-        <h1 className="chapter-title">Technology & Digitalization</h1>
+        <h1 className="chapter-title">{ct("title")}</h1>
         <p className="text-lg text-muted-foreground">
-          Digital transformation in freight forwarding: TMS systems, tracking technologies, automation, AI applications, and the future of logistics technology.
+          {ct("subtitle")}
         </p>
       </div>
 

@@ -5,14 +5,17 @@ import {
   Monitor, Users, Truck, Package, CalendarDays, FileText, 
   BarChart3, Settings, Link, CheckCircle2, ArrowRight
 } from "lucide-react";
+import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 
 export function TranslogicaChapter() {
+  const { ct } = useChapterTranslation("translogica");
+  
   return (
     <div className="space-y-8 animate-fade-in">
       <div>
-        <h1 className="chapter-title">Translogica TMS Guide</h1>
+        <h1 className="chapter-title">{ct("title")}</h1>
         <p className="text-lg text-muted-foreground">
-          Complete guide to using our Transport Management System.
+          {ct("subtitle")}
         </p>
       </div>
 

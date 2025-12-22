@@ -4,14 +4,17 @@ import { Quiz } from "../Quiz";
 import { quizzes } from "@/data/quizData";
 import { Globe, Shield, MessageSquare, Search, Star, CreditCard } from "lucide-react";
 import { Badge } from "../Badge";
+import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 
 export function ExchangesChapter() {
+  const { ct } = useChapterTranslation("exchanges");
+  
   return (
     <div className="space-y-8 animate-fade-in">
       <div>
-        <h1 className="chapter-title">Freight Exchanges Overview</h1>
+        <h1 className="chapter-title">{ct("title")}</h1>
         <p className="text-lg text-muted-foreground">
-          The main platforms for finding loads and trucks across Europe.
+          {ct("subtitle")}
         </p>
       </div>
 
