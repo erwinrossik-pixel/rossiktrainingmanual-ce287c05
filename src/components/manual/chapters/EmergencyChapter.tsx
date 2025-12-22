@@ -26,76 +26,76 @@ export function EmergencyChapter() {
 
       {/* Emergency Response Flow */}
       <FlowDiagram
-        title="Emergency Response Protocol"
+        title={ct("emergencyResponseProtocol")}
         steps={[
-          { id: "secure", label: "Secure Scene", description: "Hazards & safety", color: "destructive" },
-          { id: "call", label: "Call 112", description: "Emergency services", color: "warning" },
-          { id: "document", label: "Document", description: "Photos & info", color: "info" },
-          { id: "notify", label: "Notify", description: "Dispatcher", color: "primary" },
-          { id: "wait", label: "Wait", description: "Follow instructions", color: "success" },
+          { id: "secure", label: ct("secureScene"), description: ct("hazardsSafety"), color: "destructive" },
+          { id: "call", label: ct("call112"), description: ct("emergencyServices"), color: "warning" },
+          { id: "document", label: ct("document"), description: ct("photosInfo"), color: "info" },
+          { id: "notify", label: ct("notify"), description: ct("dispatcher"), color: "primary" },
+          { id: "wait", label: ct("wait"), description: ct("followInstructions"), color: "success" },
         ]}
       />
 
       {/* Decision Diagram */}
       <DecisionDiagram
-        title="Injury Assessment"
-        question="Are there injuries?"
+        title={ct("injuryAssessment")}
+        question={ct("areThereInjuries")}
         yesPath={{
-          label: "Call 112 First",
-          result: "Provide first aid, wait for ambulance"
+          label: ct("call112First"),
+          result: ct("provideFirstAid")
         }}
         noPath={{
-          label: "Secure & Document",
-          result: "Exchange info, call dispatcher"
+          label: ct("secureAndDocument"),
+          result: ct("exchangeInfoCallDispatcher")
         }}
       />
 
       {/* Emergency Response Process Map */}
       <ProcessMap
-        title="Emergency Situation Handling"
+        title={ct("emergencySituationHandling")}
         phases={[
           {
-            name: "Road Accident",
+            name: ct("roadAccident"),
             color: "destructive",
             steps: [
-              "Turn on hazard lights",
-              "Place warning triangle",
-              "Put on high-vis vest",
-              "Call 112 immediately",
-              "Document with photos"
+              ct("turnOnHazardLights"),
+              ct("placeWarningTriangle"),
+              ct("putOnHighVisVest"),
+              ct("callImmediately"),
+              ct("documentWithPhotos")
             ]
           },
           {
-            name: "Vehicle Breakdown",
+            name: ct("vehicleBreakdown"),
             color: "warning",
             steps: [
-              "Pull off the road",
-              "Activate hazards",
-              "Exit on safe side",
-              "Call breakdown service",
-              "Notify dispatcher"
+              ct("pullOffRoad"),
+              ct("activateHazards"),
+              ct("exitSafeSide"),
+              ct("callBreakdownService"),
+              ct("notifyDispatcher")
             ]
           },
           {
-            name: "Cargo Damage",
+            name: ct("cargoDamage"),
             color: "info",
             steps: [
-              "Stop and assess",
-              "Take timestamped photos",
-              "Note CMR reservation",
-              "Do NOT sign clean POD",
-              "Inform all parties"
+              ct("stopAndAssess"),
+              ct("takeTimestampedPhotos"),
+              ct("noteCMRReservation"),
+              ct("doNotSignCleanPOD"),
+              ct("informAllParties")
             ]
           },
           {
-            name: "Theft/Security",
+            name: ct("theftSecurity"),
             color: "primary",
             steps: [
-              "Do NOT confront",
-              "Call police (112)",
-              "Preserve crime scene",
-              "Document everything",
-              "Notify insurance"
+              ct("doNotConfront"),
+              ct("callPolice112"),
+              ct("preserveCrimeScene"),
+              ct("documentEverything"),
+              ct("notifyInsurance")
             ]
           }
         ]}
@@ -105,18 +105,18 @@ export function EmergencyChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
           <Phone className="w-6 h-6 text-primary" />
-          Emergency Contact Numbers
+          {ct("emergencyContactNumbers")}
         </h2>
         <div className="grid md:grid-cols-2 gap-4">
-          <InfoCard title="European Emergency Number" icon={Phone} variant="warning">
+          <InfoCard title={ct("europeanEmergencyNumber")} icon={Phone} variant="warning">
             <p className="text-2xl font-bold text-warning">112</p>
-            <p>Works in all EU countries for police, ambulance, fire.</p>
+            <p>{ct("worksInAllEU")}</p>
           </InfoCard>
-          <InfoCard title="Roadside Assistance" icon={Truck} variant="info">
+          <InfoCard title={ct("roadsideAssistance")} icon={Truck} variant="info">
             <ul className="space-y-1">
-              <li><strong>ADAC (Germany):</strong> +49 89 22 22 22</li>
-              <li><strong>ÖAMTC (Austria):</strong> +43 1 120</li>
-              <li><strong>AA (UK):</strong> +44 800 887 766</li>
+              <li><strong>{ct("adacGermany")}</strong> +49 89 22 22 22</li>
+              <li><strong>{ct("oeamtcAustria")}</strong> +43 1 120</li>
+              <li><strong>{ct("aaUK")}</strong> +44 800 887 766</li>
             </ul>
           </InfoCard>
         </div>
@@ -126,7 +126,7 @@ export function EmergencyChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
           <Shield className="w-6 h-6 text-primary" />
-          Road Accident Protocol
+          {ct("roadAccidentProtocol")}
         </h2>
         <div className="bg-card border border-border rounded-xl p-6">
           <div className="space-y-6">
@@ -135,12 +135,12 @@ export function EmergencyChapter() {
                 <span className="font-bold text-destructive">1</span>
               </div>
               <div>
-                <h3 className="font-semibold mb-1">Secure the Scene</h3>
+                <h3 className="font-semibold mb-1">{ct("secureTheScene")}</h3>
                 <ul className="text-sm text-muted-foreground space-y-1">
-                  <li>• Turn on hazard lights immediately</li>
-                  <li>• Place warning triangle 100-200m behind vehicle</li>
-                  <li>• Put on high-visibility vest before leaving vehicle</li>
-                  <li>• Move injured to safety if possible</li>
+                  <li>• {ct("turnOnHazardLightsImmediately")}</li>
+                  <li>• {ct("placeWarningTriangle100200m")}</li>
+                  <li>• {ct("putOnHighVisVestBefore")}</li>
+                  <li>• {ct("moveInjuredToSafety")}</li>
                 </ul>
               </div>
             </div>
@@ -150,12 +150,12 @@ export function EmergencyChapter() {
                 <span className="font-bold text-warning">2</span>
               </div>
               <div>
-                <h3 className="font-semibold mb-1">Call Emergency Services</h3>
+                <h3 className="font-semibold mb-1">{ct("callEmergencyServices")}</h3>
                 <ul className="text-sm text-muted-foreground space-y-1">
-                  <li>• Call 112 (European emergency number)</li>
-                  <li>• Provide exact location (GPS coordinates, highway markers)</li>
-                  <li>• Describe injuries and number of vehicles involved</li>
-                  <li>• Stay on the line until instructed otherwise</li>
+                  <li>• {ct("callEmergencyNumber")}</li>
+                  <li>• {ct("provideExactLocation")}</li>
+                  <li>• {ct("describeInjuries")}</li>
+                  <li>• {ct("stayOnLine")}</li>
                 </ul>
               </div>
             </div>
@@ -165,12 +165,12 @@ export function EmergencyChapter() {
                 <span className="font-bold text-info">3</span>
               </div>
               <div>
-                <h3 className="font-semibold mb-1">Document Everything</h3>
+                <h3 className="font-semibold mb-1">{ct("documentEverythingTitle")}</h3>
                 <ul className="text-sm text-muted-foreground space-y-1">
-                  <li>• Take photos of all vehicles, damages, road conditions</li>
-                  <li>• Get witness contact details</li>
-                  <li>• Exchange insurance information with other parties</li>
-                  <li>• Fill in European Accident Statement (if available)</li>
+                  <li>• {ct("takePhotosAllVehicles")}</li>
+                  <li>• {ct("getWitnessDetails")}</li>
+                  <li>• {ct("exchangeInsuranceInfo")}</li>
+                  <li>• {ct("fillAccidentStatement")}</li>
                 </ul>
               </div>
             </div>
@@ -180,12 +180,12 @@ export function EmergencyChapter() {
                 <span className="font-bold text-success">4</span>
               </div>
               <div>
-                <h3 className="font-semibold mb-1">Notify Dispatcher</h3>
+                <h3 className="font-semibold mb-1">{ct("notifyDispatcherTitle")}</h3>
                 <ul className="text-sm text-muted-foreground space-y-1">
-                  <li>• Call your dispatcher immediately after scene is secured</li>
-                  <li>• Provide location, nature of accident, estimated delay</li>
-                  <li>• Wait for instructions before moving cargo</li>
-                  <li>• Keep all documentation for claims</li>
+                  <li>• {ct("callDispatcherAfterSecured")}</li>
+                  <li>• {ct("provideLocationDetails")}</li>
+                  <li>• {ct("waitForInstructions")}</li>
+                  <li>• {ct("keepAllDocumentation")}</li>
                 </ul>
               </div>
             </div>
@@ -197,25 +197,25 @@ export function EmergencyChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
           <Truck className="w-6 h-6 text-primary" />
-          Breakdown Procedures
+          {ct("breakdownProcedures")}
         </h2>
         <div className="grid md:grid-cols-2 gap-4">
-          <InfoCard title="Highway Breakdown" icon={MapPin} variant="warning">
+          <InfoCard title={ct("highwayBreakdown")} icon={MapPin} variant="warning">
             <ol className="space-y-2 list-decimal list-inside">
-              <li>Pull completely off the road if possible</li>
-              <li>Activate hazard lights and place warning triangle</li>
-              <li>Exit vehicle on the side away from traffic</li>
-              <li>Call breakdown service from behind barrier</li>
-              <li>Never attempt repairs on the highway</li>
+              <li>{ct("pullCompletelyOffRoad")}</li>
+              <li>{ct("activateHazardsPlaceTriangle")}</li>
+              <li>{ct("exitAwayFromTraffic")}</li>
+              <li>{ct("callBreakdownFromBehindBarrier")}</li>
+              <li>{ct("neverAttemptRepairsHighway")}</li>
             </ol>
           </InfoCard>
-          <InfoCard title="Urban/Rural Breakdown" icon={MapPin} variant="info">
+          <InfoCard title={ct("urbanRuralBreakdown")} icon={MapPin} variant="info">
             <ol className="space-y-2 list-decimal list-inside">
-              <li>Find safe parking spot off traffic flow</li>
-              <li>Assess if minor repair is possible</li>
-              <li>Contact dispatcher with ETA for repair</li>
-              <li>Secure cargo before leaving vehicle</li>
-              <li>Document condition with photos</li>
+              <li>{ct("findSafeParking")}</li>
+              <li>{ct("assessMinorRepair")}</li>
+              <li>{ct("contactDispatcherETA")}</li>
+              <li>{ct("secureCargoBefore")}</li>
+              <li>{ct("documentConditionPhotos")}</li>
             </ol>
           </InfoCard>
         </div>
@@ -225,44 +225,44 @@ export function EmergencyChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
           <FileText className="w-6 h-6 text-primary" />
-          Cargo Damage Protocol
+          {ct("cargoDamageProtocol")}
         </h2>
         <div className="bg-card border border-border rounded-xl p-6">
           <div className="grid md:grid-cols-3 gap-6">
             <div>
               <h3 className="font-semibold mb-3 text-warning flex items-center gap-2">
                 <AlertTriangle className="w-4 h-4" />
-                Immediate Actions
+                {ct("immediateActions")}
               </h3>
               <ul className="text-sm text-muted-foreground space-y-2">
-                <li>• Stop and assess damage extent</li>
-                <li>• Take detailed photos with timestamps</li>
-                <li>• Note CMR reservation on delivery</li>
-                <li>• Do NOT sign clean POD if damaged</li>
+                <li>• {ct("stopAndAssessDamage")}</li>
+                <li>• {ct("takeDetailedPhotos")}</li>
+                <li>• {ct("noteCMRReservationDelivery")}</li>
+                <li>• {ct("doNotSignCleanPODDamaged")}</li>
               </ul>
             </div>
             <div>
               <h3 className="font-semibold mb-3 text-info flex items-center gap-2">
                 <Phone className="w-4 h-4" />
-                Notification
+                {ct("notification")}
               </h3>
               <ul className="text-sm text-muted-foreground space-y-2">
-                <li>• Inform dispatcher immediately</li>
-                <li>• Notify shipper/consignee</li>
-                <li>• Report to insurance if significant</li>
-                <li>• Keep all parties updated</li>
+                <li>• {ct("informDispatcherImmediately")}</li>
+                <li>• {ct("notifyShipperConsignee")}</li>
+                <li>• {ct("reportToInsurance")}</li>
+                <li>• {ct("keepAllPartiesUpdated")}</li>
               </ul>
             </div>
             <div>
               <h3 className="font-semibold mb-3 text-success flex items-center gap-2">
                 <FileText className="w-4 h-4" />
-                Documentation
+                {ct("documentation")}
               </h3>
               <ul className="text-sm text-muted-foreground space-y-2">
-                <li>• Written description of damage</li>
-                <li>• Photos before and after</li>
-                <li>• Witness statements if available</li>
-                <li>• Preserve damaged goods if possible</li>
+                <li>• {ct("writtenDescriptionDamage")}</li>
+                <li>• {ct("photosBeforeAfter")}</li>
+                <li>• {ct("witnessStatementsAvailable")}</li>
+                <li>• {ct("preserveDamagedGoods")}</li>
               </ul>
             </div>
           </div>
@@ -273,28 +273,28 @@ export function EmergencyChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
           <Shield className="w-6 h-6 text-primary" />
-          Theft Prevention & Response
+          {ct("theftPreventionResponse")}
         </h2>
-        <InfoCard title="High-Risk Areas & Prevention" icon={AlertTriangle} variant="warning">
+        <InfoCard title={ct("highRiskAreasPrevention")} icon={AlertTriangle} variant="warning">
           <div className="grid md:grid-cols-2 gap-6">
             <div>
-              <h4 className="font-semibold mb-2">Prevention Measures</h4>
+              <h4 className="font-semibold mb-2">{ct("preventionMeasures")}</h4>
               <ul className="space-y-1">
-                <li>• Use secure parking (TAPA certified if high-value)</li>
-                <li>• Never leave truck unattended at rest areas</li>
-                <li>• Vary routes and parking locations</li>
-                <li>• Install tracking and alarm systems</li>
-                <li>• Keep cargo information confidential</li>
+                <li>• {ct("useSecureParking")}</li>
+                <li>• {ct("neverLeaveTruckUnattended")}</li>
+                <li>• {ct("varyRoutesParking")}</li>
+                <li>• {ct("installTrackingAlarms")}</li>
+                <li>• {ct("keepCargoInfoConfidential")}</li>
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold mb-2">If Theft Occurs</h4>
+              <h4 className="font-semibold mb-2">{ct("ifTheftOccurs")}</h4>
               <ul className="space-y-1">
-                <li>• Call police immediately (112)</li>
-                <li>• Do not chase or confront thieves</li>
-                <li>• Document everything visible</li>
-                <li>• Notify dispatcher and insurance</li>
-                <li>• Preserve crime scene for police</li>
+                <li>• {ct("callPoliceImmediately")}</li>
+                <li>• {ct("doNotChaseConfront")}</li>
+                <li>• {ct("documentEverythingVisible")}</li>
+                <li>• {ct("notifyDispatcherInsurance")}</li>
+                <li>• {ct("preserveCrimeScenePolice")}</li>
               </ul>
             </div>
           </div>
@@ -305,21 +305,21 @@ export function EmergencyChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
           <Phone className="w-6 h-6 text-primary" />
-          Crisis Communication Checklist
+          {ct("crisisCommunicationChecklist")}
         </h2>
         <div className="bg-muted/30 rounded-xl p-6">
           <div className="grid md:grid-cols-2 gap-4">
             {[
-              "Driver safety confirmed first",
-              "Emergency services contacted",
-              "Exact location shared (GPS)",
-              "Photos/video captured",
-              "Dispatcher notified with details",
-              "Client/shipper informed",
-              "Insurance notified if required",
-              "Written incident report started",
-              "Alternative transport arranged",
-              "All documentation secured"
+              ct("driverSafetyConfirmed"),
+              ct("emergencyServicesContacted"),
+              ct("exactLocationShared"),
+              ct("photoVideosCaptured"),
+              ct("dispatcherNotifiedDetails"),
+              ct("clientShipperInformed"),
+              ct("insuranceNotifiedIfRequired"),
+              ct("writtenIncidentReportStarted"),
+              ct("alternativeTransportArranged"),
+              ct("allDocumentationSecured")
             ].map((item, index) => (
               <div key={index} className="flex items-center gap-3 p-3 bg-card rounded-lg border border-border">
                 <CheckCircle className="w-5 h-5 text-success" />
@@ -334,42 +334,42 @@ export function EmergencyChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
           <Clock className="w-6 h-6 text-primary" />
-          Emergency Response Times
+          {ct("emergencyResponseTimes")}
         </h2>
         <div className="overflow-x-auto">
           <table className="w-full border-collapse">
             <thead>
               <tr className="bg-muted/50">
-                <th className="p-3 text-left border border-border">Situation</th>
-                <th className="p-3 text-left border border-border">Notify Within</th>
-                <th className="p-3 text-left border border-border">Who to Contact</th>
+                <th className="p-3 text-left border border-border">{ct("situation")}</th>
+                <th className="p-3 text-left border border-border">{ct("notifyWithin")}</th>
+                <th className="p-3 text-left border border-border">{ct("whoToContact")}</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td className="p-3 border border-border">Road accident with injuries</td>
-                <td className="p-3 border border-border text-destructive font-semibold">Immediate</td>
-                <td className="p-3 border border-border">112 → Dispatcher → Insurance</td>
+                <td className="p-3 border border-border">{ct("roadAccidentInjuries")}</td>
+                <td className="p-3 border border-border text-destructive font-semibold">{ct("immediate")}</td>
+                <td className="p-3 border border-border">{ct("emergencyDispatcherInsurance")}</td>
               </tr>
               <tr className="bg-muted/20">
-                <td className="p-3 border border-border">Vehicle breakdown</td>
-                <td className="p-3 border border-border text-warning font-semibold">15 minutes</td>
-                <td className="p-3 border border-border">Breakdown service → Dispatcher</td>
+                <td className="p-3 border border-border">{ct("vehicleBreakdownSituation")}</td>
+                <td className="p-3 border border-border text-warning font-semibold">{ct("minutes15")}</td>
+                <td className="p-3 border border-border">{ct("breakdownDispatcher")}</td>
               </tr>
               <tr>
-                <td className="p-3 border border-border">Cargo damage discovered</td>
-                <td className="p-3 border border-border text-warning font-semibold">30 minutes</td>
-                <td className="p-3 border border-border">Dispatcher → Shipper/Consignee</td>
+                <td className="p-3 border border-border">{ct("cargoDamageDiscovered")}</td>
+                <td className="p-3 border border-border text-warning font-semibold">{ct("minutes30")}</td>
+                <td className="p-3 border border-border">{ct("dispatcherShipperConsignee")}</td>
               </tr>
               <tr className="bg-muted/20">
-                <td className="p-3 border border-border">Theft or robbery</td>
-                <td className="p-3 border border-border text-destructive font-semibold">Immediate</td>
-                <td className="p-3 border border-border">Police (112) → Dispatcher → Insurance</td>
+                <td className="p-3 border border-border">{ct("theftOrRobbery")}</td>
+                <td className="p-3 border border-border text-destructive font-semibold">{ct("immediate")}</td>
+                <td className="p-3 border border-border">{ct("policeDispatcherInsurance")}</td>
               </tr>
               <tr>
-                <td className="p-3 border border-border">Delay &gt;1 hour</td>
-                <td className="p-3 border border-border text-info font-semibold">1 hour</td>
-                <td className="p-3 border border-border">Dispatcher → Client</td>
+                <td className="p-3 border border-border">{ct("delayOver1Hour")}</td>
+                <td className="p-3 border border-border text-info font-semibold">{ct("hour1")}</td>
+                <td className="p-3 border border-border">{ct("dispatcherClient")}</td>
               </tr>
             </tbody>
           </table>
@@ -378,7 +378,7 @@ export function EmergencyChapter() {
 
       {/* Quiz */}
       {quizzes.emergency && (
-        <Quiz title="Emergency Procedures Quiz" questions={quizzes.emergency} chapterId="emergency" />
+        <Quiz title={ct("quizTitle")} questions={quizzes.emergency} chapterId="emergency" />
       )}
     </div>
   );

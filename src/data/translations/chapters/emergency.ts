@@ -1,7 +1,7 @@
 export const emergencyTranslations = {
   en: {
-    chapterTitle: "Emergency Procedures",
-    heroDescription: "Critical protocols for accidents, breakdowns, cargo damage, and crisis situations.",
+    title: "Emergency Procedures",
+    subtitle: "Critical protocols for accidents, breakdowns, cargo damage, and crisis situations.",
     emergencyResponseProtocol: "Emergency Response Protocol",
     secureScene: "Secure Scene",
     hazardsSafety: "Hazards & safety",
@@ -147,8 +147,8 @@ export const emergencyTranslations = {
     quizTitle: "Emergency Procedures Quiz",
   },
   ro: {
-    chapterTitle: "Proceduri de Urgență",
-    heroDescription: "Protocoale critice pentru accidente, defecțiuni, deteriorarea mărfurilor și situații de criză.",
+    title: "Proceduri de Urgență",
+    subtitle: "Protocoale critice pentru accidente, defecțiuni, deteriorarea mărfurilor și situații de criză.",
     emergencyResponseProtocol: "Protocol de Răspuns la Urgențe",
     secureScene: "Securizare Loc",
     hazardsSafety: "Pericole și siguranță",
@@ -294,8 +294,8 @@ export const emergencyTranslations = {
     quizTitle: "Quiz Proceduri de Urgență",
   },
   de: {
-    chapterTitle: "Notfallverfahren",
-    heroDescription: "Kritische Protokolle für Unfälle, Pannen, Ladungsschäden und Krisensituationen.",
+    title: "Notfallverfahren",
+    subtitle: "Kritische Protokolle für Unfälle, Pannen, Ladungsschäden und Krisensituationen.",
     emergencyResponseProtocol: "Notfall-Reaktionsprotokoll",
     secureScene: "Unfallstelle sichern",
     hazardsSafety: "Gefahren & Sicherheit",
