@@ -38,10 +38,10 @@ export function CaseStudiesChapter() {
                 {ct("situation")}
               </h3>
               <ul className="text-sm space-y-2 text-muted-foreground">
-                <li>• Route: Hamburg → Lyon (1,100 km)</li>
-                <li>• Client offered: €950 "all-in"</li>
-                <li>• Dispatcher accepted without toll calculation</li>
-                <li>• Driver took fastest route via A1/A6</li>
+                <li>• {ct("case1Route")}</li>
+                <li>• {ct("case1ClientOffer")}</li>
+                <li>• {ct("case1DispatcherError")}</li>
+                <li>• {ct("case1DriverRoute")}</li>
               </ul>
             </div>
             <div>
@@ -51,11 +51,11 @@ export function CaseStudiesChapter() {
               </h3>
               <div className="bg-destructive/5 rounded-lg p-4 text-sm">
                 <div className="space-y-1">
-                  <p>Base cost (1,100 km × €1.10): <strong>€1,210</strong></p>
-                  <p>German Maut (350 km × €0.45): <strong>€157</strong></p>
-                  <p>French tolls (750 km): <strong>€180</strong></p>
-                  <p className="border-t pt-2 mt-2 font-bold text-destructive">Total cost: €1,547</p>
-                  <p className="font-bold text-destructive">LOSS: -€597</p>
+                  <p>{ct("case1BaseCost")} <strong>€1,210</strong></p>
+                  <p>{ct("case1GermanMaut")} <strong>€157</strong></p>
+                  <p>{ct("case1FrenchTolls")} <strong>€180</strong></p>
+                  <p className="border-t pt-2 mt-2 font-bold text-destructive">{ct("case1TotalCost")} €1,547</p>
+                  <p className="font-bold text-destructive">{ct("case1Loss")} -€597</p>
                 </div>
               </div>
             </div>
@@ -84,42 +84,42 @@ export function CaseStudiesChapter() {
           <div className="grid md:grid-cols-3 gap-4">
             <div className="bg-muted/30 rounded-lg p-4">
               <h4 className="font-semibold text-sm text-muted-foreground mb-2">{ct("outbound")}</h4>
-              <p className="font-medium">Düsseldorf → Warsaw</p>
-              <p className="text-sm text-muted-foreground">1,100 km | Rate: €1,450</p>
+              <p className="font-medium">{ct("case2OutboundRoute")}</p>
+              <p className="text-sm text-muted-foreground">{ct("case2OutboundDetails")}</p>
             </div>
             <div className="bg-muted/30 rounded-lg p-4">
               <h4 className="font-semibold text-sm text-muted-foreground mb-2">{ct("backhaul")}</h4>
-              <p className="font-medium">Łódź → Berlin</p>
-              <p className="text-sm text-muted-foreground">480 km | Rate: €650</p>
+              <p className="font-medium">{ct("case2BackhaulRoute")}</p>
+              <p className="text-sm text-muted-foreground">{ct("case2BackhaulDetails")}</p>
             </div>
             <div className="bg-success/10 rounded-lg p-4">
               <h4 className="font-semibold text-sm text-muted-foreground mb-2">{ct("result")}</h4>
-              <p className="font-medium text-success">Total: €2,100</p>
-              <p className="text-sm text-muted-foreground">vs €1,450 empty return</p>
+              <p className="font-medium text-success">{ct("case2Total")}</p>
+              <p className="text-sm text-muted-foreground">{ct("case2Comparison")}</p>
             </div>
           </div>
           <div className="bg-muted/30 rounded-lg p-4">
             <h3 className="font-semibold mb-3">{ct("timelineManagement")}</h3>
             <div className="flex flex-col md:flex-row gap-2 text-sm">
               <div className="flex-1 bg-card rounded p-2">
-                <p className="text-xs text-muted-foreground">Day 1, 08:00</p>
-                <p>Load Düsseldorf</p>
+                <p className="text-xs text-muted-foreground">{ct("day1Morning")}</p>
+                <p>{ct("day1MorningAction")}</p>
               </div>
               <div className="flex-1 bg-card rounded p-2">
-                <p className="text-xs text-muted-foreground">Day 1, 23:00</p>
-                <p>Arrive Warsaw area</p>
+                <p className="text-xs text-muted-foreground">{ct("day1Evening")}</p>
+                <p>{ct("day1EveningAction")}</p>
               </div>
               <div className="flex-1 bg-card rounded p-2">
-                <p className="text-xs text-muted-foreground">Day 2, 08:00</p>
-                <p>Deliver Warsaw</p>
+                <p className="text-xs text-muted-foreground">{ct("day2Morning")}</p>
+                <p>{ct("day2MorningAction")}</p>
               </div>
               <div className="flex-1 bg-card rounded p-2">
-                <p className="text-xs text-muted-foreground">Day 2, 14:00</p>
-                <p>Load Łódź (110 km)</p>
+                <p className="text-xs text-muted-foreground">{ct("day2Afternoon")}</p>
+                <p>{ct("day2AfternoonAction")}</p>
               </div>
               <div className="flex-1 bg-card rounded p-2">
-                <p className="text-xs text-muted-foreground">Day 3, 06:00</p>
-                <p>Deliver Berlin</p>
+                <p className="text-xs text-muted-foreground">{ct("day3Morning")}</p>
+                <p>{ct("day3MorningAction")}</p>
               </div>
             </div>
           </div>
@@ -147,10 +147,10 @@ export function CaseStudiesChapter() {
           <div className="bg-muted/30 rounded-lg p-4">
             <h3 className="font-semibold mb-2">{ct("initialSituation")}</h3>
             <ul className="text-sm space-y-1 text-muted-foreground">
-              <li>• FTL automotive parts, Munich → Gothenburg</li>
-              <li>• Client: Premium customer, JIT delivery critical</li>
-              <li>• Original delivery: Thursday 06:00</li>
-              <li>• Wednesday 14:00: Driver reports engine failure near Hamburg</li>
+              <li>• {ct("case3Route")}</li>
+              <li>• {ct("case3Client")}</li>
+              <li>• {ct("case3OriginalDelivery")}</li>
+              <li>• {ct("case3BreakdownReport")}</li>
             </ul>
           </div>
           
@@ -165,7 +165,7 @@ export function CaseStudiesChapter() {
                 <div className="w-24 text-sm text-muted-foreground">14:00</div>
                 <div className="flex-1 bg-warning/10 rounded-lg p-3 text-sm">
                   <p className="font-medium">{ct("driverCalls")}</p>
-                  <p className="text-muted-foreground">Engine warning light, truck stopping on A7 near Hamburg</p>
+                  <p className="text-muted-foreground">{ct("case3EngineWarning")}</p>
                 </div>
               </div>
               <div className="flex gap-4">
@@ -173,9 +173,9 @@ export function CaseStudiesChapter() {
                 <div className="flex-1 bg-info/10 rounded-lg p-3 text-sm">
                   <p className="font-medium">{ct("dispatcherActions")}</p>
                   <ul className="text-muted-foreground">
-                    <li>• Called breakdown service</li>
-                    <li>• Checked fleet for backup truck</li>
-                    <li>• Contacted spot market for emergency capacity</li>
+                    <li>• {ct("case3BreakdownActions1")}</li>
+                    <li>• {ct("case3BreakdownActions2")}</li>
+                    <li>• {ct("case3BreakdownActions3")}</li>
                   </ul>
                 </div>
               </div>
@@ -183,21 +183,21 @@ export function CaseStudiesChapter() {
                 <div className="w-24 text-sm text-muted-foreground">14:30</div>
                 <div className="flex-1 bg-warning/10 rounded-lg p-3 text-sm">
                   <p className="font-medium">{ct("clientNotification")}</p>
-                  <p className="text-muted-foreground">"Delay possible due to technical issue. Working on solution. Update in 30 minutes."</p>
+                  <p className="text-muted-foreground">{ct("case3ClientMessage")}</p>
                 </div>
               </div>
               <div className="flex gap-4">
                 <div className="w-24 text-sm text-muted-foreground">15:00</div>
                 <div className="flex-1 bg-success/10 rounded-lg p-3 text-sm">
                   <p className="font-medium">{ct("solutionFound")}</p>
-                  <p className="text-muted-foreground">Partner carrier 45 min away, can tranship and deliver by Friday 06:00</p>
+                  <p className="text-muted-foreground">{ct("case3SolutionDetails")}</p>
                 </div>
               </div>
               <div className="flex gap-4">
                 <div className="w-24 text-sm text-muted-foreground">15:15</div>
                 <div className="flex-1 bg-success/10 rounded-lg p-3 text-sm">
                   <p className="font-medium">{ct("clientAgreement")}</p>
-                  <p className="text-muted-foreground">Client accepts 24h delay with cost compensation offer (€200 credit)</p>
+                  <p className="text-muted-foreground">{ct("case3AgreementDetails")}</p>
                 </div>
               </div>
             </div>
@@ -228,19 +228,19 @@ export function CaseStudiesChapter() {
             <div>
               <h3 className="font-semibold mb-2">{ct("theShipment")}</h3>
               <ul className="text-sm space-y-1 text-muted-foreground">
-                <li>• 20 pallets of machinery parts</li>
-                <li>• Value: €180,000</li>
-                <li>• Route: Stuttgart → Prague</li>
-                <li>• Carrier: New contact from TIMOCOM</li>
+                <li>• {ct("case4Shipment1")}</li>
+                <li>• {ct("case4Shipment2")}</li>
+                <li>• {ct("case4Shipment3")}</li>
+                <li>• {ct("case4Shipment4")}</li>
               </ul>
             </div>
             <div>
               <h3 className="font-semibold mb-2">{ct("whatHappened")}</h3>
               <ul className="text-sm space-y-1 text-muted-foreground">
-                <li>• 5 pallets arrived damaged</li>
-                <li>• Damage value: €45,000</li>
-                <li>• CMR signed clean (no reservations)</li>
-                <li>• No loading photos taken</li>
+                <li>• {ct("case4Happened1")}</li>
+                <li>• {ct("case4Happened2")}</li>
+                <li>• {ct("case4Happened3")}</li>
+                <li>• {ct("case4Happened4")}</li>
               </ul>
             </div>
           </div>
@@ -297,7 +297,7 @@ export function CaseStudiesChapter() {
           <div className="bg-muted/30 rounded-lg p-4">
             <h3 className="font-semibold mb-2">{ct("clientRequest")}</h3>
             <p className="text-sm text-muted-foreground">
-              "Load Monday 14:00 in Rotterdam, deliver Tuesday 08:00 in Milan. Single driver. Is it possible?"
+              {ct("case5ClientMessage")}
             </p>
           </div>
 
@@ -306,16 +306,16 @@ export function CaseStudiesChapter() {
               <h4 className="font-semibold mb-3">{ct("distanceAnalysis")}</h4>
               <ul className="text-sm space-y-2">
                 <li className="flex justify-between">
-                  <span>Rotterdam → Milan</span>
-                  <span className="font-mono">~1,100 km</span>
+                  <span>{ct("case5RouteDistance")}</span>
+                  <span className="font-mono">{ct("case5Distance")}</span>
                 </li>
                 <li className="flex justify-between">
-                  <span>At 80 km/h average</span>
-                  <span className="font-mono">~13.75 hours</span>
+                  <span>{ct("case5AverageSpeed")}</span>
+                  <span className="font-mono">{ct("case5DrivingTime")}</span>
                 </li>
                 <li className="flex justify-between text-destructive">
-                  <span>Max daily driving</span>
-                  <span className="font-mono">9-10 hours</span>
+                  <span>{ct("case5MaxDriving")}</span>
+                  <span className="font-mono">{ct("case5MaxDrivingValue")}</span>
                 </li>
               </ul>
             </div>
@@ -323,16 +323,16 @@ export function CaseStudiesChapter() {
               <h4 className="font-semibold mb-3">{ct("timeAvailable")}</h4>
               <ul className="text-sm space-y-2">
                 <li className="flex justify-between">
-                  <span>Load complete</span>
-                  <span className="font-mono">~15:00</span>
+                  <span>{ct("case5LoadComplete")}</span>
+                  <span className="font-mono">{ct("case5LoadCompleteTime")}</span>
                 </li>
                 <li className="flex justify-between">
-                  <span>Delivery deadline</span>
-                  <span className="font-mono">08:00 +1</span>
+                  <span>{ct("case5DeliveryDeadline")}</span>
+                  <span className="font-mono">{ct("case5DeliveryDeadlineTime")}</span>
                 </li>
                 <li className="flex justify-between">
-                  <span>Total time</span>
-                  <span className="font-mono">17 hours</span>
+                  <span>{ct("case5TotalTime")}</span>
+                  <span className="font-mono">{ct("case5TotalTimeValue")}</span>
                 </li>
               </ul>
             </div>
