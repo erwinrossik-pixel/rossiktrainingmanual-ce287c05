@@ -20,6 +20,10 @@ import { caseStudiesTranslations } from './chapters/case-studies';
 import { checklistsTranslations } from './chapters/checklists';
 import { commercialTranslations } from './chapters/commercial';
 import { complianceTranslations } from './chapters/compliance';
+import { drivingTimeTranslations } from './chapters/driving-time';
+import { kpiTranslations } from './chapters/kpi';
+import { redFlagsTranslations } from './chapters/red-flags';
+import { reeferTranslations } from './chapters/reefer';
 
 // Chapter translations type
 type ChapterTranslations = Record<string, Record<string, string>>;
@@ -42,6 +46,11 @@ const allTranslations: Record<string, ChapterTranslations> = {
   payment: paymentTranslations,
   negotiation: negotiationTranslations,
   communication: communicationTranslations,
+  'carrier-management': carrierManagementTranslations,
+  'case-studies': caseStudiesTranslations,
+  checklists: checklistsTranslations,
+  commercial: commercialTranslations,
+  compliance: complianceTranslations,
 };
 
 // Hook to get chapter translations
