@@ -21,27 +21,27 @@ export function EuropeZonesChapter() {
       <div className="info-card bg-gradient-to-br from-primary/5 to-primary/10">
         <h2 className="section-title flex items-center gap-3">
           <Map className="w-6 h-6 text-primary" />
-          European Transport Market Overview
+          {ct("marketOverviewTitle")}
         </h2>
         <p className="text-muted-foreground mb-4">
-          Europe's road freight market is the world's largest, valued at over €300 billion annually. Understanding regional differences is essential for effective freight forwarding.
+          {ct("marketOverviewDesc")}
         </p>
         <div className="grid md:grid-cols-4 gap-4">
           <div className="bg-background p-4 rounded-lg text-center">
             <p className="text-2xl font-bold text-primary">€300B+</p>
-            <p className="text-sm text-muted-foreground">Annual market value</p>
+            <p className="text-sm text-muted-foreground">{ct("annualMarketValue")}</p>
           </div>
           <div className="bg-background p-4 rounded-lg text-center">
             <p className="text-2xl font-bold text-primary">500,000+</p>
-            <p className="text-sm text-muted-foreground">Transport companies</p>
+            <p className="text-sm text-muted-foreground">{ct("transportCompanies")}</p>
           </div>
           <div className="bg-background p-4 rounded-lg text-center">
             <p className="text-2xl font-bold text-primary">3 million+</p>
-            <p className="text-sm text-muted-foreground">Commercial vehicles</p>
+            <p className="text-sm text-muted-foreground">{ct("commercialVehicles")}</p>
           </div>
           <div className="bg-background p-4 rounded-lg text-center">
             <p className="text-2xl font-bold text-primary">75%</p>
-            <p className="text-sm text-muted-foreground">Of freight by road</p>
+            <p className="text-sm text-muted-foreground">{ct("freightByRoad")}</p>
           </div>
         </div>
       </div>
@@ -561,7 +561,7 @@ export function EuropeZonesChapter() {
       {/* Quiz */}
       {quizzes["europe-zones"] && (
         <Quiz
-          title="European Transport Zones Quiz"
+          title={ct("quizTitle")}
           questions={quizzes["europe-zones"]}
           chapterId="europe-zones"
           questionsPerRound={5}

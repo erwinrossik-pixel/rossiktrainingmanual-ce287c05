@@ -398,11 +398,11 @@ export function CommercialChapter() {
       <div className="info-card">
         <h2 className="section-title flex items-center gap-3">
           <TrendingUp className="w-6 h-6 text-primary" />
-          Commercial KPIs
+          {ct("commercialKPIsTitle")}
         </h2>
 
         <DataTable
-          headers={["KPI", "Target", "Description"]}
+          headers={[ct("kpi"), ct("target"), ct("description")]}
           rows={[
             ["Quote Conversion Rate", "25-35%", "Quotes accepted / quotes sent"],
             ["Response Time", "<2 hours", "Average time to respond to enquiries"],
@@ -419,7 +419,7 @@ export function CommercialChapter() {
       {/* Quiz */}
       {quizzes["commercial"] && (
         <Quiz
-          title="Commercial Fundamentals Quiz"
+          title={ct("quizTitle")}
           questions={quizzes["commercial"]}
           chapterId="commercial"
           questionsPerRound={5}
