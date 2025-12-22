@@ -2,8 +2,11 @@ import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { quizzes } from "@/data/quizData";
 import { FileText, Truck, Globe, CheckCircle, AlertTriangle, Package, Shield, Stamp } from "lucide-react";
+import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 
 export function DocumentsChapter() {
+  const { ct } = useChapterTranslation('documents');
+
   return (
     <div className="space-y-8 animate-fade-in">
       {/* Hero Section */}
@@ -12,10 +15,10 @@ export function DocumentsChapter() {
         <div className="relative">
           <FileText className="w-12 h-12 mb-4" />
           <h1 className="text-3xl md:text-5xl font-bold mb-4 font-serif">
-            Transport Documents
+            {ct('title')}
           </h1>
           <p className="text-lg md:text-xl opacity-90 max-w-2xl">
-            CMR, customs declarations, and essential documentation for European road transport.
+            {ct('subtitle')}
           </p>
         </div>
       </div>
@@ -24,30 +27,29 @@ export function DocumentsChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
           <FileText className="w-6 h-6 text-primary" />
-          CMR Consignment Note
+          {ct('cmrConsignmentNote')}
         </h2>
-        <InfoCard title="The Most Important Transport Document" icon={FileText} variant="highlight">
+        <InfoCard title={ct('mostImportantDocument')} icon={FileText} variant="highlight">
           <p className="mb-4">
-            The CMR note is the contract of carriage for international road transport. It proves the contract exists, 
-            describes the goods, and serves as evidence of delivery.
+            {ct('cmrDescription')}
           </p>
           <div className="grid md:grid-cols-2 gap-4 mt-4">
             <div className="bg-muted/30 rounded-lg p-4">
-              <h4 className="font-semibold mb-2">4 Copies Required</h4>
+              <h4 className="font-semibold mb-2">{ct('fourCopiesRequired')}</h4>
               <ul className="text-sm space-y-1">
-                <li><strong>Copy 1 (Red):</strong> Sender</li>
-                <li><strong>Copy 2 (Blue):</strong> Consignee</li>
-                <li><strong>Copy 3 (Green):</strong> Carrier</li>
-                <li><strong>Copy 4 (Black):</strong> For administration</li>
+                <li><strong>{ct('copy1Red')}</strong> {ct('sender')}</li>
+                <li><strong>{ct('copy2Blue')}</strong> {ct('consignee')}</li>
+                <li><strong>{ct('copy3Green')}</strong> {ct('carrier')}</li>
+                <li><strong>{ct('copy4Black')}</strong> {ct('forAdministration')}</li>
               </ul>
             </div>
             <div className="bg-muted/30 rounded-lg p-4">
-              <h4 className="font-semibold mb-2">Key Functions</h4>
+              <h4 className="font-semibold mb-2">{ct('keyFunctions')}</h4>
               <ul className="text-sm space-y-1">
-                <li>• Proof of transport contract</li>
-                <li>• Receipt for goods</li>
-                <li>• Proof of delivery (POD)</li>
-                <li>• Basis for claims</li>
+                <li>• {ct('proofOfContract')}</li>
+                <li>• {ct('receiptForGoods')}</li>
+                <li>• {ct('proofOfDelivery')}</li>
+                <li>• {ct('basisForClaims')}</li>
               </ul>
             </div>
           </div>
@@ -58,73 +60,73 @@ export function DocumentsChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
           <CheckCircle className="w-6 h-6 text-primary" />
-          CMR Fields - What to Check
+          {ct('cmrFieldsCheck')}
         </h2>
         <div className="bg-card border border-border rounded-xl p-6">
           <div className="overflow-x-auto">
             <table className="w-full border-collapse">
               <thead>
                 <tr className="bg-muted/50">
-                  <th className="p-3 text-left border border-border">Field</th>
-                  <th className="p-3 text-left border border-border">Content</th>
-                  <th className="p-3 text-left border border-border">Critical?</th>
+                  <th className="p-3 text-left border border-border">{ct('field')}</th>
+                  <th className="p-3 text-left border border-border">{ct('content')}</th>
+                  <th className="p-3 text-left border border-border">{ct('critical')}</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td className="p-3 border border-border font-mono text-sm">Box 1</td>
-                  <td className="p-3 border border-border">Sender name & address</td>
-                  <td className="p-3 border border-border text-success">✓ Yes</td>
+                  <td className="p-3 border border-border font-mono text-sm">{ct('box1')}</td>
+                  <td className="p-3 border border-border">{ct('senderNameAddress')}</td>
+                  <td className="p-3 border border-border text-success">✓ {ct('yes')}</td>
                 </tr>
                 <tr className="bg-muted/20">
-                  <td className="p-3 border border-border font-mono text-sm">Box 2</td>
-                  <td className="p-3 border border-border">Consignee name & address</td>
-                  <td className="p-3 border border-border text-success">✓ Yes</td>
+                  <td className="p-3 border border-border font-mono text-sm">{ct('box2')}</td>
+                  <td className="p-3 border border-border">{ct('consigneeNameAddress')}</td>
+                  <td className="p-3 border border-border text-success">✓ {ct('yes')}</td>
                 </tr>
                 <tr>
-                  <td className="p-3 border border-border font-mono text-sm">Box 3</td>
-                  <td className="p-3 border border-border">Place of delivery</td>
-                  <td className="p-3 border border-border text-success">✓ Yes</td>
+                  <td className="p-3 border border-border font-mono text-sm">{ct('box3')}</td>
+                  <td className="p-3 border border-border">{ct('placeOfDelivery')}</td>
+                  <td className="p-3 border border-border text-success">✓ {ct('yes')}</td>
                 </tr>
                 <tr className="bg-muted/20">
-                  <td className="p-3 border border-border font-mono text-sm">Box 4</td>
-                  <td className="p-3 border border-border">Place & date of loading</td>
-                  <td className="p-3 border border-border text-success">✓ Yes</td>
+                  <td className="p-3 border border-border font-mono text-sm">{ct('box4')}</td>
+                  <td className="p-3 border border-border">{ct('placeDateLoading')}</td>
+                  <td className="p-3 border border-border text-success">✓ {ct('yes')}</td>
                 </tr>
                 <tr>
-                  <td className="p-3 border border-border font-mono text-sm">Box 6-9</td>
-                  <td className="p-3 border border-border">Goods description, marks, packages, weight</td>
-                  <td className="p-3 border border-border text-success">✓ Yes</td>
+                  <td className="p-3 border border-border font-mono text-sm">{ct('box6to9')}</td>
+                  <td className="p-3 border border-border">{ct('goodsDescription')}</td>
+                  <td className="p-3 border border-border text-success">✓ {ct('yes')}</td>
                 </tr>
                 <tr className="bg-muted/20">
-                  <td className="p-3 border border-border font-mono text-sm">Box 13</td>
-                  <td className="p-3 border border-border">Sender's instructions (ADR, temperature)</td>
-                  <td className="p-3 border border-border text-warning">⚠️ When applicable</td>
+                  <td className="p-3 border border-border font-mono text-sm">{ct('box13')}</td>
+                  <td className="p-3 border border-border">{ct('senderInstructions')}</td>
+                  <td className="p-3 border border-border text-warning">⚠️ {ct('whenApplicable')}</td>
                 </tr>
                 <tr>
-                  <td className="p-3 border border-border font-mono text-sm">Box 16</td>
-                  <td className="p-3 border border-border">Carrier name & address</td>
-                  <td className="p-3 border border-border text-success">✓ Yes</td>
+                  <td className="p-3 border border-border font-mono text-sm">{ct('box16')}</td>
+                  <td className="p-3 border border-border">{ct('carrierNameAddress')}</td>
+                  <td className="p-3 border border-border text-success">✓ {ct('yes')}</td>
                 </tr>
                 <tr className="bg-muted/20">
-                  <td className="p-3 border border-border font-mono text-sm">Box 18</td>
-                  <td className="p-3 border border-border">Reservations at loading</td>
-                  <td className="p-3 border border-border text-destructive">⚠️ Critical for claims</td>
+                  <td className="p-3 border border-border font-mono text-sm">{ct('box18')}</td>
+                  <td className="p-3 border border-border">{ct('reservationsLoading')}</td>
+                  <td className="p-3 border border-border text-destructive">⚠️ {ct('criticalForClaims')}</td>
                 </tr>
                 <tr>
-                  <td className="p-3 border border-border font-mono text-sm">Box 22</td>
-                  <td className="p-3 border border-border">Sender signature</td>
-                  <td className="p-3 border border-border text-success">✓ Yes</td>
+                  <td className="p-3 border border-border font-mono text-sm">{ct('box22')}</td>
+                  <td className="p-3 border border-border">{ct('senderSignature')}</td>
+                  <td className="p-3 border border-border text-success">✓ {ct('yes')}</td>
                 </tr>
                 <tr className="bg-muted/20">
-                  <td className="p-3 border border-border font-mono text-sm">Box 23</td>
-                  <td className="p-3 border border-border">Carrier signature + date</td>
-                  <td className="p-3 border border-border text-success">✓ Yes</td>
+                  <td className="p-3 border border-border font-mono text-sm">{ct('box23')}</td>
+                  <td className="p-3 border border-border">{ct('carrierSignatureDate')}</td>
+                  <td className="p-3 border border-border text-success">✓ {ct('yes')}</td>
                 </tr>
                 <tr>
-                  <td className="p-3 border border-border font-mono text-sm">Box 24</td>
-                  <td className="p-3 border border-border">Consignee signature + date (delivery)</td>
-                  <td className="p-3 border border-border text-destructive">⚠️ Critical - POD</td>
+                  <td className="p-3 border border-border font-mono text-sm">{ct('box24')}</td>
+                  <td className="p-3 border border-border">{ct('consigneeSignatureDate')}</td>
+                  <td className="p-3 border border-border text-destructive">⚠️ {ct('criticalPOD')}</td>
                 </tr>
               </tbody>
             </table>
@@ -136,34 +138,34 @@ export function DocumentsChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
           <AlertTriangle className="w-6 h-6 text-primary" />
-          CMR Reservations - Critical for Claims
+          {ct('cmrReservations')}
         </h2>
         <div className="grid md:grid-cols-2 gap-4">
-          <InfoCard title="At Loading (Box 18)" icon={Package} variant="warning">
-            <p className="mb-2 font-semibold text-foreground">Driver MUST note any issues:</p>
+          <InfoCard title={ct('atLoadingBox18')} icon={Package} variant="warning">
+            <p className="mb-2 font-semibold text-foreground">{ct('driverMustNote')}</p>
             <ul className="space-y-1">
-              <li>• "Goods already damaged"</li>
-              <li>• "Unable to verify quantity - sealed load"</li>
-              <li>• "Packaging damaged"</li>
-              <li>• "Loaded by sender"</li>
-              <li>• "Cannot verify weight"</li>
+              <li>• "{ct('goodsAlreadyDamaged')}"</li>
+              <li>• "{ct('unableToVerifyQuantity')}"</li>
+              <li>• "{ct('packagingDamaged')}"</li>
+              <li>• "{ct('loadedBySender')}"</li>
+              <li>• "{ct('cannotVerifyWeight')}"</li>
             </ul>
           </InfoCard>
-          <InfoCard title="At Delivery (Box 24)" icon={Truck} variant="warning">
-            <p className="mb-2 font-semibold text-foreground">Receiver MUST note any issues:</p>
+          <InfoCard title={ct('atDeliveryBox24')} icon={Truck} variant="warning">
+            <p className="mb-2 font-semibold text-foreground">{ct('receiverMustNote')}</p>
             <ul className="space-y-1">
-              <li>• "3 pallets damaged"</li>
-              <li>• "1 box missing"</li>
-              <li>• "Seal broken on arrival"</li>
-              <li>• "Temperature exceeded"</li>
-              <li>• "Delivery 4 hours late"</li>
+              <li>• "{ct('palletsDamaged')}"</li>
+              <li>• "{ct('boxMissing')}"</li>
+              <li>• "{ct('sealBroken')}"</li>
+              <li>• "{ct('temperatureExceeded')}"</li>
+              <li>• "{ct('deliveryLate')}"</li>
             </ul>
           </InfoCard>
         </div>
         <div className="mt-4 p-4 bg-destructive/10 border border-destructive/30 rounded-lg">
           <p className="text-sm font-medium text-destructive flex items-center gap-2">
             <AlertTriangle className="w-4 h-4" />
-            A "clean" CMR (no reservations) means cargo was accepted in good condition. Without reservations, proving damage is much harder!
+            {ct('cleanCmrWarning')}
           </p>
         </div>
       </section>
@@ -172,24 +174,24 @@ export function DocumentsChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
           <Globe className="w-6 h-6 text-primary" />
-          Customs Documents
+          {ct('customsDocuments')}
         </h2>
         <div className="grid md:grid-cols-2 gap-4">
-          <InfoCard title="T1 Transit Document" icon={Stamp} variant="info">
-            <p className="mb-3">For goods moving through EU in transit (non-EU goods or certain EU movements).</p>
+          <InfoCard title={ct('t1TransitDocument')} icon={Stamp} variant="info">
+            <p className="mb-3">{ct('t1Description')}</p>
             <ul className="space-y-1 text-sm">
-              <li><strong>Purpose:</strong> Suspend customs duties during transit</li>
-              <li><strong>Validity:</strong> Set by departure customs office</li>
-              <li><strong>Guarantee:</strong> Required (bank guarantee/cash deposit)</li>
-              <li><strong>Discharge:</strong> Must be presented at destination customs</li>
+              <li><strong>{ct('purpose')}</strong> {ct('suspendDuties')}</li>
+              <li><strong>{ct('validity')}</strong> {ct('setByDeparture')}</li>
+              <li><strong>{ct('guarantee')}</strong> {ct('bankGuarantee')}</li>
+              <li><strong>{ct('discharge')}</strong> {ct('presentAtDestination')}</li>
             </ul>
           </InfoCard>
-          <InfoCard title="T2 Transit Document" icon={Stamp} variant="info">
-            <p className="mb-3">For EU goods moving between EU member states through non-EU territory.</p>
+          <InfoCard title={ct('t2TransitDocument')} icon={Stamp} variant="info">
+            <p className="mb-3">{ct('t2Description')}</p>
             <ul className="space-y-1 text-sm">
-              <li><strong>Example:</strong> Germany → Austria via Switzerland</li>
-              <li><strong>Purpose:</strong> Prove EU status of goods</li>
-              <li><strong>Simpler:</strong> Than T1, lower guarantee requirements</li>
+              <li><strong>{ct('example')}</strong> {ct('germanyAustriaSwitzerland')}</li>
+              <li><strong>{ct('purpose')}</strong> {ct('proveEuStatus')}</li>
+              <li><strong>{ct('simpler')}</strong> {ct('lowerGuarantee')}</li>
             </ul>
           </InfoCard>
         </div>
@@ -199,67 +201,67 @@ export function DocumentsChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
           <Globe className="w-6 h-6 text-primary" />
-          Export/Import Documents (Non-EU)
+          {ct('exportImportDocuments')}
         </h2>
         <div className="bg-card border border-border rounded-xl p-6">
           <div className="grid md:grid-cols-3 gap-6">
             <div>
               <h3 className="font-semibold mb-3 text-primary flex items-center gap-2">
                 <FileText className="w-4 h-4" />
-                Commercial Documents
+                {ct('commercialDocuments')}
               </h3>
               <ul className="text-sm space-y-2">
                 <li className="flex items-start gap-2">
                   <CheckCircle className="w-4 h-4 text-success mt-0.5" />
-                  <span>Commercial invoice</span>
+                  <span>{ct('commercialInvoice')}</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle className="w-4 h-4 text-success mt-0.5" />
-                  <span>Packing list</span>
+                  <span>{ct('packingList')}</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle className="w-4 h-4 text-success mt-0.5" />
-                  <span>Certificate of origin</span>
+                  <span>{ct('certificateOfOrigin')}</span>
                 </li>
               </ul>
             </div>
             <div>
               <h3 className="font-semibold mb-3 text-info flex items-center gap-2">
                 <Stamp className="w-4 h-4" />
-                Customs Forms
+                {ct('customsForms')}
               </h3>
               <ul className="text-sm space-y-2">
                 <li className="flex items-start gap-2">
                   <CheckCircle className="w-4 h-4 text-success mt-0.5" />
-                  <span>Export declaration (EX-A)</span>
+                  <span>{ct('exportDeclaration')}</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle className="w-4 h-4 text-success mt-0.5" />
-                  <span>Import declaration</span>
+                  <span>{ct('importDeclaration')}</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle className="w-4 h-4 text-success mt-0.5" />
-                  <span>AEO certification (if applicable)</span>
+                  <span>{ct('aeoCertification')}</span>
                 </li>
               </ul>
             </div>
             <div>
               <h3 className="font-semibold mb-3 text-warning flex items-center gap-2">
                 <Shield className="w-4 h-4" />
-                Special Documents
+                {ct('specialDocuments')}
               </h3>
               <ul className="text-sm space-y-2">
                 <li className="flex items-start gap-2">
                   <AlertTriangle className="w-4 h-4 text-warning mt-0.5" />
-                  <span>Phytosanitary certificate</span>
+                  <span>{ct('phytosanitaryCertificate')}</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <AlertTriangle className="w-4 h-4 text-warning mt-0.5" />
-                  <span>Veterinary certificate</span>
+                  <span>{ct('veterinaryCertificate')}</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <AlertTriangle className="w-4 h-4 text-warning mt-0.5" />
-                  <span>CITES permits (wildlife)</span>
+                  <span>{ct('citesPermits')}</span>
                 </li>
               </ul>
             </div>
@@ -271,28 +273,28 @@ export function DocumentsChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
           <CheckCircle className="w-6 h-6 text-primary" />
-          POD (Proof of Delivery) Best Practices
+          {ct('podBestPractices')}
         </h2>
-        <InfoCard title="Getting a Valid POD" icon={CheckCircle} variant="success">
+        <InfoCard title={ct('gettingValidPod')} icon={CheckCircle} variant="success">
           <div className="grid md:grid-cols-2 gap-6">
             <div>
-              <h4 className="font-semibold mb-2 text-success">Must Have:</h4>
+              <h4 className="font-semibold mb-2 text-success">{ct('mustHave')}</h4>
               <ul className="space-y-1 text-sm">
-                <li>✓ Receiver signature</li>
-                <li>✓ Date and time of delivery</li>
-                <li>✓ Company stamp (if available)</li>
-                <li>✓ Name of signatory (printed)</li>
-                <li>✓ Any reservations noted clearly</li>
+                <li>✓ {ct('receiverSignature')}</li>
+                <li>✓ {ct('dateTimeDelivery')}</li>
+                <li>✓ {ct('companyStamp')}</li>
+                <li>✓ {ct('nameOfSignatory')}</li>
+                <li>✓ {ct('reservationsNotedClearly')}</li>
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold mb-2 text-destructive">Never Accept:</h4>
+              <h4 className="font-semibold mb-2 text-destructive">{ct('neverAccept')}</h4>
               <ul className="space-y-1 text-sm">
-                <li>✗ Unsigned CMR</li>
-                <li>✗ Missing delivery date</li>
-                <li>✗ Illegible signature without name</li>
-                <li>✗ "Subject to inspection" without follow-up</li>
-                <li>✗ Partial delivery without noting</li>
+                <li>✗ {ct('unsignedCmr')}</li>
+                <li>✗ {ct('missingDeliveryDate')}</li>
+                <li>✗ {ct('illegibleSignature')}</li>
+                <li>✗ {ct('subjectToInspection')}</li>
+                <li>✗ {ct('partialDelivery')}</li>
               </ul>
             </div>
           </div>
@@ -303,21 +305,21 @@ export function DocumentsChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
           <CheckCircle className="w-6 h-6 text-primary" />
-          Pre-Transport Document Checklist
+          {ct('preTransportChecklist')}
         </h2>
         <div className="bg-muted/30 rounded-xl p-6">
           <div className="grid md:grid-cols-2 gap-4">
             {[
-              "CMR completed with all boxes filled",
-              "Sender and consignee details verified",
-              "Goods description matches invoice",
-              "Weight and package count confirmed",
-              "Any special instructions in Box 13",
-              "Driver has copy of all documents",
-              "T1/T2 if crossing non-EU borders",
-              "ADR documents if dangerous goods",
-              "Temperature records if required",
-              "Photos taken at loading"
+              ct('cmrCompleted'),
+              ct('senderConsigneeVerified'),
+              ct('goodsMatchInvoice'),
+              ct('weightPackageConfirmed'),
+              ct('specialInstructionsBox13'),
+              ct('driverHasCopy'),
+              ct('t1t2IfCrossing'),
+              ct('adrDocuments'),
+              ct('temperatureRecords'),
+              ct('photosAtLoading')
             ].map((item, index) => (
               <div key={index} className="flex items-center gap-3 p-3 bg-card rounded-lg border border-border">
                 <CheckCircle className="w-5 h-5 text-success" />
@@ -330,7 +332,7 @@ export function DocumentsChapter() {
 
       {/* Quiz */}
       {quizzes.documents && (
-        <Quiz title="Transport Documents Quiz" questions={quizzes.documents} chapterId="documents" />
+        <Quiz title={ct('quizTitle')} questions={quizzes.documents} chapterId="documents" />
       )}
     </div>
   );

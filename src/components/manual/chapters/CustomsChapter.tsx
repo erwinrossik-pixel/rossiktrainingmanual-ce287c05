@@ -3,8 +3,11 @@ import { DataTable } from "../DataTable";
 import { Quiz } from "../Quiz";
 import { quizzes } from "@/data/quizData";
 import { Globe, FileText, AlertTriangle, CheckCircle, Clock, MapPin, Shield } from "lucide-react";
+import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 
 export function CustomsChapter() {
+  const { ct } = useChapterTranslation('customs');
+
   return (
     <div className="space-y-8 animate-fade-in">
       {/* Hero Section */}
@@ -13,10 +16,10 @@ export function CustomsChapter() {
         <div className="relative">
           <Globe className="w-12 h-12 mb-4" />
           <h1 className="text-3xl md:text-5xl font-bold mb-4 font-serif">
-            Customs & Border Procedures
+            {ct('title')}
           </h1>
           <p className="text-lg md:text-xl opacity-90 max-w-2xl">
-            Essential knowledge for EU/non-EU border crossings, customs documentation, and compliance.
+            {ct('subtitle')}
           </p>
         </div>
       </div>
@@ -25,25 +28,25 @@ export function CustomsChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
           <Globe className="w-6 h-6 text-primary" />
-          EU vs Non-EU Transport
+          {ct('euVsNonEu')}
         </h2>
         <div className="grid md:grid-cols-2 gap-4">
-          <InfoCard title="Within EU (Intra-Community)" icon={CheckCircle} variant="success">
+          <InfoCard title={ct('withinEU')} icon={CheckCircle} variant="success">
             <ul className="space-y-2">
-              <li>• No customs formalities at borders</li>
-              <li>• Free movement of goods</li>
-              <li>• Only CMR required for transport</li>
-              <li>• VAT handled via VIES system</li>
-              <li>• Intrastat reporting may apply</li>
+              <li>• {ct('noCustomsFormalities')}</li>
+              <li>• {ct('freeMovement')}</li>
+              <li>• {ct('onlyCmrRequired')}</li>
+              <li>• {ct('vatVies')}</li>
+              <li>• {ct('intrastatReporting')}</li>
             </ul>
           </InfoCard>
-          <InfoCard title="EU ↔ Non-EU (Import/Export)" icon={FileText} variant="warning">
+          <InfoCard title={ct('euNonEu')} icon={FileText} variant="warning">
             <ul className="space-y-2">
-              <li>• Full customs clearance required</li>
-              <li>• Export/Import declarations</li>
-              <li>• T1/T2 transit documents</li>
-              <li>• Possible duties and taxes</li>
-              <li>• Border inspections possible</li>
+              <li>• {ct('fullCustomsClearance')}</li>
+              <li>• {ct('exportImportDeclarations')}</li>
+              <li>• {ct('t1t2Transit')}</li>
+              <li>• {ct('possibleDuties')}</li>
+              <li>• {ct('borderInspections')}</li>
             </ul>
           </InfoCard>
         </div>
@@ -53,16 +56,16 @@ export function CustomsChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
           <FileText className="w-6 h-6 text-primary" />
-          Transit Documents
+          {ct('transitDocuments')}
         </h2>
         <DataTable
-          headers={["Document", "Purpose", "When Required"]}
+          headers={[ct('document'), ct('purpose'), ct('whenRequired')]}
           rows={[
-            ["T1 (External Transit)", "Non-EU goods moving through EU territory", "Import from non-EU, transit through EU"],
-            ["T2 (Internal Transit)", "EU goods moving through non-EU territory", "EU goods transiting Switzerland/Norway"],
-            ["TIR Carnet", "Simplified border crossing for sealed loads", "Long-distance transport through multiple countries"],
-            ["ATA Carnet", "Temporary import of goods", "Trade fairs, samples, professional equipment"],
-            ["EUR.1", "Proof of preferential origin", "Reduced/zero duties under trade agreements"],
+            [ct('t1ExternalTransit'), ct('t1Purpose'), ct('t1When')],
+            [ct('t2InternalTransit'), ct('t2Purpose'), ct('t2When')],
+            [ct('tirCarnet'), ct('tirPurpose'), ct('tirWhen')],
+            [ct('ataCarnet'), ct('ataPurpose'), ct('ataWhen')],
+            [ct('eur1'), ct('eur1Purpose'), ct('eur1When')],
           ]}
         />
       </section>
@@ -71,7 +74,7 @@ export function CustomsChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
           <FileText className="w-6 h-6 text-primary" />
-          T1 Transit Procedure
+          {ct('t1TransitProcedure')}
         </h2>
         <div className="bg-card border border-border rounded-xl p-6">
           <div className="space-y-6">
@@ -80,10 +83,9 @@ export function CustomsChapter() {
                 <span className="font-bold text-primary">1</span>
               </div>
               <div>
-                <h3 className="font-semibold mb-1">Opening the T1</h3>
+                <h3 className="font-semibold mb-1">{ct('openingT1')}</h3>
                 <p className="text-sm text-muted-foreground">
-                  T1 is opened at the customs office of departure (port, border, or inland customs). 
-                  Goods are placed under transit procedure with guarantee.
+                  {ct('openingT1Desc')}
                 </p>
               </div>
             </div>
@@ -93,10 +95,9 @@ export function CustomsChapter() {
                 <span className="font-bold text-primary">2</span>
               </div>
               <div>
-                <h3 className="font-semibold mb-1">Transit Through EU</h3>
+                <h3 className="font-semibold mb-1">{ct('transitThroughEU')}</h3>
                 <p className="text-sm text-muted-foreground">
-                  Vehicle travels with customs seals intact. MRN (Movement Reference Number) 
-                  is used to track the movement. Seals must NOT be broken.
+                  {ct('transitThroughEUDesc')}
                 </p>
               </div>
             </div>
@@ -106,10 +107,9 @@ export function CustomsChapter() {
                 <span className="font-bold text-primary">3</span>
               </div>
               <div>
-                <h3 className="font-semibold mb-1">Closing the T1</h3>
+                <h3 className="font-semibold mb-1">{ct('closingT1')}</h3>
                 <p className="text-sm text-muted-foreground">
-                  T1 must be closed at destination customs within time limit (usually shown on document). 
-                  Seals are checked and removed. Failure to close = guarantee called.
+                  {ct('closingT1Desc')}
                 </p>
               </div>
             </div>
@@ -121,17 +121,17 @@ export function CustomsChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
           <MapPin className="w-6 h-6 text-primary" />
-          Key Border Crossings
+          {ct('keyBorderCrossings')}
         </h2>
         <DataTable
-          headers={["Route", "Border Point", "Notes"]}
+          headers={[ct('route'), ct('borderPoint'), ct('notes')]}
           rows={[
-            ["EU ↔ UK", "Dover-Calais, Eurostar", "Post-Brexit: Full customs, GVMS required"],
-            ["EU ↔ Switzerland", "Basel, Chiasso", "T2 transit, CH not in EU but Schengen"],
-            ["EU ↔ Norway", "Svinesund, Ørje", "T2 transit, EEA but not EU customs union"],
-            ["EU ↔ Turkey", "Kapıkule (BG)", "TIR or T1, lengthy border checks possible"],
-            ["EU ↔ Ukraine", "Dorohusk (PL)", "Full customs, long queues possible"],
-            ["EU ↔ Serbia", "Batrovci (HR)", "T1 required, Serbia not in EU"],
+            [ct('euUk'), ct('doverCalais'), ct('postBrexit')],
+            [ct('euSwitzerland'), ct('baselChiasso'), ct('switzerlandNotes')],
+            [ct('euNorway'), ct('svinesund'), ct('norwayNotes')],
+            [ct('euTurkey'), ct('kapikule'), ct('turkeyNotes')],
+            [ct('euUkraine'), ct('dorohusk'), ct('ukraineNotes')],
+            [ct('euSerbia'), ct('batrovci'), ct('serbiaNotes')],
           ]}
         />
       </section>
@@ -140,28 +140,28 @@ export function CustomsChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
           <Shield className="w-6 h-6 text-primary" />
-          UK Post-Brexit Requirements
+          {ct('ukPostBrexit')}
         </h2>
         <div className="bg-warning/10 border border-warning/20 rounded-xl p-6">
           <div className="grid md:grid-cols-2 gap-6">
             <div>
-              <h3 className="font-semibold mb-3">Required Documents</h3>
+              <h3 className="font-semibold mb-3">{ct('requiredDocuments')}</h3>
               <ul className="space-y-2 text-sm">
-                <li>• Export declaration (EU side)</li>
-                <li>• Import declaration (UK side)</li>
-                <li>• GVMS (Goods Vehicle Movement Service) registration</li>
-                <li>• GMR (Goods Movement Reference)</li>
-                <li>• Commercial invoice</li>
-                <li>• Packing list</li>
+                <li>• {ct('exportDeclarationEU')}</li>
+                <li>• {ct('importDeclarationUK')}</li>
+                <li>• {ct('gvms')}</li>
+                <li>• {ct('gmr')}</li>
+                <li>• {ct('commercialInvoice')}</li>
+                <li>• {ct('packingList')}</li>
               </ul>
             </div>
             <div>
-              <h3 className="font-semibold mb-3">Special Requirements</h3>
+              <h3 className="font-semibold mb-3">{ct('specialRequirements')}</h3>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                <li>• Animal products: IPAFFS, health certificates</li>
-                <li>• Plants: Phytosanitary certificates</li>
-                <li>• Food: GB importer must be registered</li>
-                <li>• Safety & Security declarations may apply</li>
+                <li>• {ct('animalProducts')}</li>
+                <li>• {ct('plants')}</li>
+                <li>• {ct('food')}</li>
+                <li>• {ct('safetySecurityDeclarations')}</li>
               </ul>
             </div>
           </div>
@@ -172,25 +172,25 @@ export function CustomsChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
           <FileText className="w-6 h-6 text-primary" />
-          Key Customs Terms
+          {ct('keyCustomsTerms')}
         </h2>
         <div className="grid md:grid-cols-2 gap-4">
           <div className="bg-card border border-border rounded-xl p-4">
-            <h3 className="font-semibold mb-3">Documents & Codes</h3>
+            <h3 className="font-semibold mb-3">{ct('documentsCodes')}</h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><strong>MRN:</strong> Movement Reference Number - tracking code for customs movements</li>
-              <li><strong>EORI:</strong> Economic Operator Registration - required for customs activities</li>
-              <li><strong>HS Code:</strong> Harmonized System - product classification code</li>
-              <li><strong>SAD:</strong> Single Administrative Document - customs declaration form</li>
+              <li><strong>{ct('mrn')}</strong> {ct('mrnDesc')}</li>
+              <li><strong>{ct('eori')}</strong> {ct('eoriDesc')}</li>
+              <li><strong>{ct('hsCode')}</strong> {ct('hsCodeDesc')}</li>
+              <li><strong>{ct('sad')}</strong> {ct('sadDesc')}</li>
             </ul>
           </div>
           <div className="bg-card border border-border rounded-xl p-4">
-            <h3 className="font-semibold mb-3">Procedures</h3>
+            <h3 className="font-semibold mb-3">{ct('procedures')}</h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li><strong>AEO:</strong> Authorized Economic Operator - trusted trader status</li>
-              <li><strong>Inward Processing:</strong> Import for processing, re-export</li>
-              <li><strong>Customs Warehouse:</strong> Duty-free storage until released</li>
-              <li><strong>Free Zone:</strong> Area with suspended customs duties</li>
+              <li><strong>{ct('aeo')}</strong> {ct('aeoDesc')}</li>
+              <li><strong>{ct('inwardProcessing')}</strong> {ct('inwardProcessingDesc')}</li>
+              <li><strong>{ct('customsWarehouse')}</strong> {ct('customsWarehouseDesc')}</li>
+              <li><strong>{ct('freeZone')}</strong> {ct('freeZoneDesc')}</li>
             </ul>
           </div>
         </div>
@@ -200,30 +200,30 @@ export function CustomsChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
           <AlertTriangle className="w-6 h-6 text-warning" />
-          Common Customs Issues
+          {ct('commonCustomsIssues')}
         </h2>
         <div className="bg-card border border-border rounded-xl p-6">
           <div className="grid md:grid-cols-2 gap-6">
             <div>
-              <h3 className="font-semibold mb-3 text-destructive">Problems to Avoid</h3>
+              <h3 className="font-semibold mb-3 text-destructive">{ct('problemsToAvoid')}</h3>
               <ul className="space-y-2 text-sm">
-                <li>• Broken or missing customs seals</li>
-                <li>• Incorrect or incomplete documentation</li>
-                <li>• Mismatch between declared and actual goods</li>
-                <li>• Expired T1 transit (time limit exceeded)</li>
-                <li>• Missing EORI number</li>
-                <li>• Wrong HS codes declared</li>
+                <li>• {ct('brokenSeals')}</li>
+                <li>• {ct('incorrectDocumentation')}</li>
+                <li>• {ct('mismatchGoods')}</li>
+                <li>• {ct('expiredT1')}</li>
+                <li>• {ct('missingEori')}</li>
+                <li>• {ct('wrongHsCodes')}</li>
               </ul>
             </div>
             <div>
-              <h3 className="font-semibold mb-3 text-success">Best Practices</h3>
+              <h3 className="font-semibold mb-3 text-success">{ct('bestPractices')}</h3>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                <li>• Verify all documents before departure</li>
-                <li>• Check seal numbers match documents</li>
-                <li>• Keep copies of all customs papers</li>
-                <li>• Know the T1 deadline and route</li>
-                <li>• Have customs agent contact ready</li>
-                <li>• Allow extra time for border crossings</li>
+                <li>• {ct('verifyDocuments')}</li>
+                <li>• {ct('checkSealNumbers')}</li>
+                <li>• {ct('keepCopies')}</li>
+                <li>• {ct('knowT1Deadline')}</li>
+                <li>• {ct('customsAgentContact')}</li>
+                <li>• {ct('allowExtraTime')}</li>
               </ul>
             </div>
           </div>
@@ -234,22 +234,22 @@ export function CustomsChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
           <Clock className="w-6 h-6 text-primary" />
-          Border Crossing Times
+          {ct('borderCrossingTimes')}
         </h2>
-        <InfoCard title="Estimated Wait Times" icon={Clock} variant="info">
+        <InfoCard title={ct('estimatedWaitTimes')} icon={Clock} variant="info">
           <p className="text-sm text-muted-foreground mb-4">
-            These are estimates only - actual times vary based on traffic, inspections, and time of day.
+            {ct('estimatesNote')}
           </p>
           <div className="grid md:grid-cols-2 gap-4">
             <ul className="space-y-1 text-sm">
-              <li><strong>EU internal:</strong> 0 minutes (no border stops)</li>
-              <li><strong>EU-UK Dover:</strong> 30 min - 4 hours</li>
-              <li><strong>EU-Switzerland:</strong> 15-45 minutes</li>
+              <li><strong>{ct('euInternal')}</strong> {ct('euInternalTime')}</li>
+              <li><strong>{ct('euUkDover')}</strong> {ct('euUkTime')}</li>
+              <li><strong>{ct('euSwitzerlandTime')}</strong> {ct('euSwitzerlandWait')}</li>
             </ul>
             <ul className="space-y-1 text-sm">
-              <li><strong>EU-Turkey:</strong> 2-8 hours</li>
-              <li><strong>EU-Ukraine:</strong> 4-24+ hours</li>
-              <li><strong>EU-Serbia:</strong> 1-3 hours</li>
+              <li><strong>{ct('euTurkeyTime')}</strong> {ct('euTurkeyWait')}</li>
+              <li><strong>{ct('euUkraineTime')}</strong> {ct('euUkraineWait')}</li>
+              <li><strong>{ct('euSerbiaTime')}</strong> {ct('euSerbiaWait')}</li>
             </ul>
           </div>
         </InfoCard>
@@ -257,7 +257,7 @@ export function CustomsChapter() {
 
       {/* Quiz */}
       {quizzes.customs && (
-        <Quiz title="Customs & Border Procedures Quiz" questions={quizzes.customs} chapterId="customs" />
+        <Quiz title={ct('quizTitle')} questions={quizzes.customs} chapterId="customs" />
       )}
     </div>
   );
