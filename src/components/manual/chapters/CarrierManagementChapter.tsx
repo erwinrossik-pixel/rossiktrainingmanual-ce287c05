@@ -340,12 +340,12 @@ export function CarrierManagementChapter() {
             </ul>
           </InfoCard>
           
-          <InfoCard title="Post-Delivery" icon={CheckCircle2}>
+          <InfoCard title={ct("postDelivery")} icon={CheckCircle2}>
             <ul className="text-sm space-y-1">
-              <li>• POD within 24 hours</li>
-              <li>• Invoice per agreed terms</li>
-              <li>• Issue resolution within 48h</li>
-              <li>• Performance feedback</li>
+              <li>• {ct("postDelivery1")}</li>
+              <li>• {ct("postDelivery2")}</li>
+              <li>• {ct("postDelivery3")}</li>
+              <li>• {ct("postDelivery4")}</li>
             </ul>
           </InfoCard>
         </div>
@@ -355,42 +355,42 @@ export function CarrierManagementChapter() {
       <div className="info-card">
         <h2 className="section-title flex items-center gap-3">
           <TrendingUp className="w-6 h-6 text-primary" />
-          Carrier Performance Metrics
+          {ct("carrierPerformanceTitle")}
         </h2>
 
         <DataTable
-          headers={["KPI", "Target", "Measurement", "Review Frequency"]}
+          headers={[ct("kpi"), ct("target"), ct("measurement"), ct("reviewFrequency")]}
           rows={[
-            ["On-Time Pickup", "≥95%", "Arrival within 30 min of slot", "Weekly"],
-            ["On-Time Delivery", "≥95%", "Delivery within agreed window", "Weekly"],
-            ["POD Submission", "≥90% within 24h", "Signed POD received", "Weekly"],
-            ["Damage Rate", "<1%", "Shipments with damage claims", "Monthly"],
-            ["Communication Score", "≥4/5", "Responsiveness, updates, professionalism", "Monthly"],
-            ["Invoice Accuracy", "≥98%", "Correct pricing, no disputes", "Monthly"],
-            ["Load Acceptance Rate", "≥80%", "Offers accepted vs offered", "Monthly"],
-            ["Capacity Reliability", "≥90%", "Confirmed loads executed", "Monthly"],
+            [ct("onTimePickup"), "≥95%", "Arrival within 30 min of slot", "Weekly"],
+            [ct("onTimeDelivery"), "≥95%", "Delivery within agreed window", "Weekly"],
+            [ct("podSubmission"), "≥90% within 24h", "Signed POD received", "Weekly"],
+            [ct("damageRate"), "<1%", "Shipments with damage claims", "Monthly"],
+            [ct("communicationScore"), "≥4/5", "Responsiveness, updates, professionalism", "Monthly"],
+            [ct("invoiceAccuracy"), "≥98%", "Correct pricing, no disputes", "Monthly"],
+            [ct("loadAcceptanceRate"), "≥80%", "Offers accepted vs offered", "Monthly"],
+            [ct("capacityReliability"), "≥90%", "Confirmed loads executed", "Monthly"],
           ]}
         />
 
         <div className="grid md:grid-cols-2 gap-4 mt-6">
           <div className="bg-success/10 p-4 rounded-lg">
-            <h4 className="font-semibold text-success mb-2">Reward High Performers</h4>
+            <h4 className="font-semibold text-success mb-2">{ct("rewardHighPerformers")}</h4>
             <ul className="text-sm space-y-1">
-              <li>• Priority load allocation</li>
-              <li>• Extended payment terms</li>
-              <li>• Annual volume commitments</li>
-              <li>• Preferred carrier status</li>
-              <li>• Public recognition</li>
+              <li>• {ct("reward1")}</li>
+              <li>• {ct("reward2")}</li>
+              <li>• {ct("reward3")}</li>
+              <li>• {ct("reward4")}</li>
+              <li>• {ct("reward5")}</li>
             </ul>
           </div>
           <div className="bg-destructive/10 p-4 rounded-lg">
-            <h4 className="font-semibold text-destructive mb-2">Address Poor Performers</h4>
+            <h4 className="font-semibold text-destructive mb-2">{ct("addressPoorPerformers")}</h4>
             <ul className="text-sm space-y-1">
-              <li>• Formal improvement plan</li>
-              <li>• Reduced load allocation</li>
-              <li>• Closer monitoring</li>
-              <li>• Tier downgrade</li>
-              <li>• Ultimate removal if no improvement</li>
+              <li>• {ct("address1")}</li>
+              <li>• {ct("address2")}</li>
+              <li>• {ct("address3")}</li>
+              <li>• {ct("address4")}</li>
+              <li>• {ct("address5")}</li>
             </ul>
           </div>
         </div>
@@ -514,7 +514,7 @@ export function CarrierManagementChapter() {
       {/* Quiz */}
       {quizzes["carrier-management"] && (
         <Quiz
-          title="Carrier Management Knowledge Check"
+          title={ct("quizTitle")}
           questions={quizzes["carrier-management"]}
           chapterId="carrier-management"
           questionsPerRound={5}
