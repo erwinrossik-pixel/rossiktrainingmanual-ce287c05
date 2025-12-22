@@ -24,6 +24,7 @@ import { drivingTimeTranslations } from './chapters/driving-time';
 import { kpiTranslations } from './chapters/kpi';
 import { redFlagsTranslations } from './chapters/red-flags';
 import { reeferTranslations } from './chapters/reefer';
+import { licensesOversizeTranslations } from './chapters/licenses-oversize';
 
 // Chapter translations type
 type ChapterTranslations = Record<string, Record<string, string>>;
@@ -51,6 +52,11 @@ const allTranslations: Record<string, ChapterTranslations> = {
   checklists: checklistsTranslations,
   commercial: commercialTranslations,
   compliance: complianceTranslations,
+  'driving-time': drivingTimeTranslations,
+  kpi: kpiTranslations,
+  'red-flags': redFlagsTranslations,
+  reefer: reeferTranslations,
+  'licenses-oversize': licensesOversizeTranslations,
 };
 
 // Hook to get chapter translations
