@@ -5,18 +5,20 @@ import { quizzes } from "@/data/quizData";
 import { Clock, Users, AlertTriangle, Gauge, Car, Ban } from "lucide-react";
 import { Badge } from "../Badge";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
+import { ChapterHero } from "../ChapterHero";
 
 export function DrivingTimeChapter() {
   const { ct } = useChapterTranslation("driving-time");
   
   return (
     <div className="space-y-8 animate-fade-in">
-      <div>
-        <h1 className="chapter-title">{ct("title")}</h1>
-        <p className="text-lg text-muted-foreground">
-          {ct("subtitle")}
-        </p>
-      </div>
+      <ChapterHero
+        chapterNumber={ct('chapterNumber')}
+        title={ct('chapterTitle')}
+        description={ct('heroDescription')}
+        icon={Clock}
+        variant="drivingtime"
+      />
 
       {/* Key Definitions */}
       <div className="grid md:grid-cols-2 gap-6">

@@ -1,5 +1,8 @@
 export const documentsTranslations = {
   en: {
+    chapterNumber: "Chapter 10",
+    chapterTitle: "Documents",
+    heroDescription: "CMR, customs declarations, and essential documentation for European road transport operations.",
     title: "Transport Documents",
     subtitle: "CMR, customs declarations, and essential documentation for European road transport.",
     cmrConsignmentNote: "CMR Consignment Note",

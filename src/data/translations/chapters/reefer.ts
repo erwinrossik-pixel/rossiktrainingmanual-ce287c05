@@ -1,5 +1,8 @@
 export const reeferTranslations: Record<string, Record<string, string>> = {
   en: {
+    chapterNumber: "Chapter 7",
+    chapterTitle: "Reefer Transport",
+    heroDescription: "Complete guide to refrigerated transport, cold chain logistics, ATP compliance, and handling temperature-sensitive cargo.",
     title: "Temperature-Controlled Transport",
     subtitle: "Complete guide to refrigerated transport, cold chain logistics, ATP compliance, and handling temperature-sensitive cargo safely across Europe.",
     coldChainTitle: "Understanding Cold Chain Logistics",

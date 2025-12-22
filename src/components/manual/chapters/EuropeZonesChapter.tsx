@@ -4,18 +4,20 @@ import { Quiz } from "../Quiz";
 import { quizzes } from "@/data/quizData";
 import { Map, Building2, Truck, Euro, Clock, AlertTriangle, CheckCircle2, Route, Factory, Ship, Calendar } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
+import { ChapterHero } from "../ChapterHero";
 
 export function EuropeZonesChapter() {
   const { ct } = useChapterTranslation("europe-zones");
   
   return (
     <div className="space-y-8 animate-fade-in">
-      <div>
-        <h1 className="chapter-title">{ct("title")}</h1>
-        <p className="text-lg text-muted-foreground">
-          {ct("subtitle")}
-        </p>
-      </div>
+      <ChapterHero
+        chapterNumber={ct('chapterNumber')}
+        title={ct('chapterTitle')}
+        description={ct('heroDescription')}
+        icon={Map}
+        variant="europezones"
+      />
 
       {/* Overview Map */}
       <div className="info-card bg-gradient-to-br from-primary/5 to-primary/10">

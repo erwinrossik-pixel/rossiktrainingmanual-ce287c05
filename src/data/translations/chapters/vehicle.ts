@@ -1,5 +1,8 @@
 export const vehicleTranslations = {
   en: {
+    chapterNumber: "Chapter 5",
+    chapterTitle: "Vehicle Types",
+    heroDescription: "Technical specifications, weight limits, vehicle types, and inspection checkpoints for European road transport.",
     title: "Vehicle Reference – 13.6m Curtainsider",
     subtitle: "Technical specifications, weight limits, vehicle types, and inspection checkpoints.",
     length: "Length",

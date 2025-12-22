@@ -1,5 +1,8 @@
 export const warehouseTranslations: Record<string, Record<string, string>> = {
   en: {
+    chapterNumber: "Chapter 8",
+    chapterTitle: "Warehouse Operations",
+    heroDescription: "Understanding warehouse operations, cross-docking, consolidation, and integration with transport in the supply chain.",
     title: "Warehouse & Cross-Docking",
     subtitle: "Understanding warehouse operations, cross-docking, consolidation, and how they integrate with transport in the supply chain.",
     roleOfWarehousing: "The Role of Warehousing in Logistics",

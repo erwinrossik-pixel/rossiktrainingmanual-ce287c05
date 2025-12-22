@@ -1,5 +1,8 @@
 export const loadingTranslations = {
   en: {
+    chapterNumber: "Chapter 6",
+    chapterTitle: "Loading & Securing",
+    heroDescription: "Standard Operating Procedure for safe cargo loading and securing. EU standards, best practices, and documentation requirements.",
     title: "Loading & Cargo Securing SOP",
     subtitle: "Standard Operating Procedure for safe cargo loading and securing. This chapter covers EU standards, best practices, weight distribution, and documentation requirements.",
     whyLoadingMatters: "Why Loading Matters",
