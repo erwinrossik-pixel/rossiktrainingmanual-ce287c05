@@ -1,0 +1,1373 @@
+export const licensesOversizeTranslations = {
+  en: {
+    // Hero Section
+    chapterNumber: "Chapter 40",
+    chapterTitle: "Licenses & Oversize Transport",
+    heroDescription: "Complete guide to transport licenses, special authorizations, and organizing oversize cargo transport in Europe. Understanding regulations is essential for legal and safe operations.",
+
+    // Section 1: Introduction to Transport Licenses
+    section1Title: "Introduction to Transport Licenses",
+    section1Intro: "Operating road freight transport activities in the European Union requires obtaining specific licenses and authorizations. These documents demonstrate the professional, financial, and reputable capacity of the transport operator, ensuring a high level of safety and professionalism in the industry.",
+    basicRequirements: "Basic Requirements",
+    euMemberStates: "EU Member States",
+    licenseValidity: "License Validity",
+    
+    // Legal Framework
+    legalFrameworkTitle: "European Legal Framework",
+    regulation1071: "Regulation (EC) 1071/2009 - Conditions for exercising the profession of transport operator",
+    regulation1072: "Regulation (EC) 1072/2009 - Access to the road freight transport market",
+    mobilityPackage: "Mobility Package 2020 - Updates on cabotage and posting",
+    directive9653: "Directive 96/53/EC - Maximum dimensions and weights",
+    
+    // Why Licenses
+    whyLicensesTitle: "Why Are Licenses Important?",
+    guaranteeCompetence: "Guarantees the operator's professional competence",
+    ensureFinancial: "Ensures financial capacity to cover damages",
+    verifyReputation: "Verifies reputation and background",
+    allowsLegalOperation: "Allows legal operation in EU territory",
+    requiredForContracts: "Required for contracts with major clients",
+
+    // Section 2: Types of Transport Licenses
+    section2Title: "Types of Transport Licenses",
+    licenseType: "License Type",
+    description: "Description",
+    coverage: "Coverage",
+    validity: "Validity",
+    specialRequirements: "Special Requirements",
+    
+    communityLicense: "Community License",
+    communityLicenseDesc: "Allows international transport in EU/EEA",
+    communityLicenseCoverage: "All EU member states + Norway, Iceland, Liechtenstein",
+    fiveYears: "5 years",
+    cpcManagerFinancialSeat: "CPC Manager, Financial Capacity, Real Seat",
+    
+    nationalLicense: "National License",
+    nationalLicenseDesc: "Road transport only on national territory",
+    issuingCountry: "Issuing country",
+    similarRequirements: "Similar requirements, limited scope",
+    
+    conformingCopies: "Conforming Copies",
+    conformingCopiesDesc: "Documents for each vehicle in the fleet",
+    sameRoutesAsBase: "Same routes as base license",
+    mainLicenseDuration: "Main license duration",
+    onePerVehicle: "One per vehicle > 3.5t",
+    
+    ltiLicense: "LTI License (Light Vehicles)",
+    ltiLicenseDesc: "Vehicles 2.5t - 3.5t GVW",
+    accordingTo2022: "According to 2022 regulations",
+    reducedFinancialRequirements: "Reduced financial capacity requirements",
+    
+    cemtAuthorizations: "CEMT Authorizations",
+    cemtDesc: "Transport to non-EU countries (limited quotas)",
+    cemtCoverage: "Turkey, Russia, Balkans countries",
+    annualRenewal: "Annual (with renewal)",
+    allocationByAuthority: "Allocation by national authority",
+    
+    bilateralAuthorizations: "Bilateral Authorizations",
+    bilateralDesc: "Specific agreements between two countries",
+    accordingToAgreement: "According to bilateral agreement",
+    variable: "Variable",
+    requestedForSpecific: "Requested for specific destinations",
+
+    // Community License Key Elements
+    communityLicenseKeyElements: "Community License - Key Elements",
+    fundamentalDocument: "The Community License is the fundamental document for any international road transport operator. Without it, you cannot perform commercial transport between member states.",
+    infoOnLicense: "Information on License:",
+    operatorNameAddress: "Operator name and address",
+    licenseNumberCountry: "License number and issuing country",
+    issueExpiryDate: "Issue and expiry date",
+    stampSignature: "Authority stamp and signature",
+    authorizedVehicleTypes: "Authorized vehicle types",
+
+    // Conforming Copies
+    conformingCopiesTitle: "Conforming Copies",
+    conformingCopiesInfo: "For each vehicle in the fleet exceeding 3.5 tons GVW, a conforming copy of the community license is required, which must be kept in the vehicle permanently.",
+    attention: "Attention!",
+    missingCopyWarning: "Missing conforming copy in vehicle can lead to fines of €2,000-10,000 and vehicle immobilization until document is presented.",
+
+    // Section 3: Requirements
+    section3Title: "Requirements for Obtaining License",
+    professionalCompetence: "1. Professional Competence",
+    certifiedTransportManager: "Certified transport manager (CPC)",
+    cpcExamPassed: "CPC exam passed or recognized diploma",
+    residenceInEU: "Residence in EU member state",
+    realLinkWithOperations: "Real link with company operations",
+    
+    financialCapacity: "2. Financial Capacity",
+    firstVehicleAmount: "€9,000 for first vehicle (>3.5t)",
+    additionalVehicleAmount: "€5,000 for each additional vehicle",
+    demonstratedByGuarantee: "Demonstrated by bank guarantee or insurance",
+    lightVehiclesAmount: "For 2.5-3.5t: €1,800/€900",
+    
+    goodRepute: "3. Good Repute",
+    noSeriousCriminal: "No serious criminal convictions",
+    noSeriousTransportViolations: "No serious transport law violations",
+    cleanCriminalRecord: "Clean criminal record",
+    verifiedByERRU: "Verified through ERRU system",
+
+    // Real and Stable Seat
+    realStableSeat: "Real and Stable Seat",
+    seatRequirements: "Seat Requirements:",
+    premisesForDocuments: "Premises for keeping commercial and accounting documents",
+    technicalEquipment: "Technical equipment and communication devices",
+    accessToParking: "Access to vehicle parking",
+    maintenanceFacilities: "Maintenance facilities (own or contracted)",
+    stableVerifiableAddress: "Stable and verifiable address",
+    requiredDocuments: "Required Documents:",
+    leaseOrOwnership: "Lease contract or ownership deed",
+    utilityPaymentProof: "Utility payment proof",
+    maintenanceContract: "Maintenance service contract",
+    facilityPhotos: "Photos of premises and facilities",
+    localOperatingPermits: "Local operating permits",
+
+    // Section 4: CPC
+    section4Title: "Certificate of Professional Competence (CPC)",
+    cpcIntro: "The Certificate of Professional Competence (CPC) is the document certifying that an enterprise's transport manager possesses the knowledge and competencies needed to manage transport activities. This certificate is obtained after passing a rigorous exam.",
+    cpcModule: "CPC Module",
+    topicsCovered: "Topics Covered",
+    examQuestions: "Exam Questions",
+    duration: "Duration",
+    
+    civilLaw: "Civil Law",
+    civilLawTopics: "Contracts, civil liability, CMR, insurance",
+    commercialLaw: "Commercial Law",
+    commercialLawTopics: "Companies, accounting, taxation",
+    socialLaw: "Social Law",
+    socialLawTopics: "Labor code, working time, wages, contracts",
+    fiscalLaw: "Fiscal Law",
+    fiscalLawTopics: "VAT, taxes, customs duties, excise",
+    commercialFinancialManagement: "Commercial and Financial Management",
+    managementTopics: "Prices, costs, budgets, investments",
+    marketAccess: "Market Access",
+    marketAccessTopics: "Licenses, authorizations, cabotage, CEMT",
+    technicalStandards: "Technical Standards",
+    technicalTopics: "Vehicles, equipment, dimensions, weights",
+    roadSafety: "Road Safety",
+    safetyTopics: "Driving, accidents, ADR, cargo securing",
+    
+    questions: "questions",
+    hour: "hour",
+    hours: "hours",
+    minutes: "min",
+
+    // CPC Exam Preparation
+    cpcExamPreparation: "Preparing for CPC Exam",
+    enrollInCourse: "Enroll in authorized course (100-200 hours)",
+    studyMaterials: "Study mandatory materials (CPC manual)",
+    attendAllSessions: "Attend all preparation sessions",
+    solvePracticeTests: "Solve practice tests",
+    takeOfficialExam: "Take official exam",
+    
+    cpcExamStats: "CPC Exam Statistics",
+    averagePassRate: "Average pass rate",
+    questionsInExam: "Questions in exam",
+    totalExamDuration: "Total exam duration",
+    minimumPassScore: "Minimum pass score",
+
+    // Section 5: Cabotage
+    section5Title: "Cabotage Rules in EU",
+    cabotageIntro: "Cabotage is the national transport of goods carried out by a foreign operator on the territory of another member state. Regulation (EC) 1072/2009, as amended by Mobility Package 2020, sets strict rules for this practice.",
+    
+    currentRules2024: "Current Rules (2024)",
+    maxCabotageOperations: "Maximum 3 Cabotage Operations",
+    within7Days: "Within 7 days of last international unloading",
+    coolingOffPeriod: "4-Day Cooling-off Period",
+    beforeNewOperations: "Before new cabotage operations in same state",
+    priorInternationalTransport: "Prior International Transport",
+    mandatoryBeforeCabotage: "Mandatory before cabotage in any state",
+    
+    sanctionsForViolations: "Sanctions for Violations",
+    finesRange: "Fines €5,000 - €25,000",
+    variesByState: "Varies by state and severity",
+    vehicleImmobilization: "Vehicle Immobilization",
+    untilPayment: "Until fine payment or legal clarification",
+    licenseLoss: "License Loss",
+    forRepeatedViolations: "For repeated and serious violations",
+
+    // Cabotage Documentation
+    cabotageDocumentation: "Required Documentation for Cabotage",
+    cmrInternationalEntry: "CMR for international entry transport",
+    cmrForEachOperation: "CMR for each cabotage operation",
+    conformingCopyLicense: "Conforming copy of community license",
+    tachographRecords: "Tachograph records for relevant period",
+    a1Form: "A1 form (for posting in certain states)",
+    transportOrdersAll: "Transport orders for all loads",
+
+    // Section 6: Oversize Transport
+    section6Title: "Oversize/Heavy Transport",
+    oversizeIntro: "Oversize transport (also called exceptional, oversize or heavy transport) refers to goods that exceed the standard legal dimensions or weights for road vehicles. These transports require special authorizations and detailed planning.",
+    legalDefinition: "Legal Definition",
+    legalDefinitionText: "A transport is considered oversize when it exceeds: length of 16.5m, width of 2.55m, height of 4m, or total weight of 40t (or applicable national limit).",
+    
+    category: "Category",
+    standardDimensions: "Standard Dimensions",
+    oversizeExceedance: "Oversize Exceedance",
+    specialRequirementsCol: "Special Requirements",
+    
+    length: "Length",
+    maxLength: "Max. 16.50m (combination)",
+    lengthExceed: "> 16.50m up to 40m+",
+    lengthRequirements: "Special authorization, pilot cars",
+    
+    width: "Width",
+    maxWidth: "Max. 2.55m (2.60m reefer)",
+    widthExceed: "> 2.55m up to 6m+",
+    widthRequirements: "Escort, restricted hours",
+    
+    height: "Height",
+    maxHeight: "Max. 4.00m (4.30m some countries)",
+    heightExceed: "> 4.00m up to 5m+",
+    heightRequirements: "Route study, bridge verification",
+    
+    totalWeight: "Total Weight",
+    maxTotalWeight: "Max. 40t (44t some routes)",
+    weightExceed: "> 40t up to 500t+",
+    weightRequirements: "Special platforms, multiple axles",
+    
+    axleWeight: "Axle Weight",
+    maxAxleWeight: "Max. 10-11.5t/axle",
+    axleExceed: "Authorized exceedances",
+    axleRequirements: "Controlled distribution",
+
+    // Oversize Classification
+    oversizeClassification: "Classification of Oversize Transports",
+    categoryILight: "Category I (Light)",
+    categoryIDesc: "Minor exceedances: width up to 3m, length up to 22m",
+    categoryIIMedium: "Category II (Medium)",
+    categoryIIDesc: "Width 3-3.5m, length 22-30m, weight 40-80t",
+    categoryIIIHeavy: "Category III (Heavy)",
+    categoryIIIDesc: "Major exceedances: width > 3.5m, length > 30m, weight > 80t",
+    megaTransport: "Mega Transport",
+    megaTransportDesc: "Extremely heavy cargo (100+ tons) or long (50+ meters)",
+
+    // Types of Oversize Cargo
+    typesOversizeCargo: "Types of Oversize Cargo",
+    industrialMachinery: "Industrial machinery: turbines, transformers, reactors",
+    modularConstruction: "Modular construction: prefab houses, special containers",
+    agriculturalEquipment: "Agricultural equipment: combines, large tractors",
+    windEquipment: "Wind equipment: blades, towers, nacelles",
+    specialVehicles: "Special vehicles: cranes, excavators, bulldozers",
+    metalStructures: "Metal structures: beams, prefab structures",
+
+    // Section 7: Permits
+    section7Title: "Permits for Oversize Transport",
+    authorizationProcess: "Authorization Process",
+    routeStudy: "Route Study",
+    routeStudyDesc: "Identifying obstacles: bridges, tunnels, roundabouts, cables",
+    permitApplication: "Permit Application",
+    permitApplicationDesc: "Submission to competent authority in each transit country",
+    verificationApproval: "Verification and Approval",
+    verificationDesc: "Technical analysis, fees, special traffic conditions",
+    escortCoordination: "Escort Coordination",
+    escortCoordinationDesc: "Pilot cars, police, special escort as applicable",
+    transportExecution: "Transport Execution",
+    transportExecutionDesc: "Strict compliance with authorized route and conditions",
+
+    // Required Documentation
+    requiredDocumentation: "Required Documentation",
+    applicationFormOfficial: "Authorization application (official form)",
+    detailedCargoDescription: "Detailed cargo description (dimensions, weight)",
+    vehicleConfiguration: "Vehicle configuration (axles, suspension)",
+    proposedRouteCheckpoints: "Proposed route with checkpoints",
+    specialTransportInsurance: "Special transport insurance",
+    vehicleConformityCert: "Vehicle conformity certificate",
+    transportLicenseConforming: "Transport license and conforming copy",
+    permitFeePaymentProof: "Permit fee payment proof",
+
+    // Processing Times
+    processingTimeCosts: "Processing Time and Costs by Country",
+    country: "Country",
+    processingTime: "Processing Time",
+    estimatedCost: "Estimated Cost",
+    notes: "Notes",
+    
+    germanyName: "Germany",
+    germanyTime: "2-4 weeks",
+    germanyCost: "€150-800",
+    germanyNotes: "Strict, requires detailed route study",
+    
+    franceName: "France",
+    franceTime: "2-3 weeks",
+    franceCost: "€100-600",
+    franceNotes: "Online system, pilot escort required",
+    
+    polandName: "Poland",
+    polandTime: "1-2 weeks",
+    polandCost: "€50-300",
+    polandNotes: "Faster processing, competitive costs",
+    
+    czechName: "Czech Republic",
+    czechTime: "1-2 weeks",
+    czechCost: "€100-400",
+    czechNotes: "Central transit routes popular",
+    
+    austriaName: "Austria",
+    austriaTime: "2-4 weeks",
+    austriaCost: "€200-1000",
+    austriaNotes: "High standards, mountain routes complex",
+    
+    italyName: "Italy",
+    italyTime: "3-5 weeks",
+    italyNotes: "Longer process, regional variations",
+    
+    spainName: "Spain",
+    spainTime: "2-3 weeks",
+    spainCost: "€100-500",
+    spainNotes: "Autonomous regions with different rules",
+
+    // Section 8: Safety Requirements
+    section8Title: "Safety Requirements for Oversize Transport",
+    mandatorySignaling: "Mandatory Signaling",
+    signalBoard: "TRANSPORT EXCEPTIONNEL/ABNORMAL LOAD signal board",
+    yellowFlashingLights: "Yellow flashing lights (beacon) visible from all sides",
+    reflectiveMarkers: "Reflective markers on cargo edges",
+    rearDimensions: "Rear dimension indicators (red flags/lights)",
+    frontWidthIndicators: "Front width indicators (for wide loads)",
+    nightIllumination: "Night illumination where required",
+    
+    escortVehicles: "Escort Vehicles (Pilot Cars)",
+    whenRequired: "When Required:",
+    widthOver3m: "Width > 3m (most countries)",
+    lengthOver25m: "Length > 25m",
+    weightOver80t: "Weight > 80t",
+    urbanAreas: "Complex urban areas or critical routes",
+    
+    pilotCarRequirements: "Pilot Car Requirements:",
+    distinctiveMarking: "Distinctive marking and colors",
+    amberBeacons: "Amber rotating beacons",
+    radioEquipment: "Radio communication equipment",
+    qualifiedPersonnel: "Qualified personnel",
+    
+    timeRestrictions: "Time Restrictions",
+    weekdayHours: "Weekdays: 08:00 - 18:00 (varies by country)",
+    weekendBan: "Weekend bans: Friday evening - Monday morning",
+    holidayBan: "Holiday transport bans",
+    nightPermitRequired: "Night movement: special permit required",
+    summerRestrictions: "Summer restrictions during peak travel",
+
+    // Driver Requirements
+    oversizeDriverRequirements: "Requirements for Oversize Transport Driver",
+    qualificationsNeeded: "Qualifications Needed:",
+    ceLicense: "CE category license (articulated vehicles)",
+    driverCPC: "Driver CPC certificate (CAP) valid",
+    minimumExperience: "Minimum experience (usually 3-5 years)",
+    specialTransportTraining: "Special transport specific training",
+    
+    specialResponsibilities: "Special Responsibilities:",
+    extendedDailyCheck: "Extended daily vehicle check",
+    continuousEscortComm: "Continuous communication with escort team",
+    strictRouteCompliance: "Strict compliance with authorized route",
+    immediateIssueReporting: "Immediate reporting of any issues",
+
+    // Section 9: Costs
+    section9Title: "Oversize Transport Costs",
+    costElement: "Cost Element",
+    costDescription: "Description",
+    indicativeValues: "Indicative Values",
+    
+    transportPermits: "Transport permits",
+    governmentFeesPerCountry: "Government fees per transit country",
+    perCountry: "per country",
+    
+    pilotCarEscort: "Pilot car escort",
+    escortVehiclesPersonnel: "Escort vehicles and personnel",
+    per100km: "/ 100km per vehicle",
+    
+    policeEscort: "Police escort",
+    mandatoryInCases: "Mandatory in certain cases",
+    perHour: "/ hour",
+    
+    specialPlatformRental: "Special platform rental",
+    multiAxleExtendable: "Multi-axle, extendable trailer",
+    perDay: "/ day",
+    
+    routeStudyCost: "Route study",
+    technicalAnalysisPlanning: "Technical analysis and planning",
+    
+    infrastructureModifications: "Temporary infrastructure modifications",
+    removeSemaphoresCables: "Remove traffic lights, cables, etc.",
+    
+    additionalInsurance: "Additional insurance",
+    specialTransportRiskCoverage: "Special transport risk coverage",
+    ofCargoValue: "of cargo value",
+    
+    kmPriceIncrease: "Km price increase",
+    additionalCostVsStandard: "Additional cost vs. standard transport",
+
+    // Cost Calculation Example
+    costCalculationExample: "Cost Calculation Example",
+    baseTransport: "Base transport (500 km × €3/km)",
+    authorizationsCountries: "Authorizations (DE + PL + CZ)",
+    pilotCarKm: "Pilot car (500 km)",
+    specialPlatformDays: "Special platform (3 days)",
+    additionalInsuranceLine: "Additional insurance",
+    totalEstimated: "TOTAL ESTIMATED",
+
+    // Pricing Factors
+    pricingFactors: "Pricing Factors",
+    cargoDimensions: "Cargo dimensions",
+    largerMeansHigher: "The larger it is, costs increase exponentially",
+    totalWeightFactor: "Total weight",
+    affectsPlatformType: "Affects platform type and authorization requirements",
+    distanceTransitCountries: "Distance and transit countries",
+    moreCountriesMoreAuth: "More countries = more authorizations and coordination",
+    urgency: "Urgency",
+    fastAuthCostMore: "Fast authorizations cost significantly more",
+
+    // Section 10: Checklists
+    section10Title: "Practical Checklists",
+    licensesAuthVerification: "Licenses and Authorizations Verification",
+    communityLicenseValid: "Community license is valid",
+    conformingCopiesAllVehicles: "Conforming copies for all vehicles over 3.5t",
+    cpcManagerValidRegistered: "CPC Manager valid and registered",
+    financialCapacityDemonstrated: "Financial capacity demonstrated",
+    rcaCmrInsuranceValid: "RCA and CMR insurance valid",
+    cemtIfNeeded: "CEMT authorizations (if needed)",
+    erruRegistration: "Registration in ERRU system",
+    vehicleDocsUpdated: "Vehicle documents updated (ITP, RAR)",
+    
+    oversizeTransportPreparation: "Oversize Transport Preparation",
+    exactDimensionsWeight: "Exact dimensions and weight determined",
+    routeStudyComplete: "Complete route study performed",
+    permitsAllCountries: "Permits obtained for all countries",
+    pilotCarsCoordinated: "Pilot cars and escort coordinated",
+    qualifiedDriver: "Qualified and trained driver",
+    fullSignalingEquipment: "Complete signaling equipment",
+    additionalInsuranceContracted: "Additional insurance contracted",
+    emergencyPlanEstablished: "Emergency plan established",
+    radioCommVerified: "Radio communication verified",
+    weatherChecked: "Weather checked for transport day",
+
+    // Section 11: Common Mistakes
+    section11Title: "Common Mistakes and How to Avoid Them",
+    licenseExpiryMistake: "License/conforming copies expiry",
+    licenseExpiryAdvice: "Implement alert system 60 days before expiry.",
+    cabotageNoDocsMistake: "Cabotage without complete documentation",
+    cabotageAdvice: "Keep all CMRs and verify each country's rules.",
+    underestimatingDimensionsMistake: "Underestimating oversize dimensions",
+    dimensionsAdvice: "Always measure with packaging and securing equipment included.",
+    insufficientTimeForPermits: "Insufficient time for permits",
+    timeAdvice: "Start process minimum 3-4 weeks before transport.",
+    ignoringTimeRestrictions: "Ignoring time restrictions",
+    timeRestrictionsAdvice: "Check allowed time windows in permit for each country.",
+    inadequateInsurance: "Inadequate insurance",
+    insuranceAdvice: "Verify policy explicitly covers special/oversize transport.",
+
+    // Quiz
+    quizTitle: "Licenses & Oversize Transport Quiz",
+  },
+  ro: {
+    // Hero Section
+    chapterNumber: "Capitolul 40",
+    chapterTitle: "Licențe & Transport Agabaritic",
+    heroDescription: "Ghid complet pentru licențele de transport, autorizații speciale și organizarea transporturilor de mărfuri agabaritice în Europa. Cunoașterea reglementărilor este esențială pentru operațiuni legale și sigure.",
+
+    // Section 1: Introduction to Transport Licenses
+    section1Title: "Introducere în Licențele de Transport",
+    section1Intro: "Operarea activităților de transport rutier de marfă în Uniunea Europeană necesită obținerea unor licențe și autorizații specifice. Aceste documente demonstrează capacitatea profesională, financiară și de onorabilitate a operatorului de transport, asigurând un nivel ridicat de siguranță și profesionalism în industrie.",
+    basicRequirements: "Cerințe de Bază",
+    euMemberStates: "State Membre UE",
+    licenseValidity: "Valabilitate Licență",
+    
+    // Legal Framework
+    legalFrameworkTitle: "Cadrul Legal European",
+    regulation1071: "Regulamentul (CE) 1071/2009 - Condiții pentru exercitarea profesiei de operator de transport",
+    regulation1072: "Regulamentul (CE) 1072/2009 - Accesul pe piața transportului rutier de mărfuri",
+    mobilityPackage: "Pachetul de Mobilitate 2020 - Actualizări privind cabotajul și detașarea",
+    directive9653: "Directiva 96/53/CE - Dimensiuni și greutăți maxime",
+    
+    // Why Licenses
+    whyLicensesTitle: "De Ce Sunt Importante Licențele?",
+    guaranteeCompetence: "Garantează competența profesională a operatorului",
+    ensureFinancial: "Asigură capacitatea financiară pentru acoperirea daunelor",
+    verifyReputation: "Verifică onorabilitatea și antecedentele",
+    allowsLegalOperation: "Permite operarea legală pe teritoriul UE",
+    requiredForContracts: "Obligatorie pentru contracte cu clienți mari",
+
+    // Section 2: Types of Transport Licenses
+    section2Title: "Tipuri de Licențe de Transport",
+    licenseType: "Tip Licență",
+    description: "Descriere",
+    coverage: "Acoperire",
+    validity: "Valabilitate",
+    specialRequirements: "Cerințe Speciale",
+    
+    communityLicense: "Licență Comunitară",
+    communityLicenseDesc: "Permite transport internațional în UE/EEA",
+    communityLicenseCoverage: "Toate statele membre UE + Norvegia, Islanda, Liechtenstein",
+    fiveYears: "5 ani",
+    cpcManagerFinancialSeat: "CPC Manager, Capacitate Financiară, Sediu Real",
+    
+    nationalLicense: "Licență Națională",
+    nationalLicenseDesc: "Transport rutier doar pe teritoriul național",
+    issuingCountry: "Țara emitentă",
+    similarRequirements: "Cerințe similare, domeniu limitat",
+    
+    conformingCopies: "Copii Conforme",
+    conformingCopiesDesc: "Documente pentru fiecare vehicul din flotă",
+    sameRoutesAsBase: "Aceleași rute ca licența de bază",
+    mainLicenseDuration: "Durată licență principală",
+    onePerVehicle: "Una per vehicul > 3.5t",
+    
+    ltiLicense: "Licență LTI (Vehicule Ușoare)",
+    ltiLicenseDesc: "Vehicule 2.5t - 3.5t GVW",
+    accordingTo2022: "Conform regulamentelor din 2022",
+    reducedFinancialRequirements: "Cerințe reduse de capacitate financiară",
+    
+    cemtAuthorizations: "Autorizații CEMT",
+    cemtDesc: "Transport în țări non-UE (contingente limitate)",
+    cemtCoverage: "Turcia, Rusia, țări Balcani",
+    annualRenewal: "Anual (cu renovare)",
+    allocationByAuthority: "Alocare prin autoritate națională",
+    
+    bilateralAuthorizations: "Autorizații Bilaterale",
+    bilateralDesc: "Acorduri specifice între două țări",
+    accordingToAgreement: "Conform acordului bilateral",
+    variable: "Variabil",
+    requestedForSpecific: "Solicitate pentru destinații specifice",
+
+    // Community License Key Elements
+    communityLicenseKeyElements: "Licența Comunitară - Elementele Cheie",
+    fundamentalDocument: "Licența Comunitară este documentul fundamental pentru orice operator de transport rutier internațional. Fără ea, nu puteți efectua transporturi comerciale între statele membre.",
+    infoOnLicense: "Informații pe Licență:",
+    operatorNameAddress: "Numele și adresa operatorului",
+    licenseNumberCountry: "Numărul licenței și țara emitentă",
+    issueExpiryDate: "Data emiterii și expirării",
+    stampSignature: "Ștampila și semnătura autorității",
+    authorizedVehicleTypes: "Tipul vehiculelor autorizate",
+
+    // Conforming Copies
+    conformingCopiesTitle: "Copiile Conforme",
+    conformingCopiesInfo: "Pentru fiecare vehicul din flotă care depășește 3.5 tone GVW, este necesară o copie conformă a licenței comunitare care trebuie ținută în vehicul permanent.",
+    attention: "Atenție!",
+    missingCopyWarning: "Lipsa copiei conforme în vehicul poate duce la amenzi de 2.000-10.000€ și imobilizarea vehiculului până la prezentarea documentului.",
+
+    // Section 3: Requirements
+    section3Title: "Cerințe pentru Obținerea Licenței",
+    professionalCompetence: "1. Competența Profesională",
+    certifiedTransportManager: "Manager de transport certificat (CPC)",
+    cpcExamPassed: "Examen CPC promovat sau diplomă recunoscută",
+    residenceInEU: "Rezidență în statul membru UE",
+    realLinkWithOperations: "Legătură reală cu operațiunile companiei",
+    
+    financialCapacity: "2. Capacitatea Financiară",
+    firstVehicleAmount: "9.000€ pentru primul vehicul (>3.5t)",
+    additionalVehicleAmount: "5.000€ pentru fiecare vehicul adițional",
+    demonstratedByGuarantee: "Demonstrat prin garanție bancară sau asigurare",
+    lightVehiclesAmount: "Pentru 2.5-3.5t: 1.800€/900€",
+    
+    goodRepute: "3. Onorabilitatea",
+    noSeriousCriminal: "Fără condamnări penale grave",
+    noSeriousTransportViolations: "Fără încălcări grave ale legislației transport",
+    cleanCriminalRecord: "Cazier judiciar curat",
+    verifiedByERRU: "Verificat prin sistemul ERRU",
+
+    // Real and Stable Seat
+    realStableSeat: "Sediul Real și Stabil",
+    seatRequirements: "Cerințe pentru Sediu:",
+    premisesForDocuments: "Spații pentru păstrarea documentelor comerciale și contabile",
+    technicalEquipment: "Echipamente și dispozitive tehnice de comunicare",
+    accessToParking: "Acces la parcări pentru vehicule",
+    maintenanceFacilities: "Facilități de întreținere (proprii sau contractate)",
+    stableVerifiableAddress: "Adresă stabilă și verificabilă",
+    requiredDocuments: "Documente Necesare:",
+    leaseOrOwnership: "Contract de închiriere sau act de proprietate",
+    utilityPaymentProof: "Dovada plății utilităților",
+    maintenanceContract: "Contract pentru servicii de întreținere",
+    facilityPhotos: "Fotografii ale sediului și facilităților",
+    localOperatingPermits: "Autorizații de funcționare locale",
+
+    // Section 4: CPC
+    section4Title: "Certificatul de Competență Profesională (CPC)",
+    cpcIntro: "Certificatul de Competență Profesională (CPC) este documentul care atestă că managerul de transport al unei întreprinderi posedă cunoștințele și competențele necesare pentru a conduce activitățile de transport. Acest certificat se obține în urma promovării unui examen riguros.",
+    cpcModule: "Modul CPC",
+    topicsCovered: "Teme Acoperite",
+    examQuestions: "Întrebări Examen",
+    duration: "Durată",
+    
+    civilLaw: "Drept Civil",
+    civilLawTopics: "Contracte, răspundere civilă, CMR, asigurări",
+    commercialLaw: "Drept Comercial",
+    commercialLawTopics: "Societăți comerciale, contabilitate, fiscalitate",
+    socialLaw: "Drept Social",
+    socialLawTopics: "Codul muncii, timp de lucru, salarizare, contracte",
+    fiscalLaw: "Drept Fiscal",
+    fiscalLawTopics: "TVA, impozite, taxe vamale, accize",
+    commercialFinancialManagement: "Managementul Comercial și Financiar",
+    managementTopics: "Prețuri, costuri, bugete, investiții",
+    marketAccess: "Accesul pe Piață",
+    marketAccessTopics: "Licențe, autorizații, cabotaj, CEMT",
+    technicalStandards: "Standarde Tehnice",
+    technicalTopics: "Vehicule, echipamente, dimensiuni, greutăți",
+    roadSafety: "Siguranța Rutieră",
+    safetyTopics: "Conducere, accidente, ADR, cargo securing",
+    
+    questions: "întrebări",
+    hour: "oră",
+    hours: "ore",
+    minutes: "min",
+
+    // CPC Exam Preparation
+    cpcExamPreparation: "Pregătirea pentru Examenul CPC",
+    enrollInCourse: "Înscrierea la un curs autorizat (100-200 ore)",
+    studyMaterials: "Studierea materialelor obligatorii (manual CPC)",
+    attendAllSessions: "Participarea la toate sesiunile de pregătire",
+    solvePracticeTests: "Rezolvarea testelor de practică",
+    takeOfficialExam: "Susținerea examenului oficial",
+    
+    cpcExamStats: "Statistici Examen CPC",
+    averagePassRate: "Rata de promovare medie",
+    questionsInExam: "Întrebări în examen",
+    totalExamDuration: "Durată totală examen",
+    minimumPassScore: "Scor minim promovare",
+
+    // Section 5: Cabotage
+    section5Title: "Regulile Cabotajului în UE",
+    cabotageIntro: "Cabotajul reprezintă transportul național de mărfuri efectuat de un operator străin pe teritoriul altui stat membru. Regulamentul (CE) 1072/2009, modificat prin Pachetul de Mobilitate 2020, stabilește reguli stricte pentru această practică.",
+    
+    currentRules2024: "Reguli Actuale (2024)",
+    maxCabotageOperations: "Maximum 3 Operațiuni de Cabotaj",
+    within7Days: "În termen de 7 zile de la ultima descărcare internațională",
+    coolingOffPeriod: "Cooling-off Period de 4 Zile",
+    beforeNewOperations: "Înainte de noi operațiuni de cabotaj în același stat",
+    priorInternationalTransport: "Transport Internațional Prealabil",
+    mandatoryBeforeCabotage: "Obligatoriu înainte de cabotaj în orice stat",
+    
+    sanctionsForViolations: "Sancțiuni pentru Încălcări",
+    finesRange: "Amenzi 5.000 - 25.000€",
+    variesByState: "Variază în funcție de stat și gravitate",
+    vehicleImmobilization: "Imobilizarea Vehiculului",
+    untilPayment: "Până la plata amenzii sau clarificare legală",
+    licenseLoss: "Pierderea Licenței",
+    forRepeatedViolations: "Pentru încălcări repetate și grave",
+
+    // Cabotage Documentation
+    cabotageDocumentation: "Documentația Necesară pentru Cabotaj",
+    cmrInternationalEntry: "CMR pentru transportul internațional de intrare",
+    cmrForEachOperation: "CMR-uri pentru fiecare operațiune de cabotaj",
+    conformingCopyLicense: "Copie conformă a licenței comunitare",
+    tachographRecords: "Înregistrări tahograf pentru perioada relevantă",
+    a1Form: "Formular A1 (pentru detașare în anumite state)",
+    transportOrdersAll: "Ordine de transport pentru toate încărcăturile",
+
+    // Section 6: Oversize Transport
+    section6Title: "Transportul Agabaritic (Oversize/Heavy)",
+    oversizeIntro: "Transportul agabaritic (denumit și transport excepțional, oversize sau heavy transport) se referă la mărfuri care depășesc dimensiunile sau greutățile legale standard pentru vehiculele rutiere. Aceste transporturi necesită autorizații speciale și planificare detaliată.",
+    legalDefinition: "Definiție Legală",
+    legalDefinitionText: "Un transport este considerat agabaritic când depășește: lungimea de 16.5m, lățimea de 2.55m, înălțimea de 4m, sau greutatea totală de 40t (sau limita națională aplicabilă).",
+    
+    category: "Categorie",
+    standardDimensions: "Dimensiuni Standard",
+    oversizeExceedance: "Depășire Agabaritică",
+    specialRequirementsCol: "Cerințe Speciale",
+    
+    length: "Lungime",
+    maxLength: "Max. 16.50m (ansamblu)",
+    lengthExceed: "> 16.50m până la 40m+",
+    lengthRequirements: "Autorizație specială, pilot cars",
+    
+    width: "Lățime",
+    maxWidth: "Max. 2.55m (2.60m reefer)",
+    widthExceed: "> 2.55m până la 6m+",
+    widthRequirements: "Escortă, ore restricționate",
+    
+    height: "Înălțime",
+    maxHeight: "Max. 4.00m (4.30m unele țări)",
+    heightExceed: "> 4.00m până la 5m+",
+    heightRequirements: "Studiu rută, verificare poduri",
+    
+    totalWeight: "Greutate Totală",
+    maxTotalWeight: "Max. 40t (44t unele rute)",
+    weightExceed: "> 40t până la 500t+",
+    weightRequirements: "Platforme speciale, axe multiple",
+    
+    axleWeight: "Greutate pe Axă",
+    maxAxleWeight: "Max. 10-11.5t/axă",
+    axleExceed: "Depășiri autorizate",
+    axleRequirements: "Distribuție controlată",
+
+    // Oversize Classification
+    oversizeClassification: "Clasificarea Transporturilor Agabaritice",
+    categoryILight: "Categoria I (Ușor)",
+    categoryIDesc: "Depășiri minore: lățime până la 3m, lungime până la 22m",
+    categoryIIMedium: "Categoria II (Mediu)",
+    categoryIIDesc: "Lățime 3-3.5m, lungime 22-30m, greutate 40-80t",
+    categoryIIIHeavy: "Categoria III (Greu)",
+    categoryIIIDesc: "Depășiri majore: lățime > 3.5m, lungime > 30m, greutate > 80t",
+    megaTransport: "Mega Transport",
+    megaTransportDesc: "Mărfuri extrem de grele (100+ tone) sau lungi (50+ metri)",
+
+    // Types of Oversize Cargo
+    typesOversizeCargo: "Tipuri de Mărfuri Agabaritice",
+    industrialMachinery: "Utilaje industriale: turbine, transformatoare, reactoare",
+    modularConstruction: "Construcții modulare: case prefabricate, containere speciale",
+    agriculturalEquipment: "Echipamente agricole: combine, tractoare mari",
+    windEquipment: "Echipamente eoliene: pale, turnuri, nacele",
+    specialVehicles: "Vehicule speciale: macarale, excavatoare, buldozere",
+    metalStructures: "Construcții metalice: grinzi, structuri prefabricate",
+
+    // Section 7: Permits
+    section7Title: "Autorizații pentru Transport Agabaritic",
+    authorizationProcess: "Procesul de Autorizare",
+    routeStudy: "Studiu de Rută",
+    routeStudyDesc: "Identificarea obstacolelor: poduri, tuneluri, sensuri giratorii, cabluri",
+    permitApplication: "Cerere Autorizație",
+    permitApplicationDesc: "Depunere la autoritatea competentă din fiecare țară de tranzit",
+    verificationApproval: "Verificare și Aprobare",
+    verificationDesc: "Analiză tehnică, taxe, condiții speciale de circulație",
+    escortCoordination: "Coordonare Escortă",
+    escortCoordinationDesc: "Pilot cars, poliție, însoțire specială după caz",
+    transportExecution: "Executare Transport",
+    transportExecutionDesc: "Respectarea strictă a rutei și condițiilor autorizate",
+
+    // Required Documentation
+    requiredDocumentation: "Documentație Necesară",
+    applicationFormOfficial: "Cerere de autorizație (formular oficial)",
+    detailedCargoDescription: "Descriere detaliată a mărfii (dimensiuni, greutate)",
+    vehicleConfiguration: "Configurația vehiculului (axe, suspensie)",
+    proposedRouteCheckpoints: "Traseu propus cu puncte de trecere",
+    specialTransportInsurance: "Asigurare pentru transport special",
+    vehicleConformityCert: "Certificat de conformitate vehicul",
+    transportLicenseConforming: "Licență transport și copie conformă",
+    permitFeePaymentProof: "Dovadă plată taxe autorizație",
+
+    // Processing Times
+    processingTimeCosts: "Timp Procesare și Costuri pe Țară",
+    country: "Țara",
+    processingTime: "Timp Procesare",
+    estimatedCost: "Cost Estimat",
+    notes: "Note",
+    
+    germanyName: "Germania",
+    germanyTime: "2-4 săptămâni",
+    germanyCost: "150-800€",
+    germanyNotes: "Strictă, necesită studiu de rută detaliat",
+    
+    franceName: "Franța",
+    franceTime: "2-3 săptămâni",
+    franceCost: "100-600€",
+    franceNotes: "Sistem online, escortă pilot necesară",
+    
+    polandName: "Polonia",
+    polandTime: "1-2 săptămâni",
+    polandCost: "50-300€",
+    polandNotes: "Procesare mai rapidă, costuri competitive",
+    
+    czechName: "Cehia",
+    czechTime: "1-2 săptămâni",
+    czechCost: "100-400€",
+    czechNotes: "Rute centrale de tranzit populare",
+    
+    austriaName: "Austria",
+    austriaTime: "2-4 săptămâni",
+    austriaCost: "200-1000€",
+    austriaNotes: "Standarde înalte, rute montane complexe",
+    
+    italyName: "Italia",
+    italyTime: "3-5 săptămâni",
+    italyNotes: "Proces mai lung, variații regionale",
+    
+    spainName: "Spania",
+    spainTime: "2-3 săptămâni",
+    spainCost: "100-500€",
+    spainNotes: "Regiuni autonome cu reguli diferite",
+
+    // Section 8: Safety Requirements
+    section8Title: "Cerințe de Siguranță Transport Agabaritic",
+    mandatorySignaling: "Semnalizare Obligatorie",
+    signalBoard: "Panou TRANSPORT EXCEPȚIONAL/ABNORMAL LOAD",
+    yellowFlashingLights: "Lumini galbene intermitente (girofar) vizibile din toate părțile",
+    reflectiveMarkers: "Marcaje reflectorizante pe marginile încărcăturii",
+    rearDimensions: "Indicatoare dimensiuni spate (steaguri/lumini roșii)",
+    frontWidthIndicators: "Indicatoare lățime față (pentru încărcături late)",
+    nightIllumination: "Iluminare nocturnă acolo unde este necesar",
+    
+    escortVehicles: "Vehicule de Escortă (Pilot Cars)",
+    whenRequired: "Când Sunt Necesare:",
+    widthOver3m: "Lățime > 3m (majoritatea țărilor)",
+    lengthOver25m: "Lungime > 25m",
+    weightOver80t: "Greutate > 80t",
+    urbanAreas: "Zone urbane complexe sau rute critice",
+    
+    pilotCarRequirements: "Cerințe Pilot Car:",
+    distinctiveMarking: "Marcare și culori distinctive",
+    amberBeacons: "Girofar galben rotativ",
+    radioEquipment: "Echipament comunicații radio",
+    qualifiedPersonnel: "Personal calificat",
+    
+    timeRestrictions: "Restricții de Timp",
+    weekdayHours: "Zile lucrătoare: 08:00 - 18:00 (variază pe țări)",
+    weekendBan: "Interdicții weekend: vineri seara - luni dimineața",
+    holidayBan: "Interdicții transport în zile de sărbătoare",
+    nightPermitRequired: "Deplasare nocturnă: autorizație specială necesară",
+    summerRestrictions: "Restricții de vară în perioada de vârf",
+
+    // Driver Requirements
+    oversizeDriverRequirements: "Cerințe pentru Șoferul de Transport Agabaritic",
+    qualificationsNeeded: "Calificări Necesare:",
+    ceLicense: "Permis categorie CE (vehicule articulate)",
+    driverCPC: "Certificat CPC șofer (CAP) valabil",
+    minimumExperience: "Experiență minimă (de obicei 3-5 ani)",
+    specialTransportTraining: "Instruire specifică transport special",
+    
+    specialResponsibilities: "Responsabilități Speciale:",
+    extendedDailyCheck: "Verificarea zilnică extinsă a vehiculului",
+    continuousEscortComm: "Comunicare continuă cu echipa de escortă",
+    strictRouteCompliance: "Respectarea strictă a traseului autorizat",
+    immediateIssueReporting: "Raportarea imediată a oricăror probleme",
+
+    // Section 9: Costs
+    section9Title: "Costuri Transport Agabaritic",
+    costElement: "Element Cost",
+    costDescription: "Descriere",
+    indicativeValues: "Valori Orientative",
+    
+    transportPermits: "Autorizații transport",
+    governmentFeesPerCountry: "Taxe guvernamentale per țară de tranzit",
+    perCountry: "per țară",
+    
+    pilotCarEscort: "Escortă pilot cars",
+    escortVehiclesPersonnel: "Vehicule de însoțire și personal",
+    per100km: "/ 100km per vehicul",
+    
+    policeEscort: "Escortă poliție",
+    mandatoryInCases: "Obligatorie în anumite cazuri",
+    perHour: "/ oră",
+    
+    specialPlatformRental: "Închiriere platformă specială",
+    multiAxleExtendable: "Remorcă cu axe multiple, extensibilă",
+    perDay: "/ zi",
+    
+    routeStudyCost: "Studiu de rută",
+    technicalAnalysisPlanning: "Analiză tehnică și planificare",
+    
+    infrastructureModifications: "Modificări temporare infrastructură",
+    removeSemaphoresCables: "Demontare semafoare, cabluri, etc.",
+    
+    additionalInsurance: "Asigurare suplimentară",
+    specialTransportRiskCoverage: "Acoperire riscuri transport special",
+    ofCargoValue: "din valoarea mărfii",
+    
+    kmPriceIncrease: "Majorare preț km",
+    additionalCostVsStandard: "Cost suplimentar față de transport standard",
+
+    // Cost Calculation Example
+    costCalculationExample: "Exemplu Calcul Cost",
+    baseTransport: "Transport de bază (500 km × €3/km)",
+    authorizationsCountries: "Autorizații (DE + PL + CZ)",
+    pilotCarKm: "Pilot car (500 km)",
+    specialPlatformDays: "Platformă specială (3 zile)",
+    additionalInsuranceLine: "Asigurare suplimentară",
+    totalEstimated: "TOTAL ESTIMAT",
+
+    // Pricing Factors
+    pricingFactors: "Factori de Preț",
+    cargoDimensions: "Dimensiunile mărfii",
+    largerMeansHigher: "Cu cât este mai mare, cu atât cresc costurile exponențial",
+    totalWeightFactor: "Greutatea totală",
+    affectsPlatformType: "Afectează tipul de platformă și cerințele de autorizare",
+    distanceTransitCountries: "Distanța și țările de tranzit",
+    moreCountriesMoreAuth: "Mai multe țări = mai multe autorizații și coordonare",
+    urgency: "Urgența",
+    fastAuthCostMore: "Autorizațiile rapide costă semnificativ mai mult",
+
+    // Section 10: Checklists
+    section10Title: "Checklist-uri Practice",
+    licensesAuthVerification: "Verificare Licențe și Autorizații",
+    communityLicenseValid: "Licența comunitară este valabilă",
+    conformingCopiesAllVehicles: "Copii conforme pentru toate vehiculele peste 3.5t",
+    cpcManagerValidRegistered: "CPC Manager valid și înregistrat",
+    financialCapacityDemonstrated: "Capacitatea financiară demonstrată",
+    rcaCmrInsuranceValid: "Asigurare RCA și CMR valabile",
+    cemtIfNeeded: "Autorizații CEMT (dacă necesare)",
+    erruRegistration: "Înregistrare în sistemul ERRU",
+    vehicleDocsUpdated: "Documente vehicul actualizate (ITP, RAR)",
+    
+    oversizeTransportPreparation: "Pregătire Transport Agabaritic",
+    exactDimensionsWeight: "Dimensiuni și greutate exacte determinate",
+    routeStudyComplete: "Studiu de rută complet efectuat",
+    permitsAllCountries: "Autorizații obținute pentru toate țările",
+    pilotCarsCoordinated: "Pilot cars și escortă coordonate",
+    qualifiedDriver: "Șofer calificat și instruit",
+    fullSignalingEquipment: "Echipament de semnalizare complet",
+    additionalInsuranceContracted: "Asigurare suplimentară contractată",
+    emergencyPlanEstablished: "Plan de urgență stabilit",
+    radioCommVerified: "Comunicație radio verificată",
+    weatherChecked: "Meteo verificat pentru ziua transportului",
+
+    // Section 11: Common Mistakes
+    section11Title: "Greșeli Frecvente și Cum să le Eviți",
+    licenseExpiryMistake: "Expirarea licenței/copiilor conforme",
+    licenseExpiryAdvice: "Implementați un sistem de alertă cu 60 de zile înainte de expirare.",
+    cabotageNoDocsMistake: "Cabotaj fără documentație completă",
+    cabotageAdvice: "Păstrați toate CMR-urile și verificați regulile fiecărei țări.",
+    underestimatingDimensionsMistake: "Subestimarea dimensiunilor agabaritice",
+    dimensionsAdvice: "Măsurați întotdeauna cu ambalaj și echipamente de fixare incluse.",
+    insufficientTimeForPermits: "Timp insuficient pentru autorizații",
+    timeAdvice: "Începeți procesul cu minimum 3-4 săptămâni înainte de transport.",
+    ignoringTimeRestrictions: "Ignorarea restricțiilor orare",
+    timeRestrictionsAdvice: "Verificați ferestrele orare permise în autorizație pentru fiecare țară.",
+    inadequateInsurance: "Lipsa asigurării adecvate",
+    insuranceAdvice: "Verificați dacă polița acoperă explicit transportul special/agabaritic.",
+
+    // Quiz
+    quizTitle: "Test Licențe & Transport Agabaritic",
+  },
+  de: {
+    // Hero Section
+    chapterNumber: "Kapitel 40",
+    chapterTitle: "Lizenzen & Schwertransport",
+    heroDescription: "Vollständiger Leitfaden für Transportlizenzen, Sondergenehmigungen und die Organisation von Schwertransporten in Europa. Die Kenntnis der Vorschriften ist für legale und sichere Operationen unerlässlich.",
+
+    // Section 1: Introduction to Transport Licenses
+    section1Title: "Einführung in Transportlizenzen",
+    section1Intro: "Der Betrieb von Straßengütertransportaktivitäten in der Europäischen Union erfordert den Erwerb spezifischer Lizenzen und Genehmigungen. Diese Dokumente demonstrieren die berufliche, finanzielle und reputationsbezogene Kapazität des Transportunternehmers und gewährleisten ein hohes Maß an Sicherheit und Professionalität in der Branche.",
+    basicRequirements: "Grundanforderungen",
+    euMemberStates: "EU-Mitgliedstaaten",
+    licenseValidity: "Lizenzgültigkeit",
+    
+    // Legal Framework
+    legalFrameworkTitle: "Europäischer Rechtsrahmen",
+    regulation1071: "Verordnung (EG) 1071/2009 - Bedingungen für die Ausübung des Berufs des Verkehrsunternehmers",
+    regulation1072: "Verordnung (EG) 1072/2009 - Zugang zum Markt des grenzüberschreitenden Güterkraftverkehrs",
+    mobilityPackage: "Mobilitätspaket 2020 - Aktualisierungen zu Kabotage und Entsendung",
+    directive9653: "Richtlinie 96/53/EG - Höchstabmessungen und -gewichte",
+    
+    // Why Licenses
+    whyLicensesTitle: "Warum sind Lizenzen wichtig?",
+    guaranteeCompetence: "Garantiert die berufliche Kompetenz des Betreibers",
+    ensureFinancial: "Sichert die finanzielle Kapazität zur Deckung von Schäden",
+    verifyReputation: "Überprüft Ruf und Hintergrund",
+    allowsLegalOperation: "Ermöglicht legalen Betrieb auf EU-Gebiet",
+    requiredForContracts: "Erforderlich für Verträge mit Großkunden",
+
+    // Section 2: Types of Transport Licenses
+    section2Title: "Arten von Transportlizenzen",
+    licenseType: "Lizenztyp",
+    description: "Beschreibung",
+    coverage: "Abdeckung",
+    validity: "Gültigkeit",
+    specialRequirements: "Besondere Anforderungen",
+    
+    communityLicense: "EU-Lizenz",
+    communityLicenseDesc: "Ermöglicht internationalen Transport in EU/EWR",
+    communityLicenseCoverage: "Alle EU-Mitgliedstaaten + Norwegen, Island, Liechtenstein",
+    fiveYears: "5 Jahre",
+    cpcManagerFinancialSeat: "CPC-Manager, Finanzkapazität, Echter Sitz",
+    
+    nationalLicense: "Nationale Lizenz",
+    nationalLicenseDesc: "Straßentransport nur auf nationalem Gebiet",
+    issuingCountry: "Ausstellungsland",
+    similarRequirements: "Ähnliche Anforderungen, begrenzter Umfang",
+    
+    conformingCopies: "Beglaubigte Kopien",
+    conformingCopiesDesc: "Dokumente für jedes Fahrzeug der Flotte",
+    sameRoutesAsBase: "Gleiche Routen wie Basislizenz",
+    mainLicenseDuration: "Dauer der Hauptlizenz",
+    onePerVehicle: "Eine pro Fahrzeug > 3,5t",
+    
+    ltiLicense: "LTI-Lizenz (Leichte Fahrzeuge)",
+    ltiLicenseDesc: "Fahrzeuge 2,5t - 3,5t zGG",
+    accordingTo2022: "Gemäß Vorschriften von 2022",
+    reducedFinancialRequirements: "Reduzierte Finanzkapazitätsanforderungen",
+    
+    cemtAuthorizations: "CEMT-Genehmigungen",
+    cemtDesc: "Transport in Nicht-EU-Länder (begrenzte Kontingente)",
+    cemtCoverage: "Türkei, Russland, Balkanländer",
+    annualRenewal: "Jährlich (mit Erneuerung)",
+    allocationByAuthority: "Zuteilung durch nationale Behörde",
+    
+    bilateralAuthorizations: "Bilaterale Genehmigungen",
+    bilateralDesc: "Spezifische Vereinbarungen zwischen zwei Ländern",
+    accordingToAgreement: "Gemäß bilateraler Vereinbarung",
+    variable: "Variabel",
+    requestedForSpecific: "Angefordert für bestimmte Ziele",
+
+    // Community License Key Elements
+    communityLicenseKeyElements: "EU-Lizenz - Schlüsselelemente",
+    fundamentalDocument: "Die EU-Lizenz ist das grundlegende Dokument für jeden internationalen Straßentransportunternehmer. Ohne sie können Sie keine kommerziellen Transporte zwischen Mitgliedstaaten durchführen.",
+    infoOnLicense: "Informationen auf der Lizenz:",
+    operatorNameAddress: "Name und Adresse des Betreibers",
+    licenseNumberCountry: "Lizenznummer und Ausstellungsland",
+    issueExpiryDate: "Ausstellungs- und Ablaufdatum",
+    stampSignature: "Stempel und Unterschrift der Behörde",
+    authorizedVehicleTypes: "Autorisierte Fahrzeugtypen",
+
+    // Conforming Copies
+    conformingCopiesTitle: "Beglaubigte Kopien",
+    conformingCopiesInfo: "Für jedes Fahrzeug der Flotte mit mehr als 3,5 Tonnen zGG ist eine beglaubigte Kopie der EU-Lizenz erforderlich, die permanent im Fahrzeug mitgeführt werden muss.",
+    attention: "Achtung!",
+    missingCopyWarning: "Fehlende beglaubigte Kopie im Fahrzeug kann zu Geldbußen von 2.000-10.000€ und Fahrzeugstilllegung führen, bis das Dokument vorgelegt wird.",
+
+    // Section 3: Requirements
+    section3Title: "Anforderungen für den Lizenzerhalt",
+    professionalCompetence: "1. Fachliche Eignung",
+    certifiedTransportManager: "Zertifizierter Verkehrsleiter (CPC)",
+    cpcExamPassed: "CPC-Prüfung bestanden oder anerkanntes Diplom",
+    residenceInEU: "Wohnsitz in EU-Mitgliedstaat",
+    realLinkWithOperations: "Echte Verbindung mit Unternehmensoperationen",
+    
+    financialCapacity: "2. Finanzielle Leistungsfähigkeit",
+    firstVehicleAmount: "9.000€ für erstes Fahrzeug (>3,5t)",
+    additionalVehicleAmount: "5.000€ für jedes weitere Fahrzeug",
+    demonstratedByGuarantee: "Nachgewiesen durch Bankgarantie oder Versicherung",
+    lightVehiclesAmount: "Für 2,5-3,5t: 1.800€/900€",
+    
+    goodRepute: "3. Zuverlässigkeit",
+    noSeriousCriminal: "Keine schweren Strafverurteilungen",
+    noSeriousTransportViolations: "Keine schweren Verstöße gegen Verkehrsrecht",
+    cleanCriminalRecord: "Sauberes Führungszeugnis",
+    verifiedByERRU: "Überprüft durch ERRU-System",
+
+    // Real and Stable Seat
+    realStableSeat: "Tatsächlicher und stabiler Sitz",
+    seatRequirements: "Sitzanforderungen:",
+    premisesForDocuments: "Räumlichkeiten für Aufbewahrung von Geschäfts- und Buchhaltungsunterlagen",
+    technicalEquipment: "Technische Ausrüstung und Kommunikationsgeräte",
+    accessToParking: "Zugang zu Fahrzeugparkplätzen",
+    maintenanceFacilities: "Wartungseinrichtungen (eigen oder vertraglich)",
+    stableVerifiableAddress: "Stabile und überprüfbare Adresse",
+    requiredDocuments: "Erforderliche Dokumente:",
+    leaseOrOwnership: "Mietvertrag oder Eigentumsurkunde",
+    utilityPaymentProof: "Nachweis der Nebenkostenzahlung",
+    maintenanceContract: "Wartungsdienstvertrag",
+    facilityPhotos: "Fotos der Räumlichkeiten und Einrichtungen",
+    localOperatingPermits: "Lokale Betriebsgenehmigungen",
+
+    // Section 4: CPC
+    section4Title: "Bescheinigung der fachlichen Eignung (CPC)",
+    cpcIntro: "Die Bescheinigung der fachlichen Eignung (CPC) ist das Dokument, das bescheinigt, dass der Verkehrsleiter eines Unternehmens die erforderlichen Kenntnisse und Kompetenzen für die Leitung von Transportaktivitäten besitzt. Diese Bescheinigung wird nach Bestehen einer strengen Prüfung erhalten.",
+    cpcModule: "CPC-Modul",
+    topicsCovered: "Behandelte Themen",
+    examQuestions: "Prüfungsfragen",
+    duration: "Dauer",
+    
+    civilLaw: "Zivilrecht",
+    civilLawTopics: "Verträge, Zivilhaftung, CMR, Versicherungen",
+    commercialLaw: "Handelsrecht",
+    commercialLawTopics: "Gesellschaften, Buchhaltung, Besteuerung",
+    socialLaw: "Sozialrecht",
+    socialLawTopics: "Arbeitsrecht, Arbeitszeit, Löhne, Verträge",
+    fiscalLaw: "Steuerrecht",
+    fiscalLawTopics: "MwSt, Steuern, Zölle, Verbrauchsteuern",
+    commercialFinancialManagement: "Kaufmännisches und Finanzmanagement",
+    managementTopics: "Preise, Kosten, Budgets, Investitionen",
+    marketAccess: "Marktzugang",
+    marketAccessTopics: "Lizenzen, Genehmigungen, Kabotage, CEMT",
+    technicalStandards: "Technische Standards",
+    technicalTopics: "Fahrzeuge, Ausrüstung, Abmessungen, Gewichte",
+    roadSafety: "Straßenverkehrssicherheit",
+    safetyTopics: "Fahren, Unfälle, ADR, Ladungssicherung",
+    
+    questions: "Fragen",
+    hour: "Stunde",
+    hours: "Stunden",
+    minutes: "Min",
+
+    // CPC Exam Preparation
+    cpcExamPreparation: "Vorbereitung auf CPC-Prüfung",
+    enrollInCourse: "Anmeldung zum autorisierten Kurs (100-200 Stunden)",
+    studyMaterials: "Studium der Pflichtmaterialien (CPC-Handbuch)",
+    attendAllSessions: "Teilnahme an allen Vorbereitungssitzungen",
+    solvePracticeTests: "Übungstests lösen",
+    takeOfficialExam: "Offizielle Prüfung ablegen",
+    
+    cpcExamStats: "CPC-Prüfungsstatistiken",
+    averagePassRate: "Durchschnittliche Bestehensquote",
+    questionsInExam: "Fragen in der Prüfung",
+    totalExamDuration: "Gesamtprüfungsdauer",
+    minimumPassScore: "Mindestpunktzahl zum Bestehen",
+
+    // Section 5: Cabotage
+    section5Title: "Kabotageregeln in der EU",
+    cabotageIntro: "Kabotage ist der nationale Gütertransport durch einen ausländischen Betreiber auf dem Gebiet eines anderen Mitgliedstaats. Verordnung (EG) 1072/2009, geändert durch das Mobilitätspaket 2020, legt strenge Regeln für diese Praxis fest.",
+    
+    currentRules2024: "Aktuelle Regeln (2024)",
+    maxCabotageOperations: "Maximal 3 Kabotageoperationen",
+    within7Days: "Innerhalb von 7 Tagen nach letzter internationaler Entladung",
+    coolingOffPeriod: "4-Tage Abkühlungsperiode",
+    beforeNewOperations: "Vor neuen Kabotageoperationen im selben Staat",
+    priorInternationalTransport: "Vorheriger internationaler Transport",
+    mandatoryBeforeCabotage: "Pflicht vor Kabotage in jedem Staat",
+    
+    sanctionsForViolations: "Sanktionen bei Verstößen",
+    finesRange: "Geldbußen 5.000 - 25.000€",
+    variesByState: "Variiert nach Staat und Schwere",
+    vehicleImmobilization: "Fahrzeugstilllegung",
+    untilPayment: "Bis zur Zahlung oder rechtlichen Klärung",
+    licenseLoss: "Lizenzverlust",
+    forRepeatedViolations: "Bei wiederholten und schweren Verstößen",
+
+    // Cabotage Documentation
+    cabotageDocumentation: "Erforderliche Dokumentation für Kabotage",
+    cmrInternationalEntry: "CMR für internationalen Eingangstransport",
+    cmrForEachOperation: "CMR für jede Kabotageoperation",
+    conformingCopyLicense: "Beglaubigte Kopie der EU-Lizenz",
+    tachographRecords: "Tachographenaufzeichnungen für relevanten Zeitraum",
+    a1Form: "A1-Formular (für Entsendung in bestimmten Staaten)",
+    transportOrdersAll: "Transportaufträge für alle Ladungen",
+
+    // Section 6: Oversize Transport
+    section6Title: "Schwertransport (Übermaß/Schwerlast)",
+    oversizeIntro: "Schwertransport (auch Ausnahmetransport oder Übermaßtransport genannt) bezieht sich auf Güter, die die gesetzlichen Standardabmessungen oder -gewichte für Straßenfahrzeuge überschreiten. Diese Transporte erfordern Sondergenehmigungen und detaillierte Planung.",
+    legalDefinition: "Rechtliche Definition",
+    legalDefinitionText: "Ein Transport gilt als Schwertransport, wenn er überschreitet: Länge von 16,5m, Breite von 2,55m, Höhe von 4m oder Gesamtgewicht von 40t (oder geltende nationale Grenze).",
+    
+    category: "Kategorie",
+    standardDimensions: "Standardabmessungen",
+    oversizeExceedance: "Übermaß-Überschreitung",
+    specialRequirementsCol: "Besondere Anforderungen",
+    
+    length: "Länge",
+    maxLength: "Max. 16,50m (Kombination)",
+    lengthExceed: "> 16,50m bis 40m+",
+    lengthRequirements: "Sondergenehmigung, Begleitfahrzeuge",
+    
+    width: "Breite",
+    maxWidth: "Max. 2,55m (2,60m Kühlfahrzeug)",
+    widthExceed: "> 2,55m bis 6m+",
+    widthRequirements: "Eskorte, eingeschränkte Zeiten",
+    
+    height: "Höhe",
+    maxHeight: "Max. 4,00m (4,30m einige Länder)",
+    heightExceed: "> 4,00m bis 5m+",
+    heightRequirements: "Routenstudie, Brückenprüfung",
+    
+    totalWeight: "Gesamtgewicht",
+    maxTotalWeight: "Max. 40t (44t einige Routen)",
+    weightExceed: "> 40t bis 500t+",
+    weightRequirements: "Spezialplattformen, Mehrfachachsen",
+    
+    axleWeight: "Achslast",
+    maxAxleWeight: "Max. 10-11,5t/Achse",
+    axleExceed: "Genehmigte Überschreitungen",
+    axleRequirements: "Kontrollierte Verteilung",
+
+    // Oversize Classification
+    oversizeClassification: "Klassifizierung von Schwertransporten",
+    categoryILight: "Kategorie I (Leicht)",
+    categoryIDesc: "Geringe Überschreitungen: Breite bis 3m, Länge bis 22m",
+    categoryIIMedium: "Kategorie II (Mittel)",
+    categoryIIDesc: "Breite 3-3,5m, Länge 22-30m, Gewicht 40-80t",
+    categoryIIIHeavy: "Kategorie III (Schwer)",
+    categoryIIIDesc: "Große Überschreitungen: Breite > 3,5m, Länge > 30m, Gewicht > 80t",
+    megaTransport: "Mega-Transport",
+    megaTransportDesc: "Extrem schwere Fracht (100+ Tonnen) oder lang (50+ Meter)",
+
+    // Types of Oversize Cargo
+    typesOversizeCargo: "Arten von Schwerlastgütern",
+    industrialMachinery: "Industriemaschinen: Turbinen, Transformatoren, Reaktoren",
+    modularConstruction: "Modulbau: Fertighäuser, Spezialcontainer",
+    agriculturalEquipment: "Landwirtschaftliche Ausrüstung: Mähdrescher, Großtraktoren",
+    windEquipment: "Windkraftausrüstung: Rotorblätter, Türme, Gondeln",
+    specialVehicles: "Spezialfahrzeuge: Kräne, Bagger, Planierraupen",
+    metalStructures: "Metallkonstruktionen: Träger, Fertigstrukturen",
+
+    // Section 7: Permits
+    section7Title: "Genehmigungen für Schwertransport",
+    authorizationProcess: "Genehmigungsprozess",
+    routeStudy: "Routenstudie",
+    routeStudyDesc: "Identifizierung von Hindernissen: Brücken, Tunnel, Kreisverkehre, Kabel",
+    permitApplication: "Genehmigungsantrag",
+    permitApplicationDesc: "Einreichung bei zuständiger Behörde in jedem Transitland",
+    verificationApproval: "Prüfung und Genehmigung",
+    verificationDesc: "Technische Analyse, Gebühren, besondere Verkehrsbedingungen",
+    escortCoordination: "Eskorten-Koordination",
+    escortCoordinationDesc: "Begleitfahrzeuge, Polizei, Spezialbegleitung nach Bedarf",
+    transportExecution: "Transportdurchführung",
+    transportExecutionDesc: "Strikte Einhaltung der genehmigten Route und Bedingungen",
+
+    // Required Documentation
+    requiredDocumentation: "Erforderliche Dokumentation",
+    applicationFormOfficial: "Genehmigungsantrag (offizielles Formular)",
+    detailedCargoDescription: "Detaillierte Ladungsbeschreibung (Abmessungen, Gewicht)",
+    vehicleConfiguration: "Fahrzeugkonfiguration (Achsen, Federung)",
+    proposedRouteCheckpoints: "Vorgeschlagene Route mit Kontrollpunkten",
+    specialTransportInsurance: "Spezialtransportversicherung",
+    vehicleConformityCert: "Fahrzeugkonformitätszertifikat",
+    transportLicenseConforming: "Transportlizenz und beglaubigte Kopie",
+    permitFeePaymentProof: "Nachweis der Genehmigungsgebührenzahlung",
+
+    // Processing Times
+    processingTimeCosts: "Bearbeitungszeit und Kosten nach Land",
+    country: "Land",
+    processingTime: "Bearbeitungszeit",
+    estimatedCost: "Geschätzte Kosten",
+    notes: "Anmerkungen",
+    
+    germanyName: "Deutschland",
+    germanyTime: "2-4 Wochen",
+    germanyCost: "150-800€",
+    germanyNotes: "Streng, erfordert detaillierte Routenstudie",
+    
+    franceName: "Frankreich",
+    franceTime: "2-3 Wochen",
+    franceCost: "100-600€",
+    franceNotes: "Online-System, Pilotbegleitung erforderlich",
+    
+    polandName: "Polen",
+    polandTime: "1-2 Wochen",
+    polandCost: "50-300€",
+    polandNotes: "Schnellere Bearbeitung, wettbewerbsfähige Kosten",
+    
+    czechName: "Tschechien",
+    czechTime: "1-2 Wochen",
+    czechCost: "100-400€",
+    czechNotes: "Zentrale Transitrouten beliebt",
+    
+    austriaName: "Österreich",
+    austriaTime: "2-4 Wochen",
+    austriaCost: "200-1000€",
+    austriaNotes: "Hohe Standards, komplexe Bergstrecken",
+    
+    italyName: "Italien",
+    italyTime: "3-5 Wochen",
+    italyNotes: "Längerer Prozess, regionale Unterschiede",
+    
+    spainName: "Spanien",
+    spainTime: "2-3 Wochen",
+    spainCost: "100-500€",
+    spainNotes: "Autonome Regionen mit unterschiedlichen Regeln",
+
+    // Section 8: Safety Requirements
+    section8Title: "Sicherheitsanforderungen für Schwertransport",
+    mandatorySignaling: "Obligatorische Kennzeichnung",
+    signalBoard: "Schild SCHWERTRANSPORT/ABNORMAL LOAD",
+    yellowFlashingLights: "Gelbe Blinklichter (Rundumleuchte) von allen Seiten sichtbar",
+    reflectiveMarkers: "Reflektierende Markierungen an Ladungskanten",
+    rearDimensions: "Hintere Abmessungsanzeiger (rote Flaggen/Lichter)",
+    frontWidthIndicators: "Vordere Breitenanzeiger (für breite Ladungen)",
+    nightIllumination: "Nachtbeleuchtung wo erforderlich",
+    
+    escortVehicles: "Begleitfahrzeuge (Pilot Cars)",
+    whenRequired: "Wann erforderlich:",
+    widthOver3m: "Breite > 3m (die meisten Länder)",
+    lengthOver25m: "Länge > 25m",
+    weightOver80t: "Gewicht > 80t",
+    urbanAreas: "Komplexe städtische Gebiete oder kritische Routen",
+    
+    pilotCarRequirements: "Begleitfahrzeug-Anforderungen:",
+    distinctiveMarking: "Markante Markierung und Farben",
+    amberBeacons: "Gelbe Rundumleuchten",
+    radioEquipment: "Funkkommunikationsausrüstung",
+    qualifiedPersonnel: "Qualifiziertes Personal",
+    
+    timeRestrictions: "Zeitbeschränkungen",
+    weekdayHours: "Werktage: 08:00 - 18:00 (variiert nach Land)",
+    weekendBan: "Wochenendverbote: Freitagabend - Montagmorgen",
+    holidayBan: "Transportverbote an Feiertagen",
+    nightPermitRequired: "Nachtfahrt: Sondergenehmigung erforderlich",
+    summerRestrictions: "Sommereinschränkungen während Spitzenreisezeiten",
+
+    // Driver Requirements
+    oversizeDriverRequirements: "Anforderungen an Schwertransport-Fahrer",
+    qualificationsNeeded: "Erforderliche Qualifikationen:",
+    ceLicense: "CE-Führerschein (Gelenkfahrzeuge)",
+    driverCPC: "Fahrer-CPC-Bescheinigung (Grundqualifikation) gültig",
+    minimumExperience: "Mindesterfahrung (üblicherweise 3-5 Jahre)",
+    specialTransportTraining: "Spezifische Schulung für Spezialtransport",
+    
+    specialResponsibilities: "Besondere Verantwortlichkeiten:",
+    extendedDailyCheck: "Erweiterte tägliche Fahrzeugkontrolle",
+    continuousEscortComm: "Kontinuierliche Kommunikation mit Eskorten-Team",
+    strictRouteCompliance: "Strikte Einhaltung der genehmigten Route",
+    immediateIssueReporting: "Sofortige Meldung von Problemen",
+
+    // Section 9: Costs
+    section9Title: "Schwertransport-Kosten",
+    costElement: "Kostenelement",
+    costDescription: "Beschreibung",
+    indicativeValues: "Richtwerte",
+    
+    transportPermits: "Transportgenehmigungen",
+    governmentFeesPerCountry: "Regierungsgebühren pro Transitland",
+    perCountry: "pro Land",
+    
+    pilotCarEscort: "Begleitfahrzeug-Eskorte",
+    escortVehiclesPersonnel: "Begleitfahrzeuge und Personal",
+    per100km: "/ 100km pro Fahrzeug",
+    
+    policeEscort: "Polizeieskorte",
+    mandatoryInCases: "In bestimmten Fällen obligatorisch",
+    perHour: "/ Stunde",
+    
+    specialPlatformRental: "Spezialplattform-Vermietung",
+    multiAxleExtendable: "Mehrachsiger, ausziehbarer Anhänger",
+    perDay: "/ Tag",
+    
+    routeStudyCost: "Routenstudie",
+    technicalAnalysisPlanning: "Technische Analyse und Planung",
+    
+    infrastructureModifications: "Temporäre Infrastrukturänderungen",
+    removeSemaphoresCables: "Ampeln, Kabel usw. entfernen",
+    
+    additionalInsurance: "Zusatzversicherung",
+    specialTransportRiskCoverage: "Spezialtransport-Risikodeckung",
+    ofCargoValue: "des Ladungswerts",
+    
+    kmPriceIncrease: "Km-Preiserhöhung",
+    additionalCostVsStandard: "Zusatzkosten vs. Standardtransport",
+
+    // Cost Calculation Example
+    costCalculationExample: "Beispiel Kostenberechnung",
+    baseTransport: "Basistransport (500 km × €3/km)",
+    authorizationsCountries: "Genehmigungen (DE + PL + CZ)",
+    pilotCarKm: "Begleitfahrzeug (500 km)",
+    specialPlatformDays: "Spezialplattform (3 Tage)",
+    additionalInsuranceLine: "Zusatzversicherung",
+    totalEstimated: "GESCHÄTZTE SUMME",
+
+    // Pricing Factors
+    pricingFactors: "Preisfaktoren",
+    cargoDimensions: "Ladungsabmessungen",
+    largerMeansHigher: "Je größer, desto exponentiell höher die Kosten",
+    totalWeightFactor: "Gesamtgewicht",
+    affectsPlatformType: "Beeinflusst Plattformtyp und Genehmigungsanforderungen",
+    distanceTransitCountries: "Entfernung und Transitländer",
+    moreCountriesMoreAuth: "Mehr Länder = mehr Genehmigungen und Koordination",
+    urgency: "Dringlichkeit",
+    fastAuthCostMore: "Schnelle Genehmigungen kosten deutlich mehr",
+
+    // Section 10: Checklists
+    section10Title: "Praktische Checklisten",
+    licensesAuthVerification: "Überprüfung Lizenzen und Genehmigungen",
+    communityLicenseValid: "EU-Lizenz ist gültig",
+    conformingCopiesAllVehicles: "Beglaubigte Kopien für alle Fahrzeuge über 3,5t",
+    cpcManagerValidRegistered: "CPC-Manager gültig und registriert",
+    financialCapacityDemonstrated: "Finanzielle Leistungsfähigkeit nachgewiesen",
+    rcaCmrInsuranceValid: "Kfz-Haftpflicht und CMR-Versicherung gültig",
+    cemtIfNeeded: "CEMT-Genehmigungen (falls erforderlich)",
+    erruRegistration: "Registrierung im ERRU-System",
+    vehicleDocsUpdated: "Fahrzeugdokumente aktualisiert (HU, Zulassung)",
+    
+    oversizeTransportPreparation: "Vorbereitung Schwertransport",
+    exactDimensionsWeight: "Genaue Abmessungen und Gewicht ermittelt",
+    routeStudyComplete: "Vollständige Routenstudie durchgeführt",
+    permitsAllCountries: "Genehmigungen für alle Länder erhalten",
+    pilotCarsCoordinated: "Begleitfahrzeuge und Eskorte koordiniert",
+    qualifiedDriver: "Qualifizierter und geschulter Fahrer",
+    fullSignalingEquipment: "Vollständige Kennzeichnungsausrüstung",
+    additionalInsuranceContracted: "Zusatzversicherung abgeschlossen",
+    emergencyPlanEstablished: "Notfallplan erstellt",
+    radioCommVerified: "Funkkommunikation geprüft",
+    weatherChecked: "Wetter für Transporttag geprüft",
+
+    // Section 11: Common Mistakes
+    section11Title: "Häufige Fehler und wie man sie vermeidet",
+    licenseExpiryMistake: "Ablauf von Lizenz/beglaubigten Kopien",
+    licenseExpiryAdvice: "Alarmsystem 60 Tage vor Ablauf implementieren.",
+    cabotageNoDocsMistake: "Kabotage ohne vollständige Dokumentation",
+    cabotageAdvice: "Alle CMRs aufbewahren und Regeln jedes Landes prüfen.",
+    underestimatingDimensionsMistake: "Unterschätzung der Übermaß-Abmessungen",
+    dimensionsAdvice: "Immer mit Verpackung und Befestigungsausrüstung messen.",
+    insufficientTimeForPermits: "Unzureichende Zeit für Genehmigungen",
+    timeAdvice: "Prozess mindestens 3-4 Wochen vor Transport beginnen.",
+    ignoringTimeRestrictions: "Ignorieren von Zeitbeschränkungen",
+    timeRestrictionsAdvice: "Erlaubte Zeitfenster in Genehmigung für jedes Land prüfen.",
+    inadequateInsurance: "Unzureichende Versicherung",
+    insuranceAdvice: "Prüfen, ob Police explizit Spezial-/Schwertransport abdeckt.",
+
+    // Quiz
+    quizTitle: "Test Lizenzen & Schwertransport",
+  }
+};
