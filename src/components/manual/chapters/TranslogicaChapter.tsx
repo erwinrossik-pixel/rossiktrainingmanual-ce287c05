@@ -3,7 +3,7 @@ import { Quiz } from "../Quiz";
 import { quizzes } from "@/data/quizData";
 import {
   Monitor, Users, Truck, Package, CalendarDays, FileText, 
-  BarChart3, Settings, Link, CheckCircle2, ArrowRight
+  BarChart3, Settings, Link, CheckCircle2
 } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 
@@ -22,14 +22,14 @@ export function TranslogicaChapter() {
       {/* Quick Start */}
       <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-sidebar to-sidebar/80 p-8 text-sidebar-foreground">
         <Monitor className="absolute top-4 right-4 w-20 h-20 text-sidebar-foreground/10" />
-        <h2 className="text-2xl font-bold mb-2 font-serif">Quick Start Guide</h2>
-        <p className="text-sidebar-foreground/80 mb-6">Essential operations every dispatcher needs to know.</p>
+        <h2 className="text-2xl font-bold mb-2 font-serif">{ct("quickStartGuide")}</h2>
+        <p className="text-sidebar-foreground/80 mb-6">{ct("quickStartDesc")}</p>
         
         <div className="grid md:grid-cols-3 gap-4">
           {[
-            { icon: Users, label: "Register Client", path: "Master Data → Addresses" },
-            { icon: Truck, label: "Register Vehicle", path: "Master Data → Vehicles" },
-            { icon: Package, label: "Create Order", path: "Orders → New Order" },
+            { icon: Users, label: ct("registerClient"), path: ct("registerClientPath") },
+            { icon: Truck, label: ct("registerVehicle"), path: ct("registerVehiclePath") },
+            { icon: Package, label: ct("createOrder"), path: ct("createOrderPath") },
           ].map((item, i) => (
             <div key={i} className="bg-sidebar-accent/50 rounded-lg p-4">
               <item.icon className="w-8 h-8 text-sidebar-primary mb-2" />
@@ -46,28 +46,28 @@ export function TranslogicaChapter() {
         <div className="info-card">
           <h2 className="section-title flex items-center gap-3">
             <span className="w-8 h-8 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-sm">🧾</span>
-            1. Register a Client
+            {ct("registerClientTitle")}
           </h2>
           <div className="space-y-3 mt-4">
             <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-lg">
-              <span className="badge-primary">Step 1</span>
-              <span>Menu: <strong>Master Data → Addresses → New</strong></span>
+              <span className="badge-primary">{ct("step1")}</span>
+              <span>{ct("clientStep1")}</span>
             </div>
             <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-lg">
-              <span className="badge-primary">Step 2</span>
-              <span>Click <strong>New</strong>, tick <strong>Customer</strong> checkbox</span>
+              <span className="badge-primary">{ct("step2")}</span>
+              <span>{ct("clientStep2")}</span>
             </div>
             <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-lg">
-              <span className="badge-primary">Step 3</span>
-              <span>Fill: company name, address, contact, email, phone</span>
+              <span className="badge-primary">{ct("step3")}</span>
+              <span>{ct("clientStep3")}</span>
             </div>
             <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-lg">
-              <span className="badge-primary">Step 4</span>
-              <span>Go to <strong>Customer tab</strong>: add number, payment terms, invoice address</span>
+              <span className="badge-primary">{ct("step4")}</span>
+              <span>{ct("clientStep4")}</span>
             </div>
             <div className="flex items-center gap-3 p-3 bg-success/10 rounded-lg border border-success/20">
               <CheckCircle2 className="w-5 h-5 text-success" />
-              <span className="font-medium">Save ✅</span>
+              <span className="font-medium">{ct("save")} ✅</span>
             </div>
           </div>
         </div>
@@ -76,24 +76,24 @@ export function TranslogicaChapter() {
         <div className="info-card">
           <h2 className="section-title flex items-center gap-3">
             <span className="w-8 h-8 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-sm">🚛</span>
-            2. Register a Vehicle
+            {ct("registerVehicleTitle")}
           </h2>
           <div className="space-y-3 mt-4">
             <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-lg">
-              <span className="badge-primary">Step 1</span>
-              <span>Menu: <strong>Master Data → Vehicles → New</strong></span>
+              <span className="badge-primary">{ct("step1")}</span>
+              <span>{ct("vehicleStep1")}</span>
             </div>
             <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-lg">
-              <span className="badge-primary">Step 2</span>
-              <span>Click <strong>New</strong>, add license plate, type, owner, driver</span>
+              <span className="badge-primary">{ct("step2")}</span>
+              <span>{ct("vehicleStep2")}</span>
             </div>
             <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-lg">
-              <span className="badge-primary">Step 3</span>
-              <span>Add technical details: weight, emission class, equipment</span>
+              <span className="badge-primary">{ct("step3")}</span>
+              <span>{ct("vehicleStep3")}</span>
             </div>
             <div className="flex items-center gap-3 p-3 bg-success/10 rounded-lg border border-success/20">
               <CheckCircle2 className="w-5 h-5 text-success" />
-              <span className="font-medium">Save ✅</span>
+              <span className="font-medium">{ct("save")} ✅</span>
             </div>
           </div>
         </div>
@@ -102,24 +102,24 @@ export function TranslogicaChapter() {
         <div className="info-card">
           <h2 className="section-title flex items-center gap-3">
             <span className="w-8 h-8 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-sm">📦</span>
-            3. Register a Transport Order
+            {ct("registerOrderTitle")}
           </h2>
           <div className="space-y-3 mt-4">
             <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-lg">
-              <span className="badge-primary">Step 1</span>
-              <span>Menu: <strong>Orders → New Order</strong> (or Quick Entry)</span>
+              <span className="badge-primary">{ct("step1")}</span>
+              <span>{ct("orderStep1")}</span>
             </div>
             <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-lg">
-              <span className="badge-primary">Step 2</span>
-              <span>Enter client, loading/unloading points, goods details</span>
+              <span className="badge-primary">{ct("step2")}</span>
+              <span>{ct("orderStep2")}</span>
             </div>
             <div className="flex items-center gap-3 p-3 bg-muted/50 rounded-lg">
-              <span className="badge-primary">Step 3</span>
-              <span>Assign vehicle type, confirm details</span>
+              <span className="badge-primary">{ct("step3")}</span>
+              <span>{ct("orderStep3")}</span>
             </div>
             <div className="flex items-center gap-3 p-3 bg-success/10 rounded-lg border border-success/20">
               <CheckCircle2 className="w-5 h-5 text-success" />
-              <span className="font-medium">Order appears in dispatch list ✅</span>
+              <span className="font-medium">{ct("orderComplete")} ✅</span>
             </div>
           </div>
         </div>
@@ -127,41 +127,41 @@ export function TranslogicaChapter() {
 
       {/* Advanced Features */}
       <div>
-        <h2 className="section-title mb-4">🚀 Advanced Features</h2>
+        <h2 className="section-title mb-4">🚀 {ct("advancedFeatures")}</h2>
         <div className="grid md:grid-cols-2 gap-4">
-          <InfoCard title="Dispatch Planning (Dispoplan)" icon={CalendarDays}>
+          <InfoCard title={ct("dispatchPlanning")} icon={CalendarDays}>
             <ul className="space-y-1 text-sm">
-              <li>• Drag & drop orders to trucks</li>
-              <li>• Monitor free vehicles, open jobs</li>
-              <li>• Send messages/emails to drivers</li>
-              <li>• PTV xServer route & toll calc</li>
+              <li>• {ct("dispatchPlanningDesc1")}</li>
+              <li>• {ct("dispatchPlanningDesc2")}</li>
+              <li>• {ct("dispatchPlanningDesc3")}</li>
+              <li>• {ct("dispatchPlanningDesc4")}</li>
             </ul>
           </InfoCard>
 
-          <InfoCard title="Platform Integrations" icon={Link}>
+          <InfoCard title={ct("platformIntegrations")} icon={Link}>
             <ul className="space-y-1 text-sm">
-              <li>• <strong>TIMOCOM:</strong> Post/search directly</li>
-              <li>• <strong>Transporeon:</strong> Auto-import orders</li>
-              <li>• <strong>dotiga:</strong> Archive docs</li>
-              <li>• Email/SMS driver communication</li>
+              <li>• {ct("timocomIntegration")}</li>
+              <li>• {ct("transporeonIntegration")}</li>
+              <li>• {ct("dotigaIntegration")}</li>
+              <li>• {ct("emailSmsIntegration")}</li>
             </ul>
           </InfoCard>
 
-          <InfoCard title="Invoicing & Profit Control" icon={FileText}>
+          <InfoCard title={ct("invoicingProfitControl")} icon={FileText}>
             <ul className="space-y-1 text-sm">
-              <li>• Auto rate calc by km or zone</li>
-              <li>• Generate invoices in clicks</li>
-              <li>• Subcontractor credit notes</li>
-              <li>• Real-time profit view</li>
+              <li>• {ct("autoRateCalc")}</li>
+              <li>• {ct("generateInvoices")}</li>
+              <li>• {ct("subcontractorNotes")}</li>
+              <li>• {ct("realTimeProfitView")}</li>
             </ul>
           </InfoCard>
 
-          <InfoCard title="Reports & Dashboards" icon={BarChart3}>
+          <InfoCard title={ct("reportsDashboards")} icon={BarChart3}>
             <ul className="space-y-1 text-sm">
-              <li>• KPIs by client, dispatcher, lane</li>
-              <li>• Monthly performance reports</li>
-              <li>• Cube Dashboard analytics</li>
-              <li>• Profit, cost, km tracking</li>
+              <li>• {ct("kpisByClient")}</li>
+              <li>• {ct("monthlyPerformance")}</li>
+              <li>• {ct("cubeDashboard")}</li>
+              <li>• {ct("profitCostKmTracking")}</li>
             </ul>
           </InfoCard>
         </div>
@@ -171,16 +171,16 @@ export function TranslogicaChapter() {
       <div className="info-card">
         <h2 className="section-title flex items-center gap-3">
           <Settings className="w-6 h-6 text-primary" />
-          Key Benefits Summary
+          {ct("keyBenefitsSummary")}
         </h2>
         <div className="grid md:grid-cols-3 gap-4 mt-4">
           {[
-            { title: "Centralized Data", desc: "Clients, carriers, vehicles, orders unified" },
-            { title: "Automation", desc: "Quotes, invoices, docs in 1–2 clicks" },
-            { title: "Integrations", desc: "TIMOCOM, Transporeon, PTV, Email" },
-            { title: "Real-time Margin", desc: "Instant profit visibility per order" },
-            { title: "Collaboration", desc: "Multiple dispatchers simultaneously" },
-            { title: "Multilingual", desc: "English, German, Romanian UI" },
+            { title: ct("centralizedData"), desc: ct("centralizedDataDesc") },
+            { title: ct("automation"), desc: ct("automationDesc") },
+            { title: ct("integrations"), desc: ct("integrationsDesc") },
+            { title: ct("realTimeMargin"), desc: ct("realTimeMarginDesc") },
+            { title: ct("collaboration"), desc: ct("collaborationDesc") },
+            { title: ct("multilingual"), desc: ct("multilingualDesc") },
           ].map((item, i) => (
             <div key={i} className="p-4 bg-accent rounded-lg">
               <h3 className="font-semibold text-sm mb-1">{item.title}</h3>
@@ -191,7 +191,7 @@ export function TranslogicaChapter() {
       </div>
 
       {/* Quiz */}
-      <Quiz title="🎯 Knowledge Check: Translogica TMS" questions={quizzes.translogica} chapterId="translogica" />
+      <Quiz title={`🎯 ${ct("knowledgeCheck")}`} questions={quizzes.translogica} chapterId="translogica" />
     </div>
   );
 }

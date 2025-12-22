@@ -21,31 +21,31 @@ export function TechnologyChapter() {
       <div className="info-card bg-gradient-to-br from-primary/5 to-primary/10">
         <h2 className="section-title flex items-center gap-3">
           <Cpu className="w-6 h-6 text-primary" />
-          Digital Transformation in Logistics
+          {ct("digitalTransformationTitle")}
         </h2>
         <p className="text-muted-foreground mb-4">
-          The logistics industry is undergoing rapid digital transformation. Modern freight forwarders leverage technology for efficiency, visibility, and competitive advantage. Understanding these tools is essential for career success.
+          {ct("digitalTransformationDesc")}
         </p>
         <div className="grid md:grid-cols-4 gap-4">
           <div className="bg-background p-4 rounded-lg text-center">
             <Cloud className="w-8 h-8 text-primary mx-auto mb-2" />
-            <p className="font-medium">Cloud TMS</p>
-            <p className="text-xs text-muted-foreground">Centralized operations</p>
+            <p className="font-medium">{ct("cloudTms")}</p>
+            <p className="text-xs text-muted-foreground">{ct("cloudTmsDesc")}</p>
           </div>
           <div className="bg-background p-4 rounded-lg text-center">
             <MapPin className="w-8 h-8 text-primary mx-auto mb-2" />
-            <p className="font-medium">Real-time Tracking</p>
-            <p className="text-xs text-muted-foreground">GPS & telematics</p>
+            <p className="font-medium">{ct("realTimeTracking")}</p>
+            <p className="text-xs text-muted-foreground">{ct("realTimeTrackingDesc")}</p>
           </div>
           <div className="bg-background p-4 rounded-lg text-center">
             <Bot className="w-8 h-8 text-primary mx-auto mb-2" />
-            <p className="font-medium">AI & Automation</p>
-            <p className="text-xs text-muted-foreground">Smart decision support</p>
+            <p className="font-medium">{ct("aiAutomation")}</p>
+            <p className="text-xs text-muted-foreground">{ct("aiAutomationDesc")}</p>
           </div>
           <div className="bg-background p-4 rounded-lg text-center">
             <Globe className="w-8 h-8 text-primary mx-auto mb-2" />
-            <p className="font-medium">Digital Platforms</p>
-            <p className="text-xs text-muted-foreground">Connected ecosystem</p>
+            <p className="font-medium">{ct("digitalPlatforms")}</p>
+            <p className="text-xs text-muted-foreground">{ct("digitalPlatformsDesc")}</p>
           </div>
         </div>
       </div>
