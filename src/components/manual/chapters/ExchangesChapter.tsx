@@ -27,25 +27,25 @@ export function ExchangesChapter() {
               TC
             </div>
             <div>
-              <h3 className="font-semibold text-lg">TIMOCOM</h3>
-              <Badge variant="info">Most Used in EU</Badge>
+              <h3 className="font-semibold text-lg">{ct("timocomTitle")}</h3>
+              <Badge variant="info">{ct("timocomBadge")}</Badge>
             </div>
           </div>
           <p className="text-muted-foreground mb-4">
-            Leading European freight exchange with extensive partner verification.
+            {ct("timocomDesc")}
           </p>
           <div className="space-y-2 text-sm">
             <div className="flex items-center gap-2">
               <Search className="w-4 h-4 text-muted-foreground" />
-              <span>Find & post loads/trucks</span>
+              <span>{ct("findPostLoads")}</span>
             </div>
             <div className="flex items-center gap-2">
               <Star className="w-4 h-4 text-muted-foreground" />
-              <span>Partner verification & rating</span>
+              <span>{ct("partnerVerification")}</span>
             </div>
             <div className="flex items-center gap-2">
               <Shield className="w-4 h-4 text-muted-foreground" />
-              <span>Integrated in Translogica TMS</span>
+              <span>{ct("integratedTms")}</span>
             </div>
           </div>
         </div>
@@ -57,25 +57,25 @@ export function ExchangesChapter() {
               T.eu
             </div>
             <div>
-              <h3 className="font-semibold text-lg">Trans.eu</h3>
-              <Badge variant="success">Strong in CEE</Badge>
+              <h3 className="font-semibold text-lg">{ct("transeuTitle")}</h3>
+              <Badge variant="success">{ct("transeuBadge")}</Badge>
             </div>
           </div>
           <p className="text-muted-foreground mb-4">
-            Verified network with strong presence in Central/Eastern Europe.
+            {ct("transeuDesc")}
           </p>
           <div className="space-y-2 text-sm">
             <div className="flex items-center gap-2">
               <Globe className="w-4 h-4 text-muted-foreground" />
-              <span>CEE/EU verified network</span>
+              <span>{ct("ceeNetwork")}</span>
             </div>
             <div className="flex items-center gap-2">
               <MessageSquare className="w-4 h-4 text-muted-foreground" />
-              <span>Private tenders, in-app chat</span>
+              <span>{ct("privateTenders")}</span>
             </div>
             <div className="flex items-center gap-2">
               <Star className="w-4 h-4 text-muted-foreground" />
-              <span>TransRisk scoring system</span>
+              <span>{ct("transRisk")}</span>
             </div>
           </div>
         </div>
@@ -87,25 +87,25 @@ export function ExchangesChapter() {
               TR
             </div>
             <div>
-              <h3 className="font-semibold text-lg">Teleroute</h3>
-              <Badge variant="warning">Payment Protection</Badge>
+              <h3 className="font-semibold text-lg">{ct("telerouteTitle")}</h3>
+              <Badge variant="warning">{ct("telerouteBadge")}</Badge>
             </div>
           </div>
           <p className="text-muted-foreground mb-4">
-            EU-wide platform with Coface-backed Payment Guarantee.
+            {ct("telerouteDesc")}
           </p>
           <div className="space-y-2 text-sm">
             <div className="flex items-center gap-2">
               <CreditCard className="w-4 h-4 text-muted-foreground" />
-              <span>Payment Guarantee (Coface)</span>
+              <span>{ct("paymentGuarantee")}</span>
             </div>
             <div className="flex items-center gap-2">
               <Globe className="w-4 h-4 text-muted-foreground" />
-              <span>EU-wide coverage</span>
+              <span>{ct("euWideCoverage")}</span>
             </div>
             <div className="flex items-center gap-2">
               <Shield className="w-4 h-4 text-muted-foreground" />
-              <span>Part of Alpega Group</span>
+              <span>{ct("alpegaGroup")}</span>
             </div>
           </div>
         </div>
@@ -117,25 +117,25 @@ export function ExchangesChapter() {
               TP
             </div>
             <div>
-              <h3 className="font-semibold text-lg">Transporeon</h3>
-              <Badge variant="primary">Enterprise Focus</Badge>
+              <h3 className="font-semibold text-lg">{ct("transporeonTitle")}</h3>
+              <Badge variant="primary">{ct("transporeonBadge")}</Badge>
             </div>
           </div>
           <p className="text-muted-foreground mb-4">
-            Shipper-carrier network with advanced visibility features.
+            {ct("transporeonDesc")}
           </p>
           <div className="space-y-2 text-sm">
             <div className="flex items-center gap-2">
               <Globe className="w-4 h-4 text-muted-foreground" />
-              <span>eTendering platform</span>
+              <span>{ct("eTendering")}</span>
             </div>
             <div className="flex items-center gap-2">
               <Search className="w-4 h-4 text-muted-foreground" />
-              <span>Real-time visibility</span>
+              <span>{ct("realTimeVisibility")}</span>
             </div>
             <div className="flex items-center gap-2">
               <Shield className="w-4 h-4 text-muted-foreground" />
-              <span>Telematics integration</span>
+              <span>{ct("telematicsIntegration")}</span>
             </div>
           </div>
         </div>
@@ -143,39 +143,39 @@ export function ExchangesChapter() {
 
       {/* Comparison Table */}
       <div className="info-card">
-        <h2 className="section-title">Quick Comparison</h2>
+        <h2 className="section-title">{ct("quickComparison")}</h2>
         <DataTable 
-          headers={["Platform", "Use Case", "Key Feature"]}
+          headers={[ct("platform"), ct("useCase"), ct("keyFeature")]}
           rows={[
-            ["TIMOCOM", "Daily spot loads", "Partner verification & rating"],
-            ["Trans.eu", "CEE network", "Private tenders, in-app chat"],
-            ["Teleroute", "Payment security", "Coface Payment Guarantee"],
-            ["Transporeon", "Enterprise tenders", "eTendering, telematics"],
+            [ct("timocomTitle"), ct("dailySpotLoads"), ct("partnerVerification")],
+            [ct("transeuTitle"), ct("ceeNetworkUse"), ct("privateTenders")],
+            [ct("telerouteTitle"), ct("paymentSecurity"), ct("paymentGuarantee")],
+            [ct("transporeonTitle"), ct("enterpriseTenders"), `${ct("eTendering")}, ${ct("telematicsIntegration")}`],
           ]}
         />
       </div>
 
       {/* Best Practices */}
       <div className="highlight-card">
-        <h3 className="font-semibold mb-3">🎯 Exchange Best Practices</h3>
+        <h3 className="font-semibold mb-3">🎯 {ct("bestPracticesTitle")}</h3>
         <div className="grid md:grid-cols-2 gap-4 text-sm">
           <ul className="space-y-2 text-muted-foreground">
-            <li>✓ Always check partner ratings before booking</li>
-            <li>✓ Verify insurance and licenses</li>
-            <li>✓ Use platform messaging for audit trail</li>
-            <li>✓ Save reliable partners to your TMS</li>
+            <li>✓ {ct("checkRatings")}</li>
+            <li>✓ {ct("verifyInsurance")}</li>
+            <li>✓ {ct("usePlatformMessaging")}</li>
+            <li>✓ {ct("savePartners")}</li>
           </ul>
           <ul className="space-y-2 text-muted-foreground">
-            <li>✓ Use Payment Guarantee for new partners</li>
-            <li>✓ Check for driving ban countries</li>
-            <li>✓ Confirm all details in writing</li>
-            <li>✓ Rate partners after each job</li>
+            <li>✓ {ct("usePaymentGuarantee")}</li>
+            <li>✓ {ct("checkDrivingBans")}</li>
+            <li>✓ {ct("confirmDetails")}</li>
+            <li>✓ {ct("ratePartners")}</li>
           </ul>
         </div>
       </div>
 
       {/* Quiz */}
-      <Quiz title="🎯 Knowledge Check: Freight Exchanges" questions={quizzes.exchanges} chapterId="exchanges" />
+      <Quiz title={`🎯 ${ct("knowledgeCheck")}`} questions={quizzes.exchanges} chapterId="exchanges" />
     </div>
   );
 }
