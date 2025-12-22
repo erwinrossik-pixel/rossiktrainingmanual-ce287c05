@@ -19,16 +19,18 @@ export function LicensesOversizeChapter() {
       {/* Hero Section */}
       <div className="hero-section text-primary-foreground">
         <div className="relative z-10">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-14 h-14 rounded-2xl bg-white/20 backdrop-blur flex items-center justify-center">
-              <Award className="w-7 h-7" />
+          <div className="flex items-center gap-4 mb-6">
+            <div className="w-20 h-20 rounded-2xl bg-white/25 backdrop-blur-sm flex items-center justify-center shadow-lg">
+              <Award className="w-10 h-10" />
             </div>
             <div>
-              <p className="text-primary-foreground/70 text-sm font-medium uppercase tracking-wider">{ct('chapterNumber')}</p>
-              <h1 className="text-4xl md:text-5xl font-bold font-display">{ct('chapterTitle')}</h1>
+              <p className="text-white/80 text-sm font-semibold uppercase tracking-widest mb-2">{ct('chapterNumber')}</p>
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold leading-none">
+                {ct('chapterTitle')}
+              </h1>
             </div>
           </div>
-          <p className="text-xl text-primary-foreground/90 max-w-3xl leading-relaxed">
+          <p className="text-xl md:text-2xl text-white/90 max-w-4xl leading-relaxed font-medium mt-6">
             {ct('heroDescription')}
           </p>
         </div>
