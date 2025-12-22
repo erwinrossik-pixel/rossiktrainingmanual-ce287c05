@@ -3,8 +3,11 @@ import { DataTable } from "../DataTable";
 import { Quiz } from "../Quiz";
 import { quizzes } from "@/data/quizData";
 import { CreditCard, FileText, AlertTriangle, CheckCircle, Clock, Shield, Calculator, Users } from "lucide-react";
+import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 
 export function PaymentChapter() {
+  const { ct } = useChapterTranslation("payment");
+
   return (
     <div className="space-y-8 animate-fade-in">
       {/* Hero Section */}
@@ -13,10 +16,10 @@ export function PaymentChapter() {
         <div className="relative">
           <CreditCard className="w-12 h-12 mb-4" />
           <h1 className="text-3xl md:text-5xl font-bold mb-4 font-serif">
-            Payment & Invoicing
+            {ct("title")}
           </h1>
           <p className="text-lg md:text-xl opacity-90 max-w-2xl">
-            Payment terms, credit management, invoicing best practices, and cash flow optimization.
+            {ct("subtitle")}
           </p>
         </div>
       </div>
@@ -25,17 +28,17 @@ export function PaymentChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
           <Clock className="w-6 h-6 text-primary" />
-          Standard Payment Terms
+          {ct("standardPaymentTerms")}
         </h2>
         <DataTable
-          headers={["Term", "Description", "Typical Use"]}
+          headers={[ct("term"), ct("description"), ct("typicalUse")]}
           rows={[
-            ["Prepayment", "Payment before transport", "New customers, high-risk, urgent spot"],
-            ["COD", "Cash on Delivery", "First-time customers, high-value cargo"],
-            ["Net 14", "Payment within 14 days", "Good customers, regular business"],
-            ["Net 30", "Payment within 30 days", "Standard business terms"],
-            ["Net 45/60", "Extended payment", "Large customers, contract rates"],
-            ["End of Month +30", "EOM + 30 days", "Corporate accounts"],
+            [ct("prepayment"), ct("prepaymentDesc"), ct("prepaymentUse")],
+            [ct("cod"), ct("codDesc"), ct("codUse")],
+            [ct("net14"), ct("net14Desc"), ct("net14Use")],
+            [ct("net30"), ct("net30Desc"), ct("net30Use")],
+            [ct("net45_60"), ct("net45_60Desc"), ct("net45_60Use")],
+            [ct("eomPlus30"), ct("eomPlus30Desc"), ct("eomPlus30Use")],
           ]}
         />
       </section>
@@ -44,25 +47,25 @@ export function PaymentChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
           <Shield className="w-6 h-6 text-primary" />
-          Credit Assessment
+          {ct("creditAssessment")}
         </h2>
         <div className="grid md:grid-cols-2 gap-4">
-          <InfoCard title="Before Extending Credit" icon={CheckCircle} variant="info">
+          <InfoCard title={ct("beforeExtendingCredit")} icon={CheckCircle} variant="info">
             <ul className="space-y-2">
-              <li>• Check company registration (VAT, Chamber of Commerce)</li>
-              <li>• Request trade references</li>
-              <li>• Use credit rating services (Creditsafe, Coface, D&B)</li>
-              <li>• Review freight exchange ratings</li>
-              <li>• Start with prepayment or COD for new customers</li>
+              <li>• {ct("checkCompanyRegistration")}</li>
+              <li>• {ct("requestTradeReferences")}</li>
+              <li>• {ct("useCreditRatingServices")}</li>
+              <li>• {ct("reviewFreightExchangeRatings")}</li>
+              <li>• {ct("startWithPrepayment")}</li>
             </ul>
           </InfoCard>
-          <InfoCard title="Credit Limit Guidelines" icon={Calculator} variant="warning">
+          <InfoCard title={ct("creditLimitGuidelines")} icon={Calculator} variant="warning">
             <ul className="space-y-2">
-              <li>• New customer: Max 1-2 loads value</li>
-              <li>• After 3+ paid invoices: Increase gradually</li>
-              <li>• Review limits quarterly</li>
-              <li>• Reduce immediately if payment delays</li>
-              <li>• Document all credit decisions</li>
+              <li>• {ct("newCustomerMaxLoads")}</li>
+              <li>• {ct("after3PaidInvoices")}</li>
+              <li>• {ct("reviewLimitsQuarterly")}</li>
+              <li>• {ct("reduceImmediately")}</li>
+              <li>• {ct("documentCreditDecisions")}</li>
             </ul>
           </InfoCard>
         </div>
@@ -72,33 +75,33 @@ export function PaymentChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
           <FileText className="w-6 h-6 text-primary" />
-          Invoice Requirements
+          {ct("invoiceRequirements")}
         </h2>
         <div className="bg-card border border-border rounded-xl p-6">
           <div className="grid md:grid-cols-2 gap-6">
             <div>
-              <h3 className="font-semibold mb-3">Mandatory Elements</h3>
+              <h3 className="font-semibold mb-3">{ct("mandatoryElements")}</h3>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                <li>• Invoice number (sequential)</li>
-                <li>• Invoice date</li>
-                <li>• Your company details (name, address, VAT)</li>
-                <li>• Customer details (name, address, VAT)</li>
-                <li>• Service description</li>
-                <li>• Net amount, VAT rate, VAT amount, gross total</li>
-                <li>• Payment terms and due date</li>
-                <li>• Bank account details</li>
+                <li>• {ct("invoiceNumber")}</li>
+                <li>• {ct("invoiceDate")}</li>
+                <li>• {ct("yourCompanyDetails")}</li>
+                <li>• {ct("customerDetails")}</li>
+                <li>• {ct("serviceDescription")}</li>
+                <li>• {ct("netAmountVat")}</li>
+                <li>• {ct("paymentTermsDueDate")}</li>
+                <li>• {ct("bankAccountDetails")}</li>
               </ul>
             </div>
             <div>
-              <h3 className="font-semibold mb-3">Transport-Specific Details</h3>
+              <h3 className="font-semibold mb-3">{ct("transportSpecificDetails")}</h3>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                <li>• Order/reference number</li>
-                <li>• Loading and delivery dates</li>
-                <li>• Route (from → to)</li>
-                <li>• Vehicle/trailer registration</li>
-                <li>• CMR number</li>
-                <li>• Weight/quantity transported</li>
-                <li>• Breakdown of charges (base rate, tolls, waiting, etc.)</li>
+                <li>• {ct("orderReferenceNumber")}</li>
+                <li>• {ct("loadingDeliveryDates")}</li>
+                <li>• {ct("route")}</li>
+                <li>• {ct("vehicleRegistration")}</li>
+                <li>• {ct("cmrNumber")}</li>
+                <li>• {ct("weightQuantity")}</li>
+                <li>• {ct("breakdownOfCharges")}</li>
               </ul>
             </div>
           </div>
@@ -109,27 +112,27 @@ export function PaymentChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
           <Calculator className="w-6 h-6 text-primary" />
-          VAT in International Transport
+          {ct("vatInInternationalTransport")}
         </h2>
         <div className="bg-muted/30 rounded-xl p-6">
           <div className="grid md:grid-cols-2 gap-6">
             <div>
-              <h3 className="font-semibold mb-3">Intra-EU Transport</h3>
+              <h3 className="font-semibold mb-3">{ct("intraEuTransport")}</h3>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                <li>• B2B: Reverse charge applies (0% VAT)</li>
-                <li>• Customer must have valid VAT number</li>
-                <li>• Verify VAT via VIES system</li>
-                <li>• Invoice states "Reverse charge" and customer VAT</li>
-                <li>• Report in EC Sales List</li>
+                <li>• {ct("b2bReverseCharge")}</li>
+                <li>• {ct("customerMustHaveValidVat")}</li>
+                <li>• {ct("verifyVatVies")}</li>
+                <li>• {ct("invoiceStatesReverseCharge")}</li>
+                <li>• {ct("reportInEcSalesList")}</li>
               </ul>
             </div>
             <div>
-              <h3 className="font-semibold mb-3">Export/Import Transport</h3>
+              <h3 className="font-semibold mb-3">{ct("exportImportTransport")}</h3>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                <li>• Export from EU: 0% VAT (zero-rated)</li>
-                <li>• Keep export documentation as proof</li>
-                <li>• Import to EU: VAT at destination country rate</li>
-                <li>• Third-country routes: Check each jurisdiction</li>
+                <li>• {ct("exportFromEu")}</li>
+                <li>• {ct("keepExportDocumentation")}</li>
+                <li>• {ct("importToEu")}</li>
+                <li>• {ct("thirdCountryRoutes")}</li>
               </ul>
             </div>
           </div>
@@ -140,31 +143,31 @@ export function PaymentChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
           <CheckCircle className="w-6 h-6 text-primary" />
-          Invoicing Best Practices
+          {ct("invoicingBestPractices")}
         </h2>
         <div className="grid md:grid-cols-3 gap-4">
-          <InfoCard title="Speed" icon={Clock} variant="success">
+          <InfoCard title={ct("speed")} icon={Clock} variant="success">
             <ul className="space-y-2">
-              <li>• Invoice within 48h of delivery</li>
-              <li>• Attach signed CMR/POD</li>
-              <li>• Use automated TMS invoicing</li>
-              <li>• Send via email (faster than post)</li>
+              <li>• {ct("invoiceWithin48h")}</li>
+              <li>• {ct("attachSignedCmr")}</li>
+              <li>• {ct("useAutomatedTms")}</li>
+              <li>• {ct("sendViaEmail")}</li>
             </ul>
           </InfoCard>
-          <InfoCard title="Accuracy" icon={FileText} variant="info">
+          <InfoCard title={ct("accuracy")} icon={FileText} variant="info">
             <ul className="space-y-2">
-              <li>• Double-check all figures</li>
-              <li>• Match order confirmation</li>
-              <li>• Correct customer details</li>
-              <li>• Include all agreed charges</li>
+              <li>• {ct("doubleCheckFigures")}</li>
+              <li>• {ct("matchOrderConfirmation")}</li>
+              <li>• {ct("correctCustomerDetails")}</li>
+              <li>• {ct("includeAllAgreedCharges")}</li>
             </ul>
           </InfoCard>
-          <InfoCard title="Tracking" icon={Calculator} variant="highlight">
+          <InfoCard title={ct("tracking")} icon={Calculator} variant="highlight">
             <ul className="space-y-2">
-              <li>• Use invoice tracking system</li>
-              <li>• Set automatic payment reminders</li>
-              <li>• Monitor DSO (Days Sales Outstanding)</li>
-              <li>• Age analysis weekly</li>
+              <li>• {ct("useInvoiceTrackingSystem")}</li>
+              <li>• {ct("setAutomaticReminders")}</li>
+              <li>• {ct("monitorDso")}</li>
+              <li>• {ct("ageAnalysisWeekly")}</li>
             </ul>
           </InfoCard>
         </div>
@@ -174,43 +177,43 @@ export function PaymentChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
           <AlertTriangle className="w-6 h-6 text-warning" />
-          Collection Process
+          {ct("collectionProcess")}
         </h2>
         <div className="bg-card border border-border rounded-xl p-6">
           <div className="space-y-4">
             <div className="flex items-center gap-4">
               <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center flex-shrink-0 text-sm font-bold">1</div>
               <div>
-                <span className="font-semibold">Due Date +1 day:</span>
-                <span className="text-muted-foreground ml-2">Friendly reminder email</span>
+                <span className="font-semibold">{ct("dueDatePlus1")}</span>
+                <span className="text-muted-foreground ml-2">{ct("friendlyReminderEmail")}</span>
               </div>
             </div>
             <div className="flex items-center gap-4">
               <div className="w-8 h-8 rounded-full bg-muted flex items-center justify-center flex-shrink-0 text-sm font-bold">2</div>
               <div>
-                <span className="font-semibold">Due Date +7 days:</span>
-                <span className="text-muted-foreground ml-2">Second reminder + phone call</span>
+                <span className="font-semibold">{ct("dueDatePlus7")}</span>
+                <span className="text-muted-foreground ml-2">{ct("secondReminderPhoneCall")}</span>
               </div>
             </div>
             <div className="flex items-center gap-4">
               <div className="w-8 h-8 rounded-full bg-warning/20 flex items-center justify-center flex-shrink-0 text-sm font-bold text-warning">3</div>
               <div>
-                <span className="font-semibold">Due Date +14 days:</span>
-                <span className="text-muted-foreground ml-2">Formal demand letter, stop new orders</span>
+                <span className="font-semibold">{ct("dueDatePlus14")}</span>
+                <span className="text-muted-foreground ml-2">{ct("formalDemandLetter")}</span>
               </div>
             </div>
             <div className="flex items-center gap-4">
               <div className="w-8 h-8 rounded-full bg-destructive/20 flex items-center justify-center flex-shrink-0 text-sm font-bold text-destructive">4</div>
               <div>
-                <span className="font-semibold">Due Date +30 days:</span>
-                <span className="text-muted-foreground ml-2">Final notice before collection agency/legal action</span>
+                <span className="font-semibold">{ct("dueDatePlus30")}</span>
+                <span className="text-muted-foreground ml-2">{ct("finalNoticeBeforeCollection")}</span>
               </div>
             </div>
             <div className="flex items-center gap-4">
               <div className="w-8 h-8 rounded-full bg-destructive/20 flex items-center justify-center flex-shrink-0 text-sm font-bold text-destructive">5</div>
               <div>
-                <span className="font-semibold">Due Date +45 days:</span>
-                <span className="text-muted-foreground ml-2">Hand over to collection agency or initiate legal proceedings</span>
+                <span className="font-semibold">{ct("dueDatePlus45")}</span>
+                <span className="text-muted-foreground ml-2">{ct("handOverToCollection")}</span>
               </div>
             </div>
           </div>
@@ -221,28 +224,28 @@ export function PaymentChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
           <Users className="w-6 h-6 text-primary" />
-          Self-Billing Arrangements
+          {ct("selfBillingArrangements")}
         </h2>
-        <InfoCard title="Self-Billing (Customer Creates Invoice)" icon={FileText} variant="info">
+        <InfoCard title={ct("selfBillingCustomerCreates")} icon={FileText} variant="info">
           <p className="text-sm text-muted-foreground mb-4">
-            Some large shippers use self-billing where THEY create the invoice on your behalf:
+            {ct("selfBillingDesc")}
           </p>
           <div className="grid md:grid-cols-2 gap-4">
             <div>
-              <h4 className="font-semibold mb-2">Advantages</h4>
+              <h4 className="font-semibold mb-2">{ct("advantages")}</h4>
               <ul className="space-y-1 text-sm">
-                <li>• Faster payment (their process)</li>
-                <li>• Less admin for you</li>
-                <li>• Fewer invoice disputes</li>
+                <li>• {ct("fasterPayment")}</li>
+                <li>• {ct("lessAdmin")}</li>
+                <li>• {ct("fewerInvoiceDisputes")}</li>
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold mb-2">Requirements</h4>
+              <h4 className="font-semibold mb-2">{ct("requirements")}</h4>
               <ul className="space-y-1 text-sm">
-                <li>• Written self-billing agreement</li>
-                <li>• Check each self-bill for accuracy</li>
-                <li>• Report discrepancies promptly</li>
-                <li>• Keep records as normal</li>
+                <li>• {ct("writtenSelfBillingAgreement")}</li>
+                <li>• {ct("checkEachSelfBill")}</li>
+                <li>• {ct("reportDiscrepanciesPromptly")}</li>
+                <li>• {ct("keepRecordsAsNormal")}</li>
               </ul>
             </div>
           </div>
@@ -253,27 +256,27 @@ export function PaymentChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
           <CreditCard className="w-6 h-6 text-primary" />
-          Paying Your Carriers
+          {ct("payingYourCarriers")}
         </h2>
         <div className="grid md:grid-cols-2 gap-4">
           <div className="bg-card border border-border rounded-xl p-6">
-            <h3 className="font-semibold mb-3">Payment Best Practices</h3>
+            <h3 className="font-semibold mb-3">{ct("paymentBestPractices")}</h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>• Pay on agreed terms (builds reputation)</li>
-              <li>• Verify POD received before payment</li>
-              <li>• Use batch payments for efficiency</li>
-              <li>• Keep payment proof records</li>
-              <li>• Match payments to invoices clearly</li>
+              <li>• {ct("payOnAgreedTerms")}</li>
+              <li>• {ct("verifyPodReceived")}</li>
+              <li>• {ct("useBatchPayments")}</li>
+              <li>• {ct("keepPaymentProofRecords")}</li>
+              <li>• {ct("matchPaymentsToInvoices")}</li>
             </ul>
           </div>
           <div className="bg-card border border-border rounded-xl p-6">
-            <h3 className="font-semibold mb-3">Cash Flow Management</h3>
+            <h3 className="font-semibold mb-3">{ct("cashFlowManagement")}</h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>• Match payment terms (in vs. out)</li>
-              <li>• Maintain cash reserve for operations</li>
-              <li>• Consider factoring for large gaps</li>
-              <li>• Monitor DSO and DPO weekly</li>
-              <li>• Plan for seasonal variations</li>
+              <li>• {ct("matchPaymentTerms")}</li>
+              <li>• {ct("maintainCashReserve")}</li>
+              <li>• {ct("considerFactoring")}</li>
+              <li>• {ct("monitorDsoDpoWeekly")}</li>
+              <li>• {ct("planForSeasonalVariations")}</li>
             </ul>
           </div>
         </div>
@@ -283,23 +286,23 @@ export function PaymentChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
           <Calculator className="w-6 h-6 text-primary" />
-          Key Financial Metrics
+          {ct("keyFinancialMetrics")}
         </h2>
         <DataTable
-          headers={["Metric", "Target", "Description"]}
+          headers={[ct("metric"), ct("target"), ct("description")]}
           rows={[
-            ["DSO (Days Sales Outstanding)", "<45 days", "Average time to collect payment"],
-            ["DPO (Days Payable Outstanding)", "Match to DSO", "Average time you take to pay suppliers"],
-            ["Bad debt ratio", "<1%", "Percentage of invoices written off"],
-            ["Invoice accuracy", ">99%", "Invoices without errors/corrections"],
-            ["Collection rate", ">95%", "Invoices collected within 60 days"],
+            [ct("dso"), ct("dsoTarget"), ct("dsoDesc")],
+            [ct("dpo"), ct("dpoTarget"), ct("dpoDesc")],
+            [ct("badDebtRatio"), ct("badDebtTarget"), ct("badDebtDesc")],
+            [ct("invoiceAccuracy"), ct("invoiceAccuracyTarget"), ct("invoiceAccuracyDesc")],
+            [ct("collectionRate"), ct("collectionRateTarget"), ct("collectionRateDesc")],
           ]}
         />
       </section>
 
       {/* Quiz */}
       {quizzes.payment && (
-        <Quiz title="Payment & Invoicing Quiz" questions={quizzes.payment} chapterId="payment" />
+        <Quiz title={ct("quizTitle")} questions={quizzes.payment} chapterId="payment" />
       )}
     </div>
   );
