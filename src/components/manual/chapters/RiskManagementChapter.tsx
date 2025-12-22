@@ -4,14 +4,17 @@ import { Checklist } from "../Checklist";
 import { Quiz } from "../Quiz";
 import { quizzes } from "@/data/quizData";
 import { Shield, AlertTriangle, CheckCircle2, XCircle, Eye, TrendingUp, FileText, Scale, Users, Zap, Target, Lock } from "lucide-react";
+import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 
 export function RiskManagementChapter() {
+  const { ct } = useChapterTranslation("risk-management");
+  
   return (
     <div className="space-y-8 animate-fade-in">
       <div>
-        <h1 className="chapter-title">Risk Management</h1>
+        <h1 className="chapter-title">{ct("title")}</h1>
         <p className="text-lg text-muted-foreground">
-          Identifying, assessing, and mitigating risks in freight forwarding operations - from operational risks to financial and compliance risks.
+          {ct("subtitle")}
         </p>
       </div>
 

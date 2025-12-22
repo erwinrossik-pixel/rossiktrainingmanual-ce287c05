@@ -3,14 +3,17 @@ import { DataTable } from "../DataTable";
 import { Quiz } from "../Quiz";
 import { quizzes } from "@/data/quizData";
 import { Building2, Search, FileText, BarChart3, Target, Handshake, Phone, Mail, Users, TrendingUp, AlertTriangle, CheckCircle } from "lucide-react";
+import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 
 export function ClientsChapter() {
+  const { ct } = useChapterTranslation("clients");
+  
   return (
     <div className="space-y-8 animate-fade-in">
       <div>
-        <h1 className="chapter-title">Finding & Managing Clients</h1>
+        <h1 className="chapter-title">{ct("title")}</h1>
         <p className="text-lg text-muted-foreground">
-          Comprehensive strategies for client acquisition, relationship management, and business development.
+          {ct("subtitle")}
         </p>
       </div>
 

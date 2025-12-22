@@ -3,14 +3,17 @@ import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { quizzes } from "@/data/quizData";
 import { FileText, Euro, Calendar, CreditCard, Calculator, CheckCircle2, AlertTriangle, Clock, TrendingUp, Building2, Receipt, Scale } from "lucide-react";
+import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 
 export function AccountingChapter() {
+  const { ct } = useChapterTranslation("accounting");
+  
   return (
     <div className="space-y-8 animate-fade-in">
       <div>
-        <h1 className="chapter-title">Accounting & Financial Processes</h1>
+        <h1 className="chapter-title">{ct("title")}</h1>
         <p className="text-lg text-muted-foreground">
-          Financial administration in freight forwarding: invoicing, cost verification, payment terms, VAT handling, and dispute resolution.
+          {ct("subtitle")}
         </p>
       </div>
 
