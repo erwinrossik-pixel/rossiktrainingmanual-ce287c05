@@ -11,9 +11,9 @@ export function AccountingChapter() {
   return (
     <div className="space-y-8 animate-fade-in">
       <div>
-        <h1 className="chapter-title">{ct("title")}</h1>
+        <h1 className="chapter-title">{ct("chapterTitle")}</h1>
         <p className="text-lg text-muted-foreground">
-          {ct("subtitle")}
+          {ct("heroDescription")}
         </p>
       </div>
 
@@ -21,31 +21,31 @@ export function AccountingChapter() {
       <div className="info-card bg-gradient-to-br from-primary/5 to-primary/10">
         <h2 className="section-title flex items-center gap-3">
           <Euro className="w-6 h-6 text-primary" />
-          Financial Processes Overview
+          {ct("financialOverview")}
         </h2>
         <p className="text-muted-foreground mb-4">
-          Every shipment involves financial transactions - client invoicing, carrier payments, and cost management. Understanding these processes is essential for profitability and cash flow management.
+          {ct("financialOverviewDesc")}
         </p>
         <div className="grid md:grid-cols-4 gap-4">
           <div className="bg-background p-4 rounded-lg text-center">
             <Receipt className="w-8 h-8 text-primary mx-auto mb-2" />
-            <p className="font-medium">Client Invoicing</p>
-            <p className="text-xs text-muted-foreground">Bill for services</p>
+            <p className="font-medium">{ct("clientInvoicing")}</p>
+            <p className="text-xs text-muted-foreground">{ct("billForServices")}</p>
           </div>
           <div className="bg-background p-4 rounded-lg text-center">
             <FileText className="w-8 h-8 text-primary mx-auto mb-2" />
-            <p className="font-medium">Cost Verification</p>
-            <p className="text-xs text-muted-foreground">Check carrier invoices</p>
+            <p className="font-medium">{ct("costVerification")}</p>
+            <p className="text-xs text-muted-foreground">{ct("checkCarrierInvoices")}</p>
           </div>
           <div className="bg-background p-4 rounded-lg text-center">
             <CreditCard className="w-8 h-8 text-primary mx-auto mb-2" />
-            <p className="font-medium">Payments</p>
-            <p className="text-xs text-muted-foreground">Pay carriers, collect from clients</p>
+            <p className="font-medium">{ct("payments")}</p>
+            <p className="text-xs text-muted-foreground">{ct("payCarriersCollect")}</p>
           </div>
           <div className="bg-background p-4 rounded-lg text-center">
             <TrendingUp className="w-8 h-8 text-primary mx-auto mb-2" />
-            <p className="font-medium">Margin Analysis</p>
-            <p className="text-xs text-muted-foreground">Profit tracking</p>
+            <p className="font-medium">{ct("marginAnalysis")}</p>
+            <p className="text-xs text-muted-foreground">{ct("profitTracking")}</p>
           </div>
         </div>
       </div>
@@ -54,74 +54,74 @@ export function AccountingChapter() {
       <div className="info-card">
         <h2 className="section-title flex items-center gap-3">
           <Receipt className="w-6 h-6 text-primary" />
-          Client Invoicing
+          {ct("clientInvoicing")}
         </h2>
 
         <div className="grid md:grid-cols-2 gap-6 mb-6">
           <div>
-            <h3 className="font-semibold mb-3">Invoice Content Requirements</h3>
+            <h3 className="font-semibold mb-3">{ct("invoiceContentRequirements")}</h3>
             <ul className="space-y-2 text-sm">
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-success mt-0.5" />
-                <span>Your company details (name, address, VAT number)</span>
+                <span>{ct("yourCompanyDetails")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-success mt-0.5" />
-                <span>Client details (name, address, VAT number)</span>
+                <span>{ct("clientDetails")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-success mt-0.5" />
-                <span>Invoice number (unique, sequential)</span>
+                <span>{ct("invoiceNumber")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-success mt-0.5" />
-                <span>Invoice date and due date</span>
+                <span>{ct("invoiceDateDue")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-success mt-0.5" />
-                <span>Service description (route, dates, reference)</span>
+                <span>{ct("serviceDescription")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-success mt-0.5" />
-                <span>Net amount, VAT (if applicable), gross total</span>
+                <span>{ct("netAmountVAT")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-success mt-0.5" />
-                <span>Payment terms and bank details</span>
+                <span>{ct("paymentTermsBankDetails")}</span>
               </li>
             </ul>
           </div>
           <div>
-            <h3 className="font-semibold mb-3">Best Practices</h3>
+            <h3 className="font-semibold mb-3">{ct("bestPractices")}</h3>
             <ul className="space-y-2 text-sm">
               <li className="flex items-start gap-2">
                 <Clock className="w-4 h-4 text-primary mt-0.5" />
-                <span><strong>Speed:</strong> Invoice within 48h of POD receipt</span>
+                <span>{ct("speedInvoice48h")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <FileText className="w-4 h-4 text-primary mt-0.5" />
-                <span><strong>Attachments:</strong> Include POD/CMR copy</span>
+                <span>{ct("attachmentsIncludePOD")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-primary mt-0.5" />
-                <span><strong>Accuracy:</strong> Check amounts match quotation</span>
+                <span>{ct("accuracyCheckAmounts")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <Building2 className="w-4 h-4 text-primary mt-0.5" />
-                <span><strong>Reference:</strong> Include client's PO/reference</span>
+                <span>{ct("referenceIncludeClientPO")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <Calculator className="w-4 h-4 text-primary mt-0.5" />
-                <span><strong>VAT:</strong> Apply correct rate/mechanism</span>
+                <span>{ct("vatApplyCorrectRate")}</span>
               </li>
             </ul>
           </div>
         </div>
 
         <div className="bg-info/10 border border-info/30 p-4 rounded-lg">
-          <h4 className="font-semibold mb-2">Quick Invoicing = Better Cash Flow</h4>
+          <h4 className="font-semibold mb-2">{ct("quickInvoicingCashFlow")}</h4>
           <p className="text-sm">
-            If you invoice within 48h instead of 7 days, and payment terms are Net 30, you get paid almost a week earlier. Over a year with hundreds of shipments, this significantly improves cash flow.
+            {ct("quickInvoicingDesc")}
           </p>
         </div>
       </div>
@@ -130,42 +130,42 @@ export function AccountingChapter() {
       <div className="info-card">
         <h2 className="section-title flex items-center gap-3">
           <FileText className="w-6 h-6 text-primary" />
-          Carrier Invoice Verification
+          {ct("carrierInvoiceVerification")}
         </h2>
 
         <p className="text-muted-foreground mb-4">
-          Always verify carrier invoices before payment. Errors and unauthorized charges are common.
+          {ct("carrierVerificationDesc")}
         </p>
 
         <DataTable
-          headers={["Check Point", "What to Verify", "Common Issues"]}
+          headers={[ct("checkPoint"), ct("whatToVerify"), ct("commonIssues")]}
           rows={[
-            ["Basic Details", "Correct dates, route, vehicle", "Wrong shipment reference"],
-            ["Agreed Rate", "Price matches transport order", "Higher rate than agreed"],
-            ["Additional Charges", "Waiting time, tolls justified", "Unjustified extras"],
-            ["POD Attached", "Signed, clean, complete", "Missing or unclear POD"],
-            ["VAT Treatment", "Correct rate applied", "Wrong VAT rate"],
-            ["Payment Details", "Correct bank account", "Changed bank details (fraud risk)"],
+            [ct("basicDetails"), ct("correctDatesRouteVehicle"), ct("wrongShipmentRef")],
+            [ct("agreedRate"), ct("priceMatchesOrder"), ct("higherRateThanAgreed")],
+            [ct("additionalCharges"), ct("waitingTimeTollsJustified"), ct("unjustifiedExtras")],
+            [ct("podAttached"), ct("signedCleanComplete"), ct("missingUnclearPOD")],
+            [ct("vatTreatment"), ct("correctRateApplied"), ct("wrongVATRate")],
+            [ct("paymentDetails"), ct("correctBankAccount"), ct("changedBankDetails")],
           ]}
         />
 
         <div className="grid md:grid-cols-2 gap-4 mt-6">
           <div className="bg-success/10 border border-success/30 p-4 rounded-lg">
-            <h4 className="font-semibold text-success mb-2">Approve If:</h4>
+            <h4 className="font-semibold text-success mb-2">{ct("approveIf")}</h4>
             <ul className="text-sm space-y-1">
-              <li>• Rate matches transport order</li>
-              <li>• Additional charges are justified</li>
-              <li>• POD is clean and complete</li>
-              <li>• No outstanding issues</li>
+              <li>• {ct("rateMatchesOrder")}</li>
+              <li>• {ct("additionalChargesJustified")}</li>
+              <li>• {ct("podCleanComplete")}</li>
+              <li>• {ct("noOutstandingIssues")}</li>
             </ul>
           </div>
           <div className="bg-destructive/10 border border-destructive/30 p-4 rounded-lg">
-            <h4 className="font-semibold text-destructive mb-2">Query/Reject If:</h4>
+            <h4 className="font-semibold text-destructive mb-2">{ct("queryRejectIf")}</h4>
             <ul className="text-sm space-y-1">
-              <li>• Rate differs from agreed</li>
-              <li>• Unexplained additional charges</li>
-              <li>• POD has reservations/damage</li>
-              <li>• Open claim on this shipment</li>
+              <li>• {ct("rateDiffersAgreed")}</li>
+              <li>• {ct("unexplainedAdditional")}</li>
+              <li>• {ct("podHasReservations")}</li>
+              <li>• {ct("openClaimShipment")}</li>
             </ul>
           </div>
         </div>
@@ -175,30 +175,30 @@ export function AccountingChapter() {
       <div className="info-card">
         <h2 className="section-title flex items-center gap-3">
           <Calendar className="w-6 h-6 text-primary" />
-          Payment Terms
+          {ct("paymentTerms")}
         </h2>
 
         <DataTable
-          headers={["Term", "Meaning", "Typical Use", "Risk Level"]}
+          headers={[ct("term"), ct("meaning"), ct("typicalUse"), ct("riskLevel")]}
           rows={[
-            ["Prepayment", "Payment before service", "New clients, high-risk", "Lowest (for you)"],
-            ["COD/POD", "Cash/Payment on Delivery", "New carriers, spot market", "Low"],
-            ["Net 7", "Payment within 7 days", "Small carriers, quick payment", "Low"],
-            ["Net 14", "Payment within 14 days", "Standard for carriers", "Medium"],
-            ["Net 30", "Payment within 30 days", "Standard for clients", "Medium"],
-            ["Net 45", "Payment within 45 days", "Preferred carriers", "Higher"],
-            ["Net 60", "Payment within 60 days", "Large clients", "Higher"],
-            ["Net 90", "Payment within 90 days", "Corporate clients only", "Highest"],
+            [ct("prepayment"), ct("paymentBeforeService"), ct("newClientsHighRisk"), ct("lowestForYou")],
+            [ct("codPod"), ct("cashPaymentOnDelivery"), ct("newCarriersSpotMarket"), ct("low")],
+            [ct("net7"), ct("paymentWithin7Days"), ct("smallCarriersQuickPayment"), ct("low")],
+            [ct("net14"), ct("paymentWithin14Days"), ct("standardForCarriers"), ct("medium")],
+            [ct("net30"), ct("paymentWithin30Days"), ct("standardForClients"), ct("medium")],
+            [ct("net45"), ct("paymentWithin45Days"), ct("preferredCarriers"), ct("higher")],
+            [ct("net60"), ct("paymentWithin60Days"), ct("largeClients"), ct("higher")],
+            [ct("net90"), ct("paymentWithin90Days"), ct("corporateClientsOnly"), ct("highest")],
           ]}
         />
 
         <div className="bg-warning/10 border border-warning/30 p-4 rounded-lg mt-4">
           <h4 className="font-semibold flex items-center gap-2 mb-2">
             <AlertTriangle className="w-4 h-4" />
-            Cash Flow Warning
+            {ct("cashFlowWarning")}
           </h4>
           <p className="text-sm">
-            If you pay carriers in 14 days but clients pay you in 60 days, you're financing their transport for 46 days. With 100 shipments/month at €1,500 average, that's €150,000+ in working capital. Manage payment terms carefully!
+            {ct("cashFlowWarningDesc")}
           </p>
         </div>
       </div>
@@ -207,28 +207,28 @@ export function AccountingChapter() {
       <div className="info-card">
         <h2 className="section-title flex items-center gap-3">
           <Calculator className="w-6 h-6 text-primary" />
-          VAT in European Transport
+          {ct("vatEuropeanTransport")}
         </h2>
 
         <DataTable
-          headers={["Scenario", "VAT Treatment", "Documentation"]}
+          headers={[ct("scenario"), ct("vatTreatmentCol"), ct("documentation")]}
           rows={[
-            ["Domestic transport", "Standard VAT rate applies", "Normal invoice with VAT"],
-            ["Intra-EU B2B transport", "Reverse charge (0% VAT)", "Customer VAT number on invoice, note reverse charge"],
-            ["Export to non-EU", "0% VAT (export)", "Customs documentation, proof of export"],
-            ["Import from non-EU", "VAT on import (customs)", "Import declaration, VAT payment proof"],
-            ["Transport linked to export", "0% VAT (follows goods)", "Export documentation reference"],
-            ["Cabotage (domestic by foreign carrier)", "Place of supply rules apply", "Depends on registration status"],
+            [ct("domesticTransport"), ct("standardVATRate"), ct("normalInvoiceVAT")],
+            [ct("intraEUB2B"), ct("reverseChargeZero"), ct("customerVATNumber")],
+            [ct("exportNonEU"), ct("zeroVATExport"), ct("customsDocProof")],
+            [ct("importFromNonEU"), ct("vatOnImport"), ct("importDeclarationProof")],
+            [ct("transportLinkedExport"), ct("zeroVATFollowsGoods"), ct("exportDocRef")],
+            [ct("cabotage"), ct("placeOfSupply"), ct("dependsRegistration")],
           ]}
         />
 
         <div className="bg-info/10 border border-info/30 p-4 rounded-lg mt-4">
-          <h4 className="font-semibold mb-2">Reverse Charge Mechanism (B2B Intra-EU)</h4>
+          <h4 className="font-semibold mb-2">{ct("reverseChargeMechanism")}</h4>
           <p className="text-sm mb-2">
-            For B2B transport between EU countries, the supplier invoices at 0% VAT with reference to reverse charge. The customer accounts for VAT in their country (self-assessment).
+            {ct("reverseChargeDesc")}
           </p>
           <p className="text-sm font-medium">
-            Invoice must state: "VAT reverse charge, Article 44 EU VAT Directive" and include valid VAT numbers for both parties.
+            {ct("invoiceMustState")}
           </p>
         </div>
       </div>
@@ -237,57 +237,57 @@ export function AccountingChapter() {
       <div className="info-card">
         <h2 className="section-title flex items-center gap-3">
           <Scale className="w-6 h-6 text-primary" />
-          Financial Dispute Resolution
+          {ct("financialDisputeResolution")}
         </h2>
 
         <div className="grid md:grid-cols-2 gap-6 mb-6">
           <div>
-            <h3 className="font-semibold mb-3">Common Dispute Types</h3>
+            <h3 className="font-semibold mb-3">{ct("commonDisputeTypes")}</h3>
             <ul className="space-y-2 text-sm">
               <li className="flex items-start gap-2">
                 <AlertTriangle className="w-4 h-4 text-warning mt-0.5" />
-                <span>Rate discrepancy - carrier invoices higher than agreed</span>
+                <span>{ct("rateDiscrepancy")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <AlertTriangle className="w-4 h-4 text-warning mt-0.5" />
-                <span>Additional charges - waiting, tolls not agreed</span>
+                <span>{ct("additionalChargesDispute")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <AlertTriangle className="w-4 h-4 text-warning mt-0.5" />
-                <span>Missing documentation - no POD for invoicing</span>
+                <span>{ct("missingDocumentation")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <AlertTriangle className="w-4 h-4 text-warning mt-0.5" />
-                <span>Claim deductions - damage offset against payment</span>
+                <span>{ct("claimDeductions")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <AlertTriangle className="w-4 h-4 text-warning mt-0.5" />
-                <span>Late payment - exceeding agreed terms</span>
+                <span>{ct("latePayment")}</span>
               </li>
             </ul>
           </div>
           <div>
-            <h3 className="font-semibold mb-3">Resolution Process</h3>
+            <h3 className="font-semibold mb-3">{ct("resolutionProcess")}</h3>
             <ul className="space-y-2 text-sm">
               <li className="flex items-start gap-2">
                 <span className="w-5 h-5 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-xs flex-shrink-0">1</span>
-                <span>Document the dispute clearly</span>
+                <span>{ct("documentDispute")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="w-5 h-5 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-xs flex-shrink-0">2</span>
-                <span>Gather supporting evidence (orders, emails, CMR)</span>
+                <span>{ct("gatherEvidence")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="w-5 h-5 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-xs flex-shrink-0">3</span>
-                <span>Communicate professionally with counterparty</span>
+                <span>{ct("communicateProfessionally")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="w-5 h-5 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-xs flex-shrink-0">4</span>
-                <span>Seek fair compromise where appropriate</span>
+                <span>{ct("seekCompromise")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="w-5 h-5 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-xs flex-shrink-0">5</span>
-                <span>Escalate to management if unresolved</span>
+                <span>{ct("escalateManagement")}</span>
               </li>
             </ul>
           </div>
@@ -298,18 +298,18 @@ export function AccountingChapter() {
       <div className="info-card">
         <h2 className="section-title flex items-center gap-3">
           <TrendingUp className="w-6 h-6 text-primary" />
-          Financial KPIs
+          {ct("financialKPIs")}
         </h2>
 
         <DataTable
-          headers={["KPI", "Definition", "Target", "Importance"]}
+          headers={[ct("kpi"), ct("definition"), ct("target"), ct("importance")]}
           rows={[
-            ["Gross Margin", "(Revenue - Direct Cost) / Revenue", "10-18%", "Profitability measure"],
-            ["DSO", "Average days to collect payment", "< 45 days", "Cash flow indicator"],
-            ["DPO", "Average days to pay suppliers", "Align with terms", "Cash flow management"],
-            ["Bad Debt Rate", "Uncollected / Total invoiced", "< 1%", "Credit risk indicator"],
-            ["Invoice Accuracy", "Correct invoices / Total invoices", "> 98%", "Admin efficiency"],
-            ["Credit Note Rate", "Credit notes / Total invoices", "< 2%", "Pricing/service quality"],
+            [ct("grossMargin"), ct("grossMarginDef"), ct("grossMarginTarget"), ct("profitabilityMeasure")],
+            [ct("dso"), ct("dsoDef"), ct("dsoTarget"), ct("cashFlowIndicator")],
+            [ct("dpo"), ct("dpoDef"), ct("alignWithTerms"), ct("cashFlowManagement")],
+            [ct("badDebtRate"), ct("badDebtDef"), ct("badDebtTarget"), ct("creditRiskIndicator")],
+            [ct("invoiceAccuracy"), ct("invoiceAccuracyDef"), ct("invoiceAccuracyTarget"), ct("adminEfficiency")],
+            [ct("creditNoteRate"), ct("creditNoteDef"), ct("creditNoteTarget"), ct("pricingServiceQuality")],
           ]}
         />
       </div>
@@ -317,7 +317,7 @@ export function AccountingChapter() {
       {/* Quiz */}
       {quizzes["accounting"] && (
         <Quiz
-          title="Accounting & Financial Quiz"
+          title={ct("quizTitle")}
           questions={quizzes["accounting"]}
           chapterId="accounting"
           questionsPerRound={5}
