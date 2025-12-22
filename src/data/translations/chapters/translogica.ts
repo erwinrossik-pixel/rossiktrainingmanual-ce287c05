@@ -1,5 +1,8 @@
 export const translogicaTranslations: Record<string, Record<string, string>> = {
   en: {
+    chapterNumber: "Chapter 29",
+    chapterTitle: "Translogica TMS",
+    heroDescription: "Complete guide to using our Transport Management System. Quick start operations, advanced features, and system integrations.",
     title: "Translogica TMS Guide",
     subtitle: "Complete guide to using our Transport Management System.",
     quickStartGuide: "Quick Start Guide",
@@ -66,6 +69,9 @@ export const translogicaTranslations: Record<string, Record<string, string>> = {
     knowledgeCheck: "Knowledge Check: Translogica TMS",
   },
   ro: {
+    chapterNumber: "Capitolul 29",
+    chapterTitle: "Translogica TMS",
+    heroDescription: "Ghid complet pentru utilizarea sistemului nostru de management al transportului. Operațiuni de pornire rapidă, funcții avansate și integrări de sistem.",
     title: "Ghid Translogica TMS",
     subtitle: "Ghid complet pentru utilizarea sistemului nostru de management al transportului.",
     quickStartGuide: "Ghid de Pornire Rapidă",
@@ -132,6 +138,9 @@ export const translogicaTranslations: Record<string, Record<string, string>> = {
     knowledgeCheck: "Verificare Cunoștințe: Translogica TMS",
   },
   de: {
+    chapterNumber: "Kapitel 29",
+    chapterTitle: "Translogica TMS",
+    heroDescription: "Vollständige Anleitung zur Nutzung unseres Transport Management Systems. Schnellstart-Operationen, erweiterte Funktionen und Systemintegrationen.",
     title: "Translogica TMS Anleitung",
     subtitle: "Vollständige Anleitung zur Nutzung unseres Transport Management Systems.",
     quickStartGuide: "Schnellstart-Anleitung",

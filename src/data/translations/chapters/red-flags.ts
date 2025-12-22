@@ -1,5 +1,8 @@
 export const redFlagsTranslations: Record<string, Record<string, string>> = {
   en: {
+    chapterNumber: "Chapter 26",
+    chapterTitle: "Red Flags",
+    heroDescription: "Critical warning signs to watch for, common pitfalls to avoid, and expert advice for success. Protect your business from fraud and costly mistakes.",
     title: "Red Flags & Pro Tips",
     subtitle: "Critical warning signs to watch for, common pitfalls to avoid, and expert advice for success in freight forwarding.",
     whyRedFlagsTitle: "Why Recognizing Red Flags is Critical",
@@ -197,6 +200,9 @@ export const redFlagsTranslations: Record<string, Record<string, string>> = {
     knowledgeCheck: "Knowledge Check: Red Flags & Pro Tips",
   },
   ro: {
+    chapterNumber: "Capitolul 26",
+    chapterTitle: "Semnale de Alarmă",
+    heroDescription: "Semne critice de avertizare la care să fiți atenți, capcane comune de evitat și sfaturi de expert pentru succes. Protejați-vă afacerea de fraudă și greșeli costisitoare.",
     title: "Semnale de Alarmă și Sfaturi Pro",
     subtitle: "Semne critice de avertizare la care să fiți atenți, capcane comune de evitat și sfaturi de expert pentru succes în expediție.",
     whyRedFlagsTitle: "De Ce Este Critic să Recunoașteți Semnalele de Alarmă",
@@ -394,6 +400,9 @@ export const redFlagsTranslations: Record<string, Record<string, string>> = {
     knowledgeCheck: "Verificare Cunoștințe: Semnale de Alarmă și Sfaturi Pro",
   },
   de: {
+    chapterNumber: "Kapitel 26",
+    chapterTitle: "Warnsignale",
+    heroDescription: "Kritische Warnzeichen, auf die Sie achten sollten, häufige Fallstricke die zu vermeiden sind, und Expertenrat für Erfolg. Schützen Sie Ihr Unternehmen vor Betrug und kostspieligen Fehlern.",
     title: "Warnsignale & Profi-Tipps",
     subtitle: "Kritische Warnzeichen, auf die Sie achten sollten, häufige Fallstricke die zu vermeiden sind, und Expertenrat für Erfolg in der Spedition.",
     whyRedFlagsTitle: "Warum das Erkennen von Warnsignalen Kritisch Ist",

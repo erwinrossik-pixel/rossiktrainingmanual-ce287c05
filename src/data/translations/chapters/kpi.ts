@@ -1,5 +1,8 @@
 export const kpiTranslations: Record<string, Record<string, string>> = {
   en: {
+    chapterNumber: "Chapter 30",
+    chapterTitle: "KPIs",
+    heroDescription: "Key Performance Indicators for measuring, monitoring, and improving freight forwarding operations. Track trainee, operational, and financial metrics.",
     title: "KPIs & Performance Management",
     subtitle: "Key Performance Indicators for measuring, monitoring, and improving freight forwarding operations and individual performance.",
     whyKPIsTitle: "Why KPIs Matter in Freight Forwarding",
@@ -133,6 +136,9 @@ export const kpiTranslations: Record<string, Record<string, string>> = {
     knowledgeCheck: "KPIs & Performance Quiz",
   },
   ro: {
+    chapterNumber: "Capitolul 30",
+    chapterTitle: "KPI-uri",
+    heroDescription: "Indicatori Cheie de Performanță pentru măsurarea, monitorizarea și îmbunătățirea operațiunilor de expediție. Urmăriți metrici pentru stagiari, operaționale și financiare.",
     title: "KPI-uri și Managementul Performanței",
     subtitle: "Indicatori Cheie de Performanță pentru măsurarea, monitorizarea și îmbunătățirea operațiunilor de expediere și performanței individuale.",
     whyKPIsTitle: "De Ce Contează KPI-urile în Expediție",
@@ -266,6 +272,9 @@ export const kpiTranslations: Record<string, Record<string, string>> = {
     knowledgeCheck: "Quiz KPI-uri și Performanță",
   },
   de: {
+    chapterNumber: "Kapitel 30",
+    chapterTitle: "KPIs",
+    heroDescription: "Schlüsselkennzahlen zur Messung, Überwachung und Verbesserung von Speditionsabläufen. Verfolgen Sie Trainee-, operative und finanzielle Kennzahlen.",
     title: "KPIs & Leistungsmanagement",
     subtitle: "Schlüsselkennzahlen zur Messung, Überwachung und Verbesserung von Speditionsabläufen und individueller Leistung.",
     whyKPIsTitle: "Warum KPIs in der Spedition Wichtig Sind",

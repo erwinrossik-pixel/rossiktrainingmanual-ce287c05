@@ -1,5 +1,8 @@
 export const technologyTranslations: Record<string, Record<string, string>> = {
   en: {
+    chapterNumber: "Chapter 27",
+    chapterTitle: "Technology",
+    heroDescription: "Digital transformation in freight forwarding: TMS systems, tracking technologies, automation, AI applications, and the future of logistics technology.",
     title: "Technology & Digitalization",
     subtitle: "Digital transformation in freight forwarding: TMS systems, tracking technologies, automation, AI applications, and the future of logistics technology.",
     digitalTransformationTitle: "Digital Transformation in Logistics",
@@ -145,6 +148,9 @@ export const technologyTranslations: Record<string, Record<string, string>> = {
     quizTitle: "Technology & Digitalization Quiz",
   },
   ro: {
+    chapterNumber: "Capitolul 27",
+    chapterTitle: "Tehnologie",
+    heroDescription: "Transformarea digitală în expediție: sisteme TMS, tehnologii de urmărire, automatizare, aplicații AI și viitorul tehnologiei logistice.",
     title: "Tehnologie și Digitalizare",
     subtitle: "Transformarea digitală în expediție: sisteme TMS, tehnologii de urmărire, automatizare, aplicații AI și viitorul tehnologiei logistice.",
     digitalTransformationTitle: "Transformarea Digitală în Logistică",
@@ -290,6 +296,9 @@ export const technologyTranslations: Record<string, Record<string, string>> = {
     quizTitle: "Quiz Tehnologie și Digitalizare",
   },
   de: {
+    chapterNumber: "Kapitel 27",
+    chapterTitle: "Technologie",
+    heroDescription: "Digitale Transformation in der Spedition: TMS-Systeme, Tracking-Technologien, Automatisierung, KI-Anwendungen und die Zukunft der Logistiktechnologie.",
     title: "Technologie & Digitalisierung",
     subtitle: "Digitale Transformation in der Spedition: TMS-Systeme, Tracking-Technologien, Automatisierung, KI-Anwendungen und die Zukunft der Logistiktechnologie.",
     digitalTransformationTitle: "Digitale Transformation in der Logistik",

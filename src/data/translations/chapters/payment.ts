@@ -1,5 +1,8 @@
 export const paymentTranslations = {
   en: {
+    chapterNumber: "Chapter 31",
+    chapterTitle: "Payment",
+    heroDescription: "Payment terms, credit management, invoicing best practices, and cash flow optimization. Master VAT in international transport and collection processes.",
     title: "Payment & Invoicing",
     subtitle: "Payment terms, credit management, invoicing best practices, and cash flow optimization.",
     standardPaymentTerms: "Standard Payment Terms",
@@ -140,6 +143,9 @@ export const paymentTranslations = {
     quizTitle: "Payment & Invoicing Quiz",
   },
   de: {
+    chapterNumber: "Kapitel 31",
+    chapterTitle: "Zahlung",
+    heroDescription: "Zahlungsbedingungen, Kreditmanagement, Best Practices für Rechnungsstellung und Cashflow-Optimierung. Meistern Sie MwSt im internationalen Transport und Inkassoprozesse.",
     title: "Zahlung & Fakturierung",
     subtitle: "Zahlungsbedingungen, Kreditmanagement, Best Practices für Rechnungsstellung und Cashflow-Optimierung.",
     standardPaymentTerms: "Standard-Zahlungsbedingungen",
@@ -280,6 +286,9 @@ export const paymentTranslations = {
     quizTitle: "Quiz Zahlung & Fakturierung",
   },
   ro: {
+    chapterNumber: "Capitolul 31",
+    chapterTitle: "Plăți",
+    heroDescription: "Termeni de plată, managementul creditului, bune practici de facturare și optimizarea fluxului de numerar. Stăpânește TVA în transportul internațional și procesele de colectare.",
     title: "Plăți și Facturare",
     subtitle: "Termeni de plată, managementul creditului, bune practici de facturare și optimizarea fluxului de numerar.",
     standardPaymentTerms: "Termeni Standard de Plată",

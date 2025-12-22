@@ -1,5 +1,8 @@
 export const supplyChainTranslations: Record<string, Record<string, string>> = {
   en: {
+    chapterNumber: "Chapter 28",
+    chapterTitle: "Supply Chain",
+    heroDescription: "Understanding supply chains, logistics networks, and how freight forwarding fits into global trade. Master JIT logistics and industry-specific needs.",
     title: "Supply Chain Integration",
     subtitle: "Understanding supply chains, logistics networks, and how freight forwarding fits into the broader picture of global trade and commerce.",
     whatIsSupplyChain: "What Is a Supply Chain?",
@@ -126,6 +129,9 @@ export const supplyChainTranslations: Record<string, Record<string, string>> = {
     quizTitle: "Supply Chain Integration Quiz",
   },
   ro: {
+    chapterNumber: "Capitolul 28",
+    chapterTitle: "Lanț Aprovizionare",
+    heroDescription: "Înțelegerea lanțurilor de aprovizionare, rețelelor logistice și cum se integrează expediția în comerțul global. Stăpânește logistica JIT și nevoile specifice industriei.",
     title: "Integrarea Lanțului de Aprovizionare",
     subtitle: "Înțelegerea lanțurilor de aprovizionare, rețelelor logistice și cum se integrează expediția în imaginea mai largă a comerțului global.",
     whatIsSupplyChain: "Ce Este un Lanț de Aprovizionare?",
@@ -252,6 +258,9 @@ export const supplyChainTranslations: Record<string, Record<string, string>> = {
     quizTitle: "Quiz Integrare Lanț de Aprovizionare",
   },
   de: {
+    chapterNumber: "Kapitel 28",
+    chapterTitle: "Lieferkette",
+    heroDescription: "Verständnis von Lieferketten, Logistiknetzwerken und wie Spedition in den globalen Handel passt. Meistern Sie JIT-Logistik und branchenspezifische Bedürfnisse.",
     title: "Supply-Chain-Integration",
     subtitle: "Verständnis von Lieferketten, Logistiknetzwerken und wie Spedition in das größere Bild des globalen Handels passt.",
     whatIsSupplyChain: "Was ist eine Lieferkette?",
