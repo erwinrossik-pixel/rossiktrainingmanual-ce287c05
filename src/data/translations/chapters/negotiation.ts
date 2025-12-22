@@ -1,5 +1,8 @@
 export const negotiationTranslations = {
   en: {
+    chapterNumber: "Chapter 21",
+    chapterTitle: "Negotiation",
+    heroDescription: "Master the art of negotiation in freight forwarding - with clients on rates, with carriers on costs, and with partners on terms.",
     title: "Negotiation Skills",
     subtitle: "Master the art of negotiation in freight forwarding - with clients on rates, with carriers on costs, and with partners on terms.",
     whyNegotiationSkillsMatter: "Why Negotiation Skills Matter",

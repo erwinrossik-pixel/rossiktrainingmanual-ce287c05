@@ -245,6 +245,9 @@ export const loadingTranslations = {
     quizTitle: "Loading & Securing Knowledge Check",
   },
   de: {
+    chapterNumber: "Kapitel 6",
+    chapterTitle: "Beladung & Sicherung",
+    heroDescription: "Standardarbeitsanweisung für sichere Ladungsbeladung und -sicherung. EU-Standards, Best Practices und Dokumentationsanforderungen.",
     title: "Beladung & Ladungssicherung SOP",
     subtitle: "Standardarbeitsanweisung für sichere Ladungsbeladung und -sicherung. Dieses Kapitel behandelt EU-Standards, Best Practices, Gewichtsverteilung und Dokumentationsanforderungen.",
     whyLoadingMatters: "Warum Beladung wichtig ist",

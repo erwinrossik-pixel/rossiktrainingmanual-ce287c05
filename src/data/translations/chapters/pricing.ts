@@ -1,5 +1,8 @@
 export const pricingTranslations = {
   en: {
+    chapterNumber: "Chapter 20",
+    chapterTitle: "Pricing & Tolls",
+    heroDescription: "Complete guide for cost calculation, pricing formulas, margin strategies, and seasonal variations in European road transport.",
     title: "Pricing & Toll Logic",
     subtitle: "Complete guide for cost calculation, pricing formulas, margin strategies, and seasonal variations in European road transport.",
     costCalculationFormula: "Cost Calculation Formula",

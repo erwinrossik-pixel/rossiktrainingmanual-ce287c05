@@ -1,5 +1,8 @@
 export const carrierManagementTranslations: Record<string, Record<string, string>> = {
   en: {
+    chapterNumber: "Chapter 24",
+    chapterTitle: "Carrier Management",
+    heroDescription: "Complete guide to building, qualifying, managing, and developing relationships with transport carriers and subcontractors in European road freight.",
     title: "Carrier Management",
     subtitle: "Complete guide to building, qualifying, managing, and developing relationships with transport carriers and subcontractors in European road freight.",
     strategicImportanceTitle: "The Strategic Importance of Carrier Management",

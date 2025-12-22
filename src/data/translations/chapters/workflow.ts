@@ -342,6 +342,9 @@ export const workflowTranslations: Record<string, Record<string, string>> = {
     quizTitle: "🎯 Knowledge Check: Operational Workflow",
   },
   de: {
+    chapterNumber: "Kapitel 4",
+    chapterTitle: "Arbeitsablauf",
+    heroDescription: "Der vollständige Prozess von der Kundenanfrage bis zur Lieferung, mit detaillierten Verfahren und Best Practices für jede Phase der Speditionsabläufe.",
     title: "Operativer Workflow (End-to-End)",
     subtitle: "Der vollständige Prozess von der Kundenanfrage bis zur Lieferung, mit detaillierten Verfahren, Best Practices und Praxisbeispielen für jede Phase der Speditionsabläufe.",
     understandingWorkflow: "Den Speditions-Workflow verstehen",

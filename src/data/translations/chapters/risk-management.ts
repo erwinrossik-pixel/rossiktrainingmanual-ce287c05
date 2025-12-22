@@ -1,5 +1,8 @@
 export const riskManagementTranslations: Record<string, Record<string, string>> = {
   en: {
+    chapterNumber: "Chapter 34",
+    chapterTitle: "Risk Management",
+    heroDescription: "Identifying, assessing, and mitigating risks in freight forwarding operations - from operational risks to financial and compliance risks.",
     title: "Risk Management",
     subtitle: "Identifying, assessing, and mitigating risks in freight forwarding operations - from operational risks to financial and compliance risks.",
     whyRiskManagementMatters: "Why Risk Management Matters",

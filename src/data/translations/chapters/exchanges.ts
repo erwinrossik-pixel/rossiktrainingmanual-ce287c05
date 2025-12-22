@@ -1,5 +1,8 @@
 export const exchangesTranslations: Record<string, Record<string, string>> = {
   en: {
+    chapterNumber: "Chapter 23",
+    chapterTitle: "Freight Exchanges",
+    heroDescription: "The main platforms for finding loads and trucks across Europe. Master TIMOCOM, Trans.eu, Teleroute, and Transporeon.",
     title: "Freight Exchanges Overview",
     subtitle: "The main platforms for finding loads and trucks across Europe.",
     timocomTitle: "TIMOCOM",

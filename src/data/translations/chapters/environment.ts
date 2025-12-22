@@ -1,5 +1,6 @@
 export const environmentTranslations = {
   en: {
+    chapterNumber: "Chapter 35",
     chapterTitle: "Environmental Compliance",
     heroDescription: "CO₂ emissions, Euro standards, green logistics, and sustainability in transport.",
     euroEmissionStandards: "Euro Emission Standards",

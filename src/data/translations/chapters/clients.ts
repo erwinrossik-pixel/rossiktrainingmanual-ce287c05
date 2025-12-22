@@ -1,5 +1,6 @@
 export const clientsTranslations = {
   en: {
+    chapterNumber: "Chapter 19",
     chapterTitle: "Finding & Managing Clients",
     heroDescription: "Comprehensive strategies for client acquisition, relationship management, and business development.",
     clientAcquisitionChannels: "Client Acquisition Channels",

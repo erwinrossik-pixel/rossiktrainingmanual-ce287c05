@@ -1,5 +1,6 @@
 export const accountingTranslations = {
   en: {
+    chapterNumber: "Chapter 32",
     chapterTitle: "Accounting & Financial Processes",
     heroDescription: "Financial administration in freight forwarding: invoicing, cost verification, payment terms, VAT handling, and dispute resolution.",
     financialOverview: "Financial Processes Overview",

@@ -1,5 +1,8 @@
 export const claimsTranslations = {
   en: {
+    chapterNumber: "Chapter 33",
+    chapterTitle: "Claims & Disputes",
+    heroDescription: "How to handle cargo claims, damage disputes, and liability under CMR Convention.",
     title: "Claims & Disputes",
     subtitle: "How to handle cargo claims, damage disputes, and liability under CMR Convention.",
     cmrConventionLiability: "CMR Convention Liability",

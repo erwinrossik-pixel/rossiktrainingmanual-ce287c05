@@ -234,6 +234,10 @@ export const mindsetTranslations = {
     quizTitle: "Test Your Knowledge: Mindset & Human Factors",
   },
   de: {
+    // Hero Section
+    chapterNumber: "Kapitel 2",
+    chapterTitle: "Denkweise",
+    heroDescription: "Verständnis der Kernverantwortlichkeiten, Psychologie und zwischenmenschlichen Fähigkeiten, die exzellente Spedition ausmachen. Dieses Kapitel behandelt die menschliche Seite der Logistik.",
     // Header
     title: "Rolle, Einstellung & Menschliche Faktoren",
     subtitle: "Verständnis der Kernverantwortlichkeiten, Psychologie und zwischenmenschlichen Fähigkeiten, die exzellente Spedition ausmachen. Dieses Kapitel behandelt die menschliche Seite der Logistik, die durchschnittliche Disponenten von Top-Performern unterscheidet.",

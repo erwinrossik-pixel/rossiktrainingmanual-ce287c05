@@ -1,5 +1,8 @@
 export const emergencyTranslations = {
   en: {
+    chapterNumber: "Chapter 36",
+    chapterTitle: "Emergency Procedures",
+    heroDescription: "Critical protocols for accidents, breakdowns, cargo damage, and crisis situations.",
     title: "Emergency Procedures",
     subtitle: "Critical protocols for accidents, breakdowns, cargo damage, and crisis situations.",
     emergencyResponseProtocol: "Emergency Response Protocol",
