@@ -49,6 +49,7 @@ const getSections = (t: (key: string) => string) => [
       { id: "europe-zones", labelKey: "chapter.europe-zones", icon: Route },
       { id: "environment", labelKey: "chapter.environment", icon: Target },
       { id: "supply-chain", labelKey: "chapter.supply-chain", icon: Route },
+      { id: "licenses-oversize", labelKey: "chapter.licenses-oversize", icon: Award },
     ]
   },
   {
@@ -91,7 +92,6 @@ const getSections = (t: (key: string) => string) => [
       { id: "red-flags", labelKey: "chapter.red-flags", icon: AlertTriangle },
       { id: "glossary", labelKey: "chapter.glossary", icon: Book },
       { id: "checklists", labelKey: "chapter.checklists", icon: ClipboardList },
-      { id: "licenses-oversize", labelKey: "chapter.licenses-oversize", icon: Award },
     ]
   },
 ];
