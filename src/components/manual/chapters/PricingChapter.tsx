@@ -4,14 +4,17 @@ import { Quiz } from "../Quiz";
 import { PriceCalculator } from "../PriceCalculator";
 import { quizzes } from "@/data/quizData";
 import { Calculator, Euro, Route, TrendingUp, Calendar, AlertTriangle, Percent, MapPin, Fuel, Clock, Truck, ArrowRight, CheckCircle2, XCircle, Info, Zap, Shield } from "lucide-react";
+import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 
 export function PricingChapter() {
+  const { ct } = useChapterTranslation("pricing");
+
   return (
     <div className="space-y-8 animate-fade-in">
       <div>
-        <h1 className="chapter-title">Pricing & Toll Logic</h1>
+        <h1 className="chapter-title">{ct("title")}</h1>
         <p className="text-lg text-muted-foreground">
-          Ghid complet pentru calculul costurilor, formule de pricing, strategii de marjă și variații sezoniere în transportul rutier european.
+          {ct("subtitle")}
         </p>
       </div>
 
@@ -805,7 +808,7 @@ export function PricingChapter() {
       </div>
 
       {/* Quiz */}
-      <Quiz title="🎯 Test de Cunoștințe: Pricing & Taxe" questions={quizzes.pricing} chapterId="pricing" />
+      <Quiz title={ct("quizTitle")} questions={quizzes.pricing} chapterId="pricing" />
     </div>
   );
 }
