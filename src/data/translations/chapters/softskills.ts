@@ -192,6 +192,9 @@ export const softskillsTranslations = {
     quizTitle: "Soft Skills Knowledge Check",
   },
   de: {
+    chapterNumber: "Kapitel 3",
+    chapterTitle: "Soft Skills",
+    heroDescription: "Wesentliche zwischenmenschliche und berufliche Fähigkeiten für den Erfolg in der Spedition: Kommunikation, Verhandlung, Stressmanagement und Problemlösung.",
     title: "Soft Skills für Logistik",
     subtitle: "Wesentliche zwischenmenschliche und berufliche Fähigkeiten für den Erfolg in der Spedition: Kommunikation, Verhandlung, Stressmanagement und Problemlösung.",
     whyMatter: "Warum Soft Skills in der Logistik wichtig sind",

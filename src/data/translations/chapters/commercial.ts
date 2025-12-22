@@ -1,5 +1,8 @@
 export const commercialTranslations: Record<string, Record<string, string>> = {
   en: {
+    chapterNumber: "Chapter 22",
+    chapterTitle: "Commercial",
+    heroDescription: "Master the commercial aspects of freight forwarding: pricing strategies, client communication, account management, and business development.",
     title: "Commercial Fundamentals",
     subtitle: "Master the commercial aspects of freight forwarding: pricing strategies, client communication, account management, and business development.",
     foundationTitle: "The Commercial Foundation",

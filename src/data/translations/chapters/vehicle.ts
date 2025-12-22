@@ -102,6 +102,9 @@ export const vehicleTranslations = {
     loadingCheckpoints: "Loading Checkpoints",
   },
   de: {
+    chapterNumber: "Kapitel 5",
+    chapterTitle: "Fahrzeugtypen",
+    heroDescription: "Technische Spezifikationen, Gewichtslimits, Fahrzeugtypen und Inspektionspunkte für den europäischen Straßentransport.",
     title: "Fahrzeugreferenz – 13,6m Planenauflieger",
     subtitle: "Technische Spezifikationen, Gewichtslimits, Fahrzeugtypen und Inspektionspunkte.",
     length: "Länge",

@@ -1,5 +1,8 @@
 export const caseStudiesTranslations: Record<string, Record<string, string>> = {
   en: {
+    chapterNumber: "Chapter 39",
+    chapterTitle: "Case Studies",
+    heroDescription: "Real-world scenarios and practical examples from European freight forwarding operations.",
     title: "Case Studies",
     subtitle: "Real-world scenarios and practical examples from European freight forwarding operations.",
     case1Title: "Case Study 1: The \"Cheap\" French Lane",
