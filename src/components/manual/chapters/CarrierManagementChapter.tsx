@@ -400,63 +400,63 @@ export function CarrierManagementChapter() {
       <div className="info-card">
         <h2 className="section-title flex items-center gap-3">
           <BadgeCheck className="w-6 h-6 text-primary" />
-          Building Long-Term Carrier Relationships
+          {ct("longTermRelationshipsTitle")}
         </h2>
 
         <div className="prose prose-slate max-w-none">
           <p>
-            The most successful freight forwarders invest heavily in carrier relationships. Long-term partnerships deliver better rates, priority capacity, and superior service quality compared to transactional spot market relationships.
+            {ct("longTermDesc")}
           </p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-6 mt-6">
           <div>
-            <h3 className="font-semibold mb-3">Relationship Building Strategies</h3>
+            <h3 className="font-semibold mb-3">{ct("relationshipStrategies")}</h3>
             <ul className="space-y-2 text-sm">
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-primary mt-0.5" />
-                <span><strong>Consistency:</strong> Provide regular, predictable volume</span>
+                <span>{ct("strategy1")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-primary mt-0.5" />
-                <span><strong>Fair Treatment:</strong> Pay on time, resolve disputes fairly</span>
+                <span>{ct("strategy2")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-primary mt-0.5" />
-                <span><strong>Communication:</strong> Regular business reviews, feedback</span>
+                <span>{ct("strategy3")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-primary mt-0.5" />
-                <span><strong>Support:</strong> Help with backloads, share market intel</span>
+                <span>{ct("strategy4")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-primary mt-0.5" />
-                <span><strong>Respect:</strong> Treat drivers and staff professionally</span>
+                <span>{ct("strategy5")}</span>
               </li>
             </ul>
           </div>
           <div>
-            <h3 className="font-semibold mb-3">Benefits of Strong Relationships</h3>
+            <h3 className="font-semibold mb-3">{ct("benefitsTitle")}</h3>
             <ul className="space-y-2 text-sm">
               <li className="flex items-start gap-2">
                 <Star className="w-4 h-4 text-warning mt-0.5" />
-                <span>Priority capacity during peak periods</span>
+                <span>{ct("benefit1")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <Star className="w-4 h-4 text-warning mt-0.5" />
-                <span>Better rates through volume discounts</span>
+                <span>{ct("benefit2")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <Star className="w-4 h-4 text-warning mt-0.5" />
-                <span>Faster problem resolution</span>
+                <span>{ct("benefit3")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <Star className="w-4 h-4 text-warning mt-0.5" />
-                <span>More flexible service arrangements</span>
+                <span>{ct("benefit4")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <Star className="w-4 h-4 text-warning mt-0.5" />
-                <span>Market intelligence sharing</span>
+                <span>{ct("benefit5")}</span>
               </li>
             </ul>
           </div>
@@ -465,48 +465,48 @@ export function CarrierManagementChapter() {
 
       {/* Carrier Database */}
       <div className="info-card bg-muted/30">
-        <h2 className="section-title">Carrier Database Management</h2>
+        <h2 className="section-title">{ct("carrierDatabaseTitle")}</h2>
         
         <p className="text-muted-foreground mb-4">
-          Maintain a comprehensive carrier database in your TMS with the following information for each carrier:
+          {ct("carrierDatabaseDesc")}
         </p>
 
         <div className="grid md:grid-cols-3 gap-4">
           <div className="bg-background p-4 rounded-lg">
-            <h4 className="font-semibold mb-2">Company Details</h4>
+            <h4 className="font-semibold mb-2">{ct("companyDetails")}</h4>
             <ul className="text-sm space-y-1 text-muted-foreground">
-              <li>• Company name & registration</li>
-              <li>• VAT number</li>
-              <li>• Physical address</li>
-              <li>• Bank details</li>
-              <li>• Key contacts</li>
+              <li>• {ct("companyDetail1")}</li>
+              <li>• {ct("companyDetail2")}</li>
+              <li>• {ct("companyDetail3")}</li>
+              <li>• {ct("companyDetail4")}</li>
+              <li>• {ct("companyDetail5")}</li>
             </ul>
           </div>
           <div className="bg-background p-4 rounded-lg">
-            <h4 className="font-semibold mb-2">Operational Info</h4>
+            <h4 className="font-semibold mb-2">{ct("operationalInfo")}</h4>
             <ul className="text-sm space-y-1 text-muted-foreground">
-              <li>• Fleet size & types</li>
-              <li>• Geographic coverage</li>
-              <li>• Specializations (ADR, reefer)</li>
-              <li>• Equipment specifications</li>
-              <li>• GPS tracking capability</li>
+              <li>• {ct("opInfo1")}</li>
+              <li>• {ct("opInfo2")}</li>
+              <li>• {ct("opInfo3")}</li>
+              <li>• {ct("opInfo4")}</li>
+              <li>• {ct("opInfo5")}</li>
             </ul>
           </div>
           <div className="bg-background p-4 rounded-lg">
-            <h4 className="font-semibold mb-2">Compliance & Performance</h4>
+            <h4 className="font-semibold mb-2">{ct("compliancePerformance")}</h4>
             <ul className="text-sm space-y-1 text-muted-foreground">
-              <li>• Insurance expiry dates</li>
-              <li>• License validity</li>
-              <li>• Performance scores</li>
-              <li>• Tier classification</li>
-              <li>• Payment terms agreed</li>
+              <li>• {ct("compPerf1")}</li>
+              <li>• {ct("compPerf2")}</li>
+              <li>• {ct("compPerf3")}</li>
+              <li>• {ct("compPerf4")}</li>
+              <li>• {ct("compPerf5")}</li>
             </ul>
           </div>
         </div>
 
         <div className="mt-4 p-4 bg-info/10 border border-info/30 rounded-lg">
           <p className="text-sm">
-            <strong>Pro Tip:</strong> Set automatic reminders 60 days before insurance and license expiry dates. Request updated documents proactively to avoid service interruptions.
+            <strong>Pro Tip:</strong> {ct("databaseProTip")}
           </p>
         </div>
       </div>
