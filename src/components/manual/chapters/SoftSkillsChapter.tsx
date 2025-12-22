@@ -6,7 +6,7 @@ import { Brain, MessageSquare, Clock, Users, Target, Lightbulb, Heart, Shield, Z
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 
 export function SoftSkillsChapter() {
-  const { ct } = useChapterTranslation("softskills");
+  const { ct } = useChapterTranslation("soft-skills");
   
   return (
     <div className="space-y-8 animate-fade-in">
@@ -364,36 +364,36 @@ export function SoftSkillsChapter() {
               </li>
               <li className="flex items-start gap-2">
                 <Zap className="w-4 h-4 text-primary mt-0.5" />
-                <span><strong>Block time:</strong> Reserve focus time for complex tasks</span>
+                <span><strong>{ct("blockTime")}</strong> {ct("blockTimeDesc")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <Zap className="w-4 h-4 text-primary mt-0.5" />
-                <span><strong>Batch similar tasks:</strong> Do all quotes together, then all tracking</span>
+                <span><strong>{ct("batchTasks")}</strong> {ct("batchTasksDesc")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <Zap className="w-4 h-4 text-primary mt-0.5" />
-                <span><strong>End-of-day review:</strong> Prepare tomorrow's priority list</span>
+                <span><strong>{ct("endOfDayReview")}</strong> {ct("endOfDayDesc")}</span>
               </li>
             </ul>
           </div>
           <div>
-            <h4 className="font-semibold mb-2">Time Wasters to Avoid</h4>
+            <h4 className="font-semibold mb-2">{ct("timeWasters")}</h4>
             <ul className="text-sm space-y-2">
               <li className="flex items-start gap-2">
                 <AlertTriangle className="w-4 h-4 text-destructive mt-0.5" />
-                <span>Constant email checking (check scheduled times)</span>
+                <span>{ct("constantEmail")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <AlertTriangle className="w-4 h-4 text-destructive mt-0.5" />
-                <span>Unnecessary meetings without agenda</span>
+                <span>{ct("unnecessaryMeetings")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <AlertTriangle className="w-4 h-4 text-destructive mt-0.5" />
-                <span>Perfectionism on low-impact tasks</span>
+                <span>{ct("perfectionism")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <AlertTriangle className="w-4 h-4 text-destructive mt-0.5" />
-                <span>Multitasking (reduces quality, increases errors)</span>
+                <span>{ct("multitasking")}</span>
               </li>
             </ul>
           </div>
@@ -408,53 +408,53 @@ export function SoftSkillsChapter() {
         </h2>
 
         <div className="bg-primary/5 border border-primary/20 p-6 rounded-lg">
-          <h3 className="font-semibold mb-4">Reactive vs. Proactive Approach</h3>
+          <h3 className="font-semibold mb-4">{ct("reactiveVsProactive")}</h3>
           <div className="grid md:grid-cols-2 gap-6">
             <div>
-              <h4 className="font-medium text-destructive mb-2">❌ Reactive</h4>
+              <h4 className="font-medium text-destructive mb-2">❌ {ct("reactive")}</h4>
               <ul className="text-sm space-y-2 text-muted-foreground">
-                <li>• Waits for client to ask for updates</li>
-                <li>• Reports problems after they escalate</li>
-                <li>• Relies on others to spot issues</li>
-                <li>• Only does what's asked</li>
-                <li>• Surprised by predictable problems</li>
+                <li>• {ct("reactiveWaits")}</li>
+                <li>• {ct("reactiveReports")}</li>
+                <li>• {ct("reactiveRelies")}</li>
+                <li>• {ct("reactiveOnlyAsked")}</li>
+                <li>• {ct("reactiveSurprised")}</li>
               </ul>
             </div>
             <div>
-              <h4 className="font-medium text-success mb-2">✓ Proactive</h4>
+              <h4 className="font-medium text-success mb-2">✓ {ct("proactive")}</h4>
               <ul className="text-sm space-y-2 text-muted-foreground">
-                <li>• Sends updates before client asks</li>
-                <li>• Identifies and communicates risks early</li>
-                <li>• Monitors shipments actively</li>
-                <li>• Anticipates needs and suggests solutions</li>
-                <li>• Plans for known challenges (weather, holidays)</li>
+                <li>• {ct("proactiveSends")}</li>
+                <li>• {ct("proactiveIdentifies")}</li>
+                <li>• {ct("proactiveMonitors")}</li>
+                <li>• {ct("proactiveAnticipates")}</li>
+                <li>• {ct("proactivePlans")}</li>
               </ul>
             </div>
           </div>
         </div>
 
         <div className="mt-6">
-          <h4 className="font-semibold mb-3">Proactive Behaviors in Freight Forwarding</h4>
+          <h4 className="font-semibold mb-3">{ct("proactiveBehaviors")}</h4>
           <ul className="space-y-2 text-sm">
             <li className="flex items-start gap-2">
               <CheckCircle2 className="w-4 h-4 text-success mt-0.5" />
-              <span><strong>Check tomorrow's shipments today:</strong> Identify potential issues before they happen</span>
+              <span><strong>{ct("checkTomorrow")}</strong> {ct("checkTomorrowDesc")}</span>
             </li>
             <li className="flex items-start gap-2">
               <CheckCircle2 className="w-4 h-4 text-success mt-0.5" />
-              <span><strong>Update clients without prompting:</strong> "Your shipment loaded successfully at 14:30"</span>
+              <span><strong>{ct("updateClients")}</strong> {ct("updateClientsDesc")}</span>
             </li>
             <li className="flex items-start gap-2">
               <CheckCircle2 className="w-4 h-4 text-success mt-0.5" />
-              <span><strong>Anticipate seasonal challenges:</strong> Prepare for holidays, weather, peak periods</span>
+              <span><strong>{ct("anticipateSeasonal")}</strong> {ct("anticipateSeasonalDesc")}</span>
             </li>
             <li className="flex items-start gap-2">
               <CheckCircle2 className="w-4 h-4 text-success mt-0.5" />
-              <span><strong>Suggest improvements:</strong> "I noticed we could save time by..."</span>
+              <span><strong>{ct("suggestImprovements")}</strong> {ct("suggestImprovementsDesc")}</span>
             </li>
             <li className="flex items-start gap-2">
               <CheckCircle2 className="w-4 h-4 text-success mt-0.5" />
-              <span><strong>Build relationships:</strong> Regular check-ins with key clients and carriers</span>
+              <span><strong>{ct("buildRelationships")}</strong> {ct("buildRelationshipsDesc")}</span>
             </li>
           </ul>
         </div>
@@ -463,7 +463,7 @@ export function SoftSkillsChapter() {
       {/* Quiz */}
       {quizzes["soft-skills"] && (
         <Quiz
-          title="Soft Skills Knowledge Check"
+          title={ct("quizTitle")}
           questions={quizzes["soft-skills"]}
           chapterId="soft-skills"
           questionsPerRound={5}
