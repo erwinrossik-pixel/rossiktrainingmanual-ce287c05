@@ -2,8 +2,11 @@ import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { quizzes } from "@/data/quizData";
 import { Shield, FileText, Euro, AlertTriangle, CheckCircle, Truck, Package, Scale } from "lucide-react";
+import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 
 export function InsuranceChapter() {
+  const { ct } = useChapterTranslation("insurance");
+
   return (
     <div className="space-y-8 animate-fade-in">
       {/* Hero Section */}
@@ -12,10 +15,10 @@ export function InsuranceChapter() {
         <div className="relative">
           <Shield className="w-12 h-12 mb-4" />
           <h1 className="text-3xl md:text-5xl font-bold mb-4 font-serif">
-            Transport Insurance
+            {ct("title")}
           </h1>
           <p className="text-lg md:text-xl opacity-90 max-w-2xl">
-            Understanding CMR liability, cargo insurance, and risk protection in freight forwarding.
+            {ct("subtitle")}
           </p>
         </div>
       </div>
@@ -24,25 +27,25 @@ export function InsuranceChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
           <Shield className="w-6 h-6 text-primary" />
-          Types of Transport Insurance
+          {ct("typesOfTransportInsurance")}
         </h2>
         <div className="grid md:grid-cols-2 gap-4">
-          <InfoCard title="CMR Liability Insurance" icon={Truck} variant="info">
-            <p className="mb-3 font-semibold text-foreground">Mandatory for carriers</p>
+          <InfoCard title={ct("cmrLiabilityInsurance")} icon={Truck} variant="info">
+            <p className="mb-3 font-semibold text-foreground">{ct("mandatoryForCarriers")}</p>
             <ul className="space-y-2">
-              <li><strong>What it covers:</strong> Carrier's legal liability under CMR Convention</li>
-              <li><strong>Limit:</strong> 8.33 SDR/kg (≈€10/kg)</li>
-              <li><strong>Who pays:</strong> Carrier's responsibility</li>
-              <li><strong>Gap:</strong> Does NOT cover full cargo value</li>
+              <li><strong>{ct("whatItCovers")}</strong> {ct("carrierLegalLiability")}</li>
+              <li><strong>{ct("limit")}</strong> {ct("sdrPerKg")}</li>
+              <li><strong>{ct("whoPays")}</strong> {ct("carrierResponsibility")}</li>
+              <li><strong>{ct("gap")}</strong> {ct("doesNotCoverFullValue")}</li>
             </ul>
           </InfoCard>
-          <InfoCard title="Cargo (Goods) Insurance" icon={Package} variant="success">
-            <p className="mb-3 font-semibold text-foreground">Optional - Full value protection</p>
+          <InfoCard title={ct("cargoGoodsInsurance")} icon={Package} variant="success">
+            <p className="mb-3 font-semibold text-foreground">{ct("optionalFullValue")}</p>
             <ul className="space-y-2">
-              <li><strong>What it covers:</strong> Full declared value of goods</li>
-              <li><strong>Limit:</strong> As per policy (up to 100% value)</li>
-              <li><strong>Who pays:</strong> Shipper/consignee or FF</li>
-              <li><strong>Benefit:</strong> Covers all risks, faster payout</li>
+              <li><strong>{ct("whatItCovers")}</strong> {ct("fullDeclaredValue")}</li>
+              <li><strong>{ct("limit")}</strong> {ct("asPerPolicy")}</li>
+              <li><strong>{ct("whoPays")}</strong> {ct("shipperConsigneeOrFf")}</li>
+              <li><strong>{ct("benefit")}</strong> {ct("coversAllRisks")}</li>
             </ul>
           </InfoCard>
         </div>
@@ -52,34 +55,34 @@ export function InsuranceChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
           <AlertTriangle className="w-6 h-6 text-primary" />
-          The CMR Liability Gap
+          {ct("cmrLiabilityGap")}
         </h2>
         <div className="bg-card border border-border rounded-xl p-6">
-          <h3 className="font-semibold mb-4">Example: Electronics Shipment</h3>
+          <h3 className="font-semibold mb-4">{ct("exampleElectronicsShipment")}</h3>
           <div className="grid md:grid-cols-3 gap-6">
             <div className="bg-muted/30 rounded-lg p-4">
-              <h4 className="text-sm text-muted-foreground mb-1">Cargo Details</h4>
-              <p className="text-lg font-semibold">10 pallets electronics</p>
-              <p className="text-sm">Weight: 5,000 kg</p>
-              <p className="text-sm">Invoice value: <strong className="text-primary">€200,000</strong></p>
+              <h4 className="text-sm text-muted-foreground mb-1">{ct("cargoDetails")}</h4>
+              <p className="text-lg font-semibold">{ct("tenPalletsElectronics")}</p>
+              <p className="text-sm">{ct("weight")} 5,000 kg</p>
+              <p className="text-sm">{ct("invoiceValue")} <strong className="text-primary">€200,000</strong></p>
             </div>
             <div className="bg-warning/10 border border-warning/30 rounded-lg p-4">
-              <h4 className="text-sm text-muted-foreground mb-1">CMR Liability Only</h4>
+              <h4 className="text-sm text-muted-foreground mb-1">{ct("cmrLiabilityOnly")}</h4>
               <p className="text-lg font-semibold">5,000 kg × €10/kg</p>
               <p className="text-2xl font-bold text-warning">= €50,000</p>
-              <p className="text-sm text-destructive mt-2">Gap: <strong>€150,000</strong> uncovered!</p>
+              <p className="text-sm text-destructive mt-2">{ct("gap")} <strong>€150,000</strong> {ct("gapUncovered")}</p>
             </div>
             <div className="bg-success/10 border border-success/30 rounded-lg p-4">
-              <h4 className="text-sm text-muted-foreground mb-1">With Cargo Insurance</h4>
-              <p className="text-lg font-semibold">Full value covered</p>
+              <h4 className="text-sm text-muted-foreground mb-1">{ct("withCargoInsurance")}</h4>
+              <p className="text-lg font-semibold">{ct("fullValueCovered")}</p>
               <p className="text-2xl font-bold text-success">= €200,000</p>
-              <p className="text-sm text-success mt-2">100% protected</p>
+              <p className="text-sm text-success mt-2">{ct("oneHundredPercentProtected")}</p>
             </div>
           </div>
           <div className="mt-4 p-4 bg-destructive/10 border border-destructive/30 rounded-lg">
             <p className="text-sm font-medium text-destructive flex items-center gap-2">
               <AlertTriangle className="w-4 h-4" />
-              High-value goods (electronics, pharma, machinery) should ALWAYS have additional cargo insurance!
+              {ct("highValueGoodsWarning")}
             </p>
           </div>
         </div>
@@ -89,57 +92,57 @@ export function InsuranceChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
           <Scale className="w-6 h-6 text-primary" />
-          Coverage Comparison Table
+          {ct("coverageComparisonTable")}
         </h2>
         <div className="overflow-x-auto">
           <table className="w-full border-collapse">
             <thead>
               <tr className="bg-muted/50">
-                <th className="p-3 text-left border border-border">Risk</th>
-                <th className="p-3 text-center border border-border">CMR Liability</th>
-                <th className="p-3 text-center border border-border">Cargo Insurance</th>
+                <th className="p-3 text-left border border-border">{ct("risk")}</th>
+                <th className="p-3 text-center border border-border">{ct("cmrLiability")}</th>
+                <th className="p-3 text-center border border-border">{ct("cargoInsurance")}</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td className="p-3 border border-border">Accident damage</td>
-                <td className="p-3 border border-border text-center">✅ Limited</td>
-                <td className="p-3 border border-border text-center">✅ Full</td>
+                <td className="p-3 border border-border">{ct("accidentDamage")}</td>
+                <td className="p-3 border border-border text-center">✅ {ct("limited")}</td>
+                <td className="p-3 border border-border text-center">✅ {ct("full")}</td>
               </tr>
               <tr className="bg-muted/20">
-                <td className="p-3 border border-border">Theft</td>
-                <td className="p-3 border border-border text-center">✅ Limited</td>
-                <td className="p-3 border border-border text-center">✅ Full</td>
+                <td className="p-3 border border-border">{ct("theft")}</td>
+                <td className="p-3 border border-border text-center">✅ {ct("limited")}</td>
+                <td className="p-3 border border-border text-center">✅ {ct("full")}</td>
               </tr>
               <tr>
-                <td className="p-3 border border-border">Fire</td>
-                <td className="p-3 border border-border text-center">✅ Limited</td>
-                <td className="p-3 border border-border text-center">✅ Full</td>
+                <td className="p-3 border border-border">{ct("fire")}</td>
+                <td className="p-3 border border-border text-center">✅ {ct("limited")}</td>
+                <td className="p-3 border border-border text-center">✅ {ct("full")}</td>
               </tr>
               <tr className="bg-muted/20">
-                <td className="p-3 border border-border">Water damage</td>
-                <td className="p-3 border border-border text-center">✅ Limited</td>
-                <td className="p-3 border border-border text-center">✅ Full</td>
+                <td className="p-3 border border-border">{ct("waterDamage")}</td>
+                <td className="p-3 border border-border text-center">✅ {ct("limited")}</td>
+                <td className="p-3 border border-border text-center">✅ {ct("full")}</td>
               </tr>
               <tr>
-                <td className="p-3 border border-border">Natural disaster</td>
-                <td className="p-3 border border-border text-center text-destructive">❌ No</td>
-                <td className="p-3 border border-border text-center">✅ Yes</td>
+                <td className="p-3 border border-border">{ct("naturalDisaster")}</td>
+                <td className="p-3 border border-border text-center text-destructive">❌ {ct("no")}</td>
+                <td className="p-3 border border-border text-center">✅ {ct("yes")}</td>
               </tr>
               <tr className="bg-muted/20">
-                <td className="p-3 border border-border">Inherent vice</td>
-                <td className="p-3 border border-border text-center text-destructive">❌ No</td>
-                <td className="p-3 border border-border text-center">⚠️ Depends</td>
+                <td className="p-3 border border-border">{ct("inherentVice")}</td>
+                <td className="p-3 border border-border text-center text-destructive">❌ {ct("no")}</td>
+                <td className="p-3 border border-border text-center">⚠️ {ct("depends")}</td>
               </tr>
               <tr>
-                <td className="p-3 border border-border">Improper packing</td>
-                <td className="p-3 border border-border text-center text-destructive">❌ No</td>
-                <td className="p-3 border border-border text-center text-destructive">❌ No</td>
+                <td className="p-3 border border-border">{ct("improperPacking")}</td>
+                <td className="p-3 border border-border text-center text-destructive">❌ {ct("no")}</td>
+                <td className="p-3 border border-border text-center text-destructive">❌ {ct("no")}</td>
               </tr>
               <tr className="bg-muted/20">
-                <td className="p-3 border border-border">Full value coverage</td>
-                <td className="p-3 border border-border text-center text-destructive">❌ No (8.33 SDR/kg)</td>
-                <td className="p-3 border border-border text-center text-success">✅ Yes</td>
+                <td className="p-3 border border-border">{ct("fullValueCoverageRow")}</td>
+                <td className="p-3 border border-border text-center text-destructive">❌ {ct("no")} (8.33 SDR/kg)</td>
+                <td className="p-3 border border-border text-center text-success">✅ {ct("yes")}</td>
               </tr>
             </tbody>
           </table>
@@ -150,27 +153,27 @@ export function InsuranceChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
           <CheckCircle className="w-6 h-6 text-primary" />
-          When to Recommend Additional Insurance
+          {ct("whenToRecommendInsurance")}
         </h2>
         <div className="grid md:grid-cols-2 gap-4">
-          <InfoCard title="High-Value Cargo" icon={Euro} variant="warning">
-            <p className="mb-2">Always recommend cargo insurance when:</p>
+          <InfoCard title={ct("highValueCargo")} icon={Euro} variant="warning">
+            <p className="mb-2">{ct("alwaysRecommendWhen")}</p>
             <ul className="space-y-1">
-              <li>• Value exceeds €15/kg</li>
-              <li>• Electronics, pharmaceuticals, luxury goods</li>
-              <li>• New machinery/equipment</li>
-              <li>• Art, antiques, collectibles</li>
-              <li>• Total shipment value &gt; €100,000</li>
+              <li>• {ct("valueExceeds")}</li>
+              <li>• {ct("electronicsPharmaceuticals")}</li>
+              <li>• {ct("newMachineryEquipment")}</li>
+              <li>• {ct("artAntiquesCollectibles")}</li>
+              <li>• {ct("totalShipmentValue")}</li>
             </ul>
           </InfoCard>
-          <InfoCard title="High-Risk Routes/Conditions" icon={AlertTriangle} variant="warning">
-            <p className="mb-2">Extra caution required for:</p>
+          <InfoCard title={ct("highRiskRoutesConditions")} icon={AlertTriangle} variant="warning">
+            <p className="mb-2">{ct("extraCautionRequired")}</p>
             <ul className="space-y-1">
-              <li>• Routes through high-theft areas</li>
-              <li>• Temperature-sensitive goods</li>
-              <li>• Cross-border movements (more handling)</li>
-              <li>• Seasonal weather risks</li>
-              <li>• Long-distance shipments</li>
+              <li>• {ct("routesHighTheftAreas")}</li>
+              <li>• {ct("temperatureSensitiveGoods")}</li>
+              <li>• {ct("crossBorderMovements")}</li>
+              <li>• {ct("seasonalWeatherRisks")}</li>
+              <li>• {ct("longDistanceShipments")}</li>
             </ul>
           </InfoCard>
         </div>
@@ -180,27 +183,27 @@ export function InsuranceChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
           <Euro className="w-6 h-6 text-primary" />
-          Typical Insurance Costs
+          {ct("typicalInsuranceCosts")}
         </h2>
         <div className="bg-card border border-border rounded-xl p-6">
           <div className="grid md:grid-cols-3 gap-6">
             <div className="text-center p-4 bg-muted/30 rounded-lg">
-              <h3 className="font-semibold mb-2">Standard Goods</h3>
+              <h3 className="font-semibold mb-2">{ct("standardGoods")}</h3>
               <p className="text-3xl font-bold text-primary">0.08-0.15%</p>
-              <p className="text-sm text-muted-foreground mt-2">of declared value</p>
+              <p className="text-sm text-muted-foreground mt-2">{ct("ofDeclaredValue")}</p>
               <p className="text-xs text-muted-foreground">e.g., €200,000 = €160-300</p>
             </div>
             <div className="text-center p-4 bg-muted/30 rounded-lg">
-              <h3 className="font-semibold mb-2">High-Value Goods</h3>
+              <h3 className="font-semibold mb-2">{ct("highValueGoods")}</h3>
               <p className="text-3xl font-bold text-warning">0.15-0.30%</p>
-              <p className="text-sm text-muted-foreground mt-2">of declared value</p>
-              <p className="text-xs text-muted-foreground">Electronics, pharma</p>
+              <p className="text-sm text-muted-foreground mt-2">{ct("ofDeclaredValue")}</p>
+              <p className="text-xs text-muted-foreground">{ct("electronicsPharma")}</p>
             </div>
             <div className="text-center p-4 bg-muted/30 rounded-lg">
-              <h3 className="font-semibold mb-2">Hazardous/Special</h3>
+              <h3 className="font-semibold mb-2">{ct("hazardousSpecial")}</h3>
               <p className="text-3xl font-bold text-destructive">0.30-0.50%+</p>
-              <p className="text-sm text-muted-foreground mt-2">of declared value</p>
-              <p className="text-xs text-muted-foreground">ADR, temperature-controlled</p>
+              <p className="text-sm text-muted-foreground mt-2">{ct("ofDeclaredValue")}</p>
+              <p className="text-xs text-muted-foreground">{ct("adrTemperatureControlled")}</p>
             </div>
           </div>
         </div>
@@ -210,26 +213,26 @@ export function InsuranceChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
           <FileText className="w-6 h-6 text-primary" />
-          Documents for Insurance Claims
+          {ct("documentsForInsuranceClaims")}
         </h2>
         <div className="bg-muted/30 rounded-xl p-6">
           <div className="grid md:grid-cols-2 gap-4">
             {[
-              { doc: "Original commercial invoice", required: true },
-              { doc: "Packing list with weights", required: true },
-              { doc: "CMR/Bill of Lading", required: true },
-              { doc: "Insurance certificate/policy", required: true },
-              { doc: "Claim notification letter", required: true },
-              { doc: "Photos of damage", required: true },
-              { doc: "Survey report", required: false },
-              { doc: "Police report (if theft)", required: false },
-              { doc: "Repair quotes", required: false },
-              { doc: "Proof of value (catalog, PO)", required: false },
+              { doc: ct("originalCommercialInvoice"), required: true },
+              { doc: ct("packingListWithWeights"), required: true },
+              { doc: ct("cmrBillOfLading"), required: true },
+              { doc: ct("insuranceCertificatePolicy"), required: true },
+              { doc: ct("claimNotificationLetter"), required: true },
+              { doc: ct("photosOfDamage"), required: true },
+              { doc: ct("surveyReport"), required: false },
+              { doc: ct("policeReportIfTheft"), required: false },
+              { doc: ct("repairQuotes"), required: false },
+              { doc: ct("proofOfValue"), required: false },
             ].map((item, index) => (
               <div key={index} className="flex items-center gap-3 p-3 bg-card rounded-lg border border-border">
                 <CheckCircle className={`w-5 h-5 ${item.required ? 'text-destructive' : 'text-success'}`} />
                 <span className="text-sm">{item.doc}</span>
-                {item.required && <span className="text-xs bg-destructive/10 text-destructive px-2 py-0.5 rounded">Required</span>}
+                {item.required && <span className="text-xs bg-destructive/10 text-destructive px-2 py-0.5 rounded">{ct("required")}</span>}
               </div>
             ))}
           </div>
@@ -240,31 +243,31 @@ export function InsuranceChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
           <CheckCircle className="w-6 h-6 text-primary" />
-          Key Takeaways
+          {ct("keyTakeaways")}
         </h2>
         <div className="grid md:grid-cols-2 gap-4">
           <div className="bg-info/10 border border-info/30 rounded-xl p-4">
             <h3 className="font-semibold mb-2 flex items-center gap-2">
               <Shield className="w-5 h-5 text-info" />
-              Remember
+              {ct("remember")}
             </h3>
             <ul className="text-sm space-y-2">
-              <li>• CMR liability ≠ full cargo insurance</li>
-              <li>• Always check carrier's insurance certificate</li>
-              <li>• Offer cargo insurance to clients with high-value goods</li>
-              <li>• Document everything for faster claims</li>
+              <li>• {ct("cmrLiabilityNotFullCargo")}</li>
+              <li>• {ct("alwaysCheckCarrierInsurance")}</li>
+              <li>• {ct("offerCargoInsurance")}</li>
+              <li>• {ct("documentEverything")}</li>
             </ul>
           </div>
           <div className="bg-warning/10 border border-warning/30 rounded-xl p-4">
             <h3 className="font-semibold mb-2 flex items-center gap-2">
               <AlertTriangle className="w-5 h-5 text-warning" />
-              Common Mistakes
+              {ct("commonMistakes")}
             </h3>
             <ul className="text-sm space-y-2">
-              <li>• Assuming CMR covers full value</li>
-              <li>• Not checking carrier's insurance validity</li>
-              <li>• Missing claim notification deadlines</li>
-              <li>• Poor documentation at loading/delivery</li>
+              <li>• {ct("assumingCmrCoversFullValue")}</li>
+              <li>• {ct("notCheckingCarrierInsurance")}</li>
+              <li>• {ct("missingClaimDeadlines")}</li>
+              <li>• {ct("poorDocumentation")}</li>
             </ul>
           </div>
         </div>
@@ -272,7 +275,7 @@ export function InsuranceChapter() {
 
       {/* Quiz */}
       {quizzes.insurance && (
-        <Quiz title="Transport Insurance Quiz" questions={quizzes.insurance} chapterId="insurance" />
+        <Quiz title={ct("quizTitle")} questions={quizzes.insurance} chapterId="insurance" />
       )}
     </div>
   );
