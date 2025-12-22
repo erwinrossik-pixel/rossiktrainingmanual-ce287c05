@@ -21,33 +21,33 @@ export function TrainingChapter() {
             A
           </div>
           <div className="flex-1">
-            <h2 className="section-title mb-2">Quotation Exercise</h2>
+            <h2 className="section-title mb-2">{ct("exerciseA")}</h2>
             <div className="p-4 bg-muted/50 rounded-lg mb-4">
-              <p className="font-medium mb-2">Scenario:</p>
+              <p className="font-medium mb-2">{ct("exerciseAScenario")}</p>
               <p className="text-muted-foreground">
-                <strong>Stuttgart → Rotterdam</strong> (620 km)
+                <strong>{ct("exerciseARoute")}</strong> {ct("exerciseADistance")}
               </p>
               <ul className="text-sm text-muted-foreground mt-2 space-y-1">
-                <li>• Base rate: €1.10/km</li>
-                <li>• DE toll: €0.45/km</li>
-                <li>• Target margin: 12%</li>
+                <li>• {ct("exerciseABaseRate")}</li>
+                <li>• {ct("exerciseAToll")}</li>
+                <li>• {ct("exerciseAMargin")}</li>
               </ul>
             </div>
             
             <div className="space-y-3">
-              <h3 className="font-semibold">Deliverables:</h3>
+              <h3 className="font-semibold">{ct("deliverables")}</h3>
               <div className="grid md:grid-cols-3 gap-3">
                 <div className="p-3 bg-accent rounded-lg flex items-center gap-2">
                   <Calculator className="w-5 h-5 text-primary" />
-                  <span className="text-sm">Cost sheet</span>
+                  <span className="text-sm">{ct("costSheet")}</span>
                 </div>
                 <div className="p-3 bg-accent rounded-lg flex items-center gap-2">
                   <FileText className="w-5 h-5 text-primary" />
-                  <span className="text-sm">Schedule plan</span>
+                  <span className="text-sm">{ct("schedulePlan")}</span>
                 </div>
                 <div className="p-3 bg-accent rounded-lg flex items-center gap-2">
                   <FileText className="w-5 h-5 text-primary" />
-                  <span className="text-sm">Risk assessment</span>
+                  <span className="text-sm">{ct("riskAssessment")}</span>
                 </div>
               </div>
             </div>
@@ -62,28 +62,28 @@ export function TrainingChapter() {
             B
           </div>
           <div className="flex-1">
-            <h2 className="section-title mb-2">Backhaul Exercise</h2>
+            <h2 className="section-title mb-2">{ct("exerciseB")}</h2>
             <div className="p-4 bg-muted/50 rounded-lg mb-4">
-              <p className="font-medium mb-2">Scenario:</p>
+              <p className="font-medium mb-2">{ct("exerciseBScenario")}</p>
               <p className="text-muted-foreground">
-                Find a backhaul load from <strong>Netherlands → DE/AT/CZ</strong> on Teleroute
+                {ct("exerciseBRoute")}
               </p>
             </div>
             
             <div className="space-y-3">
-              <h3 className="font-semibold">Tasks:</h3>
+              <h3 className="font-semibold">{ct("tasks")}</h3>
               <div className="space-y-2">
                 <div className="p-3 bg-accent rounded-lg flex items-center gap-2">
                   <Search className="w-5 h-5 text-info" />
-                  <span className="text-sm">Search and identify suitable loads</span>
+                  <span className="text-sm">{ct("searchIdentifyLoads")}</span>
                 </div>
                 <div className="p-3 bg-accent rounded-lg flex items-center gap-2">
                   <FileText className="w-5 h-5 text-info" />
-                  <span className="text-sm">Draft negotiation approach</span>
+                  <span className="text-sm">{ct("draftNegotiation")}</span>
                 </div>
                 <div className="p-3 bg-accent rounded-lg flex items-center gap-2">
                   <Calculator className="w-5 h-5 text-info" />
-                  <span className="text-sm">Evaluate Payment Guarantee option</span>
+                  <span className="text-sm">{ct("evaluatePaymentGuarantee")}</span>
                 </div>
               </div>
             </div>
@@ -98,35 +98,35 @@ export function TrainingChapter() {
             C
           </div>
           <div className="flex-1">
-            <h2 className="section-title mb-2">Translogica TMS Exercise</h2>
+            <h2 className="section-title mb-2">{ct("exerciseC")}</h2>
             <div className="p-4 bg-muted/50 rounded-lg mb-4">
-              <p className="font-medium mb-2">Scenario:</p>
+              <p className="font-medium mb-2">{ct("exerciseCScenario")}</p>
               <p className="text-muted-foreground">
-                Build lane templates in Translogica for common routes
+                {ct("exerciseCRoute")}
               </p>
             </div>
             
             <div className="space-y-3">
-              <h3 className="font-semibold">Tasks:</h3>
+              <h3 className="font-semibold">{ct("tasks")}</h3>
               <div className="grid md:grid-cols-3 gap-3">
                 <div className="p-3 bg-accent rounded-lg text-center">
-                  <p className="font-semibold text-sm">Template 1</p>
-                  <p className="text-xs text-muted-foreground">DE ↔ FR</p>
+                  <p className="font-semibold text-sm">{ct("template1")}</p>
+                  <p className="text-xs text-muted-foreground">{ct("template1Route")}</p>
                 </div>
                 <div className="p-3 bg-accent rounded-lg text-center">
-                  <p className="font-semibold text-sm">Template 2</p>
-                  <p className="text-xs text-muted-foreground">AT ↔ IT</p>
+                  <p className="font-semibold text-sm">{ct("template2")}</p>
+                  <p className="text-xs text-muted-foreground">{ct("template2Route")}</p>
                 </div>
                 <div className="p-3 bg-accent rounded-lg text-center">
-                  <p className="font-semibold text-sm">Template 3</p>
-                  <p className="text-xs text-muted-foreground">PL ↔ DE</p>
+                  <p className="font-semibold text-sm">{ct("template3")}</p>
+                  <p className="text-xs text-muted-foreground">{ct("template3Route")}</p>
                 </div>
               </div>
               
               <div className="p-3 bg-warning/10 rounded-lg border border-warning/20">
                 <div className="flex items-center gap-2">
                   <Settings className="w-5 h-5 text-warning" />
-                  <span className="text-sm font-medium">Bonus: Create workflow that flags margins &lt;€0.12/km</span>
+                  <span className="text-sm font-medium">{ct("bonus")}</span>
                 </div>
               </div>
             </div>
@@ -138,35 +138,35 @@ export function TrainingChapter() {
       <div className="highlight-card">
         <h3 className="font-semibold mb-4 flex items-center gap-2">
           <GraduationCap className="w-5 h-5 text-primary" />
-          Evaluation Criteria
+          {ct("evaluationCriteria")}
         </h3>
         <div className="grid md:grid-cols-2 gap-4 text-sm">
           <ul className="space-y-2 text-muted-foreground">
             <li className="flex items-center gap-2">
               <span className="w-2 h-2 bg-primary rounded-full"></span>
-              Accuracy of calculations
+              {ct("accuracyCalculations")}
             </li>
             <li className="flex items-center gap-2">
               <span className="w-2 h-2 bg-primary rounded-full"></span>
-              Completeness of documentation
+              {ct("completenessDocumentation")}
             </li>
             <li className="flex items-center gap-2">
               <span className="w-2 h-2 bg-primary rounded-full"></span>
-              Risk identification
+              {ct("riskIdentification")}
             </li>
           </ul>
           <ul className="space-y-2 text-muted-foreground">
             <li className="flex items-center gap-2">
               <span className="w-2 h-2 bg-primary rounded-full"></span>
-              TMS proficiency
+              {ct("tmsProficiency")}
             </li>
             <li className="flex items-center gap-2">
               <span className="w-2 h-2 bg-primary rounded-full"></span>
-              Communication clarity
+              {ct("communicationClarity")}
             </li>
             <li className="flex items-center gap-2">
               <span className="w-2 h-2 bg-primary rounded-full"></span>
-              Problem-solving approach
+              {ct("problemSolvingApproach")}
             </li>
           </ul>
         </div>

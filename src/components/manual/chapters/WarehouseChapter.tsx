@@ -21,31 +21,31 @@ export function WarehouseChapter() {
       <div className="info-card bg-gradient-to-br from-primary/5 to-primary/10">
         <h2 className="section-title flex items-center gap-3">
           <Warehouse className="w-6 h-6 text-primary" />
-          The Role of Warehousing in Logistics
+          {ct("roleOfWarehousing")}
         </h2>
         <p className="text-muted-foreground mb-4">
-          Warehouses are critical nodes in the supply chain where goods are received, stored, processed, and shipped. As a freight forwarder, understanding warehouse operations helps you optimize transport and provide better service.
+          {ct("roleOfWarehousingDesc")}
         </p>
         <div className="grid md:grid-cols-4 gap-4">
           <div className="bg-background p-4 rounded-lg text-center">
             <Package className="w-8 h-8 text-primary mx-auto mb-2" />
-            <p className="font-medium">Receiving</p>
-            <p className="text-xs text-muted-foreground">Inbound goods</p>
+            <p className="font-medium">{ct("receiving")}</p>
+            <p className="text-xs text-muted-foreground">{ct("receivingDesc")}</p>
           </div>
           <div className="bg-background p-4 rounded-lg text-center">
             <Warehouse className="w-8 h-8 text-primary mx-auto mb-2" />
-            <p className="font-medium">Storage</p>
-            <p className="text-xs text-muted-foreground">Inventory holding</p>
+            <p className="font-medium">{ct("storage")}</p>
+            <p className="text-xs text-muted-foreground">{ct("storageDesc")}</p>
           </div>
           <div className="bg-background p-4 rounded-lg text-center">
             <Users className="w-8 h-8 text-primary mx-auto mb-2" />
-            <p className="font-medium">Processing</p>
-            <p className="text-xs text-muted-foreground">Pick, pack, label</p>
+            <p className="font-medium">{ct("processing")}</p>
+            <p className="text-xs text-muted-foreground">{ct("processingDesc")}</p>
           </div>
           <div className="bg-background p-4 rounded-lg text-center">
             <Truck className="w-8 h-8 text-primary mx-auto mb-2" />
-            <p className="font-medium">Dispatch</p>
-            <p className="text-xs text-muted-foreground">Outbound shipping</p>
+            <p className="font-medium">{ct("dispatch")}</p>
+            <p className="text-xs text-muted-foreground">{ct("dispatchDesc")}</p>
           </div>
         </div>
       </div>
@@ -316,7 +316,7 @@ export function WarehouseChapter() {
       {/* Quiz */}
       {quizzes["warehouse"] && (
         <Quiz
-          title="Warehouse & Cross-Docking Quiz"
+          title={ct("quizTitle")}
           questions={quizzes["warehouse"]}
           chapterId="warehouse"
           questionsPerRound={5}

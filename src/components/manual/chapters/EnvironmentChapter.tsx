@@ -256,7 +256,7 @@ export function EnvironmentChapter() {
 
       {/* Quiz */}
       {quizzes.environment && (
-        <Quiz title="Environmental Compliance Quiz" questions={quizzes.environment} chapterId="environment" />
+        <Quiz title={ct("quizTitle")} questions={quizzes.environment} chapterId="environment" />
       )}
     </div>
   );

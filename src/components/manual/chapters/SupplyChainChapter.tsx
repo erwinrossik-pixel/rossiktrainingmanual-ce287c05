@@ -21,35 +21,35 @@ export function SupplyChainChapter() {
       <div className="info-card bg-gradient-to-br from-primary/5 to-primary/10">
         <h2 className="section-title flex items-center gap-3">
           <Link className="w-6 h-6 text-primary" />
-          What Is a Supply Chain?
+          {ct("whatIsSupplyChain")}
         </h2>
         <p className="text-muted-foreground mb-4">
-          A supply chain is the entire network of entities, resources, activities, and technology involved in creating and selling a product - from raw materials to delivery to the end customer. Freight forwarding is a critical link in this chain.
+          {ct("whatIsSupplyChainDesc")}
         </p>
         <div className="flex items-center justify-center gap-2 flex-wrap p-4 bg-background rounded-lg">
           <div className="text-center p-3 bg-primary/10 rounded-lg">
             <Factory className="w-6 h-6 text-primary mx-auto mb-1" />
-            <p className="text-xs">Supplier</p>
+            <p className="text-xs">{ct("supplier")}</p>
           </div>
           <ArrowRight className="w-4 h-4 text-muted-foreground" />
           <div className="text-center p-3 bg-primary/10 rounded-lg">
             <Factory className="w-6 h-6 text-primary mx-auto mb-1" />
-            <p className="text-xs">Manufacturer</p>
+            <p className="text-xs">{ct("manufacturer")}</p>
           </div>
           <ArrowRight className="w-4 h-4 text-muted-foreground" />
           <div className="text-center p-3 bg-primary/20 rounded-lg border-2 border-primary">
             <Truck className="w-6 h-6 text-primary mx-auto mb-1" />
-            <p className="text-xs font-medium">Freight</p>
+            <p className="text-xs font-medium">{ct("freight")}</p>
           </div>
           <ArrowRight className="w-4 h-4 text-muted-foreground" />
           <div className="text-center p-3 bg-primary/10 rounded-lg">
             <Package className="w-6 h-6 text-primary mx-auto mb-1" />
-            <p className="text-xs">Warehouse</p>
+            <p className="text-xs">{ct("warehouse")}</p>
           </div>
           <ArrowRight className="w-4 h-4 text-muted-foreground" />
           <div className="text-center p-3 bg-primary/10 rounded-lg">
             <Users className="w-6 h-6 text-primary mx-auto mb-1" />
-            <p className="text-xs">Customer</p>
+            <p className="text-xs">{ct("customer")}</p>
           </div>
         </div>
       </div>
@@ -307,7 +307,7 @@ export function SupplyChainChapter() {
       {/* Quiz */}
       {quizzes["supply-chain"] && (
         <Quiz
-          title="Supply Chain Integration Quiz"
+          title={ct("quizTitle")}
           questions={quizzes["supply-chain"]}
           chapterId="supply-chain"
           questionsPerRound={5}
