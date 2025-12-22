@@ -2,8 +2,11 @@ import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { quizzes } from "@/data/quizData";
 import { MessageSquare, Phone, Mail, Users, Clock, CheckCircle, AlertTriangle, FileText } from "lucide-react";
+import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 
 export function CommunicationChapter() {
+  const { ct } = useChapterTranslation("communication");
+  
   return (
     <div className="space-y-8 animate-fade-in">
       {/* Hero Section */}
@@ -12,10 +15,10 @@ export function CommunicationChapter() {
         <div className="relative">
           <MessageSquare className="w-12 h-12 mb-4" />
           <h1 className="text-3xl md:text-5xl font-bold mb-4 font-serif">
-            Client Communication
+            {ct("title")}
           </h1>
           <p className="text-lg md:text-xl opacity-90 max-w-2xl">
-            Professional communication techniques for building trust and managing relationships effectively.
+            {ct("subtitle")}
           </p>
         </div>
       </div>
@@ -24,34 +27,34 @@ export function CommunicationChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
           <Phone className="w-6 h-6 text-primary" />
-          Communication Channels
+          {ct("communicationChannels")}
         </h2>
         <div className="grid md:grid-cols-3 gap-4">
-          <InfoCard title="Phone Calls" icon={Phone} variant="highlight">
-            <p className="font-semibold text-foreground mb-2">Best for:</p>
+          <InfoCard title={ct("phoneCalls")} icon={Phone} variant="highlight">
+            <p className="font-semibold text-foreground mb-2">{ct("bestFor")}</p>
             <ul className="space-y-1">
-              <li>• Urgent issues requiring immediate response</li>
-              <li>• Complex negotiations</li>
-              <li>• Building personal relationships</li>
-              <li>• Clarifying misunderstandings</li>
+              <li>• {ct("urgentIssuesImmediateResponse")}</li>
+              <li>• {ct("complexNegotiations")}</li>
+              <li>• {ct("buildingPersonalRelationships")}</li>
+              <li>• {ct("clarifyingMisunderstandings")}</li>
             </ul>
           </InfoCard>
-          <InfoCard title="Email" icon={Mail} variant="info">
-            <p className="font-semibold text-foreground mb-2">Best for:</p>
+          <InfoCard title={ct("email")} icon={Mail} variant="info">
+            <p className="font-semibold text-foreground mb-2">{ct("bestFor")}</p>
             <ul className="space-y-1">
-              <li>• Documentation and audit trails</li>
-              <li>• Detailed information sharing</li>
-              <li>• Non-urgent requests</li>
-              <li>• Formal confirmations</li>
+              <li>• {ct("documentationAuditTrails")}</li>
+              <li>• {ct("detailedInformationSharing")}</li>
+              <li>• {ct("nonUrgentRequests")}</li>
+              <li>• {ct("formalConfirmations")}</li>
             </ul>
           </InfoCard>
-          <InfoCard title="TMS/Platform" icon={FileText} variant="success">
-            <p className="font-semibold text-foreground mb-2">Best for:</p>
+          <InfoCard title={ct("tmsPlatform")} icon={FileText} variant="success">
+            <p className="font-semibold text-foreground mb-2">{ct("bestFor")}</p>
             <ul className="space-y-1">
-              <li>• Order updates and tracking</li>
-              <li>• Status notifications</li>
-              <li>• Document exchange</li>
-              <li>• Automated communication</li>
+              <li>• {ct("orderUpdatesTracking")}</li>
+              <li>• {ct("statusNotifications")}</li>
+              <li>• {ct("documentExchange")}</li>
+              <li>• {ct("automatedCommunication")}</li>
             </ul>
           </InfoCard>
         </div>
@@ -61,82 +64,82 @@ export function CommunicationChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
           <Mail className="w-6 h-6 text-primary" />
-          Professional Email Templates
+          {ct("professionalEmailTemplates")}
         </h2>
         
         <div className="space-y-4">
           <div className="bg-card border border-border rounded-xl p-6">
             <h3 className="font-semibold mb-3 flex items-center gap-2">
               <CheckCircle className="w-5 h-5 text-success" />
-              Order Confirmation
+              {ct("orderConfirmation")}
             </h3>
             <div className="bg-muted/30 rounded-lg p-4 font-mono text-sm">
-              <p><strong>Subject:</strong> Order Confirmation - [Reference] - [Route]</p>
+              <p><strong>{ct("subject")}</strong> {ct("orderConfirmationSubject")}</p>
               <br />
-              <p>Dear [Client Name],</p>
+              <p>{ct("dearClientName")}</p>
               <br />
-              <p>We confirm receipt of your transport order:</p>
+              <p>{ct("weConfirmReceipt")}</p>
               <br />
-              <p>• Loading: [Date/Time] at [Address]</p>
-              <p>• Delivery: [Date/Time] at [Address]</p>
-              <p>• Vehicle: 13.6m curtainsider</p>
-              <p>• Rate: €[Amount] all-in</p>
+              <p>• {ct("loading")} {ct("dateTimeAtAddress")}</p>
+              <p>• {ct("delivery")} {ct("dateTimeAtAddress")}</p>
+              <p>• {ct("vehicle")} {ct("curtainsider")}</p>
+              <p>• {ct("rate")} {ct("amountAllIn")}</p>
               <br />
-              <p>Driver details will follow 24h before loading.</p>
+              <p>{ct("driverDetailsWillFollow")}</p>
               <br />
-              <p>Best regards,</p>
-              <p>[Your Name]</p>
+              <p>{ct("bestRegards")}</p>
+              <p>{ct("yourName")}</p>
             </div>
           </div>
 
           <div className="bg-card border border-border rounded-xl p-6">
             <h3 className="font-semibold mb-3 flex items-center gap-2">
               <AlertTriangle className="w-5 h-5 text-warning" />
-              Delay Notification
+              {ct("delayNotification")}
             </h3>
             <div className="bg-muted/30 rounded-lg p-4 font-mono text-sm">
-              <p><strong>Subject:</strong> DELAY NOTICE - [Reference] - New ETA [Time]</p>
+              <p><strong>{ct("subject")}</strong> {ct("delayNoticeSubject")}</p>
               <br />
-              <p>Dear [Client Name],</p>
+              <p>{ct("dearClientName")}</p>
               <br />
-              <p>We regret to inform you of a delay on order [Reference].</p>
+              <p>{ct("weRegretToInform")}</p>
               <br />
-              <p>• Original ETA: [Original Time]</p>
-              <p>• New ETA: [New Time]</p>
-              <p>• Reason: [Traffic/Breakdown/Weather]</p>
-              <p>• Current location: [Location]</p>
+              <p>• {ct("originalEta")} {ct("originalTime")}</p>
+              <p>• {ct("newEta")} {ct("newTime")}</p>
+              <p>• {ct("reason")} {ct("trafficBreakdownWeather")}</p>
+              <p>• {ct("currentLocation")} {ct("location")}</p>
               <br />
-              <p>We apologize for any inconvenience and will keep you updated.</p>
+              <p>{ct("weApologizeForInconvenience")}</p>
               <br />
-              <p>Best regards,</p>
-              <p>[Your Name]</p>
+              <p>{ct("bestRegards")}</p>
+              <p>{ct("yourName")}</p>
             </div>
           </div>
 
           <div className="bg-card border border-border rounded-xl p-6">
             <h3 className="font-semibold mb-3 flex items-center gap-2">
               <FileText className="w-5 h-5 text-info" />
-              Rate Quotation
+              {ct("rateQuotation")}
             </h3>
             <div className="bg-muted/30 rounded-lg p-4 font-mono text-sm">
-              <p><strong>Subject:</strong> Rate Quotation - [Route] - [Date]</p>
+              <p><strong>{ct("subject")}</strong> {ct("rateQuotationSubject")}</p>
               <br />
-              <p>Dear [Client Name],</p>
+              <p>{ct("dearClientName")}</p>
               <br />
-              <p>Thank you for your inquiry. Please find our quotation below:</p>
+              <p>{ct("thankYouForInquiry")}</p>
               <br />
-              <p>• Route: [Origin] → [Destination]</p>
-              <p>• Vehicle: 13.6m curtainsider, 24t payload</p>
-              <p>• Rate: €[Amount]</p>
-              <p>• Includes: All tolls, diesel, driver</p>
-              <p>• Valid until: [Date]</p>
+              <p>• {ct("route")} {ct("originToDestination")}</p>
+              <p>• {ct("vehicle")} {ct("vehicleDetails")}</p>
+              <p>• {ct("rate")} €[Amount]</p>
+              <p>• {ct("includes")} {ct("allTollsDieselDriver")}</p>
+              <p>• {ct("validUntil")} {ct("date")}</p>
               <br />
-              <p>Waiting time after 2 hours: €35/hour</p>
+              <p>{ct("waitingTimeAfter2Hours")}</p>
               <br />
-              <p>Please confirm if you wish to proceed.</p>
+              <p>{ct("pleaseConfirmToProceed")}</p>
               <br />
-              <p>Best regards,</p>
-              <p>[Your Name]</p>
+              <p>{ct("bestRegards")}</p>
+              <p>{ct("yourName")}</p>
             </div>
           </div>
         </div>
@@ -146,57 +149,57 @@ export function CommunicationChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
           <Phone className="w-6 h-6 text-primary" />
-          Phone Call Guidelines
+          {ct("phoneCallGuidelines")}
         </h2>
         <div className="bg-card border border-border rounded-xl p-6">
           <div className="grid md:grid-cols-2 gap-6">
             <div>
-              <h3 className="font-semibold mb-3 text-success">DO</h3>
+              <h3 className="font-semibold mb-3 text-success">{ct("do")}</h3>
               <ul className="space-y-2 text-sm">
                 <li className="flex items-start gap-2">
                   <CheckCircle className="w-4 h-4 text-success mt-0.5" />
-                  <span>Introduce yourself and company clearly</span>
+                  <span>{ct("introduceYourselfClearly")}</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle className="w-4 h-4 text-success mt-0.5" />
-                  <span>State the purpose of your call immediately</span>
+                  <span>{ct("statePurposeImmediately")}</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle className="w-4 h-4 text-success mt-0.5" />
-                  <span>Take notes during the conversation</span>
+                  <span>{ct("takeNotesDuringConversation")}</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle className="w-4 h-4 text-success mt-0.5" />
-                  <span>Confirm key details before hanging up</span>
+                  <span>{ct("confirmKeyDetailsBeforeHangingUp")}</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle className="w-4 h-4 text-success mt-0.5" />
-                  <span>Follow up with written confirmation</span>
+                  <span>{ct("followUpWithWrittenConfirmation")}</span>
                 </li>
               </ul>
             </div>
             <div>
-              <h3 className="font-semibold mb-3 text-destructive">DON'T</h3>
+              <h3 className="font-semibold mb-3 text-destructive">{ct("dont")}</h3>
               <ul className="space-y-2 text-sm">
                 <li className="flex items-start gap-2">
                   <AlertTriangle className="w-4 h-4 text-destructive mt-0.5" />
-                  <span>Make promises you cannot keep</span>
+                  <span>{ct("makePromisesYouCannotKeep")}</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <AlertTriangle className="w-4 h-4 text-destructive mt-0.5" />
-                  <span>Commit to rates without calculation</span>
+                  <span>{ct("commitToRatesWithoutCalculation")}</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <AlertTriangle className="w-4 h-4 text-destructive mt-0.5" />
-                  <span>Speak negatively about competitors</span>
+                  <span>{ct("speakNegativelyAboutCompetitors")}</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <AlertTriangle className="w-4 h-4 text-destructive mt-0.5" />
-                  <span>Interrupt the client</span>
+                  <span>{ct("interruptTheClient")}</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <AlertTriangle className="w-4 h-4 text-destructive mt-0.5" />
-                  <span>Leave voicemails without callback time</span>
+                  <span>{ct("leaveVoicemailsWithoutCallbackTime")}</span>
                 </li>
               </ul>
             </div>
@@ -208,25 +211,25 @@ export function CommunicationChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
           <Users className="w-6 h-6 text-primary" />
-          Handling Difficult Conversations
+          {ct("handlingDifficultConversations")}
         </h2>
         <div className="grid md:grid-cols-2 gap-4">
-          <InfoCard title="Angry Client" icon={AlertTriangle} variant="warning">
+          <InfoCard title={ct("angryClient")} icon={AlertTriangle} variant="warning">
             <ol className="space-y-2 list-decimal list-inside">
-              <li><strong>Listen</strong> - Let them express frustration</li>
-              <li><strong>Acknowledge</strong> - "I understand this is frustrating"</li>
-              <li><strong>Apologize</strong> - Even if not your fault</li>
-              <li><strong>Solve</strong> - Offer concrete solutions</li>
-              <li><strong>Follow up</strong> - Ensure resolution satisfied them</li>
+              <li><strong>{ct("listen")}</strong> - {ct("letThemExpressFrustration")}</li>
+              <li><strong>{ct("acknowledge")}</strong> - {ct("iUnderstandThisIsFrustrating")}</li>
+              <li><strong>{ct("apologize")}</strong> - {ct("evenIfNotYourFault")}</li>
+              <li><strong>{ct("solve")}</strong> - {ct("offerConcreteSolutions")}</li>
+              <li><strong>{ct("followUp")}</strong> - {ct("ensureResolutionSatisfied")}</li>
             </ol>
           </InfoCard>
-          <InfoCard title="Price Negotiation" icon={Users} variant="info">
+          <InfoCard title={ct("priceNegotiation")} icon={Users} variant="info">
             <ol className="space-y-2 list-decimal list-inside">
-              <li><strong>Know your floor</strong> - Minimum acceptable rate</li>
-              <li><strong>Add value</strong> - Highlight service quality</li>
-              <li><strong>Counter-offer</strong> - Never accept first lowball</li>
-              <li><strong>Walk away</strong> - If rate is unprofitable</li>
-              <li><strong>Document</strong> - Confirm agreed rate in writing</li>
+              <li><strong>{ct("knowYourFloor")}</strong> - {ct("minimumAcceptableRate")}</li>
+              <li><strong>{ct("addValue")}</strong> - {ct("highlightServiceQuality")}</li>
+              <li><strong>{ct("counterOffer")}</strong> - {ct("neverAcceptFirstLowball")}</li>
+              <li><strong>{ct("walkAway")}</strong> - {ct("ifRateIsUnprofitable")}</li>
+              <li><strong>{ct("document")}</strong> - {ct("confirmAgreedRateInWriting")}</li>
             </ol>
           </InfoCard>
         </div>
@@ -236,42 +239,42 @@ export function CommunicationChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
           <Clock className="w-6 h-6 text-primary" />
-          Response Time Standards
+          {ct("responseTimeStandards")}
         </h2>
         <div className="overflow-x-auto">
           <table className="w-full border-collapse">
             <thead>
               <tr className="bg-muted/50">
-                <th className="p-3 text-left border border-border">Request Type</th>
-                <th className="p-3 text-left border border-border">Target Response</th>
-                <th className="p-3 text-left border border-border">Maximum</th>
+                <th className="p-3 text-left border border-border">{ct("requestType")}</th>
+                <th className="p-3 text-left border border-border">{ct("targetResponse")}</th>
+                <th className="p-3 text-left border border-border">{ct("maximum")}</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td className="p-3 border border-border">Urgent spot quote</td>
-                <td className="p-3 border border-border text-success font-semibold">15 minutes</td>
-                <td className="p-3 border border-border">30 minutes</td>
+                <td className="p-3 border border-border">{ct("urgentSpotQuote")}</td>
+                <td className="p-3 border border-border text-success font-semibold">{ct("fifteenMinutes")}</td>
+                <td className="p-3 border border-border">{ct("thirtyMinutes")}</td>
               </tr>
               <tr className="bg-muted/20">
-                <td className="p-3 border border-border">Standard quote request</td>
-                <td className="p-3 border border-border text-success font-semibold">1 hour</td>
-                <td className="p-3 border border-border">4 hours</td>
+                <td className="p-3 border border-border">{ct("standardQuoteRequest")}</td>
+                <td className="p-3 border border-border text-success font-semibold">{ct("oneHour")}</td>
+                <td className="p-3 border border-border">{ct("fourHours")}</td>
               </tr>
               <tr>
-                <td className="p-3 border border-border">Status update request</td>
-                <td className="p-3 border border-border text-success font-semibold">30 minutes</td>
-                <td className="p-3 border border-border">1 hour</td>
+                <td className="p-3 border border-border">{ct("statusUpdateRequest")}</td>
+                <td className="p-3 border border-border text-success font-semibold">{ct("thirtyMinutes")}</td>
+                <td className="p-3 border border-border">{ct("oneHour")}</td>
               </tr>
               <tr className="bg-muted/20">
-                <td className="p-3 border border-border">Complaint/Issue</td>
-                <td className="p-3 border border-border text-warning font-semibold">Immediate</td>
-                <td className="p-3 border border-border">15 minutes</td>
+                <td className="p-3 border border-border">{ct("complaintIssue")}</td>
+                <td className="p-3 border border-border text-warning font-semibold">{ct("immediate")}</td>
+                <td className="p-3 border border-border">{ct("fifteenMinutes")}</td>
               </tr>
               <tr>
-                <td className="p-3 border border-border">General inquiry</td>
-                <td className="p-3 border border-border text-info font-semibold">Same day</td>
-                <td className="p-3 border border-border">24 hours</td>
+                <td className="p-3 border border-border">{ct("generalInquiry")}</td>
+                <td className="p-3 border border-border text-info font-semibold">{ct("sameDay")}</td>
+                <td className="p-3 border border-border">{ct("twentyFourHours")}</td>
               </tr>
             </tbody>
           </table>
@@ -282,7 +285,7 @@ export function CommunicationChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
           <Users className="w-6 h-6 text-primary" />
-          Building Long-term Relationships
+          {ct("buildingLongTermRelationships")}
         </h2>
         <div className="bg-card border border-border rounded-xl p-6">
           <div className="grid md:grid-cols-3 gap-6">
@@ -290,22 +293,22 @@ export function CommunicationChapter() {
               <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
                 <CheckCircle className="w-8 h-8 text-primary" />
               </div>
-              <h3 className="font-semibold mb-2">Reliability</h3>
-              <p className="text-sm text-muted-foreground">Always deliver on promises. If you commit to a time, meet it or communicate early.</p>
+              <h3 className="font-semibold mb-2">{ct("reliability")}</h3>
+              <p className="text-sm text-muted-foreground">{ct("reliabilityDesc")}</p>
             </div>
             <div className="text-center p-4">
               <div className="w-16 h-16 rounded-full bg-info/10 flex items-center justify-center mx-auto mb-3">
                 <MessageSquare className="w-8 h-8 text-info" />
               </div>
-              <h3 className="font-semibold mb-2">Proactive Updates</h3>
-              <p className="text-sm text-muted-foreground">Don't wait for clients to ask. Send updates before they need to chase you.</p>
+              <h3 className="font-semibold mb-2">{ct("proactiveUpdates")}</h3>
+              <p className="text-sm text-muted-foreground">{ct("proactiveUpdatesDesc")}</p>
             </div>
             <div className="text-center p-4">
               <div className="w-16 h-16 rounded-full bg-success/10 flex items-center justify-center mx-auto mb-3">
                 <Users className="w-8 h-8 text-success" />
               </div>
-              <h3 className="font-semibold mb-2">Personal Touch</h3>
-              <p className="text-sm text-muted-foreground">Remember names, preferences, and past interactions. Personalization builds loyalty.</p>
+              <h3 className="font-semibold mb-2">{ct("personalTouch")}</h3>
+              <p className="text-sm text-muted-foreground">{ct("personalTouchDesc")}</p>
             </div>
           </div>
         </div>
@@ -313,7 +316,7 @@ export function CommunicationChapter() {
 
       {/* Quiz */}
       {quizzes.communication && (
-        <Quiz title="Client Communication Quiz" questions={quizzes.communication} chapterId="communication" />
+        <Quiz title={ct("quizTitle")} questions={quizzes.communication} chapterId="communication" />
       )}
     </div>
   );
