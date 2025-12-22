@@ -64,7 +64,7 @@ export function ClientsChapter() {
       <section>
         <h2 className="section-title flex items-center gap-3">
           <Phone className="w-6 h-6 text-primary" />
-          Cold Calling Framework
+          {ct("coldCallingFramework")}
         </h2>
         <div className="bg-card border border-border rounded-xl p-6">
           <div className="space-y-4">
@@ -73,8 +73,8 @@ export function ClientsChapter() {
                 <span className="font-bold text-primary text-sm">1</span>
               </div>
               <div>
-                <h4 className="font-semibold">Introduction (10 seconds)</h4>
-                <p className="text-sm text-muted-foreground italic">"Good morning, this is [Name] from [Company]. I am calling about your transport requirements for [specific route/product]."</p>
+                <h4 className="font-semibold">{ct("introduction10sec")}</h4>
+                <p className="text-sm text-muted-foreground italic">"{ct("introScript")}"</p>
               </div>
             </div>
             <div className="flex gap-4">
@@ -82,8 +82,8 @@ export function ClientsChapter() {
                 <span className="font-bold text-primary text-sm">2</span>
               </div>
               <div>
-                <h4 className="font-semibold">Value Hook (15 seconds)</h4>
-                <p className="text-sm text-muted-foreground italic">"We specialize in [route/product type] with own fleet coverage and 98% on-time delivery. Could I speak with whoever handles your logistics?"</p>
+                <h4 className="font-semibold">{ct("valueHook15sec")}</h4>
+                <p className="text-sm text-muted-foreground italic">"{ct("valueHookScript")}"</p>
               </div>
             </div>
             <div className="flex gap-4">
@@ -91,11 +91,11 @@ export function ClientsChapter() {
                 <span className="font-bold text-primary text-sm">3</span>
               </div>
               <div>
-                <h4 className="font-semibold">Discovery Questions</h4>
+                <h4 className="font-semibold">{ct("discoveryQuestions")}</h4>
                 <ul className="text-sm text-muted-foreground space-y-1">
-                  <li>• "What routes do you currently need most capacity for?"</li>
-                  <li>• "How often do you ship to [destination]?"</li>
-                  <li>• "What is most important to you - price, reliability, or flexibility?"</li>
+                  <li>• "{ct("discoveryQ1")}"</li>
+                  <li>• "{ct("discoveryQ2")}"</li>
+                  <li>• "{ct("discoveryQ3")}"</li>
                 </ul>
               </div>
             </div>
@@ -104,8 +104,8 @@ export function ClientsChapter() {
                 <span className="font-bold text-primary text-sm">4</span>
               </div>
               <div>
-                <h4 className="font-semibold">Close for Next Step</h4>
-                <p className="text-sm text-muted-foreground italic">"Could I send you our company profile and a sample quote for your [route]? What email should I use?"</p>
+                <h4 className="font-semibold">{ct("closeForNextStep")}</h4>
+                <p className="text-sm text-muted-foreground italic">"{ct("closeScript")}"</p>
               </div>
             </div>
           </div>
@@ -116,43 +116,43 @@ export function ClientsChapter() {
       <section>
         <h2 className="section-title flex items-center gap-3">
           <Mail className="w-6 h-6 text-primary" />
-          Email Templates for Prospecting
+          {ct("emailTemplatesProspecting")}
         </h2>
         <div className="grid md:grid-cols-2 gap-4">
           <div className="bg-card border border-border rounded-xl p-6">
-            <h3 className="font-semibold mb-3">Initial Contact Email</h3>
+            <h3 className="font-semibold mb-3">{ct("initialContactEmail")}</h3>
             <div className="bg-muted/30 rounded-lg p-4 text-sm font-mono">
-              <p><strong>Subject:</strong> Transport capacity [Route] - [Company]</p>
+              <p><strong>{ct("initialEmailSubject")}</strong></p>
               <br />
-              <p>Dear [Name],</p>
+              <p>{ct("initialEmailDear")}</p>
               <br />
-              <p>I noticed [Company] ships regularly to [region]. We operate dedicated capacity on this route with:</p>
+              <p>{ct("initialEmailIntro")}</p>
               <br />
-              <p>• 98% on-time delivery rate</p>
-              <p>• Real-time GPS tracking</p>
-              <p>• Flexible loading schedules</p>
+              <p>• {ct("initialEmailBullet1")}</p>
+              <p>• {ct("initialEmailBullet2")}</p>
+              <p>• {ct("initialEmailBullet3")}</p>
               <br />
-              <p>Would you have 10 minutes this week to discuss your transport needs?</p>
+              <p>{ct("initialEmailClose")}</p>
               <br />
-              <p>Best regards,<br />[Your Name]</p>
+              <p>{ct("bestRegards")}<br />{ct("yourName")}</p>
             </div>
           </div>
           <div className="bg-card border border-border rounded-xl p-6">
-            <h3 className="font-semibold mb-3">Follow-up Email</h3>
+            <h3 className="font-semibold mb-3">{ct("followUpEmail")}</h3>
             <div className="bg-muted/30 rounded-lg p-4 text-sm font-mono">
-              <p><strong>Subject:</strong> RE: Transport capacity - Quick follow-up</p>
+              <p><strong>{ct("followUpSubject")}</strong></p>
               <br />
-              <p>Dear [Name],</p>
+              <p>{ct("initialEmailDear")}</p>
               <br />
-              <p>Following up on my previous message about transport to [destination].</p>
+              <p>{ct("followUpIntro")}</p>
               <br />
-              <p>We currently have available capacity next week and could offer competitive rates for a trial shipment.</p>
+              <p>{ct("followUpBody")}</p>
               <br />
-              <p>No commitment required - just a chance to demonstrate our service quality.</p>
+              <p>{ct("followUpCommitment")}</p>
               <br />
-              <p>Would a quick 5-minute call work for you?</p>
+              <p>{ct("followUpClose")}</p>
               <br />
-              <p>Best regards,<br />[Your Name]</p>
+              <p>{ct("bestRegards")}<br />{ct("yourName")}</p>
             </div>
           </div>
         </div>
@@ -162,48 +162,48 @@ export function ClientsChapter() {
       <div className="info-card">
         <h2 className="section-title flex items-center gap-3">
           <FileText className="w-6 h-6 text-primary" />
-          Contract Best Practices
+          {ct("contractBestPractices")}
         </h2>
         <div className="grid md:grid-cols-2 gap-6 mt-4">
           <div className="space-y-3">
-            <h3 className="font-semibold">Quarterly Mini-Contracts</h3>
+            <h3 className="font-semibold">{ct("quarterlyMiniContracts")}</h3>
             <ul className="text-sm text-muted-foreground space-y-2">
               <li className="flex items-start gap-2">
                 <CheckCircle className="w-4 h-4 text-success mt-0.5" />
-                Include fuel indexation clause
+                {ct("includeFuelIndexation")}
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle className="w-4 h-4 text-success mt-0.5" />
-                Toll adjustment provisions
+                {ct("tollAdjustmentProvisions")}
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle className="w-4 h-4 text-success mt-0.5" />
-                Volume commitments with flexibility
+                {ct("volumeCommitmentsFlexibility")}
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle className="w-4 h-4 text-success mt-0.5" />
-                Clear payment terms (net 30-45 days)
+                {ct("clearPaymentTerms")}
               </li>
             </ul>
           </div>
           <div className="space-y-3">
-            <h3 className="font-semibold">Negotiation Points</h3>
+            <h3 className="font-semibold">{ct("negotiationPoints")}</h3>
             <ul className="text-sm text-muted-foreground space-y-2">
               <li className="flex items-start gap-2">
                 <Target className="w-4 h-4 text-info mt-0.5" />
-                Lead with value, not price
+                {ct("leadWithValue")}
               </li>
               <li className="flex items-start gap-2">
                 <Target className="w-4 h-4 text-info mt-0.5" />
-                Offer tracking & visibility
+                {ct("offerTracking")}
               </li>
               <li className="flex items-start gap-2">
                 <Target className="w-4 h-4 text-info mt-0.5" />
-                Highlight punctuality record
+                {ct("highlightPunctuality")}
               </li>
               <li className="flex items-start gap-2">
                 <Target className="w-4 h-4 text-info mt-0.5" />
-                Propose dedicated capacity
+                {ct("proposeDedicatedCapacity")}
               </li>
             </ul>
           </div>
@@ -214,19 +214,19 @@ export function ClientsChapter() {
       <section>
         <h2 className="section-title flex items-center gap-3">
           <Users className="w-6 h-6 text-primary" />
-          Client Segmentation Strategy
+          {ct("clientSegmentationStrategy")}
         </h2>
         <DataTable
-          headers={["Segment", "Volume", "Service Level", "Pricing Strategy", "Attention Level"]}
+          headers={[ct("segment"), ct("volume"), ct("serviceLevel"), ct("pricingStrategy"), ct("attentionLevel")]}
           rows={[
-            ["A - Strategic", "High, regular", "Premium, dedicated", "Negotiated contracts", "Daily contact"],
-            ["B - Growing", "Medium, growing", "Standard+", "Competitive rates", "Weekly reviews"],
-            ["C - Occasional", "Low, irregular", "Standard", "Market rates", "As needed"],
-            ["D - Unprofitable", "Any", "Review", "Increase or exit", "Minimal"],
+            [ct("strategicA"), ct("highRegular"), ct("premiumDedicated"), ct("negotiatedContracts"), ct("dailyContact")],
+            [ct("growingB"), ct("mediumGrowing"), ct("standardPlus"), ct("competitiveRates"), ct("weeklyReviews")],
+            [ct("occasionalC"), ct("lowIrregular"), ct("standard"), ct("marketRates"), ct("asNeeded")],
+            [ct("unprofitableD"), ct("any"), ct("review"), ct("increaseOrExit"), ct("minimal")],
           ]}
         />
         <p className="text-sm text-muted-foreground mt-4">
-          Focus 80% of your business development time on A and B clients. Review D clients quarterly for potential exit.
+          {ct("segmentationAdvice")}
         </p>
       </section>
 
@@ -234,24 +234,24 @@ export function ClientsChapter() {
       <div className="info-card">
         <h2 className="section-title flex items-center gap-3">
           <BarChart3 className="w-6 h-6 text-primary" />
-          Key Performance Indicators (KPIs)
+          {ct("keyPerformanceIndicators")}
         </h2>
         <div className="grid md:grid-cols-4 gap-4 mt-4">
           <div className="p-4 bg-success/10 rounded-lg text-center border border-success/20">
             <p className="text-2xl font-bold text-success">95%+</p>
-            <p className="text-sm text-muted-foreground">On-time delivery</p>
+            <p className="text-sm text-muted-foreground">{ct("onTimeDelivery")}</p>
           </div>
           <div className="p-4 bg-info/10 rounded-lg text-center border border-info/20">
             <p className="text-2xl font-bold text-info">&lt;1%</p>
-            <p className="text-sm text-muted-foreground">Claim rate</p>
+            <p className="text-sm text-muted-foreground">{ct("claimRate")}</p>
           </div>
           <div className="p-4 bg-warning/10 rounded-lg text-center border border-warning/20">
             <p className="text-2xl font-bold text-warning">&lt;24h</p>
-            <p className="text-sm text-muted-foreground">ePOD delivery</p>
+            <p className="text-sm text-muted-foreground">{ct("epodDelivery")}</p>
           </div>
           <div className="p-4 bg-primary/10 rounded-lg text-center border border-primary/20">
             <p className="text-2xl font-bold text-primary">4.5+</p>
-            <p className="text-sm text-muted-foreground">Customer rating</p>
+            <p className="text-sm text-muted-foreground">{ct("customerRating")}</p>
           </div>
         </div>
       </div>
@@ -260,31 +260,31 @@ export function ClientsChapter() {
       <section>
         <h2 className="section-title flex items-center gap-3">
           <TrendingUp className="w-6 h-6 text-primary" />
-          Client Retention Strategies
+          {ct("clientRetentionStrategies")}
         </h2>
         <div className="grid md:grid-cols-3 gap-4">
-          <InfoCard title="Proactive Communication" icon={Phone} variant="success">
+          <InfoCard title={ct("proactiveCommunication")} icon={Phone} variant="success">
             <ul className="space-y-2 text-sm">
-              <li>• Regular performance reviews</li>
-              <li>• Quarterly business meetings</li>
-              <li>• Early warning on issues</li>
-              <li>• Share market insights</li>
+              <li>• {ct("regularPerformanceReviews")}</li>
+              <li>• {ct("quarterlyBusinessMeetings")}</li>
+              <li>• {ct("earlyWarningIssues")}</li>
+              <li>• {ct("shareMarketInsights")}</li>
             </ul>
           </InfoCard>
-          <InfoCard title="Value-Added Services" icon={Target} variant="info">
+          <InfoCard title={ct("valueAddedServices")} icon={Target} variant="info">
             <ul className="space-y-2 text-sm">
-              <li>• Customized reporting</li>
-              <li>• Dedicated account manager</li>
-              <li>• Priority capacity access</li>
-              <li>• Integration with their systems</li>
+              <li>• {ct("customizedReporting")}</li>
+              <li>• {ct("dedicatedAccountManager")}</li>
+              <li>• {ct("priorityCapacityAccess")}</li>
+              <li>• {ct("integrationWithSystems")}</li>
             </ul>
           </InfoCard>
-          <InfoCard title="Issue Resolution" icon={AlertTriangle} variant="warning">
+          <InfoCard title={ct("issueResolution")} icon={AlertTriangle} variant="warning">
             <ul className="space-y-2 text-sm">
-              <li>• Respond within 1 hour</li>
-              <li>• Own the problem completely</li>
-              <li>• Provide solutions, not excuses</li>
-              <li>• Follow up after resolution</li>
+              <li>• {ct("respondWithin1Hour")}</li>
+              <li>• {ct("ownTheProblem")}</li>
+              <li>• {ct("provideSolutions")}</li>
+              <li>• {ct("followUpAfterResolution")}</li>
             </ul>
           </InfoCard>
         </div>
@@ -292,24 +292,24 @@ export function ClientsChapter() {
 
       {/* Client Communication */}
       <div className="highlight-card">
-        <h3 className="font-semibold mb-3">📞 Client Communication Tips</h3>
+        <h3 className="font-semibold mb-3">📞 {ct("clientCommunicationTips")}</h3>
         <div className="grid md:grid-cols-2 gap-4 text-sm">
           <div>
-            <p className="font-medium mb-2">Proactive Updates:</p>
+            <p className="font-medium mb-2">{ct("proactiveUpdates")}</p>
             <ul className="text-muted-foreground space-y-1">
-              <li>• Pickup confirmation</li>
-              <li>• Delay notifications ASAP</li>
-              <li>• Delivery ETA updates</li>
-              <li>• POD within 24 hours</li>
+              <li>• {ct("pickupConfirmation")}</li>
+              <li>• {ct("delayNotificationsASAP")}</li>
+              <li>• {ct("deliveryETAUpdates")}</li>
+              <li>• {ct("podWithin24Hours")}</li>
             </ul>
           </div>
           <div>
-            <p className="font-medium mb-2">Issue Handling:</p>
+            <p className="font-medium mb-2">{ct("issueHandling")}</p>
             <ul className="text-muted-foreground space-y-1">
-              <li>• Acknowledge immediately</li>
-              <li>• Offer solutions, not excuses</li>
-              <li>• Document everything</li>
-              <li>• Follow up on resolution</li>
+              <li>• {ct("acknowledgeImmediately")}</li>
+              <li>• {ct("offerSolutionsNotExcuses")}</li>
+              <li>• {ct("documentEverything")}</li>
+              <li>• {ct("followUpOnResolution")}</li>
             </ul>
           </div>
         </div>
@@ -319,37 +319,37 @@ export function ClientsChapter() {
       <section>
         <h2 className="section-title flex items-center gap-3">
           <AlertTriangle className="w-6 h-6 text-warning" />
-          Warning Signs - Client Risks
+          {ct("warningSignsClientRisks")}
         </h2>
         <div className="bg-warning/10 border border-warning/20 rounded-xl p-6">
           <div className="grid md:grid-cols-2 gap-6">
             <div>
-              <h3 className="font-semibold mb-3">Financial Red Flags</h3>
+              <h3 className="font-semibold mb-3">{ct("financialRedFlags")}</h3>
               <ul className="space-y-2 text-sm">
-                <li>• Consistently late payments</li>
-                <li>• Requests for extended terms</li>
-                <li>• Disputes on valid invoices</li>
-                <li>• Negative credit reports</li>
-                <li>• Bounced payments</li>
+                <li>• {ct("consistentlyLatePayments")}</li>
+                <li>• {ct("requestsExtendedTerms")}</li>
+                <li>• {ct("disputesValidInvoices")}</li>
+                <li>• {ct("negativeCreditReports")}</li>
+                <li>• {ct("bouncedPayments")}</li>
               </ul>
             </div>
             <div>
-              <h3 className="font-semibold mb-3">Operational Red Flags</h3>
+              <h3 className="font-semibold mb-3">{ct("operationalRedFlags")}</h3>
               <ul className="space-y-2 text-sm">
-                <li>• Unrealistic expectations</li>
-                <li>• Constant last-minute changes</li>
-                <li>• Blame-shifting culture</li>
-                <li>• No respect for drivers</li>
-                <li>• Excessive waiting times</li>
+                <li>• {ct("unrealisticExpectations")}</li>
+                <li>• {ct("constantLastMinuteChanges")}</li>
+                <li>• {ct("blameShiftingCulture")}</li>
+                <li>• {ct("noRespectForDrivers")}</li>
+                <li>• {ct("excessiveWaitingTimes")}</li>
               </ul>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Quiz - would need to add clients quiz to quizData */}
+      {/* Quiz */}
       {quizzes.clients && (
-        <Quiz title="Finding & Managing Clients Quiz" questions={quizzes.clients} chapterId="clients" />
+        <Quiz title={ct("quizTitle")} questions={quizzes.clients} chapterId="clients" />
       )}
     </div>
   );
