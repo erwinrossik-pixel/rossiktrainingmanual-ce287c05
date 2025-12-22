@@ -4,18 +4,20 @@ import { Quiz } from "../Quiz";
 import { quizzes } from "@/data/quizData";
 import { Euro, TrendingUp, Users, Target, MessageSquare, Mail, FileText, CheckCircle2, AlertTriangle, Clock, Briefcase, Star, Building2 } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
+import { ChapterHero } from "../ChapterHero";
 
 export function CommercialChapter() {
   const { ct } = useChapterTranslation("commercial");
   
   return (
     <div className="space-y-8 animate-fade-in">
-      <div>
-        <h1 className="chapter-title">{ct("title")}</h1>
-        <p className="text-lg text-muted-foreground">
-          {ct("subtitle")}
-        </p>
-      </div>
+      <ChapterHero
+        chapterNumber={ct('chapterNumber')}
+        title={ct('chapterTitle')}
+        description={ct('heroDescription')}
+        icon={Briefcase}
+        variant="commercial"
+      />
 
       {/* Introduction */}
       <div className="info-card bg-gradient-to-br from-primary/5 to-primary/10">

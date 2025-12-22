@@ -1,5 +1,8 @@
 export const adrTranslations = {
   en: {
+    chapterNumber: "Chapter 9",
+    chapterTitle: "ADR Transport",
+    heroDescription: "European Agreement concerning the International Carriage of Dangerous Goods by Road - classes, requirements, and documentation.",
     title: "ADR - Dangerous Goods",
     subtitle: "European Agreement concerning the International Carriage of Dangerous Goods by Road.",
     whatIsAdr: "What is ADR?",

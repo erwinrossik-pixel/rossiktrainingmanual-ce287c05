@@ -10,31 +10,20 @@ import { Checklist } from "../Checklist";
 import { Quiz } from "../Quiz";
 import { quizzes } from "@/data/quizData";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
+import { ChapterHero } from "../ChapterHero";
 
 export function LicensesOversizeChapter() {
   const { ct } = useChapterTranslation('licenses-oversize');
 
   return (
     <div className="space-y-10">
-      {/* Hero Section */}
-      <div className="hero-section text-primary-foreground">
-        <div className="relative z-10">
-          <div className="flex items-center gap-4 mb-6">
-            <div className="w-20 h-20 rounded-2xl bg-white/25 backdrop-blur-sm flex items-center justify-center shadow-lg">
-              <Award className="w-10 h-10" />
-            </div>
-            <div>
-              <p className="text-white/80 text-sm font-semibold uppercase tracking-widest mb-2">{ct('chapterNumber')}</p>
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold leading-none">
-                {ct('chapterTitle')}
-              </h1>
-            </div>
-          </div>
-          <p className="text-xl md:text-2xl text-white/90 max-w-4xl leading-relaxed font-medium mt-6">
-            {ct('heroDescription')}
-          </p>
-        </div>
-      </div>
+      <ChapterHero
+        chapterNumber={ct('chapterNumber')}
+        title={ct('chapterTitle')}
+        description={ct('heroDescription')}
+        icon={Award}
+        variant="licenses"
+      />
 
       {/* Section 1: Introduction to Transport Licenses */}
       <section className="content-section">

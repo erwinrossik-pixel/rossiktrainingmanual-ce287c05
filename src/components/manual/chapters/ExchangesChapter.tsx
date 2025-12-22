@@ -5,18 +5,20 @@ import { quizzes } from "@/data/quizData";
 import { Globe, Shield, MessageSquare, Search, Star, CreditCard } from "lucide-react";
 import { Badge } from "../Badge";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
+import { ChapterHero } from "../ChapterHero";
 
 export function ExchangesChapter() {
   const { ct } = useChapterTranslation("exchanges");
   
   return (
     <div className="space-y-8 animate-fade-in">
-      <div>
-        <h1 className="chapter-title">{ct("title")}</h1>
-        <p className="text-lg text-muted-foreground">
-          {ct("subtitle")}
-        </p>
-      </div>
+      <ChapterHero
+        chapterNumber={ct('chapterNumber')}
+        title={ct('chapterTitle')}
+        description={ct('heroDescription')}
+        icon={Globe}
+        variant="exchanges"
+      />
 
       {/* Main Exchanges */}
       <div className="grid md:grid-cols-2 gap-6">
