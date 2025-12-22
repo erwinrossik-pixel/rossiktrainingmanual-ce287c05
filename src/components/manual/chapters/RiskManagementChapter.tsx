@@ -5,18 +5,20 @@ import { Quiz } from "../Quiz";
 import { quizzes } from "@/data/quizData";
 import { Shield, AlertTriangle, CheckCircle2, XCircle, Eye, TrendingUp, FileText, Scale, Users, Zap, Target, Lock } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
+import { ChapterHero } from "../ChapterHero";
 
 export function RiskManagementChapter() {
   const { ct } = useChapterTranslation("risk-management");
   
   return (
     <div className="space-y-8 animate-fade-in">
-      <div>
-        <h1 className="chapter-title">{ct("title")}</h1>
-        <p className="text-lg text-muted-foreground">
-          {ct("subtitle")}
-        </p>
-      </div>
+      <ChapterHero
+        chapterNumber={ct('chapterNumber')}
+        title={ct('chapterTitle')}
+        description={ct('heroDescription')}
+        icon={Shield}
+        variant="risk"
+      />
 
       {/* Introduction */}
       <div className="info-card bg-gradient-to-br from-primary/5 to-primary/10">

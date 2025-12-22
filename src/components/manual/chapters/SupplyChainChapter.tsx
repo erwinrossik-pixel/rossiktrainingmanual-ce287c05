@@ -4,18 +4,20 @@ import { Quiz } from "../Quiz";
 import { quizzes } from "@/data/quizData";
 import { Link, Factory, Truck, Package, BarChart3, Users, Globe, TrendingUp, CheckCircle2, AlertTriangle, ArrowRight, Zap, Target } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
+import { ChapterHero } from "../ChapterHero";
 
 export function SupplyChainChapter() {
   const { ct } = useChapterTranslation("supply-chain");
   
   return (
     <div className="space-y-8 animate-fade-in">
-      <div>
-        <h1 className="chapter-title">{ct("title")}</h1>
-        <p className="text-lg text-muted-foreground">
-          {ct("subtitle")}
-        </p>
-      </div>
+      <ChapterHero
+        chapterNumber={ct('chapterNumber')}
+        title={ct('chapterTitle')}
+        description={ct('heroDescription')}
+        icon={Link}
+        variant="supplychain"
+      />
 
       {/* Introduction */}
       <div className="info-card bg-gradient-to-br from-primary/5 to-primary/10">

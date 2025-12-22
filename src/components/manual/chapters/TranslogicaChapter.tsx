@@ -6,18 +6,20 @@ import {
   BarChart3, Settings, Link, CheckCircle2
 } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
+import { ChapterHero } from "../ChapterHero";
 
 export function TranslogicaChapter() {
   const { ct } = useChapterTranslation("translogica");
   
   return (
     <div className="space-y-8 animate-fade-in">
-      <div>
-        <h1 className="chapter-title">{ct("title")}</h1>
-        <p className="text-lg text-muted-foreground">
-          {ct("subtitle")}
-        </p>
-      </div>
+      <ChapterHero
+        chapterNumber={ct('chapterNumber')}
+        title={ct('chapterTitle')}
+        description={ct('heroDescription')}
+        icon={Monitor}
+        variant="translogica"
+      />
 
       {/* Quick Start */}
       <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-sidebar to-sidebar/80 p-8 text-sidebar-foreground">
