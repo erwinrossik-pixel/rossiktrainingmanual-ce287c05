@@ -3,14 +3,17 @@ import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { quizzes } from "@/data/quizData";
 import { Brain, MessageSquare, Clock, Users, Target, Lightbulb, Heart, Shield, Zap, CheckCircle2, AlertTriangle, Volume2, Ear, PenTool } from "lucide-react";
+import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 
 export function SoftSkillsChapter() {
+  const { ct } = useChapterTranslation("softskills");
+  
   return (
     <div className="space-y-8 animate-fade-in">
       <div>
-        <h1 className="chapter-title">Soft Skills for Logistics</h1>
+        <h1 className="chapter-title">{ct("title")}</h1>
         <p className="text-lg text-muted-foreground">
-          Essential interpersonal and professional skills for success in freight forwarding: communication, negotiation, stress management, and problem-solving.
+          {ct("subtitle")}
         </p>
       </div>
 
@@ -18,31 +21,31 @@ export function SoftSkillsChapter() {
       <div className="info-card bg-gradient-to-br from-primary/5 to-primary/10">
         <h2 className="section-title flex items-center gap-3">
           <Brain className="w-6 h-6 text-primary" />
-          Why Soft Skills Matter in Logistics
+          {ct("whyMatter")}
         </h2>
         <p className="text-muted-foreground mb-4">
-          Technical knowledge gets you started, but soft skills determine your career success. In freight forwarding, you work with diverse stakeholders under pressure - your ability to communicate, negotiate, and solve problems efficiently makes all the difference.
+          {ct("whyMatterDesc")}
         </p>
         <div className="grid md:grid-cols-4 gap-4">
           <div className="bg-background p-4 rounded-lg text-center">
             <MessageSquare className="w-8 h-8 text-primary mx-auto mb-2" />
-            <p className="text-sm font-medium">Communication</p>
-            <p className="text-xs text-muted-foreground">Clear & professional</p>
+            <p className="text-sm font-medium">{ct("communication")}</p>
+            <p className="text-xs text-muted-foreground">{ct("clearProfessional")}</p>
           </div>
           <div className="bg-background p-4 rounded-lg text-center">
             <Users className="w-8 h-8 text-primary mx-auto mb-2" />
-            <p className="text-sm font-medium">Negotiation</p>
-            <p className="text-xs text-muted-foreground">Win-win solutions</p>
+            <p className="text-sm font-medium">{ct("negotiation")}</p>
+            <p className="text-xs text-muted-foreground">{ct("winWin")}</p>
           </div>
           <div className="bg-background p-4 rounded-lg text-center">
             <Heart className="w-8 h-8 text-primary mx-auto mb-2" />
-            <p className="text-sm font-medium">Stress Management</p>
-            <p className="text-xs text-muted-foreground">Stay calm under pressure</p>
+            <p className="text-sm font-medium">{ct("stressManagement")}</p>
+            <p className="text-xs text-muted-foreground">{ct("stayCalmPressure")}</p>
           </div>
           <div className="bg-background p-4 rounded-lg text-center">
             <Lightbulb className="w-8 h-8 text-primary mx-auto mb-2" />
-            <p className="text-sm font-medium">Problem Solving</p>
-            <p className="text-xs text-muted-foreground">Solutions-oriented</p>
+            <p className="text-sm font-medium">{ct("problemSolving")}</p>
+            <p className="text-xs text-muted-foreground">{ct("solutionsOriented")}</p>
           </div>
         </div>
       </div>
@@ -51,63 +54,63 @@ export function SoftSkillsChapter() {
       <div className="info-card">
         <h2 className="section-title flex items-center gap-3">
           <MessageSquare className="w-6 h-6 text-primary" />
-          Professional Communication
+          {ct("professionalCommunication")}
         </h2>
 
         <div className="grid md:grid-cols-2 gap-6 mb-6">
           <div>
             <h3 className="font-semibold mb-3 flex items-center gap-2">
               <Volume2 className="w-4 h-4 text-primary" />
-              Verbal Communication
+              {ct("verbalCommunication")}
             </h3>
             <ul className="space-y-2 text-sm">
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-success mt-0.5" />
-                <span><strong>Be clear:</strong> Use simple, direct language</span>
+                <span><strong>{ct("beClear")}</strong> {ct("useSimple")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-success mt-0.5" />
-                <span><strong>Be concise:</strong> Get to the point quickly</span>
+                <span><strong>{ct("beConcise")}</strong> {ct("getToPoint")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-success mt-0.5" />
-                <span><strong>Confirm understanding:</strong> Repeat key details back</span>
+                <span><strong>{ct("confirmUnderstanding")}</strong> {ct("repeatKey")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-success mt-0.5" />
-                <span><strong>Stay professional:</strong> Even under stress</span>
+                <span><strong>{ct("stayProfessional")}</strong> {ct("evenUnderStress")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-success mt-0.5" />
-                <span><strong>Adapt tone:</strong> Match the situation and audience</span>
+                <span><strong>{ct("adaptTone")}</strong> {ct("matchSituation")}</span>
               </li>
             </ul>
           </div>
           <div>
             <h3 className="font-semibold mb-3 flex items-center gap-2">
               <PenTool className="w-4 h-4 text-primary" />
-              Written Communication
+              {ct("writtenCommunication")}
             </h3>
             <ul className="space-y-2 text-sm">
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-success mt-0.5" />
-                <span><strong>Structure:</strong> Clear subject lines, organized content</span>
+                <span><strong>{ct("structure")}</strong> {ct("clearSubject")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-success mt-0.5" />
-                <span><strong>Grammar:</strong> Proofread before sending</span>
+                <span><strong>{ct("grammar")}</strong> {ct("proofread")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-success mt-0.5" />
-                <span><strong>Completeness:</strong> Include all relevant information</span>
+                <span><strong>{ct("completeness")}</strong> {ct("includeRelevant")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-success mt-0.5" />
-                <span><strong>Documentation:</strong> Keep written records of agreements</span>
+                <span><strong>{ct("documentation")}</strong> {ct("keepWritten")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-success mt-0.5" />
-                <span><strong>Timeliness:</strong> Respond promptly</span>
+                <span><strong>{ct("timeliness")}</strong> {ct("respondPromptly")}</span>
               </li>
             </ul>
           </div>
@@ -116,27 +119,27 @@ export function SoftSkillsChapter() {
         <div className="bg-muted/50 p-4 rounded-lg">
           <h4 className="font-semibold mb-2 flex items-center gap-2">
             <Ear className="w-4 h-4" />
-            Active Listening
+            {ct("activeListening")}
           </h4>
           <p className="text-sm text-muted-foreground mb-3">
-            Listening is as important as speaking. In logistics, miscommunication causes delays, costs, and lost business.
+            {ct("listeningImportant")}
           </p>
           <div className="grid md:grid-cols-4 gap-3 text-sm">
             <div className="bg-background p-3 rounded">
-              <p className="font-medium text-primary">1. Focus</p>
-              <p className="text-xs text-muted-foreground">Give full attention, no multitasking</p>
+              <p className="font-medium text-primary">1. {ct("focus")}</p>
+              <p className="text-xs text-muted-foreground">{ct("fullAttention")}</p>
             </div>
             <div className="bg-background p-3 rounded">
-              <p className="font-medium text-primary">2. Don't Interrupt</p>
-              <p className="text-xs text-muted-foreground">Let them finish speaking</p>
+              <p className="font-medium text-primary">2. {ct("dontInterrupt")}</p>
+              <p className="text-xs text-muted-foreground">{ct("letFinish")}</p>
             </div>
             <div className="bg-background p-3 rounded">
-              <p className="font-medium text-primary">3. Clarify</p>
-              <p className="text-xs text-muted-foreground">Ask questions to understand</p>
+              <p className="font-medium text-primary">3. {ct("clarify")}</p>
+              <p className="text-xs text-muted-foreground">{ct("askQuestions")}</p>
             </div>
             <div className="bg-background p-3 rounded">
-              <p className="font-medium text-primary">4. Confirm</p>
-              <p className="text-xs text-muted-foreground">Summarize what you heard</p>
+              <p className="font-medium text-primary">4. {ct("confirm")}</p>
+              <p className="text-xs text-muted-foreground">{ct("summarize")}</p>
             </div>
           </div>
         </div>
@@ -146,44 +149,44 @@ export function SoftSkillsChapter() {
       <div className="info-card">
         <h2 className="section-title flex items-center gap-3">
           <Users className="w-6 h-6 text-primary" />
-          Negotiation Skills
+          {ct("negotiationSkills")}
         </h2>
 
         <p className="text-muted-foreground mb-4">
-          Freight forwarders negotiate daily - with carriers on rates, with clients on prices, and with partners on terms. Effective negotiation creates value for all parties.
+          {ct("negotiateDaily")}
         </p>
 
         <DataTable
-          headers={["Principle", "Description", "Application"]}
+          headers={[ct("principle"), ct("description"), ct("application")]}
           rows={[
-            ["Preparation", "Know your position, limits, and alternatives before negotiating", "Research market rates, calculate your minimum margin"],
-            ["Win-Win Focus", "Seek outcomes that benefit both parties", "Find creative solutions beyond just price"],
-            ["BATNA", "Know your Best Alternative To Negotiated Agreement", "Have backup carriers/options ready"],
-            ["Listen First", "Understand the other party's needs and constraints", "Ask about their priorities before presenting yours"],
-            ["Separate People from Problem", "Focus on interests, not positions", "\"I understand your cost pressure\" vs. \"Your price is too high\""],
-            ["Use Objective Criteria", "Base arguments on facts and market data", "\"Market rates for this lane are €X-Y\""],
+            [ct("preparation"), ct("prepDesc"), ct("prepApp")],
+            [ct("winWinFocus"), ct("winWinDesc"), ct("winWinApp")],
+            [ct("batna"), ct("batnaDesc"), ct("batnaApp")],
+            [ct("listenFirst"), ct("listenDesc"), ct("listenApp")],
+            [ct("separatePeople"), ct("separateDesc"), ct("separateApp")],
+            [ct("objectiveCriteria"), ct("objectiveDesc"), ct("objectiveApp")],
           ]}
         />
 
         <div className="grid md:grid-cols-2 gap-4 mt-6">
           <div className="bg-success/10 border border-success/30 p-4 rounded-lg">
-            <h4 className="font-semibold text-success mb-2">Effective Negotiation Phrases</h4>
+            <h4 className="font-semibold text-success mb-2">{ct("effectivePhrases")}</h4>
             <ul className="text-sm space-y-1">
-              <li>• "Help me understand your position..."</li>
-              <li>• "What if we could find a way to..."</li>
-              <li>• "Based on market data, we see..."</li>
-              <li>• "I understand your concern about..."</li>
-              <li>• "What would make this work for you?"</li>
+              <li>• "{ct("helpUnderstand")}"</li>
+              <li>• "{ct("whatIfWe")}"</li>
+              <li>• "{ct("basedOnData")}"</li>
+              <li>• "{ct("understandConcern")}"</li>
+              <li>• "{ct("whatWouldMake")}"</li>
             </ul>
           </div>
           <div className="bg-destructive/10 border border-destructive/30 p-4 rounded-lg">
-            <h4 className="font-semibold text-destructive mb-2">Avoid These Tactics</h4>
+            <h4 className="font-semibold text-destructive mb-2">{ct("avoidTactics")}</h4>
             <ul className="text-sm space-y-1">
-              <li>• Ultimatums ("Take it or leave it")</li>
-              <li>• Emotional manipulation</li>
-              <li>• Dishonest claims about competitors</li>
-              <li>• Personal attacks</li>
-              <li>• Last-minute price changes</li>
+              <li>• {ct("ultimatums")}</li>
+              <li>• {ct("emotionalManipulation")}</li>
+              <li>• {ct("dishonestClaims")}</li>
+              <li>• {ct("personalAttacks")}</li>
+              <li>• {ct("lastMinute")}</li>
             </ul>
           </div>
         </div>
@@ -193,66 +196,66 @@ export function SoftSkillsChapter() {
       <div className="info-card">
         <h2 className="section-title flex items-center gap-3">
           <Heart className="w-6 h-6 text-primary" />
-          Stress Management
+          {ct("stressManagementTitle")}
         </h2>
 
         <p className="text-muted-foreground mb-4">
-          Freight forwarding is inherently stressful - tight deadlines, multiple demands, and things going wrong. Managing stress is essential for sustained performance and wellbeing.
+          {ct("inherentlyStressful")}
         </p>
 
         <div className="grid md:grid-cols-3 gap-4 mb-6">
-          <InfoCard title="Common Stressors" icon={AlertTriangle}>
+          <InfoCard title={ct("commonStressors")} icon={AlertTriangle}>
             <ul className="text-sm space-y-1">
-              <li>• Urgent client demands</li>
-              <li>• Transport delays and issues</li>
-              <li>• Multiple priorities competing</li>
-              <li>• Difficult conversations</li>
-              <li>• Information overload</li>
-              <li>• Long hours during peaks</li>
+              <li>• {ct("urgentDemands")}</li>
+              <li>• {ct("transportDelays")}</li>
+              <li>• {ct("multiplePriorities")}</li>
+              <li>• {ct("difficultConversations")}</li>
+              <li>• {ct("infoOverload")}</li>
+              <li>• {ct("longHours")}</li>
             </ul>
           </InfoCard>
           
-          <InfoCard title="Warning Signs" icon={AlertTriangle}>
+          <InfoCard title={ct("warningSigns")} icon={AlertTriangle}>
             <ul className="text-sm space-y-1">
-              <li>• Irritability, short temper</li>
-              <li>• Difficulty concentrating</li>
-              <li>• Making more mistakes</li>
-              <li>• Physical symptoms (headaches)</li>
-              <li>• Sleep problems</li>
-              <li>• Dreading work</li>
+              <li>• {ct("irritability")}</li>
+              <li>• {ct("difficultyConcentrating")}</li>
+              <li>• {ct("makingMistakes")}</li>
+              <li>• {ct("physicalSymptoms")}</li>
+              <li>• {ct("sleepProblems")}</li>
+              <li>• {ct("dreadingWork")}</li>
             </ul>
           </InfoCard>
           
-          <InfoCard title="Healthy Responses" icon={Shield}>
+          <InfoCard title={ct("healthyResponses")} icon={Shield}>
             <ul className="text-sm space-y-1">
-              <li>• Take short breaks</li>
-              <li>• Prioritize tasks ruthlessly</li>
-              <li>• Ask for help when needed</li>
-              <li>• Maintain perspective</li>
-              <li>• Physical exercise</li>
-              <li>• Set boundaries</li>
+              <li>• {ct("takeBreaks")}</li>
+              <li>• {ct("prioritizeTasks")}</li>
+              <li>• {ct("askHelp")}</li>
+              <li>• {ct("maintainPerspective")}</li>
+              <li>• {ct("physicalExercise")}</li>
+              <li>• {ct("setBoundaries")}</li>
             </ul>
           </InfoCard>
         </div>
 
         <div className="bg-primary/5 border border-primary/20 p-4 rounded-lg">
-          <h4 className="font-semibold mb-2">In-the-Moment Stress Techniques</h4>
+          <h4 className="font-semibold mb-2">{ct("inMomentTechniques")}</h4>
           <div className="grid md:grid-cols-4 gap-3 text-sm">
             <div>
-              <p className="font-medium">Deep Breathing</p>
-              <p className="text-xs text-muted-foreground">4 seconds in, 4 hold, 4 out</p>
+              <p className="font-medium">{ct("deepBreathing")}</p>
+              <p className="text-xs text-muted-foreground">{ct("deepBreathingDesc")}</p>
             </div>
             <div>
-              <p className="font-medium">Step Away</p>
-              <p className="text-xs text-muted-foreground">2-minute break, get water</p>
+              <p className="font-medium">{ct("stepAway")}</p>
+              <p className="text-xs text-muted-foreground">{ct("stepAwayDesc")}</p>
             </div>
             <div>
-              <p className="font-medium">Write It Down</p>
-              <p className="text-xs text-muted-foreground">List tasks, clear your head</p>
+              <p className="font-medium">{ct("writeItDown")}</p>
+              <p className="text-xs text-muted-foreground">{ct("writeDesc")}</p>
             </div>
             <div>
-              <p className="font-medium">Ask for Help</p>
-              <p className="text-xs text-muted-foreground">It's strength, not weakness</p>
+              <p className="font-medium">{ct("askForHelp")}</p>
+              <p className="text-xs text-muted-foreground">{ct("askHelpDesc")}</p>
             </div>
           </div>
         </div>
@@ -262,49 +265,49 @@ export function SoftSkillsChapter() {
       <div className="info-card">
         <h2 className="section-title flex items-center gap-3">
           <Lightbulb className="w-6 h-6 text-primary" />
-          Problem-Solving Mindset
+          {ct("problemSolvingMindset")}
         </h2>
 
         <p className="text-muted-foreground mb-4">
-          Problems are opportunities to demonstrate value. Clients remember how you solved their problems more than they remember perfect shipments.
+          {ct("problemsOpportunities")}
         </p>
 
         <div className="bg-muted/50 p-6 rounded-lg mb-6">
-          <h3 className="font-semibold mb-4">5-Step Problem-Solving Process</h3>
+          <h3 className="font-semibold mb-4">{ct("fiveStepProcess")}</h3>
           <div className="space-y-4">
             <div className="flex items-start gap-4">
               <span className="w-8 h-8 bg-primary text-primary-foreground rounded-full flex items-center justify-center font-bold flex-shrink-0">1</span>
               <div>
-                <p className="font-medium">Define the Problem</p>
-                <p className="text-sm text-muted-foreground">What exactly is wrong? What are the facts?</p>
+                <p className="font-medium">{ct("defineProblem")}</p>
+                <p className="text-sm text-muted-foreground">{ct("defineDesc")}</p>
               </div>
             </div>
             <div className="flex items-start gap-4">
               <span className="w-8 h-8 bg-primary text-primary-foreground rounded-full flex items-center justify-center font-bold flex-shrink-0">2</span>
               <div>
-                <p className="font-medium">Identify Root Cause</p>
-                <p className="text-sm text-muted-foreground">Why did this happen? Ask "why" 5 times.</p>
+                <p className="font-medium">{ct("identifyRoot")}</p>
+                <p className="text-sm text-muted-foreground">{ct("identifyDesc")}</p>
               </div>
             </div>
             <div className="flex items-start gap-4">
               <span className="w-8 h-8 bg-primary text-primary-foreground rounded-full flex items-center justify-center font-bold flex-shrink-0">3</span>
               <div>
-                <p className="font-medium">Generate Options</p>
-                <p className="text-sm text-muted-foreground">What are possible solutions? Brainstorm without judging.</p>
+                <p className="font-medium">{ct("generateOptions")}</p>
+                <p className="text-sm text-muted-foreground">{ct("generateDesc")}</p>
               </div>
             </div>
             <div className="flex items-start gap-4">
               <span className="w-8 h-8 bg-primary text-primary-foreground rounded-full flex items-center justify-center font-bold flex-shrink-0">4</span>
               <div>
-                <p className="font-medium">Evaluate & Decide</p>
-                <p className="text-sm text-muted-foreground">Which option best balances speed, cost, and effectiveness?</p>
+                <p className="font-medium">{ct("evaluateDecide")}</p>
+                <p className="text-sm text-muted-foreground">{ct("evaluateDesc")}</p>
               </div>
             </div>
             <div className="flex items-start gap-4">
               <span className="w-8 h-8 bg-primary text-primary-foreground rounded-full flex items-center justify-center font-bold flex-shrink-0">5</span>
               <div>
-                <p className="font-medium">Implement & Follow Up</p>
-                <p className="text-sm text-muted-foreground">Execute the solution, verify it worked, prevent recurrence.</p>
+                <p className="font-medium">{ct("implementFollowUp")}</p>
+                <p className="text-sm text-muted-foreground">{ct("implementDesc")}</p>
               </div>
             </div>
           </div>
@@ -312,21 +315,21 @@ export function SoftSkillsChapter() {
 
         <div className="grid md:grid-cols-2 gap-4">
           <div className="bg-success/10 p-4 rounded-lg">
-            <h4 className="font-semibold text-success mb-2">Solutions-Oriented Mindset</h4>
+            <h4 className="font-semibold text-success mb-2">{ct("solutionsMindset")}</h4>
             <ul className="text-sm space-y-1">
-              <li>• "Here's what we can do..."</li>
-              <li>• "I have three options for you..."</li>
-              <li>• "To solve this, I recommend..."</li>
-              <li>• "This is recoverable, here's how..."</li>
+              <li>• "{ct("hereIsWhatWeCan")}"</li>
+              <li>• "{ct("threeOptions")}"</li>
+              <li>• "{ct("toSolveRecommend")}"</li>
+              <li>• "{ct("recoverableHereHow")}"</li>
             </ul>
           </div>
           <div className="bg-destructive/10 p-4 rounded-lg">
-            <h4 className="font-semibold text-destructive mb-2">Avoid Problem-Focused Language</h4>
+            <h4 className="font-semibold text-destructive mb-2">{ct("avoidProblemFocused")}</h4>
             <ul className="text-sm space-y-1">
-              <li>• "This is impossible..."</li>
-              <li>• "It's not my fault..."</li>
-              <li>• "We can't do anything..."</li>
-              <li>• "That's the carrier's problem..."</li>
+              <li>• "{ct("impossible")}"</li>
+              <li>• "{ct("notMyFault")}"</li>
+              <li>• "{ct("cantDoAnything")}"</li>
+              <li>• "{ct("carriersProblem")}"</li>
             </ul>
           </div>
         </div>
@@ -336,28 +339,28 @@ export function SoftSkillsChapter() {
       <div className="info-card">
         <h2 className="section-title flex items-center gap-3">
           <Clock className="w-6 h-6 text-primary" />
-          Time Management & Prioritization
+          {ct("timeManagement")}
         </h2>
 
         <p className="text-muted-foreground mb-4">
-          In freight forwarding, everything seems urgent. Effective prioritization separates high performers from those drowning in tasks.
+          {ct("everythingUrgent")}
         </p>
 
         <DataTable
-          headers={["Priority Matrix", "Urgent", "Not Urgent"]}
+          headers={[ct("priorityMatrix"), ct("urgent"), ct("notUrgent")]}
           rows={[
-            ["Important", "DO FIRST: Delivery problems, client escalations, immediate deadlines", "SCHEDULE: Business development, training, process improvement"],
-            ["Not Important", "DELEGATE: Routine admin, simple queries others can handle", "ELIMINATE: Unnecessary meetings, excessive email checking, low-value tasks"],
+            [ct("important"), ct("doFirst"), ct("schedule")],
+            [ct("notImportant"), ct("delegate"), ct("eliminate")],
           ]}
         />
 
         <div className="grid md:grid-cols-2 gap-4 mt-6">
           <div>
-            <h4 className="font-semibold mb-2">Daily Prioritization Habits</h4>
+            <h4 className="font-semibold mb-2">{ct("dailyHabits")}</h4>
             <ul className="text-sm space-y-2">
               <li className="flex items-start gap-2">
                 <Zap className="w-4 h-4 text-primary mt-0.5" />
-                <span><strong>Morning review:</strong> Check today's pickups/deliveries first</span>
+                <span><strong>{ct("morningReview")}</strong> {ct("checkTodaysPickups")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <Zap className="w-4 h-4 text-primary mt-0.5" />
@@ -401,7 +404,7 @@ export function SoftSkillsChapter() {
       <div className="info-card">
         <h2 className="section-title flex items-center gap-3">
           <Target className="w-6 h-6 text-primary" />
-          Proactive Mindset
+          {ct("proactiveMindset")}
         </h2>
 
         <div className="bg-primary/5 border border-primary/20 p-6 rounded-lg">
