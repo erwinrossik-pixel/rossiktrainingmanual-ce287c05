@@ -1,5 +1,8 @@
 export const glossaryTranslations: Record<string, Record<string, string>> = {
   en: {
+    chapterNumber: "Chapter 40",
+    chapterTitle: "Glossary",
+    heroDescription: "Comprehensive glossary of freight forwarding and logistics terminology. Essential reference for understanding industry-specific terms and concepts.",
     title: "Transport Glossary",
     subtitle: "Key terms and definitions used in freight forwarding and logistics.",
     searchPlaceholder: "Search terms...",
@@ -20,6 +23,9 @@ export const glossaryTranslations: Record<string, Record<string, string>> = {
     termsCount: "terms",
   },
   ro: {
+    chapterNumber: "Capitolul 40",
+    chapterTitle: "Glosar",
+    heroDescription: "Glosar complet de terminologie expediție și logistică. Referință esențială pentru înțelegerea termenilor și conceptelor specifice industriei.",
     title: "Glosar Transport",
     subtitle: "Termeni cheie și definiții folosite în expediție și logistică.",
     searchPlaceholder: "Caută termeni...",
@@ -40,6 +46,9 @@ export const glossaryTranslations: Record<string, Record<string, string>> = {
     termsCount: "termeni",
   },
   de: {
+    chapterNumber: "Kapitel 40",
+    chapterTitle: "Glossar",
+    heroDescription: "Umfassendes Glossar der Speditions- und Logistikterminologie. Wesentliche Referenz zum Verständnis branchenspezifischer Begriffe und Konzepte.",
     title: "Transport-Glossar",
     subtitle: "Wichtige Begriffe und Definitionen in Spedition und Logistik.",
     searchPlaceholder: "Begriffe suchen...",

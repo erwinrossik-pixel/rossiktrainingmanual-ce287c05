@@ -1,5 +1,8 @@
 export const trainingTranslations: Record<string, Record<string, string>> = {
   en: {
+    chapterNumber: "Chapter 38",
+    chapterTitle: "Training",
+    heroDescription: "Practical training exercises and assignments to apply your freight forwarding knowledge. Hands-on learning through real-world scenarios.",
     title: "Training Assignments",
     subtitle: "Practical exercises to apply your knowledge.",
     exerciseA: "Quotation Exercise",
@@ -39,6 +42,9 @@ export const trainingTranslations: Record<string, Record<string, string>> = {
     problemSolvingApproach: "Problem-solving approach",
   },
   ro: {
+    chapterNumber: "Capitolul 38",
+    chapterTitle: "Training",
+    heroDescription: "Exerciții practice de training și sarcini pentru aplicarea cunoștințelor de expediție. Învățare practică prin scenarii din lumea reală.",
     title: "Exerciții de Instruire",
     subtitle: "Exerciții practice pentru aplicarea cunoștințelor.",
     exerciseA: "Exercițiu de Cotare",
@@ -78,6 +84,9 @@ export const trainingTranslations: Record<string, Record<string, string>> = {
     problemSolvingApproach: "Abordarea rezolvării problemelor",
   },
   de: {
+    chapterNumber: "Kapitel 38",
+    chapterTitle: "Schulung",
+    heroDescription: "Praktische Schulungsübungen und Aufgaben zur Anwendung Ihres Speditionswissens. Praxisnahes Lernen durch reale Szenarien.",
     title: "Schulungsaufgaben",
     subtitle: "Praktische Übungen zur Anwendung Ihres Wissens.",
     exerciseA: "Angebotsübung",

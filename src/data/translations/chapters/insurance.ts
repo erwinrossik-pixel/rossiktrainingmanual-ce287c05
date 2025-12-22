@@ -1,5 +1,8 @@
 export const insuranceTranslations = {
   en: {
+    chapterNumber: "Chapter 17",
+    chapterTitle: "Insurance",
+    heroDescription: "Comprehensive guide to CMR liability, cargo insurance, and risk protection. Understand the coverage gap and when to recommend additional insurance.",
     title: "Transport Insurance",
     subtitle: "Understanding CMR liability, cargo insurance, and risk protection in freight forwarding.",
     typesOfTransportInsurance: "Types of Transport Insurance",
@@ -97,6 +100,9 @@ export const insuranceTranslations = {
     quizTitle: "Transport Insurance Quiz",
   },
   de: {
+    chapterNumber: "Kapitel 17",
+    chapterTitle: "Versicherung",
+    heroDescription: "Umfassender Leitfaden zu CMR-Haftung, Frachtversicherung und Risikoschutz. Verstehen Sie die Deckungslücke und wann zusätzliche Versicherung zu empfehlen ist.",
     title: "Transportversicherung",
     subtitle: "Verständnis von CMR-Haftung, Frachtversicherung und Risikoschutz in der Spedition.",
     typesOfTransportInsurance: "Arten von Transportversicherungen",
@@ -194,6 +200,9 @@ export const insuranceTranslations = {
     quizTitle: "Quiz Transportversicherung",
   },
   ro: {
+    chapterNumber: "Capitolul 17",
+    chapterTitle: "Asigurare",
+    heroDescription: "Ghid complet pentru răspunderea CMR, asigurarea mărfii și protecția riscurilor. Înțelege decalajul de acoperire și când să recomanzi asigurare suplimentară.",
     title: "Asigurare de Transport",
     subtitle: "Înțelegerea răspunderii CMR, asigurării de marfă și protecției riscurilor în expediția de marfă.",
     typesOfTransportInsurance: "Tipuri de Asigurare de Transport",

@@ -1,5 +1,8 @@
 export const europeZonesTranslations: Record<string, Record<string, string>> = {
   en: {
+    chapterNumber: "Chapter 16",
+    chapterTitle: "Europe Zones",
+    heroDescription: "Regional characteristics, market dynamics, and operational considerations for transport across European economic zones. Essential market knowledge.",
     title: "European Transport Zones",
     subtitle: "Regional characteristics, market dynamics, and operational considerations for transport across European economic zones.",
     marketOverviewTitle: "European Transport Market Overview",
@@ -182,6 +185,9 @@ export const europeZonesTranslations: Record<string, Record<string, string>> = {
     quizTitle: "European Transport Zones Quiz",
   },
   ro: {
+    chapterNumber: "Capitolul 16",
+    chapterTitle: "Zone Europa",
+    heroDescription: "Caracteristici regionale, dinamica pieței și considerații operaționale pentru transportul în zonele economice europene. Cunoștințe esențiale de piață.",
     title: "Zone Europene de Transport",
     subtitle: "Caracteristici regionale, dinamica pieței și considerații operaționale pentru transportul în zonele economice europene.",
     marketOverviewTitle: "Prezentare Generală a Pieței de Transport European",
@@ -364,6 +370,9 @@ export const europeZonesTranslations: Record<string, Record<string, string>> = {
     quizTitle: "Test Zone Europene de Transport",
   },
   de: {
+    chapterNumber: "Kapitel 16",
+    chapterTitle: "Europa-Zonen",
+    heroDescription: "Regionale Merkmale, Marktdynamik und betriebliche Überlegungen für den Transport in europäischen Wirtschaftszonen. Wesentliches Marktwissen.",
     title: "Europäische Transportzonen",
     subtitle: "Regionale Merkmale, Marktdynamik und betriebliche Überlegungen für den Transport in europäischen Wirtschaftszonen.",
     marketOverviewTitle: "Überblick über den Europäischen Transportmarkt",

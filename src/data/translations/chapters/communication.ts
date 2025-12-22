@@ -1,5 +1,8 @@
 export const communicationTranslations = {
   en: {
+    chapterNumber: "Chapter 25",
+    chapterTitle: "Communication",
+    heroDescription: "Professional communication techniques for building trust and managing relationships effectively. Master email templates and phone guidelines.",
     title: "Client Communication",
     subtitle: "Professional communication techniques for building trust and managing relationships effectively.",
     communicationChannels: "Communication Channels",
@@ -121,6 +124,9 @@ export const communicationTranslations = {
     quizTitle: "Client Communication Quiz",
   },
   de: {
+    chapterNumber: "Kapitel 25",
+    chapterTitle: "Kommunikation",
+    heroDescription: "Professionelle Kommunikationstechniken für Vertrauensaufbau und effektives Beziehungsmanagement. Meistern Sie E-Mail-Vorlagen und Telefonrichtlinien.",
     title: "Kundenkommunikation",
     subtitle: "Professionelle Kommunikationstechniken für Vertrauensaufbau und effektives Beziehungsmanagement.",
     communicationChannels: "Kommunikationskanäle",
@@ -242,6 +248,9 @@ export const communicationTranslations = {
     quizTitle: "Quiz Kundenkommunikation",
   },
   ro: {
+    chapterNumber: "Capitolul 25",
+    chapterTitle: "Comunicare",
+    heroDescription: "Tehnici profesionale de comunicare pentru construirea încrederii și gestionarea eficientă a relațiilor. Stăpânește șabloane de email și ghiduri telefonice.",
     title: "Comunicarea cu Clienții",
     subtitle: "Tehnici profesionale de comunicare pentru construirea încrederii și gestionarea eficientă a relațiilor.",
     communicationChannels: "Canale de Comunicare",

@@ -1,5 +1,8 @@
 export const incotermsTranslations = {
   en: {
+    chapterNumber: "Chapter 12",
+    chapterTitle: "Incoterms",
+    heroDescription: "Master international commercial terms (Incoterms 2020) for clear understanding of responsibilities, costs, and risk transfer in global trade.",
     title: "Incoterms & Trade Terms",
     subtitle: "International Commercial Terms (Incoterms 2020) - understanding responsibilities, costs, and risk transfer in international trade.",
     whatAreIncoterms: "What Are Incoterms?",
@@ -121,6 +124,9 @@ export const incotermsTranslations = {
     quizTitle: "Incoterms Quiz",
   },
   de: {
+    chapterNumber: "Kapitel 12",
+    chapterTitle: "Incoterms",
+    heroDescription: "Beherrschen Sie internationale Handelsklauseln (Incoterms 2020) für klares Verständnis von Verantwortlichkeiten, Kosten und Risikoübergang im globalen Handel.",
     title: "Incoterms & Handelsklauseln",
     subtitle: "Internationale Handelsklauseln (Incoterms 2020) - Verständnis von Verantwortlichkeiten, Kosten und Risikoübergang im internationalen Handel.",
     whatAreIncoterms: "Was sind Incoterms?",
@@ -242,6 +248,9 @@ export const incotermsTranslations = {
     quizTitle: "Incoterms Quiz",
   },
   ro: {
+    chapterNumber: "Capitolul 12",
+    chapterTitle: "Incoterms",
+    heroDescription: "Stăpânește termenii comerciali internaționali (Incoterms 2020) pentru înțelegerea clară a responsabilităților, costurilor și transferului de risc în comerțul global.",
     title: "Incoterms și Condiții Comerciale",
     subtitle: "Termeni Comerciali Internaționali (Incoterms 2020) - înțelegerea responsabilităților, costurilor și transferului de risc în comerțul internațional.",
     whatAreIncoterms: "Ce sunt Incoterms?",

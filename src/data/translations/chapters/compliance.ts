@@ -1,5 +1,8 @@
 export const complianceTranslations: Record<string, Record<string, string>> = {
   en: {
+    chapterNumber: "Chapter 13",
+    chapterTitle: "Compliance",
+    heroDescription: "Essential EU Regulation 561/2006 compliance guide for drivers' hours. Critical rules every dispatcher must know for legal and safe operations.",
     title: "Compliance – Drivers' Hours",
     subtitle: "EU Regulation 561/2006 – Essential rules every dispatcher must know for legal and safe transport operations.",
     whyComplianceTitle: "Why Compliance Matters",
@@ -145,6 +148,9 @@ export const complianceTranslations: Record<string, Record<string, string>> = {
     quizTitle: "Compliance Quiz – Drivers' Hours",
   },
   ro: {
+    chapterNumber: "Capitolul 13",
+    chapterTitle: "Conformitate",
+    heroDescription: "Ghid esențial de conformitate cu Regulamentul UE 561/2006 pentru orele șoferilor. Reguli critice pe care fiecare dispecer trebuie să le cunoască pentru operațiuni legale și sigure.",
     title: "Conformitate – Orele Șoferilor",
     subtitle: "Regulamentul UE 561/2006 – Reguli esențiale pe care fiecare dispecer trebuie să le cunoască pentru operațiuni de transport legale și sigure.",
     whyComplianceTitle: "De Ce Contează Conformitatea",
@@ -290,6 +296,9 @@ export const complianceTranslations: Record<string, Record<string, string>> = {
     quizTitle: "Quiz Conformitate – Orele Șoferilor",
   },
   de: {
+    chapterNumber: "Kapitel 13",
+    chapterTitle: "Compliance",
+    heroDescription: "Wesentlicher Leitfaden zur Einhaltung der EU-Verordnung 561/2006 für Fahrerzeiten. Kritische Regeln, die jeder Disponent für legale und sichere Abläufe kennen muss.",
     title: "Compliance – Fahrerzeiten",
     subtitle: "EU-Verordnung 561/2006 – Wesentliche Regeln, die jeder Disponent für legale und sichere Transportabläufe kennen muss.",
     whyComplianceTitle: "Warum Compliance Wichtig Ist",
