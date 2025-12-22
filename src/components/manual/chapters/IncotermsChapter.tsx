@@ -21,26 +21,26 @@ export function IncotermsChapter() {
       <div className="info-card bg-gradient-to-br from-primary/5 to-primary/10">
         <h2 className="section-title flex items-center gap-3">
           <FileText className="w-6 h-6 text-primary" />
-          What Are Incoterms?
+          {ct("whatAreIncoterms")}
         </h2>
         <p className="text-muted-foreground mb-4">
-          Incoterms (International Commercial Terms) are standardized trade terms published by the International Chamber of Commerce (ICC). They define the responsibilities of buyers and sellers for delivery, risk transfer, and cost allocation in international trade transactions.
+          {ct("incotermsDescription")}
         </p>
         <div className="grid md:grid-cols-3 gap-4">
           <div className="bg-background p-4 rounded-lg text-center">
             <Package className="w-8 h-8 text-primary mx-auto mb-2" />
-            <p className="font-medium">Delivery Point</p>
-            <p className="text-xs text-muted-foreground">Where goods are delivered</p>
+            <p className="font-medium">{ct("deliveryPoint")}</p>
+            <p className="text-xs text-muted-foreground">{ct("whereGoodsDelivered")}</p>
           </div>
           <div className="bg-background p-4 rounded-lg text-center">
             <AlertTriangle className="w-8 h-8 text-warning mx-auto mb-2" />
-            <p className="font-medium">Risk Transfer</p>
-            <p className="text-xs text-muted-foreground">When risk passes to buyer</p>
+            <p className="font-medium">{ct("riskTransfer")}</p>
+            <p className="text-xs text-muted-foreground">{ct("whenRiskPasses")}</p>
           </div>
           <div className="bg-background p-4 rounded-lg text-center">
             <Euro className="w-8 h-8 text-success mx-auto mb-2" />
-            <p className="font-medium">Cost Allocation</p>
-            <p className="text-xs text-muted-foreground">Who pays for what</p>
+            <p className="font-medium">{ct("costAllocation")}</p>
+            <p className="text-xs text-muted-foreground">{ct("whoPaysWhat")}</p>
           </div>
         </div>
       </div>
@@ -49,37 +49,37 @@ export function IncotermsChapter() {
       <div className="info-card">
         <h2 className="section-title flex items-center gap-3">
           <Scale className="w-6 h-6 text-primary" />
-          Incoterms 2020 Categories
+          {ct("incotermsCategories")}
         </h2>
 
         <div className="grid md:grid-cols-2 gap-6 mb-6">
           <div className="bg-info/10 border border-info/30 p-4 rounded-lg">
             <h3 className="font-semibold text-info mb-2 flex items-center gap-2">
               <Truck className="w-4 h-4" />
-              Any Mode of Transport (7 terms)
+              {ct("anyModeOfTransport")}
             </h3>
-            <p className="text-sm text-muted-foreground mb-2">Can be used for road, rail, air, sea, or multimodal</p>
+            <p className="text-sm text-muted-foreground mb-2">{ct("anyModeDescription")}</p>
             <ul className="text-sm space-y-1">
-              <li>• EXW - Ex Works</li>
-              <li>• FCA - Free Carrier</li>
-              <li>• CPT - Carriage Paid To</li>
-              <li>• CIP - Carriage and Insurance Paid To</li>
-              <li>• DAP - Delivered at Place</li>
-              <li>• DPU - Delivered at Place Unloaded</li>
-              <li>• DDP - Delivered Duty Paid</li>
+              <li>• {ct("exw")}</li>
+              <li>• {ct("fca")}</li>
+              <li>• {ct("cpt")}</li>
+              <li>• {ct("cip")}</li>
+              <li>• {ct("dap")}</li>
+              <li>• {ct("dpu")}</li>
+              <li>• {ct("ddp")}</li>
             </ul>
           </div>
           <div className="bg-primary/10 border border-primary/30 p-4 rounded-lg">
             <h3 className="font-semibold text-primary mb-2 flex items-center gap-2">
               <Ship className="w-4 h-4" />
-              Sea & Inland Waterway Only (4 terms)
+              {ct("seaInlandWaterway")}
             </h3>
-            <p className="text-sm text-muted-foreground mb-2">Only for traditional port-to-port shipping</p>
+            <p className="text-sm text-muted-foreground mb-2">{ct("seaOnlyDescription")}</p>
             <ul className="text-sm space-y-1">
-              <li>• FAS - Free Alongside Ship</li>
-              <li>• FOB - Free On Board</li>
-              <li>• CFR - Cost and Freight</li>
-              <li>• CIF - Cost, Insurance and Freight</li>
+              <li>• {ct("fas")}</li>
+              <li>• {ct("fob")}</li>
+              <li>• {ct("cfr")}</li>
+              <li>• {ct("cif")}</li>
             </ul>
           </div>
         </div>
@@ -89,33 +89,33 @@ export function IncotermsChapter() {
       <div className="info-card">
         <h2 className="section-title flex items-center gap-3">
           <Truck className="w-6 h-6 text-primary" />
-          Key Incoterms for Road Freight
+          {ct("keyIncotermsRoadFreight")}
         </h2>
 
         <div className="space-y-6">
           {/* EXW */}
           <div className="border-l-4 border-l-destructive p-4 bg-destructive/5 rounded-r-lg">
             <h3 className="font-bold text-lg flex items-center gap-2">
-              EXW - Ex Works
-              <span className="text-xs bg-destructive/20 text-destructive px-2 py-0.5 rounded">Minimum Seller Obligation</span>
+              {ct("exwExWorks")}
+              <span className="text-xs bg-destructive/20 text-destructive px-2 py-0.5 rounded">{ct("minimumSellerObligation")}</span>
             </h3>
-            <p className="text-sm text-muted-foreground mb-3">Seller makes goods available at their premises. Buyer bears all costs and risks from that point.</p>
+            <p className="text-sm text-muted-foreground mb-3">{ct("exwDescription")}</p>
             <div className="grid md:grid-cols-2 gap-4 text-sm">
               <div>
-                <p className="font-medium text-success mb-1">Seller Responsibilities:</p>
+                <p className="font-medium text-success mb-1">{ct("sellerResponsibilities")}</p>
                 <ul className="space-y-1 text-muted-foreground">
-                  <li>• Make goods available at premises</li>
-                  <li>• Provide commercial invoice</li>
-                  <li>• Package goods for collection</li>
+                  <li>• {ct("makeGoodsAvailable")}</li>
+                  <li>• {ct("provideCommercialInvoice")}</li>
+                  <li>• {ct("packageGoods")}</li>
                 </ul>
               </div>
               <div>
-                <p className="font-medium text-destructive mb-1">Buyer Responsibilities:</p>
+                <p className="font-medium text-destructive mb-1">{ct("buyerResponsibilities")}</p>
                 <ul className="space-y-1 text-muted-foreground">
-                  <li>• All transport costs</li>
-                  <li>• Loading at seller's premises</li>
-                  <li>• Export/import clearance</li>
-                  <li>• All risk from collection</li>
+                  <li>• {ct("allTransportCosts")}</li>
+                  <li>• {ct("loadingAtSeller")}</li>
+                  <li>• {ct("exportImportClearance")}</li>
+                  <li>• {ct("allRiskFromCollection")}</li>
                 </ul>
               </div>
             </div>
@@ -124,27 +124,27 @@ export function IncotermsChapter() {
           {/* FCA */}
           <div className="border-l-4 border-l-warning p-4 bg-warning/5 rounded-r-lg">
             <h3 className="font-bold text-lg flex items-center gap-2">
-              FCA - Free Carrier
-              <span className="text-xs bg-warning/20 text-warning px-2 py-0.5 rounded">Most Recommended</span>
+              {ct("fcaFreeCarrier")}
+              <span className="text-xs bg-warning/20 text-warning px-2 py-0.5 rounded">{ct("mostRecommended")}</span>
             </h3>
-            <p className="text-sm text-muted-foreground mb-3">Seller delivers goods to a carrier or named place. Risk transfers when goods are handed to carrier.</p>
+            <p className="text-sm text-muted-foreground mb-3">{ct("fcaDescription")}</p>
             <div className="grid md:grid-cols-2 gap-4 text-sm">
               <div>
-                <p className="font-medium text-success mb-1">Seller Responsibilities:</p>
+                <p className="font-medium text-success mb-1">{ct("sellerResponsibilities")}</p>
                 <ul className="space-y-1 text-muted-foreground">
-                  <li>• Deliver to carrier/named place</li>
-                  <li>• Export clearance</li>
-                  <li>• Loading (if at seller's premises)</li>
-                  <li>• Provide transport documents</li>
+                  <li>• {ct("deliverToCarrier")}</li>
+                  <li>• {ct("exportClearance")}</li>
+                  <li>• {ct("loadingIfAtSeller")}</li>
+                  <li>• {ct("provideTransportDocs")}</li>
                 </ul>
               </div>
               <div>
-                <p className="font-medium text-destructive mb-1">Buyer Responsibilities:</p>
+                <p className="font-medium text-destructive mb-1">{ct("buyerResponsibilities")}</p>
                 <ul className="space-y-1 text-muted-foreground">
-                  <li>• Main carriage costs</li>
-                  <li>• Import clearance and duties</li>
-                  <li>• Risk from delivery to carrier</li>
-                  <li>• Unloading at destination</li>
+                  <li>• {ct("mainCarriageCosts")}</li>
+                  <li>• {ct("importClearanceDuties")}</li>
+                  <li>• {ct("riskFromDelivery")}</li>
+                  <li>• {ct("unloadingAtDestination")}</li>
                 </ul>
               </div>
             </div>
@@ -153,26 +153,26 @@ export function IncotermsChapter() {
           {/* DAP */}
           <div className="border-l-4 border-l-info p-4 bg-info/5 rounded-r-lg">
             <h3 className="font-bold text-lg flex items-center gap-2">
-              DAP - Delivered at Place
-              <span className="text-xs bg-info/20 text-info px-2 py-0.5 rounded">Very Common in Road Freight</span>
+              {ct("dapDeliveredAtPlace")}
+              <span className="text-xs bg-info/20 text-info px-2 py-0.5 rounded">{ct("veryCommonRoadFreight")}</span>
             </h3>
-            <p className="text-sm text-muted-foreground mb-3">Seller delivers goods to named destination, ready for unloading. Buyer handles import clearance.</p>
+            <p className="text-sm text-muted-foreground mb-3">{ct("dapDescription")}</p>
             <div className="grid md:grid-cols-2 gap-4 text-sm">
               <div>
-                <p className="font-medium text-success mb-1">Seller Responsibilities:</p>
+                <p className="font-medium text-success mb-1">{ct("sellerResponsibilities")}</p>
                 <ul className="space-y-1 text-muted-foreground">
-                  <li>• All transport to destination</li>
-                  <li>• Export clearance</li>
-                  <li>• Risk until arrival at destination</li>
-                  <li>• Transit insurance (optional)</li>
+                  <li>• {ct("allTransportToDestination")}</li>
+                  <li>• {ct("exportClearance")}</li>
+                  <li>• {ct("riskUntilArrival")}</li>
+                  <li>• {ct("transitInsuranceOptional")}</li>
                 </ul>
               </div>
               <div>
-                <p className="font-medium text-destructive mb-1">Buyer Responsibilities:</p>
+                <p className="font-medium text-destructive mb-1">{ct("buyerResponsibilities")}</p>
                 <ul className="space-y-1 text-muted-foreground">
-                  <li>• Import clearance and duties</li>
-                  <li>• Unloading from vehicle</li>
-                  <li>• Risk after arrival</li>
+                  <li>• {ct("importClearanceDuties")}</li>
+                  <li>• {ct("unloadingFromVehicle")}</li>
+                  <li>• {ct("riskAfterArrival")}</li>
                 </ul>
               </div>
             </div>
@@ -181,25 +181,25 @@ export function IncotermsChapter() {
           {/* DDP */}
           <div className="border-l-4 border-l-success p-4 bg-success/5 rounded-r-lg">
             <h3 className="font-bold text-lg flex items-center gap-2">
-              DDP - Delivered Duty Paid
-              <span className="text-xs bg-success/20 text-success px-2 py-0.5 rounded">Maximum Seller Obligation</span>
+              {ct("ddpDeliveredDutyPaid")}
+              <span className="text-xs bg-success/20 text-success px-2 py-0.5 rounded">{ct("maximumSellerObligation")}</span>
             </h3>
-            <p className="text-sm text-muted-foreground mb-3">Seller bears all costs and risks including import duties. Maximum obligation for seller.</p>
+            <p className="text-sm text-muted-foreground mb-3">{ct("ddpDescription")}</p>
             <div className="grid md:grid-cols-2 gap-4 text-sm">
               <div>
-                <p className="font-medium text-success mb-1">Seller Responsibilities:</p>
+                <p className="font-medium text-success mb-1">{ct("sellerResponsibilities")}</p>
                 <ul className="space-y-1 text-muted-foreground">
-                  <li>• All transport costs</li>
-                  <li>• Export AND import clearance</li>
-                  <li>• All duties and taxes</li>
-                  <li>• Risk until destination</li>
+                  <li>• {ct("allTransportCosts")}</li>
+                  <li>• {ct("exportAndImportClearance")}</li>
+                  <li>• {ct("allDutiesAndTaxes")}</li>
+                  <li>• {ct("riskUntilDestination")}</li>
                 </ul>
               </div>
               <div>
-                <p className="font-medium text-destructive mb-1">Buyer Responsibilities:</p>
+                <p className="font-medium text-destructive mb-1">{ct("buyerResponsibilities")}</p>
                 <ul className="space-y-1 text-muted-foreground">
-                  <li>• Unloading only</li>
-                  <li>• Minimal obligations</li>
+                  <li>• {ct("unloadingOnly")}</li>
+                  <li>• {ct("minimalObligations")}</li>
                 </ul>
               </div>
             </div>
@@ -209,22 +209,22 @@ export function IncotermsChapter() {
 
       {/* Complete Incoterms Table */}
       <div className="info-card">
-        <h2 className="section-title">All Incoterms 2020 Quick Reference</h2>
+        <h2 className="section-title">{ct("allIncotermsQuickReference")}</h2>
         
         <DataTable
-          headers={["Term", "Name", "Delivery Point", "Risk Transfer", "Who Pays Transport"]}
+          headers={[ct("term"), ct("name"), ct("deliveryPointCol"), ct("riskTransferCol"), ct("whoPaysTransport")]}
           rows={[
-            ["EXW", "Ex Works", "Seller's premises", "At pickup", "Buyer"],
-            ["FCA", "Free Carrier", "Named place/carrier", "To carrier", "Buyer (main)"],
-            ["CPT", "Carriage Paid To", "Named destination", "To first carrier", "Seller (main)"],
-            ["CIP", "Carriage Insurance Paid", "Named destination", "To first carrier", "Seller + Insurance"],
-            ["DAP", "Delivered at Place", "Named destination", "At destination", "Seller"],
-            ["DPU", "Delivered Place Unloaded", "Named destination", "After unloading", "Seller + Unloading"],
-            ["DDP", "Delivered Duty Paid", "Named destination", "At destination", "Seller + Duties"],
-            ["FAS", "Free Alongside Ship", "Port of shipment", "Alongside ship", "Buyer (main)"],
-            ["FOB", "Free On Board", "Port of shipment", "On board ship", "Buyer (main)"],
-            ["CFR", "Cost and Freight", "Port of destination", "On board ship", "Seller (main)"],
-            ["CIF", "Cost Insurance Freight", "Port of destination", "On board ship", "Seller + Insurance"],
+            ["EXW", "Ex Works", ct("sellerPremises"), ct("atPickup"), ct("buyer")],
+            ["FCA", "Free Carrier", ct("namedPlace"), ct("toCarrier"), ct("buyerMain")],
+            ["CPT", "Carriage Paid To", ct("namedDestination"), ct("toFirstCarrier"), ct("sellerMain")],
+            ["CIP", "Carriage Insurance Paid", ct("namedDestination"), ct("toFirstCarrier"), ct("sellerPlusInsurance")],
+            ["DAP", "Delivered at Place", ct("namedDestination"), ct("atDestination"), ct("seller")],
+            ["DPU", "Delivered Place Unloaded", ct("namedDestination"), ct("afterUnloading"), ct("sellerPlusUnloading")],
+            ["DDP", "Delivered Duty Paid", ct("namedDestination"), ct("atDestination"), ct("sellerPlusDuties")],
+            ["FAS", "Free Alongside Ship", ct("portOfShipment"), ct("alongsideShip"), ct("buyerMain")],
+            ["FOB", "Free On Board", ct("portOfShipment"), ct("onBoardShip"), ct("buyerMain")],
+            ["CFR", "Cost and Freight", ct("portOfDestination"), ct("onBoardShip"), ct("sellerMain")],
+            ["CIF", "Cost Insurance Freight", ct("portOfDestination"), ct("onBoardShip"), ct("sellerPlusInsurance")],
           ]}
         />
       </div>
@@ -233,13 +233,13 @@ export function IncotermsChapter() {
       <div className="info-card">
         <h2 className="section-title flex items-center gap-3">
           <ArrowRight className="w-6 h-6 text-primary" />
-          Risk Transfer Visualization
+          {ct("riskTransferVisualization")}
         </h2>
 
         <div className="bg-muted/30 p-6 rounded-lg">
           <div className="flex items-center justify-between mb-4 text-sm">
-            <span className="font-medium">Seller's Risk</span>
-            <span className="font-medium">Buyer's Risk</span>
+            <span className="font-medium">{ct("sellersRisk")}</span>
+            <span className="font-medium">{ct("buyersRisk")}</span>
           </div>
           
           <div className="space-y-3">
@@ -266,11 +266,11 @@ export function IncotermsChapter() {
           </div>
 
           <div className="flex justify-between mt-4 text-xs text-muted-foreground">
-            <span>Seller's premises</span>
-            <span>Export</span>
-            <span>Main carriage</span>
-            <span>Import</span>
-            <span>Destination</span>
+            <span>{ct("sellerPremises")}</span>
+            <span>{ct("export")}</span>
+            <span>{ct("mainCarriage")}</span>
+            <span>{ct("import")}</span>
+            <span>{ct("destination")}</span>
           </div>
         </div>
       </div>
@@ -279,57 +279,57 @@ export function IncotermsChapter() {
       <div className="info-card">
         <h2 className="section-title flex items-center gap-3">
           <AlertTriangle className="w-6 h-6 text-warning" />
-          Common Incoterms Mistakes
+          {ct("commonMistakes")}
         </h2>
 
         <div className="grid md:grid-cols-2 gap-4">
           <div className="bg-destructive/10 border border-destructive/30 p-4 rounded-lg">
-            <h4 className="font-semibold text-destructive mb-2">Mistakes to Avoid</h4>
+            <h4 className="font-semibold text-destructive mb-2">{ct("mistakesToAvoid")}</h4>
             <ul className="text-sm space-y-2">
               <li className="flex items-start gap-2">
                 <AlertTriangle className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                <span>Using FOB/CIF for road freight (sea terms only)</span>
+                <span>{ct("usingFobCifRoad")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <AlertTriangle className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                <span>Not specifying the named place precisely</span>
+                <span>{ct("notSpecifyingPlace")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <AlertTriangle className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                <span>Confusing cost responsibility with risk transfer</span>
+                <span>{ct("confusingCostRisk")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <AlertTriangle className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                <span>Using outdated Incoterms versions (use 2020)</span>
+                <span>{ct("usingOutdatedIncoterms")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <AlertTriangle className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                <span>EXW with buyer unable to export (use FCA instead)</span>
+                <span>{ct("exwBuyerCannotExport")}</span>
               </li>
             </ul>
           </div>
           <div className="bg-success/10 border border-success/30 p-4 rounded-lg">
-            <h4 className="font-semibold text-success mb-2">Best Practices</h4>
+            <h4 className="font-semibold text-success mb-2">{ct("bestPractices")}</h4>
             <ul className="text-sm space-y-2">
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                <span>Always specify "Incoterms 2020" with the term</span>
+                <span>{ct("specifyIncoterms2020")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                <span>Include precise address for named place</span>
+                <span>{ct("includePreciseAddress")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                <span>Use FCA or DAP for road freight</span>
+                <span>{ct("useFcaDapRoad")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                <span>Match insurance to risk transfer point</span>
+                <span>{ct("matchInsuranceRisk")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                <span>Clarify who arranges customs clearance</span>
+                <span>{ct("clarifyCustomsClearance")}</span>
               </li>
             </ul>
           </div>
@@ -340,37 +340,27 @@ export function IncotermsChapter() {
       <div className="info-card">
         <h2 className="section-title flex items-center gap-3">
           <MapPin className="w-6 h-6 text-primary" />
-          Practical Examples
+          {ct("practicalExamples")}
         </h2>
 
         <div className="space-y-4">
           <div className="bg-muted/50 p-4 rounded-lg">
-            <h4 className="font-semibold mb-2">Example 1: FCA Munich, Germany</h4>
+            <h4 className="font-semibold mb-2">{ct("example1")}</h4>
             <p className="text-sm text-muted-foreground mb-2">
-              "FCA Warehouse ABC, Industriestrasse 15, 80939 Munich, Germany, Incoterms 2020"
+              {ct("example1Address")}
             </p>
             <p className="text-sm">
-              Seller delivers loaded goods to the named warehouse. Risk transfers when carrier takes possession. Buyer arranges and pays for main transport.
+              {ct("example1Desc")}
             </p>
           </div>
 
           <div className="bg-muted/50 p-4 rounded-lg">
-            <h4 className="font-semibold mb-2">Example 2: DAP Milan, Italy</h4>
+            <h4 className="font-semibold mb-2">{ct("example2")}</h4>
             <p className="text-sm text-muted-foreground mb-2">
-              "DAP Via Roma 100, 20100 Milan, Italy, Incoterms 2020"
+              {ct("example2Address")}
             </p>
             <p className="text-sm">
-              Seller arranges and pays for transport to Milan. Risk transfers when truck arrives at destination. Buyer handles unloading and import customs (if applicable).
-            </p>
-          </div>
-
-          <div className="bg-muted/50 p-4 rounded-lg">
-            <h4 className="font-semibold mb-2">Example 3: DDP London, UK</h4>
-            <p className="text-sm text-muted-foreground mb-2">
-              "DDP Customer Warehouse, London NW1 1AA, United Kingdom, Incoterms 2020"
-            </p>
-            <p className="text-sm">
-              Seller handles everything including UK import customs and duties. Buyer only needs to unload. Note: Post-Brexit, DDP to UK requires seller to have UK VAT registration.
+              {ct("example2Desc")}
             </p>
           </div>
         </div>
@@ -379,7 +369,7 @@ export function IncotermsChapter() {
       {/* Quiz */}
       {quizzes["incoterms"] && (
         <Quiz
-          title="Incoterms Knowledge Check"
+          title={ct("quizTitle")}
           questions={quizzes["incoterms"]}
           chapterId="incoterms"
           questionsPerRound={5}
