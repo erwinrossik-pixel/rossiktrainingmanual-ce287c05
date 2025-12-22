@@ -30,22 +30,22 @@ export function ChecklistsChapter() {
             <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
               <Truck className="w-5 h-5 text-primary" />
             </div>
-            <h2 className="section-title mb-0">Pre-Dispatch Checklist</h2>
+            <h2 className="section-title mb-0">{ct("preDispatchTitle")}</h2>
           </div>
           <Checklist 
             items={[
-              "Transport order confirmed in writing",
-              "Carrier/partner vetted (ratings, insurance docs)",
-              "Loading slot booked with warehouse",
-              "Driver details received (name, phone, plates)",
-              "Vehicle type matches requirements",
-              "Cargo securing requirements clarified",
-              "Route planned with rest stops identified",
-              "Driving bans checked (all countries on route)",
-              "Tolls calculated and included in cost",
-              "CMR data prepared and verified",
-              "Client informed of expected timeline",
-              "Emergency contacts shared with driver",
+              ct("preDispatch1"),
+              ct("preDispatch2"),
+              ct("preDispatch3"),
+              ct("preDispatch4"),
+              ct("preDispatch5"),
+              ct("preDispatch6"),
+              ct("preDispatch7"),
+              ct("preDispatch8"),
+              ct("preDispatch9"),
+              ct("preDispatch10"),
+              ct("preDispatch11"),
+              ct("preDispatch12"),
             ]}
           />
         </div>
@@ -55,23 +55,23 @@ export function ChecklistsChapter() {
             <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
               <Package className="w-5 h-5 text-primary" />
             </div>
-            <h2 className="section-title mb-0">Loading Checklist</h2>
+            <h2 className="section-title mb-0">{ct("loadingChecklistTitle")}</h2>
           </div>
           <Checklist 
             items={[
-              "Vehicle/trailer inspected and clean",
-              "No damage, holes, or contamination",
-              "Weight distributed evenly across axles",
-              "Center of gravity positioned correctly",
-              "Straps and securing equipment in place",
-              "Edge protectors used where needed",
-              "Cargo matches packing list/CMR",
-              "Photos taken with timestamps",
-              "Any pre-existing damage noted on CMR",
-              "CMR signed by shipper with stamp",
-              "Doors/curtains properly sealed",
-              "Temperature set (if reefer)",
-              "Loading confirmation sent to dispatcher",
+              ct("loading1"),
+              ct("loading2"),
+              ct("loading3"),
+              ct("loading4"),
+              ct("loading5"),
+              ct("loading6"),
+              ct("loading7"),
+              ct("loading8"),
+              ct("loading9"),
+              ct("loading10"),
+              ct("loading11"),
+              ct("loading12"),
+              ct("loading13"),
             ]}
           />
         </div>
@@ -84,23 +84,23 @@ export function ChecklistsChapter() {
             <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
               <FileText className="w-5 h-5 text-primary" />
             </div>
-            <h2 className="section-title mb-0">Delivery Checklist</h2>
+            <h2 className="section-title mb-0">{ct("deliveryChecklistTitle")}</h2>
           </div>
           <Checklist 
             items={[
-              "Arrived at correct address",
-              "Delivery window respected",
-              "Cargo condition verified at unloading",
-              "Any damage noted on CMR before signing",
-              "Photos of unloading taken",
-              "POD collected with signature, stamp, date, time",
-              "Quantity confirmed matches CMR",
-              "Pallets exchanged if required",
-              "ePOD/scan uploaded to TMS immediately",
-              "Client notified of successful delivery",
-              "Invoice preparation initiated",
-              "Carrier rated in system",
-              "Backhaul search initiated if applicable",
+              ct("delivery1"),
+              ct("delivery2"),
+              ct("delivery3"),
+              ct("delivery4"),
+              ct("delivery5"),
+              ct("delivery6"),
+              ct("delivery7"),
+              ct("delivery8"),
+              ct("delivery9"),
+              ct("delivery10"),
+              ct("delivery11"),
+              ct("delivery12"),
+              ct("delivery13"),
             ]}
           />
         </div>
@@ -110,22 +110,22 @@ export function ChecklistsChapter() {
             <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
               <MapPin className="w-5 h-5 text-primary" />
             </div>
-            <h2 className="section-title mb-0">Route Planning Checklist</h2>
+            <h2 className="section-title mb-0">{ct("routePlanningTitle")}</h2>
           </div>
           <Checklist 
             items={[
-              "Total distance calculated accurately",
-              "Kilometers split by country for toll calculation",
-              "Toll costs calculated per country",
-              "Ferry/tunnel bookings made if needed",
-              "Legal breaks and rest stops planned",
-              "Secure parking locations identified",
-              "Driving bans checked for all days of journey",
-              "Border crossing times estimated",
-              "Alternative routes identified for contingencies",
-              "Fastest vs cheapest route compared",
-              "Driver hours compatibility verified",
-              "Route template saved in TMS for future use",
+              ct("route1"),
+              ct("route2"),
+              ct("route3"),
+              ct("route4"),
+              ct("route5"),
+              ct("route6"),
+              ct("route7"),
+              ct("route8"),
+              ct("route9"),
+              ct("route10"),
+              ct("route11"),
+              ct("route12"),
             ]}
           />
         </div>
@@ -137,32 +137,32 @@ export function ChecklistsChapter() {
           <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
             <Shield className="w-5 h-5 text-primary" />
           </div>
-          <h2 className="section-title mb-0">New Carrier Qualification Checklist</h2>
+          <h2 className="section-title mb-0">{ct("carrierQualificationTitle")}</h2>
         </div>
         <div className="grid md:grid-cols-2 gap-6">
           <Checklist
-            title="Mandatory Documents"
+            title={ct("mandatoryDocsTitle")}
             items={[
-              "Valid EU Community License (transport license)",
-              "CMR Insurance Certificate (min €100,000)",
-              "Company registration / Chamber of Commerce extract",
-              "VAT registration certificate",
-              "Fleet/vehicle insurance documentation",
-              "Good repute certificate (operator CPC)",
-              "Financial standing proof if required",
+              ct("mandatoryDoc1"),
+              ct("mandatoryDoc2"),
+              ct("mandatoryDoc3"),
+              ct("mandatoryDoc4"),
+              ct("mandatoryDoc5"),
+              ct("mandatoryDoc6"),
+              ct("mandatoryDoc7"),
             ]}
           />
           <Checklist
-            title="Additional Verification"
+            title={ct("additionalVerificationTitle")}
             items={[
-              "Trade references collected (min 2-3)",
-              "Credit check performed",
-              "Freight exchange ratings reviewed",
-              "Company age verified (prefer >2 years)",
-              "Physical office address verified",
-              "Management contact details confirmed",
-              "Bank account country matches registration",
-              "No fraud database listings found",
+              ct("additionalVerification1"),
+              ct("additionalVerification2"),
+              ct("additionalVerification3"),
+              ct("additionalVerification4"),
+              ct("additionalVerification5"),
+              ct("additionalVerification6"),
+              ct("additionalVerification7"),
+              ct("additionalVerification8"),
             ]}
           />
         </div>
@@ -174,31 +174,31 @@ export function ChecklistsChapter() {
           <div className="w-10 h-10 bg-info/10 rounded-lg flex items-center justify-center">
             <Thermometer className="w-5 h-5 text-info" />
           </div>
-          <h2 className="section-title mb-0">Temperature-Controlled Transport Checklist</h2>
+          <h2 className="section-title mb-0">{ct("reeferTitle")}</h2>
         </div>
         <div className="grid md:grid-cols-2 gap-6">
           <Checklist
-            title="Pre-Loading"
+            title={ct("preLoadingTitle")}
             items={[
-              "Trailer pre-cooled to required temperature",
-              "Temperature recorder working and calibrated",
-              "ATP certificate valid and on board",
-              "Cargo temperature verified before loading",
-              "Door seals checked for integrity",
-              "No odors or contamination in trailer",
-              "Product-specific requirements understood",
+              ct("preLoading1"),
+              ct("preLoading2"),
+              ct("preLoading3"),
+              ct("preLoading4"),
+              ct("preLoading5"),
+              ct("preLoading6"),
+              ct("preLoading7"),
             ]}
           />
           <Checklist
-            title="During & Post-Transport"
+            title={ct("duringPostTitle")}
             items={[
-              "Temperature monitored throughout journey",
-              "Continuous mode (not cycle) for frozen goods",
-              "Door opening minimized during journey",
-              "Temperature at delivery within tolerance",
-              "Temperature record printout attached to CMR",
-              "Any deviations noted and reported immediately",
-              "Clean trailer certificate if required",
+              ct("duringPost1"),
+              ct("duringPost2"),
+              ct("duringPost3"),
+              ct("duringPost4"),
+              ct("duringPost5"),
+              ct("duringPost6"),
+              ct("duringPost7"),
             ]}
           />
         </div>
@@ -210,30 +210,30 @@ export function ChecklistsChapter() {
           <div className="w-10 h-10 bg-warning/10 rounded-lg flex items-center justify-center">
             <AlertTriangle className="w-5 h-5 text-warning" />
           </div>
-          <h2 className="section-title mb-0">Damage/Claims Checklist</h2>
+          <h2 className="section-title mb-0">{ct("damageClaimsTitle")}</h2>
         </div>
         <div className="grid md:grid-cols-2 gap-6">
           <Checklist
-            title="Immediate Actions (At Discovery)"
+            title={ct("immediateActionsTitle")}
             items={[
-              "Note reservation on CMR before signing",
-              "Take timestamped photos of all damage",
-              "Get receiver signature acknowledging damage",
-              "Do NOT dispose of damaged goods",
-              "Notify dispatcher immediately",
-              "Secure damaged goods for inspection",
+              ct("immediate1"),
+              ct("immediate2"),
+              ct("immediate3"),
+              ct("immediate4"),
+              ct("immediate5"),
+              ct("immediate6"),
             ]}
           />
           <Checklist
-            title="Within 7 Days"
+            title={ct("within7DaysTitle")}
             items={[
-              "Send written claim letter to carrier",
-              "Include CMR number, date, route details",
-              "Attach all photo documentation",
-              "Provide original commercial invoice",
-              "Keep proof of sending (registered mail/email)",
-              "Calculate claim value per CMR formula",
-              "Escalate to insurance if applicable",
+              ct("within7Days1"),
+              ct("within7Days2"),
+              ct("within7Days3"),
+              ct("within7Days4"),
+              ct("within7Days5"),
+              ct("within7Days6"),
+              ct("within7Days7"),
             ]}
           />
         </div>
@@ -245,22 +245,22 @@ export function ChecklistsChapter() {
           <div className="w-10 h-10 bg-destructive/10 rounded-lg flex items-center justify-center">
             <Scale className="w-5 h-5 text-destructive" />
           </div>
-          <h2 className="section-title mb-0">ADR (Dangerous Goods) Checklist</h2>
+          <h2 className="section-title mb-0">{ct("adrTitle")}</h2>
         </div>
         <Checklist
           items={[
-            "UN number and proper shipping name confirmed",
-            "Packing group identified (I, II, or III)",
-            "ADR class determined with correct hazard labels",
-            "Driver has valid ADR certificate for class",
-            "Vehicle ADR approval certificate valid (if required)",
-            "Correct placards and orange plates displayed",
-            "Instructions in writing in driver's language",
-            "Emergency equipment on board (PPE, fire extinguisher)",
-            "Tunnel category checked for entire route",
-            "No prohibited combinations loaded together",
-            "Transport document complete with all ADR info",
-            "Dangerous goods declaration provided by shipper",
+            ct("adr1"),
+            ct("adr2"),
+            ct("adr3"),
+            ct("adr4"),
+            ct("adr5"),
+            ct("adr6"),
+            ct("adr7"),
+            ct("adr8"),
+            ct("adr9"),
+            ct("adr10"),
+            ct("adr11"),
+            ct("adr12"),
           ]}
         />
       </div>
@@ -271,307 +271,105 @@ export function ChecklistsChapter() {
           <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
             <Calculator className="w-5 h-5 text-primary" />
           </div>
-          <h2 className="section-title mb-0">Quick Formulas & Calculations</h2>
+          <h2 className="section-title mb-0">{ct("formulasTitle")}</h2>
         </div>
         <div className="grid md:grid-cols-2 gap-4">
           <div className="p-4 bg-muted/50 rounded-lg">
-            <p className="text-sm text-muted-foreground mb-1">Basic Cost Calculation:</p>
+            <p className="text-sm text-muted-foreground mb-1">{ct("basicCostCalc")}</p>
             <p className="font-mono font-semibold text-lg">Cost = (km × €1.10-1.25) + Σ(tolls) + accessories</p>
           </div>
           <div className="p-4 bg-muted/50 rounded-lg">
-            <p className="text-sm text-muted-foreground mb-1">Price with Margin:</p>
+            <p className="text-sm text-muted-foreground mb-1">{ct("priceWithMargin")}</p>
             <p className="font-mono font-semibold text-lg">Price = Cost × (1 + margin%)</p>
           </div>
           <div className="p-4 bg-muted/50 rounded-lg">
-            <p className="text-sm text-muted-foreground mb-1">Daily Distance (Single Driver):</p>
+            <p className="text-sm text-muted-foreground mb-1">{ct("dailyDistanceSingle")}</p>
             <p className="font-mono font-semibold text-lg">~650-700 km (9h × 75 km/h)</p>
           </div>
           <div className="p-4 bg-muted/50 rounded-lg">
-            <p className="text-sm text-muted-foreground mb-1">Daily Distance (Double-manned):</p>
+            <p className="text-sm text-muted-foreground mb-1">{ct("dailyDistanceDouble")}</p>
             <p className="font-mono font-semibold text-lg">~1,100-1,200 km (18h × 65 km/h)</p>
           </div>
           <div className="p-4 bg-muted/50 rounded-lg">
-            <p className="text-sm text-muted-foreground mb-1">CMR Liability Limit:</p>
+            <p className="text-sm text-muted-foreground mb-1">{ct("cmrLiabilityLimit")}</p>
             <p className="font-mono font-semibold text-lg">8.33 SDR/kg ≈ €10/kg gross weight</p>
           </div>
           <div className="p-4 bg-muted/50 rounded-lg">
-            <p className="text-sm text-muted-foreground mb-1">Loading Meter (LDM):</p>
+            <p className="text-sm text-muted-foreground mb-1">{ct("loadingMeterLDM")}</p>
             <p className="font-mono font-semibold text-lg">1 LDM = 1m × 2.4m = 2.4 m²</p>
           </div>
           <div className="p-4 bg-muted/50 rounded-lg">
-            <p className="text-sm text-muted-foreground mb-1">EUR Pallets per FTL:</p>
+            <p className="text-sm text-muted-foreground mb-1">{ct("eurPalletsPerFTL")}</p>
             <p className="font-mono font-semibold text-lg">33 pallets (crosswise) = 13.6 LDM</p>
           </div>
           <div className="p-4 bg-muted/50 rounded-lg">
-            <p className="text-sm text-muted-foreground mb-1">Payload Calculation:</p>
+            <p className="text-sm text-muted-foreground mb-1">{ct("payloadCalculation")}</p>
             <p className="font-mono font-semibold text-lg">Payload = GVW - Vehicle Tare (24-25t typical)</p>
           </div>
         </div>
       </div>
 
-      {/* Compliance Quick Reference */}
+      {/* Drivers' Hours Quick Reference */}
       <div className="info-card">
         <h2 className="section-title flex items-center gap-3">
           <Clock className="w-6 h-6 text-primary" />
-          Drivers' Hours Quick Reference
+          {ct("driversHoursTitle")}
         </h2>
         <div className="overflow-x-auto">
           <table className="w-full border-collapse text-sm">
             <thead>
               <tr className="bg-muted/50">
-                <th className="p-3 text-left border border-border">Rule</th>
-                <th className="p-3 text-center border border-border">Standard</th>
-                <th className="p-3 text-center border border-border">Exception</th>
-                <th className="p-3 text-left border border-border">Notes</th>
+                <th className="p-3 text-left border border-border">{ct("rule")}</th>
+                <th className="p-3 text-center border border-border">{ct("standard")}</th>
+                <th className="p-3 text-center border border-border">{ct("exception")}</th>
+                <th className="p-3 text-left border border-border">{ct("notes")}</th>
               </tr>
             </thead>
             <tbody>
               <tr>
-                <td className="p-3 border border-border font-medium">Daily driving</td>
+                <td className="p-3 border border-border font-medium">{ct("dailyDriving")}</td>
                 <td className="p-3 border border-border text-center font-bold text-primary">9 hours</td>
                 <td className="p-3 border border-border text-center">10h (2×/week)</td>
                 <td className="p-3 border border-border text-muted-foreground">Max 56h/week, 90h/2 weeks</td>
               </tr>
               <tr className="bg-muted/20">
-                <td className="p-3 border border-border font-medium">Continuous driving</td>
+                <td className="p-3 border border-border font-medium">{ct("continuousDriving")}</td>
                 <td className="p-3 border border-border text-center font-bold text-primary">4h 30min</td>
                 <td className="p-3 border border-border text-center">—</td>
                 <td className="p-3 border border-border text-muted-foreground">Then break required</td>
               </tr>
               <tr>
-                <td className="p-3 border border-border font-medium">Break</td>
+                <td className="p-3 border border-border font-medium">{ct("break")}</td>
                 <td className="p-3 border border-border text-center font-bold text-primary">45 minutes</td>
                 <td className="p-3 border border-border text-center">Split: 15' + 30'</td>
                 <td className="p-3 border border-border text-muted-foreground">Order matters!</td>
               </tr>
               <tr className="bg-muted/20">
-                <td className="p-3 border border-border font-medium">Daily rest</td>
+                <td className="p-3 border border-border font-medium">{ct("dailyRest")}</td>
                 <td className="p-3 border border-border text-center font-bold text-primary">11 hours</td>
                 <td className="p-3 border border-border text-center">9h (3×/week)</td>
                 <td className="p-3 border border-border text-muted-foreground">Within 24h window</td>
               </tr>
               <tr>
-                <td className="p-3 border border-border font-medium">Weekly rest</td>
+                <td className="p-3 border border-border font-medium">{ct("weeklyRest")}</td>
                 <td className="p-3 border border-border text-center font-bold text-primary">45 hours</td>
                 <td className="p-3 border border-border text-center">24h (1×/2 weeks)</td>
                 <td className="p-3 border border-border text-muted-foreground">Reduced must compensate</td>
               </tr>
               <tr className="bg-muted/20">
-                <td className="p-3 border border-border font-medium">Weekly driving max</td>
+                <td className="p-3 border border-border font-medium">{ct("weeklyDrivingMax")}</td>
                 <td className="p-3 border border-border text-center font-bold text-primary">56 hours</td>
                 <td className="p-3 border border-border text-center">—</td>
                 <td className="p-3 border border-border text-muted-foreground">Hard limit</td>
               </tr>
               <tr>
-                <td className="p-3 border border-border font-medium">Bi-weekly max</td>
+                <td className="p-3 border border-border font-medium">{ct("biweeklyMax")}</td>
                 <td className="p-3 border border-border text-center font-bold text-primary">90 hours</td>
                 <td className="p-3 border border-border text-center">—</td>
-                <td className="p-3 border border-border text-muted-foreground">Any 2 consecutive weeks</td>
+                <td className="p-3 border border-border text-muted-foreground">Rolling 2-week period</td>
               </tr>
             </tbody>
           </table>
-        </div>
-      </div>
-
-      {/* Toll Rates Quick Reference */}
-      <div className="info-card">
-        <h2 className="section-title flex items-center gap-3">
-          <Euro className="w-6 h-6 text-primary" />
-          Toll Rates Quick Reference (2025/2026)
-        </h2>
-        <DataTable
-          headers={["Country", "Rate/km", "System", "Key Notes"]}
-          rows={[
-            ["🇨🇭 Switzerland", "€0.55", "LSVA", "Highest in Europe, weight-based"],
-            ["🇦🇹 Austria", "€0.532", "GO-Maut", "GO-Box required, Brenner expensive"],
-            ["🇭🇺 Hungary", "€0.425", "HU-GO", "OBU or pre-pay, watch HUF rates"],
-            ["🇩🇪 Germany", "€0.348", "LKW-Maut", "CO₂ tiers apply, OBU required"],
-            ["🇫🇷 France", "€0.28-0.33", "Télépéage", "Varies by operator, many autoroutes"],
-            ["🇮🇹 Italy", "€0.30", "Telepass", "Private concessionaires, varies"],
-            ["🇪🇸 Spain", "€0.28-0.31", "Vía-T", "Many free routes available"],
-            ["🇨🇿 Czechia", "€0.26", "MYTO CZ", "OBU required, Euro VI discount"],
-            ["🇸🇮 Slovenia", "€0.24", "DarsGo", "A1/A2 main toll roads"],
-            ["🇧🇪 Belgium", "€0.171", "Viapass", "Wallonia slightly cheaper"],
-            ["🇳🇱 Netherlands", "€0.159", "Vrachtwagen", "NEW from July 2026!"],
-            ["🇵🇱 Poland", "€0.092", "e-TOLL", "Cheapest major country"],
-          ]}
-        />
-      </div>
-
-      {/* Driving Bans */}
-      <div className="info-card">
-        <h2 className="section-title flex items-center gap-3">
-          <Ban className="w-6 h-6 text-primary" />
-          Weekend/Holiday Driving Bans
-        </h2>
-        <DataTable
-          headers={["Country", "Sunday Ban", "Holiday Ban", "Exceptions"]}
-          rows={[
-            ["🇩🇪 Germany", "00:00-22:00", "Yes", "Reefer (perishables), limited"],
-            ["🇦🇹 Austria", "00:00-22:00", "Yes", "Combined transport, reefer"],
-            ["🇫🇷 France", "22:00 Sat - 22:00 Sun", "Yes", "Live animals, urgent medical"],
-            ["🇮🇹 Italy", "08:00-22:00 (varies)", "Yes", "Differs by season"],
-            ["🇨🇿 Czechia", "13:00-22:00", "Yes", "Reefer, combined transport"],
-            ["🇵🇱 Poland", "08:00-22:00", "Some", "Agricultural products"],
-            ["🇭🇺 Hungary", "00:00-22:00", "Yes", "Perishables with permit"],
-            ["🇨🇭 Switzerland", "00:00-24:00 (all day)", "Yes", "Very limited exceptions"],
-          ]}
-        />
-        <div className="mt-4 p-4 bg-warning/10 border border-warning/30 rounded-lg">
-          <p className="text-sm flex items-start gap-2">
-            <AlertTriangle className="w-5 h-5 text-warning flex-shrink-0 mt-0.5" />
-            <span><strong>Always verify:</strong> Bans change seasonally, during holidays, and for special events. Check official sources before planning weekend routes.</span>
-          </p>
-        </div>
-      </div>
-
-      {/* Emergency Contacts */}
-      <div className="highlight-card border border-destructive/30 bg-destructive/5">
-        <h2 className="section-title flex items-center gap-3">
-          <Phone className="w-6 h-6 text-destructive" />
-          Emergency Contacts & Resources
-        </h2>
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
-          <div className="p-4 bg-card rounded-lg border border-border">
-            <p className="font-semibold mb-2 flex items-center gap-2">
-              <Phone className="w-4 h-4 text-destructive" />
-              European Emergency
-            </p>
-            <p className="text-2xl font-bold text-destructive">112</p>
-            <p className="text-xs text-muted-foreground">Works in all EU countries</p>
-          </div>
-          <div className="p-4 bg-card rounded-lg border border-border">
-            <p className="font-semibold mb-2 flex items-center gap-2">
-              <Wrench className="w-4 h-4 text-warning" />
-              Breakdown Service
-            </p>
-            <p className="text-sm text-muted-foreground">Keep your company's roadside assistance number accessible</p>
-          </div>
-          <div className="p-4 bg-card rounded-lg border border-border">
-            <p className="font-semibold mb-2 flex items-center gap-2">
-              <ClipboardList className="w-4 h-4 text-info" />
-              TMS Support
-            </p>
-            <p className="text-sm text-muted-foreground">Technical assistance hotline for your transport management system</p>
-          </div>
-          <div className="p-4 bg-card rounded-lg border border-border">
-            <p className="font-semibold mb-2 flex items-center gap-2">
-              <Shield className="w-4 h-4 text-success" />
-              Insurance Hotline
-            </p>
-            <p className="text-sm text-muted-foreground">24/7 claims reporting for incidents</p>
-          </div>
-        </div>
-      </div>
-
-      {/* Daily Dispatcher Checklist */}
-      <div className="info-card">
-        <div className="flex items-center gap-3 mb-4">
-          <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
-            <Users className="w-5 h-5 text-primary" />
-          </div>
-          <h2 className="section-title mb-0">Daily Dispatcher Routine</h2>
-        </div>
-        <div className="grid md:grid-cols-3 gap-4">
-          <div className="bg-success/10 border border-success/30 p-4 rounded-lg">
-            <h4 className="font-semibold mb-3 text-success">Morning (Start of Day)</h4>
-            <ul className="text-sm space-y-2">
-              {[
-                "Check overnight tracking alerts",
-                "Review today's pickups scheduled",
-                "Verify driver confirmations received",
-                "Check weather/traffic on key routes",
-                "Address urgent issues first",
-                "Brief team on priorities"
-              ].map((item, i) => (
-                <li key={i} className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3 h-3 text-success flex-shrink-0" />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="bg-info/10 border border-info/30 p-4 rounded-lg">
-            <h4 className="font-semibold mb-3 text-info">Midday (Ongoing)</h4>
-            <ul className="text-sm space-y-2">
-              {[
-                "Update tracking statuses proactively",
-                "Respond to queries within 30 min",
-                "Document all changes in TMS",
-                "Escalate issues early, not late",
-                "Plan tomorrow's pickups",
-                "Check for backhaul opportunities"
-              ].map((item, i) => (
-                <li key={i} className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3 h-3 text-info flex-shrink-0" />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className="bg-warning/10 border border-warning/30 p-4 rounded-lg">
-            <h4 className="font-semibold mb-3 text-warning">Evening (End of Day)</h4>
-            <ul className="text-sm space-y-2">
-              {[
-                "Confirm all deliveries completed",
-                "Chase missing PODs immediately",
-                "Update TMS with final status",
-                "Prepare handover notes if needed",
-                "Review next day schedule",
-                "Flag potential issues for tomorrow"
-              ].map((item, i) => (
-                <li key={i} className="flex items-center gap-2">
-                  <CheckCircle2 className="w-3 h-3 text-warning flex-shrink-0" />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      {/* Documentation Checklist */}
-      <div className="info-card">
-        <div className="flex items-center gap-3 mb-4">
-          <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
-            <Camera className="w-5 h-5 text-primary" />
-          </div>
-          <h2 className="section-title mb-0">Documentation Best Practices</h2>
-        </div>
-        <div className="grid md:grid-cols-2 gap-6">
-          <div>
-            <h3 className="font-semibold mb-3">Photo Documentation (Always)</h3>
-            <ul className="space-y-2 text-sm">
-              {[
-                "Before loading: Empty, clean trailer",
-                "During loading: Cargo placement, securing",
-                "After loading: Full load, straps visible",
-                "Seal numbers: Close-up of all seals",
-                "Any damage: Before accepting/delivering",
-                "POD: If electronic, photo of signed CMR",
-                "Temperature: Recorder display for reefer"
-              ].map((item, i) => (
-                <li key={i} className="flex items-center gap-2 p-2 bg-muted/30 rounded">
-                  <Camera className="w-4 h-4 text-primary flex-shrink-0" />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <h3 className="font-semibold mb-3">Document Retention</h3>
-            <DataTable
-              headers={["Document", "Retention", "Format"]}
-              rows={[
-                ["CMR/POD", "5 years", "Original + scan"],
-                ["Transport orders", "5 years", "Digital OK"],
-                ["Invoices", "7-10 years", "As per tax law"],
-                ["Tachograph data", "2 years", "Digital download"],
-                ["Insurance certs", "Policy + 3 years", "Verified copies"],
-                ["Carrier docs", "Active + 3 years", "Digital OK"],
-              ]}
-            />
-          </div>
         </div>
       </div>
     </div>
