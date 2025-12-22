@@ -58,17 +58,17 @@ export function SupplyChainChapter() {
       <div className="info-card">
         <h2 className="section-title flex items-center gap-3">
           <Globe className="w-6 h-6 text-primary" />
-          Types of Supply Chains
+          {ct("typesOfSupplyChains")}
         </h2>
 
         <DataTable
-          headers={["Type", "Characteristics", "Logistics Needs", "Examples"]}
+          headers={[ct("type"), ct("characteristics"), ct("logisticsNeeds"), ct("examples")]}
           rows={[
-            ["Lean/Efficient", "Low inventory, JIT delivery, cost focus", "Reliable, predictable transport", "Automotive, electronics assembly"],
-            ["Agile/Responsive", "Fast response, flexible, demand-driven", "Speed, flexibility, express options", "Fashion, e-commerce"],
-            ["Risk-Hedging", "Buffer stock, multiple sources", "Redundant routes, secure transport", "Pharma, critical components"],
-            ["Continuous", "Steady flow, commodity products", "Bulk transport, consistent capacity", "Food processing, chemicals"],
-            ["Make-to-Order", "Custom products, variable demand", "Flexible scheduling, partial loads", "Industrial equipment, furniture"],
+            [ct("leanEfficient"), "Low inventory, JIT delivery, cost focus", "Reliable, predictable transport", "Automotive, electronics assembly"],
+            [ct("agileResponsive"), "Fast response, flexible, demand-driven", "Speed, flexibility, express options", "Fashion, e-commerce"],
+            [ct("riskHedging"), "Buffer stock, multiple sources", "Redundant routes, secure transport", "Pharma, critical components"],
+            [ct("continuous"), "Steady flow, commodity products", "Bulk transport, consistent capacity", "Food processing, chemicals"],
+            [ct("makeToOrder"), "Custom products, variable demand", "Flexible scheduling, partial loads", "Industrial equipment, furniture"],
           ]}
         />
       </div>
@@ -77,57 +77,57 @@ export function SupplyChainChapter() {
       <div className="info-card">
         <h2 className="section-title flex items-center gap-3">
           <Target className="w-6 h-6 text-primary" />
-          The Freight Forwarder's Role in Supply Chains
+          {ct("freightForwarderRole")}
         </h2>
 
         <div className="grid md:grid-cols-2 gap-6">
           <div>
-            <h3 className="font-semibold mb-3">Core Functions</h3>
+            <h3 className="font-semibold mb-3">{ct("coreFunctions")}</h3>
             <ul className="space-y-2 text-sm">
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-success mt-0.5" />
-                <span><strong>Coordination:</strong> Connecting supply chain parties</span>
+                <span><strong>{ct("coordination")}:</strong> {ct("coordinationDesc")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-success mt-0.5" />
-                <span><strong>Optimization:</strong> Finding best routes and modes</span>
+                <span><strong>{ct("optimization")}:</strong> {ct("optimizationDesc")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-success mt-0.5" />
-                <span><strong>Consolidation:</strong> Combining shipments for efficiency</span>
+                <span><strong>{ct("consolidation")}:</strong> {ct("consolidationDesc")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-success mt-0.5" />
-                <span><strong>Documentation:</strong> Managing compliance and paperwork</span>
+                <span><strong>{ct("documentation")}:</strong> {ct("documentationDesc")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-success mt-0.5" />
-                <span><strong>Risk Management:</strong> Insurance, tracking, security</span>
+                <span><strong>{ct("riskManagement")}:</strong> {ct("riskManagementDesc")}</span>
               </li>
             </ul>
           </div>
           <div>
-            <h3 className="font-semibold mb-3">Value-Added Services</h3>
+            <h3 className="font-semibold mb-3">{ct("valueAddedServices")}</h3>
             <ul className="space-y-2 text-sm">
               <li className="flex items-start gap-2">
                 <Zap className="w-4 h-4 text-primary mt-0.5" />
-                <span>Cross-docking and transshipment</span>
+                <span>{ct("crossDocking")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <Zap className="w-4 h-4 text-primary mt-0.5" />
-                <span>Pick and pack services</span>
+                <span>{ct("pickAndPack")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <Zap className="w-4 h-4 text-primary mt-0.5" />
-                <span>Customs brokerage</span>
+                <span>{ct("customsBrokerage")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <Zap className="w-4 h-4 text-primary mt-0.5" />
-                <span>Inventory management</span>
+                <span>{ct("inventoryManagement")}</span>
               </li>
               <li className="flex items-start gap-2">
                 <Zap className="w-4 h-4 text-primary mt-0.5" />
-                <span>Returns/reverse logistics</span>
+                <span>{ct("reversLogistics")}</span>
               </li>
             </ul>
           </div>
@@ -138,43 +138,43 @@ export function SupplyChainChapter() {
       <div className="info-card">
         <h2 className="section-title flex items-center gap-3">
           <Zap className="w-6 h-6 text-primary" />
-          Just-in-Time (JIT) Logistics
+          {ct("jitLogistics")}
         </h2>
 
         <p className="text-muted-foreground mb-4">
-          JIT is a production strategy where materials arrive exactly when needed, minimizing inventory costs. It demands highly reliable transport.
+          {ct("jitLogisticsDesc")}
         </p>
 
         <div className="grid md:grid-cols-2 gap-4 mb-6">
           <div className="bg-success/10 border border-success/30 p-4 rounded-lg">
-            <h4 className="font-semibold text-success mb-2">JIT Benefits</h4>
+            <h4 className="font-semibold text-success mb-2">{ct("jitBenefits")}</h4>
             <ul className="text-sm space-y-1">
-              <li>• Reduced inventory holding costs</li>
-              <li>• Less warehouse space needed</li>
-              <li>• Lower working capital requirements</li>
-              <li>• Faster identification of quality issues</li>
-              <li>• More responsive to demand changes</li>
+              <li>• {ct("reducedInventoryCosts")}</li>
+              <li>• {ct("lessWarehouseSpace")}</li>
+              <li>• {ct("lowerWorkingCapital")}</li>
+              <li>• {ct("fasterQualityIssues")}</li>
+              <li>• {ct("moreResponsive")}</li>
             </ul>
           </div>
           <div className="bg-warning/10 border border-warning/30 p-4 rounded-lg">
-            <h4 className="font-semibold text-warning mb-2">JIT Transport Challenges</h4>
+            <h4 className="font-semibold text-warning mb-2">{ct("jitChallenges")}</h4>
             <ul className="text-sm space-y-1">
-              <li>• Zero tolerance for delays</li>
-              <li>• Requires precise scheduling</li>
-              <li>• Higher per-unit transport cost</li>
-              <li>• Vulnerable to disruptions</li>
-              <li>• Needs excellent communication</li>
+              <li>• {ct("zeroToleranceDelays")}</li>
+              <li>• {ct("preciseScheduling")}</li>
+              <li>• {ct("higherTransportCost")}</li>
+              <li>• {ct("vulnerableDisruptions")}</li>
+              <li>• {ct("excellentCommunication")}</li>
             </ul>
           </div>
         </div>
 
         <div className="bg-info/10 border border-info/30 p-4 rounded-lg">
-          <h4 className="font-semibold mb-2">JIT Transport Requirements</h4>
+          <h4 className="font-semibold mb-2">{ct("jitRequirements")}</h4>
           <ul className="text-sm space-y-1">
-            <li>• <strong>Reliability:</strong> 99%+ on-time delivery required</li>
-            <li>• <strong>Flexibility:</strong> Ability to adjust schedules quickly</li>
-            <li>• <strong>Communication:</strong> Real-time tracking and updates</li>
-            <li>• <strong>Backup Plans:</strong> Alternative carriers ready if issues arise</li>
+            <li>• <strong>{ct("reliability")}:</strong> {ct("reliabilityDesc")}</li>
+            <li>• <strong>{ct("flexibility")}:</strong> {ct("flexibilityDesc")}</li>
+            <li>• <strong>{ct("communication")}:</strong> {ct("communicationDesc")}</li>
+            <li>• <strong>{ct("backupPlans")}:</strong> {ct("backupPlansDesc")}</li>
           </ul>
         </div>
       </div>
@@ -183,18 +183,18 @@ export function SupplyChainChapter() {
       <div className="info-card">
         <h2 className="section-title flex items-center gap-3">
           <Factory className="w-6 h-6 text-primary" />
-          Industry-Specific Supply Chain Needs
+          {ct("industrySpecific")}
         </h2>
 
         <DataTable
-          headers={["Industry", "Key Requirements", "Transport Challenges", "Critical Success Factors"]}
+          headers={[ct("industry"), ct("keyRequirements"), ct("transportChallenges"), ct("criticalSuccessFactors")]}
           rows={[
-            ["Automotive", "JIT, sequenced delivery, line-side", "Exact timing, damage prevention", "Reliability, EDI integration"],
-            ["Retail/FMCG", "High volume, seasonal peaks, DC network", "Peak capacity, reverse logistics", "Cost efficiency, scalability"],
-            ["Pharma", "GDP compliance, cold chain, security", "Temperature control, documentation", "Compliance, traceability"],
-            ["E-commerce", "Fast, flexible, last-mile focus", "Speed, returns handling", "Speed, visibility, flexibility"],
-            ["Industrial", "Heavy goods, project logistics", "Specialized equipment, permits", "Technical expertise, planning"],
-            ["Food & Beverage", "Temperature control, shelf life", "Cold chain, handling care", "Freshness, compliance"],
+            [ct("automotive"), "JIT, sequenced delivery, line-side", "Exact timing, damage prevention", "Reliability, EDI integration"],
+            [ct("retailFmcg"), "High volume, seasonal peaks, DC network", "Peak capacity, reverse logistics", "Cost efficiency, scalability"],
+            [ct("pharma"), "GDP compliance, cold chain, security", "Temperature control, documentation", "Compliance, traceability"],
+            [ct("ecommerce"), "Fast, flexible, last-mile focus", "Speed, returns handling", "Speed, visibility, flexibility"],
+            [ct("industrial"), "Heavy goods, project logistics", "Specialized equipment, permits", "Technical expertise, planning"],
+            [ct("foodBeverage"), "Temperature control, shelf life", "Cold chain, handling care", "Freshness, compliance"],
           ]}
         />
       </div>
@@ -203,36 +203,36 @@ export function SupplyChainChapter() {
       <div className="info-card">
         <h2 className="section-title flex items-center gap-3">
           <BarChart3 className="w-6 h-6 text-primary" />
-          Supply Chain Visibility
+          {ct("supplyChainVisibility")}
         </h2>
 
         <p className="text-muted-foreground mb-4">
-          Modern supply chains demand real-time visibility. Freight forwarders play a key role in providing tracking data and predictive insights.
+          {ct("supplyChainVisibilityDesc")}
         </p>
 
         <div className="grid md:grid-cols-3 gap-4">
-          <InfoCard title="Track & Trace" icon={TrendingUp}>
+          <InfoCard title={ct("trackTrace")} icon={TrendingUp}>
             <ul className="text-sm space-y-1">
-              <li>• Real-time shipment location</li>
-              <li>• Status milestones</li>
-              <li>• ETA predictions</li>
-              <li>• Exception alerts</li>
+              <li>• {ct("realTimeLocation")}</li>
+              <li>• {ct("statusMilestones")}</li>
+              <li>• {ct("etaPredictions")}</li>
+              <li>• {ct("exceptionAlerts")}</li>
             </ul>
           </InfoCard>
-          <InfoCard title="Predictive Analytics" icon={BarChart3}>
+          <InfoCard title={ct("predictiveAnalytics")} icon={BarChart3}>
             <ul className="text-sm space-y-1">
-              <li>• Delay risk assessment</li>
-              <li>• Demand forecasting</li>
-              <li>• Capacity planning</li>
-              <li>• Cost optimization</li>
+              <li>• {ct("delayRiskAssessment")}</li>
+              <li>• {ct("demandForecasting")}</li>
+              <li>• {ct("capacityPlanning")}</li>
+              <li>• {ct("costOptimization")}</li>
             </ul>
           </InfoCard>
-          <InfoCard title="Integration" icon={Link}>
+          <InfoCard title={ct("integration")} icon={Link}>
             <ul className="text-sm space-y-1">
-              <li>• EDI connections</li>
-              <li>• API data sharing</li>
-              <li>• Customer portal access</li>
-              <li>• ERP integration</li>
+              <li>• {ct("ediConnections")}</li>
+              <li>• {ct("apiDataSharing")}</li>
+              <li>• {ct("customerPortal")}</li>
+              <li>• {ct("erpIntegration")}</li>
             </ul>
           </InfoCard>
         </div>
@@ -242,29 +242,29 @@ export function SupplyChainChapter() {
       <div className="info-card">
         <h2 className="section-title flex items-center gap-3">
           <AlertTriangle className="w-6 h-6 text-warning" />
-          Supply Chain Disruptions
+          {ct("supplyChainDisruptions")}
         </h2>
 
         <DataTable
-          headers={["Disruption Type", "Examples", "Impact", "Mitigation"]}
+          headers={[ct("disruptionType"), ct("examples"), ct("impact"), ct("mitigation")]}
           rows={[
-            ["Natural Disasters", "Floods, earthquakes, severe weather", "Route closures, facility damage", "Alternative routes, safety stock"],
-            ["Geopolitical", "Wars, sanctions, border closures", "Route changes, customs delays", "Diversified sourcing, compliance monitoring"],
-            ["Pandemics", "COVID-19, health restrictions", "Capacity constraints, labor shortages", "Flexible contracts, digital processes"],
-            ["Economic", "Fuel price spikes, currency fluctuations", "Cost increases, margin pressure", "Fuel surcharges, hedging"],
-            ["Technical", "System failures, cyber attacks", "Operational disruption", "Backup systems, cybersecurity"],
-            ["Labor", "Strikes, driver shortages", "Capacity constraints, delays", "Multiple carrier options, automation"],
+            [ct("naturalDisasters"), "Floods, earthquakes, severe weather", "Route closures, facility damage", "Alternative routes, safety stock"],
+            [ct("geopolitical"), "Wars, sanctions, border closures", "Route changes, customs delays", "Diversified sourcing, compliance monitoring"],
+            [ct("pandemics"), "COVID-19, health restrictions", "Capacity constraints, labor shortages", "Flexible contracts, digital processes"],
+            [ct("economic"), "Fuel price spikes, currency fluctuations", "Cost increases, margin pressure", "Fuel surcharges, hedging"],
+            [ct("technical"), "System failures, cyber attacks", "Operational disruption", "Backup systems, cybersecurity"],
+            [ct("labor"), "Strikes, driver shortages", "Capacity constraints, delays", "Multiple carrier options, automation"],
           ]}
         />
 
         <div className="bg-primary/5 border border-primary/20 p-4 rounded-lg mt-4">
-          <h4 className="font-semibold mb-2">Building Resilient Supply Chains</h4>
+          <h4 className="font-semibold mb-2">{ct("buildingResilientSupplyChains")}</h4>
           <ul className="text-sm space-y-1">
-            <li>• <strong>Diversification:</strong> Multiple suppliers, carriers, routes</li>
-            <li>• <strong>Visibility:</strong> Early warning systems, real-time monitoring</li>
-            <li>• <strong>Flexibility:</strong> Agile contracts, scalable capacity</li>
-            <li>• <strong>Collaboration:</strong> Strong relationships across the chain</li>
-            <li>• <strong>Planning:</strong> Scenario planning, risk assessment</li>
+            <li>• <strong>{ct("diversification")}:</strong> {ct("diversificationDesc")}</li>
+            <li>• <strong>{ct("visibility")}:</strong> {ct("visibilityDesc")}</li>
+            <li>• <strong>{ct("agility")}:</strong> {ct("agilityDesc")}</li>
+            <li>• <strong>{ct("collaboration")}:</strong> {ct("collaborationDesc")}</li>
+            <li>• <strong>{ct("planning")}:</strong> {ct("planningDesc")}</li>
           </ul>
         </div>
       </div>
@@ -273,32 +273,32 @@ export function SupplyChainChapter() {
       <div className="info-card">
         <h2 className="section-title flex items-center gap-3">
           <Globe className="w-6 h-6 text-primary" />
-          Sustainable Supply Chains
+          {ct("sustainableSupplyChains")}
         </h2>
 
         <p className="text-muted-foreground mb-4">
-          Environmental sustainability is increasingly important in supply chain decisions. Freight forwarders must offer greener solutions.
+          {ct("sustainableDesc")}
         </p>
 
         <div className="grid md:grid-cols-2 gap-4">
           <div className="bg-success/10 border border-success/30 p-4 rounded-lg">
-            <h4 className="font-semibold text-success mb-2">Green Logistics Strategies</h4>
+            <h4 className="font-semibold text-success mb-2">{ct("greenLogisticsStrategies")}</h4>
             <ul className="text-sm space-y-1">
-              <li>• Modal shift (road to rail where possible)</li>
-              <li>• Load optimization (fuller trucks)</li>
-              <li>• Route optimization (fewer km)</li>
-              <li>• Euro 6 / electric vehicles</li>
-              <li>• Carbon offsetting programs</li>
+              <li>• {ct("modalShift")}</li>
+              <li>• {ct("loadOptimization")}</li>
+              <li>• {ct("routeOptimization")}</li>
+              <li>• {ct("euroVehicles")}</li>
+              <li>• {ct("carbonOffsetting")}</li>
             </ul>
           </div>
           <div className="bg-info/10 border border-info/30 p-4 rounded-lg">
-            <h4 className="font-semibold text-info mb-2">Reporting & Compliance</h4>
+            <h4 className="font-semibold text-info mb-2">{ct("reportingCompliance")}</h4>
             <ul className="text-sm space-y-1">
-              <li>• CO₂ emissions calculation</li>
-              <li>• Scope 3 emissions reporting</li>
-              <li>• Environmental certifications</li>
-              <li>• Customer sustainability requirements</li>
-              <li>• EU Green Deal regulations</li>
+              <li>• {ct("co2Calculation")}</li>
+              <li>• {ct("scope3Reporting")}</li>
+              <li>• {ct("environmentalCertifications")}</li>
+              <li>• {ct("customerSustainability")}</li>
+              <li>• {ct("euGreenDeal")}</li>
             </ul>
           </div>
         </div>

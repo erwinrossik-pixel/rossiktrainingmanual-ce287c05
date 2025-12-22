@@ -16,10 +16,10 @@ export function EnvironmentChapter() {
         <div className="relative">
           <Leaf className="w-12 h-12 mb-4" />
           <h1 className="text-3xl md:text-5xl font-bold mb-4 font-serif">
-            {ct("title")}
+            {ct("chapterTitle")}
           </h1>
           <p className="text-lg md:text-xl opacity-90 max-w-2xl">
-            {ct("subtitle")}
+            {ct("heroDescription")}
           </p>
         </div>
       </div>
@@ -28,19 +28,19 @@ export function EnvironmentChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
           <Truck className="w-6 h-6 text-primary" />
-          Euro Emission Standards
+          {ct("euroEmissionStandards")}
         </h2>
         <DataTable
-          headers={["Standard", "Introduction", "Key Limits", "Impact on Operations"]}
+          headers={[ct("standard"), ct("introduction"), ct("keyLimits"), ct("impactOnOperations")]}
           rows={[
-            ["Euro 5", "2009", "NOx: 2.0 g/kWh, PM: 0.03", "Still allowed, higher tolls in some countries"],
-            ["Euro 6", "2014", "NOx: 0.4 g/kWh, PM: 0.01", "Standard for current operations"],
-            ["Euro 6d", "2019", "Real-world testing added", "Required for new truck registrations"],
-            ["Euro 7", "2027 (expected)", "Further NOx/PM reduction", "Will require new technology investment"],
+            [ct("euro5"), ct("euro5Year"), ct("euro5Limits"), ct("euro5Impact")],
+            [ct("euro6"), ct("euro6Year"), ct("euro6Limits"), ct("euro6Impact")],
+            [ct("euro6d"), ct("euro6dYear"), ct("euro6dLimits"), ct("euro6dImpact")],
+            [ct("euro7"), ct("euro7Year"), ct("euro7Limits"), ct("euro7Impact")],
           ]}
         />
         <p className="text-sm text-muted-foreground mt-4">
-          Euro class affects toll rates in Germany (Maut) and other countries. Euro 6 vehicles pay significantly less than Euro 5.
+          {ct("euroClassNote")}
         </p>
       </section>
 
@@ -48,25 +48,25 @@ export function EnvironmentChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
           <BarChart3 className="w-6 h-6 text-primary" />
-          CO₂ Emissions & Reporting
+          {ct("co2EmissionsReporting")}
         </h2>
         <div className="grid md:grid-cols-2 gap-4">
-          <InfoCard title="Emission Factors" icon={Fuel} variant="info">
+          <InfoCard title={ct("emissionFactors")} icon={Fuel} variant="info">
             <ul className="space-y-2">
-              <li><strong>Diesel:</strong> ~2.64 kg CO₂ per liter</li>
-              <li><strong>40t truck:</strong> ~800-900g CO₂/km</li>
-              <li><strong>LNG:</strong> ~15-20% CO₂ reduction</li>
-              <li><strong>Electric:</strong> Zero direct emissions</li>
-              <li><strong>HVO/Biodiesel:</strong> Up to 90% reduction</li>
+              <li><strong>Diesel:</strong> {ct("dieselFactor")}</li>
+              <li><strong>40t truck:</strong> {ct("truck40tFactor")}</li>
+              <li><strong>LNG:</strong> {ct("lngReduction")}</li>
+              <li><strong>Electric:</strong> {ct("electricZero")}</li>
+              <li><strong>HVO/Biodiesel:</strong> {ct("hvoBiodiesel")}</li>
             </ul>
           </InfoCard>
-          <InfoCard title="Calculation Method" icon={BarChart3} variant="highlight">
-            <p className="mb-2 text-sm">Basic formula:</p>
+          <InfoCard title={ct("calculationMethod")} icon={BarChart3} variant="highlight">
+            <p className="mb-2 text-sm">{ct("basicFormula")}</p>
             <div className="bg-muted p-3 rounded-lg font-mono text-sm mb-2">
-              CO₂ = Distance × Fuel Consumption × Emission Factor
+              {ct("co2Formula")}
             </div>
             <p className="text-sm text-muted-foreground">
-              Per shipment: Divide by cargo weight for g CO₂/tonne-km
+              {ct("perShipment")}
             </p>
           </InfoCard>
         </div>
@@ -76,44 +76,44 @@ export function EnvironmentChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
           <Globe className="w-6 h-6 text-primary" />
-          Green Logistics Initiatives
+          {ct("greenLogisticsInitiatives")}
         </h2>
         <div className="bg-card border border-border rounded-xl p-6">
           <div className="grid md:grid-cols-3 gap-6">
             <div>
               <h3 className="font-semibold mb-3 flex items-center gap-2">
                 <Award className="w-4 h-4 text-primary" />
-                Certifications
+                {ct("certifications")}
               </h3>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                <li><strong>ISO 14001:</strong> Environmental management</li>
-                <li><strong>Lean & Green:</strong> Logistics sustainability</li>
-                <li><strong>SmartWay:</strong> EPA efficiency program</li>
-                <li><strong>SQAS:</strong> Chemical transport safety</li>
+                <li>{ct("iso14001")}</li>
+                <li>{ct("leanGreen")}</li>
+                <li>{ct("smartWay")}</li>
+                <li>{ct("sqas")}</li>
               </ul>
             </div>
             <div>
               <h3 className="font-semibold mb-3 flex items-center gap-2">
                 <TrendingDown className="w-4 h-4 text-success" />
-                Reduction Strategies
+                {ct("reductionStrategies")}
               </h3>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                <li>• Route optimization (-5-15%)</li>
-                <li>• Eco-driving training (-5-10%)</li>
-                <li>• Higher load factors</li>
-                <li>• Modal shift where possible</li>
+                <li>• {ct("routeOptimization")}</li>
+                <li>• {ct("ecoDrivingTraining")}</li>
+                <li>• {ct("higherLoadFactors")}</li>
+                <li>• {ct("modalShift")}</li>
               </ul>
             </div>
             <div>
               <h3 className="font-semibold mb-3 flex items-center gap-2">
                 <Leaf className="w-4 h-4 text-success" />
-                Alternative Fuels
+                {ct("alternativeFuels")}
               </h3>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                <li>• LNG/CNG (natural gas)</li>
-                <li>• HVO (renewable diesel)</li>
-                <li>• Electric (urban distribution)</li>
-                <li>• Hydrogen (emerging)</li>
+                <li>• {ct("lngCng")}</li>
+                <li>• {ct("hvoRenewable")}</li>
+                <li>• {ct("electricUrban")}</li>
+                <li>• {ct("hydrogenEmerging")}</li>
               </ul>
             </div>
           </div>
@@ -124,17 +124,17 @@ export function EnvironmentChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
           <Globe className="w-6 h-6 text-primary" />
-          Low Emission Zones (LEZ)
+          {ct("lowEmissionZones")}
         </h2>
         <DataTable
-          headers={["City/Area", "Requirement", "Enforcement"]}
+          headers={[ct("cityArea"), ct("requirement"), ct("enforcement")]}
           rows={[
-            ["Germany (Umweltzone)", "Green sticker (Euro 4+ diesel)", "Fine €80, widespread in cities"],
-            ["London (ULEZ)", "Euro 6 diesel / Euro 4 petrol", "Daily charge £100 for non-compliant"],
-            ["Paris (Crit'Air)", "Crit'Air sticker system", "Restrictions during pollution peaks"],
-            ["Amsterdam", "Euro 6 from 2025", "City center restrictions"],
-            ["Brussels (LEZ)", "Euro 5 minimum", "Camera enforcement, fines €350"],
-            ["Milan (Area B/C)", "Euro 5+ diesel", "Camera controlled zones"],
+            [ct("germanyUmweltzone"), ct("germanyReq"), ct("germanyEnforce")],
+            [ct("londonULEZ"), ct("londonReq"), ct("londonEnforce")],
+            [ct("parisCritAir"), ct("parisReq"), ct("parisEnforce")],
+            [ct("amsterdam"), ct("amsterdamReq"), ct("amsterdamEnforce")],
+            [ct("brusselsLEZ"), ct("brusselsReq"), ct("brusselsEnforce")],
+            [ct("milanAreaBC"), ct("milanReq"), ct("milanEnforce")],
           ]}
         />
       </section>
@@ -143,20 +143,20 @@ export function EnvironmentChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
           <Truck className="w-6 h-6 text-primary" />
-          German Maut CO₂ Toll Classes
+          {ct("germanMautCO2")}
         </h2>
         <div className="bg-warning/10 border border-warning/20 rounded-xl p-6">
           <p className="text-sm text-muted-foreground mb-4">
-            Since December 2023, German tolls include a CO₂ component based on emission class:
+            {ct("mautNote")}
           </p>
           <DataTable
-            headers={["CO₂ Class", "Description", "Toll Impact"]}
+            headers={[ct("co2Class"), ct("description"), ct("tollImpact")]}
             rows={[
-              ["Class 1", "Zero-emission vehicles (electric, hydrogen)", "Exempt until 2026, then reduced"],
-              ["Class 2", "Lowest CO₂ (newer Euro 6d-ISC)", "Lowest toll rate"],
-              ["Class 3", "Low CO₂ (Euro 6)", "Reduced rate"],
-              ["Class 4", "Medium CO₂ (older Euro 6)", "Standard rate"],
-              ["Class 5", "Higher CO₂ (Euro 5 and older)", "Highest toll rate (+€200/1000km)"],
+              [ct("class1"), ct("class1Desc"), ct("class1Impact")],
+              [ct("class2"), ct("class2Desc"), ct("class2Impact")],
+              [ct("class3"), ct("class3Desc"), ct("class3Impact")],
+              [ct("class4"), ct("class4Desc"), ct("class4Impact")],
+              [ct("class5"), ct("class5Desc"), ct("class5Impact")],
             ]}
           />
         </div>
@@ -166,27 +166,27 @@ export function EnvironmentChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
           <FileText className="w-6 h-6 text-primary" />
-          Customer Sustainability Requirements
+          {ct("customerSustainabilityReq")}
         </h2>
         <div className="grid md:grid-cols-2 gap-4">
           <div className="bg-card border border-border rounded-xl p-6">
-            <h3 className="font-semibold mb-3">Common Requirements</h3>
+            <h3 className="font-semibold mb-3">{ct("commonRequirements")}</h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>• CO₂ reporting per shipment</li>
-              <li>• Euro 6 minimum fleet standard</li>
-              <li>• ISO 14001 certification</li>
-              <li>• Annual sustainability report</li>
-              <li>• Emission reduction targets</li>
+              <li>• {ct("co2ReportingPerShipment")}</li>
+              <li>• {ct("euro6MinimumFleet")}</li>
+              <li>• {ct("iso14001Certification")}</li>
+              <li>• {ct("annualSustainabilityReport")}</li>
+              <li>• {ct("emissionReductionTargets")}</li>
             </ul>
           </div>
           <div className="bg-card border border-border rounded-xl p-6">
-            <h3 className="font-semibold mb-3">How to Prepare</h3>
+            <h3 className="font-semibold mb-3">{ct("howToPrepare")}</h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>• Track fuel consumption per order</li>
-              <li>• Use TMS with CO₂ calculation</li>
-              <li>• Keep fleet age documentation</li>
-              <li>• Document green initiatives</li>
-              <li>• Prepare standard CO₂ reports</li>
+              <li>• {ct("trackFuelConsumption")}</li>
+              <li>• {ct("useTMSCO2")}</li>
+              <li>• {ct("keepFleetAge")}</li>
+              <li>• {ct("documentGreenInitiatives")}</li>
+              <li>• {ct("prepareStandardCO2Reports")}</li>
             </ul>
           </div>
         </div>
@@ -196,28 +196,28 @@ export function EnvironmentChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
           <Fuel className="w-6 h-6 text-primary" />
-          Eco-Driving Principles
+          {ct("ecoDrivingPrinciples")}
         </h2>
-        <InfoCard title="Driver Training for Fuel Efficiency" icon={TrendingDown} variant="success">
+        <InfoCard title={ct("driverTrainingFuelEfficiency")} icon={TrendingDown} variant="success">
           <div className="grid md:grid-cols-2 gap-4">
             <div>
-              <h4 className="font-semibold mb-2">Key Techniques</h4>
+              <h4 className="font-semibold mb-2">{ct("keyTechniques")}</h4>
               <ul className="space-y-1 text-sm">
-                <li>• Maintain steady speed (cruise control)</li>
-                <li>• Anticipate traffic flow</li>
-                <li>• Use engine braking</li>
-                <li>• Optimal gear selection</li>
-                <li>• Minimize idling time</li>
+                <li>• {ct("maintainSteadySpeed")}</li>
+                <li>• {ct("anticipateTrafficFlow")}</li>
+                <li>• {ct("useEngineBraking")}</li>
+                <li>• {ct("optimalGearSelection")}</li>
+                <li>• {ct("minimizeIdlingTime")}</li>
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold mb-2">Expected Results</h4>
+              <h4 className="font-semibold mb-2">{ct("expectedResults")}</h4>
               <ul className="space-y-1 text-sm">
-                <li>• 5-15% fuel reduction</li>
-                <li>• Reduced maintenance costs</li>
-                <li>• Lower accident risk</li>
-                <li>• Improved driver satisfaction</li>
-                <li>• Better customer perception</li>
+                <li>• {ct("fuelReduction5_15")}</li>
+                <li>• {ct("reducedMaintenanceCosts")}</li>
+                <li>• {ct("lowerAccidentRisk")}</li>
+                <li>• {ct("improvedDriverSatisfaction")}</li>
+                <li>• {ct("betterCustomerPerception")}</li>
               </ul>
             </div>
           </div>
@@ -228,26 +228,26 @@ export function EnvironmentChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
           <TrendingDown className="w-6 h-6 text-primary" />
-          Future Trends
+          {ct("futureTrends")}
         </h2>
         <div className="bg-muted/30 rounded-xl p-6">
           <div className="grid md:grid-cols-2 gap-6">
             <div>
-              <h3 className="font-semibold mb-3">Regulatory Outlook</h3>
+              <h3 className="font-semibold mb-3">{ct("regulatoryOutlook")}</h3>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                <li>• EU Green Deal: -55% emissions by 2030</li>
-                <li>• Zero-emission truck targets</li>
-                <li>• Carbon border adjustments</li>
-                <li>• Expanded emission trading</li>
+                <li>• {ct("euGreenDeal")}</li>
+                <li>• {ct("zeroEmissionTruckTargets")}</li>
+                <li>• {ct("carbonBorderAdjustments")}</li>
+                <li>• {ct("expandedEmissionTrading")}</li>
               </ul>
             </div>
             <div>
-              <h3 className="font-semibold mb-3">Technology Development</h3>
+              <h3 className="font-semibold mb-3">{ct("technologyDevelopment")}</h3>
               <ul className="space-y-2 text-sm text-muted-foreground">
-                <li>• Electric trucks: 300-500km range now</li>
-                <li>• Hydrogen fuel cells: Long-haul potential</li>
-                <li>• Megawatt charging: Under development</li>
-                <li>• Autonomous platooning: Efficiency gains</li>
+                <li>• {ct("electricTrucksRange")}</li>
+                <li>• {ct("hydrogenFuelCells")}</li>
+                <li>• {ct("megawattCharging")}</li>
+                <li>• {ct("autonomousPlatooning")}</li>
               </ul>
             </div>
           </div>
