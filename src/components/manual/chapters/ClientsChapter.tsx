@@ -11,9 +11,9 @@ export function ClientsChapter() {
   return (
     <div className="space-y-8 animate-fade-in">
       <div>
-        <h1 className="chapter-title">{ct("title")}</h1>
+        <h1 className="chapter-title">{ct("chapterTitle")}</h1>
         <p className="text-lg text-muted-foreground">
-          {ct("subtitle")}
+          {ct("heroDescription")}
         </p>
       </div>
 
@@ -21,14 +21,14 @@ export function ClientsChapter() {
       <section>
         <h2 className="section-title flex items-center gap-3">
           <Search className="w-6 h-6 text-primary" />
-          Client Acquisition Channels
+          {ct("clientAcquisitionChannels")}
         </h2>
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
           {[
-            { icon: Search, title: "Freight Exchanges", desc: "Monitor for shippers posting loads" },
-            { icon: Building2, title: "Direct Approach", desc: "Contact producers & retailers" },
-            { icon: Target, title: "Seasonal Shippers", desc: "Agricultural, retail peaks" },
-            { icon: Handshake, title: "Referrals", desc: "Network with industry contacts" },
+            { icon: Search, title: ct("freightExchanges"), desc: ct("monitorForShippers") },
+            { icon: Building2, title: ct("directApproach"), desc: ct("contactProducersRetailers") },
+            { icon: Target, title: ct("seasonalShippers"), desc: ct("agriculturalRetailPeaks") },
+            { icon: Handshake, title: ct("referrals"), desc: ct("networkWithContacts") },
           ].map((item, i) => (
             <div key={i} className="info-card text-center">
               <item.icon className="w-10 h-10 text-primary mx-auto mb-3" />
@@ -43,19 +43,19 @@ export function ClientsChapter() {
       <section>
         <h2 className="section-title flex items-center gap-3">
           <Building2 className="w-6 h-6 text-primary" />
-          Target Industry Sectors
+          {ct("targetIndustrySectors")}
         </h2>
         <DataTable
-          headers={["Sector", "Transport Needs", "Typical Volumes", "Key Considerations"]}
+          headers={[ct("sector"), ct("transportNeeds"), ct("typicalVolumes"), ct("keyConsiderations")]}
           rows={[
-            ["Automotive", "JIT parts, finished vehicles", "High, regular", "Strict timing, clean equipment"],
-            ["FMCG/Retail", "Distribution, seasonal peaks", "Very high", "Multi-drop, time windows"],
-            ["Construction", "Materials, machinery", "Project-based", "Heavy loads, site access"],
-            ["Agriculture", "Seasonal produce, grains", "Seasonal peaks", "Temperature, timing critical"],
-            ["Pharmaceuticals", "GDP transport", "Low-medium", "Temperature control, compliance"],
-            ["Industrial/Machinery", "Heavy equipment, parts", "Irregular", "Special equipment, permits"],
-            ["Food & Beverage", "Fresh, frozen, dry goods", "High, regular", "Temperature, hygiene, timing"],
-            ["E-commerce", "Palletized goods to warehouses", "Growing", "Speed, flexibility, tracking"],
+            [ct("automotive"), ct("automotiveNeeds"), ct("automotiveVolumes"), ct("automotiveConsiderations")],
+            [ct("fmcgRetail"), ct("fmcgNeeds"), ct("fmcgVolumes"), ct("fmcgConsiderations")],
+            [ct("construction"), ct("constructionNeeds"), ct("constructionVolumes"), ct("constructionConsiderations")],
+            [ct("agriculture"), ct("agricultureNeeds"), ct("agricultureVolumes"), ct("agricultureConsiderations")],
+            [ct("pharmaceuticals"), ct("pharmaNeeds"), ct("pharmaVolumes"), ct("pharmaConsiderations")],
+            [ct("industrialMachinery"), ct("industrialNeeds"), ct("industrialVolumes"), ct("industrialConsiderations")],
+            [ct("foodBeverage"), ct("foodNeeds"), ct("foodVolumes"), ct("foodConsiderations")],
+            [ct("ecommerce"), ct("ecommerceNeeds"), ct("ecommerceVolumes"), ct("ecommerceConsiderations")],
           ]}
         />
       </section>
