@@ -1,7 +1,10 @@
 import { InfoCard } from "../InfoCard";
 import { Lightbulb, AlertTriangle, CheckCircle, XCircle, Euro, Clock, Truck, MapPin } from "lucide-react";
+import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 
 export function CaseStudiesChapter() {
+  const { ct } = useChapterTranslation("case-studies");
+  
   return (
     <div className="space-y-8 animate-fade-in">
       {/* Hero Section */}
@@ -10,10 +13,10 @@ export function CaseStudiesChapter() {
         <div className="relative">
           <Lightbulb className="w-12 h-12 mb-4" />
           <h1 className="text-3xl md:text-5xl font-bold mb-4 font-serif">
-            Case Studies
+            {ct("title")}
           </h1>
           <p className="text-lg md:text-xl opacity-90 max-w-2xl">
-            Real-world scenarios and practical examples from European freight forwarding operations.
+            {ct("subtitle")}
           </p>
         </div>
       </div>

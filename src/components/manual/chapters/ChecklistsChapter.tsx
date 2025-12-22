@@ -2,8 +2,11 @@ import { Checklist } from "../Checklist";
 import { DataTable } from "../DataTable";
 import { InfoCard } from "../InfoCard";
 import { ClipboardList, Truck, Package, FileText, Calculator, AlertTriangle, Phone, Shield, Clock, Euro, MapPin, CheckCircle2, Thermometer, Users, Wrench, Globe, Camera, Scale, Ban, Fuel } from "lucide-react";
+import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 
 export function ChecklistsChapter() {
+  const { ct } = useChapterTranslation("checklists");
+  
   return (
     <div className="space-y-8 animate-fade-in">
       {/* Hero Section */}
@@ -12,10 +15,10 @@ export function ChecklistsChapter() {
         <div className="relative">
           <ClipboardList className="w-12 h-12 mb-4" />
           <h1 className="text-3xl md:text-5xl font-bold mb-4 font-serif">
-            Checklists & Quick Reference
+            {ct("title")}
           </h1>
           <p className="text-lg md:text-xl opacity-90 max-w-2xl">
-            Essential checklists for daily operations, formulas, and reference guides to ensure consistent, error-free freight forwarding.
+            {ct("subtitle")}
           </p>
         </div>
       </div>

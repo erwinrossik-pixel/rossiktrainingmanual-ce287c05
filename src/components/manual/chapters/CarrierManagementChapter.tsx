@@ -4,14 +4,17 @@ import { Checklist } from "../Checklist";
 import { Quiz } from "../Quiz";
 import { quizzes } from "@/data/quizData";
 import { Users, Shield, FileCheck, AlertTriangle, CheckCircle2, Star, Handshake, Scale, TrendingUp, Clock, Euro, Phone, BadgeCheck } from "lucide-react";
+import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 
 export function CarrierManagementChapter() {
+  const { ct } = useChapterTranslation("carrier-management");
+  
   return (
     <div className="space-y-8 animate-fade-in">
       <div>
-        <h1 className="chapter-title">Carrier Management</h1>
+        <h1 className="chapter-title">{ct("title")}</h1>
         <p className="text-lg text-muted-foreground">
-          Complete guide to building, qualifying, managing, and developing relationships with transport carriers and subcontractors in European road freight.
+          {ct("subtitle")}
         </p>
       </div>
 

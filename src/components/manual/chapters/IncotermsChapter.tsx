@@ -3,14 +3,17 @@ import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { quizzes } from "@/data/quizData";
 import { FileText, Ship, Truck, Plane, Package, AlertTriangle, CheckCircle2, ArrowRight, Scale, Euro, MapPin } from "lucide-react";
+import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 
 export function IncotermsChapter() {
+  const { ct } = useChapterTranslation("incoterms");
+  
   return (
     <div className="space-y-8 animate-fade-in">
       <div>
-        <h1 className="chapter-title">Incoterms & Trade Terms</h1>
+        <h1 className="chapter-title">{ct("title")}</h1>
         <p className="text-lg text-muted-foreground">
-          International Commercial Terms (Incoterms 2020) - understanding responsibilities, costs, and risk transfer in international trade.
+          {ct("subtitle")}
         </p>
       </div>
 
