@@ -1,7 +1,7 @@
 export const licensesOversizeTranslations = {
   en: {
     // Hero Section
-    chapterNumber: "Chapter 40",
+    chapterNumber: "Chapter 18",
     chapterTitle: "Licenses & Oversize Transport",
     heroDescription: "Complete guide to transport licenses, special authorizations, and organizing oversize cargo transport in Europe. Understanding regulations is essential for legal and safe operations.",
 
@@ -478,7 +478,7 @@ export const licensesOversizeTranslations = {
   },
   ro: {
     // Hero Section
-    chapterNumber: "Capitolul 40",
+    chapterNumber: "Capitolul 18",
     chapterTitle: "Licențe & Transport Agabaritic",
     heroDescription: "Ghid complet pentru licențele de transport, autorizații speciale și organizarea transporturilor de mărfuri agabaritice în Europa. Cunoașterea reglementărilor este esențială pentru operațiuni legale și sigure.",
 
@@ -977,7 +977,7 @@ export const licensesOversizeTranslations = {
   },
   de: {
     // Hero Section
-    chapterNumber: "Kapitel 40",
+    chapterNumber: "Kapitel 18",
     chapterTitle: "Lizenzen & Schwertransport",
     heroDescription: "Vollständiger Leitfaden für Transportlizenzen, Sondergenehmigungen und die Organisation von Schwertransporten in Europa. Die Kenntnis der Vorschriften ist für legale und sichere Operationen unerlässlich.",
 
