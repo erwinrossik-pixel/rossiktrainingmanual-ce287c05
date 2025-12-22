@@ -1,6 +1,6 @@
-import { InfoCard } from "../InfoCard";
-import { DataTable } from "../DataTable";
 import { Checklist } from "../Checklist";
+import { DataTable } from "../DataTable";
+import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { quizzes } from "@/data/quizData";
 import { 
@@ -8,8 +8,11 @@ import {
   Shield, Zap, Eye, AlertCircle, Info, Target, Package, Euro, Phone,
   CheckCircle2, XCircle, Gauge, Settings, BookOpen
 } from "lucide-react";
+import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 
 export function ReeferChapter() {
+  const { ct } = useChapterTranslation('reefer');
+  
   return (
     <div className="space-y-8 animate-fade-in">
       {/* Hero Section */}
@@ -18,11 +21,10 @@ export function ReeferChapter() {
         <div className="relative">
           <Snowflake className="w-12 h-12 mb-4" />
           <h1 className="text-3xl md:text-5xl font-bold mb-4 font-display">
-            Temperature-Controlled Transport
+            {ct('title')}
           </h1>
           <p className="text-lg md:text-xl opacity-90 max-w-2xl">
-            Complete guide to refrigerated transport, cold chain logistics, ATP compliance, and 
-            handling temperature-sensitive cargo safely across Europe.
+            {ct('subtitle')}
           </p>
         </div>
       </div>
@@ -34,24 +36,22 @@ export function ReeferChapter() {
             <Thermometer className="w-6 h-6 text-blue-600" />
           </div>
           <div>
-            <h2 className="section-title mb-2">Understanding Cold Chain Logistics</h2>
+            <h2 className="section-title mb-2">{ct('coldChainTitle')}</h2>
             <p className="text-muted-foreground mb-4">
-              Temperature-controlled transport (reefer) is one of the most demanding sectors in road freight. 
-              A single temperature deviation can spoil an entire load worth thousands of euros. Understanding 
-              cold chain principles, ATP regulations, and proper procedures is essential for any freight forwarder.
+              {ct('coldChainDesc')}
             </p>
             <div className="grid md:grid-cols-3 gap-4 text-sm">
               <div className="p-3 bg-blue-50 rounded-lg">
                 <p className="font-semibold text-blue-600">€50B+</p>
-                <p className="text-muted-foreground">EU reefer market annually</p>
+                <p className="text-muted-foreground">{ct('euReeferMarket')}</p>
               </div>
               <div className="p-3 bg-blue-50 rounded-lg">
                 <p className="font-semibold text-blue-600">+25-40%</p>
-                <p className="text-muted-foreground">Premium over standard rates</p>
+                <p className="text-muted-foreground">{ct('premiumOverStandard')}</p>
               </div>
               <div className="p-3 bg-blue-50 rounded-lg">
-                <p className="font-semibold text-blue-600">Zero tolerance</p>
-                <p className="text-muted-foreground">For pharma temp deviations</p>
+                <p className="font-semibold text-blue-600">{ct('zeroTolerance')}</p>
+                <p className="text-muted-foreground">{ct('zeroTolerancePharma')}</p>
               </div>
             </div>
           </div>
@@ -62,23 +62,23 @@ export function ReeferChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-display flex items-center gap-2">
           <Thermometer className="w-6 h-6 text-primary" />
-          Temperature Classes & Requirements
+          {ct('tempClassesTitle')}
         </h2>
         <DataTable
-          headers={["Class", "Temperature Range", "Typical Cargo", "Equipment", "Special Notes"]}
+          headers={[ct('tempClass'), ct('tempRange'), ct('typicalCargo'), ct('equipment'), ct('specialNotes')]}
           rows={[
-            ["Deep Frozen", "-25°C to -18°C", "Ice cream, frozen meat, seafood", "FRC reefer", "Strictest temp control"],
-            ["Frozen", "-18°C to -12°C", "Frozen vegetables, frozen fish", "FRC reefer", "Most common frozen class"],
-            ["Chilled", "+2°C to +8°C", "Fresh meat, dairy, pharmaceuticals", "FRC/FNA reefer", "Highest volume segment"],
-            ["Cool", "+8°C to +14°C", "Fruits, vegetables, flowers", "FNA reefer", "Needs ventilation"],
-            ["Ambient Controlled", "+15°C to +25°C", "Chocolate, wine, cosmetics", "FNA/Insulated", "Protect from extreme heat/cold"],
-            ["Multi-Temperature", "Various zones", "Mixed loads", "Dual-temp reefer", "Dividers required"],
+            [ct('deepFrozen'), "-25°C to -18°C", ct('deepFrozenCargo'), "FRC reefer", ct('strictestTempControl')],
+            [ct('frozen'), "-18°C to -12°C", ct('frozenCargo'), "FRC reefer", ct('mostCommonFrozen')],
+            [ct('chilled'), "+2°C to +8°C", ct('chilledCargo'), "FRC/FNA reefer", ct('highestVolumeSegment')],
+            [ct('cool'), "+8°C to +14°C", ct('coolCargo'), "FNA reefer", ct('needsVentilation')],
+            [ct('ambientControlled'), "+15°C to +25°C", ct('ambientCargo'), "FNA/Insulated", ct('protectFromExtreme')],
+            [ct('multiTemperature'), ct('variousZones'), ct('mixedLoads'), ct('dualTempReefer'), ct('dividersRequired')],
           ]}
         />
         <div className="mt-4 p-4 bg-info/10 border border-info/30 rounded-lg">
           <p className="text-sm flex items-start gap-2">
             <Info className="w-4 h-4 mt-0.5 flex-shrink-0 text-info" />
-            <span><strong>Critical:</strong> Always verify required temperature with shipper. Pharmaceutical loads often require +2°C to +8°C with zero deviation tolerance.</span>
+            <span><strong>{ct('critical')}:</strong> {ct('criticalVerifyTemp')}</span>
           </p>
         </div>
       </section>
@@ -87,39 +87,37 @@ export function ReeferChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-display flex items-center gap-2">
           <FileText className="w-6 h-6 text-primary" />
-          ATP Agreement & Certification
+          {ct('atpTitle')}
         </h2>
         <div className="info-card">
           <div className="grid md:grid-cols-2 gap-6">
             <div>
-              <h3 className="font-semibold mb-3">What is ATP?</h3>
+              <h3 className="font-semibold mb-3">{ct('whatIsATP')}</h3>
               <p className="text-sm text-muted-foreground mb-4">
-                The ATP (Agreement on the International Carriage of Perishable Foodstuffs and on the 
-                Special Equipment to be used for such Carriage) is an international agreement signed 
-                in Geneva 1970. It sets standards for temperature-controlled vehicles.
+                {ct('atpDescription')}
               </p>
               <div className="p-4 bg-muted/50 rounded-lg">
-                <h4 className="font-medium mb-2">ATP Coverage:</h4>
+                <h4 className="font-medium mb-2">{ct('atpCoverage')}</h4>
                 <ul className="space-y-1 text-sm text-muted-foreground">
-                  <li>• Equipment construction standards</li>
-                  <li>• Temperature maintenance capability</li>
-                  <li>• Testing and certification procedures</li>
-                  <li>• Marking requirements</li>
-                  <li>• International recognition</li>
+                  <li>• {ct('equipmentConstruction')}</li>
+                  <li>• {ct('temperatureMaintenance')}</li>
+                  <li>• {ct('testingCertification')}</li>
+                  <li>• {ct('markingRequirements')}</li>
+                  <li>• {ct('internationalRecognition')}</li>
                 </ul>
               </div>
             </div>
             <div>
-              <h3 className="font-semibold mb-3">ATP Classification Codes</h3>
+              <h3 className="font-semibold mb-3">{ct('atpClassificationCodes')}</h3>
               <DataTable
-                headers={["Code", "Meaning", "Temp Capability"]}
+                headers={[ct('code'), ct('meaning'), ct('tempCapability')]}
                 rows={[
-                  ["FRC", "Refrigerated, heavy insulation", "Down to -20°C"],
-                  ["FRF", "Refrigerated, heavy insulation", "Down to -10°C"],
-                  ["FNA", "Refrigerated, normal insulation", "0°C to +12°C"],
-                  ["FNB", "Refrigerated, normal insulation", "+12°C"],
-                  ["IN", "Insulated only", "No active cooling"],
-                  ["IR", "Insulated, reinforced", "No active cooling"],
+                  ["FRC", ct('frcMeaning'), ct('frcTemp')],
+                  ["FRF", ct('frfMeaning'), ct('frfTemp')],
+                  ["FNA", ct('fnaMeaning'), ct('fnaTemp')],
+                  ["FNB", ct('fnbMeaning'), "+12°C"],
+                  ["IN", ct('inMeaning'), ct('noActiveCooling')],
+                  ["IR", ct('irMeaning'), ct('noActiveCooling')],
                 ]}
               />
             </div>
@@ -128,15 +126,15 @@ export function ReeferChapter() {
           <div className="mt-6 p-4 bg-warning/10 border border-warning/30 rounded-lg">
             <h4 className="font-semibold text-warning mb-2 flex items-center gap-2">
               <AlertTriangle className="w-4 h-4" />
-              Certificate Requirements
+              {ct('certificateRequirements')}
             </h4>
             <ul className="grid md:grid-cols-2 gap-2 text-sm text-muted-foreground">
-              <li>• Valid ATP certificate must be on board at all times</li>
-              <li>• Certificate valid for 6 years (3+3 with renewal test)</li>
-              <li>• Annual inspection recommended</li>
-              <li>• Required for ALL international perishable transport</li>
-              <li>• Check expiry date before accepting reefer orders</li>
-              <li>• Certificate must match vehicle registration</li>
+              <li>• {ct('certReq1')}</li>
+              <li>• {ct('certReq2')}</li>
+              <li>• {ct('certReq3')}</li>
+              <li>• {ct('certReq4')}</li>
+              <li>• {ct('certReq5')}</li>
+              <li>• {ct('certReq6')}</li>
             </ul>
           </div>
         </div>
@@ -146,49 +144,49 @@ export function ReeferChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-display flex items-center gap-2">
           <Snowflake className="w-6 h-6 text-primary" />
-          Cold Chain Best Practices
+          {ct('coldChainBestPracticesTitle')}
         </h2>
         <div className="grid md:grid-cols-3 gap-4">
           <div className="p-6 bg-blue-50 rounded-xl border border-blue-200">
             <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mb-3">
               <Thermometer className="w-5 h-5 text-blue-600" />
             </div>
-            <h3 className="font-semibold mb-3">Pre-Cooling Protocol</h3>
+            <h3 className="font-semibold mb-3">{ct('preCoolingProtocol')}</h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>• Pre-cool trailer to required temp BEFORE loading</li>
-              <li>• Allow 2-4 hours for deep freeze loads</li>
-              <li>• 1-2 hours for chilled loads</li>
-              <li>• Never load warm cargo into cold trailer</li>
-              <li>• Document pre-cool temperature</li>
-              <li>• Take photo of temp display before loading</li>
+              <li>• {ct('preCool1')}</li>
+              <li>• {ct('preCool2')}</li>
+              <li>• {ct('preCool3')}</li>
+              <li>• {ct('preCool4')}</li>
+              <li>• {ct('preCool5')}</li>
+              <li>• {ct('preCool6')}</li>
             </ul>
           </div>
           <div className="p-6 bg-cyan-50 rounded-xl border border-cyan-200">
             <div className="w-10 h-10 bg-cyan-100 rounded-lg flex items-center justify-center mb-3">
               <Truck className="w-5 h-5 text-cyan-600" />
             </div>
-            <h3 className="font-semibold mb-3">Loading Protocol</h3>
+            <h3 className="font-semibold mb-3">{ct('loadingProtocol')}</h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>• Load quickly to minimize temperature rise</li>
-              <li>• Check cargo temperature before loading</li>
-              <li>• Ensure proper air circulation gaps</li>
-              <li>• Never block the evaporator unit</li>
-              <li>• Use floor channels for airflow</li>
-              <li>• Maximum 30 min door open time</li>
+              <li>• {ct('loading1')}</li>
+              <li>• {ct('loading2')}</li>
+              <li>• {ct('loading3')}</li>
+              <li>• {ct('loading4')}</li>
+              <li>• {ct('loading5')}</li>
+              <li>• {ct('loading6')}</li>
             </ul>
           </div>
           <div className="p-6 bg-emerald-50 rounded-xl border border-emerald-200">
             <div className="w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center mb-3">
               <CheckCircle className="w-5 h-5 text-emerald-600" />
             </div>
-            <h3 className="font-semibold mb-3">Temperature Monitoring</h3>
+            <h3 className="font-semibold mb-3">{ct('temperatureMonitoring')}</h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>• Use calibrated data loggers</li>
-              <li>• Check temperatures at every stop</li>
-              <li>• Print temperature report at delivery</li>
-              <li>• Keep records for minimum 1 year</li>
-              <li>• GPS-linked monitoring preferred</li>
-              <li>• Real-time alerts for deviations</li>
+              <li>• {ct('monitoring1')}</li>
+              <li>• {ct('monitoring2')}</li>
+              <li>• {ct('monitoring3')}</li>
+              <li>• {ct('monitoring4')}</li>
+              <li>• {ct('monitoring5')}</li>
+              <li>• {ct('monitoring6')}</li>
             </ul>
           </div>
         </div>
@@ -198,18 +196,18 @@ export function ReeferChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-display flex items-center gap-2">
           <AlertTriangle className="w-6 h-6 text-warning" />
-          Handling Temperature Deviations
+          {ct('tempDeviationsTitle')}
         </h2>
         <div className="bg-warning/10 border border-warning/20 rounded-xl p-6">
           <div className="grid md:grid-cols-2 gap-6">
             <div>
-              <h3 className="font-semibold mb-3 text-warning">Critical Actions – STOP Protocol</h3>
+              <h3 className="font-semibold mb-3 text-warning">{ct('criticalActionsSTOP')}</h3>
               <ol className="space-y-3 text-sm">
                 {[
-                  { step: "S", action: "STOP", desc: "Stop vehicle safely, do not continue journey" },
-                  { step: "T", action: "TEMPERATURE", desc: "Check and record actual vs required temp" },
-                  { step: "O", action: "OPERATE", desc: "Check reefer unit, fuel level, settings" },
-                  { step: "P", action: "PHONE", desc: "Contact dispatcher immediately with all details" },
+                  { step: "S", action: ct('stop'), desc: ct('stopDesc') },
+                  { step: "T", action: ct('temperature'), desc: ct('tempDesc') },
+                  { step: "O", action: ct('operate'), desc: ct('operateDesc') },
+                  { step: "P", action: ct('phone'), desc: ct('phoneDesc') },
                 ].map((item) => (
                   <li key={item.step} className="flex items-start gap-3">
                     <span className="w-6 h-6 bg-warning text-warning-foreground rounded-full flex items-center justify-center font-bold text-xs flex-shrink-0">{item.step}</span>
@@ -222,21 +220,21 @@ export function ReeferChapter() {
               </ol>
             </div>
             <div>
-              <h3 className="font-semibold mb-3">Tolerance Limits by Product</h3>
+              <h3 className="font-semibold mb-3">{ct('toleranceLimits')}</h3>
               <DataTable
-                headers={["Product Type", "Max Deviation", "Max Duration"]}
+                headers={[ct('productType'), ct('maxDeviation'), ct('maxDuration')]}
                 rows={[
-                  ["Frozen goods", "+3°C", "< 30 minutes"],
-                  ["Chilled goods", "+2°C", "< 1 hour"],
-                  ["Fresh meat", "+2°C", "< 30 minutes"],
-                  ["Dairy", "+2°C", "< 1 hour"],
-                  ["Pharmaceuticals", "ZERO", "ANY = reject"],
-                  ["Vaccines", "ZERO", "ANY = reject"],
+                  [ct('frozenGoods'), "+3°C", "< 30 " + ct('minutes')],
+                  [ct('chilledGoods'), "+2°C", "< 1 " + ct('hour')],
+                  [ct('freshMeat'), "+2°C", "< 30 " + ct('minutes')],
+                  [ct('dairy'), "+2°C", "< 1 " + ct('hour')],
+                  [ct('pharmaceuticals'), ct('zero'), ct('anyReject')],
+                  [ct('vaccines'), ct('zero'), ct('anyReject')],
                 ]}
               />
               <p className="text-xs text-warning mt-2">
                 <AlertTriangle className="w-3 h-3 inline mr-1" />
-                ANY deviation must be documented on CMR. Never hide temperature issues.
+                {ct('anyDeviationNote')}
               </p>
             </div>
           </div>
@@ -247,47 +245,47 @@ export function ReeferChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-display flex items-center gap-2">
           <Settings className="w-6 h-6 text-primary" />
-          Reefer Unit Operation
+          {ct('reeferOperationTitle')}
         </h2>
         <div className="info-card">
           <div className="grid md:grid-cols-2 gap-6">
             <div>
-              <h3 className="font-semibold mb-3">Common Reefer Unit Brands</h3>
+              <h3 className="font-semibold mb-3">{ct('commonBrands')}</h3>
               <DataTable
-                headers={["Brand", "Popular Models", "Notes"]}
+                headers={[ct('brand'), ct('popularModels'), ct('notes')]}
                 rows={[
-                  ["Carrier Transicold", "Vector 1950, Supra 1150", "Most common globally"],
-                  ["Thermo King", "SLXe 400, SLXi Whisper", "Strong in EU market"],
-                  ["Schmitz Cargobull", "S.CU 2300", "German manufacturer"],
-                  ["Daikin", "Various models", "Growing presence"],
+                  ["Carrier Transicold", "Vector 1950, Supra 1150", ct('mostCommonGlobally')],
+                  ["Thermo King", "SLXe 400, SLXi Whisper", ct('strongInEU')],
+                  ["Schmitz Cargobull", "S.CU 2300", ct('germanManufacturer')],
+                  ["Daikin", ct('variousModels'), ct('growingPresence')],
                 ]}
               />
             </div>
             <div>
-              <h3 className="font-semibold mb-3">Operating Modes</h3>
+              <h3 className="font-semibold mb-3">{ct('operatingModes')}</h3>
               <ul className="space-y-2 text-sm text-muted-foreground">
                 <li className="p-2 bg-muted/50 rounded">
-                  <span className="font-medium">Continuous:</span> Reefer always on, constant temperature
+                  <span className="font-medium">{ct('continuous')}</span> {ct('continuousDesc')}
                 </li>
                 <li className="p-2 bg-muted/50 rounded">
-                  <span className="font-medium">Start/Stop:</span> Cycles to maintain temp (more fuel efficient)
+                  <span className="font-medium">{ct('startStop')}</span> {ct('startStopDesc')}
                 </li>
                 <li className="p-2 bg-muted/50 rounded">
-                  <span className="font-medium">Null/Defrost:</span> Prevents ice build-up on evaporator
+                  <span className="font-medium">{ct('nullDefrost')}</span> {ct('nullDefrostDesc')}
                 </li>
               </ul>
             </div>
           </div>
           
           <div className="mt-6">
-            <h3 className="font-semibold mb-3">Fuel Consumption Guide</h3>
+            <h3 className="font-semibold mb-3">{ct('fuelConsumptionGuide')}</h3>
             <DataTable
-              headers={["Condition", "Consumption", "Cost per Day", "Notes"]}
+              headers={[ct('condition'), ct('consumption'), ct('costPerDay'), ct('notes')]}
               rows={[
-                ["Chilled (+2°C to +8°C)", "2-3 L/hour", "€40-60/day", "Standard operating conditions"],
-                ["Frozen (-18°C)", "3-4 L/hour", "€60-80/day", "Higher consumption in summer"],
-                ["Deep Freeze (-25°C)", "4-5 L/hour", "€80-100/day", "Highest consumption"],
-                ["Multi-temp", "4-5 L/hour", "€80-100/day", "Two compartments = more fuel"],
+                [ct('chilledCondition'), "2-3 L/" + ct('hour'), "€40-60/" + ct('day'), ct('standardOperating')],
+                [ct('frozenCondition'), "3-4 L/" + ct('hour'), "€60-80/" + ct('day'), ct('higherInSummer')],
+                [ct('deepFreezeCondition'), "4-5 L/" + ct('hour'), "€80-100/" + ct('day'), ct('highestConsumption')],
+                [ct('multiTempCondition'), "4-5 L/" + ct('hour'), "€80-100/" + ct('day'), ct('twoCompartments')],
               ]}
             />
           </div>
@@ -298,23 +296,23 @@ export function ReeferChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-display flex items-center gap-2">
           <Package className="w-6 h-6 text-primary" />
-          Product-Specific Requirements
+          {ct('productRequirementsTitle')}
         </h2>
         <DataTable
-          headers={["Product", "Temperature", "Humidity", "Special Notes", "Documents Needed"]}
+          headers={[ct('product'), ct('temperatureCol'), ct('humidity'), ct('specialNotes'), ct('documentsNeeded')]}
           rows={[
-            ["Fresh meat (beef, pork)", "+0°C to +4°C", "85-90%", "Health certificate required, HACCP", "CMR, Health cert, ATP"],
-            ["Poultry", "+0°C to +2°C", "85-90%", "Stricter than red meat", "CMR, Health cert, ATP"],
-            ["Fresh fish", "-2°C to +2°C", "95-100%", "Often packed in ice, drain holes needed", "CMR, Catch cert, ATP"],
-            ["Dairy products", "+2°C to +6°C", "80-85%", "Very sensitive to fluctuation", "CMR, ATP"],
-            ["Fruits & vegetables", "+4°C to +14°C", "85-95%", "Need ventilation, some produce ethylene", "CMR, Phyto cert, ATP"],
-            ["Pharmaceuticals", "+2°C to +8°C", "Controlled", "GDP compliance, calibrated monitoring", "CMR, GDP docs, ATP, Temp log"],
-            ["Vaccines", "+2°C to +8°C", "Controlled", "ZERO tolerance, dedicated transport", "CMR, GDP, Batch records"],
-            ["Frozen foods", "-18°C or below", "N/A", "Must maintain throughout transport", "CMR, ATP"],
-            ["Ice cream", "-25°C to -20°C", "N/A", "Very sensitive to temperature rise", "CMR, ATP"],
-            ["Flowers", "+2°C to +8°C", "90-95%", "High humidity, quick delivery needed", "CMR, Phyto cert, ATP"],
-            ["Chocolate", "+12°C to +18°C", "50-65%", "Avoid condensation and bloom", "CMR, (ATP optional)"],
-            ["Wine", "+10°C to +16°C", "60-70%", "Protect from vibration and light", "CMR, (ATP optional)"],
+            [ct('freshMeatBeefPork'), "+0°C to +4°C", "85-90%", ct('healthCertRequired'), "CMR, Health cert, ATP"],
+            [ct('poultry'), "+0°C to +2°C", "85-90%", ct('stricterThanRed'), "CMR, Health cert, ATP"],
+            [ct('freshFish'), "-2°C to +2°C", "95-100%", ct('packedInIce'), "CMR, Catch cert, ATP"],
+            [ct('dairyProducts'), "+2°C to +6°C", "80-85%", ct('sensitiveToFluctuation'), "CMR, ATP"],
+            [ct('fruitsVegetables'), "+4°C to +14°C", "85-95%", ct('needVentilation'), "CMR, Phyto cert, ATP"],
+            [ct('pharmaceuticalsProduct'), "+2°C to +8°C", ct('controlled'), ct('gdpCompliance'), "CMR, GDP docs, ATP, Temp log"],
+            [ct('vaccinesProduct'), "+2°C to +8°C", ct('controlled'), ct('zeroToleranceDedicated'), "CMR, GDP, Batch records"],
+            [ct('frozenFoods'), "-18°C " + ct('orBelow'), "N/A", ct('mustMaintainThroughout'), "CMR, ATP"],
+            [ct('iceCream'), "-25°C to -20°C", "N/A", ct('sensitiveToTempRise'), "CMR, ATP"],
+            [ct('flowers'), "+2°C to +8°C", "90-95%", ct('highHumidityQuick'), "CMR, Phyto cert, ATP"],
+            [ct('chocolate'), "+12°C to +18°C", "50-65%", ct('avoidCondensation'), "CMR, (ATP optional)"],
+            [ct('wine'), "+10°C to +16°C", "60-70%", ct('protectVibration'), "CMR, (ATP optional)"],
           ]}
         />
       </section>
@@ -323,66 +321,65 @@ export function ReeferChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-display flex items-center gap-2">
           <Shield className="w-6 h-6 text-primary" />
-          GDP Compliance for Pharmaceuticals
+          {ct('gdpTitle')}
         </h2>
         <div className="info-card">
           <p className="text-muted-foreground mb-4">
-            Good Distribution Practice (GDP) is the minimum standard for pharmaceutical logistics. 
-            Failure to comply can result in product recall, regulatory action, and loss of license.
+            {ct('gdpDescription')}
           </p>
           
           <div className="grid md:grid-cols-2 gap-6">
             <div>
-              <h3 className="font-semibold mb-3 text-primary">GDP Requirements for Transport</h3>
+              <h3 className="font-semibold mb-3 text-primary">{ct('gdpRequirements')}</h3>
               <ul className="space-y-2 text-sm text-muted-foreground">
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="w-4 h-4 text-success mt-0.5 flex-shrink-0" />
-                  <span>Validated transport equipment</span>
+                  <span>{ct('gdpReq1')}</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="w-4 h-4 text-success mt-0.5 flex-shrink-0" />
-                  <span>Calibrated temperature monitoring</span>
+                  <span>{ct('gdpReq2')}</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="w-4 h-4 text-success mt-0.5 flex-shrink-0" />
-                  <span>Trained personnel with documentation</span>
+                  <span>{ct('gdpReq3')}</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="w-4 h-4 text-success mt-0.5 flex-shrink-0" />
-                  <span>Continuous temperature records</span>
+                  <span>{ct('gdpReq4')}</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="w-4 h-4 text-success mt-0.5 flex-shrink-0" />
-                  <span>Deviation handling procedures</span>
+                  <span>{ct('gdpReq5')}</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="w-4 h-4 text-success mt-0.5 flex-shrink-0" />
-                  <span>Clean, dedicated vehicles</span>
+                  <span>{ct('gdpReq6')}</span>
                 </li>
               </ul>
             </div>
             <div>
-              <h3 className="font-semibold mb-3 text-destructive">GDP Non-Compliance Risks</h3>
+              <h3 className="font-semibold mb-3 text-destructive">{ct('gdpNonComplianceRisks')}</h3>
               <ul className="space-y-2 text-sm text-muted-foreground">
                 <li className="flex items-start gap-2">
                   <XCircle className="w-4 h-4 text-destructive mt-0.5 flex-shrink-0" />
-                  <span>Product rejection and return</span>
+                  <span>{ct('gdpRisk1')}</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <XCircle className="w-4 h-4 text-destructive mt-0.5 flex-shrink-0" />
-                  <span>Regulatory investigation</span>
+                  <span>{ct('gdpRisk2')}</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <XCircle className="w-4 h-4 text-destructive mt-0.5 flex-shrink-0" />
-                  <span>Loss of GDP authorization</span>
+                  <span>{ct('gdpRisk3')}</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <XCircle className="w-4 h-4 text-destructive mt-0.5 flex-shrink-0" />
-                  <span>Client blacklisting</span>
+                  <span>{ct('gdpRisk4')}</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <XCircle className="w-4 h-4 text-destructive mt-0.5 flex-shrink-0" />
-                  <span>Criminal liability (patient harm)</span>
+                  <span>{ct('gdpRisk5')}</span>
                 </li>
               </ul>
             </div>
@@ -394,56 +391,56 @@ export function ReeferChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-display flex items-center gap-2">
           <FileText className="w-6 h-6 text-primary" />
-          Required Documentation
+          {ct('requiredDocumentation')}
         </h2>
         <div className="grid md:grid-cols-2 gap-4">
           <div className="bg-card border border-border rounded-xl p-6">
-            <h3 className="font-semibold mb-3">Vehicle Documents</h3>
+            <h3 className="font-semibold mb-3">{ct('vehicleDocuments')}</h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-success mt-0.5 flex-shrink-0" />
-                <span>Valid ATP certificate (check expiry!)</span>
+                <span>{ct('vehicleDoc1')}</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-success mt-0.5 flex-shrink-0" />
-                <span>Reefer unit service record</span>
+                <span>{ct('vehicleDoc2')}</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-success mt-0.5 flex-shrink-0" />
-                <span>Temperature logger calibration certificate</span>
+                <span>{ct('vehicleDoc3')}</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-success mt-0.5 flex-shrink-0" />
-                <span>Vehicle cleaning records (for food)</span>
+                <span>{ct('vehicleDoc4')}</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-success mt-0.5 flex-shrink-0" />
-                <span>GDP authorization (for pharma)</span>
+                <span>{ct('vehicleDoc5')}</span>
               </li>
             </ul>
           </div>
           <div className="bg-card border border-border rounded-xl p-6">
-            <h3 className="font-semibold mb-3">Shipment Documents</h3>
+            <h3 className="font-semibold mb-3">{ct('shipmentDocuments')}</h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-success mt-0.5 flex-shrink-0" />
-                <span>CMR with temperature requirement noted</span>
+                <span>{ct('shipmentDoc1')}</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-success mt-0.5 flex-shrink-0" />
-                <span>Temperature printout at loading</span>
+                <span>{ct('shipmentDoc2')}</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-success mt-0.5 flex-shrink-0" />
-                <span>Temperature printout at delivery</span>
+                <span>{ct('shipmentDoc3')}</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-success mt-0.5 flex-shrink-0" />
-                <span>Health certificates (food products)</span>
+                <span>{ct('shipmentDoc4')}</span>
               </li>
               <li className="flex items-start gap-2">
                 <CheckCircle2 className="w-4 h-4 text-success mt-0.5 flex-shrink-0" />
-                <span>Phytosanitary certificate (produce)</span>
+                <span>{ct('shipmentDoc5')}</span>
               </li>
             </ul>
           </div>
@@ -454,45 +451,45 @@ export function ReeferChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-display flex items-center gap-2">
           <Euro className="w-6 h-6 text-primary" />
-          Reefer Pricing & Cost Factors
+          {ct('pricingTitle')}
         </h2>
         <div className="info-card">
           <div className="grid md:grid-cols-2 gap-6">
             <div>
-              <h4 className="font-semibold mb-3">Premium Over Standard Rates</h4>
+              <h4 className="font-semibold mb-3">{ct('premiumOverStandardRates')}</h4>
               <DataTable
-                headers={["Temperature Class", "Premium", "Notes"]}
+                headers={[ct('temperatureClassCol'), ct('premium'), ct('notes')]}
                 rows={[
-                  ["Chilled (+2°C to +8°C)", "+15-25%", "Standard reefer"],
-                  ["Frozen (-18°C)", "+25-35%", "Higher fuel cost"],
-                  ["Deep freeze (-25°C)", "+35-50%", "Specialist equipment"],
-                  ["Pharma/GDP", "+50-100%", "Documentation, liability"],
-                  ["Multi-temperature", "+40-60%", "Complex loads"],
+                  [ct('chilledRate'), "+15-25%", ct('standardReefer')],
+                  [ct('frozenRate'), "+25-35%", ct('higherFuelCost')],
+                  [ct('deepFreezeRate'), "+35-50%", ct('specialistEquipment')],
+                  [ct('pharmaGDPRate'), "+50-100%", ct('documentationLiability')],
+                  [ct('multiTemperatureRate'), "+40-60%", ct('complexLoads')],
                 ]}
               />
             </div>
             <div>
-              <h4 className="font-semibold mb-3">Additional Cost Factors</h4>
+              <h4 className="font-semibold mb-3">{ct('additionalCostFactors')}</h4>
               <ul className="space-y-2 text-sm">
                 <li className="flex justify-between py-2 border-b border-border">
-                  <span>Reefer fuel</span>
-                  <span className="font-medium">€30-100/day</span>
+                  <span>{ct('reeferFuel')}</span>
+                  <span className="font-medium">€30-100/{ct('day')}</span>
                 </li>
                 <li className="flex justify-between py-2 border-b border-border">
-                  <span>Pre-cooling</span>
+                  <span>{ct('preCooling')}</span>
                   <span className="font-medium">€50-100</span>
                 </li>
                 <li className="flex justify-between py-2 border-b border-border">
-                  <span>Temperature monitoring</span>
-                  <span className="font-medium">€25-50/shipment</span>
+                  <span>{ct('temperatureMonitoringCost')}</span>
+                  <span className="font-medium">€25-50/{ct('shipment')}</span>
                 </li>
                 <li className="flex justify-between py-2 border-b border-border">
-                  <span>Cleaning (food grade)</span>
+                  <span>{ct('cleaningFoodGrade')}</span>
                   <span className="font-medium">€50-150</span>
                 </li>
                 <li className="flex justify-between py-2 border-b border-border">
-                  <span>Temperature report</span>
-                  <span className="font-medium">Included or €15-30</span>
+                  <span>{ct('temperatureReport')}</span>
+                  <span className="font-medium">{ct('includedOr')} €15-30</span>
                 </li>
               </ul>
             </div>
@@ -504,17 +501,17 @@ export function ReeferChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-display flex items-center gap-2">
           <AlertTriangle className="w-6 h-6 text-primary" />
-          Common Reefer Problems & Solutions
+          {ct('troubleshootingTitle')}
         </h2>
         <DataTable
-          headers={["Problem", "Possible Cause", "Immediate Action", "Prevention"]}
+          headers={[ct('problem'), ct('possibleCause'), ct('immediateAction'), ct('prevention')]}
           rows={[
-            ["Unit not cooling", "Low fuel, electrical fault", "Check fuel, reset unit, call for breakdown", "Pre-trip checks"],
-            ["Temperature rising", "Door seal leak, overloaded", "Check seals, verify airflow", "Inspect seals before loading"],
-            ["Ice on evaporator", "Defrost cycle skipped", "Run manual defrost", "Ensure auto-defrost enabled"],
-            ["Inconsistent temp", "Blocked airflow, mixed cargo", "Check cargo placement, ensure gaps", "Proper loading training"],
-            ["Unit alarm", "Various", "Check display for error code, contact support", "Regular maintenance"],
-            ["No temp printout", "Printer fault, no paper", "Manual record, get printout at next stop", "Check printer before trip"],
+            [ct('unitNotCooling'), ct('unitNotCoolingCause'), ct('unitNotCoolingAction'), ct('preTripChecks')],
+            [ct('temperatureRising'), ct('temperatureRisingCause'), ct('temperatureRisingAction'), ct('inspectSeals')],
+            [ct('iceOnEvaporator'), ct('iceOnEvaporatorCause'), ct('iceOnEvaporatorAction'), ct('ensureAutoDefrost')],
+            [ct('inconsistentTemp'), ct('inconsistentTempCause'), ct('inconsistentTempAction'), ct('properLoadingTraining')],
+            [ct('unitAlarm'), ct('unitAlarmCause'), ct('unitAlarmAction'), ct('regularMaintenance')],
+            [ct('noTempPrintout'), ct('noTempPrintoutCause'), ct('noTempPrintoutAction'), ct('checkPrinter')],
           ]}
         />
       </section>
@@ -522,34 +519,34 @@ export function ReeferChapter() {
       {/* Checklists */}
       <div className="grid md:grid-cols-2 gap-6">
         <Checklist 
-          title="Pre-Loading Reefer Checklist"
+          title={ct('preLoadingReeferChecklist')}
           items={[
-            "ATP certificate valid and on board",
-            "Reefer unit pre-cooled to required temp",
-            "Temperature display functional",
-            "Data logger calibrated and activated",
-            "Trailer interior clean and dry",
-            "Door seals in good condition",
-            "Pre-cool temp photo taken"
+            ct('checklistPreLoad1'),
+            ct('checklistPreLoad2'),
+            ct('checklistPreLoad3'),
+            ct('checklistPreLoad4'),
+            ct('checklistPreLoad5'),
+            ct('checklistPreLoad6'),
+            ct('checklistPreLoad7')
           ]}
         />
         <Checklist 
-          title="Post-Loading Reefer Checklist"
+          title={ct('postLoadingReeferChecklist')}
           items={[
-            "Cargo temp checked and documented",
-            "Set point verified and confirmed",
-            "Airflow gaps maintained",
-            "Evaporator not blocked",
-            "Doors sealed properly",
-            "Data logger recording",
-            "CMR notes temperature requirement"
+            ct('checklistPostLoad1'),
+            ct('checklistPostLoad2'),
+            ct('checklistPostLoad3'),
+            ct('checklistPostLoad4'),
+            ct('checklistPostLoad5'),
+            ct('checklistPostLoad6'),
+            ct('checklistPostLoad7')
           ]}
         />
       </div>
 
       {/* Quiz */}
       {quizzes.reefer && (
-        <Quiz title="🎯 Temperature-Controlled Transport Quiz" questions={quizzes.reefer} chapterId="reefer" />
+        <Quiz title={ct('knowledgeCheck')} questions={quizzes.reefer} chapterId="reefer" />
       )}
     </div>
   );
