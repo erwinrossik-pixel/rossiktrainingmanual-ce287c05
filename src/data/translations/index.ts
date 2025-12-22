@@ -25,6 +25,20 @@ import { kpiTranslations } from './chapters/kpi';
 import { redFlagsTranslations } from './chapters/red-flags';
 import { reeferTranslations } from './chapters/reefer';
 import { licensesOversizeTranslations } from './chapters/licenses-oversize';
+import { accountingTranslations } from './chapters/accounting';
+import { clientsTranslations } from './chapters/clients';
+import { emergencyTranslations } from './chapters/emergency';
+import { environmentTranslations } from './chapters/environment';
+import { europeZonesTranslations } from './chapters/europe-zones';
+import { exchangesTranslations } from './chapters/exchanges';
+import { fleetTranslations } from './chapters/fleet';
+import { glossaryTranslations } from './chapters/glossary';
+import { riskManagementTranslations } from './chapters/risk-management';
+import { supplyChainTranslations } from './chapters/supply-chain';
+import { technologyTranslations } from './chapters/technology';
+import { trainingTranslations } from './chapters/training';
+import { translogicaTranslations } from './chapters/translogica';
+import { warehouseTranslations } from './chapters/warehouse';
 
 // Chapter translations type
 type ChapterTranslations = Record<string, Record<string, string>>;
@@ -57,6 +71,20 @@ const allTranslations: Record<string, ChapterTranslations> = {
   'red-flags': redFlagsTranslations,
   reefer: reeferTranslations,
   'licenses-oversize': licensesOversizeTranslations,
+  accounting: accountingTranslations,
+  clients: clientsTranslations,
+  emergency: emergencyTranslations,
+  environment: environmentTranslations,
+  'europe-zones': europeZonesTranslations,
+  exchanges: exchangesTranslations,
+  fleet: fleetTranslations,
+  glossary: glossaryTranslations,
+  'risk-management': riskManagementTranslations,
+  'supply-chain': supplyChainTranslations,
+  technology: technologyTranslations,
+  training: trainingTranslations,
+  translogica: translogicaTranslations,
+  warehouse: warehouseTranslations,
 };
 
 // Hook to get chapter translations
