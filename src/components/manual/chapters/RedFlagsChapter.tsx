@@ -79,12 +79,6 @@ export function RedFlagsChapter() {
         icon={AlertTriangle}
         variant="redflags"
       />
-          </h1>
-          <p className="text-lg md:text-xl opacity-90 max-w-2xl">
-            {ct("subtitle")}
-          </p>
-        </div>
-      </div>
 
       {/* Why Red Flags Matter */}
       <div className="info-card bg-gradient-to-br from-primary/5 to-primary/10">
