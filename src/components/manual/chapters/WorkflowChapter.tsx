@@ -3,6 +3,7 @@ import { DataTable } from "../DataTable";
 import { Quiz } from "../Quiz";
 import { FlowDiagram, ProcessMap, DecisionDiagram } from "../FlowDiagram";
 import { Checklist } from "../Checklist";
+import { ChapterHero } from "../ChapterHero";
 import { quizzes } from "@/data/quizData";
 import {
   ClipboardList, Search, Calculator, Play, Package, 
@@ -18,12 +19,14 @@ export function WorkflowChapter() {
   
   return (
     <div className="space-y-8 animate-fade-in">
-      <div>
-        <h1 className="chapter-title">{ct("title")}</h1>
-        <p className="text-lg text-muted-foreground">
-          {ct("subtitle")}
-        </p>
-      </div>
+      {/* Hero Section */}
+      <ChapterHero
+        chapterNumber={ct("chapterNumber")}
+        title={ct("chapterTitle")}
+        description={ct("heroDescription")}
+        icon={Route}
+        variant="foundation"
+      />
 
       {/* Introduction to Workflow */}
       <div className="info-card">

@@ -2,6 +2,7 @@ import { InfoCard } from "../InfoCard";
 import { DataTable } from "../DataTable";
 import { Quiz } from "../Quiz";
 import { Checklist } from "../Checklist";
+import { ChapterHero } from "../ChapterHero";
 import { quizzes } from "@/data/quizData";
 import { 
   Target, MessageSquare, Brain, FileText, Scale, Users, CheckCircle, 
@@ -16,12 +17,14 @@ export function MindsetChapter() {
   
   return (
     <div className="space-y-8 animate-fade-in">
-      <div>
-        <h1 className="chapter-title">{ct('title')}</h1>
-        <p className="text-lg text-muted-foreground">
-          {ct('subtitle')}
-        </p>
-      </div>
+      {/* Hero Section */}
+      <ChapterHero
+        chapterNumber={ct("chapterNumber")}
+        title={ct("chapterTitle")}
+        description={ct("heroDescription")}
+        icon={Brain}
+        variant="foundation"
+      />
 
       {/* Introduction */}
       <div className="info-card">

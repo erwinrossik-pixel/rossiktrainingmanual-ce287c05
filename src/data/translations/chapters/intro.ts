@@ -1,5 +1,8 @@
 export const introTranslations = {
   ro: {
+    chapterNumber: "Capitolul 1",
+    chapterTitle: "Introducere",
+    heroDescription: "Ghidul complet pentru industria de transport rutier european. Înțelege rolul tău, structura companiei și ce vei învăța în această călătorie profesională.",
     heroTitle: "EU Road Freight Forwarding",
     heroSubtitle: "Manual de Training și Operare Extins",
     heroVersion: "Versiunea 2025 – Ediția Completă în Română",
@@ -135,6 +138,9 @@ export const introTranslations = {
   },
   
   de: {
+    chapterNumber: "Kapitel 1",
+    chapterTitle: "Einführung",
+    heroDescription: "Der komplette Leitfaden für die europäische Straßentransportbranche. Verstehen Sie Ihre Rolle, die Unternehmensstruktur und was Sie auf dieser beruflichen Reise lernen werden.",
     heroTitle: "EU-Straßengüterverkehr Spedition",
     heroSubtitle: "Erweitertes Schulungs- und Betriebshandbuch",
     heroVersion: "Version 2025 – Vollständige deutsche Ausgabe",
@@ -270,6 +276,9 @@ export const introTranslations = {
   },
   
   en: {
+    chapterNumber: "Chapter 1",
+    chapterTitle: "Introduction",
+    heroDescription: "The complete guide to the European road freight industry. Understand your role, company structure, and what you will learn on this professional journey.",
     heroTitle: "EU Road Freight Forwarding",
     heroSubtitle: "Extended Training & Operating Manual",
     heroVersion: "Version 2025 – Complete English Edition",

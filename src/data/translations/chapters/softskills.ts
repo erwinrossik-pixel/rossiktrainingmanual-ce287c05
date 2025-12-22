@@ -1,5 +1,8 @@
 export const softskillsTranslations = {
   en: {
+    chapterNumber: "Chapter 3",
+    chapterTitle: "Soft Skills",
+    heroDescription: "Essential interpersonal and professional skills for success in freight forwarding: communication, negotiation, stress management, and problem-solving.",
     title: "Soft Skills for Logistics",
     subtitle: "Essential interpersonal and professional skills for success in freight forwarding: communication, negotiation, stress management, and problem-solving.",
     whyMatter: "Why Soft Skills Matter in Logistics",
@@ -378,6 +381,9 @@ export const softskillsTranslations = {
     quizTitle: "Soft Skills Wissenstest",
   },
   ro: {
+    chapterNumber: "Capitolul 3",
+    chapterTitle: "Abilități Soft",
+    heroDescription: "Abilități interpersonale și profesionale esențiale pentru succes în expediția mărfurilor: comunicare, negociere, gestionarea stresului și rezolvarea problemelor.",
     title: "Abilități Soft pentru Logistică",
     subtitle: "Abilități interpersonale și profesionale esențiale pentru succes în expediția mărfurilor: comunicare, negociere, gestionarea stresului și rezolvarea problemelor.",
     whyMatter: "De Ce Contează Abilitățile Soft în Logistică",
