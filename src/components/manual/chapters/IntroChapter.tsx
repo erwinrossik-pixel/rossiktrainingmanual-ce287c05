@@ -15,7 +15,7 @@ export function IntroChapter() {
         title={ct("chapterTitle")}
         description={ct("heroDescription")}
         icon={BookOpen}
-        variant="foundation"
+        variant="intro"
       />
 
       {/* Welcome Message */}

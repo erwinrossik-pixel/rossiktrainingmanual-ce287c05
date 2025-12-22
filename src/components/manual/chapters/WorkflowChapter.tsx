@@ -25,7 +25,7 @@ export function WorkflowChapter() {
         title={ct("chapterTitle")}
         description={ct("heroDescription")}
         icon={Route}
-        variant="foundation"
+        variant="workflow"
       />
 
       {/* Introduction to Workflow */}

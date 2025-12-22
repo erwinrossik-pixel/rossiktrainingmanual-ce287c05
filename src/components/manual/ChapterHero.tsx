@@ -2,13 +2,54 @@ import { LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 type HeroVariant = 
-  | "foundation" 
-  | "equipment" 
-  | "trade" 
-  | "commercial" 
-  | "technology" 
-  | "finance" 
-  | "practical";
+  // Foundation Section (Chapters 1-4) - Purple tones
+  | "intro"           // Deep violet
+  | "mindset"         // Royal purple
+  | "softskills"      // Indigo
+  | "workflow"        // Purple-blue
+  // Equipment Section (Chapters 5-10) - Blue/Cyan tones
+  | "vehicle"         // Deep blue
+  | "loading"         // Steel blue
+  | "reefer"          // Ice blue
+  | "warehouse"       // Navy
+  | "adr"             // Electric blue
+  | "documents"       // Slate blue
+  // Trade Section (Chapters 11-17) - Green/Teal tones
+  | "incoterms"       // Emerald
+  | "compliance"      // Forest green
+  | "drivingtime"     // Teal
+  | "customs"         // Sea green
+  | "europezones"     // Jade
+  | "insurance"       // Mint
+  | "licenses"        // Dark teal
+  // Commercial Section (Chapters 18-25) - Orange/Amber tones
+  | "clients"         // Amber
+  | "pricing"         // Orange
+  | "negotiation"     // Coral
+  | "commercial"      // Burnt orange
+  | "exchanges"       // Gold
+  | "carrier"         // Tangerine
+  | "communication"   // Peach
+  | "redflags"        // Red-orange
+  // Technology Section (Chapters 26-29) - Magenta/Pink tones
+  | "technology"      // Magenta
+  | "supplychain"     // Fuchsia
+  | "translogica"     // Rose
+  | "kpi"             // Hot pink
+  // Finance Section (Chapters 30-34) - Warm greens/Gold tones
+  | "payment"         // Olive green
+  | "accounting"      // Bronze
+  | "claims"          // Copper
+  | "risk"            // Dark gold
+  | "environment"     // Sage
+  // Practical Section (Chapters 35-40) - Mixed vibrant tones
+  | "emergency"       // Crimson red
+  | "training"        // Bright purple
+  | "casestudies"     // Turquoise
+  | "checklists"      // Lime green
+  | "glossary"        // Steel gray
+  | "fleet"           // Dark cyan
+  | "default";
 
 interface ChapterHeroProps {
   chapterNumber: string;
@@ -23,16 +64,57 @@ export function ChapterHero({
   title, 
   description, 
   icon: Icon,
-  variant = "practical" 
+  variant = "default" 
 }: ChapterHeroProps) {
   const variantClasses: Record<HeroVariant, string> = {
-    foundation: "hero-section-foundation",
-    equipment: "hero-section-equipment",
-    trade: "hero-section-trade",
-    commercial: "hero-section-commercial",
-    technology: "hero-section-technology",
-    finance: "hero-section-finance",
-    practical: "", // Uses default hero-section gradient
+    // Foundation Section - Purple spectrum
+    intro: "hero-intro",
+    mindset: "hero-mindset",
+    softskills: "hero-softskills",
+    workflow: "hero-workflow",
+    // Equipment Section - Blue spectrum
+    vehicle: "hero-vehicle",
+    loading: "hero-loading",
+    reefer: "hero-reefer",
+    warehouse: "hero-warehouse",
+    adr: "hero-adr",
+    documents: "hero-documents",
+    // Trade Section - Green spectrum
+    incoterms: "hero-incoterms",
+    compliance: "hero-compliance",
+    drivingtime: "hero-drivingtime",
+    customs: "hero-customs",
+    europezones: "hero-europezones",
+    insurance: "hero-insurance",
+    licenses: "hero-licenses",
+    // Commercial Section - Orange spectrum
+    clients: "hero-clients",
+    pricing: "hero-pricing",
+    negotiation: "hero-negotiation",
+    commercial: "hero-commercial",
+    exchanges: "hero-exchanges",
+    carrier: "hero-carrier",
+    communication: "hero-communication",
+    redflags: "hero-redflags",
+    // Technology Section - Magenta spectrum
+    technology: "hero-technology",
+    supplychain: "hero-supplychain",
+    translogica: "hero-translogica",
+    kpi: "hero-kpi",
+    // Finance Section - Warm spectrum
+    payment: "hero-payment",
+    accounting: "hero-accounting",
+    claims: "hero-claims",
+    risk: "hero-risk",
+    environment: "hero-environment",
+    // Practical Section - Mixed spectrum
+    emergency: "hero-emergency",
+    training: "hero-training",
+    casestudies: "hero-casestudies",
+    checklists: "hero-checklists",
+    glossary: "hero-glossary",
+    fleet: "hero-fleet",
+    default: "",
   };
 
   return (

@@ -17,7 +17,7 @@ export function SoftSkillsChapter() {
         title={ct("chapterTitle")}
         description={ct("heroDescription")}
         icon={Users}
-        variant="foundation"
+        variant="softskills"
       />
 
       {/* Introduction */}

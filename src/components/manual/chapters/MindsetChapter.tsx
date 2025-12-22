@@ -23,7 +23,7 @@ export function MindsetChapter() {
         title={ct("chapterTitle")}
         description={ct("heroDescription")}
         icon={Brain}
-        variant="foundation"
+        variant="mindset"
       />
 
       {/* Introduction */}
