@@ -1,5 +1,9 @@
 export const mindsetTranslations = {
   en: {
+    // Hero Section
+    chapterNumber: "Chapter 2",
+    chapterTitle: "Mindset",
+    heroDescription: "Understanding the core responsibilities, psychology, and interpersonal skills that define excellent freight forwarding. This chapter covers the human side of logistics.",
     // Header
     title: "Role, Mindset & Human Factors",
     subtitle: "Understanding the core responsibilities, psychology, and interpersonal skills that define excellent freight forwarding. This chapter covers the human side of logistics that separates average dispatchers from top performers.",
@@ -460,6 +464,10 @@ export const mindsetTranslations = {
     quizTitle: "Testen Sie Ihr Wissen: Einstellung & Menschliche Faktoren",
   },
   ro: {
+    // Hero Section
+    chapterNumber: "Capitolul 2",
+    chapterTitle: "Mentalitate",
+    heroDescription: "Înțelegerea responsabilităților de bază, psihologiei și abilităților interpersonale care definesc freight forwarding-ul excelent. Acest capitol acoperă latura umană a logisticii.",
     // Header
     title: "Rol, Mentalitate & Factori Umani",
     subtitle: "Înțelegerea responsabilităților principale, psihologiei și abilităților interpersonale care definesc excelența în expediția mărfurilor. Acest capitol acoperă latura umană a logisticii care diferențiază dispecerii obișnuiți de performerii de top.",

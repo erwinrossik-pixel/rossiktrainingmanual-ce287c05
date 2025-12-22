@@ -1,5 +1,8 @@
 export const workflowTranslations: Record<string, Record<string, string>> = {
   en: {
+    chapterNumber: "Chapter 4",
+    chapterTitle: "Workflow",
+    heroDescription: "The complete process from customer request to delivery completion, with detailed procedures and best practices for every stage of freight forwarding operations.",
     title: "Operational Workflow (End-to-End)",
     subtitle: "The complete process from customer request to delivery completion, with detailed procedures, best practices, and real-world examples for every stage of freight forwarding operations.",
     understandingWorkflow: "Understanding the Freight Forwarding Workflow",
@@ -678,6 +681,9 @@ export const workflowTranslations: Record<string, Record<string, string>> = {
     quizTitle: "🎯 Wissenstest: Operativer Workflow",
   },
   ro: {
+    chapterNumber: "Capitolul 4",
+    chapterTitle: "Flux de Lucru",
+    heroDescription: "Procesul complet de la solicitarea clientului până la finalizarea livrării, cu proceduri detaliate și bune practici pentru fiecare etapă a operațiunilor de expediție.",
     title: "Flux Operațional (End-to-End)",
     subtitle: "Procesul complet de la solicitarea clientului până la finalizarea livrării, cu proceduri detaliate, bune practici și exemple din lumea reală pentru fiecare etapă a operațiunilor de expediție.",
     understandingWorkflow: "Înțelegerea Fluxului de Expediție",

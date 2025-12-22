@@ -173,6 +173,35 @@
     background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(350 89% 45%) 50%, hsl(350 70% 35%) 100%);
   }
 
+  /* Hero section color variants for different sections */
+  .hero-section-foundation {
+    background: linear-gradient(135deg, hsl(250 70% 50%) 0%, hsl(260 80% 40%) 50%, hsl(270 70% 35%) 100%);
+  }
+
+  .hero-section-equipment {
+    background: linear-gradient(135deg, hsl(200 80% 45%) 0%, hsl(210 90% 40%) 50%, hsl(220 80% 35%) 100%);
+  }
+
+  .hero-section-trade {
+    background: linear-gradient(135deg, hsl(160 70% 40%) 0%, hsl(170 80% 35%) 50%, hsl(180 70% 30%) 100%);
+  }
+
+  .hero-section-commercial {
+    background: linear-gradient(135deg, hsl(30 90% 50%) 0%, hsl(25 85% 45%) 50%, hsl(20 80% 40%) 100%);
+  }
+
+  .hero-section-technology {
+    background: linear-gradient(135deg, hsl(280 70% 50%) 0%, hsl(290 80% 45%) 50%, hsl(300 70% 40%) 100%);
+  }
+
+  .hero-section-finance {
+    background: linear-gradient(135deg, hsl(140 60% 40%) 0%, hsl(150 70% 35%) 50%, hsl(160 60% 30%) 100%);
+  }
+
+  .hero-section-practical {
+    background: linear-gradient(135deg, hsl(350 89% 55%) 0%, hsl(350 89% 45%) 50%, hsl(350 70% 35%) 100%);
+  }
+
   .hero-section::before {
     content: '';
     @apply absolute inset-0 opacity-20;
