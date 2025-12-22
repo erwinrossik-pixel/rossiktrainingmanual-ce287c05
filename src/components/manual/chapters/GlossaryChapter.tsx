@@ -1,5 +1,6 @@
 import { useState, useMemo } from "react";
 import { Book, Search, Filter } from "lucide-react";
+import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 
 interface GlossaryTerm {
   term: string;
@@ -131,8 +132,24 @@ const glossaryTerms: GlossaryTerm[] = [
 const categories = ["All", "Operations", "Compliance", "Documents", "Vehicles", "Pricing", "Customs", "Cargo", "Technology"];
 
 export function GlossaryChapter() {
+  const { ct } = useChapterTranslation("glossary");
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
+
+  const getCategoryLabel = (category: string) => {
+    const categoryMap: Record<string, string> = {
+      "All": ct("allCategories"),
+      "Operations": ct("operations"),
+      "Compliance": ct("compliance"),
+      "Documents": ct("documents"),
+      "Vehicles": ct("vehicles"),
+      "Pricing": ct("pricing"),
+      "Customs": ct("customs"),
+      "Cargo": ct("cargo"),
+      "Technology": ct("technology"),
+    };
+    return categoryMap[category] || category;
+  };
 
   const filteredTerms = useMemo(() => {
     return glossaryTerms.filter(term => {
@@ -152,22 +169,22 @@ export function GlossaryChapter() {
         <div className="relative">
           <Book className="w-12 h-12 mb-4" />
           <h1 className="text-3xl md:text-5xl font-bold mb-4 font-serif">
-            Glossary of Terms
+            {ct("title")}
           </h1>
           <p className="text-lg md:text-xl opacity-90 max-w-2xl">
-            Essential freight forwarding terminology with German translations where applicable.
+            {ct("subtitle")}
           </p>
         </div>
       </div>
 
       {/* Search and Filter */}
       <section className="sticky top-0 z-10 bg-background py-4 border-b border-border">
-        <div className="flex flex-col md:flex-row gap-4">
+      <div className="flex flex-col md:flex-row gap-4">
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-muted-foreground" />
             <input
               type="text"
-              placeholder="Search terms... (English or German)"
+              placeholder={ct("searchPlaceholder")}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="w-full pl-10 pr-4 py-2 border border-border rounded-lg bg-card focus:outline-none focus:ring-2 focus:ring-primary"
@@ -181,13 +198,13 @@ export function GlossaryChapter() {
               className="px-4 py-2 border border-border rounded-lg bg-card focus:outline-none focus:ring-2 focus:ring-primary"
             >
               {categories.map(cat => (
-                <option key={cat} value={cat}>{cat}</option>
+                <option key={cat} value={cat}>{getCategoryLabel(cat)}</option>
               ))}
             </select>
           </div>
         </div>
         <p className="text-sm text-muted-foreground mt-2">
-          Showing {filteredTerms.length} of {glossaryTerms.length} terms
+          {filteredTerms.length} / {glossaryTerms.length} {ct("termsCount")}
         </p>
       </section>
 
@@ -198,7 +215,7 @@ export function GlossaryChapter() {
             <div key={index} className="bg-card border border-border rounded-xl p-4 hover:shadow-md transition-shadow">
               <div className="flex flex-wrap items-start justify-between gap-2 mb-2">
                 <h3 className="text-lg font-bold text-primary font-mono">{item.term}</h3>
-                <span className="text-xs bg-muted px-2 py-1 rounded-full">{item.category}</span>
+                <span className="text-xs bg-muted px-2 py-1 rounded-full">{getCategoryLabel(item.category)}</span>
               </div>
               <p className="text-sm text-foreground mb-2">{item.definition}</p>
               {item.german && (
@@ -215,8 +232,8 @@ export function GlossaryChapter() {
       {filteredTerms.length === 0 && (
         <div className="text-center py-12">
           <Book className="w-12 h-12 text-muted-foreground mx-auto mb-4" />
-          <h3 className="text-lg font-semibold mb-2">No terms found</h3>
-          <p className="text-muted-foreground">Try adjusting your search or filter criteria.</p>
+          <h3 className="text-lg font-semibold mb-2">{ct("noResults")}</h3>
+          <p className="text-muted-foreground">{ct("noResults")}</p>
         </div>
       )}
     </div>
