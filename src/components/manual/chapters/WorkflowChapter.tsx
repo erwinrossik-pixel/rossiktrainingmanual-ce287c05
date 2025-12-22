@@ -11,15 +11,17 @@ import {
   MessageSquare, AlertTriangle, Info, Target, Zap, Mail,
   Globe, Building2, Route, TrendingUp
 } from "lucide-react";
+import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 
 export function WorkflowChapter() {
+  const { ct } = useChapterTranslation("workflow");
+  
   return (
     <div className="space-y-8 animate-fade-in">
       <div>
-        <h1 className="chapter-title">Operational Workflow (End-to-End)</h1>
+        <h1 className="chapter-title">{ct("title")}</h1>
         <p className="text-lg text-muted-foreground">
-          The complete process from customer request to delivery completion, with detailed procedures, 
-          best practices, and real-world examples for every stage of freight forwarding operations.
+          {ct("subtitle")}
         </p>
       </div>
 
