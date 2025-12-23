@@ -104,6 +104,22 @@ export function Sidebar({ activeChapter, onChapterChange, onShowDashboard }: Sid
   const overallProgress = getOverallProgress();
   const sections = getSections(t);
 
+  // Calculate chapter numbers based on order in sections
+  const getChapterNumber = (chapterId: string): number => {
+    let number = 0;
+    for (const section of sections) {
+      for (const chapter of section.chapters) {
+        number++;
+        if (chapter.id === chapterId) {
+          return number;
+        }
+      }
+    }
+    return 0;
+  };
+
+  const totalChapters = sections.reduce((sum, section) => sum + section.chapters.length, 0);
+
   return (
     <>
       {/* Mobile toggle */}
@@ -165,7 +181,7 @@ export function Sidebar({ activeChapter, onChapterChange, onShowDashboard }: Sid
           </div>
           <div className="flex items-center justify-between mt-2">
             <span className="text-xs text-muted-foreground">
-              {progress.totalCompleted} / 40 {t('sidebar.chapters')}
+              {progress.totalCompleted} / {totalChapters} {t('sidebar.chapters')}
             </span>
             <button
               onClick={() => {
@@ -207,6 +223,7 @@ export function Sidebar({ activeChapter, onChapterChange, onShowDashboard }: Sid
                   const chapterProgress = getChapterProgress(chapter.id);
                   const isCompleted = chapterProgress?.completed;
                   const hasQuizScore = chapterProgress?.quizScore !== undefined;
+                  const chapterNumber = getChapterNumber(chapter.id);
                   
                   return (
                     <li key={chapter.id}>
@@ -233,6 +250,7 @@ export function Sidebar({ activeChapter, onChapterChange, onShowDashboard }: Sid
                           "flex-1 truncate text-[13px]",
                           isActive ? "text-primary" : "text-foreground/80 group-hover:text-foreground"
                         )}>
+                          <span className="font-medium text-muted-foreground mr-1.5">{chapterNumber}.</span>
                           {t(chapter.labelKey)}
                         </span>
                         {hasQuizScore && (
