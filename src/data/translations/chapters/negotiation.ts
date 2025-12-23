@@ -154,6 +154,9 @@ export const negotiationTranslations = {
     quizTitle: "Negotiation Skills Quiz",
   },
   de: {
+    chapterNumber: "Kapitel 21",
+    chapterTitle: "Verhandlung",
+    heroDescription: "Meistern Sie die Kunst der Verhandlung in der Spedition - mit Kunden über Tarife, mit Frachtführern über Kosten und mit Partnern.",
     title: "Verhandlungsfähigkeiten",
     subtitle: "Meistern Sie die Kunst der Verhandlung in der Spedition - mit Kunden über Tarife, mit Frachtführern über Kosten und mit Partnern über Bedingungen.",
     whyNegotiationSkillsMatter: "Warum Verhandlungsfähigkeiten wichtig sind",
@@ -305,6 +308,9 @@ export const negotiationTranslations = {
     quizTitle: "Quiz Verhandlungsfähigkeiten",
   },
   ro: {
+    chapterNumber: "Capitolul 21",
+    chapterTitle: "Negociere",
+    heroDescription: "Stăpânește arta negocierii în expediția de marfă - cu clienții pentru tarife, cu transportatorii pentru costuri și cu partenerii pentru termeni.",
     title: "Abilități de Negociere",
     subtitle: "Stăpânește arta negocierii în expediția de marfă - cu clienții pentru tarife, cu transportatorii pentru costuri și cu partenerii pentru termeni.",
     whyNegotiationSkillsMatter: "De Ce Contează Abilitățile de Negociere",

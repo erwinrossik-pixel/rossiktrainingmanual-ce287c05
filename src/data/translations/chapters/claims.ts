@@ -126,6 +126,9 @@ export const claimsTranslations = {
     quizTitle: "Claims & Disputes Quiz",
   },
   de: {
+    chapterNumber: "Kapitel 33",
+    chapterTitle: "Schadensfälle",
+    heroDescription: "Umgang mit Frachtschäden, Schadensstreitigkeiten und Haftung nach CMR-Übereinkommen.",
     title: "Schadensfälle & Streitigkeiten",
     subtitle: "Umgang mit Frachtschäden, Schadensstreitigkeiten und Haftung nach CMR-Übereinkommen.",
     cmrConventionLiability: "CMR-Konventionshaftung",
@@ -249,6 +252,9 @@ export const claimsTranslations = {
     quizTitle: "Quiz Schadensfälle & Streitigkeiten",
   },
   ro: {
+    chapterNumber: "Capitolul 33",
+    chapterTitle: "Reclamații",
+    heroDescription: "Cum să gestionezi reclamațiile de marfă, disputele privind daunele și răspunderea conform Convenției CMR.",
     title: "Reclamații și Dispute",
     subtitle: "Cum să gestionezi reclamațiile de marfă, disputele privind daunele și răspunderea conform Convenției CMR.",
     cmrConventionLiability: "Răspunderea conform Convenției CMR",

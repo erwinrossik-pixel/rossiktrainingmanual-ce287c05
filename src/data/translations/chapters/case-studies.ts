@@ -129,6 +129,9 @@ export const caseStudiesTranslations: Record<string, Record<string, string>> = {
     case5TotalTimeValue: "17 hours",
   },
   ro: {
+    chapterNumber: "Capitolul 39",
+    chapterTitle: "Studii de Caz",
+    heroDescription: "Scenarii din lumea reală și exemple practice din operațiunile de expediție europeană.",
     title: "Studii de Caz",
     subtitle: "Scenarii din lumea reală și exemple practice din operațiunile de expediție europeană.",
     case1Title: "Studiu de Caz 1: Ruta \"Ieftină\" din Franța",
@@ -255,6 +258,9 @@ export const caseStudiesTranslations: Record<string, Record<string, string>> = {
     case5TotalTimeValue: "17 ore",
   },
   de: {
+    chapterNumber: "Kapitel 39",
+    chapterTitle: "Fallstudien",
+    heroDescription: "Reale Szenarien und praktische Beispiele aus europäischen Speditionsbetrieben.",
     title: "Fallstudien",
     subtitle: "Reale Szenarien und praktische Beispiele aus europäischen Speditionsbetrieben.",
     case1Title: "Fallstudie 1: Die \"Günstige\" Frankreich-Strecke",

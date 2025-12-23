@@ -201,6 +201,9 @@ export const riskManagementTranslations: Record<string, Record<string, string>> 
     quizTitle: "Risk Management Quiz",
   },
   ro: {
+    chapterNumber: "Capitolul 34",
+    chapterTitle: "Managementul Riscurilor",
+    heroDescription: "Identificarea, evaluarea și reducerea riscurilor în operațiunile de expediție - de la riscuri operaționale la riscuri financiare și de conformitate.",
     title: "Managementul Riscurilor",
     subtitle: "Identificarea, evaluarea și reducerea riscurilor în operațiunile de expediție - de la riscuri operaționale la riscuri financiare și de conformitate.",
     whyRiskManagementMatters: "De Ce Contează Managementul Riscurilor",
@@ -399,6 +402,9 @@ export const riskManagementTranslations: Record<string, Record<string, string>> 
     quizTitle: "Quiz Managementul Riscurilor",
   },
   de: {
+    chapterNumber: "Kapitel 34",
+    chapterTitle: "Risikomanagement",
+    heroDescription: "Identifizierung, Bewertung und Minderung von Risiken im Speditionsbetrieb - von betrieblichen Risiken bis hin zu finanziellen und Compliance-Risiken.",
     title: "Risikomanagement",
     subtitle: "Identifizierung, Bewertung und Minderung von Risiken im Speditionsbetrieb - von betrieblichen Risiken bis hin zu finanziellen und Compliance-Risiken.",
     whyRiskManagementMatters: "Warum Risikomanagement wichtig ist",

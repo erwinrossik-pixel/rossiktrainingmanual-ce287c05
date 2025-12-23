@@ -150,6 +150,9 @@ export const emergencyTranslations = {
     quizTitle: "Emergency Procedures Quiz",
   },
   ro: {
+    chapterNumber: "Capitolul 36",
+    chapterTitle: "Proceduri de Urgență",
+    heroDescription: "Protocoale critice pentru accidente, defecțiuni, deteriorarea mărfurilor și situații de criză.",
     title: "Proceduri de Urgență",
     subtitle: "Protocoale critice pentru accidente, defecțiuni, deteriorarea mărfurilor și situații de criză.",
     emergencyResponseProtocol: "Protocol de Răspuns la Urgențe",
@@ -297,6 +300,9 @@ export const emergencyTranslations = {
     quizTitle: "Quiz Proceduri de Urgență",
   },
   de: {
+    chapterNumber: "Kapitel 36",
+    chapterTitle: "Notfallverfahren",
+    heroDescription: "Kritische Protokolle für Unfälle, Pannen, Ladungsschäden und Krisensituationen.",
     title: "Notfallverfahren",
     subtitle: "Kritische Protokolle für Unfälle, Pannen, Ladungsschäden und Krisensituationen.",
     emergencyResponseProtocol: "Notfall-Reaktionsprotokoll",

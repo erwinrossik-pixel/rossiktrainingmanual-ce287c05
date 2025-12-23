@@ -163,7 +163,8 @@ export const clientsTranslations = {
     quizTitle: "Finding & Managing Clients Quiz",
   },
   ro: {
-    chapterTitle: "Găsirea și Gestionarea Clienților",
+    chapterNumber: "Capitolul 19",
+    chapterTitle: "Clienți",
     heroDescription: "Strategii complete pentru achiziția clienților, managementul relațiilor și dezvoltarea afacerii.",
     clientAcquisitionChannels: "Canale de Achiziție Clienți",
     freightExchanges: "Bursele de Marfă",
@@ -325,7 +326,8 @@ export const clientsTranslations = {
     quizTitle: "Quiz Găsirea și Gestionarea Clienților",
   },
   de: {
-    chapterTitle: "Kunden finden & verwalten",
+    chapterNumber: "Kapitel 19",
+    chapterTitle: "Kunden",
     heroDescription: "Umfassende Strategien für Kundenakquise, Beziehungsmanagement und Geschäftsentwicklung.",
     clientAcquisitionChannels: "Kundenakquise-Kanäle",
     freightExchanges: "Frachtbörsen",

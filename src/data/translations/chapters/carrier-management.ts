@@ -233,6 +233,9 @@ export const carrierManagementTranslations: Record<string, Record<string, string
     quizTitle: "Carrier Management Knowledge Check",
   },
   ro: {
+    chapterNumber: "Capitolul 24",
+    chapterTitle: "Management Transportatori",
+    heroDescription: "Ghid complet pentru construirea, calificarea, gestionarea și dezvoltarea relațiilor cu transportatorii și subcontractanții în transportul rutier european.",
     title: "Managementul Transportatorilor",
     subtitle: "Ghid complet pentru construirea, calificarea, gestionarea și dezvoltarea relațiilor cu transportatorii și subcontractanții în transportul rutier european.",
     strategicImportanceTitle: "Importanța Strategică a Managementului Transportatorilor",
@@ -463,6 +466,9 @@ export const carrierManagementTranslations: Record<string, Record<string, string
     quizTitle: "Verificare Cunoștințe Managementul Transportatorilor",
   },
   de: {
+    chapterNumber: "Kapitel 24",
+    chapterTitle: "Transporteur-Management",
+    heroDescription: "Vollständiger Leitfaden zum Aufbau, zur Qualifizierung, Verwaltung und Entwicklung von Beziehungen mit Transportunternehmen und Subunternehmern.",
     title: "Transporteur-Management",
     subtitle: "Vollständiger Leitfaden zum Aufbau, zur Qualifizierung, Verwaltung und Entwicklung von Beziehungen mit Transportunternehmen und Subunternehmern im europäischen Straßengüterverkehr.",
     strategicImportanceTitle: "Die Strategische Bedeutung des Transporteur-Managements",
