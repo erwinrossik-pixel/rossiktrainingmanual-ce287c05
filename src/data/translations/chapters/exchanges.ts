@@ -49,6 +49,9 @@ export const exchangesTranslations: Record<string, Record<string, string>> = {
     knowledgeCheck: "Knowledge Check: Freight Exchanges",
   },
   ro: {
+    chapterNumber: "Capitolul 23",
+    chapterTitle: "Burse de Marfă",
+    heroDescription: "Principalele platforme pentru găsirea încărcăturilor și camioanelor în Europa. TIMOCOM, Trans.eu, Teleroute și Transporeon.",
     title: "Prezentare Generală a Burselor de Marfă",
     subtitle: "Principalele platforme pentru găsirea încărcăturilor și camioanelor în Europa.",
     timocomTitle: "TIMOCOM",
@@ -95,6 +98,9 @@ export const exchangesTranslations: Record<string, Record<string, string>> = {
     knowledgeCheck: "Verificare Cunoștințe: Burse de Marfă",
   },
   de: {
+    chapterNumber: "Kapitel 23",
+    chapterTitle: "Frachtenbörsen",
+    heroDescription: "Die wichtigsten Plattformen zur Suche von Ladungen und LKWs in Europa. TIMOCOM, Trans.eu, Teleroute und Transporeon.",
     title: "Frachtenbörsen Überblick",
     subtitle: "Die wichtigsten Plattformen zur Suche von Ladungen und LKWs in Europa.",
     timocomTitle: "TIMOCOM",

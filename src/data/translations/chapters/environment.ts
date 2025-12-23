@@ -135,7 +135,8 @@ export const environmentTranslations = {
     quizTitle: "Environmental Compliance Quiz",
   },
   ro: {
-    chapterTitle: "Conformitate cu Mediul",
+    chapterNumber: "Capitolul 35",
+    chapterTitle: "Conformitate Mediu",
     heroDescription: "Emisii CO₂, standarde Euro, logistică verde și sustenabilitate în transport.",
     euroEmissionStandards: "Standarde de Emisii Euro",
     standard: "Standard",
@@ -269,6 +270,7 @@ export const environmentTranslations = {
     quizTitle: "Quiz Conformitate cu Mediul",
   },
   de: {
+    chapterNumber: "Kapitel 35",
     chapterTitle: "Umwelt-Compliance",
     heroDescription: "CO₂-Emissionen, Euro-Normen, grüne Logistik und Nachhaltigkeit im Transport.",
     euroEmissionStandards: "Euro-Emissionsstandards",

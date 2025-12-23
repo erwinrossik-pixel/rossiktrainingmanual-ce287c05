@@ -301,6 +301,9 @@ export const pricingTranslations = {
     quizTitle: "Pricing & Toll Logic Quiz",
   },
   de: {
+    chapterNumber: "Kapitel 20",
+    chapterTitle: "Preisgestaltung",
+    heroDescription: "Vollständiger Leitfaden für Kostenberechnung, Preisformeln, Margenstrategien und saisonale Schwankungen im europäischen Straßentransport.",
     title: "Preisgestaltung & Mautlogik",
     subtitle: "Vollständiger Leitfaden für Kostenberechnung, Preisformeln, Margenstrategien und saisonale Schwankungen im europäischen Straßentransport.",
     costCalculationFormula: "Kostenberechnungsformel",

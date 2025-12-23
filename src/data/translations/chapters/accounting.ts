@@ -168,7 +168,8 @@ export const accountingTranslations = {
     quizTitle: "Accounting & Financial Quiz",
   },
   ro: {
-    chapterTitle: "Contabilitate și Procese Financiare",
+    chapterNumber: "Capitolul 32",
+    chapterTitle: "Contabilitate",
     heroDescription: "Administrație financiară în expediție de marfă: facturare, verificarea costurilor, termene de plată, tratarea TVA și rezolvarea disputelor.",
     financialOverview: "Prezentare Generală a Proceselor Financiare",
     financialOverviewDesc: "Fiecare expediere implică tranzacții financiare - facturarea clienților, plățile transportatorilor și gestionarea costurilor. Înțelegerea acestor procese este esențială pentru profitabilitate și gestionarea fluxului de numerar.",
@@ -335,7 +336,8 @@ export const accountingTranslations = {
     quizTitle: "Quiz Contabilitate și Finanțe",
   },
   de: {
-    chapterTitle: "Buchhaltung & Finanzprozesse",
+    chapterNumber: "Kapitel 32",
+    chapterTitle: "Buchhaltung",
     heroDescription: "Finanzverwaltung in der Spedition: Rechnungsstellung, Kostenprüfung, Zahlungsbedingungen, MwSt-Abwicklung und Streitbeilegung.",
     financialOverview: "Überblick Finanzprozesse",
     financialOverviewDesc: "Jede Sendung beinhaltet Finanztransaktionen - Kundenabrechnung, Frachtführerzahlungen und Kostenmanagement. Das Verständnis dieser Prozesse ist wesentlich für Rentabilität und Cashflow-Management.",

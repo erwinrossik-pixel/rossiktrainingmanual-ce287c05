@@ -138,6 +138,9 @@ export const commercialTranslations: Record<string, Record<string, string>> = {
     quizTitle: "Commercial Fundamentals Quiz",
   },
   ro: {
+    chapterNumber: "Capitolul 22",
+    chapterTitle: "Comercial",
+    heroDescription: "Stăpâniți aspectele comerciale ale expedierii de mărfuri: strategii de prețuri, comunicare cu clienții, managementul conturilor și dezvoltarea afacerii.",
     title: "Fundamente Comerciale",
     subtitle: "Stăpâniți aspectele comerciale ale expedierii de mărfuri: strategii de prețuri, comunicare cu clienții, managementul conturilor și dezvoltarea afacerii.",
     foundationTitle: "Fundația Comercială",
@@ -273,6 +276,9 @@ export const commercialTranslations: Record<string, Record<string, string>> = {
     quizTitle: "Test Fundamente Comerciale",
   },
   de: {
+    chapterNumber: "Kapitel 22",
+    chapterTitle: "Kommerziell",
+    heroDescription: "Beherrschen Sie die kommerziellen Aspekte der Spedition: Preisstrategien, Kundenkommunikation, Kontomanagement und Geschäftsentwicklung.",
     title: "Kommerzielle Grundlagen",
     subtitle: "Beherrschen Sie die kommerziellen Aspekte der Spedition: Preisstrategien, Kundenkommunikation, Kontomanagement und Geschäftsentwicklung.",
     foundationTitle: "Das Kommerzielle Fundament",
