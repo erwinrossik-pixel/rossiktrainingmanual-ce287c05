@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import { totalChapters } from '@/data/chaptersData';
 
 export interface ChapterProgress {
   completed: boolean;
@@ -18,7 +19,7 @@ const STORAGE_KEY = 'rossik-manual-progress';
 const defaultProgress: ProgressData = {
   chapters: {},
   totalCompleted: 0,
-  totalChapters: 40,
+  totalChapters: totalChapters,
 };
 
 export function useProgress() {
