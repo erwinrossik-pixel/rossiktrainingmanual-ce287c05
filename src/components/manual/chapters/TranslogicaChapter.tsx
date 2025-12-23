@@ -14,7 +14,6 @@ export function TranslogicaChapter() {
   return (
     <div className="space-y-8 animate-fade-in">
       <ChapterHero
-        chapterNumber={ct('chapterNumber')}
         title={ct('chapterTitle')}
         description={ct('heroDescription')}
         icon={Monitor}
