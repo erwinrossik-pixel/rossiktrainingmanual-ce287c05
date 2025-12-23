@@ -204,6 +204,9 @@ export const vehicleTranslations = {
     loadingCheckpoints: "Beladungs-Checkpunkte",
   },
   ro: {
+    chapterNumber: "Capitolul 5",
+    chapterTitle: "Tipuri de Vehicule",
+    heroDescription: "Specificații tehnice, limite de greutate, tipuri de vehicule și puncte de inspecție pentru transportul rutier european.",
     title: "Referință Vehicul – Prelată 13,6m",
     subtitle: "Specificații tehnice, limite de greutate, tipuri de vehicule și puncte de inspecție.",
     length: "Lungime",
