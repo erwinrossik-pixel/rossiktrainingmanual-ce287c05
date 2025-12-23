@@ -1332,4 +1332,66 @@ export const quizzes: Record<string, QuizQuestion[]> = {
       explanation: "Mentors are responsible for daily check-ins and progress reviews, answering questions, and providing guidance.",
     },
   ],
+  "case-studies": [
+    {
+      question: "In Case Study 1 (The Booking Disaster), what was the primary mistake made by the dispatcher?",
+      options: ["Used wrong truck type", "Didn't confirm address with client", "Forgot to book a carrier", "Didn't calculate the price correctly"],
+      correctIndex: 1,
+      explanation: "The dispatcher assumed the address was correct without verifying with the client, leading to a 120km detour and major losses.",
+    },
+    {
+      question: "What was the total financial loss in the Booking Disaster case?",
+      options: ["€350", "€580", "€750", "€920"],
+      correctIndex: 1,
+      explanation: "The total loss was €580 (€230 extra transport + €200 penalty + €150 credit note to client).",
+    },
+    {
+      question: "In the Successful Claim Recovery case, what was the cargo value?",
+      options: ["€18,500", "€22,000", "€35,000", "€42,500"],
+      correctIndex: 2,
+      explanation: "The cargo consisted of €35,000 worth of electronics being transported from Munich to Milan.",
+    },
+    {
+      question: "How long did it take to receive full compensation in the Successful Claim Recovery?",
+      options: ["3 weeks", "45 days", "2 months", "90 days"],
+      correctIndex: 1,
+      explanation: "Thanks to professional claim handling and proper documentation, full compensation was received in 45 days.",
+    },
+    {
+      question: "What caused the problem in the ADR Emergency case?",
+      options: ["Wrong truck type", "Container seal damaged", "Leaked battery acid causing chemical spill", "Driver didn't have ADR license"],
+      correctIndex: 2,
+      explanation: "Leaked battery acid caused a chemical spill requiring emergency services and HAZMAT protocols.",
+    },
+    {
+      question: "What is the key lesson from the Temperature Deviation case?",
+      options: ["Never transport temperature-sensitive goods", "Install dual redundant monitoring systems", "Use only new trucks", "Avoid night deliveries"],
+      correctIndex: 1,
+      explanation: "Installing dual redundant monitoring systems prevents catastrophic failures from single-point equipment issues.",
+    },
+    {
+      question: "In the Customs Delay case, what was the main cause of the €15,000 loss?",
+      options: ["Wrong commodity codes", "Missing transit documents (T1)", "Driver forgot passport", "Truck broke down at border"],
+      correctIndex: 1,
+      explanation: "The broker failed to prepare T1 transit documents, causing 3 days of customs detention and €15,000 in losses.",
+    },
+    {
+      question: "What happened in the Carrier Default case when the primary carrier went bankrupt?",
+      options: ["Shipment was cancelled", "Backup carrier was activated within 4 hours", "Client found their own transport", "Goods were stored for 2 weeks"],
+      correctIndex: 1,
+      explanation: "Pre-qualified backup carriers were activated within 4 hours, maintaining 98% delivery success despite the crisis.",
+    },
+    {
+      question: "In 'The Perfect Storm' case, how many simultaneous crises occurred?",
+      options: ["3 crises", "4 crises", "5 crises", "6 crises"],
+      correctIndex: 2,
+      explanation: "Five simultaneous crises hit: driver strike, border closure, truck breakdown, customs audit, and weather emergency.",
+    },
+    {
+      question: "What is the most important takeaway from all case studies?",
+      options: ["Always choose the cheapest option", "Documentation and proactive communication prevent disasters", "Trust verbal agreements", "Never admit mistakes to clients"],
+      correctIndex: 1,
+      explanation: "Proper documentation and proactive communication are consistently shown to prevent or minimize disasters across all case studies.",
+    },
+  ],
 };
