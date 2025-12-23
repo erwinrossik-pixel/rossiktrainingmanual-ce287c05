@@ -1,7 +1,8 @@
 import { GraduationCap, Calculator, Search, Settings, FileText, Target, Clock, Users, BookOpen, Award, CheckCircle, AlertTriangle, Briefcase, TrendingUp, Lightbulb } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
-
+import { Quiz } from "../Quiz";
+import { quizzes } from "@/data/quizData";
 export function TrainingChapter() {
   const { ct } = useChapterTranslation("training");
   
@@ -549,6 +550,9 @@ export function TrainingChapter() {
           </div>
         </div>
       </section>
+
+      {/* Quiz */}
+      <Quiz title="Training Quiz" questions={quizzes.training} />
     </div>
   );
 }
