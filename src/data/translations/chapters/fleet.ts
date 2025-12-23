@@ -1,5 +1,8 @@
 export const fleetTranslations: Record<string, Record<string, string>> = {
   en: {
+    chapterNumber: "Chapter 38",
+    chapterTitle: "Fleet Management",
+    heroDescription: "Telematics, real-time tracking, route optimization, and fleet efficiency management.",
     title: "Fleet Management & GPS",
     subtitle: "Telematics, real-time tracking, route optimization, and fleet efficiency management.",
     gpsTrackingBenefits: "GPS Tracking Benefits",
@@ -101,6 +104,9 @@ export const fleetTranslations: Record<string, Record<string, string>> = {
     quizTitle: "Fleet Management & GPS Quiz",
   },
   ro: {
+    chapterNumber: "Capitolul 38",
+    chapterTitle: "Management Flotă",
+    heroDescription: "Telematică, urmărire în timp real, optimizare rută și managementul eficienței flotei.",
     title: "Managementul Flotei & GPS",
     subtitle: "Telematică, urmărire în timp real, optimizare rută și managementul eficienței flotei.",
     gpsTrackingBenefits: "Beneficii Urmărire GPS",
@@ -202,6 +208,9 @@ export const fleetTranslations: Record<string, Record<string, string>> = {
     quizTitle: "Quiz Management Flotă & GPS",
   },
   de: {
+    chapterNumber: "Kapitel 38",
+    chapterTitle: "Flottenmanagement",
+    heroDescription: "Telematik, Echtzeit-Tracking, Routenoptimierung und Flotteneffizienz-Management.",
     title: "Flottenmanagement & GPS",
     subtitle: "Telematik, Echtzeit-Tracking, Routenoptimierung und Flotteneffizienz-Management.",
     gpsTrackingBenefits: "GPS-Tracking Vorteile",

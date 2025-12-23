@@ -1,5 +1,8 @@
 export const customsTranslations = {
   en: {
+    chapterNumber: "Chapter 11",
+    chapterTitle: "Customs & Border",
+    heroDescription: "Essential knowledge for EU/non-EU border crossings, customs documentation, and compliance.",
     title: "Customs & Border Procedures",
     subtitle: "Essential knowledge for EU/non-EU border crossings, customs documentation, and compliance.",
     euVsNonEu: "EU vs Non-EU Transport",
@@ -128,6 +131,9 @@ export const customsTranslations = {
     quizTitle: "Customs & Border Procedures Quiz",
   },
   de: {
+    chapterNumber: "Kapitel 11",
+    chapterTitle: "Zoll & Grenze",
+    heroDescription: "Wesentliche Kenntnisse für EU-/Nicht-EU-Grenzübertritte, Zolldokumentation und Compliance.",
     title: "Zoll- & Grenzverfahren",
     subtitle: "Wesentliche Kenntnisse für EU-/Nicht-EU-Grenzübertritte, Zolldokumentation und Compliance.",
     euVsNonEu: "EU vs. Nicht-EU Transport",
@@ -256,6 +262,9 @@ export const customsTranslations = {
     quizTitle: "Quiz Zoll- & Grenzverfahren",
   },
   ro: {
+    chapterNumber: "Capitolul 11",
+    chapterTitle: "Vamă și Frontieră",
+    heroDescription: "Cunoștințe esențiale pentru traversarea frontierelor UE/non-UE, documentația vamală și conformitatea.",
     title: "Proceduri Vamale și de Frontieră",
     subtitle: "Cunoștințe esențiale pentru traversarea frontierelor UE/non-UE, documentația vamală și conformitatea.",
     euVsNonEu: "Transport UE vs Non-UE",

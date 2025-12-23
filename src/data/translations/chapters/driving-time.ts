@@ -1,5 +1,8 @@
 export const drivingTimeTranslations: Record<string, Record<string, string>> = {
   en: {
+    chapterNumber: "Chapter 6",
+    chapterTitle: "Driving Time",
+    heroDescription: "Understanding the critical difference between shift time and actual driving time for EU compliance.",
     title: "Shift Time vs Driving Time",
     subtitle: "Understanding the critical difference between shift time and actual driving time.",
     drivingTimeTitle: "Driving Time",
@@ -40,6 +43,9 @@ export const drivingTimeTranslations: Record<string, Record<string, string>> = {
     knowledgeCheck: "Knowledge Check: Driving Time",
   },
   ro: {
+    chapterNumber: "Capitolul 6",
+    chapterTitle: "Timp de Conducere",
+    heroDescription: "Înțelegerea diferenței critice între timpul de tură și timpul efectiv de conducere pentru conformitatea UE.",
     title: "Timp de Tură vs Timp de Conducere",
     subtitle: "Înțelegerea diferenței critice între timpul de tură și timpul efectiv de conducere.",
     drivingTimeTitle: "Timp de Conducere",
@@ -80,6 +86,9 @@ export const drivingTimeTranslations: Record<string, Record<string, string>> = {
     knowledgeCheck: "Verificare Cunoștințe: Timp de Conducere",
   },
   de: {
+    chapterNumber: "Kapitel 6",
+    chapterTitle: "Lenkzeit",
+    heroDescription: "Den kritischen Unterschied zwischen Schichtzeit und tatsächlicher Lenkzeit für EU-Konformität verstehen.",
     title: "Schichtzeit vs Lenkzeit",
     subtitle: "Den kritischen Unterschied zwischen Schichtzeit und tatsächlicher Lenkzeit verstehen.",
     drivingTimeTitle: "Lenkzeit",

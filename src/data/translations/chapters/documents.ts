@@ -127,6 +127,9 @@ export const documentsTranslations = {
     quizTitle: "Transport Documents Quiz",
   },
   de: {
+    chapterNumber: "Kapitel 10",
+    chapterTitle: "Dokumente",
+    heroDescription: "CMR, Zollerklärungen und wesentliche Dokumentation für den europäischen Straßentransport.",
     title: "Transportdokumente",
     subtitle: "CMR, Zollerklärungen und wesentliche Dokumentation für den europäischen Straßentransport.",
     cmrConsignmentNote: "CMR-Frachtbrief",
@@ -251,6 +254,9 @@ export const documentsTranslations = {
     quizTitle: "Transportdokumente Quiz",
   },
   ro: {
+    chapterNumber: "Capitolul 10",
+    chapterTitle: "Documente",
+    heroDescription: "CMR, declarații vamale și documentația esențială pentru transportul rutier european.",
     title: "Documente de Transport",
     subtitle: "CMR, declarații vamale și documentația esențială pentru transportul rutier european.",
     cmrConsignmentNote: "Scrisoare de Trăsură CMR",
