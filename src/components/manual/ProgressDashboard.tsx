@@ -9,49 +9,7 @@ import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Certificate } from "./Certificate";
-
-const chapters = [
-  { id: "intro", labelKey: "chapter.intro", section: "section.foundation" },
-  { id: "mindset", labelKey: "chapter.mindset", section: "section.foundation" },
-  { id: "soft-skills", labelKey: "chapter.soft-skills", section: "section.foundation" },
-  { id: "workflow", labelKey: "chapter.workflow", section: "section.foundation" },
-  { id: "vehicle", labelKey: "chapter.vehicle", section: "section.equipment" },
-  { id: "loading", labelKey: "chapter.loading", section: "section.equipment" },
-  { id: "reefer", labelKey: "chapter.reefer", section: "section.equipment" },
-  { id: "warehouse", labelKey: "chapter.warehouse", section: "section.equipment" },
-  { id: "adr", labelKey: "chapter.adr", section: "section.equipment" },
-  { id: "documents", labelKey: "chapter.documents", section: "section.equipment" },
-  { id: "incoterms", labelKey: "chapter.incoterms", section: "section.trade" },
-  { id: "compliance", labelKey: "chapter.compliance", section: "section.trade" },
-  { id: "driving-time", labelKey: "chapter.driving-time", section: "section.trade" },
-  { id: "customs", labelKey: "chapter.customs", section: "section.trade" },
-  { id: "europe-zones", labelKey: "chapter.europe-zones", section: "section.trade" },
-  { id: "environment", labelKey: "chapter.environment", section: "section.trade" },
-  { id: "supply-chain", labelKey: "chapter.supply-chain", section: "section.trade" },
-  { id: "pricing", labelKey: "chapter.pricing", section: "section.commercial" },
-  { id: "commercial", labelKey: "chapter.commercial", section: "section.commercial" },
-  { id: "negotiation", labelKey: "chapter.negotiation", section: "section.commercial" },
-  { id: "clients", labelKey: "chapter.clients", section: "section.commercial" },
-  { id: "carrier-management", labelKey: "chapter.carrier-management", section: "section.commercial" },
-  { id: "exchanges", labelKey: "chapter.exchanges", section: "section.commercial" },
-  { id: "communication", labelKey: "chapter.communication", section: "section.commercial" },
-  { id: "kpi", labelKey: "chapter.kpi", section: "section.commercial" },
-  { id: "translogica", labelKey: "chapter.translogica", section: "section.technology" },
-  { id: "fleet", labelKey: "chapter.fleet", section: "section.technology" },
-  { id: "technology", labelKey: "chapter.technology", section: "section.technology" },
-  { id: "risk-management", labelKey: "chapter.risk-management", section: "section.finance" },
-  { id: "insurance", labelKey: "chapter.insurance", section: "section.finance" },
-  { id: "claims", labelKey: "chapter.claims", section: "section.finance" },
-  { id: "payment", labelKey: "chapter.payment", section: "section.finance" },
-  { id: "accounting", labelKey: "chapter.accounting", section: "section.finance" },
-  { id: "emergency", labelKey: "chapter.emergency", section: "section.practical" },
-  { id: "case-studies", labelKey: "chapter.case-studies", section: "section.practical" },
-  { id: "training", labelKey: "chapter.training", section: "section.practical" },
-  { id: "red-flags", labelKey: "chapter.red-flags", section: "section.practical" },
-  { id: "glossary", labelKey: "chapter.glossary", section: "section.practical" },
-  { id: "checklists", labelKey: "chapter.checklists", section: "section.practical" },
-  { id: "licenses-oversize", labelKey: "chapter.licenses-oversize", section: "section.practical" },
-];
+import { allChapters, totalChapters, chaptersWithQuizzes, totalQuizzes } from "@/data/chaptersData";
 
 interface ProgressDashboardProps {
   onNavigate: (chapterId: string) => void;
@@ -64,11 +22,11 @@ export function ProgressDashboard({ onNavigate, onClose }: ProgressDashboardProp
   
   const overallProgress = getOverallProgress();
   
-  // Calculate quiz statistics
-  const quizStats = chapters.reduce((acc, chapter) => {
+  // Calculate quiz statistics based on chapters that have quizzes
+  const quizStats = allChapters.reduce((acc, chapter) => {
     const chapterProgress = getChapterProgress(chapter.id);
     if (chapterProgress?.quizScore !== undefined && chapterProgress?.quizTotal !== undefined) {
-      acc.totalQuizzes++;
+      acc.completedQuizzes++;
       acc.totalScore += chapterProgress.quizScore;
       acc.totalQuestions += chapterProgress.quizTotal;
       if (chapterProgress.quizScore >= chapterProgress.quizTotal * 0.7) {
@@ -79,22 +37,22 @@ export function ProgressDashboard({ onNavigate, onClose }: ProgressDashboardProp
       acc.completedChapters++;
     }
     return acc;
-  }, { totalQuizzes: 0, totalScore: 0, totalQuestions: 0, passedQuizzes: 0, completedChapters: 0 });
+  }, { completedQuizzes: 0, totalScore: 0, totalQuestions: 0, passedQuizzes: 0, completedChapters: 0 });
 
   const averageScore = quizStats.totalQuestions > 0 
     ? Math.round((quizStats.totalScore / quizStats.totalQuestions) * 100) 
     : 0;
   
-  const passRate = quizStats.totalQuizzes > 0 
-    ? Math.round((quizStats.passedQuizzes / quizStats.totalQuizzes) * 100) 
+  const passRate = quizStats.completedQuizzes > 0 
+    ? Math.round((quizStats.passedQuizzes / quizStats.completedQuizzes) * 100) 
     : 0;
 
   const isCertificateEligible = 
-    quizStats.completedChapters === chapters.length && 
-    quizStats.totalQuizzes > 0 &&
-    quizStats.passedQuizzes === quizStats.totalQuizzes;
+    quizStats.completedChapters === totalChapters && 
+    quizStats.completedQuizzes >= totalQuizzes &&
+    quizStats.passedQuizzes === quizStats.completedQuizzes;
 
-  const recentActivity = chapters
+  const recentActivity = allChapters
     .map(chapter => ({
       ...chapter,
       progress: getChapterProgress(chapter.id)
@@ -167,7 +125,7 @@ export function ProgressDashboard({ onNavigate, onClose }: ProgressDashboardProp
               <span className="text-2xl font-bold text-success">{quizStats.completedChapters}</span>
             </div>
             <p className="text-xs text-muted-foreground">{t('dashboard.completed')}</p>
-            <p className="text-[10px] text-muted-foreground/70 mt-1">{t('dashboard.total')} {chapters.length}</p>
+            <p className="text-[10px] text-muted-foreground/70 mt-1">{t('dashboard.total')} {totalChapters}</p>
           </CardContent>
         </Card>
 
@@ -177,7 +135,7 @@ export function ProgressDashboard({ onNavigate, onClose }: ProgressDashboardProp
               <div className="w-9 h-9 rounded-lg bg-warning/10 flex items-center justify-center">
                 <Trophy className="w-4 h-4 text-warning" />
               </div>
-              <span className="text-2xl font-bold text-warning">{quizStats.totalQuizzes}</span>
+              <span className="text-2xl font-bold text-warning">{quizStats.completedQuizzes}/{totalQuizzes}</span>
             </div>
             <p className="text-xs text-muted-foreground">{t('dashboard.quizzes')}</p>
             <p className="text-[10px] text-muted-foreground/70 mt-1">{quizStats.passedQuizzes} {t('dashboard.passed')}</p>
@@ -279,7 +237,7 @@ export function ProgressDashboard({ onNavigate, onClose }: ProgressDashboardProp
                 </div>
               </div>
 
-              {quizStats.totalQuizzes > 0 && (
+              {quizStats.completedQuizzes > 0 && (
                 <div className="space-y-2 p-3 bg-muted/30 rounded-lg">
                   <div className="flex items-center justify-between text-sm">
                     <span className="flex items-center gap-2">
@@ -294,7 +252,16 @@ export function ProgressDashboard({ onNavigate, onClose }: ProgressDashboardProp
                       <span>{t('dashboard.needImprovement')}</span>
                     </span>
                     <span className="font-semibold text-destructive">
-                      {quizStats.totalQuizzes - quizStats.passedQuizzes}
+                      {quizStats.completedQuizzes - quizStats.passedQuizzes}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between text-sm border-t border-border pt-2 mt-2">
+                    <span className="flex items-center gap-2">
+                      <Trophy className="w-3.5 h-3.5 text-warning" />
+                      <span>{t('dashboard.remaining')}</span>
+                    </span>
+                    <span className="font-semibold text-warning">
+                      {totalQuizzes - quizStats.completedQuizzes}
                     </span>
                   </div>
                 </div>
@@ -309,16 +276,16 @@ export function ProgressDashboard({ onNavigate, onClose }: ProgressDashboardProp
         <CardHeader className="pb-3">
           <CardTitle className="flex items-center gap-2 text-base">
             <BookOpen className="w-4 h-4 text-primary" />
-            {t('dashboard.allChapters')}
+            {t('dashboard.allChapters')} ({totalChapters})
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
-            {chapters.map(chapter => {
+            {allChapters.map((chapter, index) => {
               const chapterProgress = getChapterProgress(chapter.id);
               const isCompleted = chapterProgress?.completed;
-              const hasQuiz = chapterProgress?.quizScore !== undefined;
-              const quizPassed = hasQuiz && chapterProgress.quizScore! >= (chapterProgress.quizTotal! * 0.7);
+              const hasQuizScore = chapterProgress?.quizScore !== undefined;
+              const quizPassed = hasQuizScore && chapterProgress.quizScore! >= (chapterProgress.quizTotal! * 0.7);
               
               return (
                 <button
@@ -337,19 +304,24 @@ export function ProgressDashboard({ onNavigate, onClose }: ProgressDashboardProp
                         "font-medium text-sm truncate transition-colors",
                         isCompleted ? "text-success" : "text-foreground group-hover:text-primary"
                       )}>
+                        <span className="text-muted-foreground mr-1">{index + 1}.</span>
                         {t(chapter.labelKey)}
                       </p>
                       <p className="text-[10px] text-muted-foreground mt-0.5">{t(chapter.section)}</p>
                     </div>
                     <div className="flex items-center gap-1.5 ml-2">
-                      {hasQuiz && (
+                      {hasQuizScore ? (
                         <span className={cn(
                           "text-[10px] px-1.5 py-0.5 rounded font-medium",
                           quizPassed ? "bg-success/10 text-success" : "bg-warning/10 text-warning"
                         )}>
                           {chapterProgress.quizScore}/{chapterProgress.quizTotal}
                         </span>
-                      )}
+                      ) : chapter.hasQuiz ? (
+                        <span className="text-[10px] px-1.5 py-0.5 rounded font-medium bg-muted text-muted-foreground">
+                          Quiz
+                        </span>
+                      ) : null}
                       {isCompleted && <CheckCircle2 className="w-3.5 h-3.5 text-success" />}
                     </div>
                   </div>
@@ -376,28 +348,26 @@ export function ProgressDashboard({ onNavigate, onClose }: ProgressDashboardProp
             <Certificate 
               isEligible={isCertificateEligible}
               completedChapters={quizStats.completedChapters}
-              totalChapters={chapters.length}
+              totalChapters={totalChapters}
               averageScore={averageScore}
               passedQuizzes={quizStats.passedQuizzes}
-              totalQuizzes={quizStats.totalQuizzes}
+              totalQuizzes={totalQuizzes}
             />
-          </CardContent>
-        </Card>
       )}
 
       {/* Reset Progress */}
-      <div className="flex justify-center">
-        <Button 
-          variant="ghost" 
+      <div className="flex justify-center pt-4">
+        <Button
+          variant="ghost"
           size="sm"
           onClick={() => {
-            if (confirm(t('dashboard.resetConfirm'))) {
+            if (confirm(t('dashboard.confirmReset'))) {
               resetProgress();
             }
           }}
           className="text-muted-foreground hover:text-destructive gap-2"
         >
-          <RotateCcw className="w-3.5 h-3.5" />
+          <RotateCcw className="w-4 h-4" />
           {t('dashboard.reset')}
         </Button>
       </div>

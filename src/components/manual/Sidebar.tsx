@@ -1,9 +1,4 @@
-import { 
-  BookOpen, Users, Truck, Package, Shield, Calculator, 
-  Building2, Route, Clock, Laptop, GraduationCap, AlertTriangle, 
-  ClipboardList, Target, Menu, X, Phone, MessageSquare, Scale,
-  FileText, Flame, Book, Lightbulb, CheckCircle2, BarChart3, Award
-} from "lucide-react";
+import { Menu, X, CheckCircle2, BarChart3 } from "lucide-react";
 import rossikLogo from "@/assets/rossik-logo.jpg";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
@@ -11,6 +6,7 @@ import { useProgressContext } from "@/contexts/ProgressContext";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { GlobalSearch } from "./GlobalSearch";
 import { LanguageSelector } from "./LanguageSelector";
+import { sections, totalChapters, getChapterNumberById, totalQuizzes } from "@/data/chaptersData";
 
 interface SidebarProps {
   activeChapter: string;
@@ -18,112 +14,12 @@ interface SidebarProps {
   onShowDashboard: () => void;
 }
 
-const getSections = (t: (key: string) => string) => [
-  {
-    title: t('section.foundation'),
-    chapters: [
-      { id: "intro", labelKey: "chapter.intro", icon: BookOpen },
-      { id: "mindset", labelKey: "chapter.mindset", icon: Target },
-      { id: "soft-skills", labelKey: "chapter.soft-skills", icon: Users },
-      { id: "workflow", labelKey: "chapter.workflow", icon: Route },
-    ]
-  },
-  {
-    title: t('section.equipment'),
-    chapters: [
-      { id: "vehicle", labelKey: "chapter.vehicle", icon: Truck },
-      { id: "loading", labelKey: "chapter.loading", icon: Package },
-      { id: "reefer", labelKey: "chapter.reefer", icon: Package },
-      { id: "warehouse", labelKey: "chapter.warehouse", icon: Package },
-      { id: "adr", labelKey: "chapter.adr", icon: Flame },
-    ]
-  },
-  {
-    title: t('section.documents'),
-    chapters: [
-      { id: "documents", labelKey: "chapter.documents", icon: FileText },
-      { id: "incoterms", labelKey: "chapter.incoterms", icon: Book },
-      { id: "customs", labelKey: "chapter.customs", icon: Shield },
-      { id: "compliance", labelKey: "chapter.compliance", icon: Clock },
-      { id: "driving-time", labelKey: "chapter.driving-time", icon: Clock },
-      { id: "licenses-oversize", labelKey: "chapter.licenses-oversize", icon: Award },
-    ]
-  },
-  {
-    title: t('section.geography'),
-    chapters: [
-      { id: "europe-zones", labelKey: "chapter.europe-zones", icon: Route },
-      { id: "environment", labelKey: "chapter.environment", icon: Target },
-      { id: "supply-chain", labelKey: "chapter.supply-chain", icon: Route },
-    ]
-  },
-  {
-    title: t('section.commercial'),
-    chapters: [
-      { id: "pricing", labelKey: "chapter.pricing", icon: Calculator },
-      { id: "commercial", labelKey: "chapter.commercial", icon: Target },
-      { id: "negotiation", labelKey: "chapter.negotiation", icon: Users },
-      { id: "clients", labelKey: "chapter.clients", icon: Building2 },
-      { id: "carrier-management", labelKey: "chapter.carrier-management", icon: Users },
-      { id: "exchanges", labelKey: "chapter.exchanges", icon: Users },
-      { id: "communication", labelKey: "chapter.communication", icon: MessageSquare },
-      { id: "kpi", labelKey: "chapter.kpi", icon: BarChart3 },
-    ]
-  },
-  {
-    title: t('section.technology'),
-    chapters: [
-      { id: "translogica", labelKey: "chapter.translogica", icon: Laptop },
-      { id: "fleet", labelKey: "chapter.fleet", icon: Truck },
-      { id: "technology", labelKey: "chapter.technology", icon: Laptop },
-    ]
-  },
-  {
-    title: t('section.finance'),
-    chapters: [
-      { id: "risk-management", labelKey: "chapter.risk-management", icon: Shield },
-      { id: "insurance", labelKey: "chapter.insurance", icon: Shield },
-      { id: "claims", labelKey: "chapter.claims", icon: Scale },
-      { id: "payment", labelKey: "chapter.payment", icon: Calculator },
-      { id: "accounting", labelKey: "chapter.accounting", icon: Calculator },
-    ]
-  },
-  {
-    title: t('section.practical'),
-    chapters: [
-      { id: "training", labelKey: "chapter.training", icon: GraduationCap },
-      { id: "case-studies", labelKey: "chapter.case-studies", icon: Lightbulb },
-      { id: "emergency", labelKey: "chapter.emergency", icon: Phone },
-      { id: "red-flags", labelKey: "chapter.red-flags", icon: AlertTriangle },
-      { id: "checklists", labelKey: "chapter.checklists", icon: ClipboardList },
-      { id: "glossary", labelKey: "chapter.glossary", icon: Book },
-    ]
-  },
-];
-
 export function Sidebar({ activeChapter, onChapterChange, onShowDashboard }: SidebarProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const { progress, getOverallProgress, getChapterProgress } = useProgressContext();
   const { t } = useLanguage();
 
   const overallProgress = getOverallProgress();
-  const sections = getSections(t);
-
-  // Calculate chapter numbers based on order in sections
-  const getChapterNumber = (chapterId: string): number => {
-    let number = 0;
-    for (const section of sections) {
-      for (const chapter of section.chapters) {
-        number++;
-        if (chapter.id === chapterId) {
-          return number;
-        }
-      }
-    }
-    return 0;
-  };
-
-  const totalChapters = sections.reduce((sum, section) => sum + section.chapters.length, 0);
 
   return (
     <>
@@ -199,6 +95,9 @@ export function Sidebar({ activeChapter, onChapterChange, onShowDashboard }: Sid
               {t('sidebar.details')}
             </button>
           </div>
+          <div className="mt-2 text-[10px] text-muted-foreground/70">
+            {totalQuizzes} {t('sidebar.quizzesAvailable')}
+          </div>
         </div>
 
         {/* Global Search */}
@@ -212,11 +111,11 @@ export function Sidebar({ activeChapter, onChapterChange, onShowDashboard }: Sid
         {/* Navigation */}
         <nav className="flex-1 overflow-y-auto py-3 px-3 scrollbar-thin">
           {sections.map((section, sectionIndex) => (
-            <div key={section.title} className={cn(sectionIndex > 0 && "mt-5")}>
+            <div key={section.titleKey} className={cn(sectionIndex > 0 && "mt-5")}>
               {/* Section Header */}
               <div className="px-2 mb-1.5">
                 <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground/70">
-                  {section.title}
+                  {t(section.titleKey)}
                 </span>
               </div>
               
@@ -228,7 +127,7 @@ export function Sidebar({ activeChapter, onChapterChange, onShowDashboard }: Sid
                   const chapterProgress = getChapterProgress(chapter.id);
                   const isCompleted = chapterProgress?.completed;
                   const hasQuizScore = chapterProgress?.quizScore !== undefined;
-                  const chapterNumber = getChapterNumber(chapter.id);
+                  const chapterNumber = getChapterNumberById(chapter.id);
                   
                   return (
                     <li key={chapter.id}>
@@ -266,6 +165,11 @@ export function Sidebar({ activeChapter, onChapterChange, onShowDashboard }: Sid
                               : "bg-warning/10 text-warning"
                           )}>
                             {chapterProgress.quizScore}/{chapterProgress.quizTotal}
+                          </span>
+                        )}
+                        {chapter.hasQuiz && !hasQuizScore && (
+                          <span className="text-[10px] px-1.5 py-0.5 rounded font-medium bg-muted text-muted-foreground">
+                            Quiz
                           </span>
                         )}
                       </button>
