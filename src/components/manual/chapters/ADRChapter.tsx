@@ -1,7 +1,7 @@
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { quizzes } from "@/data/quizData";
-import { AlertTriangle, FileText, Truck, Shield, Book, CheckCircle, XCircle, Flame } from "lucide-react";
+import { AlertTriangle, FileText, Truck, Shield, Book, CheckCircle, XCircle } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
 
@@ -21,24 +21,24 @@ export function ADRChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
           <Book className="w-6 h-6 text-primary" />
-          {ct('whatIsADR')}
+          {ct('whatIsAdr')}
         </h2>
         <InfoCard title={ct('adrOverview')} icon={FileText} variant="info">
           <p className="mb-4">
             {ct('adrDescription')}
           </p>
-          <div className="grid md:grid-cols-3 gap-4 mt-4">
+          <div className="grid grid-cols-3 gap-4 mt-4">
             <div className="bg-muted/30 rounded-lg p-3 text-center">
               <p className="text-2xl font-bold text-primary">54</p>
-              <p className="text-sm">{ct('contractingCountries')}</p>
+              <p className="text-sm text-foreground">{ct('contractingCountries')}</p>
             </div>
             <div className="bg-muted/30 rounded-lg p-3 text-center">
               <p className="text-2xl font-bold text-primary">9</p>
-              <p className="text-sm">{ct('hazardClasses')}</p>
+              <p className="text-sm text-foreground">{ct('hazardClasses')}</p>
             </div>
             <div className="bg-muted/30 rounded-lg p-3 text-center">
               <p className="text-2xl font-bold text-primary">2 {ct('years')}</p>
-              <p className="text-sm">{ct('updateCycle')}</p>
+              <p className="text-sm text-foreground">{ct('updateCycle')}</p>
             </div>
           </div>
         </InfoCard>
@@ -50,60 +50,60 @@ export function ADRChapter() {
           <AlertTriangle className="w-6 h-6 text-primary" />
           {ct('adrHazardClasses')}
         </h2>
-        <div className="overflow-x-auto">
-          <table className="w-full border-collapse">
+        <div className="overflow-x-auto rounded-xl border border-border">
+          <table className="w-full border-collapse bg-card">
             <thead>
-              <tr className="bg-muted/50">
-                <th className="p-3 text-left border border-border">{ct('class')}</th>
-                <th className="p-3 text-left border border-border">{ct('description')}</th>
-                <th className="p-3 text-left border border-border">{ct('examples')}</th>
+              <tr className="bg-primary/10">
+                <th className="p-4 text-left font-semibold text-foreground">{ct('class')}</th>
+                <th className="p-4 text-left font-semibold text-foreground">{ct('description')}</th>
+                <th className="p-4 text-left font-semibold text-foreground">{ct('examples')}</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td className="p-3 border border-border font-bold">{ct('class')} 1</td>
-                <td className="p-3 border border-border">{ct('explosives')}</td>
-                <td className="p-3 border border-border text-sm">{ct('explosivesExamples')}</td>
+            <tbody className="divide-y divide-border">
+              <tr className="hover:bg-muted/30 transition-colors">
+                <td className="p-4 font-bold text-primary">{ct('class')} 1</td>
+                <td className="p-4 text-foreground">{ct('explosives')}</td>
+                <td className="p-4 text-sm text-muted-foreground">{ct('explosivesExamples')}</td>
               </tr>
-              <tr className="bg-muted/20">
-                <td className="p-3 border border-border font-bold">{ct('class')} 2</td>
-                <td className="p-3 border border-border">{ct('gases')}</td>
-                <td className="p-3 border border-border text-sm">{ct('gasesExamples')}</td>
+              <tr className="hover:bg-muted/30 transition-colors bg-muted/10">
+                <td className="p-4 font-bold text-primary">{ct('class')} 2</td>
+                <td className="p-4 text-foreground">{ct('gases')}</td>
+                <td className="p-4 text-sm text-muted-foreground">{ct('gasesExamples')}</td>
               </tr>
-              <tr>
-                <td className="p-3 border border-border font-bold">{ct('class')} 3</td>
-                <td className="p-3 border border-border">{ct('flammableLiquids')}</td>
-                <td className="p-3 border border-border text-sm">{ct('flammableLiquidsExamples')}</td>
+              <tr className="hover:bg-muted/30 transition-colors">
+                <td className="p-4 font-bold text-primary">{ct('class')} 3</td>
+                <td className="p-4 text-foreground">{ct('flammableLiquids')}</td>
+                <td className="p-4 text-sm text-muted-foreground">{ct('flammableLiquidsExamples')}</td>
               </tr>
-              <tr className="bg-muted/20">
-                <td className="p-3 border border-border font-bold">{ct('class')} 4</td>
-                <td className="p-3 border border-border">{ct('flammableSolids')}</td>
-                <td className="p-3 border border-border text-sm">{ct('flammableSolidsExamples')}</td>
+              <tr className="hover:bg-muted/30 transition-colors bg-muted/10">
+                <td className="p-4 font-bold text-primary">{ct('class')} 4</td>
+                <td className="p-4 text-foreground">{ct('flammableSolids')}</td>
+                <td className="p-4 text-sm text-muted-foreground">{ct('flammableSolidsExamples')}</td>
               </tr>
-              <tr>
-                <td className="p-3 border border-border font-bold">{ct('class')} 5</td>
-                <td className="p-3 border border-border">{ct('oxidizingSubstances')}</td>
-                <td className="p-3 border border-border text-sm">{ct('oxidizingExamples')}</td>
+              <tr className="hover:bg-muted/30 transition-colors">
+                <td className="p-4 font-bold text-primary">{ct('class')} 5</td>
+                <td className="p-4 text-foreground">{ct('oxidizingSubstances')}</td>
+                <td className="p-4 text-sm text-muted-foreground">{ct('oxidizingExamples')}</td>
               </tr>
-              <tr className="bg-muted/20">
-                <td className="p-3 border border-border font-bold">{ct('class')} 6</td>
-                <td className="p-3 border border-border">{ct('toxicInfectious')}</td>
-                <td className="p-3 border border-border text-sm">{ct('toxicExamples')}</td>
+              <tr className="hover:bg-muted/30 transition-colors bg-muted/10">
+                <td className="p-4 font-bold text-primary">{ct('class')} 6</td>
+                <td className="p-4 text-foreground">{ct('toxicInfectious')}</td>
+                <td className="p-4 text-sm text-muted-foreground">{ct('toxicExamples')}</td>
               </tr>
-              <tr>
-                <td className="p-3 border border-border font-bold">{ct('class')} 7</td>
-                <td className="p-3 border border-border">{ct('radioactive')}</td>
-                <td className="p-3 border border-border text-sm">{ct('radioactiveExamples')}</td>
+              <tr className="hover:bg-muted/30 transition-colors">
+                <td className="p-4 font-bold text-primary">{ct('class')} 7</td>
+                <td className="p-4 text-foreground">{ct('radioactive')}</td>
+                <td className="p-4 text-sm text-muted-foreground">{ct('radioactiveExamples')}</td>
               </tr>
-              <tr className="bg-muted/20">
-                <td className="p-3 border border-border font-bold">{ct('class')} 8</td>
-                <td className="p-3 border border-border">{ct('corrosives')}</td>
-                <td className="p-3 border border-border text-sm">{ct('corrosivesExamples')}</td>
+              <tr className="hover:bg-muted/30 transition-colors bg-muted/10">
+                <td className="p-4 font-bold text-primary">{ct('class')} 8</td>
+                <td className="p-4 text-foreground">{ct('corrosives')}</td>
+                <td className="p-4 text-sm text-muted-foreground">{ct('corrosivesExamples')}</td>
               </tr>
-              <tr>
-                <td className="p-3 border border-border font-bold">{ct('class')} 9</td>
-                <td className="p-3 border border-border">{ct('miscellaneous')}</td>
-                <td className="p-3 border border-border text-sm">{ct('miscellaneousExamples')}</td>
+              <tr className="hover:bg-muted/30 transition-colors">
+                <td className="p-4 font-bold text-primary">{ct('class')} 9</td>
+                <td className="p-4 text-foreground">{ct('miscellaneous')}</td>
+                <td className="p-4 text-sm text-muted-foreground">{ct('miscellaneousExamples')}</td>
               </tr>
             </tbody>
           </table>
@@ -118,42 +118,42 @@ export function ADRChapter() {
         </h2>
         <div className="grid md:grid-cols-2 gap-4">
           <InfoCard title={ct('driverRequirements')} icon={Shield} variant="warning">
-            <ul className="space-y-2">
-              <li className="flex items-start gap-2">
-                <CheckCircle className="w-4 h-4 text-success mt-0.5" />
-                <span><strong>{ct('adrCertificate')}</strong> - {ct('validDriverCertificate')}</span>
+            <ul className="space-y-3">
+              <li className="flex items-start gap-3">
+                <CheckCircle className="w-5 h-5 text-success mt-0.5 flex-shrink-0" />
+                <span className="text-foreground"><strong>{ct('adrCertificate')}</strong> - {ct('validDriverCertificate')}</span>
               </li>
-              <li className="flex items-start gap-2">
-                <CheckCircle className="w-4 h-4 text-success mt-0.5" />
-                <span><strong>{ct('training')}</strong> - {ct('classSpecificTraining')}</span>
+              <li className="flex items-start gap-3">
+                <CheckCircle className="w-5 h-5 text-success mt-0.5 flex-shrink-0" />
+                <span className="text-foreground"><strong>{ct('training')}</strong> - {ct('classSpecificTraining')}</span>
               </li>
-              <li className="flex items-start gap-2">
-                <CheckCircle className="w-4 h-4 text-success mt-0.5" />
-                <span><strong>{ct('equipment')}</strong> - {ct('ppeAppropriate')}</span>
+              <li className="flex items-start gap-3">
+                <CheckCircle className="w-5 h-5 text-success mt-0.5 flex-shrink-0" />
+                <span className="text-foreground"><strong>{ct('equipment')}</strong> - {ct('ppeAppropriate')}</span>
               </li>
-              <li className="flex items-start gap-2">
-                <CheckCircle className="w-4 h-4 text-success mt-0.5" />
-                <span><strong>{ct('knowledge')}</strong> - {ct('emergencyProcedures')}</span>
+              <li className="flex items-start gap-3">
+                <CheckCircle className="w-5 h-5 text-success mt-0.5 flex-shrink-0" />
+                <span className="text-foreground"><strong>{ct('knowledge')}</strong> - {ct('emergencyProcedures')}</span>
               </li>
             </ul>
           </InfoCard>
           <InfoCard title={ct('vehicleRequirements')} icon={Truck} variant="info">
-            <ul className="space-y-2">
-              <li className="flex items-start gap-2">
-                <CheckCircle className="w-4 h-4 text-success mt-0.5" />
-                <span><strong>{ct('adrCertificate')}</strong> - {ct('vehicleApprovalCertificate')}</span>
+            <ul className="space-y-3">
+              <li className="flex items-start gap-3">
+                <CheckCircle className="w-5 h-5 text-success mt-0.5 flex-shrink-0" />
+                <span className="text-foreground"><strong>{ct('adrCertificate')}</strong> - {ct('vehicleApprovalCertificate')}</span>
               </li>
-              <li className="flex items-start gap-2">
-                <CheckCircle className="w-4 h-4 text-success mt-0.5" />
-                <span><strong>{ct('placards')}</strong> - {ct('correctHazardDiamonds')}</span>
+              <li className="flex items-start gap-3">
+                <CheckCircle className="w-5 h-5 text-success mt-0.5 flex-shrink-0" />
+                <span className="text-foreground"><strong>{ct('placards')}</strong> - {ct('correctHazardDiamonds')}</span>
               </li>
-              <li className="flex items-start gap-2">
-                <CheckCircle className="w-4 h-4 text-success mt-0.5" />
-                <span><strong>{ct('equipment')}</strong> - {ct('fireExtinguishers')}</span>
+              <li className="flex items-start gap-3">
+                <CheckCircle className="w-5 h-5 text-success mt-0.5 flex-shrink-0" />
+                <span className="text-foreground"><strong>{ct('equipment')}</strong> - {ct('fireExtinguishers')}</span>
               </li>
-              <li className="flex items-start gap-2">
-                <CheckCircle className="w-4 h-4 text-success mt-0.5" />
-                <span><strong>{ct('orangePlates')}</strong> - {ct('unNumbersVisible')}</span>
+              <li className="flex items-start gap-3">
+                <CheckCircle className="w-5 h-5 text-success mt-0.5 flex-shrink-0" />
+                <span className="text-foreground"><strong>{ct('orangePlates')}</strong> - {ct('unNumbersVisible')}</span>
               </li>
             </ul>
           </InfoCard>
@@ -164,49 +164,49 @@ export function ADRChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
           <FileText className="w-6 h-6 text-primary" />
-          {ct('requiredADRDocuments')}
+          {ct('requiredAdrDocuments')}
         </h2>
         <div className="bg-card border border-border rounded-xl p-6">
           <div className="grid md:grid-cols-2 gap-6">
             <div>
-              <h3 className="font-semibold mb-3 text-primary">{ct('alwaysRequired')}</h3>
-              <ul className="space-y-2 text-sm">
-                <li className="flex items-start gap-2">
-                  <CheckCircle className="w-4 h-4 text-success mt-0.5" />
-                  <span>{ct('transportDocument')}</span>
+              <h3 className="font-semibold mb-3 text-primary text-lg">{ct('alwaysRequired')}</h3>
+              <ul className="space-y-3">
+                <li className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-success mt-0.5 flex-shrink-0" />
+                  <span className="text-foreground">{ct('transportDocument')}</span>
                 </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle className="w-4 h-4 text-success mt-0.5" />
-                  <span>{ct('driverADRCertificate')}</span>
+                <li className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-success mt-0.5 flex-shrink-0" />
+                  <span className="text-foreground">{ct('driverAdrCertificate')}</span>
                 </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle className="w-4 h-4 text-success mt-0.5" />
-                  <span>{ct('instructionsInWriting')}</span>
+                <li className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-success mt-0.5 flex-shrink-0" />
+                  <span className="text-foreground">{ct('instructionsInWriting')}</span>
                 </li>
-                <li className="flex items-start gap-2">
-                  <CheckCircle className="w-4 h-4 text-success mt-0.5" />
-                  <span>{ct('photoID')}</span>
+                <li className="flex items-start gap-3">
+                  <CheckCircle className="w-5 h-5 text-success mt-0.5 flex-shrink-0" />
+                  <span className="text-foreground">{ct('photoId')}</span>
                 </li>
               </ul>
             </div>
             <div>
-              <h3 className="font-semibold mb-3 text-warning">{ct('whenApplicable')}</h3>
-              <ul className="space-y-2 text-sm">
-                <li className="flex items-start gap-2">
-                  <AlertTriangle className="w-4 h-4 text-warning mt-0.5" />
-                  <span>{ct('vehicleADRApproval')}</span>
+              <h3 className="font-semibold mb-3 text-warning text-lg">{ct('whenApplicable')}</h3>
+              <ul className="space-y-3">
+                <li className="flex items-start gap-3">
+                  <AlertTriangle className="w-5 h-5 text-warning mt-0.5 flex-shrink-0" />
+                  <span className="text-foreground">{ct('vehicleAdrApproval')}</span>
                 </li>
-                <li className="flex items-start gap-2">
-                  <AlertTriangle className="w-4 h-4 text-warning mt-0.5" />
-                  <span>{ct('specialPermits')}</span>
+                <li className="flex items-start gap-3">
+                  <AlertTriangle className="w-5 h-5 text-warning mt-0.5 flex-shrink-0" />
+                  <span className="text-foreground">{ct('specialPermits')}</span>
                 </li>
-                <li className="flex items-start gap-2">
-                  <AlertTriangle className="w-4 h-4 text-warning mt-0.5" />
-                  <span>{ct('containerPackingCertificate')}</span>
+                <li className="flex items-start gap-3">
+                  <AlertTriangle className="w-5 h-5 text-warning mt-0.5 flex-shrink-0" />
+                  <span className="text-foreground">{ct('containerPackingCertificate')}</span>
                 </li>
-                <li className="flex items-start gap-2">
-                  <AlertTriangle className="w-4 h-4 text-warning mt-0.5" />
-                  <span>{ct('exemptionCertificates')}</span>
+                <li className="flex items-start gap-3">
+                  <AlertTriangle className="w-5 h-5 text-warning mt-0.5 flex-shrink-0" />
+                  <span className="text-foreground">{ct('exemptionCertificates')}</span>
                 </li>
               </ul>
             </div>
@@ -220,27 +220,27 @@ export function ADRChapter() {
           <Shield className="w-6 h-6 text-primary" />
           {ct('limitedQuantitiesException')}
         </h2>
-        <InfoCard title={ct('whenFullADRDoesntApply')} icon={CheckCircle} variant="success">
-          <p className="mb-4">
+        <InfoCard title={ct('whenFullAdrNotApply')} icon={CheckCircle} variant="success">
+          <p className="mb-4 text-foreground">
             {ct('lqDescription')}
           </p>
-          <div className="grid md:grid-cols-2 gap-4">
-            <div>
-              <h4 className="font-semibold mb-2">{ct('lqRequirements')}:</h4>
-              <ul className="space-y-1 text-sm">
-                <li>• {ct('lqInnerPackaging')}</li>
-                <li>• {ct('lqGrossWeight')}</li>
-                <li>• {ct('lqMarking')}</li>
-                <li>• {ct('lqNoPlacards')}</li>
+          <div className="grid md:grid-cols-2 gap-6">
+            <div className="bg-muted/20 rounded-lg p-4">
+              <h4 className="font-semibold mb-3 text-foreground">{ct('lqRequirements')}</h4>
+              <ul className="space-y-2 text-sm">
+                <li className="text-foreground">• {ct('innerPackagingLimit')}</li>
+                <li className="text-foreground">• {ct('grossWeightLimit')}</li>
+                <li className="text-foreground">• {ct('properLqMarking')}</li>
+                <li className="text-foreground">• {ct('noAdrPlacardsNeeded')}</li>
               </ul>
             </div>
-            <div>
-              <h4 className="font-semibold mb-2">{ct('stillRequired')}:</h4>
-              <ul className="space-y-1 text-sm">
-                <li>• {ct('properPackaging')}</li>
-                <li>• {ct('lqDiamondMarking')}</li>
-                <li>• {ct('transportDocumentReq')}</li>
-                <li>• {ct('generalSafetyTraining')}</li>
+            <div className="bg-muted/20 rounded-lg p-4">
+              <h4 className="font-semibold mb-3 text-foreground">{ct('stillRequired')}</h4>
+              <ul className="space-y-2 text-sm">
+                <li className="text-foreground">• {ct('properPackaging')}</li>
+                <li className="text-foreground">• {ct('lqDiamondMarking')}</li>
+                <li className="text-foreground">• {ct('transportDocumentReq')}</li>
+                <li className="text-foreground">• {ct('generalSafetyTraining')}</li>
               </ul>
             </div>
           </div>
@@ -251,22 +251,22 @@ export function ADRChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
           <XCircle className="w-6 h-6 text-primary" />
-          {ct('commonADRMistakes')}
+          {ct('commonAdrMistakes')}
         </h2>
         <div className="grid md:grid-cols-2 gap-4">
           {[
-            { mistake: ct('mixingIncompatible'), consequence: ct('mixingConsequence') },
-            { mistake: ct('missingPlacards'), consequence: ct('missingPlacardsConsequence') },
-            { mistake: ct('driverWithoutCertificate'), consequence: ct('driverWithoutConsequence') },
-            { mistake: ct('incorrectUNNumber'), consequence: ct('incorrectUNConsequence') },
-            { mistake: ct('tunnelRestrictionsIgnored'), consequence: ct('tunnelConsequence') },
-            { mistake: ct('expiredVehicleCertificate'), consequence: ct('expiredConsequence') },
+            { mistake: ct('mixingIncompatible'), consequence: ct('chemicalReaction') },
+            { mistake: ct('missingPlacards'), consequence: ct('finesImpounded') },
+            { mistake: ct('driverWithoutCertificate'), consequence: ct('driverLiability') },
+            { mistake: ct('incorrectUnNumber'), consequence: ct('wrongEmergencyResponse') },
+            { mistake: ct('tunnelRestrictionsIgnored'), consequence: ct('finesRerouting') },
+            { mistake: ct('expiredVehicleCertificate'), consequence: ct('transportProhibited') },
           ].map((item, index) => (
-            <div key={index} className="bg-destructive/10 border border-destructive/30 rounded-lg p-4">
+            <div key={index} className="bg-destructive/10 border border-destructive/30 rounded-lg p-4 hover:bg-destructive/15 transition-colors">
               <div className="flex items-start gap-3">
-                <XCircle className="w-5 h-5 text-destructive mt-0.5" />
+                <XCircle className="w-5 h-5 text-destructive mt-0.5 flex-shrink-0" />
                 <div>
-                  <p className="font-semibold">{item.mistake}</p>
+                  <p className="font-semibold text-foreground">{item.mistake}</p>
                   <p className="text-sm text-muted-foreground mt-1">→ {item.consequence}</p>
                 </div>
               </div>
@@ -279,25 +279,25 @@ export function ADRChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
           <CheckCircle className="w-6 h-6 text-primary" />
-          {ct('preTransportADRChecklist')}
+          {ct('preTransportAdrChecklist')}
         </h2>
-        <div className="bg-muted/30 rounded-xl p-6">
+        <div className="bg-muted/20 rounded-xl p-6 border border-border">
           <div className="grid md:grid-cols-2 gap-4">
             {[
-              ct('checklistUN'),
-              ct('checklistPackingGroup'),
-              ct('checklistDriverCertificate'),
-              ct('checklistVehicleApproval'),
-              ct('checklistPlacards'),
-              ct('checklistInstructions'),
-              ct('checklistEquipment'),
-              ct('checklistTunnel'),
-              ct('checklistCombinations'),
-              ct('checklistTransportDocument')
+              ct('unNumberConfirmed'),
+              ct('packingGroupIdentified'),
+              ct('driverHasValidCertificate'),
+              ct('vehicleApprovalValid'),
+              ct('correctPlacardsOrangePlates'),
+              ct('instructionsDriverLanguage'),
+              ct('emergencyEquipmentOnBoard'),
+              ct('tunnelCategoryChecked'),
+              ct('noProhibitedCombinations'),
+              ct('transportDocumentComplete')
             ].map((item, index) => (
-              <div key={index} className="flex items-center gap-3 p-3 bg-card rounded-lg border border-border">
-                <CheckCircle className="w-5 h-5 text-success" />
-                <span className="text-sm">{item}</span>
+              <div key={index} className="flex items-center gap-3 p-3 bg-card rounded-lg border border-border hover:border-primary/30 transition-colors">
+                <CheckCircle className="w-5 h-5 text-success flex-shrink-0" />
+                <span className="text-sm text-foreground">{item}</span>
               </div>
             ))}
           </div>
@@ -307,11 +307,11 @@ export function ADRChapter() {
       {/* Key Info Box */}
       <section>
         <div className="bg-warning/10 border border-warning/30 rounded-xl p-6">
-          <h3 className="font-semibold mb-3 flex items-center gap-2">
+          <h3 className="font-semibold mb-3 flex items-center gap-2 text-foreground">
             <AlertTriangle className="w-5 h-5 text-warning" />
             {ct('importantNote')}
           </h3>
-          <p className="text-sm">
+          <p className="text-sm text-foreground">
             {ct('importantNoteText')}
           </p>
         </div>
