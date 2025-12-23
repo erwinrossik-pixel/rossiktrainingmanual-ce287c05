@@ -1861,6 +1861,640 @@ export const quizTranslations: Record<string, TranslatedQuizQuestion[]> = {
         de: "TIMOCOM ist am stärksten in DACH (Deutschland, Österreich, Schweiz) und westeuropäischen Märkten."
       }
     }
+  ],
+  clients: [
+    {
+      question: {
+        ro: "Care este cel mai important factor când abordați un nou client potențial?",
+        en: "What is the most important factor when approaching a new potential client?",
+        de: "Was ist der wichtigste Faktor bei der Ansprache eines neuen potenziellen Kunden?"
+      },
+      options: {
+        ro: ["Cel mai mic preț", "Propunerea de valoare și fiabilitate", "Cea mai mare flotă", "Cel mai lung istoric al companiei"],
+        en: ["Lowest price", "Value proposition and reliability", "Largest fleet size", "Longest company history"],
+        de: ["Niedrigster Preis", "Wertversprechen und Zuverlässigkeit", "Größte Flotte", "Längste Firmengeschichte"]
+      },
+      correctIndex: 1,
+      explanation: {
+        ro: "Începeți cu valoarea (calitatea serviciului, fiabilitatea, tracking) înainte de a discuta prețul. Clienții își amintesc serviciul, nu doar costul.",
+        en: "Lead with value (service quality, reliability, tracking) before discussing price. Clients remember service, not just cost.",
+        de: "Führen Sie mit Wert (Servicequalität, Zuverlässigkeit, Tracking) bevor Sie den Preis diskutieren. Kunden erinnern sich an den Service, nicht nur an die Kosten."
+      }
+    },
+    {
+      question: {
+        ro: "Ce ar trebui să faceți întotdeauna înainte de a acorda credit unui client nou?",
+        en: "What should you always do before extending credit to a new customer?",
+        de: "Was sollten Sie immer tun, bevor Sie einem neuen Kunden Kredit gewähren?"
+      },
+      options: {
+        ro: ["Nimic nu e necesar", "Verificați rating-ul de credit și referințele comerciale", "Cereți doar plată în avans", "Aveți încredere în cuvântul lor"],
+        en: ["Nothing needed", "Check credit rating and trade references", "Only ask for prepayment", "Trust their word"],
+        de: ["Nichts nötig", "Kreditbewertung und Handelsreferenzen prüfen", "Nur Vorauszahlung verlangen", "Ihrem Wort vertrauen"]
+      },
+      correctIndex: 1,
+      explanation: {
+        ro: "Verificați întotdeauna bonitatea prin agenții de rating (Creditsafe, D&B) și solicitați referințe comerciale înainte de a oferi termeni de plată.",
+        en: "Always verify creditworthiness through rating agencies (Creditsafe, D&B) and request trade references before offering payment terms.",
+        de: "Überprüfen Sie immer die Kreditwürdigkeit über Ratingagenturen (Creditsafe, D&B) und fordern Sie Handelsreferenzen an, bevor Sie Zahlungsbedingungen anbieten."
+      }
+    },
+    {
+      question: {
+        ro: "Care clienți ar trebui să primească cea mai mare atenție pentru dezvoltarea afacerii?",
+        en: "Which clients should receive most of your business development attention?",
+        de: "Welche Kunden sollten die meiste Aufmerksamkeit für die Geschäftsentwicklung erhalten?"
+      },
+      options: {
+        ro: ["Toți clienții în mod egal", "Segmentele Strategice (A) și În Creștere (B)", "Doar cei mai mari clienți", "Doar prospecții noi"],
+        en: ["All clients equally", "Strategic (A) and Growing (B) segments", "Only the largest clients", "Only new prospects"],
+        de: ["Alle Kunden gleich", "Strategische (A) und wachsende (B) Segmente", "Nur die größten Kunden", "Nur neue Interessenten"]
+      },
+      correctIndex: 1,
+      explanation: {
+        ro: "Concentrați 80% din timpul de dezvoltare pe clienții A (strategici) și B (în creștere). Ei oferă cel mai bun randament al investiției în relații.",
+        en: "Focus 80% of BD time on A (strategic) and B (growing) clients. They offer the best return on relationship investment.",
+        de: "Konzentrieren Sie 80% der BD-Zeit auf A (strategische) und B (wachsende) Kunden. Sie bieten die beste Rendite für Beziehungsinvestitionen."
+      }
+    },
+    {
+      question: {
+        ro: "Când ar trebui să notificați un client despre o întârziere la livrare?",
+        en: "When should you notify a client about a delivery delay?",
+        de: "Wann sollten Sie einen Kunden über eine Lieferverzögerung informieren?"
+      },
+      options: {
+        ro: ["După livrare", "Când întreabă", "Imediat ce știți (ASAP)", "Niciodată - sperați că se rezolvă"],
+        en: ["After delivery", "When they ask", "As soon as you know (ASAP)", "Never - hope it works out"],
+        de: ["Nach der Lieferung", "Wenn sie fragen", "Sobald Sie es wissen (ASAP)", "Nie - hoffen, dass es klappt"]
+      },
+      correctIndex: 2,
+      explanation: {
+        ro: "Comunicarea proactivă este esențială. Notificați clienții imediat despre întârzieri - veștile proaste vin mai bine de la dumneavoastră decât descoperite de ei.",
+        en: "Proactive communication is essential. Notify clients about delays immediately - bad news travels better from you than discovered by them.",
+        de: "Proaktive Kommunikation ist unerlässlich. Informieren Sie Kunden sofort über Verzögerungen - schlechte Nachrichten kommen besser von Ihnen als wenn sie sie selbst entdecken."
+      }
+    }
+  ],
+  translogica: [
+    {
+      question: {
+        ro: "Unde înregistrați un client nou în Translogica?",
+        en: "Where do you register a new client in Translogica?",
+        de: "Wo registrieren Sie einen neuen Kunden in Translogica?"
+      },
+      options: {
+        ro: ["Comenzi - Client Nou", "Date de Bază - Adrese - Nou", "Setări - Clienți", "Panou - Adaugă"],
+        en: ["Orders - New Client", "Master Data - Addresses - New", "Settings - Clients", "Dashboard - Add"],
+        de: ["Aufträge - Neuer Kunde", "Stammdaten - Adressen - Neu", "Einstellungen - Kunden", "Dashboard - Hinzufügen"]
+      },
+      correctIndex: 1,
+      explanation: {
+        ro: "Clienții noi sunt înregistrați prin Date de Bază - Adrese - Nou, apoi bifați căsuța Client.",
+        en: "New clients are registered via Master Data - Addresses - New, then tick the Customer checkbox.",
+        de: "Neue Kunden werden über Stammdaten - Adressen - Neu registriert, dann das Kunden-Kontrollkästchen ankreuzen."
+      }
+    },
+    {
+      question: {
+        ro: "Pentru ce este folosit Dispoplan în Translogica?",
+        en: "What is the Dispoplan used for in Translogica?",
+        de: "Wofür wird der Dispoplan in Translogica verwendet?"
+      },
+      options: {
+        ro: ["Doar facturare", "Planificarea dispeceratului cu drag/drop", "Gestionarea emailurilor", "Generarea rapoartelor"],
+        en: ["Invoicing only", "Dispatch planning with drag/drop", "Email management", "Report generation"],
+        de: ["Nur Rechnungsstellung", "Dispositionsplanung mit Drag/Drop", "E-Mail-Verwaltung", "Berichtserstellung"]
+      },
+      correctIndex: 1,
+      explanation: {
+        ro: "Dispoplan este modulul de planificare a dispeceratului pentru atribuirea comenzilor la camioane prin drag/drop și monitorizarea vehiculelor.",
+        en: "Dispoplan is the dispatch planning module for drag/drop order assignment to trucks and monitoring vehicles.",
+        de: "Dispoplan ist das Dispositionsplanungsmodul für Drag/Drop-Auftragszuweisung an LKWs und Fahrzeugüberwachung."
+      }
+    },
+    {
+      question: {
+        ro: "Unde creați o nouă comandă de transport în Translogica?",
+        en: "Where do you create a new transport order in Translogica?",
+        de: "Wo erstellen Sie einen neuen Transportauftrag in Translogica?"
+      },
+      options: {
+        ro: ["Date de Bază - Comenzi", "Comenzi - Comandă Nouă (scurtătură F3)", "Setări - Transport", "Panou - Creează"],
+        en: ["Master Data - Orders", "Orders - New Order (F3 shortcut)", "Settings - Transport", "Dashboard - Create"],
+        de: ["Stammdaten - Aufträge", "Aufträge - Neuer Auftrag (F3-Tastenkürzel)", "Einstellungen - Transport", "Dashboard - Erstellen"]
+      },
+      correctIndex: 1,
+      explanation: {
+        ro: "Comenzile noi sunt create prin Comenzi - Comandă Nouă. Scurtătura F3 oferă acces rapid.",
+        en: "New orders are created via Orders - New Order. The F3 keyboard shortcut provides quick access.",
+        de: "Neue Aufträge werden über Aufträge - Neuer Auftrag erstellt. Die F3-Tastenkombination bietet schnellen Zugriff."
+      }
+    }
+  ],
+  "red-flags": [
+    {
+      question: {
+        ro: "De ce ar trebui să fiți atent cu rutele franceze ieftine?",
+        en: "Why should you be careful with cheap French lanes?",
+        de: "Warum sollten Sie bei günstigen französischen Strecken vorsichtig sein?"
+      },
+      options: {
+        ro: ["Șoferii francezi sunt nesiguri", "Franța are drumuri cu taxe scumpe", "Timpii de încărcare sunt lungi", "Niciun motiv"],
+        en: ["French drivers are unreliable", "France has expensive toll roads", "Loading times are long", "No reason"],
+        de: ["Französische Fahrer sind unzuverlässig", "Frankreich hat teure Mautstraßen", "Ladezeiten sind lang", "Kein Grund"]
+      },
+      correctIndex: 1,
+      explanation: {
+        ro: "Franța are drumuri cu taxe scumpe. Calculați întotdeauna costurile complete de taxe înainte de a accepta tarife aparent atractive.",
+        en: "France has expensive toll roads. Always calculate full toll costs before accepting seemingly attractive rates.",
+        de: "Frankreich hat teure Mautstraßen. Berechnen Sie immer die vollen Mautkosten, bevor Sie scheinbar attraktive Preise akzeptieren."
+      }
+    },
+    {
+      question: {
+        ro: "Care este regula de aur pentru documentație?",
+        en: "What is the golden rule for documentation?",
+        de: "Was ist die goldene Regel für Dokumentation?"
+      },
+      options: {
+        ro: ["Documentați doar problemele", "Fotografie + Timestamp = Protecție", "Păstrați doar CMR-urile", "Documentația minimă este cea mai bună"],
+        en: ["Document only problems", "Photo + Timestamp = Protection", "Only keep CMRs", "Minimal paperwork is best"],
+        de: ["Nur Probleme dokumentieren", "Foto + Zeitstempel = Schutz", "Nur CMRs aufbewahren", "Minimaler Papierkram ist am besten"]
+      },
+      correctIndex: 1,
+      explanation: {
+        ro: "Documentați întotdeauna cu fotografii cu timestamp. Fără documentație, nu aveți nicio apărare în dispute.",
+        en: "Always document with timestamped photos. Without documentation, you have no defense in disputes.",
+        de: "Dokumentieren Sie immer mit Zeitstempel-Fotos. Ohne Dokumentation haben Sie keine Verteidigung bei Streitigkeiten."
+      }
+    },
+    {
+      question: {
+        ro: "Ce ar trebui să vă alerteze despre o potențială fraudă a transportatorului?",
+        en: "What should alert you to potential carrier fraud?",
+        de: "Was sollte Sie auf potenziellen Frachtführerbetrug aufmerksam machen?"
+      },
+      options: {
+        ro: ["Website profesional", "Companie foarte nouă care oferă tarife semnificativ sub piață", "Certificate de asigurare valide", "Rating-uri bune pe bursă"],
+        en: ["Professional website", "Very new company offering significantly below-market rates", "Valid insurance certificates", "Good exchange ratings"],
+        de: ["Professionelle Website", "Sehr neues Unternehmen mit deutlich unter dem Markt liegenden Preisen", "Gültige Versicherungszertifikate", "Gute Börsenbewertungen"]
+      },
+      correctIndex: 1,
+      explanation: {
+        ro: "Companiile noi fără istoric care oferă tarife neobișnuit de mici prezintă risc ridicat de fraudă sau servicii slabe.",
+        en: "New companies with no track record offering unusually low rates are high-risk for fraud or poor service.",
+        de: "Neue Unternehmen ohne Erfolgsbilanz, die ungewöhnlich niedrige Preise anbieten, haben ein hohes Betrugs- oder Schlechtleistungsrisiko."
+      }
+    }
+  ],
+  emergency: [
+    {
+      question: {
+        ro: "Care este numărul european de urgență care funcționează în toate țările UE?",
+        en: "What is the European emergency number that works in all EU countries?",
+        de: "Was ist die europäische Notrufnummer, die in allen EU-Ländern funktioniert?"
+      },
+      options: {
+        ro: ["911", "999", "112", "100"],
+        en: ["911", "999", "112", "100"],
+        de: ["911", "999", "112", "100"]
+      },
+      correctIndex: 2,
+      explanation: {
+        ro: "112 este numărul european universal de urgență pentru poliție, ambulanță și pompieri în toate țările UE.",
+        en: "112 is the universal European emergency number for police, ambulance, and fire services in all EU countries.",
+        de: "112 ist die universelle europäische Notrufnummer für Polizei, Krankenwagen und Feuerwehr in allen EU-Ländern."
+      }
+    },
+    {
+      question: {
+        ro: "La ce distanță în spatele vehiculului ar trebui să plasați triunghiul de avertizare pe autostradă?",
+        en: "How far behind the vehicle should you place a warning triangle on a highway?",
+        de: "Wie weit hinter dem Fahrzeug sollten Sie ein Warndreieck auf einer Autobahn aufstellen?"
+      },
+      options: {
+        ro: ["50m", "100-200m", "300m", "500m"],
+        en: ["50m", "100-200m", "300m", "500m"],
+        de: ["50m", "100-200m", "300m", "500m"]
+      },
+      correctIndex: 1,
+      explanation: {
+        ro: "Triunghiurile de avertizare trebuie plasate la 100-200m în spatele vehiculului pe autostrăzi pentru a da traficului suficient timp de avertizare.",
+        en: "Warning triangles should be placed 100-200m behind the vehicle on highways to give approaching traffic adequate warning.",
+        de: "Warndreiecke sollten auf Autobahnen 100-200m hinter dem Fahrzeug aufgestellt werden, um dem herannahenden Verkehr ausreichend Warnung zu geben."
+      }
+    },
+    {
+      question: {
+        ro: "Ce ar trebui să faceți mai întâi când descoperiți daune la marfă?",
+        en: "What should you do first when discovering cargo damage?",
+        de: "Was sollten Sie zuerst tun, wenn Sie Frachtschäden entdecken?"
+      },
+      options: {
+        ro: ["Continuați livrarea normal", "Faceți fotografii detaliate cu timestamp", "Sunați imediat poliția", "Aruncați mărfurile deteriorate"],
+        en: ["Continue delivery normally", "Take detailed photos with timestamps", "Call the police immediately", "Throw away damaged goods"],
+        de: ["Lieferung normal fortsetzen", "Detaillierte Fotos mit Zeitstempel machen", "Sofort die Polizei rufen", "Beschädigte Waren wegwerfen"]
+      },
+      correctIndex: 1,
+      explanation: {
+        ro: "Documentați întotdeauna daunele cu fotografii cu timestamp mai întâi. NU semnați un POD curat dacă marfa este deteriorată.",
+        en: "Always document damage with timestamped photos first. Do NOT sign a clean POD if cargo is damaged.",
+        de: "Dokumentieren Sie Schäden immer zuerst mit Zeitstempel-Fotos. Unterschreiben Sie KEINEN sauberen POD, wenn die Fracht beschädigt ist."
+      }
+    }
+  ],
+  fleet: [
+    {
+      question: {
+        ro: "Care este un beneficiu cheie al urmăririi GPS a flotei?",
+        en: "What is a key benefit of GPS fleet tracking?",
+        de: "Was ist ein wichtiger Vorteil der GPS-Flottenverfolgung?"
+      },
+      options: {
+        ro: ["Util doar pentru furt", "Vizibilitate în timp real și ETA-uri precise", "Crește consumul de combustibil", "Încetinește operațiunile"],
+        en: ["Only useful for theft", "Real-time visibility and accurate ETAs", "Increases fuel consumption", "Slows down operations"],
+        de: ["Nur nützlich bei Diebstahl", "Echtzeit-Sichtbarkeit und genaue ETAs", "Erhöht den Kraftstoffverbrauch", "Verlangsamt den Betrieb"]
+      },
+      correctIndex: 1,
+      explanation: {
+        ro: "Urmărirea GPS oferă locația vehiculului în timp real, calcule ETA precise și vizibilitate operațională.",
+        en: "GPS tracking provides real-time vehicle location, accurate ETA calculations, and operational visibility.",
+        de: "GPS-Tracking bietet Echtzeit-Fahrzeugstandort, genaue ETA-Berechnungen und operative Sichtbarkeit."
+      }
+    },
+    {
+      question: {
+        ro: "Care este rata țintă tipică pentru utilizarea vehiculelor?",
+        en: "What is a typical target for vehicle utilization rate?",
+        de: "Was ist ein typisches Ziel für die Fahrzeugauslastung?"
+      },
+      options: {
+        ro: ["50-60%", "65-75%", "85-95%", "100%"],
+        en: ["50-60%", "65-75%", "85-95%", "100%"],
+        de: ["50-60%", "65-75%", "85-95%", "100%"]
+      },
+      correctIndex: 2,
+      explanation: {
+        ro: "Rata țintă de utilizare a vehiculelor este de obicei 85-95%. 100% este nerealist din cauza întreținerii, weekendurilor și repoziționării.",
+        en: "Target vehicle utilization is typically 85-95%. 100% is unrealistic due to maintenance, weekends, and repositioning.",
+        de: "Die Zielfahrzeugauslastung liegt typischerweise bei 85-95%. 100% ist unrealistisch aufgrund von Wartung, Wochenenden und Repositionierung."
+      }
+    },
+    {
+      question: {
+        ro: "Care este consumul tipic de combustibil pentru camioane pe distanțe lungi?",
+        en: "What fuel consumption is typical for long-haul trucks?",
+        de: "Welcher Kraftstoffverbrauch ist für Fernverkehrs-LKW typisch?"
+      },
+      options: {
+        ro: ["15-20 l/100km", "28-32 l/100km", "45-55 l/100km", "60-70 l/100km"],
+        en: ["15-20 l/100km", "28-32 l/100km", "45-55 l/100km", "60-70 l/100km"],
+        de: ["15-20 l/100km", "28-32 l/100km", "45-55 l/100km", "60-70 l/100km"]
+      },
+      correctIndex: 1,
+      explanation: {
+        ro: "Camioanele pe distanțe lungi consumă de obicei 28-32 litri la 100km. Rutele regionale și de distribuție consumă mai mult.",
+        en: "Long-haul trucks typically consume 28-32 liters per 100km. Regional and distribution routes consume more.",
+        de: "Fernverkehrs-LKW verbrauchen typischerweise 28-32 Liter pro 100km. Regionale und Verteilerstrecken verbrauchen mehr."
+      }
+    }
+  ],
+  environment: [
+    {
+      question: {
+        ro: "Care este standardul actual pentru emisiile camioanelor noi în UE?",
+        en: "What is the current standard for new truck emissions in the EU?",
+        de: "Was ist der aktuelle Standard für Emissionen neuer LKW in der EU?"
+      },
+      options: {
+        ro: ["Euro 4", "Euro 5", "Euro 6", "Euro 7"],
+        en: ["Euro 4", "Euro 5", "Euro 6", "Euro 7"],
+        de: ["Euro 4", "Euro 5", "Euro 6", "Euro 7"]
+      },
+      correctIndex: 2,
+      explanation: {
+        ro: "Euro 6 este standardul actual de emisii pentru camioane noi. Euro 7 este așteptat în jurul anului 2027.",
+        en: "Euro 6 is the current emission standard for new trucks. Euro 7 is expected around 2027.",
+        de: "Euro 6 ist der aktuelle Emissionsstandard für neue LKW. Euro 7 wird etwa 2027 erwartet."
+      }
+    },
+    {
+      question: {
+        ro: "Cât CO2 este produs per litru de motorină arsă?",
+        en: "How much CO2 is produced per liter of diesel burned?",
+        de: "Wie viel CO2 wird pro Liter verbranntem Diesel produziert?"
+      },
+      options: {
+        ro: ["~1.0 kg", "~2.64 kg", "~5.0 kg", "~10 kg"],
+        en: ["~1.0 kg", "~2.64 kg", "~5.0 kg", "~10 kg"],
+        de: ["~1.0 kg", "~2.64 kg", "~5.0 kg", "~10 kg"]
+      },
+      correctIndex: 1,
+      explanation: {
+        ro: "Arderea unui litru de motorină produce aproximativ 2.64 kg de CO2.",
+        en: "Burning one liter of diesel produces approximately 2.64 kg of CO2.",
+        de: "Das Verbrennen eines Liters Diesel produziert ungefähr 2.64 kg CO2."
+      }
+    },
+    {
+      question: {
+        ro: "Ce poate realiza de obicei instruirea eco-driving?",
+        en: "What can eco-driving training typically achieve?",
+        de: "Was kann Eco-Driving-Training typischerweise erreichen?"
+      },
+      options: {
+        ro: ["Niciun impact măsurabil", "5-15% reducere a combustibilului", "50% reducere a combustibilului", "Consum crescut de combustibil"],
+        en: ["No measurable impact", "5-15% fuel reduction", "50% fuel reduction", "Increased fuel use"],
+        de: ["Keine messbare Auswirkung", "5-15% Kraftstoffreduktion", "50% Kraftstoffreduktion", "Erhöhter Kraftstoffverbrauch"]
+      },
+      correctIndex: 1,
+      explanation: {
+        ro: "Instruirea eco-driving realizează de obicei 5-15% reducere a combustibilului prin tehnici de condus mai bune.",
+        en: "Eco-driving training typically achieves 5-15% fuel reduction through better driving techniques.",
+        de: "Eco-Driving-Training erreicht typischerweise 5-15% Kraftstoffreduktion durch bessere Fahrtechniken."
+      }
+    }
+  ],
+  warehouse: [
+    {
+      question: {
+        ro: "Care este timpul liber tipic pentru încărcare/descărcare la depozite?",
+        en: "What is typical free time for loading/unloading at warehouses?",
+        de: "Was ist die typische Freizeit für Be-/Entladung bei Lagern?"
+      },
+      options: {
+        ro: ["15 minute", "1-2 ore", "6 ore", "24 ore"],
+        en: ["15 minutes", "1-2 hours", "6 hours", "24 hours"],
+        de: ["15 Minuten", "1-2 Stunden", "6 Stunden", "24 Stunden"]
+      },
+      correctIndex: 1,
+      explanation: {
+        ro: "Timpul liber standard este 1-2 ore. Timpul peste aceasta atrage taxe demurrage (de obicei 35-50 EUR/oră).",
+        en: "Standard free time is 1-2 hours. Time beyond this incurs demurrage charges (typically 35-50 EUR/hour).",
+        de: "Die Standard-Freizeit beträgt 1-2 Stunden. Zeit darüber hinaus führt zu Standgebühren (typischerweise 35-50 EUR/Stunde)."
+      }
+    },
+    {
+      question: {
+        ro: "Ce este consolidarea în termeni de transport?",
+        en: "What is consolidation in freight terms?",
+        de: "Was ist Konsolidierung in Frachtbegriffen?"
+      },
+      options: {
+        ro: ["Închiderea depozitelor", "Combinarea mai multor transporturi mici într-o încărcătură completă", "Împărțirea livrărilor", "Inventarierea stocurilor"],
+        en: ["Closing warehouses", "Combining multiple small shipments into one full load", "Splitting deliveries", "Inventory counting"],
+        de: ["Schließen von Lagern", "Zusammenfassen mehrerer kleiner Sendungen zu einer Komplettladung", "Aufteilen von Lieferungen", "Bestandszählung"]
+      },
+      correctIndex: 1,
+      explanation: {
+        ro: "Consolidarea combină mai multe transporturi LTL într-un singur FTL pentru eficiența costurilor pe rute lungi.",
+        en: "Consolidation combines multiple LTL shipments into one FTL for cost efficiency on long-haul routes.",
+        de: "Konsolidierung fasst mehrere LTL-Sendungen zu einer FTL zusammen für Kosteneffizienz auf Fernstrecken."
+      }
+    },
+    {
+      question: {
+        ro: "Ce ar trebui să faceți dacă un șofer ratează slotul de timp rezervat?",
+        en: "What should you do if a driver misses their booked time slot?",
+        de: "Was sollten Sie tun, wenn ein Fahrer seinen gebuchten Zeitslot verpasst?"
+      },
+      options: {
+        ro: ["Nimic, livrați oricum", "Contactați imediat depozitul pentru reprogramare, informați clientul", "Trimiteți alt camion", "Anulați livrarea"],
+        en: ["Nothing, just deliver anyway", "Contact warehouse immediately to reschedule, inform client", "Send another truck", "Cancel the delivery"],
+        de: ["Nichts, einfach trotzdem liefern", "Sofort Lager kontaktieren zum Umbuchen, Kunden informieren", "Einen anderen LKW schicken", "Lieferung stornieren"]
+      },
+      correctIndex: 1,
+      explanation: {
+        ro: "Contactați imediat depozitul pentru a găsi un nou slot. Informați clientul despre noul orar.",
+        en: "Contact the warehouse immediately to find a new slot. Inform the client about revised timing.",
+        de: "Kontaktieren Sie sofort das Lager, um einen neuen Slot zu finden. Informieren Sie den Kunden über die geänderte Zeit."
+      }
+    }
+  ],
+  "licenses-oversize": [
+    {
+      question: {
+        ro: "Care este valabilitatea standard a unei licențe comunitare de transport?",
+        en: "What is the standard validity of a Community transport license?",
+        de: "Was ist die Standardgültigkeit einer Gemeinschaftstransportlizenz?"
+      },
+      options: {
+        ro: ["3 ani", "5 ani", "10 ani", "Nelimitat"],
+        en: ["3 years", "5 years", "10 years", "Unlimited"],
+        de: ["3 Jahre", "5 Jahre", "10 Jahre", "Unbegrenzt"]
+      },
+      correctIndex: 1,
+      explanation: {
+        ro: "Licența comunitară de transport are o valabilitate standard de 5 ani și trebuie reînnoită înainte de expirare.",
+        en: "The Community transport license has a standard validity of 5 years and must be renewed before expiration.",
+        de: "Die Gemeinschaftstransportlizenz hat eine Standardgültigkeit von 5 Jahren und muss vor Ablauf erneuert werden."
+      }
+    },
+    {
+      question: {
+        ro: "Ce reprezintă cabotajul în transportul rutier?",
+        en: "What does cabotage represent in road transport?",
+        de: "Was bedeutet Kabotage im Straßentransport?"
+      },
+      options: {
+        ro: ["Transport între două țări UE", "Transport național efectuat de un operator străin", "Transport internațional de mărfuri periculoase", "Transport cu vehicule sub 3.5t"],
+        en: ["Transport between two EU countries", "Domestic transport by a foreign operator", "International transport of dangerous goods", "Transport with vehicles under 3.5t"],
+        de: ["Transport zwischen zwei EU-Ländern", "Inlandsbeförderung durch einen ausländischen Betreiber", "Internationaler Transport gefährlicher Güter", "Transport mit Fahrzeugen unter 3,5t"]
+      },
+      correctIndex: 1,
+      explanation: {
+        ro: "Cabotajul reprezintă operațiunile de transport național de mărfuri efectuate de un operator de transport dintr-un alt stat membru pe teritoriul unui stat gazdă.",
+        en: "Cabotage represents domestic freight transport operations carried out by a transport operator from another member state on the territory of a host state.",
+        de: "Kabotage bezeichnet inländische Gütertransporte, die von einem Transportunternehmer aus einem anderen Mitgliedstaat auf dem Gebiet eines Gaststaates durchgeführt werden."
+      }
+    },
+    {
+      question: {
+        ro: "Câte operațiuni de cabotaj sunt permise în termen de 7 zile conform regulamentelor actuale?",
+        en: "How many cabotage operations are allowed within 7 days under current regulations?",
+        de: "Wie viele Kabotageoperationen sind innerhalb von 7 Tagen nach aktuellen Vorschriften erlaubt?"
+      },
+      options: {
+        ro: ["1 operațiune", "3 operațiuni", "5 operațiuni", "Nelimitat"],
+        en: ["1 operation", "3 operations", "5 operations", "Unlimited"],
+        de: ["1 Operation", "3 Operationen", "5 Operationen", "Unbegrenzt"]
+      },
+      correctIndex: 1,
+      explanation: {
+        ro: "Conform Pachetului de Mobilitate, sunt permise maximum 3 operațiuni de cabotaj în termen de 7 zile de la ultima descărcare internațională.",
+        en: "Under the Mobility Package, a maximum of 3 cabotage operations are allowed within 7 days from the last international unloading.",
+        de: "Gemäß dem Mobilitätspaket sind maximal 3 Kabotageoperationen innerhalb von 7 Tagen nach der letzten internationalen Entladung erlaubt."
+      }
+    }
+  ],
+  training: [
+    {
+      question: {
+        ro: "Cât durează programul complet de instruire?",
+        en: "How long is the comprehensive training program?",
+        de: "Wie lang ist das umfassende Schulungsprogramm?"
+      },
+      options: {
+        ro: ["4 săptămâni", "6 săptămâni", "8 săptămâni", "12 săptămâni"],
+        en: ["4 weeks", "6 weeks", "8 weeks", "12 weeks"],
+        de: ["4 Wochen", "6 Wochen", "8 Wochen", "12 Wochen"]
+      },
+      correctIndex: 2,
+      explanation: {
+        ro: "Programul complet de instruire durează 8 săptămâni, combinând 40% instruire teoretică cu 60% exerciții practice.",
+        en: "The comprehensive training program spans 8 weeks, combining 40% theoretical instruction with 60% practical exercises.",
+        de: "Das umfassende Schulungsprogramm erstreckt sich über 8 Wochen und kombiniert 40% theoretische Schulung mit 60% praktischen Übungen."
+      }
+    },
+    {
+      question: {
+        ro: "Ce procent din programul de instruire este dedicat exercițiilor practice?",
+        en: "What percentage of the training program is dedicated to practical exercises?",
+        de: "Welcher Prozentsatz des Schulungsprogramms ist praktischen Übungen gewidmet?"
+      },
+      options: {
+        ro: ["40%", "50%", "60%", "70%"],
+        en: ["40%", "50%", "60%", "70%"],
+        de: ["40%", "50%", "60%", "70%"]
+      },
+      correctIndex: 2,
+      explanation: {
+        ro: "60% din programul de instruire este dedicat exercițiilor practice, în timp ce 40% acoperă instrucțiuni teoretice.",
+        en: "60% of the training program is dedicated to practical exercises, while 40% covers theoretical instruction.",
+        de: "60% des Schulungsprogramms sind praktischen Übungen gewidmet, während 40% theoretische Schulungen abdecken."
+      }
+    },
+    {
+      question: {
+        ro: "Ce scor este necesar la examenul scris pentru certificare?",
+        en: "What score is required on the written exam for certification?",
+        de: "Welche Punktzahl ist bei der schriftlichen Prüfung für die Zertifizierung erforderlich?"
+      },
+      options: {
+        ro: ["60%", "65%", "70%", "75%"],
+        en: ["60%", "65%", "70%", "75%"],
+        de: ["60%", "65%", "70%", "75%"]
+      },
+      correctIndex: 2,
+      explanation: {
+        ro: "Un scor minim de 70% la examenul scris este necesar pentru a primi certificarea.",
+        en: "A minimum score of 70% on the written exam is required to receive certification.",
+        de: "Eine Mindestpunktzahl von 70% bei der schriftlichen Prüfung ist für die Zertifizierung erforderlich."
+      }
+    }
+  ],
+  "case-studies": [
+    {
+      question: {
+        ro: "În Studiul de caz 1 (Dezastrul rezervării), care a fost greșeala principală făcută de dispecer?",
+        en: "In Case Study 1 (The Booking Disaster), what was the primary mistake made by the dispatcher?",
+        de: "In Fallstudie 1 (Das Buchungsdesaster), was war der Hauptfehler des Disponenten?"
+      },
+      options: {
+        ro: ["A folosit tipul greșit de camion", "Nu a confirmat adresa cu clientul", "A uitat să rezerve un transportator", "Nu a calculat corect prețul"],
+        en: ["Used wrong truck type", "Did not confirm address with client", "Forgot to book a carrier", "Did not calculate the price correctly"],
+        de: ["Falschen LKW-Typ verwendet", "Adresse nicht mit Kunden bestätigt", "Vergessen, einen Frachtführer zu buchen", "Preis nicht korrekt berechnet"]
+      },
+      correctIndex: 1,
+      explanation: {
+        ro: "Dispecerul a presupus că adresa era corectă fără a verifica cu clientul, ducând la un ocol de 120km și pierderi majore.",
+        en: "The dispatcher assumed the address was correct without verifying with the client, leading to a 120km detour and major losses.",
+        de: "Der Disponent nahm an, dass die Adresse korrekt war, ohne sie mit dem Kunden zu verifizieren, was zu einem 120km-Umweg und großen Verlusten führte."
+      }
+    },
+    {
+      question: {
+        ro: "Care este cea mai importantă concluzie din toate studiile de caz?",
+        en: "What is the most important takeaway from all case studies?",
+        de: "Was ist die wichtigste Erkenntnis aus allen Fallstudien?"
+      },
+      options: {
+        ro: ["Alegeți întotdeauna opțiunea cea mai ieftină", "Documentația și comunicarea proactivă previn dezastrele", "Aveți încredere în acordurile verbale", "Nu recunoașteți niciodată greșelile clienților"],
+        en: ["Always choose the cheapest option", "Documentation and proactive communication prevent disasters", "Trust verbal agreements", "Never admit mistakes to clients"],
+        de: ["Immer die günstigste Option wählen", "Dokumentation und proaktive Kommunikation verhindern Katastrophen", "Mündlichen Vereinbarungen vertrauen", "Fehler nie gegenüber Kunden zugeben"]
+      },
+      correctIndex: 1,
+      explanation: {
+        ro: "Documentația corectă și comunicarea proactivă sunt demonstrate constant că previn sau minimizează dezastrele în toate studiile de caz.",
+        en: "Proper documentation and proactive communication are consistently shown to prevent or minimize disasters across all case studies.",
+        de: "Ordnungsgemäße Dokumentation und proaktive Kommunikation werden durchgehend gezeigt, um Katastrophen in allen Fallstudien zu verhindern oder zu minimieren."
+      }
+    },
+    {
+      question: {
+        ro: "Cât timp a durat să primească compensație completă în cazul Recuperării reușite a daunei?",
+        en: "How long did it take to receive full compensation in the Successful Claim Recovery?",
+        de: "Wie lange dauerte es, eine vollständige Entschädigung bei der erfolgreichen Schadensregulierung zu erhalten?"
+      },
+      options: {
+        ro: ["3 săptămâni", "45 zile", "2 luni", "90 zile"],
+        en: ["3 weeks", "45 days", "2 months", "90 days"],
+        de: ["3 Wochen", "45 Tage", "2 Monate", "90 Tage"]
+      },
+      correctIndex: 1,
+      explanation: {
+        ro: "Datorită gestionării profesionale a daunei și documentației corecte, compensația completă a fost primită în 45 de zile.",
+        en: "Thanks to professional claim handling and proper documentation, full compensation was received in 45 days.",
+        de: "Dank professioneller Schadensbearbeitung und ordnungsgemäßer Dokumentation wurde die vollständige Entschädigung in 45 Tagen erhalten."
+      }
+    }
+  ],
+  communication: [
+    {
+      question: {
+        ro: "Care este cel mai bun canal pentru probleme urgente care necesită răspuns imediat?",
+        en: "What is the best channel for urgent issues requiring immediate response?",
+        de: "Was ist der beste Kanal für dringende Probleme, die sofortige Reaktion erfordern?"
+      },
+      options: {
+        ro: ["Email", "Notificare TMS", "Apel telefonic", "Scrisoare"],
+        en: ["Email", "TMS notification", "Phone call", "Letter"],
+        de: ["E-Mail", "TMS-Benachrichtigung", "Telefonanruf", "Brief"]
+      },
+      correctIndex: 2,
+      explanation: {
+        ro: "Apelurile telefonice sunt cele mai bune pentru probleme urgente deoarece permit comunicare bidirecțională imediată și rezolvare rapidă.",
+        en: "Phone calls are best for urgent issues as they allow immediate two-way communication and quick resolution.",
+        de: "Telefonanrufe sind am besten für dringende Probleme, da sie sofortige bidirektionale Kommunikation und schnelle Lösung ermöglichen."
+      }
+    },
+    {
+      question: {
+        ro: "Ce ar trebui să faceți întotdeauna după un apel telefonic important?",
+        en: "What should you always do after an important phone call?",
+        de: "Was sollten Sie immer nach einem wichtigen Telefonat tun?"
+      },
+      options: {
+        ro: ["Nimic nu e necesar", "Trimiteți confirmare scrisă", "Sunați din nou pentru verificare", "Așteptați confirmarea clientului"],
+        en: ["Nothing needed", "Send written confirmation", "Call again to verify", "Wait for client to confirm"],
+        de: ["Nichts nötig", "Schriftliche Bestätigung senden", "Erneut anrufen zur Überprüfung", "Auf Kundenbestätigung warten"]
+      },
+      correctIndex: 1,
+      explanation: {
+        ro: "Urmăriți întotdeauna apelurile telefonice importante cu confirmare scrisă prin email pentru a crea documentație.",
+        en: "Always follow up important phone calls with written confirmation via email to create documentation.",
+        de: "Folgen Sie wichtigen Telefongesprächen immer mit schriftlicher Bestätigung per E-Mail, um Dokumentation zu erstellen."
+      }
+    },
+    {
+      question: {
+        ro: "Care este primul pas când aveți de-a face cu un client supărat?",
+        en: "What is the first step when dealing with an angry client?",
+        de: "Was ist der erste Schritt im Umgang mit einem verärgerten Kunden?"
+      },
+      options: {
+        ro: ["Apărați-vă imediat", "Ascultați și lăsați-i să-și exprime frustrarea", "Transferați la manager", "Închideți"],
+        en: ["Defend yourself immediately", "Listen and let them express frustration", "Transfer to manager", "Hang up"],
+        de: ["Sofort verteidigen", "Zuhören und Frustration ausdrücken lassen", "An Manager weiterleiten", "Auflegen"]
+      },
+      correctIndex: 1,
+      explanation: {
+        ro: "Metoda LASAP începe cu Ascultare - lăsați clientul să-și exprime frustrarea înainte de a răspunde.",
+        en: "The LASAP method starts with Listen - let the client express their frustration before responding.",
+        de: "Die LASAP-Methode beginnt mit Zuhören - lassen Sie den Kunden seine Frustration ausdrücken, bevor Sie antworten."
+      }
+    }
   ]
 };
 
