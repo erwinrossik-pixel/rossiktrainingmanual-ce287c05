@@ -22,6 +22,7 @@ const translations: Record<Language, Record<string, string>> = {
     'sidebar.details': 'Detalii',
     'sidebar.version': 'Versiunea 2025',
     'sidebar.edition': 'Ediție Completă',
+    'sidebar.quizzesAvailable': 'quiz-uri disponibile',
     
     // Sections
     'section.foundation': 'Fundament',
@@ -93,11 +94,12 @@ const translations: Record<Language, Record<string, string>> = {
     'dashboard.totalScore': 'Scor Total',
     'dashboard.passedLabel': 'Promovate',
     'dashboard.needImprovement': 'De Îmbunătățit',
+    'dashboard.remaining': 'Quiz-uri rămase',
     'dashboard.allChapters': 'Toate Capitolele',
     'dashboard.congratulations': 'Felicitări!',
     'dashboard.completedAll': 'Ai completat toate capitolele și testele',
     'dashboard.reset': 'Resetează Progresul',
-    'dashboard.resetConfirm': 'Ești sigur că vrei să resetezi tot progresul?',
+    'dashboard.confirmReset': 'Ești sigur că vrei să resetezi tot progresul?',
     
     // Quiz
     'quiz.complete': 'Test Finalizat!',
@@ -138,6 +140,7 @@ const translations: Record<Language, Record<string, string>> = {
     'sidebar.details': 'Details',
     'sidebar.version': 'Version 2025',
     'sidebar.edition': 'Vollständige Ausgabe',
+    'sidebar.quizzesAvailable': 'verfügbare Tests',
     
     // Sections
     'section.foundation': 'Grundlagen',
@@ -209,11 +212,12 @@ const translations: Record<Language, Record<string, string>> = {
     'dashboard.totalScore': 'Gesamtpunktzahl',
     'dashboard.passedLabel': 'Bestanden',
     'dashboard.needImprovement': 'Verbesserungsbedarf',
+    'dashboard.remaining': 'Verbleibende Tests',
     'dashboard.allChapters': 'Alle Kapitel',
     'dashboard.congratulations': 'Herzlichen Glückwunsch!',
     'dashboard.completedAll': 'Sie haben alle Kapitel und Tests abgeschlossen',
     'dashboard.reset': 'Fortschritt zurücksetzen',
-    'dashboard.resetConfirm': 'Sind Sie sicher, dass Sie den gesamten Fortschritt zurücksetzen möchten?',
+    'dashboard.confirmReset': 'Sind Sie sicher, dass Sie den gesamten Fortschritt zurücksetzen möchten?',
     
     // Quiz
     'quiz.complete': 'Test Abgeschlossen!',
@@ -254,6 +258,7 @@ const translations: Record<Language, Record<string, string>> = {
     'sidebar.details': 'Details',
     'sidebar.version': 'Version 2025',
     'sidebar.edition': 'Complete Edition',
+    'sidebar.quizzesAvailable': 'quizzes available',
     
     // Sections
     'section.foundation': 'Foundation',
@@ -325,11 +330,12 @@ const translations: Record<Language, Record<string, string>> = {
     'dashboard.totalScore': 'Total Score',
     'dashboard.passedLabel': 'Passed',
     'dashboard.needImprovement': 'Need Improvement',
+    'dashboard.remaining': 'Quizzes remaining',
     'dashboard.allChapters': 'All Chapters',
     'dashboard.congratulations': 'Congratulations!',
     'dashboard.completedAll': 'You have completed all chapters and quizzes',
     'dashboard.reset': 'Reset Progress',
-    'dashboard.resetConfirm': 'Are you sure you want to reset all progress?',
+    'dashboard.confirmReset': 'Are you sure you want to reset all progress?',
     
     // Quiz
     'quiz.complete': 'Quiz Complete!',
