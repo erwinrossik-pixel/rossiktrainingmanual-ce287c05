@@ -1,5 +1,7 @@
 import { LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { getChapterNumber } from "@/hooks/useChapterNumber";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 type HeroVariant = 
   // Foundation Section (Chapters 1-4) - Purple tones
@@ -51,8 +53,52 @@ type HeroVariant =
   | "fleet"           // Dark cyan
   | "default";
 
+// Map variant to chapter ID for number calculation
+const variantToChapterId: Record<HeroVariant, string> = {
+  intro: "intro",
+  mindset: "mindset",
+  softskills: "soft-skills",
+  workflow: "workflow",
+  vehicle: "vehicle",
+  loading: "loading",
+  reefer: "reefer",
+  warehouse: "warehouse",
+  adr: "adr",
+  documents: "documents",
+  incoterms: "incoterms",
+  compliance: "compliance",
+  drivingtime: "driving-time",
+  customs: "customs",
+  europezones: "europe-zones",
+  insurance: "insurance",
+  licenses: "licenses-oversize",
+  clients: "clients",
+  pricing: "pricing",
+  negotiation: "negotiation",
+  commercial: "commercial",
+  exchanges: "exchanges",
+  carrier: "carrier-management",
+  communication: "communication",
+  redflags: "red-flags",
+  technology: "technology",
+  supplychain: "supply-chain",
+  translogica: "translogica",
+  kpi: "kpi",
+  payment: "payment",
+  accounting: "accounting",
+  claims: "claims",
+  risk: "risk-management",
+  environment: "environment",
+  emergency: "emergency",
+  training: "training",
+  casestudies: "case-studies",
+  checklists: "checklists",
+  glossary: "glossary",
+  fleet: "fleet",
+  default: "intro",
+};
+
 interface ChapterHeroProps {
-  chapterNumber: string;
   title: string;
   description: string;
   icon: LucideIcon;
@@ -60,12 +106,24 @@ interface ChapterHeroProps {
 }
 
 export function ChapterHero({ 
-  chapterNumber, 
   title, 
   description, 
   icon: Icon,
   variant = "default" 
 }: ChapterHeroProps) {
+  const { language } = useLanguage();
+  
+  // Get chapter number based on variant
+  const chapterId = variantToChapterId[variant];
+  const chapterNum = getChapterNumber(chapterId);
+  
+  // Generate chapter label based on language
+  const chapterLabels: Record<string, string> = {
+    ro: `Capitol ${chapterNum}`,
+    de: `Kapitel ${chapterNum}`,
+    en: `Chapter ${chapterNum}`,
+  };
+  const chapterLabel = chapterLabels[language] || chapterLabels.en;
   const variantClasses: Record<HeroVariant, string> = {
     // Foundation Section - Purple spectrum
     intro: "hero-intro",
@@ -126,7 +184,7 @@ export function ChapterHero({
           </div>
           <div>
             <p className="text-white/80 text-sm font-semibold uppercase tracking-widest mb-2">
-              {chapterNumber}
+              {chapterLabel}
             </p>
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold leading-none">
               {title}
