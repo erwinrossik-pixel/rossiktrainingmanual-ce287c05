@@ -36,20 +36,25 @@ const getSections = (t: (key: string) => string) => [
       { id: "reefer", labelKey: "chapter.reefer", icon: Package },
       { id: "warehouse", labelKey: "chapter.warehouse", icon: Package },
       { id: "adr", labelKey: "chapter.adr", icon: Flame },
-      { id: "documents", labelKey: "chapter.documents", icon: FileText },
     ]
   },
   {
-    title: t('section.trade'),
+    title: t('section.documents'),
     chapters: [
+      { id: "documents", labelKey: "chapter.documents", icon: FileText },
       { id: "incoterms", labelKey: "chapter.incoterms", icon: Book },
-      { id: "compliance", labelKey: "chapter.compliance", icon: Clock },
-      { id: "driving-time", labelKey: "chapter.driving-time", icon: Shield },
       { id: "customs", labelKey: "chapter.customs", icon: Shield },
+      { id: "compliance", labelKey: "chapter.compliance", icon: Clock },
+      { id: "driving-time", labelKey: "chapter.driving-time", icon: Clock },
+      { id: "licenses-oversize", labelKey: "chapter.licenses-oversize", icon: Award },
+    ]
+  },
+  {
+    title: t('section.geography'),
+    chapters: [
       { id: "europe-zones", labelKey: "chapter.europe-zones", icon: Route },
       { id: "environment", labelKey: "chapter.environment", icon: Target },
       { id: "supply-chain", labelKey: "chapter.supply-chain", icon: Route },
-      { id: "licenses-oversize", labelKey: "chapter.licenses-oversize", icon: Award },
     ]
   },
   {
@@ -62,7 +67,7 @@ const getSections = (t: (key: string) => string) => [
       { id: "carrier-management", labelKey: "chapter.carrier-management", icon: Users },
       { id: "exchanges", labelKey: "chapter.exchanges", icon: Users },
       { id: "communication", labelKey: "chapter.communication", icon: MessageSquare },
-      { id: "kpi", labelKey: "chapter.kpi", icon: Target },
+      { id: "kpi", labelKey: "chapter.kpi", icon: BarChart3 },
     ]
   },
   {
@@ -86,12 +91,12 @@ const getSections = (t: (key: string) => string) => [
   {
     title: t('section.practical'),
     chapters: [
-      { id: "emergency", labelKey: "chapter.emergency", icon: Phone },
-      { id: "case-studies", labelKey: "chapter.case-studies", icon: Lightbulb },
       { id: "training", labelKey: "chapter.training", icon: GraduationCap },
+      { id: "case-studies", labelKey: "chapter.case-studies", icon: Lightbulb },
+      { id: "emergency", labelKey: "chapter.emergency", icon: Phone },
       { id: "red-flags", labelKey: "chapter.red-flags", icon: AlertTriangle },
-      { id: "glossary", labelKey: "chapter.glossary", icon: Book },
       { id: "checklists", labelKey: "chapter.checklists", icon: ClipboardList },
+      { id: "glossary", labelKey: "chapter.glossary", icon: Book },
     ]
   },
 ];
