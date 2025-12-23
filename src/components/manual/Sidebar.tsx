@@ -95,9 +95,6 @@ export function Sidebar({ activeChapter, onChapterChange, onShowDashboard }: Sid
               {t('sidebar.details')}
             </button>
           </div>
-          <div className="mt-2 text-[10px] text-muted-foreground/70">
-            {totalQuizzes} {t('sidebar.quizzesAvailable')}
-          </div>
         </div>
 
         {/* Global Search */}
@@ -165,11 +162,6 @@ export function Sidebar({ activeChapter, onChapterChange, onShowDashboard }: Sid
                               : "bg-warning/10 text-warning"
                           )}>
                             {chapterProgress.quizScore}/{chapterProgress.quizTotal}
-                          </span>
-                        )}
-                        {chapter.hasQuiz && !hasQuizScore && (
-                          <span className="text-[10px] px-1.5 py-0.5 rounded font-medium bg-muted text-muted-foreground">
-                            Quiz
                           </span>
                         )}
                       </button>
