@@ -2,6 +2,8 @@ import { useState, useEffect, useMemo } from "react";
 import { CheckCircle2, XCircle, RotateCcw, Trophy, ChevronRight, Shuffle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useProgressContext } from "@/contexts/ProgressContext";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { getTranslatedQuiz } from "@/data/quizTranslations";
 
 interface QuizQuestion {
   question: string;
@@ -27,15 +29,93 @@ function shuffleArray<T>(array: T[]): T[] {
   return shuffled;
 }
 
+// UI translations
+const uiTranslations = {
+  en: {
+    quizComplete: "Quiz Complete!",
+    excellentWork: "Excellent work! You've mastered this chapter.",
+    goodJob: "Good job! Review the missed questions.",
+    keepStudying: "Keep studying! Review the chapter and try again.",
+    chapterComplete: "Chapter marked as complete!",
+    questionPool: "Question pool:",
+    questions: "questions",
+    showingPerRound: "Showing",
+    perRound: "per round",
+    tryAgain: "Try Again",
+    newQuestions: "New Questions",
+    question: "Question",
+    of: "of",
+    previousBest: "Previous best:",
+    nextQuestion: "Next Question",
+    seeResults: "See Results",
+    correct: "Correct!",
+    incorrect: "Incorrect"
+  },
+  ro: {
+    quizComplete: "Quiz Finalizat!",
+    excellentWork: "Excelent! Ai stăpânit acest capitol.",
+    goodJob: "Bine lucrat! Revizuiește întrebările greșite.",
+    keepStudying: "Continuă să studiezi! Recitește capitolul și încearcă din nou.",
+    chapterComplete: "Capitol marcat ca finalizat!",
+    questionPool: "Număr întrebări:",
+    questions: "întrebări",
+    showingPerRound: "Afișăm",
+    perRound: "pe rundă",
+    tryAgain: "Încearcă Din Nou",
+    newQuestions: "Întrebări Noi",
+    question: "Întrebarea",
+    of: "din",
+    previousBest: "Scorul anterior:",
+    nextQuestion: "Următoarea Întrebare",
+    seeResults: "Vezi Rezultate",
+    correct: "Corect!",
+    incorrect: "Incorect"
+  },
+  de: {
+    quizComplete: "Quiz Abgeschlossen!",
+    excellentWork: "Ausgezeichnete Arbeit! Du hast dieses Kapitel gemeistert.",
+    goodJob: "Gut gemacht! Überprüfe die verpassten Fragen.",
+    keepStudying: "Weiter lernen! Überprüfe das Kapitel und versuche es erneut.",
+    chapterComplete: "Kapitel als abgeschlossen markiert!",
+    questionPool: "Fragenpool:",
+    questions: "Fragen",
+    showingPerRound: "Zeige",
+    perRound: "pro Runde",
+    tryAgain: "Erneut Versuchen",
+    newQuestions: "Neue Fragen",
+    question: "Frage",
+    of: "von",
+    previousBest: "Vorheriges Beste:",
+    nextQuestion: "Nächste Frage",
+    seeResults: "Ergebnisse Anzeigen",
+    correct: "Richtig!",
+    incorrect: "Falsch"
+  }
+};
+
 export function Quiz({ title, questions, chapterId, questionsPerRound = 5 }: QuizProps) {
+  const { language } = useLanguage();
+  const t = uiTranslations[language];
+  
+  // Get translated questions if available
+  const translatedQuestions = useMemo(() => {
+    if (chapterId) {
+      const translated = getTranslatedQuiz(chapterId, language);
+      if (translated) {
+        return translated;
+      }
+    }
+    return questions;
+  }, [chapterId, language, questions]);
+
   // Shuffle questions and limit to questionsPerRound
   const [shuffledQuestions, setShuffledQuestions] = useState<QuizQuestion[]>([]);
   const [quizRound, setQuizRound] = useState(0);
   
   useEffect(() => {
-    const shuffled = shuffleArray(questions).slice(0, Math.min(questionsPerRound, questions.length));
+    const shuffled = shuffleArray(translatedQuestions).slice(0, Math.min(questionsPerRound, translatedQuestions.length));
     setShuffledQuestions(shuffled);
-  }, [questions, questionsPerRound, quizRound]);
+  }, [translatedQuestions, questionsPerRound, quizRound]);
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
@@ -126,18 +206,18 @@ export function Quiz({ title, questions, chapterId, questionsPerRound = 5 }: Qui
             )} />
           </div>
           
-          <h3 className="text-2xl font-bold font-serif mb-2">Quiz Complete!</h3>
+          <h3 className="text-2xl font-bold font-serif mb-2">{t.quizComplete}</h3>
           <p className="text-4xl font-bold text-primary mb-2">{finalScore}/{shuffledQuestions.length}</p>
           <p className="text-muted-foreground mb-2">
-            {percentage >= 80 ? "Excellent work! You've mastered this chapter." :
-             percentage >= 60 ? "Good job! Review the missed questions." :
-             "Keep studying! Review the chapter and try again."}
+            {percentage >= 80 ? t.excellentWork :
+             percentage >= 60 ? t.goodJob :
+             t.keepStudying}
           </p>
           
           {passed && (
             <p className="text-success text-sm font-medium mb-4 flex items-center justify-center gap-2">
               <CheckCircle2 className="w-4 h-4" />
-              Chapter marked as complete!
+              {t.chapterComplete}
             </p>
           )}
           
@@ -152,7 +232,7 @@ export function Quiz({ title, questions, chapterId, questionsPerRound = 5 }: Qui
           </div>
 
           <div className="text-xs text-muted-foreground mb-4">
-            Question pool: {questions.length} questions • Showing {shuffledQuestions.length} per round
+            {t.questionPool} {translatedQuestions.length} {t.questions} • {t.showingPerRound} {shuffledQuestions.length} {t.perRound}
           </div>
           
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
@@ -161,15 +241,15 @@ export function Quiz({ title, questions, chapterId, questionsPerRound = 5 }: Qui
               className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors font-medium"
             >
               <RotateCcw className="w-4 h-4" />
-              Try Again
+              {t.tryAgain}
             </button>
-            {questions.length > questionsPerRound && (
+            {translatedQuestions.length > questionsPerRound && (
               <button
                 onClick={handleNewQuestions}
                 className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-secondary text-secondary-foreground rounded-lg hover:bg-secondary/90 transition-colors font-medium"
               >
                 <Shuffle className="w-4 h-4" />
-                New Questions
+                {t.newQuestions}
               </button>
             )}
           </div>
@@ -183,14 +263,14 @@ export function Quiz({ title, questions, chapterId, questionsPerRound = 5 }: Qui
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-xl font-bold font-serif text-primary">{title}</h3>
         <span className="text-sm text-muted-foreground">
-          Question {currentQuestion + 1} of {shuffledQuestions.length}
+          {t.question} {currentQuestion + 1} {t.of} {shuffledQuestions.length}
         </span>
       </div>
 
       {/* Previous score badge */}
       {previousProgress?.quizScore !== undefined && (
         <div className="mb-4 text-sm text-muted-foreground flex items-center gap-2">
-          <span>Previous best:</span>
+          <span>{t.previousBest}</span>
           <span className={cn(
             "px-2 py-0.5 rounded-full text-xs font-medium",
             previousProgress.quizScore >= (previousProgress.quizTotal! * 0.7)
@@ -272,7 +352,7 @@ export function Quiz({ title, questions, chapterId, questionsPerRound = 5 }: Qui
                 "font-medium mb-1",
                 selectedAnswer === question.correctIndex ? "text-success" : "text-destructive"
               )}>
-                {selectedAnswer === question.correctIndex ? "Correct!" : "Incorrect"}
+                {selectedAnswer === question.correctIndex ? t.correct : t.incorrect}
               </p>
               <p className="text-sm text-muted-foreground">{question.explanation}</p>
             </div>
@@ -288,12 +368,12 @@ export function Quiz({ title, questions, chapterId, questionsPerRound = 5 }: Qui
         >
           {currentQuestion < shuffledQuestions.length - 1 ? (
             <>
-              Next Question
+              {t.nextQuestion}
               <ChevronRight className="w-4 h-4" />
             </>
           ) : (
             <>
-              See Results
+              {t.seeResults}
               <Trophy className="w-4 h-4" />
             </>
           )}
