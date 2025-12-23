@@ -275,6 +275,9 @@ export const reeferTranslations: Record<string, Record<string, string>> = {
     knowledgeCheck: "Knowledge Check: Temperature-Controlled Transport",
   },
   ro: {
+    chapterNumber: "Capitolul 7",
+    chapterTitle: "Transport Frigorific",
+    heroDescription: "Ghid complet pentru transportul frigorific, logistica lanțului frigorific, conformitatea ATP și manipularea în siguranță a mărfurilor sensibile la temperatură.",
     title: "Transport cu Temperatură Controlată",
     subtitle: "Ghid complet pentru transportul frigorific, logistica lanțului frigorific, conformitatea ATP și manipularea în siguranță a mărfurilor sensibile la temperatură în Europa.",
     coldChainTitle: "Înțelegerea Logisticii Lanțului Frigorific",
@@ -547,6 +550,9 @@ export const reeferTranslations: Record<string, Record<string, string>> = {
     knowledgeCheck: "Verificare Cunoștințe: Transport cu Temperatură Controlată",
   },
   de: {
+    chapterNumber: "Kapitel 7",
+    chapterTitle: "Kühltransport",
+    heroDescription: "Vollständiger Leitfaden für Kühltransport, Kühlkettenlogistik, ATP-Konformität und sichere Handhabung temperaturempfindlicher Fracht.",
     title: "Temperaturgeführter Transport",
     subtitle: "Vollständiger Leitfaden für Kühltransport, Kühlkettenlogistik, ATP-Konformität und sichere Handhabung temperaturempfindlicher Fracht in Europa.",
     coldChainTitle: "Kühlkettenlogistik Verstehen",

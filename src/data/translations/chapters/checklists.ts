@@ -1,5 +1,8 @@
 export const checklistsTranslations: Record<string, Record<string, string>> = {
   en: {
+    chapterNumber: "Chapter 39",
+    chapterTitle: "Checklists",
+    heroDescription: "Essential checklists for daily operations, formulas, and reference guides to ensure consistent, error-free freight forwarding.",
     title: "Checklists & Quick Reference",
     subtitle: "Essential checklists for daily operations, formulas, and reference guides to ensure consistent, error-free freight forwarding.",
     preDispatchTitle: "Pre-Dispatch Checklist",
@@ -143,6 +146,9 @@ export const checklistsTranslations: Record<string, Record<string, string>> = {
     biweeklyMax: "Bi-weekly max",
   },
   ro: {
+    chapterNumber: "Capitolul 39",
+    chapterTitle: "Liste de Verificare",
+    heroDescription: "Liste de verificare esențiale pentru operațiuni zilnice, formule și ghiduri de referință pentru expediere consecventă și fără erori.",
     title: "Liste de Verificare și Referință Rapidă",
     subtitle: "Liste de verificare esențiale pentru operațiuni zilnice, formule și ghiduri de referință pentru a asigura expediere consecventă și fără erori.",
     preDispatchTitle: "Lista de Verificare Pre-Expediere",
@@ -286,6 +292,9 @@ export const checklistsTranslations: Record<string, Record<string, string>> = {
     biweeklyMax: "Max bi-săptămânal",
   },
   de: {
+    chapterNumber: "Kapitel 39",
+    chapterTitle: "Checklisten",
+    heroDescription: "Essentielle Checklisten für den täglichen Betrieb, Formeln und Referenzhandbücher für konsistente, fehlerfreie Spedition.",
     title: "Checklisten & Schnellreferenz",
     subtitle: "Essentielle Checklisten für den täglichen Betrieb, Formeln und Referenzhandbücher für konsistente, fehlerfreie Spedition.",
     preDispatchTitle: "Vor-Versand Checkliste",

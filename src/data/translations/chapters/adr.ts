@@ -113,6 +113,9 @@ export const adrTranslations = {
     quizTitle: "ADR Dangerous Goods Quiz",
   },
   de: {
+    chapterNumber: "Kapitel 9",
+    chapterTitle: "ADR Transport",
+    heroDescription: "Europäisches Übereinkommen über die internationale Beförderung gefährlicher Güter auf der Straße - Klassen, Anforderungen und Dokumentation.",
     title: "ADR - Gefahrgut",
     subtitle: "Europäisches Übereinkommen über die internationale Beförderung gefährlicher Güter auf der Straße.",
     whatIsAdr: "Was ist ADR?",
@@ -223,6 +226,9 @@ export const adrTranslations = {
     quizTitle: "ADR Gefahrgut Quiz",
   },
   ro: {
+    chapterNumber: "Capitolul 9",
+    chapterTitle: "Transport ADR",
+    heroDescription: "Acordul European privind Transportul Internațional al Mărfurilor Periculoase pe Șosele - clase, cerințe și documentație.",
     title: "ADR - Mărfuri Periculoase",
     subtitle: "Acordul European privind Transportul Internațional al Mărfurilor Periculoase pe Șosele.",
     whatIsAdr: "Ce este ADR?",

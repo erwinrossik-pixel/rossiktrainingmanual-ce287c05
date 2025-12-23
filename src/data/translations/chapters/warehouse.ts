@@ -106,6 +106,9 @@ export const warehouseTranslations: Record<string, Record<string, string>> = {
     quizTitle: "Warehouse & Cross-Docking Quiz",
   },
   ro: {
+    chapterNumber: "Capitolul 8",
+    chapterTitle: "Operațiuni Depozit",
+    heroDescription: "Înțelegerea operațiunilor de depozit, cross-docking, consolidare și integrarea cu transportul în lanțul de aprovizionare.",
     title: "Depozit și Cross-Docking",
     subtitle: "Înțelegerea operațiunilor de depozit, cross-docking, consolidare și cum se integrează cu transportul în lanțul de aprovizionare.",
     roleOfWarehousing: "Rolul Depozitării în Logistică",
@@ -209,6 +212,9 @@ export const warehouseTranslations: Record<string, Record<string, string>> = {
     quizTitle: "Quiz Depozit și Cross-Docking",
   },
   de: {
+    chapterNumber: "Kapitel 8",
+    chapterTitle: "Lagerbetrieb",
+    heroDescription: "Verständnis von Lageroperationen, Cross-Docking, Konsolidierung und Integration mit Transport in der Lieferkette.",
     title: "Lager & Cross-Docking",
     subtitle: "Verständnis von Lageroperationen, Cross-Docking, Konsolidierung und wie sie sich in den Transport in der Lieferkette integrieren.",
     roleOfWarehousing: "Die Rolle der Lagerhaltung in der Logistik",
