@@ -10,64 +10,64 @@ export function RedFlagsChapter() {
   const { ct } = useChapterTranslation('red-flags');
 
   const carrierRedFlags = [
-    { titleKey: "carrier_red_flag_1_title", descKey: "carrier_red_flag_1_desc", actionKey: "carrier_red_flag_1_action", severity: "critical" },
-    { titleKey: "carrier_red_flag_2_title", descKey: "carrier_red_flag_2_desc", actionKey: "carrier_red_flag_2_action", severity: "critical" },
-    { titleKey: "carrier_red_flag_3_title", descKey: "carrier_red_flag_3_desc", actionKey: "carrier_red_flag_3_action", severity: "critical" },
-    { titleKey: "carrier_red_flag_4_title", descKey: "carrier_red_flag_4_desc", actionKey: "carrier_red_flag_4_action", severity: "high" },
-    { titleKey: "carrier_red_flag_5_title", descKey: "carrier_red_flag_5_desc", actionKey: "carrier_red_flag_5_action", severity: "medium" },
-    { titleKey: "carrier_red_flag_6_title", descKey: "carrier_red_flag_6_desc", actionKey: "carrier_red_flag_6_action", severity: "critical" },
-    { titleKey: "carrier_red_flag_7_title", descKey: "carrier_red_flag_7_desc", actionKey: "carrier_red_flag_7_action", severity: "high" },
-    { titleKey: "carrier_red_flag_8_title", descKey: "carrier_red_flag_8_desc", actionKey: "carrier_red_flag_8_action", severity: "critical" },
+    { titleKey: "companyLessThan6Months", descKey: "companyLessThan6MonthsDesc", actionKey: "companyLessThan6MonthsAction", severity: "critical" },
+    { titleKey: "noRatingsOrLowScores", descKey: "noRatingsDesc", actionKey: "noRatingsAction", severity: "critical" },
+    { titleKey: "fakeInsurance", descKey: "fakeInsuranceDesc", actionKey: "fakeInsuranceAction", severity: "critical" },
+    { titleKey: "belowMarketPrices", descKey: "belowMarketPricesDesc", actionKey: "belowMarketPricesAction", severity: "high" },
+    { titleKey: "mobileOnlyCommunication", descKey: "mobileOnlyDesc", actionKey: "mobileOnlyAction", severity: "medium" },
+    { titleKey: "refusesDocumentation", descKey: "refusesDocumentationDesc", actionKey: "refusesDocumentationAction", severity: "critical" },
+    { titleKey: "pressureToDecide", descKey: "pressureToDecideDesc", actionKey: "pressureToDecideAction", severity: "high" },
+    { titleKey: "bankDetailsMismatch", descKey: "bankDetailsMismatchDesc", actionKey: "bankDetailsMismatchAction", severity: "critical" },
   ];
 
   const complianceRedFlags = [
-    { titleKey: "compliance_1_title", descKey: "compliance_1_desc", tipKey: "compliance_1_tip" },
-    { titleKey: "compliance_2_title", descKey: "compliance_2_desc", tipKey: "compliance_2_tip" },
-    { titleKey: "compliance_3_title", descKey: "compliance_3_desc", tipKey: "compliance_3_tip" },
-    { titleKey: "compliance_4_title", descKey: "compliance_4_desc", tipKey: "compliance_4_tip" },
-    { titleKey: "compliance_5_title", descKey: "compliance_5_desc", tipKey: "compliance_5_tip" },
-    { titleKey: "compliance_6_title", descKey: "compliance_6_desc", tipKey: "compliance_6_tip" },
+    { titleKey: "co2TollTiers", descKey: "co2TollTiersDesc", tipKey: "co2TollTiersTip" },
+    { titleKey: "tirolRestrictions", descKey: "tirolRestrictionsDesc", tipKey: "tirolRestrictionsTip" },
+    { titleKey: "sundayDrivingBans", descKey: "sundayDrivingBansDesc", tipKey: "sundayDrivingBansTip" },
+    { titleKey: "driverHoursMiscalc", descKey: "driverHoursMiscalcDesc", tipKey: "driverHoursMiscalcTip" },
+    { titleKey: "weightLimitsVariation", descKey: "weightLimitsVariationDesc", tipKey: "weightLimitsVariationTip" },
+    { titleKey: "lezRequirements", descKey: "lezRequirementsDesc", tipKey: "lezRequirementsTip" },
   ];
 
   const proTips = [
-    { titleKey: "pro_tip_1_title", descKey: "pro_tip_1_desc", icon: FileText },
-    { titleKey: "pro_tip_2_title", descKey: "pro_tip_2_desc", icon: MapPin },
-    { titleKey: "pro_tip_3_title", descKey: "pro_tip_3_desc", icon: Users },
-    { titleKey: "pro_tip_4_title", descKey: "pro_tip_4_desc", icon: Phone },
-    { titleKey: "pro_tip_5_title", descKey: "pro_tip_5_desc", icon: Shield },
-    { titleKey: "pro_tip_6_title", descKey: "pro_tip_6_desc", icon: Target },
-    { titleKey: "pro_tip_7_title", descKey: "pro_tip_7_desc", icon: Truck },
-    { titleKey: "pro_tip_8_title", descKey: "pro_tip_8_desc", icon: Brain },
+    { titleKey: "proTip1Title", descKey: "proTip1Desc", icon: FileText },
+    { titleKey: "proTip2Title", descKey: "proTip2Desc", icon: MapPin },
+    { titleKey: "proTip3Title", descKey: "proTip3Desc", icon: Users },
+    { titleKey: "proTip4Title", descKey: "proTip4Desc", icon: Phone },
+    { titleKey: "proTip5Title", descKey: "proTip5Desc", icon: Shield },
+    { titleKey: "proTip6Title", descKey: "proTip6Desc", icon: Target },
+    { titleKey: "proTip7Title", descKey: "proTip7Desc", icon: Truck },
+    { titleKey: "proTip8Title", descKey: "proTip8Desc", icon: Brain },
   ];
 
   const goldenRules = [
-    "golden_rule_1", "golden_rule_2", "golden_rule_3", "golden_rule_4", "golden_rule_5",
-    "golden_rule_6", "golden_rule_7", "golden_rule_8", "golden_rule_9", "golden_rule_10"
+    "goldenRule1", "goldenRule2", "goldenRule3", "goldenRule4", "goldenRule5",
+    "goldenRule6", "goldenRule7", "goldenRule8", "goldenRule9", "goldenRule10"
   ];
 
   const neverAcceptItems = [
-    "never_accept_1", "never_accept_2", "never_accept_3", 
-    "never_accept_4", "never_accept_5", "never_accept_6"
+    "neverAcceptItem1", "neverAcceptItem2", "neverAcceptItem3", 
+    "neverAcceptItem4", "neverAcceptItem5", "neverAcceptItem6"
   ];
 
   const alwaysRequireItems = [
-    "always_require_1", "always_require_2", "always_require_3",
-    "always_require_4", "always_require_5", "always_require_6"
+    "alwaysRequireItem1", "alwaysRequireItem2", "alwaysRequireItem3",
+    "alwaysRequireItem4", "alwaysRequireItem5", "alwaysRequireItem6"
   ];
 
   const beforeBookingItems = [
-    "before_booking_1", "before_booking_2", "before_booking_3",
-    "before_booking_4", "before_booking_5", "before_booking_6"
+    "beforeBookingItem1", "beforeBookingItem2", "beforeBookingItem3",
+    "beforeBookingItem4", "beforeBookingItem5", "beforeBookingItem6"
   ];
 
   const beforeQuotingItems = [
-    "before_quoting_1", "before_quoting_2", "before_quoting_3",
-    "before_quoting_4", "before_quoting_5", "before_quoting_6"
+    "beforeQuotingItem1", "beforeQuotingItem2", "beforeQuotingItem3",
+    "beforeQuotingItem4", "beforeQuotingItem5", "beforeQuotingItem6"
   ];
 
   const beforeDispatchItems = [
-    "before_dispatch_1", "before_dispatch_2", "before_dispatch_3",
-    "before_dispatch_4", "before_dispatch_5", "before_dispatch_6"
+    "beforeDispatchItem1", "beforeDispatchItem2", "beforeDispatchItem3",
+    "beforeDispatchItem4", "beforeDispatchItem5", "beforeDispatchItem6"
   ];
 
   return (
@@ -84,31 +84,31 @@ export function RedFlagsChapter() {
       <div className="info-card bg-gradient-to-br from-primary/5 to-primary/10">
         <h2 className="section-title flex items-center gap-3">
           <Eye className="w-6 h-6 text-primary" />
-          {ct("why_recognize_title")}
+          {ct("whyRedFlagsTitle")}
         </h2>
         <p className="text-muted-foreground mb-4">
-          {ct("why_recognize_desc")}
+          {ct("whyRedFlagsDesc")}
         </p>
         <div className="grid md:grid-cols-4 gap-4">
           <div className="bg-background p-4 rounded-lg text-center">
             <Euro className="w-8 h-8 text-destructive mx-auto mb-2" />
             <p className="text-2xl font-bold text-destructive">€5-50k</p>
-            <p className="text-xs text-muted-foreground">{ct("stat_claim_cost")}</p>
+            <p className="text-xs text-muted-foreground">{ct("avgClaimCost")}</p>
           </div>
           <div className="bg-background p-4 rounded-lg text-center">
             <Users className="w-8 h-8 text-warning mx-auto mb-2" />
             <p className="text-2xl font-bold text-warning">80%</p>
-            <p className="text-xs text-muted-foreground">{ct("stat_poor_vetting")}</p>
+            <p className="text-xs text-muted-foreground">{ct("claimsFromPoorVetting")}</p>
           </div>
           <div className="bg-background p-4 rounded-lg text-center">
             <Clock className="w-8 h-8 text-info mx-auto mb-2" />
             <p className="text-2xl font-bold text-info">48h</p>
-            <p className="text-xs text-muted-foreground">{ct("stat_fraud_time")}</p>
+            <p className="text-xs text-muted-foreground">{ct("timeToSpotFraud")}</p>
           </div>
           <div className="bg-background p-4 rounded-lg text-center">
             <Shield className="w-8 h-8 text-success mx-auto mb-2" />
             <p className="text-2xl font-bold text-success">95%</p>
-            <p className="text-xs text-muted-foreground">{ct("stat_preventable")}</p>
+            <p className="text-xs text-muted-foreground">{ct("preventableIssues")}</p>
           </div>
         </div>
       </div>
@@ -117,7 +117,7 @@ export function RedFlagsChapter() {
       <div className="info-card">
         <h2 className="section-title flex items-center gap-3 text-destructive">
           <Ban className="w-6 h-6" />
-          {ct("carrier_red_flags_title")}
+          {ct("carrierRedFlagsTitle")}
         </h2>
         
         <div className="space-y-4">
@@ -153,7 +153,7 @@ export function RedFlagsChapter() {
                   <p className="text-sm text-muted-foreground mb-2">{ct(item.descKey)}</p>
                   <div className="flex items-center gap-2 text-sm text-success">
                     <Lightbulb className="w-4 h-4" />
-                    <span><strong>{ct("action_label")}:</strong> {ct(item.actionKey)}</span>
+                    <span><strong>{ct("action")}:</strong> {ct(item.actionKey)}</span>
                   </div>
                 </div>
               </div>
@@ -166,18 +166,18 @@ export function RedFlagsChapter() {
       <div className="info-card">
         <h2 className="section-title flex items-center gap-3 text-warning">
           <Euro className="w-6 h-6" />
-          {ct("pricing_red_flags_title")}
+          {ct("pricingRedFlagsTitle")}
         </h2>
         
         <DataTable
-          headers={[ct("table_red_flag"), ct("table_what_it_means"), ct("table_how_to_avoid"), ct("table_impact")]}
+          headers={[ct("redFlag"), ct("whatItMeans"), ct("howToAvoid"), ct("impact")]}
           rows={[
-            [ct("pricing_1_flag"), ct("pricing_1_means"), ct("pricing_1_avoid"), ct("pricing_1_impact")],
-            [ct("pricing_2_flag"), ct("pricing_2_means"), ct("pricing_2_avoid"), ct("pricing_2_impact")],
-            [ct("pricing_3_flag"), ct("pricing_3_means"), ct("pricing_3_avoid"), ct("pricing_3_impact")],
-            [ct("pricing_4_flag"), ct("pricing_4_means"), ct("pricing_4_avoid"), ct("pricing_4_impact")],
-            [ct("pricing_5_flag"), ct("pricing_5_means"), ct("pricing_5_avoid"), ct("pricing_5_impact")],
-            [ct("pricing_6_flag"), ct("pricing_6_means"), ct("pricing_6_avoid"), ct("pricing_6_impact")],
+            [ct("cheapFRLanes"), ct("cheapFRLanesDesc"), ct("cheapFRLanesAvoid"), ct("cheapFRLanesImpact")],
+            [ct("swissLSVA"), ct("swissLSVADesc"), ct("swissLSVAAvoid"), ct("swissLSVAImpact")],
+            [ct("ferryTunnel"), ct("ferryTunnelDesc"), ct("ferryTunnelAvoid"), ct("ferryTunnelImpact")],
+            [ct("waitingTime"), ct("waitingTimeDesc"), ct("waitingTimeAvoid"), ct("waitingTimeImpact")],
+            [ct("quotingWithoutVerify"), ct("quotingWithoutVerifyDesc"), ct("quotingWithoutVerifyAvoid"), ct("quotingWithoutVerifyImpact")],
+            [ct("seasonalBlindness"), ct("seasonalBlindnessDesc"), ct("seasonalBlindnessAvoid"), ct("seasonalBlindnessImpact")],
           ]}
         />
       </div>
@@ -186,7 +186,7 @@ export function RedFlagsChapter() {
       <div className="info-card">
         <h2 className="section-title flex items-center gap-3 text-destructive">
           <Scale className="w-6 h-6" />
-          {ct("compliance_red_flags_title")}
+          {ct("complianceRedFlagsTitle")}
         </h2>
 
         <div className="grid md:grid-cols-2 gap-4">
@@ -214,20 +214,20 @@ export function RedFlagsChapter() {
       <div className="info-card">
         <h2 className="section-title flex items-center gap-3 text-warning">
           <Users className="w-6 h-6" />
-          {ct("client_red_flags_title")}
+          {ct("clientRedFlagsTitle")}
         </h2>
 
         <DataTable
-          headers={[ct("table_warning_sign"), ct("table_what_indicates"), ct("table_recommended_action")]}
+          headers={[ct("warningSign"), ct("whatItIndicates"), ct("recommendedAction")]}
           rows={[
-            [ct("client_1_sign"), ct("client_1_indicates"), ct("client_1_action")],
-            [ct("client_2_sign"), ct("client_2_indicates"), ct("client_2_action")],
-            [ct("client_3_sign"), ct("client_3_indicates"), ct("client_3_action")],
-            [ct("client_4_sign"), ct("client_4_indicates"), ct("client_4_action")],
-            [ct("client_5_sign"), ct("client_5_indicates"), ct("client_5_action")],
-            [ct("client_6_sign"), ct("client_6_indicates"), ct("client_6_action")],
-            [ct("client_7_sign"), ct("client_7_indicates"), ct("client_7_action")],
-            [ct("client_8_sign"), ct("client_8_indicates"), ct("client_8_action")],
+            [ct("newCompanyLargeOrder"), ct("newCompanyLargeOrderIndicates"), ct("newCompanyLargeOrderAction")],
+            [ct("pushesPrices"), ct("pushesPricesIndicates"), ct("pushesPricesAction")],
+            [ct("vagueCargo"), ct("vagueCargoIndicates"), ct("vagueCargoAction")],
+            [ct("addressChanges"), ct("addressChangesIndicates"), ct("addressChangesAction")],
+            [ct("disputesInvoices"), ct("disputesInvoicesIndicates"), ct("disputesInvoicesAction")],
+            [ct("unrealisticExpectations"), ct("unrealisticExpectationsIndicates"), ct("unrealisticExpectationsAction")],
+            [ct("noPO"), ct("noPOIndicates"), ct("noPOAction")],
+            [ct("invoiceDifferentEntity"), ct("invoiceDifferentEntityIndicates"), ct("invoiceDifferentEntityAction")],
           ]}
         />
       </div>
@@ -236,14 +236,14 @@ export function RedFlagsChapter() {
       <div className="info-card">
         <h2 className="section-title flex items-center gap-3">
           <FileText className="w-6 h-6 text-primary" />
-          {ct("documentation_red_flags_title")}
+          {ct("documentationRedFlagsTitle")}
         </h2>
 
         <div className="grid md:grid-cols-2 gap-6">
           <div className="bg-destructive/10 border border-destructive/30 p-4 rounded-lg">
             <h4 className="font-semibold text-destructive mb-3 flex items-center gap-2">
               <X className="w-5 h-5" />
-              {ct("never_accept_title")}:
+              {ct("neverAccept")}
             </h4>
             <ul className="space-y-2 text-sm">
               {neverAcceptItems.map((key, i) => (
@@ -257,7 +257,7 @@ export function RedFlagsChapter() {
           <div className="bg-success/10 border border-success/30 p-4 rounded-lg">
             <h4 className="font-semibold text-success mb-3 flex items-center gap-2">
               <Check className="w-5 h-5" />
-              {ct("always_require_title")}:
+              {ct("alwaysRequire")}
             </h4>
             <ul className="space-y-2 text-sm">
               {alwaysRequireItems.map((key, i) => (
@@ -275,7 +275,7 @@ export function RedFlagsChapter() {
       <div className="space-y-4">
         <h2 className="section-title flex items-center gap-3 text-success">
           <Lightbulb className="w-6 h-6" />
-          {ct("pro_tips_title")}
+          {ct("proTipsTitle")}
         </h2>
         
         <div className="grid md:grid-cols-2 gap-4">
@@ -299,38 +299,38 @@ export function RedFlagsChapter() {
       <div className="info-card">
         <h2 className="section-title flex items-center gap-3">
           <Zap className="w-6 h-6 text-primary" />
-          {ct("daily_habits_title")}
+          {ct("dailyHabitsTitle")}
         </h2>
 
         <div className="grid md:grid-cols-3 gap-4">
           <div className="bg-muted/50 p-4 rounded-lg">
-            <h4 className="font-semibold mb-2 text-primary">{ct("morning_routine")}</h4>
+            <h4 className="font-semibold mb-2 text-primary">{ct("morningRoutine")}</h4>
             <ul className="text-sm space-y-1">
-              <li>• {ct("morning_1")}</li>
-              <li>• {ct("morning_2")}</li>
-              <li>• {ct("morning_3")}</li>
-              <li>• {ct("morning_4")}</li>
-              <li>• {ct("morning_5")}</li>
+              <li>• {ct("morningItem1")}</li>
+              <li>• {ct("morningItem2")}</li>
+              <li>• {ct("morningItem3")}</li>
+              <li>• {ct("morningItem4")}</li>
+              <li>• {ct("morningItem5")}</li>
             </ul>
           </div>
           <div className="bg-muted/50 p-4 rounded-lg">
-            <h4 className="font-semibold mb-2 text-primary">{ct("throughout_day")}</h4>
+            <h4 className="font-semibold mb-2 text-primary">{ct("throughoutDay")}</h4>
             <ul className="text-sm space-y-1">
-              <li>• {ct("day_1")}</li>
-              <li>• {ct("day_2")}</li>
-              <li>• {ct("day_3")}</li>
-              <li>• {ct("day_4")}</li>
-              <li>• {ct("day_5")}</li>
+              <li>• {ct("dayItem1")}</li>
+              <li>• {ct("dayItem2")}</li>
+              <li>• {ct("dayItem3")}</li>
+              <li>• {ct("dayItem4")}</li>
+              <li>• {ct("dayItem5")}</li>
             </ul>
           </div>
           <div className="bg-muted/50 p-4 rounded-lg">
-            <h4 className="font-semibold mb-2 text-primary">{ct("end_of_day")}</h4>
+            <h4 className="font-semibold mb-2 text-primary">{ct("endOfDay")}</h4>
             <ul className="text-sm space-y-1">
-              <li>• {ct("evening_1")}</li>
-              <li>• {ct("evening_2")}</li>
-              <li>• {ct("evening_3")}</li>
-              <li>• {ct("evening_4")}</li>
-              <li>• {ct("evening_5")}</li>
+              <li>• {ct("endItem1")}</li>
+              <li>• {ct("endItem2")}</li>
+              <li>• {ct("endItem3")}</li>
+              <li>• {ct("endItem4")}</li>
+              <li>• {ct("endItem5")}</li>
             </ul>
           </div>
         </div>
@@ -338,7 +338,7 @@ export function RedFlagsChapter() {
 
       {/* Golden Rules */}
       <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary to-rossik-dark p-8 text-primary-foreground">
-        <h2 className="text-2xl font-bold mb-6 font-serif">🏆 {ct("golden_rules_title")}</h2>
+        <h2 className="text-2xl font-bold mb-6 font-serif">🏆 {ct("goldenRulesTitle")}</h2>
         <div className="grid md:grid-cols-2 gap-4">
           {goldenRules.map((key, i) => (
             <div key={i} className="flex items-center gap-3 p-3 bg-primary-foreground/10 rounded-lg">
@@ -353,13 +353,13 @@ export function RedFlagsChapter() {
 
       {/* Quick Reference: What to Check */}
       <div className="info-card">
-        <h2 className="section-title">{ct("verification_checklist_title")}</h2>
+        <h2 className="section-title">{ct("quickReferenceTitle")}</h2>
         
         <div className="grid md:grid-cols-3 gap-4">
           <div className="bg-card border border-border rounded-lg p-4">
             <h4 className="font-semibold mb-3 flex items-center gap-2">
               <Truck className="w-4 h-4 text-primary" />
-              {ct("before_booking_carrier")}
+              {ct("beforeBookingCarrier")}
             </h4>
             <ul className="text-sm space-y-1">
               {beforeBookingItems.map((key, i) => (
@@ -374,7 +374,7 @@ export function RedFlagsChapter() {
           <div className="bg-card border border-border rounded-lg p-4">
             <h4 className="font-semibold mb-3 flex items-center gap-2">
               <Euro className="w-4 h-4 text-primary" />
-              {ct("before_quoting_price")}
+              {ct("beforeQuotingPrice")}
             </h4>
             <ul className="text-sm space-y-1">
               {beforeQuotingItems.map((key, i) => (
@@ -388,8 +388,8 @@ export function RedFlagsChapter() {
           
           <div className="bg-card border border-border rounded-lg p-4">
             <h4 className="font-semibold mb-3 flex items-center gap-2">
-              <MapPin className="w-4 h-4 text-primary" />
-              {ct("before_dispatch")}
+              <Clock className="w-4 h-4 text-primary" />
+              {ct("beforeDispatch")}
             </h4>
             <ul className="text-sm space-y-1">
               {beforeDispatchItems.map((key, i) => (
@@ -404,7 +404,14 @@ export function RedFlagsChapter() {
       </div>
 
       {/* Quiz */}
-      <Quiz title={ct("quiz_title")} questions={quizzes["red-flags"]} chapterId="red-flags" />
+      {quizzes["red-flags"] && (
+        <Quiz
+          title={ct("knowledgeCheck")}
+          questions={quizzes["red-flags"]}
+          chapterId="red-flags"
+          questionsPerRound={5}
+        />
+      )}
     </div>
   );
 }
