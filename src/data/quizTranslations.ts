@@ -121,20 +121,20 @@ export const quizTranslations: Record<string, TranslatedQuizQuestion[]> = {
     },
     {
       question: {
-        ro: "De ce este documentația considerată 'protecție' în expediția de mărfuri?",
-        en: "Why is documentation considered 'protection' in freight forwarding?",
-        de: "Warum gilt Dokumentation als 'Schutz' in der Spedition?"
+        ro: "De ce este documentația considerată protecție în expediția de mărfuri?",
+        en: "Why is documentation considered protection in freight forwarding?",
+        de: "Warum gilt Dokumentation als Schutz in der Spedition?"
       },
       options: {
         ro: ["Protejează marfa de daune", "Oferă trasabilitate și dovezi legale", "Protejează șoferul de vreme", "Nu este importantă"],
-        en: ["It protects the cargo from damage", "It provides audit trail and legal evidence", "It protects the driver from weather", "It's not important"],
+        en: ["It protects the cargo from damage", "It provides audit trail and legal evidence", "It protects the driver from weather", "It is not important"],
         de: ["Sie schützt die Fracht vor Schäden", "Sie bietet Audit-Trail und rechtliche Beweise", "Sie schützt den Fahrer vor Wetter", "Sie ist nicht wichtig"]
       },
       correctIndex: 1,
       explanation: {
         ro: "Documentația creează o înregistrare auditabilă a tuturor activităților. Dacă nu este documentat, nu s-a întâmplat - mai ales important pentru dispute și daune.",
-        en: "Documentation creates an auditable record of all activities. If it's not documented, it didn't happen – especially important for disputes and insurance claims.",
-        de: "Dokumentation erstellt eine prüfbare Aufzeichnung aller Aktivitäten. Wenn es nicht dokumentiert ist, ist es nicht passiert – besonders wichtig für Streitigkeiten und Versicherungsansprüche."
+        en: "Documentation creates an auditable record of all activities. If it is not documented, it did not happen - especially important for disputes and insurance claims.",
+        de: "Dokumentation erstellt eine prüfbare Aufzeichnung aller Aktivitäten. Wenn es nicht dokumentiert ist, ist es nicht passiert - besonders wichtig für Streitigkeiten und Versicherungsansprüche."
       }
     },
     {
@@ -193,9 +193,9 @@ export const quizTranslations: Record<string, TranslatedQuizQuestion[]> = {
     },
     {
       question: {
-        ro: "Ce este 'comunicarea proactivă' în expediția de mărfuri?",
-        en: "What is 'proactive communication' in freight forwarding?",
-        de: "Was ist 'proaktive Kommunikation' in der Spedition?"
+        ro: "Ce este comunicarea proactivă în expediția de mărfuri?",
+        en: "What is proactive communication in freight forwarding?",
+        de: "Was ist proaktive Kommunikation in der Spedition?"
       },
       options: {
         ro: ["Răspunsul doar când ești întrebat", "Informarea părților interesate înainte să trebuiască să te caute", "Trimiterea multor emailuri de marketing", "Apeluri zilnice de vânzări"],
@@ -218,9 +218,9 @@ export const quizTranslations: Record<string, TranslatedQuizQuestion[]> = {
         de: "Was ist die richtige Prioritätsreihenfolge für die Kapazitätsbeschaffung?"
       },
       options: {
-        ro: ["Piața spot → Transportatori preferați → Flotă proprie", "Flotă proprie → Transportatori preferați → Piața spot", "Transportatori preferați → Flotă proprie → Piața spot", "Selecție aleatorie"],
-        en: ["Spot market → Preferred carriers → Own fleet", "Own fleet → Preferred carriers → Spot market", "Preferred carriers → Own fleet → Spot market", "Random selection"],
-        de: ["Spotmarkt → Bevorzugte Frachtführer → Eigene Flotte", "Eigene Flotte → Bevorzugte Frachtführer → Spotmarkt", "Bevorzugte Frachtführer → Eigene Flotte → Spotmarkt", "Zufällige Auswahl"]
+        ro: ["Piața spot - Transportatori preferați - Flotă proprie", "Flotă proprie - Transportatori preferați - Piața spot", "Transportatori preferați - Flotă proprie - Piața spot", "Selecție aleatorie"],
+        en: ["Spot market - Preferred carriers - Own fleet", "Own fleet - Preferred carriers - Spot market", "Preferred carriers - Own fleet - Spot market", "Random selection"],
+        de: ["Spotmarkt - Bevorzugte Frachtführer - Eigene Flotte", "Eigene Flotte - Bevorzugte Frachtführer - Spotmarkt", "Bevorzugte Frachtführer - Eigene Flotte - Spotmarkt", "Zufällige Auswahl"]
       },
       correctIndex: 1,
       explanation: {
@@ -236,15 +236,15 @@ export const quizTranslations: Record<string, TranslatedQuizQuestion[]> = {
         de: "Was ist der typische Basistarif für die Kostenberechnung?"
       },
       options: {
-        ro: ["€0.80/km", "€1.10/km", "€1.50/km", "€2.00/km"],
-        en: ["€0.80/km", "€1.10/km", "€1.50/km", "€2.00/km"],
-        de: ["€0.80/km", "€1.10/km", "€1.50/km", "€2.00/km"]
+        ro: ["0.80 EUR/km", "1.10 EUR/km", "1.50 EUR/km", "2.00 EUR/km"],
+        en: ["0.80 EUR/km", "1.10 EUR/km", "1.50 EUR/km", "2.00 EUR/km"],
+        de: ["0.80 EUR/km", "1.10 EUR/km", "1.50 EUR/km", "2.00 EUR/km"]
       },
       correctIndex: 1,
       explanation: {
-        ro: "Tariful de bază standard pentru transportul rutier UE este aproximativ €1.10/km, înainte de adăugarea taxelor și accesoriilor.",
-        en: "The standard base rate for EU road freight is approximately €1.10/km, before adding tolls and accessorials.",
-        de: "Der Standard-Basistarif für EU-Straßengüterverkehr beträgt ca. €1,10/km, vor Maut und Nebenkosten."
+        ro: "Tariful de bază standard pentru transportul rutier UE este aproximativ 1.10 EUR/km, înainte de adăugarea taxelor și accesoriilor.",
+        en: "The standard base rate for EU road freight is approximately 1.10 EUR/km, before adding tolls and accessorials.",
+        de: "Der Standard-Basistarif für EU-Straßengüterverkehr beträgt ca. 1.10 EUR/km, vor Maut und Nebenkosten."
       }
     },
     {
@@ -290,613 +290,450 @@ export const quizTranslations: Record<string, TranslatedQuizQuestion[]> = {
         de: "Wie oft sollten Sie das Tracking während des Transports aktualisieren?"
       },
       options: {
-        ro: ["Doar când întreabă clientul", "La etapele cheie: ridicare, în tranzit, sosire, livrare", "O dată pe săptămână", "Niciodată - se ocupă transportatorul"],
-        en: ["Only when client asks", "At key milestones: pickup, in transit, arrival, delivery", "Once per week", "Never - carrier handles it"],
-        de: ["Nur auf Kundenanfrage", "An Schlüsseletappen: Abholung, unterwegs, Ankunft, Lieferung", "Einmal pro Woche", "Nie - Frachtführer kümmert sich"]
+        ro: ["Doar la final", "La fiecare etapă cheie (ridicare, tranzit, livrare)", "O dată pe săptămână", "Doar când clientul întreabă"],
+        en: ["Only at the end", "At each key milestone (pickup, transit, delivery)", "Once a week", "Only when client asks"],
+        de: ["Nur am Ende", "Bei jedem wichtigen Meilenstein (Abholung, Transit, Lieferung)", "Einmal pro Woche", "Nur wenn der Kunde fragt"]
       },
       correctIndex: 1,
       explanation: {
-        ro: "Actualizări proactive de tracking la etapele cheie țin clienții informați și construiesc încredere. Nu așteptați să fiți întrebați.",
-        en: "Proactive tracking updates at milestones keep clients informed and build trust. Don't wait to be asked.",
-        de: "Proaktive Tracking-Updates an Meilensteinen halten Kunden informiert und bauen Vertrauen auf. Warten Sie nicht, bis Sie gefragt werden."
-      }
-    },
-    {
-      question: {
-        ro: "Ce ar trebui să faceți imediat când este identificată o întârziere?",
-        en: "What should you do immediately when a delay is identified?",
-        de: "Was sollten Sie sofort tun, wenn eine Verzögerung festgestellt wird?"
-      },
-      options: {
-        ro: ["Așteptați și sperați că se rezolvă", "Informați clientul proactiv cu noul ETA și motivul", "Dați vina pe șofer", "Nu faceți nimic până nu sunteți întrebat"],
-        en: ["Wait and hope it resolves", "Inform the client proactively with new ETA and reason", "Blame the driver", "Do nothing until asked"],
-        de: ["Warten und hoffen, dass es sich löst", "Kunden proaktiv mit neuer ETA und Grund informieren", "Dem Fahrer die Schuld geben", "Nichts tun bis gefragt"]
-      },
-      correctIndex: 1,
-      explanation: {
-        ro: "Notificați imediat clientul cu ETA actualizat, motivul întârzierii și acțiunile de atenuare întreprinse.",
-        en: "Immediately notify the client with updated ETA, reason for delay, and any mitigation actions being taken.",
-        de: "Informieren Sie den Kunden sofort mit aktualisierter ETA, Verzögerungsgrund und ergriffenen Gegenmaßnahmen."
+        ro: "Actualizați statusul la fiecare etapă: confirmare ridicare, în tranzit, la destinație, livrat.",
+        en: "Update status at each milestone: pickup confirmed, in transit, at destination, delivered.",
+        de: "Aktualisieren Sie den Status bei jedem Meilenstein: Abholung bestätigt, im Transit, am Zielort, geliefert."
       }
     }
   ],
   vehicle: [
     {
       question: {
-        ro: "Care este lungimea standard a unei semiremorci cu prelată?",
-        en: "What is the standard length of a curtainsider trailer?",
-        de: "Was ist die Standardlänge eines Planenauflegers?"
+        ro: "Care este capacitatea de încărcare tipică a unui camion standard (megatrailer)?",
+        en: "What is the typical loading capacity of a standard truck (megatrailer)?",
+        de: "Was ist die typische Ladekapazität eines Standard-LKW (Megatrailer)?"
       },
       options: {
-        ro: ["10.5m", "12.0m", "13.6m", "15.0m"],
-        en: ["10.5m", "12.0m", "13.6m", "15.0m"],
-        de: ["10,5m", "12,0m", "13,6m", "15,0m"]
-      },
-      correctIndex: 2,
-      explanation: {
-        ro: "Semiremorca europeană standard cu prelată/tautliner are 13.6m lungime.",
-        en: "The standard European curtainsider/tautliner trailer is 13.6m long.",
-        de: "Der europäische Standard-Planenauflieger/Tautliner ist 13,6m lang."
-      }
-    },
-    {
-      question: {
-        ro: "Aproximativ câți europalți poate încăpea o semiremorcă de 13.6m?",
-        en: "Approximately how many EUR pallets can a 13.6m curtainsider hold?",
-        de: "Wie viele EUR-Paletten kann ein 13,6m Planenauflieger aufnehmen?"
-      },
-      options: {
-        ro: ["20 paleți", "25 paleți", "33 paleți", "40 paleți"],
-        en: ["20 pallets", "25 pallets", "33 pallets", "40 pallets"],
-        de: ["20 Paletten", "25 Paletten", "33 Paletten", "40 Paletten"]
-      },
-      correctIndex: 2,
-      explanation: {
-        ro: "O semiremorcă standard de 13.6m poate încăpea aproximativ 33 europalți.",
-        en: "A standard 13.6m curtainsider can hold approximately 33 EUR pallets.",
-        de: "Ein Standard 13,6m Planenauflieger kann ungefähr 33 EUR-Paletten aufnehmen."
-      }
-    },
-    {
-      question: {
-        ro: "Care este capacitatea utilă tipică a unei semiremorci de 13.6m?",
-        en: "What is the typical payload capacity of a 13.6m trailer?",
-        de: "Was ist die typische Nutzlast eines 13,6m Aufliegers?"
-      },
-      options: {
-        ro: ["10-15 tone", "18-22 tone", "24-29 tone", "35-40 tone"],
-        en: ["10-15 tonnes", "18-22 tonnes", "24-29 tonnes", "35-40 tonnes"],
-        de: ["10-15 Tonnen", "18-22 Tonnen", "24-29 Tonnen", "35-40 Tonnen"]
-      },
-      correctIndex: 2,
-      explanation: {
-        ro: "Capacitatea utilă este de obicei 24-29 tone în funcție de specificațiile camionului/remorcii.",
-        en: "The payload capacity is typically 24-29 tonnes depending on the truck/trailer specification.",
-        de: "Die Nutzlast beträgt typischerweise 24-29 Tonnen je nach LKW-/Auflieger-Spezifikation."
-      }
-    },
-    {
-      question: {
-        ro: "Pentru ce este folosită o semiremorcă MEGA?",
-        en: "What is a MEGA trailer used for?",
-        de: "Wofür wird ein MEGA-Auflieger verwendet?"
-      },
-      options: {
-        ro: ["Încărcături foarte grele", "Marfă voluminoasă și ușoară datorită înălțimii interne de 3m", "Doar containere", "Doar distanțe scurte"],
-        en: ["Extra heavy loads", "High-volume, light cargo due to 3m internal height", "Only containers", "Short distance only"],
-        de: ["Extra schwere Lasten", "Voluminöse, leichte Fracht durch 3m Innenhöhe", "Nur Container", "Nur Kurzstrecke"]
+        ro: ["15-18 tone", "24-25 tone", "30-35 tone", "40-45 tone"],
+        en: ["15-18 tons", "24-25 tons", "30-35 tons", "40-45 tons"],
+        de: ["15-18 Tonnen", "24-25 Tonnen", "30-35 Tonnen", "40-45 Tonnen"]
       },
       correctIndex: 1,
       explanation: {
-        ro: "Semiremorcile MEGA au 3m înălțime internă vs 2.7m standard, ideale pentru automotive și mărfuri voluminoase ușoare.",
-        en: "MEGA trailers have 3m internal height vs 2.7m standard, ideal for automotive and voluminous light goods.",
-        de: "MEGA-Auflieger haben 3m Innenhöhe vs. 2,7m Standard, ideal für Automotive und voluminöse leichte Güter."
+        ro: "Un megatrailer standard poate transporta 24-25 tone de marfă, cu o greutate totală maximă de 40 tone pentru ansamblul camion-remorcă.",
+        en: "A standard megatrailer can carry 24-25 tons of cargo, with a maximum total weight of 40 tons for the truck-trailer combination.",
+        de: "Ein Standard-Megatrailer kann 24-25 Tonnen Fracht transportieren, mit einem maximalen Gesamtgewicht von 40 Tonnen für die LKW-Anhänger-Kombination."
       }
     },
     {
       question: {
-        ro: "Care este MMA (Masa Maximă Autorizată) maximă în majoritatea țărilor UE?",
-        en: "What is the maximum GVW (Gross Vehicle Weight) in most EU countries?",
-        de: "Was ist das maximale zGG (zulässiges Gesamtgewicht) in den meisten EU-Ländern?"
+        ro: "Ce înseamnă dimensiunea 13.6m LDM?",
+        en: "What does the dimension 13.6m LDM mean?",
+        de: "Was bedeutet die Dimension 13.6m LDM?"
       },
       options: {
-        ro: ["30 tone", "35 tone", "40 tone", "44 tone"],
-        en: ["30 tonnes", "35 tonnes", "40 tonnes", "44 tonnes"],
-        de: ["30 Tonnen", "35 Tonnen", "40 Tonnen", "44 Tonnen"]
-      },
-      correctIndex: 2,
-      explanation: {
-        ro: "Limita standard UE pentru MMA este 40 tone, deși unele țări permit 44 tone pentru rute specifice sau intermodal.",
-        en: "Standard EU GVW limit is 40 tonnes, though some countries allow 44 tonnes for specific routes or intermodal.",
-        de: "Standard-EU-zGG-Limit ist 40 Tonnen, obwohl einige Länder 44 Tonnen für bestimmte Strecken oder intermodal erlauben."
-      }
-    },
-    {
-      question: {
-        ro: "Pentru ce este proiectată o semiremorcă frigorifică?",
-        en: "What is a reefer trailer designed for?",
-        de: "Wofür ist ein Kühlauflieger konzipiert?"
-      },
-      options: {
-        ro: ["Mașini grele", "Transport cu temperatură controlată", "Doar mărfuri periculoase", "Marfă supradimensionată"],
-        en: ["Heavy machinery", "Temperature-controlled transport", "Hazardous goods only", "Oversized cargo"],
-        de: ["Schwere Maschinen", "Temperaturgeführter Transport", "Nur Gefahrgut", "Übergroße Fracht"]
+        ro: ["Înălțimea trailerului", "Metri de încărcare liniari disponibili", "Lungimea tractorului", "Capacitatea maximă de greutate"],
+        en: ["Trailer height", "Linear loading meters available", "Tractor length", "Maximum weight capacity"],
+        de: ["Anhängerhöhe", "Verfügbare Lademeter", "Zugmaschinenlänge", "Maximale Gewichtskapazität"]
       },
       correctIndex: 1,
       explanation: {
-        ro: "Semiremorcile frigorifice (reefer) mențin temperaturi controlate pentru mărfuri perisabile, farmaceutice, etc.",
-        en: "Reefer (refrigerated) trailers maintain controlled temperatures for perishable goods, pharma, etc.",
-        de: "Kühlauflieger halten kontrollierte Temperaturen für verderbliche Waren, Pharma, etc."
+        ro: "LDM înseamnă metri de încărcare liniari - spațiul disponibil pe podea în lungime pentru încărcarea mărfurilor.",
+        en: "LDM means Linear Loading Meters - the available floor space in length for loading cargo.",
+        de: "LDM bedeutet Lademeter - der verfügbare Bodenraum in Länge für die Beladung von Fracht."
+      }
+    },
+    {
+      question: {
+        ro: "Care este înălțimea interioară tipică a unui megatrailer?",
+        en: "What is the typical interior height of a megatrailer?",
+        de: "Was ist die typische Innenhöhe eines Megatrailers?"
+      },
+      options: {
+        ro: ["2.50m", "2.70m", "3.00m", "3.20m"],
+        en: ["2.50m", "2.70m", "3.00m", "3.20m"],
+        de: ["2.50m", "2.70m", "3.00m", "3.20m"]
+      },
+      correctIndex: 2,
+      explanation: {
+        ro: "Megatrailerele au o înălțime interioară de aproximativ 3.00m datorită podelei joase, permițând stivuirea mai multor paleți.",
+        en: "Megatrailers have an interior height of approximately 3.00m due to the lowered floor, allowing stacking of more pallets.",
+        de: "Megatrailer haben eine Innenhöhe von ca. 3.00m dank des abgesenkten Bodens, was das Stapeln von mehr Paletten ermöglicht."
+      }
+    },
+    {
+      question: {
+        ro: "Ce tip de vehicul este necesar pentru mărfuri care necesită temperatură controlată?",
+        en: "What type of vehicle is required for temperature-controlled goods?",
+        de: "Welcher Fahrzeugtyp ist für temperaturgeführte Güter erforderlich?"
+      },
+      options: {
+        ro: ["Prelată standard", "Frigorific (reefer)", "Platformă", "Cisternă"],
+        en: ["Standard tarpaulin", "Refrigerated (reefer)", "Flatbed", "Tanker"],
+        de: ["Standard-Plane", "Kühlfahrzeug (Reefer)", "Pritsche", "Tankwagen"]
+      },
+      correctIndex: 1,
+      explanation: {
+        ro: "Vehiculele frigorifice (reefer) sunt echipate cu sisteme de răcire/încălzire pentru a menține temperatura necesară pe toată durata transportului.",
+        en: "Refrigerated vehicles (reefers) are equipped with cooling/heating systems to maintain the required temperature throughout transport.",
+        de: "Kühlfahrzeuge (Reefer) sind mit Kühl-/Heizsystemen ausgestattet, um die erforderliche Temperatur während des gesamten Transports zu halten."
+      }
+    },
+    {
+      question: {
+        ro: "Ce certificare trebuie să aibă vehiculele frigorifice pentru transport internațional?",
+        en: "What certification must refrigerated vehicles have for international transport?",
+        de: "Welche Zertifizierung müssen Kühlfahrzeuge für den internationalen Transport haben?"
+      },
+      options: {
+        ro: ["ISO 9001", "ATP", "ADR", "HACCP"],
+        en: ["ISO 9001", "ATP", "ADR", "HACCP"],
+        de: ["ISO 9001", "ATP", "ADR", "HACCP"]
+      },
+      correctIndex: 1,
+      explanation: {
+        ro: "ATP (Acordul privind Transportul Internațional al Mărfurilor Perisabile) este certificarea obligatorie pentru vehiculele frigorifice în transport internațional.",
+        en: "ATP (Agreement on the International Carriage of Perishable Foodstuffs) is the mandatory certification for refrigerated vehicles in international transport.",
+        de: "ATP (Übereinkommen über die internationale Beförderung leicht verderblicher Lebensmittel) ist die obligatorische Zertifizierung für Kühlfahrzeuge im internationalen Transport."
       }
     }
   ],
   loading: [
     {
       question: {
-        ro: "Care standard acoperă cerințele de fixare a mărfii?",
-        en: "What standard covers cargo securing requirements?",
-        de: "Welcher Standard deckt die Anforderungen zur Ladungssicherung ab?"
+        ro: "Câți europaleti standard încap într-un megatrailer?",
+        en: "How many standard europallets fit in a megatrailer?",
+        de: "Wie viele Standard-Europaletten passen in einen Megatrailer?"
       },
       options: {
-        ro: ["ISO 9001", "EN 12195-1", "GDPR", "Euro 6"],
-        en: ["ISO 9001", "EN 12195-1", "GDPR", "Euro 6"],
-        de: ["ISO 9001", "EN 12195-1", "DSGVO", "Euro 6"]
+        ro: ["22 paleți", "33 paleți", "44 paleți", "55 paleți"],
+        en: ["22 pallets", "33 pallets", "44 pallets", "55 pallets"],
+        de: ["22 Paletten", "33 Paletten", "44 Paletten", "55 Paletten"]
       },
       correctIndex: 1,
       explanation: {
-        ro: "EN 12195-1 este standardul european pentru echipamente și calcule de fixare a mărfii.",
-        en: "EN 12195-1 is the European standard for cargo securing equipment and calculations.",
-        de: "EN 12195-1 ist der europäische Standard für Ladungssicherungsausrüstung und -berechnungen."
+        ro: "Un megatrailer standard poate încărca 33 europaleti (120x80cm) pe un singur nivel.",
+        en: "A standard megatrailer can load 33 europallets (120x80cm) on a single level.",
+        de: "Ein Standard-Megatrailer kann 33 Europaletten (120x80cm) auf einer Ebene laden."
       }
     },
     {
       question: {
-        ro: "Care este reținerea înainte necesară conform standardelor EN?",
-        en: "What is the required forward restraint according to EN standards?",
-        de: "Was ist die erforderliche Vorwärtssicherung gemäß EN-Standards?"
+        ro: "Care sunt dimensiunile unui europalet standard?",
+        en: "What are the dimensions of a standard europallet?",
+        de: "Was sind die Abmessungen einer Standard-Europalette?"
       },
       options: {
-        ro: ["50% (0.5g)", "60% (0.6g)", "80% (0.8g)", "100% (1.0g)"],
-        en: ["50% (0.5g)", "60% (0.6g)", "80% (0.8g)", "100% (1.0g)"],
-        de: ["50% (0,5g)", "60% (0,6g)", "80% (0,8g)", "100% (1,0g)"]
+        ro: ["100 x 100 cm", "120 x 80 cm", "120 x 100 cm", "140 x 100 cm"],
+        en: ["100 x 100 cm", "120 x 80 cm", "120 x 100 cm", "140 x 100 cm"],
+        de: ["100 x 100 cm", "120 x 80 cm", "120 x 100 cm", "140 x 100 cm"]
       },
-      correctIndex: 2,
+      correctIndex: 1,
       explanation: {
-        ro: "Reținerea înainte trebuie să fie 80% din greutatea mărfii (0.8g) din cauza forțelor de decelerare la frânare.",
-        en: "Forward restraint must be 80% of cargo weight (0.8g) due to deceleration forces during braking.",
-        de: "Die Vorwärtssicherung muss 80% des Frachtgewichts (0,8g) betragen wegen der Verzögerungskräfte beim Bremsen."
+        ro: "Europaletul standard (EPAL/EUR) are dimensiunile de 120 x 80 cm.",
+        en: "The standard europallet (EPAL/EUR) has dimensions of 120 x 80 cm.",
+        de: "Die Standard-Europalette (EPAL/EUR) hat die Maße 120 x 80 cm."
       }
     },
     {
       question: {
-        ro: "De ce ar trebui să faceți fotografii în timpul încărcării?",
-        en: "Why should you take photos during loading?",
-        de: "Warum sollten Sie während der Beladung Fotos machen?"
+        ro: "Ce trebuie verificat înainte de încărcare?",
+        en: "What should be checked before loading?",
+        de: "Was sollte vor dem Beladen geprüft werden?"
       },
       options: {
-        ro: ["Pentru rețele sociale", "Pentru asigurare/audit", "Doar de distracție", "Nu este necesar"],
-        en: ["For social media", "For insurance/audit purposes", "Just for fun", "It's not necessary"],
-        de: ["Für soziale Medien", "Für Versicherungs-/Auditzwecke", "Nur zum Spaß", "Es ist nicht notwendig"]
+        ro: ["Doar greutatea", "Curățenia și starea trailerului, echipamente de fixare, lipsa mirosurilor", "Doar disponibilitatea șoferului", "Nimic special"],
+        en: ["Only weight", "Cleanliness and condition of trailer, securing equipment, absence of odors", "Only driver availability", "Nothing special"],
+        de: ["Nur das Gewicht", "Sauberkeit und Zustand des Trailers, Sicherungsausrüstung, keine Gerüche", "Nur Fahrerverfügbarkeit", "Nichts Besonderes"]
       },
       correctIndex: 1,
       explanation: {
-        ro: "Fotografiile cu timestamp servesc ca dovadă pentru daunele de asigurare și audituri. Fără fotografii = fără dovadă.",
-        en: "Timestamped photos serve as evidence for insurance claims and audits. No photos = no proof.",
-        de: "Zeitgestempelte Fotos dienen als Beweis für Versicherungsansprüche und Audits. Keine Fotos = kein Beweis."
+        ro: "Înainte de încărcare verificați: curățenia interioară, absența deteriorărilor, echipamentele de fixare disponibile și absența mirosurilor străine.",
+        en: "Before loading check: interior cleanliness, no damage, available securing equipment, and absence of foreign odors.",
+        de: "Vor dem Beladen prüfen: Innere Sauberkeit, keine Schäden, verfügbare Sicherungsausrüstung und keine Fremdgerüche."
       }
     },
     {
       question: {
-        ro: "Care este cerința de reținere laterală (în lateral)?",
-        en: "What is the lateral (sideways) restraint requirement?",
-        de: "Was ist die Anforderung für die Seitensicherung?"
+        ro: "Ce este greutatea axei și de ce este importantă?",
+        en: "What is axle weight and why is it important?",
+        de: "Was ist das Achsgewicht und warum ist es wichtig?"
       },
       options: {
-        ro: ["30% (0.3g)", "50% (0.5g)", "80% (0.8g)", "100% (1.0g)"],
-        en: ["30% (0.3g)", "50% (0.5g)", "80% (0.8g)", "100% (1.0g)"],
-        de: ["30% (0,3g)", "50% (0,5g)", "80% (0,8g)", "100% (1,0g)"]
+        ro: ["Greutatea totală a camionului", "Distribuția greutății pe fiecare axă, crucială pentru legalitate și siguranță", "Greutatea motorului", "Greutatea mărfii"],
+        en: ["Total weight of truck", "Weight distribution on each axle, crucial for legality and safety", "Engine weight", "Cargo weight"],
+        de: ["Gesamtgewicht des LKW", "Gewichtsverteilung auf jeder Achse, entscheidend für Legalität und Sicherheit", "Motorgewicht", "Frachtgewicht"]
       },
       correctIndex: 1,
       explanation: {
-        ro: "Reținerea laterală trebuie să fie 50% din greutatea mărfii (0.5g) pentru forțele din viraje și schimbări de bandă.",
-        en: "Lateral restraint must be 50% of cargo weight (0.5g) for forces during turns and lane changes.",
-        de: "Die Seitensicherung muss 50% des Frachtgewichts (0,5g) betragen für Kräfte bei Kurven und Spurwechseln."
+        ro: "Greutatea axei este distribuția încărcăturii pe fiecare axă. Depășirea limitelor legale duce la amenzi și probleme de siguranță.",
+        en: "Axle weight is the load distribution on each axle. Exceeding legal limits leads to fines and safety issues.",
+        de: "Das Achsgewicht ist die Lastverteilung auf jeder Achse. Überschreitung der gesetzlichen Grenzen führt zu Bußgeldern und Sicherheitsproblemen."
       }
     },
     {
       question: {
-        ro: "Ce ar trebui să verifice un șofer înainte de a accepta marfa pentru încărcare?",
-        en: "What should a driver check before accepting cargo for loading?",
-        de: "Was sollte ein Fahrer vor der Annahme von Fracht zur Beladung prüfen?"
+        ro: "Ce reprezintă factorul de stivuire?",
+        en: "What does the stacking factor represent?",
+        de: "Was stellt der Stapelfaktor dar?"
       },
       options: {
-        ro: ["Nimic - doar încarcă", "Starea ambalajului, cantitatea corespunde documentelor, daune vizibile", "Doar greutatea", "Semnează și pleacă"],
-        en: ["Nothing - just load it", "Packaging condition, quantity matches documents, any visible damage", "Only the weight", "Just sign and go"],
-        de: ["Nichts - einfach laden", "Verpackungszustand, Menge stimmt mit Dokumenten, sichtbare Schäden", "Nur das Gewicht", "Unterschreiben und los"]
+        ro: ["Numărul de șoferi", "Câte straturi de marfă pot fi stivuite fără deteriorare", "Viteza de încărcare", "Costul depozitării"],
+        en: ["Number of drivers", "How many layers of goods can be stacked without damage", "Loading speed", "Storage cost"],
+        de: ["Anzahl der Fahrer", "Wie viele Schichten Waren ohne Beschädigung gestapelt werden können", "Ladegeschwindigkeit", "Lagerkosten"]
       },
       correctIndex: 1,
       explanation: {
-        ro: "Șoferii ar trebui să verifice integritatea ambalajului, cantitățile și să noteze orice daună preexistentă înainte de încărcare.",
-        en: "Drivers should verify packaging integrity, quantities, and note any pre-existing damage before loading.",
-        de: "Fahrer sollten die Verpackungsintegrität, Mengen überprüfen und vorhandene Schäden vor dem Beladen notieren."
-      }
-    },
-    {
-      question: {
-        ro: "Ce este 'blocarea și contraventuirea' în fixarea mărfii?",
-        en: "What is 'blocking and bracing' in cargo securing?",
-        de: "Was ist 'Blockieren und Verspannen' bei der Ladungssicherung?"
-      },
-      options: {
-        ro: ["Oprirea camionului", "Folosirea materialelor de umplere pentru a preveni mișcarea mărfii", "Închiderea ușilor remorcii", "Parcarea vehiculului"],
-        en: ["Stopping the truck", "Using void fillers and dunnage to prevent cargo movement", "Closing the trailer doors", "Parking the vehicle"],
-        de: ["Den LKW anhalten", "Verwendung von Füllmaterialien um Frachtbewegung zu verhindern", "Die Auflieger-Türen schließen", "Das Fahrzeug parken"]
-      },
-      correctIndex: 1,
-      explanation: {
-        ro: "Blocarea și contraventuirea folosesc materiale pentru a umple golurile și a preveni deplasarea mărfii în timpul transportului.",
-        en: "Blocking and bracing uses materials to fill gaps and prevent cargo shifting during transport.",
-        de: "Blockieren und Verspannen verwendet Materialien, um Lücken zu füllen und Frachtverschiebung während des Transports zu verhindern."
+        ro: "Factorul de stivuire indică câte straturi de paleți pot fi stivuiți fără a deteriora marfa de dedesubt.",
+        en: "The stacking factor indicates how many layers of pallets can be stacked without damaging the goods below.",
+        de: "Der Stapelfaktor gibt an, wie viele Palettenschichten gestapelt werden können, ohne die darunter liegenden Waren zu beschädigen."
       }
     }
   ],
   checklists: [
     {
       question: {
-        ro: "Care este primul pas în verificarea unei comenzi noi de transport?",
-        en: "What is the first step in verifying a new transport order?",
-        de: "Was ist der erste Schritt bei der Überprüfung eines neuen Transportauftrags?"
+        ro: "Ce trebuie verificat la primirea unei noi comenzi de transport?",
+        en: "What should be verified when receiving a new transport order?",
+        de: "Was sollte bei Erhalt eines neuen Transportauftrags geprüft werden?"
       },
       options: {
-        ro: ["Facturarea", "Validarea tuturor detaliilor (adrese, date, marfă)", "Plecarea camionului", "Contactarea asigurătorului"],
-        en: ["Invoicing", "Validating all details (addresses, dates, cargo)", "Truck departure", "Contacting the insurer"],
-        de: ["Rechnungsstellung", "Validierung aller Details (Adressen, Termine, Fracht)", "LKW-Abfahrt", "Kontaktieren des Versicherers"]
+        ro: ["Doar prețul", "Adrese complete, date, specificații marfă, cerințe speciale, contact", "Doar numele clientului", "Doar distanța"],
+        en: ["Only price", "Complete addresses, dates, cargo specs, special requirements, contact", "Only customer name", "Only distance"],
+        de: ["Nur der Preis", "Vollständige Adressen, Termine, Frachtspezifikationen, Sonderanforderungen, Kontakt", "Nur Kundenname", "Nur die Entfernung"]
       },
       correctIndex: 1,
       explanation: {
-        ro: "Întotdeauna verificați complet detaliile comenzii înainte de a proceda - adrese, date, specificații marfă.",
-        en: "Always completely verify order details before proceeding - addresses, dates, cargo specifications.",
-        de: "Überprüfen Sie immer vollständig die Auftragsdetails, bevor Sie fortfahren - Adressen, Termine, Frachtspezifikationen."
+        ro: "O verificare completă a comenzii include: adrese de ridicare/livrare, date și ore, specificații marfă, cerințe speciale și date de contact.",
+        en: "A complete order check includes: pickup/delivery addresses, dates and times, cargo specifications, special requirements, and contact details.",
+        de: "Eine vollständige Auftragsprüfung umfasst: Abhol-/Lieferadressen, Termine und Zeiten, Frachtspezifikationen, Sonderanforderungen und Kontaktdaten."
       }
     },
     {
       question: {
-        ro: "Ce trebuie verificat obligatoriu la fiecare transportator înainte de atribuirea unei curse?",
-        en: "What must be verified for each carrier before assigning a trip?",
-        de: "Was muss bei jedem Frachtführer vor der Zuweisung einer Fahrt überprüft werden?"
+        ro: "Ce documente trebuie să aibă șoferul înainte de plecare?",
+        en: "What documents must the driver have before departure?",
+        de: "Welche Dokumente muss der Fahrer vor der Abfahrt haben?"
       },
       options: {
-        ro: ["Culoarea camionului", "Asigurare CMR validă, licență transport, rating pe platforme", "Vârsta șoferului", "Marca camionului"],
-        en: ["Truck color", "Valid CMR insurance, transport license, platform ratings", "Driver age", "Truck brand"],
-        de: ["LKW-Farbe", "Gültige CMR-Versicherung, Transportlizenz, Plattform-Bewertungen", "Fahreralter", "LKW-Marke"]
+        ro: ["Doar permisul de conducere", "CMR, comandă transport, instrucțiuni speciale, contacte de urgență", "Doar cartea de identitate", "Nimic nu e necesar"],
+        en: ["Only driving license", "CMR, transport order, special instructions, emergency contacts", "Only ID card", "Nothing is necessary"],
+        de: ["Nur Führerschein", "CMR, Transportauftrag, Sonderanweisungen, Notfallkontakte", "Nur Personalausweis", "Nichts ist notwendig"]
       },
       correctIndex: 1,
       explanation: {
-        ro: "Verificați asigurarea CMR, licența de transport și ratingurile pe platformele de bursă înainte de a atribui curse.",
-        en: "Verify CMR insurance, transport license and ratings on exchange platforms before assigning trips.",
-        de: "Überprüfen Sie CMR-Versicherung, Transportlizenz und Bewertungen auf Frachtbörsen vor der Zuweisung von Fahrten."
+        ro: "Șoferul trebuie să aibă: CMR completat, comanda de transport, instrucțiuni speciale pentru încărcare/descărcare și contacte de urgență.",
+        en: "The driver must have: completed CMR, transport order, special loading/unloading instructions, and emergency contacts.",
+        de: "Der Fahrer muss haben: ausgefüllten CMR, Transportauftrag, spezielle Lade-/Entladeanweisungen und Notfallkontakte."
       }
     },
     {
       question: {
-        ro: "Ce documente trebuie să aibă șoferul la încărcare?",
-        en: "What documents should the driver have at loading?",
-        de: "Welche Dokumente sollte der Fahrer bei der Beladung haben?"
+        ro: "Ce trebuie verificat la vehicul înainte de transport?",
+        en: "What should be checked on the vehicle before transport?",
+        de: "Was sollte am Fahrzeug vor dem Transport geprüft werden?"
       },
       options: {
-        ro: ["Doar CMR gol", "CMR completat, instrucțiuni de livrare, contact de urgență", "Doar permisul de conducere", "Nimic specific"],
-        en: ["Only blank CMR", "Completed CMR, delivery instructions, emergency contact", "Only driving license", "Nothing specific"],
-        de: ["Nur leerer CMR", "Ausgefüllter CMR, Lieferanweisungen, Notfallkontakt", "Nur Führerschein", "Nichts Bestimmtes"]
+        ro: ["Doar culoarea", "Stare tehnică, curățenie, echipamente de fixare, documente valabile", "Doar marca", "Nimic"],
+        en: ["Only color", "Technical condition, cleanliness, securing equipment, valid documents", "Only brand", "Nothing"],
+        de: ["Nur die Farbe", "Technischer Zustand, Sauberkeit, Sicherungsausrüstung, gültige Dokumente", "Nur die Marke", "Nichts"]
       },
       correctIndex: 1,
       explanation: {
-        ro: "Șoferul trebuie să aibă CMR-ul completat corect, instrucțiuni clare și date de contact pentru urgențe.",
-        en: "The driver must have correctly completed CMR, clear instructions and emergency contact details.",
-        de: "Der Fahrer muss korrekt ausgefüllten CMR, klare Anweisungen und Notfallkontaktdaten haben."
+        ro: "Verificarea vehiculului include: stare tehnică generală, curățenia interioară/exterioară, echipamente de fixare și valabilitatea documentelor.",
+        en: "Vehicle check includes: general technical condition, interior/exterior cleanliness, securing equipment, and document validity.",
+        de: "Fahrzeugprüfung umfasst: allgemeinen technischen Zustand, Innen-/Außensauberkeit, Sicherungsausrüstung und Dokumentengültigkeit."
       }
     },
     {
       question: {
-        ro: "Ce se verifică obligatoriu după livrare?",
-        en: "What must be verified after delivery?",
-        de: "Was muss nach der Lieferung überprüft werden?"
+        ro: "Ce informații trebuie documentate la încărcare?",
+        en: "What information should be documented at loading?",
+        de: "Welche Informationen sollten beim Beladen dokumentiert werden?"
       },
       options: {
-        ro: ["Nimic", "CMR semnat și ștampilat (POD), starea mărfii la livrare", "Doar factura", "Doar ora sosirii"],
-        en: ["Nothing", "Signed and stamped CMR (POD), cargo condition at delivery", "Only the invoice", "Only arrival time"],
-        de: ["Nichts", "Unterschriebener und gestempelter CMR (POD), Frachtzustand bei Lieferung", "Nur die Rechnung", "Nur Ankunftszeit"]
+        ro: ["Doar ora", "Ora exactă, număr paleți, stare marfă, sigilii aplicate, semnături", "Doar numele șoferului", "Nimic"],
+        en: ["Only time", "Exact time, number of pallets, cargo condition, applied seals, signatures", "Only driver name", "Nothing"],
+        de: ["Nur die Zeit", "Genaue Uhrzeit, Palettenanzahl, Frachtzustand, angebrachte Siegel, Unterschriften", "Nur Fahrername", "Nichts"]
       },
       correctIndex: 1,
       explanation: {
-        ro: "După livrare, colectați POD-ul semnat și verificați dacă sunt rezerve sau daune notate pe CMR.",
-        en: "After delivery, collect the signed POD and check if there are reservations or damages noted on the CMR.",
-        de: "Nach der Lieferung sammeln Sie den unterschriebenen POD und prüfen, ob Vorbehalte oder Schäden auf dem CMR notiert sind."
+        ro: "La încărcare documentați: ora exactă, numărul și tipul paleților, starea vizuală a mărfii, sigiliile aplicate și obțineți semnături.",
+        en: "At loading document: exact time, number and type of pallets, visual condition of goods, applied seals, and obtain signatures.",
+        de: "Beim Beladen dokumentieren: genaue Uhrzeit, Anzahl und Art der Paletten, Sichtzustand der Waren, angebrachte Siegel und Unterschriften einholen."
       }
     },
     {
       question: {
-        ro: "Care este ordinea corectă a pașilor pentru procesarea unei comenzi?",
-        en: "What is the correct order of steps for processing an order?",
-        de: "Was ist die richtige Reihenfolge der Schritte für die Auftragsbearbeitung?"
+        ro: "Ce acțiuni sunt necesare după livrare?",
+        en: "What actions are required after delivery?",
+        de: "Welche Maßnahmen sind nach der Lieferung erforderlich?"
       },
       options: {
-        ro: ["Facturare → Livrare → Încărcare", "Validare → Atribuire transportator → Monitorizare → Livrare → Facturare", "Livrare → Validare → Facturare", "Nu există ordine specifică"],
-        en: ["Invoicing → Delivery → Loading", "Validation → Carrier assignment → Monitoring → Delivery → Invoicing", "Delivery → Validation → Invoicing", "No specific order"],
-        de: ["Rechnungsstellung → Lieferung → Beladung", "Validierung → Frachtführer-Zuweisung → Überwachung → Lieferung → Rechnungsstellung", "Lieferung → Validierung → Rechnungsstellung", "Keine bestimmte Reihenfolge"]
+        ro: ["Nimic", "Colectare POD/CMR semnat, raportare status, facturare promptă", "Doar plecare", "Doar odihnă"],
+        en: ["Nothing", "Collect signed POD/CMR, report status, prompt invoicing", "Just leave", "Just rest"],
+        de: ["Nichts", "Unterschriebenen POD/CMR sammeln, Status melden, prompte Rechnungsstellung", "Nur wegfahren", "Nur ausruhen"]
       },
       correctIndex: 1,
       explanation: {
-        ro: "Fluxul corect: Validare comandă → Atribuire transportator → Monitorizare → Livrare → Colectare POD → Facturare.",
-        en: "Correct flow: Order validation → Carrier assignment → Monitoring → Delivery → POD collection → Invoicing.",
-        de: "Korrekter Ablauf: Auftragsvalidierung → Frachtführer-Zuweisung → Überwachung → Lieferung → POD-Sammlung → Rechnungsstellung."
-      }
-    },
-    {
-      question: {
-        ro: "Ce verificare trebuie făcută la sfârșitul fiecărei zile de lucru?",
-        en: "What check should be done at the end of each working day?",
-        de: "Welche Überprüfung sollte am Ende jedes Arbeitstages durchgeführt werden?"
-      },
-      options: {
-        ro: ["Doar email-urile", "Status toate transporturile active, actualizări clienți, probleme nerezolvate", "Doar facturile", "Nimic specific"],
-        en: ["Only emails", "Status of all active transports, client updates, unresolved issues", "Only invoices", "Nothing specific"],
-        de: ["Nur E-Mails", "Status aller aktiven Transporte, Kunden-Updates, ungelöste Probleme", "Nur Rechnungen", "Nichts Bestimmtes"]
-      },
-      correctIndex: 1,
-      explanation: {
-        ro: "Verificați zilnic statusul tuturor curselor active, comunicați proactiv cu clienții și rezolvați problemele restante.",
-        en: "Check daily the status of all active trips, communicate proactively with clients and resolve outstanding issues.",
-        de: "Überprüfen Sie täglich den Status aller aktiven Fahrten, kommunizieren Sie proaktiv mit Kunden und lösen Sie offene Probleme."
+        ro: "După livrare: colectați CMR/POD semnat și ștampilat, raportați statusul în sistem și inițiați facturarea.",
+        en: "After delivery: collect signed and stamped CMR/POD, report status in system, and initiate invoicing.",
+        de: "Nach der Lieferung: unterschriebenen und gestempelten CMR/POD sammeln, Status im System melden und Rechnungsstellung einleiten."
       }
     }
   ],
   glossary: [
     {
       question: {
-        ro: "Ce înseamnă CMR în transportul rutier?",
-        en: "What does CMR mean in road transport?",
-        de: "Was bedeutet CMR im Straßentransport?"
+        ro: "Ce înseamnă FTL?",
+        en: "What does FTL mean?",
+        de: "Was bedeutet FTL?"
       },
       options: {
-        ro: ["Container Management Report", "Convention relative au contrat de transport international de Marchandises par Route", "Carrier Movement Record", "Cargo Movement Registration"],
-        en: ["Container Management Report", "Convention on the Contract for International Carriage of Goods by Road", "Carrier Movement Record", "Cargo Movement Registration"],
-        de: ["Container Management Report", "Übereinkommen über den Beförderungsvertrag im internationalen Straßengüterverkehr", "Carrier Movement Record", "Cargo Movement Registration"]
+        ro: ["Free Transport License", "Full Truck Load", "Fast Transport Line", "Freight Transport Limit"],
+        en: ["Free Transport License", "Full Truck Load", "Fast Transport Line", "Freight Transport Limit"],
+        de: ["Free Transport License", "Full Truck Load", "Fast Transport Line", "Freight Transport Limit"]
       },
       correctIndex: 1,
       explanation: {
-        ro: "CMR este Convenția privind contractul de transport internațional de mărfuri pe șosele - documentul standard de transport.",
-        en: "CMR is the Convention on the Contract for International Carriage of Goods by Road - the standard transport document.",
-        de: "CMR ist das Übereinkommen über den Beförderungsvertrag im internationalen Straßengüterverkehr - das Standard-Transportdokument."
+        ro: "FTL (Full Truck Load) înseamnă încărcătură completă - când întregul camion este dedicat unei singure comenzi.",
+        en: "FTL (Full Truck Load) means complete load - when the entire truck is dedicated to a single order.",
+        de: "FTL (Full Truck Load) bedeutet Komplettladung - wenn der gesamte LKW einer einzelnen Bestellung gewidmet ist."
       }
     },
     {
       question: {
-        ro: "Ce reprezintă termenul 'FTL'?",
-        en: "What does the term 'FTL' represent?",
-        de: "Was bedeutet der Begriff 'FTL'?"
+        ro: "Ce înseamnă CMR?",
+        en: "What does CMR mean?",
+        de: "Was bedeutet CMR?"
       },
       options: {
-        ro: ["Fast Transport Line", "Full Truck Load (încărcătură completă)", "Freight Transfer Label", "Final Transport Logistics"],
-        en: ["Fast Transport Line", "Full Truck Load", "Freight Transfer Label", "Final Transport Logistics"],
-        de: ["Fast Transport Line", "Full Truck Load (Komplettladung)", "Freight Transfer Label", "Final Transport Logistics"]
+        ro: ["Central Motor Registry", "Convention relative au contrat de transport international de Marchandises par Route", "Cargo Movement Report", "Carrier Management Record"],
+        en: ["Central Motor Registry", "Convention on the Contract for the International Carriage of Goods by Road", "Cargo Movement Report", "Carrier Management Record"],
+        de: ["Central Motor Registry", "Übereinkommen über den Beförderungsvertrag im internationalen Straßengüterverkehr", "Cargo Movement Report", "Carrier Management Record"]
       },
       correctIndex: 1,
       explanation: {
-        ro: "FTL (Full Truck Load) înseamnă încărcătură completă - întregul camion este alocat unui singur client/transport.",
-        en: "FTL (Full Truck Load) means full load - the entire truck is allocated to a single client/transport.",
-        de: "FTL (Full Truck Load) bedeutet Komplettladung - der gesamte LKW wird einem einzelnen Kunden/Transport zugewiesen."
+        ro: "CMR este Convenția privind Contractul de Transport Internațional de Mărfuri pe Șosele, care reglementează transportul rutier internațional.",
+        en: "CMR is the Convention on the Contract for the International Carriage of Goods by Road, regulating international road transport.",
+        de: "CMR ist das Übereinkommen über den Beförderungsvertrag im internationalen Straßengüterverkehr."
       }
     },
     {
       question: {
-        ro: "Ce înseamnă 'LTL' în logistică?",
-        en: "What does 'LTL' mean in logistics?",
-        de: "Was bedeutet 'LTL' in der Logistik?"
+        ro: "Ce înseamnă POD?",
+        en: "What does POD mean?",
+        de: "Was bedeutet POD?"
       },
       options: {
-        ro: ["Long Term Lease", "Less Than Truckload (încărcătură parțială)", "Local Transport License", "Load Transfer Limit"],
-        en: ["Long Term Lease", "Less Than Truckload (partial load)", "Local Transport License", "Load Transfer Limit"],
-        de: ["Long Term Lease", "Less Than Truckload (Teilladung)", "Local Transport License", "Load Transfer Limit"]
+        ro: ["Point of Dispatch", "Proof of Delivery", "Payment on Demand", "Priority Order Dispatch"],
+        en: ["Point of Dispatch", "Proof of Delivery", "Payment on Demand", "Priority Order Dispatch"],
+        de: ["Point of Dispatch", "Proof of Delivery", "Payment on Demand", "Priority Order Dispatch"]
       },
       correctIndex: 1,
       explanation: {
-        ro: "LTL (Less Than Truckload) reprezintă transportul de încărcături parțiale, mai mici decât capacitatea completă a camionului.",
-        en: "LTL (Less Than Truckload) represents partial load transport, smaller than the full truck capacity.",
-        de: "LTL (Less Than Truckload) bezeichnet Teilladungstransport, kleiner als die volle LKW-Kapazität."
+        ro: "POD (Proof of Delivery) este dovada livrării - documentul semnat care confirmă că marfa a fost livrată destinatarului.",
+        en: "POD (Proof of Delivery) is the signed document confirming that goods were delivered to the recipient.",
+        de: "POD (Proof of Delivery) ist der unterschriebene Nachweis, dass die Waren an den Empfänger geliefert wurden."
       }
     },
     {
       question: {
-        ro: "Ce este un 'POD' în transportul de mărfuri?",
-        en: "What is a 'POD' in freight transport?",
-        de: "Was ist ein 'POD' im Güterverkehr?"
+        ro: "Ce înseamnă LDM?",
+        en: "What does LDM mean?",
+        de: "Was bedeutet LDM?"
       },
       options: {
-        ro: ["Point of Departure", "Proof of Delivery (dovada livrării)", "Payment on Demand", "Priority Order Document"],
-        en: ["Point of Departure", "Proof of Delivery", "Payment on Demand", "Priority Order Document"],
-        de: ["Point of Departure", "Proof of Delivery (Liefernachweis)", "Payment on Demand", "Priority Order Document"]
+        ro: ["Loading Distance Measure", "Linear Loading Meters", "Long Distance Movement", "Logistics Data Management"],
+        en: ["Loading Distance Measure", "Linear Loading Meters", "Long Distance Movement", "Logistics Data Management"],
+        de: ["Loading Distance Measure", "Lademeter", "Long Distance Movement", "Logistics Data Management"]
       },
       correctIndex: 1,
       explanation: {
-        ro: "POD (Proof of Delivery) este dovada livrării - CMR-ul semnat de destinatar confirmând primirea mărfii.",
-        en: "POD (Proof of Delivery) is the delivery proof - CMR signed by the consignee confirming receipt of goods.",
-        de: "POD (Proof of Delivery) ist der Liefernachweis - vom Empfänger unterschriebener CMR, der den Warenempfang bestätigt."
+        ro: "LDM (Metri de Încărcare Liniari) măsoară spațiul de încărcare disponibil în lungime pe podeaua trailerului.",
+        en: "LDM (Linear Loading Meters) measures the available loading space in length on the trailer floor.",
+        de: "LDM (Lademeter) misst den verfügbaren Laderaum in Länge auf dem Trailerboden."
       }
     },
     {
       question: {
-        ro: "Ce reprezintă 'ETA' în logistică?",
-        en: "What does 'ETA' represent in logistics?",
-        de: "Was bedeutet 'ETA' in der Logistik?"
+        ro: "Ce înseamnă ADR?",
+        en: "What does ADR mean?",
+        de: "Was bedeutet ADR?"
       },
       options: {
-        ro: ["European Transport Agreement", "Estimated Time of Arrival (ora estimată de sosire)", "Export Tax Assessment", "Equipment Transfer Authorization"],
-        en: ["European Transport Agreement", "Estimated Time of Arrival", "Export Tax Assessment", "Equipment Transfer Authorization"],
-        de: ["European Transport Agreement", "Estimated Time of Arrival (voraussichtliche Ankunftszeit)", "Export Tax Assessment", "Equipment Transfer Authorization"]
+        ro: ["Automatic Delivery Route", "Agreement concerning Dangerous goods by Road", "Advanced Driver Requirements", "Annual Delivery Report"],
+        en: ["Automatic Delivery Route", "Agreement concerning Dangerous goods by Road", "Advanced Driver Requirements", "Annual Delivery Report"],
+        de: ["Automatic Delivery Route", "Europäisches Übereinkommen über die internationale Beförderung gefährlicher Güter auf der Straße", "Advanced Driver Requirements", "Annual Delivery Report"]
       },
       correctIndex: 1,
       explanation: {
-        ro: "ETA (Estimated Time of Arrival) este ora estimată de sosire la destinație.",
-        en: "ETA (Estimated Time of Arrival) is the estimated arrival time at destination.",
-        de: "ETA (Estimated Time of Arrival) ist die voraussichtliche Ankunftszeit am Ziel."
-      }
-    },
-    {
-      question: {
-        ro: "Ce înseamnă termenul 'demurrage'?",
-        en: "What does the term 'demurrage' mean?",
-        de: "Was bedeutet der Begriff 'Demurrage'?"
-      },
-      options: {
-        ro: ["Tip de asigurare", "Taxa pentru depășirea timpului de încărcare/descărcare", "Document de transport", "Tip de marfă"],
-        en: ["Type of insurance", "Fee for exceeding loading/unloading time", "Transport document", "Type of cargo"],
-        de: ["Art der Versicherung", "Gebühr für Überschreitung der Be-/Entladezeit", "Transportdokument", "Art der Fracht"]
-      },
-      correctIndex: 1,
-      explanation: {
-        ro: "Demurrage reprezintă penalitatea pentru depășirea timpului alocat de încărcare/descărcare (de obicei €35-50/oră).",
-        en: "Demurrage is the penalty for exceeding the allocated loading/unloading time (usually €35-50/hour).",
-        de: "Demurrage ist die Strafe für die Überschreitung der zugewiesenen Be-/Entladezeit (normalerweise €35-50/Stunde)."
-      }
-    },
-    {
-      question: {
-        ro: "Ce reprezintă 'ADR' în transportul de mărfuri?",
-        en: "What does 'ADR' represent in freight transport?",
-        de: "Was bedeutet 'ADR' im Güterverkehr?"
-      },
-      options: {
-        ro: ["Automatic Delivery Route", "Acordul european pentru transportul mărfurilor periculoase pe șosele", "Advanced Driver Recognition", "Annual Dispatch Report"],
-        en: ["Automatic Delivery Route", "European Agreement on the Transport of Dangerous Goods by Road", "Advanced Driver Recognition", "Annual Dispatch Report"],
-        de: ["Automatic Delivery Route", "Europäisches Übereinkommen über die internationale Beförderung gefährlicher Güter auf der Straße", "Advanced Driver Recognition", "Annual Dispatch Report"]
-      },
-      correctIndex: 1,
-      explanation: {
-        ro: "ADR este acordul european privind transportul internațional al mărfurilor periculoase pe șosele.",
-        en: "ADR is the European agreement on the international transport of dangerous goods by road.",
+        ro: "ADR este Acordul European privind Transportul Internațional al Mărfurilor Periculoase pe Șosele.",
+        en: "ADR is the European Agreement concerning the International Carriage of Dangerous Goods by Road.",
         de: "ADR ist das Europäische Übereinkommen über die internationale Beförderung gefährlicher Güter auf der Straße."
       }
-    },
-    {
-      question: {
-        ro: "Ce este 'cabotajul' în transport?",
-        en: "What is 'cabotage' in transport?",
-        de: "Was ist 'Kabotage' im Transport?"
-      },
-      options: {
-        ro: ["Transport între țări", "Transport național efectuat de un operator străin", "Transport de containere", "Transport maritim"],
-        en: ["Transport between countries", "Domestic transport by a foreign operator", "Container transport", "Sea transport"],
-        de: ["Transport zwischen Ländern", "Inlandstransport durch einen ausländischen Betreiber", "Containertransport", "Seetransport"]
-      },
-      correctIndex: 1,
-      explanation: {
-        ro: "Cabotajul este transportul intern de mărfuri efectuat de un operator de transport străin pe teritoriul altui stat.",
-        en: "Cabotage is domestic freight transport by a foreign transport operator on the territory of another state.",
-        de: "Kabotage ist der Inlandsgüterverkehr durch einen ausländischen Transportunternehmer auf dem Gebiet eines anderen Staates."
-      }
     }
-  ]
-};
+  ],
   compliance: [
     {
       question: {
-        ro: "Care este timpul maxim de condus zilnic pentru un singur șofer?",
-        en: "What is the maximum daily driving time for a single driver?",
-        de: "Was ist die maximale tägliche Lenkzeit für einen Einzelfahrer?"
+        ro: "Care este timpul maxim de condus continuu permis conform regulamentului UE?",
+        en: "What is the maximum continuous driving time allowed under EU regulation?",
+        de: "Was ist die maximal zulässige ununterbrochene Lenkzeit gemäß EU-Verordnung?"
       },
       options: {
-        ro: ["8 ore", "9 ore (10 ore de două ori/săptămână)", "11 ore", "12 ore"],
-        en: ["8 hours", "9 hours (10h twice/week)", "11 hours", "12 hours"],
-        de: ["8 Stunden", "9 Stunden (10 Std. zweimal/Woche)", "11 Stunden", "12 Stunden"]
+        ro: ["3 ore", "4.5 ore", "6 ore", "8 ore"],
+        en: ["3 hours", "4.5 hours", "6 hours", "8 hours"],
+        de: ["3 Stunden", "4.5 Stunden", "6 Stunden", "8 Stunden"]
       },
       correctIndex: 1,
       explanation: {
-        ro: "Timpul maxim de condus zilnic este 9 ore, care poate fi extins la 10 ore de două ori pe săptămână.",
-        en: "Maximum daily driving is 9 hours, which can be extended to 10 hours twice per week.",
-        de: "Die maximale tägliche Lenkzeit beträgt 9 Stunden, kann aber zweimal pro Woche auf 10 Stunden verlängert werden."
+        ro: "Conform Regulamentului UE 561/2006, timpul maxim de condus continuu este de 4.5 ore, după care este obligatorie o pauză de minimum 45 minute.",
+        en: "According to EU Regulation 561/2006, maximum continuous driving time is 4.5 hours, after which a break of at least 45 minutes is mandatory.",
+        de: "Gemäß EU-Verordnung 561/2006 beträgt die maximale ununterbrochene Lenkzeit 4,5 Stunden, danach ist eine Pause von mindestens 45 Minuten vorgeschrieben."
       }
     },
     {
       question: {
-        ro: "După câte ore de condus trebuie să ia șoferul o pauză?",
-        en: "After how many hours of driving must a driver take a break?",
-        de: "Nach wie vielen Stunden Fahren muss ein Fahrer eine Pause einlegen?"
+        ro: "Care este perioada minimă de odihnă zilnică pentru un șofer?",
+        en: "What is the minimum daily rest period for a driver?",
+        de: "Was ist die Mindestruhezeit pro Tag für einen Fahrer?"
       },
       options: {
-        ro: ["3 ore", "4 ore 30 minute", "5 ore", "6 ore"],
-        en: ["3 hours", "4 hours 30 minutes", "5 hours", "6 hours"],
-        de: ["3 Stunden", "4 Stunden 30 Minuten", "5 Stunden", "6 Stunden"]
+        ro: ["8 ore", "9 ore", "11 ore", "12 ore"],
+        en: ["8 hours", "9 hours", "11 hours", "12 hours"],
+        de: ["8 Stunden", "9 Stunden", "11 Stunden", "12 Stunden"]
+      },
+      correctIndex: 2,
+      explanation: {
+        ro: "Odihna zilnică normală este de minimum 11 ore consecutive. Poate fi redusă la 9 ore de maximum 3 ori pe săptămână.",
+        en: "Normal daily rest is a minimum of 11 consecutive hours. It can be reduced to 9 hours a maximum of 3 times per week.",
+        de: "Die normale tägliche Ruhezeit beträgt mindestens 11 aufeinanderfolgende Stunden. Sie kann maximal 3 Mal pro Woche auf 9 Stunden reduziert werden."
+      }
+    },
+    {
+      question: {
+        ro: "Ce este tahograful și pentru ce este folosit?",
+        en: "What is a tachograph and what is it used for?",
+        de: "Was ist ein Fahrtenschreiber und wofür wird er verwendet?"
+      },
+      options: {
+        ro: ["Sistem de navigație", "Dispozitiv pentru înregistrarea timpilor de condus, muncă și odihnă", "Sistem de comunicare", "Contor de combustibil"],
+        en: ["Navigation system", "Device for recording driving, working and rest times", "Communication system", "Fuel counter"],
+        de: ["Navigationssystem", "Gerät zur Aufzeichnung von Lenk-, Arbeits- und Ruhezeiten", "Kommunikationssystem", "Kraftstoffzähler"]
       },
       correctIndex: 1,
       explanation: {
-        ro: "O pauză de 45 minute este necesară după 4 ore 30 minute de condus (poate fi împărțită 15'+30').",
-        en: "A 45-minute break is required after 4 hours 30 minutes of driving (can be split 15'+30').",
-        de: "Eine 45-minütige Pause ist nach 4 Stunden 30 Minuten Fahren erforderlich (kann in 15'+30' aufgeteilt werden)."
+        ro: "Tahograful este un dispozitiv obligatoriu care înregistrează automat timpii de condus, muncă, disponibilitate și odihnă ai șoferului.",
+        en: "The tachograph is a mandatory device that automatically records the driver's driving, working, availability and rest times.",
+        de: "Der Fahrtenschreiber ist ein Pflichtgerät, das automatisch die Lenk-, Arbeits-, Bereitschafts- und Ruhezeiten des Fahrers aufzeichnet."
       }
     },
     {
       question: {
-        ro: "Care este limita maximă de timp de condus săptămânal?",
-        en: "What is the maximum weekly driving time limit?",
-        de: "Was ist die maximale wöchentliche Lenkzeit?"
+        ro: "Cine este responsabil pentru respectarea regulilor privind orele de condus?",
+        en: "Who is responsible for compliance with driving hours rules?",
+        de: "Wer ist für die Einhaltung der Lenkzeitregeln verantwortlich?"
       },
       options: {
-        ro: ["40 ore", "48 ore", "56 ore", "60 ore"],
-        en: ["40 hours", "48 hours", "56 hours", "60 hours"],
-        de: ["40 Stunden", "48 Stunden", "56 Stunden", "60 Stunden"]
-      },
-      correctIndex: 2,
-      explanation: {
-        ro: "Timpul maxim de condus săptămânal este 56 ore, cu un maxim bisăptămânal de 90 ore.",
-        en: "Maximum weekly driving time is 56 hours, with a bi-weekly maximum of 90 hours.",
-        de: "Die maximale wöchentliche Lenkzeit beträgt 56 Stunden, mit einem zweiwöchigen Maximum von 90 Stunden."
-      }
-    },
-    {
-      question: {
-        ro: "Care este perioada minimă de odihnă zilnică pentru șoferi?",
-        en: "What is the minimum daily rest period for drivers?",
-        de: "Was ist die Mindestruhezeit für Fahrer?"
-      },
-      options: {
-        ro: ["8 ore", "9 ore", "11 ore (poate fi redusă la 9 ore de trei ori/săptămână)", "12 ore"],
-        en: ["8 hours", "9 hours", "11 hours (can be reduced to 9h three times/week)", "12 hours"],
-        de: ["8 Stunden", "9 Stunden", "11 Stunden (kann 3x/Woche auf 9 Std. reduziert werden)", "12 Stunden"]
-      },
-      correctIndex: 2,
-      explanation: {
-        ro: "Odihna zilnică regulată este 11 ore, reducibilă la 9 ore maximum de trei ori între odihnele săptămânale.",
-        en: "Regular daily rest is 11 hours, reducible to 9 hours maximum three times between weekly rests.",
-        de: "Die reguläre tägliche Ruhezeit beträgt 11 Stunden, reduzierbar auf maximal 9 Stunden dreimal zwischen wöchentlichen Ruhezeiten."
-      }
-    },
-    {
-      question: {
-        ro: "Care este cerința de odihnă săptămânală regulată?",
-        en: "What is the regular weekly rest requirement?",
-        de: "Was ist die reguläre wöchentliche Ruhezeit?"
-      },
-      options: {
-        ro: ["24 ore", "35 ore", "45 ore", "56 ore"],
-        en: ["24 hours", "35 hours", "45 hours", "56 hours"],
-        de: ["24 Stunden", "35 Stunden", "45 Stunden", "56 Stunden"]
-      },
-      correctIndex: 2,
-      explanation: {
-        ro: "Odihna săptămânală regulată este 45 ore, care poate fi redusă la 24 ore la fiecare două săptămâni (compensare necesară).",
-        en: "Regular weekly rest is 45 hours, which can be reduced to 24 hours every other week (compensation required).",
-        de: "Die reguläre wöchentliche Ruhezeit beträgt 45 Stunden, kann jede zweite Woche auf 24 Stunden reduziert werden (Kompensation erforderlich)."
-      }
-    },
-    {
-      question: {
-        ro: "Cine este responsabil pentru conformitatea cu orele de condus?",
-        en: "Who is responsible for drivers' hours compliance?",
-        de: "Wer ist für die Einhaltung der Lenkzeiten verantwortlich?"
-      },
-      options: {
-        ro: ["Doar șoferul", "Doar operatorul de transport", "Atât șoferul cât și operatorul împărtășesc responsabilitatea", "Doar clientul"],
-        en: ["Only the driver", "Only the transport operator", "Both driver and operator share responsibility", "Only the client"],
+        ro: ["Doar șoferul", "Doar operatorul de transport", "Atât șoferul cât și operatorul împart responsabilitatea", "Doar clientul"],
+        en: ["Only the driver", "Only the transport operator", "Both driver and operator share responsibility", "Only the customer"],
         de: ["Nur der Fahrer", "Nur der Transportunternehmer", "Sowohl Fahrer als auch Unternehmer teilen die Verantwortung", "Nur der Kunde"]
       },
       correctIndex: 2,
@@ -951,33 +788,33 @@ export const quizTranslations: Record<string, TranslatedQuizQuestion[]> = {
         de: "Welche Strecke kann eine Doppelbesatzung in 24 Stunden zurücklegen?"
       },
       options: {
-        ro: ["~500 km", "~700 km", "~1.100 km", "~1.500 km"],
-        en: ["~500 km", "~700 km", "~1,100 km", "~1,500 km"],
-        de: ["~500 km", "~700 km", "~1.100 km", "~1.500 km"]
+        ro: ["500-700 km", "800-1000 km", "1200-1600 km", "2000+ km"],
+        en: ["500-700 km", "800-1000 km", "1200-1600 km", "2000+ km"],
+        de: ["500-700 km", "800-1000 km", "1200-1600 km", "2000+ km"]
       },
       correctIndex: 2,
       explanation: {
-        ro: "Cu doi șoferi care se rotesc, aproximativ 1.100 km pot fi parcurși în 24 ore.",
-        en: "With two drivers rotating, approximately 1,100 km can be covered in 24 hours.",
-        de: "Mit zwei wechselnden Fahrern können ungefähr 1.100 km in 24 Stunden zurückgelegt werden."
+        ro: "Un echipaj cu doi șoferi poate acoperi 1200-1600 km în 24 ore datorită condusului în schimburi și regulilor extinse de odihnă.",
+        en: "A double-manned crew can cover 1200-1600 km in 24 hours due to shift driving and extended rest rules.",
+        de: "Eine Doppelbesatzung kann dank Schichtfahren und erweiterten Ruheregeln 1200-1600 km in 24 Stunden zurücklegen."
       }
     },
     {
       question: {
-        ro: "Când se termină interdicția de duminică pentru camioane în Germania?",
-        en: "When does Germany's Sunday driving ban end?",
+        ro: "Când se termină interdicția de circulație duminicală în Germania?",
+        en: "When does the Sunday driving ban end in Germany?",
         de: "Wann endet das Sonntagsfahrverbot in Deutschland?"
       },
       options: {
-        ro: ["18:00", "20:00", "22:00", "Miezul nopții"],
-        en: ["18:00", "20:00", "22:00", "Midnight"],
-        de: ["18:00", "20:00", "22:00", "Mitternacht"]
+        ro: ["18:00", "20:00", "22:00", "00:00"],
+        en: ["18:00", "20:00", "22:00", "00:00"],
+        de: ["18:00", "20:00", "22:00", "00:00"]
       },
       correctIndex: 2,
       explanation: {
-        ro: "Interdicția de duminică pentru camioane >3.5t în Germania se termină la ora 22:00.",
-        en: "Germany's Sunday driving ban for trucks >3.5t ends at 22:00.",
-        de: "Das Sonntagsfahrverbot für LKW >3,5t in Deutschland endet um 22:00 Uhr."
+        ro: "Interdicția de duminică pentru camioane peste 3.5t în Germania se termină la ora 22:00.",
+        en: "Germany's Sunday driving ban for trucks over 3.5t ends at 22:00.",
+        de: "Das Sonntagsfahrverbot für LKW über 3,5t in Deutschland endet um 22:00 Uhr."
       }
     }
   ],
@@ -1002,31 +839,31 @@ export const quizTranslations: Record<string, TranslatedQuizQuestion[]> = {
     },
     {
       question: {
-        ro: "Care este rata aproximativă de taxă rutieră în Germania per km?",
-        en: "What is the approximate toll rate in Germany per km?",
-        de: "Was ist der ungefähre Mautsatz in Deutschland pro km?"
+        ro: "Care sunt tarifele pieței spot în comparație cu tarifele contractuale?",
+        en: "How do spot market rates compare to contract rates?",
+        de: "Wie verhalten sich Spotmarkt-Tarife zu Vertragstarifen?"
       },
       options: {
-        ro: ["€0.15/km", "€0.25/km", "€0.45/km", "€0.65/km"],
-        en: ["€0.15/km", "€0.25/km", "€0.45/km", "€0.65/km"],
-        de: ["€0,15/km", "€0,25/km", "€0,45/km", "€0,65/km"]
+        ro: ["Întotdeauna mai mici", "Mai volatile, pot fi mai mari sau mai mici în funcție de cerere/ofertă", "Întotdeauna egale", "Nu există diferență"],
+        en: ["Always lower", "More volatile, can be higher or lower depending on demand/supply", "Always equal", "No difference"],
+        de: ["Immer niedriger", "Volatiler, können je nach Angebot/Nachfrage höher oder niedriger sein", "Immer gleich", "Kein Unterschied"]
       },
-      correctIndex: 2,
+      correctIndex: 1,
       explanation: {
-        ro: "Taxele rutiere germane sunt aproximativ €0.45/km, variind în funcție de clasa CO₂ și numărul de axe (tarife 2024).",
-        en: "German toll rates are approximately €0.45/km, varying by CO₂ class and axle count (2024 tiers).",
-        de: "Deutsche Mautsätze betragen ca. €0,45/km, variieren nach CO₂-Klasse und Achszahl (2024-Stufen)."
+        ro: "Tarifele spot fluctuează cu cererea și oferta, putând fi mai mari în perioadele de vârf și mai mici când există excedent de capacitate.",
+        en: "Spot rates fluctuate with demand and supply, being higher in peak periods and lower when there is excess capacity.",
+        de: "Spotraten schwanken mit Angebot und Nachfrage, sind in Spitzenzeiten höher und niedriger bei Kapazitätsüberschuss."
       }
     },
     {
       question: {
-        ro: "Ce componentă ar trebui adăugată întotdeauna la costul de bază?",
-        en: "Which component should always be added to the base cost?",
-        de: "Welche Komponente sollte immer zu den Grundkosten hinzugefügt werden?"
+        ro: "Ce elemente suplimentare trebuie adăugate la tariful de bază per km?",
+        en: "What additional elements should be added to the base rate per km?",
+        de: "Welche zusätzlichen Elemente sollten zum km-Grundtarif hinzugefügt werden?"
       },
       options: {
-        ro: ["Doar bonusul șoferului", "Taxe rutiere, feriboturi, accesorii, așteptare, taxe de frontieră", "Doar marja", "Nimic altceva nu este necesar"],
-        en: ["Driver's bonus only", "Tolls, ferries, accessorials, waiting, border fees", "Only the margin", "Nothing else needed"],
+        ro: ["Doar bonusul șoferului", "Taxe rutiere, feriboturi, accesorii, timp de așteptare, taxe de frontieră", "Doar marja", "Nimic altceva nu e necesar"],
+        en: ["Only driver bonus", "Tolls, ferries, accessorials, waiting time, border fees", "Only the margin", "Nothing else needed"],
         de: ["Nur Fahrerbonus", "Maut, Fähren, Nebenkosten, Wartezeit, Grenzgebühren", "Nur die Marge", "Nichts anderes nötig"]
       },
       correctIndex: 1,
@@ -1058,55 +895,55 @@ export const quizTranslations: Record<string, TranslatedQuizQuestion[]> = {
     },
     {
       question: {
-        ro: "Care este limita maximă de răspundere per kg conform convenției CMR?",
-        en: "What is the maximum liability limit per kg under CMR convention?",
-        de: "Was ist die maximale Haftungsgrenze pro kg gemäß CMR-Übereinkommen?"
+        ro: "Care este limita de răspundere CMR pentru mărfuri deteriorate?",
+        en: "What is the CMR liability limit for damaged goods?",
+        de: "Was ist die CMR-Haftungsgrenze für beschädigte Waren?"
       },
       options: {
-        ro: ["€5/kg", "€8.33/kg (DST)", "€12/kg", "€20/kg"],
-        en: ["€5/kg", "€8.33/kg (SDR)", "€12/kg", "€20/kg"],
-        de: ["€5/kg", "€8,33/kg (SZR)", "€12/kg", "€20/kg"]
+        ro: ["5 EUR/kg", "8.33 SDR/kg (aproximativ 10 EUR/kg)", "20 EUR/kg", "Valoarea totală a mărfii"],
+        en: ["5 EUR/kg", "8.33 SDR/kg (approximately 10 EUR/kg)", "20 EUR/kg", "Full value of goods"],
+        de: ["5 EUR/kg", "8.33 SZR/kg (ca. 10 EUR/kg)", "20 EUR/kg", "Voller Warenwert"]
       },
       correctIndex: 1,
       explanation: {
-        ro: "CMR limitează răspunderea transportatorului la 8.33 DST (Drepturi Speciale de Tragere) per kg de greutate brută, aproximativ €10/kg.",
-        en: "CMR limits carrier liability to 8.33 SDR (Special Drawing Rights) per kg of gross weight, approximately €10/kg.",
-        de: "CMR begrenzt die Haftung des Frachtführers auf 8,33 SZR (Sonderziehungsrechte) pro kg Bruttogewicht, ca. €10/kg."
+        ro: "Conform Convenției CMR, limita de răspundere este de 8.33 SDR per kg de greutate brută (aproximativ 10 EUR/kg).",
+        en: "Under the CMR Convention, the liability limit is 8.33 SDR per kg of gross weight (approximately 10 EUR/kg).",
+        de: "Gemäß CMR-Konvention beträgt die Haftungsgrenze 8.33 SZR pro kg Bruttogewicht (ca. 10 EUR/kg)."
       }
     },
     {
       question: {
-        ro: "Ce nu trebuie să semnați NICIODATĂ când primiți marfă deteriorată?",
-        en: "What should you NEVER sign when receiving damaged cargo?",
-        de: "Was sollten Sie NIEMALS unterschreiben, wenn Sie beschädigte Fracht erhalten?"
+        ro: "Ce trebuie făcut imediat când se descoperă daune la livrare?",
+        en: "What should be done immediately when damage is discovered at delivery?",
+        de: "Was sollte sofort getan werden, wenn bei der Lieferung Schäden entdeckt werden?"
       },
       options: {
-        ro: ["CMR-ul", "Un POD curat", "Factura", "Jurnalul șoferului"],
-        en: ["The CMR", "A clean POD", "The invoice", "The driver's log"],
-        de: ["Den CMR", "Einen sauberen POD", "Die Rechnung", "Das Fahrtenbuch"]
+        ro: ["Ignorați și livrați", "Fotografiați, notați pe CMR, anunțați toate părțile", "Returnați marfa fără explicații", "Așteptați instrucțiuni"],
+        en: ["Ignore and deliver", "Photograph, note on CMR, notify all parties", "Return goods without explanation", "Wait for instructions"],
+        de: ["Ignorieren und liefern", "Fotografieren, auf CMR vermerken, alle Parteien benachrichtigen", "Waren ohne Erklärung zurücksenden", "Auf Anweisungen warten"]
       },
       correctIndex: 1,
       explanation: {
-        ro: "Nu semnați niciodată un POD (Dovadă de Livrare) curat când marfa este deteriorată. Notați întotdeauna daunele și rezervele.",
-        en: "Never sign a clean POD (Proof of Delivery) when cargo is damaged. Always note damages and reservations.",
-        de: "Unterschreiben Sie niemals einen sauberen POD (Liefernachweis), wenn die Fracht beschädigt ist. Notieren Sie immer Schäden und Vorbehalte."
+        ro: "La descoperirea daunelor: fotografiați imediat, notați pe CMR în Căsuța 18, anunțați expeditorul și destinatarul.",
+        en: "When damage is discovered: photograph immediately, note on CMR in Box 18, notify shipper and consignee.",
+        de: "Bei Entdeckung von Schäden: sofort fotografieren, in CMR Feld 18 vermerken, Versender und Empfänger benachrichtigen."
       }
     },
     {
       question: {
-        ro: "În câte zile trebuie depuse reclamațiile pentru daune ascunse?",
-        en: "Within how many days must hidden damage claims be submitted?",
-        de: "Innerhalb wie vieler Tage müssen Ansprüche für versteckte Schäden eingereicht werden?"
+        ro: "Care este termenul pentru reclamații de daune ascunse conform CMR?",
+        en: "What is the deadline for hidden damage claims under CMR?",
+        de: "Was ist die Frist für Ansprüche bei versteckten Schäden gemäß CMR?"
       },
       options: {
-        ro: ["3 zile", "7 zile", "21 zile", "30 zile"],
-        en: ["3 days", "7 days", "21 days", "30 days"],
-        de: ["3 Tage", "7 Tage", "21 Tage", "30 Tage"]
+        ro: ["24 ore", "7 zile de la livrare", "30 zile de la livrare", "1 an de la livrare"],
+        en: ["24 hours", "7 days from delivery", "30 days from delivery", "1 year from delivery"],
+        de: ["24 Stunden", "7 Tage ab Lieferung", "30 Tage ab Lieferung", "1 Jahr ab Lieferung"]
       },
       correctIndex: 1,
       explanation: {
         ro: "Daunele ascunse care nu erau vizibile la livrare trebuie reclamate în 7 zile de la livrare.",
-        en: "Hidden damage that wasn't visible at delivery must be claimed within 7 days of delivery.",
+        en: "Hidden damage that was not visible at delivery must be claimed within 7 days of delivery.",
         de: "Versteckte Schäden, die bei Lieferung nicht sichtbar waren, müssen innerhalb von 7 Tagen nach Lieferung geltend gemacht werden."
       }
     }
@@ -1115,7 +952,7 @@ export const quizTranslations: Record<string, TranslatedQuizQuestion[]> = {
     {
       question: {
         ro: "Ce tip de asigurare acoperă răspunderea transportatorului pentru daunele la marfă?",
-        en: "What type of insurance covers carrier's liability for cargo damage?",
+        en: "What type of insurance covers carrier liability for cargo damage?",
         de: "Welche Versicherungsart deckt die Haftung des Frachtführers für Frachtschäden?"
       },
       options: {
@@ -1126,62 +963,62 @@ export const quizTranslations: Record<string, TranslatedQuizQuestion[]> = {
       correctIndex: 1,
       explanation: {
         ro: "Asigurarea de răspundere CMR acoperă răspunderea legală a transportatorului pentru daunele la marfă în timpul transportului.",
-        en: "CMR liability insurance covers the carrier's legal liability for cargo damage during transport.",
+        en: "CMR liability insurance covers the carrier legal liability for cargo damage during transport.",
         de: "Die CMR-Haftpflichtversicherung deckt die gesetzliche Haftung des Frachtführers für Frachtschäden während des Transports."
       }
     },
     {
       question: {
-        ro: "Care este limita tipică de acoperire pentru asigurarea CMR standard?",
-        en: "What is the typical coverage limit for standard CMR insurance?",
-        de: "Was ist die typische Deckungsgrenze für die Standard-CMR-Versicherung?"
+        ro: "Ce este asigurarea all-risk pentru marfă?",
+        en: "What is all-risk cargo insurance?",
+        de: "Was ist eine Allgefahren-Frachtversicherung?"
       },
       options: {
-        ro: ["€50.000", "€100.000-500.000", "€1 milion", "Nelimitat"],
-        en: ["€50,000", "€100,000-500,000", "€1 million", "Unlimited"],
-        de: ["€50.000", "€100.000-500.000", "€1 Million", "Unbegrenzt"]
+        ro: ["Acoperire minimă", "Acoperire completă pentru pierdere sau daune din orice cauză, cu excepții specifice", "Doar pentru furt", "Doar pentru incendiu"],
+        en: ["Minimum coverage", "Full coverage for loss or damage from any cause, with specific exclusions", "Theft only", "Fire only"],
+        de: ["Mindestdeckung", "Vollständige Deckung für Verlust oder Schaden aus beliebiger Ursache, mit bestimmten Ausschlüssen", "Nur Diebstahl", "Nur Feuer"]
       },
       correctIndex: 1,
       explanation: {
-        ro: "Asigurarea CMR standard oferă de obicei acoperire între €100.000 și €500.000 per eveniment.",
-        en: "Standard CMR insurance typically provides coverage between €100,000 and €500,000 per occurrence.",
-        de: "Die Standard-CMR-Versicherung bietet typischerweise Deckung zwischen €100.000 und €500.000 pro Schadensfall."
+        ro: "Asigurarea all-risk oferă cea mai largă acoperire, protejând împotriva majorității riscurilor cu excepții specifice listate în poliță.",
+        en: "All-risk insurance provides the broadest coverage, protecting against most risks with specific exclusions listed in the policy.",
+        de: "Die Allgefahrenversicherung bietet die breiteste Deckung und schützt vor den meisten Risiken mit bestimmten in der Police aufgeführten Ausschlüssen."
       }
     },
     {
       question: {
-        ro: "Cum se mai numește asigurarea 'mărfuri în tranzit'?",
-        en: "What is 'goods in transit' insurance also known as?",
-        de: "Wie wird die 'Güter im Transit'-Versicherung auch genannt?"
+        ro: "De ce este important să verificați asigurarea transportatorului?",
+        en: "Why is it important to verify carrier insurance?",
+        de: "Warum ist es wichtig, die Versicherung des Frachtführers zu überprüfen?"
       },
       options: {
-        ro: ["Asigurare auto", "Asigurare cargo", "Răspundere publică", "Asigurare flotă"],
-        en: ["Vehicle insurance", "Cargo insurance", "Public liability", "Fleet insurance"],
-        de: ["Fahrzeugversicherung", "Frachtversicherung", "Öffentliche Haftpflicht", "Flottenversicherung"]
+        ro: ["Nu este important", "Pentru a vă asigura că există acoperire suficientă în caz de daune sau pierderi", "Doar pentru audit", "Doar pentru statistici"],
+        en: ["It is not important", "To ensure sufficient coverage in case of damage or loss", "Only for audit", "Only for statistics"],
+        de: ["Es ist nicht wichtig", "Um ausreichende Deckung bei Schaden oder Verlust sicherzustellen", "Nur für Audit", "Nur für Statistiken"]
       },
       correctIndex: 1,
       explanation: {
-        ro: "Asigurarea mărfurilor în tranzit (asigurare cargo) protejează valoarea reală a bunurilor transportate.",
-        en: "Goods in transit insurance (cargo insurance) protects the actual value of the goods being transported.",
-        de: "Güterversicherung (Frachtversicherung) schützt den tatsächlichen Wert der transportierten Güter."
+        ro: "Verificarea asigurării transportatorului protejează împotriva situațiilor în care daunele depășesc capacitatea de plată a transportatorului.",
+        en: "Verifying carrier insurance protects against situations where damages exceed the carrier ability to pay.",
+        de: "Die Überprüfung der Frachtführerversicherung schützt vor Situationen, in denen Schäden die Zahlungsfähigkeit des Frachtführers übersteigen."
       }
     },
     {
       question: {
-        ro: "De ce ați putea avea nevoie de asigurare suplimentară peste răspunderea CMR?",
-        en: "Why might you need additional insurance beyond CMR liability?",
-        de: "Warum könnten Sie zusätzliche Versicherung über die CMR-Haftung hinaus benötigen?"
+        ro: "Când este recomandată asigurarea suplimentară a mărfii?",
+        en: "When is additional cargo insurance recommended?",
+        de: "Wann wird eine zusätzliche Frachtversicherung empfohlen?"
       },
       options: {
-        ro: ["CMR este opțional", "Limitele CMR pot fi insuficiente pentru marfă de mare valoare", "CMR acoperă doar camioane", "CMR nu există"],
-        en: ["CMR is optional", "CMR limits may be insufficient for high-value cargo", "CMR only covers trucks", "CMR doesn't exist"],
-        de: ["CMR ist optional", "CMR-Grenzen können für hochwertige Fracht unzureichend sein", "CMR deckt nur LKW", "CMR existiert nicht"]
+        ro: ["Niciodată", "Pentru marfă de mare valoare unde limitele CMR sunt insuficiente", "Doar pentru mărfuri ieftine", "Doar în weekend"],
+        en: ["Never", "For high-value cargo where CMR limits are insufficient", "Only for cheap goods", "Only on weekends"],
+        de: ["Nie", "Für hochwertige Fracht, wenn CMR-Grenzen unzureichend sind", "Nur für billige Waren", "Nur am Wochenende"]
       },
       correctIndex: 1,
       explanation: {
-        ro: "Limitele de răspundere CMR (~€10/kg) pot fi insuficiente pentru marfă de mare valoare, necesitând acoperire suplimentară.",
-        en: "CMR liability limits (~€10/kg) may be insufficient for high-value cargo, requiring additional coverage.",
-        de: "CMR-Haftungsgrenzen (~€10/kg) können für hochwertige Fracht unzureichend sein und erfordern zusätzliche Deckung."
+        ro: "Limitele de răspundere CMR (aproximativ 10 EUR/kg) pot fi insuficiente pentru marfă de mare valoare, necesitând acoperire suplimentară.",
+        en: "CMR liability limits (approximately 10 EUR/kg) may be insufficient for high-value cargo, requiring additional coverage.",
+        de: "CMR-Haftungsgrenzen (ca. 10 EUR/kg) können für hochwertige Fracht unzureichend sein und erfordern zusätzliche Deckung."
       }
     }
   ],
@@ -1199,57 +1036,39 @@ export const quizTranslations: Record<string, TranslatedQuizQuestion[]> = {
       },
       correctIndex: 1,
       explanation: {
-        ro: "ADR înseamnă 'Accord européen relatif au transport international des marchandises Dangereuses par Route' (Acordul privind Mărfurile Periculoase pe Șosele).",
-        en: "ADR stands for 'Accord européen relatif au transport international des marchandises Dangereuses par Route' (Agreement on Dangerous goods by Road).",
-        de: "ADR steht für 'Europäisches Übereinkommen über die internationale Beförderung gefährlicher Güter auf der Straße'."
+        ro: "ADR este Acordul European privind Transportul Internațional al Mărfurilor Periculoase pe Șosele.",
+        en: "ADR is the European Agreement concerning the International Carriage of Dangerous Goods by Road.",
+        de: "ADR ist das Europäische Übereinkommen über die internationale Beförderung gefährlicher Güter auf der Straße."
       }
     },
     {
       question: {
-        ro: "Ce formă au plăcuțele/etichetele de pericol ADR?",
-        en: "What shape are ADR hazard placards/labels?",
-        de: "Welche Form haben ADR-Gefahrentafeln/Etiketten?"
+        ro: "Câte clase de mărfuri periculoase există conform ADR?",
+        en: "How many dangerous goods classes are there under ADR?",
+        de: "Wie viele Gefahrgutklassen gibt es gemäß ADR?"
       },
       options: {
-        ro: ["Cerc", "Pătrat înclinat la 45° (romb)", "Triunghi", "Dreptunghi"],
-        en: ["Circle", "Square tilted 45° (diamond)", "Triangle", "Rectangle"],
-        de: ["Kreis", "45° geneigtes Quadrat (Raute)", "Dreieck", "Rechteck"]
+        ro: ["5 clase", "7 clase", "9 clase", "12 clase"],
+        en: ["5 classes", "7 classes", "9 classes", "12 classes"],
+        de: ["5 Klassen", "7 Klassen", "9 Klassen", "12 Klassen"]
       },
-      correctIndex: 1,
+      correctIndex: 2,
       explanation: {
-        ro: "Etichetele de pericol ADR au formă de romb (pătrat înclinat la 45°) și afișează clasa de pericol și simbolul.",
-        en: "ADR hazard labels are diamond-shaped (square tilted 45°) and display the hazard class and symbol.",
-        de: "ADR-Gefahrenetiketten sind rautenförmig (45° geneigtes Quadrat) und zeigen die Gefahrenklasse und das Symbol."
+        ro: "ADR clasifică mărfurile periculoase în 9 clase principale, de la explozivi (Clasa 1) la diverse mărfuri periculoase (Clasa 9).",
+        en: "ADR classifies dangerous goods into 9 main classes, from explosives (Class 1) to miscellaneous dangerous goods (Class 9).",
+        de: "ADR klassifiziert gefährliche Güter in 9 Hauptklassen, von Explosivstoffen (Klasse 1) bis zu verschiedenen gefährlichen Gütern (Klasse 9)."
       }
     },
     {
       question: {
-        ro: "Ce document trebuie să însoțească transporturile ADR?",
-        en: "What document must accompany ADR shipments?",
-        de: "Welches Dokument muss ADR-Sendungen begleiten?"
+        ro: "Ce certificare specială trebuie să aibă șoferul pentru transportul ADR?",
+        en: "What special certification must a driver have for ADR transport?",
+        de: "Welche spezielle Zertifizierung muss ein Fahrer für ADR-Transport haben?"
       },
       options: {
-        ro: ["Doar CMR", "Document de Transport ADR cu numere UN", "Doar permisul de conducere", "Niciun document special"],
-        en: ["Only CMR", "ADR Transport Document with UN numbers", "Driver's license only", "No special document"],
-        de: ["Nur CMR", "ADR-Transportdokument mit UN-Nummern", "Nur Führerschein", "Kein spezielles Dokument"]
-      },
-      correctIndex: 1,
-      explanation: {
-        ro: "Transporturile ADR necesită un document de transport specific care să arate numerele UN, denumirile corecte de expediere și contactele de urgență.",
-        en: "ADR shipments require a specific transport document showing UN numbers, proper shipping names, and emergency contacts.",
-        de: "ADR-Sendungen erfordern ein spezifisches Transportdokument mit UN-Nummern, korrekten Versandbezeichnungen und Notfallkontakten."
-      }
-    },
-    {
-      question: {
-        ro: "Cine are nevoie de certificare de instruire ADR?",
-        en: "Who needs ADR training certification?",
-        de: "Wer benötigt eine ADR-Schulungsbescheinigung?"
-      },
-      options: {
-        ro: ["Doar expeditorul", "Șoferii care transportă mărfuri periculoase", "Doar personalul de depozit", "Nimeni în mod specific"],
-        en: ["Only the shipper", "Drivers transporting dangerous goods", "Only warehouse staff", "No one specifically"],
-        de: ["Nur der Versender", "Fahrer, die Gefahrgut transportieren", "Nur Lagerpersonal", "Niemand speziell"]
+        ro: ["Doar permis de conducere standard", "Certificat ADR valid pentru clasele transportate", "Doar experiență", "Nicio certificare specială"],
+        en: ["Only standard driving license", "Valid ADR certificate for transported classes", "Only experience", "No special certification"],
+        de: ["Nur Standardführerschein", "Gültiges ADR-Zertifikat für transportierte Klassen", "Nur Erfahrung", "Keine spezielle Zertifizierung"]
       },
       correctIndex: 1,
       explanation: {
@@ -1273,55 +1092,37 @@ export const quizTranslations: Record<string, TranslatedQuizQuestion[]> = {
       },
       correctIndex: 1,
       explanation: {
-        ro: "CMR (Convenția privind Contractul de Transport Internațional de Mărfuri pe Șosele) este scrisoarea de trăsură standard pentru transportul rutier internațional.",
-        en: "The CMR (Convention on the Contract for International Carriage of Goods by Road) is the standard consignment note for international road transport.",
-        de: "Der CMR (Übereinkommen über den Beförderungsvertrag im internationalen Straßengüterverkehr) ist der Standard-Frachtbrief für den internationalen Straßentransport."
+        ro: "CMR este dovada legală a contractului de transport și include detalii despre expeditor, destinatar, marfă și condiții.",
+        en: "CMR is legal evidence of the transport contract and includes details about shipper, consignee, cargo, and conditions.",
+        de: "Der CMR ist der rechtliche Nachweis des Beförderungsvertrags und enthält Details zu Versender, Empfänger, Fracht und Bedingungen."
       }
     },
     {
       question: {
-        ro: "Câte copii originale ale unui CMR sunt create de obicei?",
-        en: "How many original copies of a CMR are typically created?",
-        de: "Wie viele Originalkopien eines CMR werden typischerweise erstellt?"
+        ro: "Câte exemplare originale ale CMR sunt necesare de obicei?",
+        en: "How many original copies of CMR are typically required?",
+        de: "Wie viele Originalexemplare des CMR sind typischerweise erforderlich?"
       },
       options: {
-        ro: ["1 copie", "2 copii", "3-4 copii", "6 copii"],
-        en: ["1 copy", "2 copies", "3-4 copies", "6 copies"],
-        de: ["1 Kopie", "2 Kopien", "3-4 Kopien", "6 Kopien"]
+        ro: ["1 exemplar", "2 exemplare", "3 exemplare", "4 exemplare"],
+        en: ["1 copy", "2 copies", "3 copies", "4 copies"],
+        de: ["1 Exemplar", "2 Exemplare", "3 Exemplare", "4 Exemplare"]
       },
       correctIndex: 2,
       explanation: {
-        ro: "CMR-urile sunt de obicei emise în 3-4 copii: pentru expeditor, transportator, destinatar și uneori o copie suplimentară.",
-        en: "CMRs are typically issued in 3-4 copies: for the sender, carrier, consignee, and sometimes an additional copy.",
-        de: "CMRs werden typischerweise in 3-4 Kopien ausgestellt: für Absender, Frachtführer, Empfänger und manchmal eine zusätzliche Kopie."
+        ro: "CMR se emite în minim 3 exemplare originale: pentru expeditor, pentru destinatar și pentru transportator.",
+        en: "CMR is issued in at least 3 original copies: for the shipper, consignee, and carrier.",
+        de: "Der CMR wird in mindestens 3 Originalexemplaren ausgestellt: für Versender, Empfänger und Frachtführer."
       }
     },
     {
       question: {
-        ro: "Ce document vamal este necesar pentru mărfurile care traversează granițele UE către țări non-UE?",
-        en: "What customs document is required for goods crossing EU borders to non-EU countries?",
-        de: "Welches Zolldokument ist für Waren erforderlich, die EU-Grenzen in Nicht-EU-Länder überqueren?"
+        ro: "Ce trebuie făcut dacă există discrepanțe la încărcare?",
+        en: "What should be done if there are discrepancies at loading?",
+        de: "Was sollte getan werden, wenn es beim Beladen Unstimmigkeiten gibt?"
       },
       options: {
-        ro: ["Doar CMR", "Document de Tranzit T1", "Doar lista de ambalare", "Doar factura"],
-        en: ["CMR only", "T1 Transit Document", "Packing list only", "Invoice only"],
-        de: ["Nur CMR", "T1-Versanddokument", "Nur Packliste", "Nur Rechnung"]
-      },
-      correctIndex: 1,
-      explanation: {
-        ro: "Documentele T1 (tranzit extern) sunt necesare pentru mărfurile non-UE sau mărfurile care părăsesc teritoriul vamal UE.",
-        en: "T1 (external transit) documents are required for non-EU goods or goods leaving the EU customs territory.",
-        de: "T1-Dokumente (externes Versandverfahren) sind für Nicht-EU-Waren oder Waren erforderlich, die das EU-Zollgebiet verlassen."
-      }
-    },
-    {
-      question: {
-        ro: "Ce ar trebui să facă un șofer dacă observă discrepanțe în timpul încărcării?",
-        en: "What should a driver do if they notice discrepancies during loading?",
-        de: "Was sollte ein Fahrer tun, wenn er Unstimmigkeiten beim Beladen bemerkt?"
-      },
-      options: {
-        ro: ["Ignoră", "Notează rezerve în CMR Căsuța 18", "Refuză complet încărcătura", "Sună poliția"],
+        ro: ["Ignorați", "Notați rezervele în CMR Căsuța 18", "Refuzați încărcătura complet", "Sunați poliția"],
         en: ["Ignore it", "Note reservations on CMR Box 18", "Refuse the load entirely", "Call the police"],
         de: ["Ignorieren", "Vorbehalte in CMR Feld 18 notieren", "Die Ladung vollständig ablehnen", "Die Polizei rufen"]
       },
@@ -1348,56 +1149,38 @@ export const quizTranslations: Record<string, TranslatedQuizQuestion[]> = {
       correctIndex: 1,
       explanation: {
         ro: "ATP (Acordul privind Transportul Perisabilelor) stabilește standarde pentru vehiculele cu temperatură controlată utilizate în transportul internațional.",
-        en: "ATP (Agreement on Transport of Perishables) establishes standards for temperature-controlled vehicles used in international transport.",
-        de: "ATP (Übereinkommen über die internationale Beförderung leicht verderblicher Lebensmittel) legt Standards für temperaturgeführte Fahrzeuge im internationalen Transport fest."
+        en: "ATP (Agreement on Transport of Perishables) sets standards for temperature-controlled vehicles used in international transport.",
+        de: "ATP (Übereinkommen über den Transport verderblicher Lebensmittel) legt Standards für temperaturgeführte Fahrzeuge im internationalen Transport fest."
       }
     },
     {
       question: {
-        ro: "Care este intervalul tipic de temperatură pentru mărfuri refrigerate?",
-        en: "What is the typical temperature range for chilled goods?",
-        de: "Was ist der typische Temperaturbereich für gekühlte Waren?"
+        ro: "Care este intervalul tipic de temperatură pentru transportul produselor congelate?",
+        en: "What is the typical temperature range for frozen product transport?",
+        de: "Was ist der typische Temperaturbereich für den Transport von Tiefkühlprodukten?"
       },
       options: {
-        ro: ["-25°C la -18°C", "-18°C la -12°C", "+2°C la +8°C", "+15°C la +25°C"],
-        en: ["-25°C to -18°C", "-18°C to -12°C", "+2°C to +8°C", "+15°C to +25°C"],
-        de: ["-25°C bis -18°C", "-18°C bis -12°C", "+2°C bis +8°C", "+15°C bis +25°C"]
-      },
-      correctIndex: 2,
-      explanation: {
-        ro: "Mărfurile refrigerate (carne proaspătă, lactate, farmaceutice) sunt de obicei transportate la +2°C până la +8°C.",
-        en: "Chilled goods (fresh meat, dairy, pharmaceuticals) are typically transported at +2°C to +8°C.",
-        de: "Gekühlte Waren (frisches Fleisch, Milchprodukte, Pharmazeutika) werden typischerweise bei +2°C bis +8°C transportiert."
-      }
-    },
-    {
-      question: {
-        ro: "Ce ar trebui să faceți ÎNAINTE de încărcarea mărfurilor sensibile la temperatură?",
-        en: "What should you do BEFORE loading temperature-sensitive cargo?",
-        de: "Was sollten Sie VOR dem Beladen temperaturempfindlicher Fracht tun?"
-      },
-      options: {
-        ro: ["Nimic special necesar", "Pre-răciți remorca la temperatura necesară", "Opriți unitatea frigorifică", "Încărcați cât mai repede posibil"],
-        en: ["Nothing special needed", "Pre-cool the trailer to required temperature", "Turn off the reefer unit", "Load as fast as possible"],
-        de: ["Nichts Besonderes nötig", "Den Auflieger auf die erforderliche Temperatur vorkühlen", "Das Kühlaggregat ausschalten", "So schnell wie möglich laden"]
+        ro: ["0 până la +4 grade C", "-18 până la -25 grade C", "+10 până la +15 grade C", "-5 până la -10 grade C"],
+        en: ["0 to +4 degrees C", "-18 to -25 degrees C", "+10 to +15 degrees C", "-5 to -10 degrees C"],
+        de: ["0 bis +4 Grad C", "-18 bis -25 Grad C", "+10 bis +15 Grad C", "-5 bis -10 Grad C"]
       },
       correctIndex: 1,
       explanation: {
-        ro: "Pre-răciți întotdeauna remorca la temperatura necesară înainte de încărcare. Nu încărcați niciodată marfă caldă într-o remorcă rece.",
-        en: "Always pre-cool the trailer to the required temperature before loading. Never load warm cargo into a cold trailer.",
-        de: "Kühlen Sie den Auflieger immer auf die erforderliche Temperatur vor, bevor Sie laden. Laden Sie niemals warme Fracht in einen kalten Auflieger."
+        ro: "Produsele congelate necesită temperaturi între -18 și -25 grade C pentru a menține calitatea și siguranța alimentară.",
+        en: "Frozen products require temperatures between -18 and -25 degrees C to maintain quality and food safety.",
+        de: "Tiefkühlprodukte erfordern Temperaturen zwischen -18 und -25 Grad C, um Qualität und Lebensmittelsicherheit zu gewährleisten."
       }
     },
     {
       question: {
-        ro: "Ce toleranță este acceptabilă pentru lanțul rece farmaceutic?",
-        en: "What tolerance is acceptable for pharmaceutical cold chain?",
-        de: "Welche Toleranz ist für die pharmazeutische Kühlkette akzeptabel?"
+        ro: "Ce toleranță de temperatură este permisă pentru produsele farmaceutice GDP?",
+        en: "What temperature tolerance is allowed for GDP pharmaceutical products?",
+        de: "Welche Temperaturtoleranz ist für GDP-Pharmaprodukte zulässig?"
       },
       options: {
-        ro: ["+/- 5°C", "+/- 2°C", "ZERO toleranță", "+/- 10°C"],
-        en: ["+/- 5°C", "+/- 2°C", "ZERO tolerance", "+/- 10°C"],
-        de: ["+/- 5°C", "+/- 2°C", "KEINE Toleranz", "+/- 10°C"]
+        ro: ["+/- 5 grade C", "+/- 2 grade C", "ZERO toleranță", "+/- 10 grade C"],
+        en: ["+/- 5 degrees C", "+/- 2 degrees C", "ZERO tolerance", "+/- 10 degrees C"],
+        de: ["+/- 5 Grad C", "+/- 2 Grad C", "KEINE Toleranz", "+/- 10 Grad C"]
       },
       correctIndex: 2,
       explanation: {
@@ -1423,55 +1206,37 @@ export const quizTranslations: Record<string, TranslatedQuizQuestion[]> = {
       explanation: {
         ro: "T1 (Tranzit Extern) este folosit pentru mărfurile non-UE care se deplasează prin teritoriul UE sub supraveghere vamală.",
         en: "T1 (External Transit) is used for non-EU goods moving through EU territory under customs supervision.",
-        de: "T1 (Externes Versandverfahren) wird für Nicht-EU-Waren verwendet, die unter Zollaufsicht durch EU-Gebiet transportiert werden."
+        de: "T1 (Externes Versandverfahren) wird für Nicht-EU-Waren verwendet, die unter Zollaufsicht durch EU-Gebiet bewegt werden."
       }
     },
     {
       question: {
-        ro: "Ce trebuie să se întâmple cu sigiliile vamale în timpul tranzitului T1?",
-        en: "What must happen to customs seals during T1 transit?",
-        de: "Was muss mit Zollsiegeln während des T1-Transits passieren?"
-      },
-      options: {
-        ro: ["Pot fi îndepărtate oricând", "Trebuie să rămână intacte până la vama de destinație", "Expiră după 24 ore", "Sunt opționale"],
-        en: ["They can be removed at any time", "They must remain intact until destination customs", "They expire after 24 hours", "They are optional"],
-        de: ["Sie können jederzeit entfernt werden", "Sie müssen bis zum Bestimmungszoll intakt bleiben", "Sie verfallen nach 24 Stunden", "Sie sind optional"]
-      },
-      correctIndex: 1,
-      explanation: {
-        ro: "Sigiliile vamale trebuie să rămână intacte pe tot parcursul tranzitului. Ruperea sigiliilor duce la încălcări vamale și revendicări de garanție.",
-        en: "Customs seals must remain intact throughout transit. Breaking seals results in customs violations and guarantee claims.",
-        de: "Zollsiegel müssen während des gesamten Transits intakt bleiben. Das Brechen von Siegeln führt zu Zollverstößen und Garantieansprüchen."
-      }
-    },
-    {
-      question: {
-        ro: "Ce este un număr EORI?",
+        ro: "Ce este numărul EORI?",
         en: "What is an EORI number?",
         de: "Was ist eine EORI-Nummer?"
       },
       options: {
-        ro: ["Înmatriculare vehicul", "Înregistrare și Identificare Operator Economic pentru vamă", "Număr permis de conducere", "Certificat de asigurare"],
-        en: ["Vehicle registration", "Economic Operator Registration for customs", "Driver license number", "Insurance certificate"],
-        de: ["Fahrzeugregistrierung", "Wirtschaftsbeteiligte Registrierung für Zoll", "Führerscheinnummer", "Versicherungszertifikat"]
+        ro: ["Număr de telefon de urgență", "Număr unic de identificare pentru operatorii economici în vamă", "Număr de înmatriculare vehicul", "Cod de țară"],
+        en: ["Emergency phone number", "Unique identification number for economic operators in customs", "Vehicle registration number", "Country code"],
+        de: ["Notfalltelefonnummer", "Eindeutige Identifikationsnummer für Wirtschaftsbeteiligte beim Zoll", "Fahrzeugregistrierungsnummer", "Ländercode"]
       },
       correctIndex: 1,
       explanation: {
-        ro: "EORI (Înregistrarea și Identificarea Operatorilor Economici) este necesar pentru orice afacere care desfășoară activități vamale în UE.",
-        en: "EORI (Economic Operators Registration and Identification) is required for any business conducting customs activities in the EU.",
-        de: "EORI (Wirtschaftsbeteiligte-Registrierung und -Identifizierung) ist für jedes Unternehmen erforderlich, das Zollaktivitäten in der EU durchführt."
+        ro: "EORI (Economic Operators Registration and Identification) este numărul unic necesar pentru toate operațiunile vamale în UE.",
+        en: "EORI (Economic Operators Registration and Identification) is the unique number required for all customs operations in the EU.",
+        de: "EORI (Economic Operators Registration and Identification) ist die eindeutige Nummer, die für alle Zollvorgänge in der EU erforderlich ist."
       }
     },
     {
       question: {
-        ro: "Ce sistem este necesar pentru importurile/exporturile din Regatul Unit post-Brexit?",
-        en: "What system is required for UK imports/exports post-Brexit?",
-        de: "Welches System ist für UK-Importe/Exporte nach dem Brexit erforderlich?"
+        ro: "Ce cerințe speciale se aplică transportului UK post-Brexit?",
+        en: "What special requirements apply to UK transport post-Brexit?",
+        de: "Welche besonderen Anforderungen gelten für UK-Transport nach dem Brexit?"
       },
       options: {
-        ro: ["Doar T1", "GVMS și GMR", "Niciun sistem necesar", "Doar TIR Carnet"],
-        en: ["T1 only", "GVMS and GMR", "No system needed", "TIR Carnet only"],
-        de: ["Nur T1", "GVMS und GMR", "Kein System erforderlich", "Nur TIR-Carnet"]
+        ro: ["Nimic nu s-a schimbat", "GVMS/GMR necesar, declarații vamale obligatorii", "Nu sunt permise camioane", "Doar feriboturi"],
+        en: ["Nothing changed", "GVMS/GMR required, customs declarations mandatory", "No trucks allowed", "Ferries only"],
+        de: ["Nichts geändert", "GVMS/GMR erforderlich, Zollerklärungen obligatorisch", "Keine LKW erlaubt", "Nur Fähren"]
       },
       correctIndex: 1,
       explanation: {
@@ -1502,50 +1267,32 @@ export const quizTranslations: Record<string, TranslatedQuizQuestion[]> = {
     },
     {
       question: {
-        ro: "Cum funcționează TVA-ul pentru transportul B2B intra-UE?",
-        en: "How does VAT work for B2B intra-EU transport?",
-        de: "Wie funktioniert die MwSt. für B2B-Transport innerhalb der EU?"
+        ro: "Ce înseamnă COD în termeni de plată?",
+        en: "What does COD mean in payment terms?",
+        de: "Was bedeutet COD bei Zahlungsbedingungen?"
       },
       options: {
-        ro: ["Cota standard de TVA", "Taxare inversă (0% TVA)", "Niciodată TVA", "TVA dublu"],
-        en: ["Standard VAT rate", "Reverse charge (0% VAT)", "No VAT ever", "Double VAT"],
-        de: ["Standard-MwSt.-Satz", "Reverse-Charge (0% MwSt.)", "Nie MwSt.", "Doppelte MwSt."]
+        ro: ["Cost of Delivery", "Cash on Delivery", "Collect on Demand", "Carrier Ordered Dispatch"],
+        en: ["Cost of Delivery", "Cash on Delivery", "Collect on Demand", "Carrier Ordered Dispatch"],
+        de: ["Cost of Delivery", "Cash on Delivery (Nachnahme)", "Collect on Demand", "Carrier Ordered Dispatch"]
       },
       correctIndex: 1,
       explanation: {
-        ro: "Transportul B2B intra-UE folosește mecanismul de taxare inversă - 0% TVA, clientul contabilizează TVA-ul în țara sa.",
-        en: "B2B intra-EU transport uses reverse charge mechanism - 0% VAT with customer accounting for VAT in their country.",
-        de: "B2B-Transport innerhalb der EU verwendet den Reverse-Charge-Mechanismus - 0% MwSt., der Kunde verbucht die MwSt. in seinem Land."
+        ro: "COD (Cash on Delivery) înseamnă plata la livrare - destinatarul plătește când primește marfa.",
+        en: "COD (Cash on Delivery) means payment at delivery - the consignee pays when receiving the goods.",
+        de: "COD (Cash on Delivery/Nachnahme) bedeutet Zahlung bei Lieferung - der Empfänger zahlt beim Erhalt der Waren."
       }
     },
     {
       question: {
-        ro: "Ce este DSO în termeni financiari?",
-        en: "What is DSO in financial terms?",
-        de: "Was ist DSO in finanzieller Hinsicht?"
+        ro: "Care este cea mai bună practică pentru termenul de facturare?",
+        en: "What is the best practice for invoicing timing?",
+        de: "Was ist die Best Practice für den Rechnungsstellungszeitpunkt?"
       },
       options: {
-        ro: ["Comandă Zilnică de Vânzări", "Zile de Vânzări Restante", "Operațiune Directă de Vânzări", "Ofertă de Vânzare cu Discount"],
-        en: ["Daily Sales Order", "Days Sales Outstanding", "Direct Sales Operation", "Discount Sales Offer"],
-        de: ["Täglicher Verkaufsauftrag", "Außenstandstage", "Direkter Verkaufsbetrieb", "Rabattverkaufsangebot"]
-      },
-      correctIndex: 1,
-      explanation: {
-        ro: "DSO (Zile de Vânzări Restante) măsoară numărul mediu de zile pentru încasarea plății după facturare. Țintă: <45 zile.",
-        en: "DSO (Days Sales Outstanding) measures average number of days to collect payment after invoicing. Target: <45 days.",
-        de: "DSO (Außenstandstage) misst die durchschnittliche Anzahl der Tage bis zur Zahlung nach Rechnungsstellung. Ziel: <45 Tage."
-      }
-    },
-    {
-      question: {
-        ro: "Când ar trebui să facturați pentru transportul finalizat?",
-        en: "When should you invoice for completed transport?",
-        de: "Wann sollten Sie für abgeschlossenen Transport fakturieren?"
-      },
-      options: {
-        ro: ["În 30 de zile", "În 48 de ore de la livrare", "Doar lot lunar", "Când solicită clientul"],
-        en: ["Within 30 days", "Within 48 hours of delivery", "Monthly batch only", "When customer requests"],
-        de: ["Innerhalb von 30 Tagen", "Innerhalb von 48 Stunden nach Lieferung", "Nur monatliche Sammelrechnung", "Auf Kundenanfrage"]
+        ro: ["La sfârșitul lunii", "În 48 de ore de la livrare", "După 2 săptămâni", "Când ne amintim"],
+        en: ["End of month", "Within 48 hours of delivery", "After 2 weeks", "When we remember"],
+        de: ["Monatsende", "Innerhalb von 48 Stunden nach Lieferung", "Nach 2 Wochen", "Wenn wir daran denken"]
       },
       correctIndex: 1,
       explanation: {
@@ -1563,58 +1310,40 @@ export const quizTranslations: Record<string, TranslatedQuizQuestion[]> = {
         de: "Was ist die Mindest-CMR-Versicherungsdeckung, die Sie von Frachtführern verlangen sollten?"
       },
       options: {
-        ro: ["€50.000", "€100.000", "€300.000+", "Nu este necesar un minim"],
-        en: ["€50,000", "€100,000", "€300,000+", "No minimum needed"],
-        de: ["€50.000", "€100.000", "€300.000+", "Kein Minimum erforderlich"]
+        ro: ["50.000 EUR", "100.000 EUR", "300.000+ EUR", "Nu este necesar un minim"],
+        en: ["50,000 EUR", "100,000 EUR", "300,000+ EUR", "No minimum needed"],
+        de: ["50.000 EUR", "100.000 EUR", "300.000+ EUR", "Kein Minimum erforderlich"]
       },
       correctIndex: 2,
       explanation: {
-        ro: "Solicitați asigurare CMR minimă de €300.000 pentru marfă standard. Marfa de mare valoare poate necesita €500.000+.",
-        en: "Require minimum €300,000 CMR insurance for standard freight. High-value cargo may need €500,000+.",
-        de: "Fordern Sie mindestens €300.000 CMR-Versicherung für Standardfracht. Hochwertige Fracht kann €500.000+ erfordern."
+        ro: "Solicitați asigurare CMR minimă de 300.000 EUR pentru marfă standard. Marfa de mare valoare poate necesita 500.000+ EUR.",
+        en: "Require minimum 300,000 EUR CMR insurance for standard freight. High-value cargo may need 500,000+ EUR.",
+        de: "Fordern Sie mindestens 300.000 EUR CMR-Versicherung für Standardfracht. Hochwertige Fracht kann 500.000+ EUR erfordern."
       }
     },
     {
       question: {
-        ro: "Ce definește un transportator preferențial 'Nivel 1'?",
-        en: "What defines a 'Tier 1' preferred carrier?",
-        de: "Was definiert einen 'Tier 1'-bevorzugten Frachtführer?"
+        ro: "Ce documente ar trebui să verificați la înregistrarea unui nou transportator?",
+        en: "What documents should you verify when onboarding a new carrier?",
+        de: "Welche Dokumente sollten Sie beim Onboarding eines neuen Frachtführers prüfen?"
       },
       options: {
-        ro: ["Cele mai ieftine tarife", "Transportator nou în probă", "Fiabilitate dovedită, capacitate bună, valoare strategică", "Orice transportator cu GPS"],
-        en: ["Cheapest rates", "New carrier on trial", "Proven reliability, good capacity, strategic value", "Any carrier with GPS"],
-        de: ["Günstigste Preise", "Neuer Frachtführer auf Probe", "Bewiesene Zuverlässigkeit, gute Kapazität, strategischer Wert", "Jeder Frachtführer mit GPS"]
+        ro: ["Doar numele companiei", "Licență de transport, asigurare CMR, certificări, istoric", "Doar numărul de telefon", "Nimic nu e necesar"],
+        en: ["Only company name", "Transport license, CMR insurance, certifications, track record", "Only phone number", "Nothing required"],
+        de: ["Nur Firmenname", "Transportlizenz, CMR-Versicherung, Zertifizierungen, Erfolgsbilanz", "Nur Telefonnummer", "Nichts erforderlich"]
       },
-      correctIndex: 2,
+      correctIndex: 1,
       explanation: {
-        ro: "Transportatorii Nivel 1 au istoric dovedit, capacitate puternică, tarife competitive și sunt parteneri strategici pentru rute cheie.",
-        en: "Tier 1 carriers have proven track records, strong capacity, competitive rates, and are strategic partners for key lanes.",
-        de: "Tier 1-Frachtführer haben bewährte Erfolgsbilanz, starke Kapazität, wettbewerbsfähige Preise und sind strategische Partner für Schlüsselstrecken."
+        ro: "Verificați: licența de transport validă, polița de asigurare CMR, certificări relevante și referințe/istoric.",
+        en: "Verify: valid transport license, CMR insurance policy, relevant certifications, and references/track record.",
+        de: "Überprüfen Sie: gültige Transportlizenz, CMR-Versicherungspolice, relevante Zertifizierungen und Referenzen/Erfolgsbilanz."
       }
     },
     {
       question: {
-        ro: "Cât de des ar trebui să revizuiți performanța transportatorilor?",
-        en: "How often should you review carrier performance?",
-        de: "Wie oft sollten Sie die Leistung der Frachtführer überprüfen?"
-      },
-      options: {
-        ro: ["Niciodată", "Doar anual", "Lunar/Trimestrial cu fișe de evaluare", "Doar când apar probleme"],
-        en: ["Never", "Annually only", "Monthly/Quarterly with scorecards", "Only when problems occur"],
-        de: ["Nie", "Nur jährlich", "Monatlich/Vierteljährlich mit Scorecards", "Nur bei Problemen"]
-      },
-      correctIndex: 2,
-      explanation: {
-        ro: "Evaluările regulate de performanță lunare sau trimestriale cu fișe KPI asigură calitate continuă și identifică problemele timpuriu.",
-        en: "Regular monthly or quarterly performance reviews with KPI scorecards ensure continuous quality and identify issues early.",
-        de: "Regelmäßige monatliche oder vierteljährliche Leistungsüberprüfungen mit KPI-Scorecards gewährleisten kontinuierliche Qualität und identifizieren Probleme frühzeitig."
-      }
-    },
-    {
-      question: {
-        ro: "Ce este 'dubla brokeraj' și de ce este riscantă?",
-        en: "What is 'double brokering' and why is it risky?",
-        de: "Was ist 'Doppelvermittlung' und warum ist sie riskant?"
+        ro: "Ce este dubla intermediere (double brokering)?",
+        en: "What is double brokering?",
+        de: "Was ist Doppelvermittlung?"
       },
       options: {
         ro: ["Rezervarea a două curse simultan", "Transportatorul subcontractează fără permisiune", "Folosirea a două burse de marfă", "Două contacte la un transportator"],
@@ -1650,37 +1379,19 @@ export const quizTranslations: Record<string, TranslatedQuizQuestion[]> = {
     },
     {
       question: {
-        ro: "Cât de repede ar trebui să răspundeți la o cerere urgentă de cotație spot?",
-        en: "How quickly should you respond to an urgent spot quote request?",
-        de: "Wie schnell sollten Sie auf eine dringende Spot-Angebotsanfrage reagieren?"
+        ro: "Ce ar trebui să includeți într-o ofertă comercială profesională?",
+        en: "What should you include in a professional commercial quote?",
+        de: "Was sollten Sie in ein professionelles Handelsangebot aufnehmen?"
       },
       options: {
-        ro: ["În aceeași zi", "În 2 ore", "În 15-30 minute", "În 1 săptămână"],
-        en: ["Same day", "Within 2 hours", "Within 15-30 minutes", "Within 1 week"],
-        de: ["Am selben Tag", "Innerhalb von 2 Stunden", "Innerhalb von 15-30 Minuten", "Innerhalb von 1 Woche"]
-      },
-      correctIndex: 2,
-      explanation: {
-        ro: "Cotațiile spot urgente necesită răspuns în 15 minute, maximum 30 minute. Viteza câștigă pe piața spot.",
-        en: "Urgent spot quotes require response within 15 minutes, maximum 30 minutes. Speed wins in spot market.",
-        de: "Dringende Spot-Angebote erfordern Antwort innerhalb von 15 Minuten, maximal 30 Minuten. Geschwindigkeit gewinnt im Spotmarkt."
-      }
-    },
-    {
-      question: {
-        ro: "Ce ar trebui să includă fiecare cotație de transport?",
-        en: "What should every transport quotation include?",
-        de: "Was sollte jedes Transportangebot enthalten?"
-      },
-      options: {
-        ro: ["Doar prețul", "Preț, perioadă de valabilitate, detalii serviciu, termeni de plată, excluderi", "Doar datele de ridicare/livrare", "Doar numele transportatorului"],
-        en: ["Just the price", "Price, validity period, service details, payment terms, exclusions", "Only pickup/delivery dates", "Carrier name only"],
-        de: ["Nur der Preis", "Preis, Gültigkeitszeitraum, Servicedetails, Zahlungsbedingungen, Ausschlüsse", "Nur Abhol-/Liefertermine", "Nur Frachtführername"]
+        ro: ["Doar prețul", "Preț, valabilitate, scop serviciu, timp tranzit, termeni plată, excluderi", "Doar timpul de livrare", "Doar numele clientului"],
+        en: ["Only price", "Price, validity, service scope, transit time, payment terms, exclusions", "Only delivery time", "Only customer name"],
+        de: ["Nur Preis", "Preis, Gültigkeit, Leistungsumfang, Transitzeit, Zahlungsbedingungen, Ausschlüsse", "Nur Lieferzeit", "Nur Kundenname"]
       },
       correctIndex: 1,
       explanation: {
-        ro: "Cotațiile complete includ preț, valabilitate, scop serviciu, timp de tranzit, termeni de plată și ce este exclus.",
-        en: "Complete quotes include price, validity, service scope, transit time, payment terms, and what's excluded.",
+        ro: "Ofertele complete includ preț, valabilitate, scop serviciu, timp de tranzit, termeni de plată și ce este exclus.",
+        en: "Complete quotes include price, validity, service scope, transit time, payment terms, and what is excluded.",
         de: "Vollständige Angebote enthalten Preis, Gültigkeit, Leistungsumfang, Transitzeit, Zahlungsbedingungen und Ausschlüsse."
       }
     }
@@ -1706,9 +1417,9 @@ export const quizTranslations: Record<string, TranslatedQuizQuestion[]> = {
     },
     {
       question: {
-        ro: "Ce măsoară 'DSO' în expediția de mărfuri?",
-        en: "What does 'DSO' measure in freight forwarding?",
-        de: "Was misst 'DSO' in der Spedition?"
+        ro: "Ce măsoară DSO în expediția de mărfuri?",
+        en: "What does DSO measure in freight forwarding?",
+        de: "Was misst DSO in der Spedition?"
       },
       options: {
         ro: ["Optimizarea Vitezei de Livrare", "Zile de Vânzări Restante", "Operațiuni de Siguranță a Șoferilor", "Ieșire Sistem de Dispecerat"],
@@ -1724,9 +1435,9 @@ export const quizTranslations: Record<string, TranslatedQuizQuestion[]> = {
     },
     {
       question: {
-        ro: "Ce este 'Rata de Rezoluție la Primul Contact'?",
-        en: "What is 'First Contact Resolution Rate'?",
-        de: "Was ist die 'Erstlösungsquote'?"
+        ro: "Ce este Rata de Rezoluție la Primul Contact?",
+        en: "What is First Contact Resolution Rate?",
+        de: "Was ist die Erstlösungsquote?"
       },
       options: {
         ro: ["Viteza primei livrări", "Procentajul problemelor rezolvate în prima interacțiune", "Timpul de răspuns la primul apel", "Timpul de răspuns al primului transportator"],
@@ -1735,9 +1446,9 @@ export const quizTranslations: Record<string, TranslatedQuizQuestion[]> = {
       },
       correctIndex: 1,
       explanation: {
-        ro: "FCR măsoară ce procentaj din problemele clienților sunt rezolvate în prima interacțiune. Țintă: >80%.",
-        en: "FCR measures what percentage of customer issues are resolved in the first interaction. Target: >80%.",
-        de: "FCR misst, welcher Prozentsatz der Kundenprobleme bei der ersten Interaktion gelöst wird. Ziel: >80%."
+        ro: "FCR măsoară ce procentaj din problemele clienților sunt rezolvate în prima interacțiune. Țintă: peste 80%.",
+        en: "FCR measures what percentage of customer issues are resolved in the first interaction. Target: over 80%.",
+        de: "FCR misst, welcher Prozentsatz der Kundenprobleme bei der ersten Interaktion gelöst wird. Ziel: über 80%."
       }
     },
     {
@@ -1880,7 +1591,7 @@ export const quizTranslations: Record<string, TranslatedQuizQuestion[]> = {
       },
       options: {
         ro: ["La ușa vânzătorului", "Când mărfurile sunt predate transportatorului", "La destinație", "După vămuire"],
-        en: ["At seller's door", "When goods are handed to the carrier", "At destination", "After customs clearance"],
+        en: ["At seller door", "When goods are handed to the carrier", "At destination", "After customs clearance"],
         de: ["An der Tür des Verkäufers", "Wenn Waren dem Frachtführer übergeben werden", "Am Bestimmungsort", "Nach Zollabfertigung"]
       },
       correctIndex: 1,
@@ -2054,7 +1765,7 @@ export const quizTranslations: Record<string, TranslatedQuizQuestion[]> = {
       correctIndex: 1,
       explanation: {
         ro: "Win-win creează relații sustenabile. Dacă o parte pierde grav, nu vor dori să lucreze cu tine din nou.",
-        en: "Win-win creates sustainable relationships. If one party loses badly, they won't want to work with you again.",
+        en: "Win-win creates sustainable relationships. If one party loses badly, they will not want to work with you again.",
         de: "Win-win schafft nachhaltige Beziehungen. Wenn eine Partei schlecht verliert, wird sie nicht wieder mit Ihnen arbeiten wollen."
       }
     },
@@ -2084,7 +1795,7 @@ export const quizTranslations: Record<string, TranslatedQuizQuestion[]> = {
       },
       options: {
         ro: ["Niciodată - faceți întotdeauna o afacere", "Când termenii sunt mai proști decât BATNA sau sub marjele acceptabile", "La primul dezacord", "Doar dacă sunt nepoliticoși"],
-        en: ["Never - always make a deal", "When terms are worse than your BATNA or below acceptable margins", "At first disagreement", "Only if they're rude"],
+        en: ["Never - always make a deal", "When terms are worse than your BATNA or below acceptable margins", "At first disagreement", "Only if they are rude"],
         de: ["Nie - immer einen Deal machen", "Wenn die Bedingungen schlechter als Ihr BATNA oder unter akzeptablen Margen sind", "Bei erster Meinungsverschiedenheit", "Nur wenn sie unhöflich sind"]
       },
       correctIndex: 1,
@@ -2135,7 +1846,7 @@ export const quizTranslations: Record<string, TranslatedQuizQuestion[]> = {
     {
       question: {
         ro: "Care este puterea principală de piață a TIMOCOM?",
-        en: "What is TIMOCOM's primary market strength?",
+        en: "What is TIMOCOM primary market strength?",
         de: "Was ist TIMOCOMs primäre Marktstärke?"
       },
       options: {
