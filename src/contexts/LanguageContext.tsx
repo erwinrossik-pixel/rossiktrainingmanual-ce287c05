@@ -26,7 +26,8 @@ const translations: Record<Language, Record<string, string>> = {
     // Sections
     'section.foundation': 'Fundament',
     'section.equipment': 'Echipamente',
-    'section.trade': 'Comerț & Reglementări',
+    'section.documents': 'Documente & Reglementări',
+    'section.geography': 'Geografie & Rute',
     'section.commercial': 'Abilități Comerciale',
     'section.technology': 'Sisteme & Tehnologie',
     'section.finance': 'Risc & Finanțe',
@@ -141,7 +142,8 @@ const translations: Record<Language, Record<string, string>> = {
     // Sections
     'section.foundation': 'Grundlagen',
     'section.equipment': 'Ausrüstung',
-    'section.trade': 'Handel & Vorschriften',
+    'section.documents': 'Dokumente & Vorschriften',
+    'section.geography': 'Geographie & Routen',
     'section.commercial': 'Kaufmännische Fähigkeiten',
     'section.technology': 'Systeme & Technologie',
     'section.finance': 'Risiko & Finanzen',
@@ -256,7 +258,8 @@ const translations: Record<Language, Record<string, string>> = {
     // Sections
     'section.foundation': 'Foundation',
     'section.equipment': 'Equipment & Handling',
-    'section.trade': 'Trade & Regulations',
+    'section.documents': 'Documents & Regulations',
+    'section.geography': 'Geography & Routes',
     'section.commercial': 'Commercial Skills',
     'section.technology': 'Systems & Technology',
     'section.finance': 'Risk & Finance',
