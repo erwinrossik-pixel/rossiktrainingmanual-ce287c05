@@ -353,6 +353,8 @@ export function ProgressDashboard({ onNavigate, onClose }: ProgressDashboardProp
               passedQuizzes={quizStats.passedQuizzes}
               totalQuizzes={totalQuizzes}
             />
+          </CardContent>
+        </Card>
       )}
 
       {/* Reset Progress */}
