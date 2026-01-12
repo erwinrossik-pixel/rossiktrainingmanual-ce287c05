@@ -383,10 +383,8 @@ export function TechnologyChapter() {
       {/* Quiz */}
       {quizzes["technology"] && (
         <Quiz
-          title={ct("quizTitle")}
           questions={quizzes["technology"]}
           chapterId="technology"
-          questionsPerRound={5}
         />
       )}
     </div>

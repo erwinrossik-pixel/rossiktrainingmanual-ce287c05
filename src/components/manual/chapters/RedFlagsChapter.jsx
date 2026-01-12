@@ -387,7 +387,7 @@ export function RedFlagsChapter() {
           
           <div className="bg-card border border-border rounded-lg p-4">
             <h4 className="font-semibold mb-3 flex items-center gap-2">
-              <Clock className="w-4 h-4 text-primary" />
+              <MapPin className="w-4 h-4 text-primary" />
               {ct("beforeDispatch")}
             </h4>
             <ul className="text-sm space-y-1">
@@ -405,10 +405,8 @@ export function RedFlagsChapter() {
       {/* Quiz */}
       {quizzes["red-flags"] && (
         <Quiz
-          title={ct("knowledgeCheck")}
           questions={quizzes["red-flags"]}
           chapterId="red-flags"
-          questionsPerRound={5}
         />
       )}
     </div>
