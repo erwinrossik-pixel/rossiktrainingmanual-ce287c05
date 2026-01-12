@@ -1,4 +1,4 @@
-export const fleetTranslations: Record<string, Record<string, string>> = {
+export const fleetTranslations = {
   en: {
     chapterNumber: "Chapter 38",
     chapterTitle: "Fleet Management",

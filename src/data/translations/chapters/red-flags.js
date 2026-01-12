@@ -1,4 +1,4 @@
-export const redFlagsTranslations: Record<string, Record<string, string>> = {
+export const redFlagsTranslations = {
   en: {
     chapterNumber: "Chapter 26",
     chapterTitle: "Red Flags",

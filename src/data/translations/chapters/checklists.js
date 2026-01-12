@@ -1,4 +1,4 @@
-export const checklistsTranslations: Record<string, Record<string, string>> = {
+export const checklistsTranslations = {
   en: {
     chapterNumber: "Chapter 39",
     chapterTitle: "Checklists",
