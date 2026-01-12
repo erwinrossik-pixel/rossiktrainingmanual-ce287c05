@@ -1,20 +1,6 @@
 import { cn } from "@/lib/utils";
 import { ArrowDown, ArrowRight } from "lucide-react";
 
-interface FlowStep {
-  id: string;
-  label: string;
-  description?: string;
-  color?: "primary" | "success" | "warning" | "destructive" | "info";
-}
-
-interface FlowDiagramProps {
-  title: string;
-  steps: FlowStep[];
-  direction?: "horizontal" | "vertical";
-  className?: string;
-}
-
 const colorMap = {
   primary: "bg-primary text-primary-foreground",
   success: "bg-success text-success-foreground",
@@ -31,7 +17,7 @@ const borderColorMap = {
   info: "border-info/30",
 };
 
-export function FlowDiagram({ title, steps, direction = "horizontal", className }: FlowDiagramProps) {
+export function FlowDiagram({ title, steps, direction = "horizontal", className }) {
   const isHorizontal = direction === "horizontal";
 
   return (
@@ -80,15 +66,7 @@ export function FlowDiagram({ title, steps, direction = "horizontal", className 
   );
 }
 
-interface DecisionDiagramProps {
-  title: string;
-  question: string;
-  yesPath: { label: string; result: string };
-  noPath: { label: string; result: string };
-  className?: string;
-}
-
-export function DecisionDiagram({ title, question, yesPath, noPath, className }: DecisionDiagramProps) {
+export function DecisionDiagram({ title, question, yesPath, noPath, className }) {
   return (
     <div className={cn("bg-card border border-border rounded-xl p-6", className)}>
       <h3 className="text-lg font-semibold mb-6 text-center">{title}</h3>
@@ -125,17 +103,7 @@ export function DecisionDiagram({ title, question, yesPath, noPath, className }:
   );
 }
 
-interface ProcessMapProps {
-  title: string;
-  phases: {
-    name: string;
-    color: "primary" | "success" | "warning" | "destructive" | "info";
-    steps: string[];
-  }[];
-  className?: string;
-}
-
-export function ProcessMap({ title, phases, className }: ProcessMapProps) {
+export function ProcessMap({ title, phases, className }) {
   return (
     <div className={cn("bg-card border border-border rounded-xl p-6", className)}>
       <h3 className="text-lg font-semibold mb-6 text-center">{title}</h3>

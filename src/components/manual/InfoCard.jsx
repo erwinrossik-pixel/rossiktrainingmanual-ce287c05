@@ -1,15 +1,6 @@
 import { cn } from "@/lib/utils";
-import { LucideIcon } from "lucide-react";
 
-interface InfoCardProps {
-  title: string;
-  children: React.ReactNode;
-  icon?: LucideIcon;
-  variant?: "default" | "highlight" | "warning" | "success" | "info";
-  className?: string;
-}
-
-export function InfoCard({ title, children, icon: Icon, variant = "default", className }: InfoCardProps) {
+export function InfoCard({ title, children, icon: Icon, variant = "default", className }) {
   const variants = {
     default: "bg-card border-border",
     highlight: "bg-accent border-primary/10",

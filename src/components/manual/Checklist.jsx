@@ -1,11 +1,6 @@
 import { Check } from "lucide-react";
 
-interface ChecklistProps {
-  items: string[];
-  title?: string;
-}
-
-export function Checklist({ items, title }: ChecklistProps) {
+export function Checklist({ items, title }) {
   return (
     <div className="bg-card rounded-xl p-6 border border-border shadow-card">
       {title && (

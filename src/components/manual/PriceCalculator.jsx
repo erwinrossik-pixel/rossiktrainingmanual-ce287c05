@@ -6,13 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 
-interface CountrySegment {
-  id: string;
-  country: string;
-  km: number;
-}
-
-const TOLL_RATES: Record<string, { rate: number; name: string; flag: string }> = {
+const TOLL_RATES = {
   DE: { rate: 0.348, name: "Germania", flag: "🇩🇪" },
   AT: { rate: 0.532, name: "Austria", flag: "🇦🇹" },
   CH: { rate: 0.55, name: "Elveția", flag: "🇨🇭" },
@@ -49,13 +43,13 @@ const MARGIN_PRESETS = [
 ];
 
 export function PriceCalculator() {
-  const [segments, setSegments] = useState<CountrySegment[]>([
+  const [segments, setSegments] = useState([
     { id: "1", country: "DE", km: 300 },
     { id: "2", country: "FR", km: 500 },
   ]);
   const [transportType, setTransportType] = useState("standard");
   const [margin, setMargin] = useState(12);
-  const [customMargin, setCustomMargin] = useState<number | null>(null);
+  const [customMargin, setCustomMargin] = useState(null);
   const [includeParking, setIncludeParking] = useState(false);
   const [parkingNights, setParkingNights] = useState(1);
   const [includeWaiting, setIncludeWaiting] = useState(false);
@@ -66,20 +60,20 @@ export function PriceCalculator() {
     setSegments([...segments, { id: newId, country: "DE", km: 100 }]);
   };
 
-  const removeSegment = (id: string) => {
+  const removeSegment = (id) => {
     if (segments.length > 1) {
       setSegments(segments.filter(s => s.id !== id));
     }
   };
 
-  const updateSegment = (id: string, field: "country" | "km", value: string | number) => {
+  const updateSegment = (id, field, value) => {
     setSegments(segments.map(s => 
       s.id === id ? { ...s, [field]: value } : s
     ));
   };
 
   const calculation = useMemo(() => {
-    const selectedTransport = TRANSPORT_TYPES.find(t => t.id === transportType)!;
+    const selectedTransport = TRANSPORT_TYPES.find(t => t.id === transportType);
     const totalKm = segments.reduce((sum, s) => sum + s.km, 0);
     
     // Base cost
@@ -263,7 +257,7 @@ export function PriceCalculator() {
               <Checkbox 
                 id="parking" 
                 checked={includeParking}
-                onCheckedChange={(checked) => setIncludeParking(checked as boolean)}
+                onCheckedChange={(checked) => setIncludeParking(checked)}
               />
               <label htmlFor="parking" className="text-sm cursor-pointer flex-1">
                 Parcare securizată (€35/noapte)
@@ -283,7 +277,7 @@ export function PriceCalculator() {
               <Checkbox 
                 id="waiting" 
                 checked={includeWaiting}
-                onCheckedChange={(checked) => setIncludeWaiting(checked as boolean)}
+                onCheckedChange={(checked) => setIncludeWaiting(checked)}
               />
               <label htmlFor="waiting" className="text-sm cursor-pointer flex-1">
                 Timp de așteptare (€40/oră)

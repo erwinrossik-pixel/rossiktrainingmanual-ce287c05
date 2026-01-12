@@ -13,15 +13,6 @@ import { Label } from "@/components/ui/label";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 
-interface CertificateProps {
-  isEligible: boolean;
-  completedChapters: number;
-  totalChapters: number;
-  averageScore: number;
-  passedQuizzes: number;
-  totalQuizzes: number;
-}
-
 export function Certificate({
   isEligible,
   completedChapters,
@@ -29,11 +20,11 @@ export function Certificate({
   averageScore,
   passedQuizzes,
   totalQuizzes,
-}: CertificateProps) {
+}) {
   const [traineeName, setTraineeName] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
-  const certificateRef = useRef<HTMLDivElement>(null);
+  const certificateRef = useRef(null);
 
   const completionDate = new Date().toLocaleDateString("en-GB", {
     day: "numeric",

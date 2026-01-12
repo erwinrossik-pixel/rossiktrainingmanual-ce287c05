@@ -1,60 +1,9 @@
-import { LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { getChapterNumber } from "@/hooks/useChapterNumber";
 import { useLanguage } from "@/contexts/LanguageContext";
 
-type HeroVariant = 
-  // Foundation Section (Chapters 1-4) - Purple tones
-  | "intro"           // Deep violet
-  | "mindset"         // Royal purple
-  | "softskills"      // Indigo
-  | "workflow"        // Purple-blue
-  // Equipment Section (Chapters 5-10) - Blue/Cyan tones
-  | "vehicle"         // Deep blue
-  | "loading"         // Steel blue
-  | "reefer"          // Ice blue
-  | "warehouse"       // Navy
-  | "adr"             // Electric blue
-  | "documents"       // Slate blue
-  // Trade Section (Chapters 11-17) - Green/Teal tones
-  | "incoterms"       // Emerald
-  | "compliance"      // Forest green
-  | "drivingtime"     // Teal
-  | "customs"         // Sea green
-  | "europezones"     // Jade
-  | "insurance"       // Mint
-  | "licenses"        // Dark teal
-  // Commercial Section (Chapters 18-25) - Orange/Amber tones
-  | "clients"         // Amber
-  | "pricing"         // Orange
-  | "negotiation"     // Coral
-  | "commercial"      // Burnt orange
-  | "exchanges"       // Gold
-  | "carrier"         // Tangerine
-  | "communication"   // Peach
-  | "redflags"        // Red-orange
-  // Technology Section (Chapters 26-29) - Magenta/Pink tones
-  | "technology"      // Magenta
-  | "supplychain"     // Fuchsia
-  | "translogica"     // Rose
-  | "kpi"             // Hot pink
-  // Finance Section (Chapters 30-34) - Warm greens/Gold tones
-  | "payment"         // Olive green
-  | "accounting"      // Bronze
-  | "claims"          // Copper
-  | "risk"            // Dark gold
-  | "environment"     // Sage
-  // Practical Section (Chapters 35-40) - Mixed vibrant tones
-  | "emergency"       // Crimson red
-  | "training"        // Bright purple
-  | "casestudies"     // Turquoise
-  | "checklists"      // Lime green
-  | "glossary"        // Steel gray
-  | "fleet"           // Dark cyan
-  | "default";
-
 // Map variant to chapter ID for number calculation
-const variantToChapterId: Record<HeroVariant, string> = {
+const variantToChapterId = {
   intro: "intro",
   mindset: "mindset",
   softskills: "soft-skills",
@@ -98,19 +47,12 @@ const variantToChapterId: Record<HeroVariant, string> = {
   default: "intro",
 };
 
-interface ChapterHeroProps {
-  title: string;
-  description: string;
-  icon: LucideIcon;
-  variant?: HeroVariant;
-}
-
 export function ChapterHero({ 
   title, 
   description, 
   icon: Icon,
   variant = "default" 
-}: ChapterHeroProps) {
+}) {
   const { language } = useLanguage();
   
   // Get chapter number based on variant
@@ -118,13 +60,14 @@ export function ChapterHero({
   const chapterNum = getChapterNumber(chapterId);
   
   // Generate chapter label based on language
-  const chapterLabels: Record<string, string> = {
+  const chapterLabels = {
     ro: `Capitol ${chapterNum}`,
     de: `Kapitel ${chapterNum}`,
     en: `Chapter ${chapterNum}`,
   };
   const chapterLabel = chapterLabels[language] || chapterLabels.en;
-  const variantClasses: Record<HeroVariant, string> = {
+  
+  const variantClasses = {
     // Foundation Section - Purple spectrum
     intro: "hero-intro",
     mindset: "hero-mindset",

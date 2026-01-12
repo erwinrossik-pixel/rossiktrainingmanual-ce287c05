@@ -1,12 +1,6 @@
 import { cn } from "@/lib/utils";
 
-interface DataTableProps {
-  headers: string[];
-  rows: (string | React.ReactNode)[][];
-  className?: string;
-}
-
-export function DataTable({ headers, rows, className }: DataTableProps) {
+export function DataTable({ headers, rows, className }) {
   return (
     <div className={cn("overflow-hidden rounded-2xl border border-border/50 shadow-sm bg-card", className)}>
       <div className="overflow-x-auto">
