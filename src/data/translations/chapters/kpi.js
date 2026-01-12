@@ -1,4 +1,4 @@
-export const kpiTranslations: Record<string, Record<string, string>> = {
+export const kpiTranslations = {
   en: {
     chapterNumber: "Chapter 30",
     chapterTitle: "KPIs",

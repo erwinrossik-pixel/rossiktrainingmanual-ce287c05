@@ -1,4 +1,4 @@
-export const riskManagementTranslations: Record<string, Record<string, string>> = {
+export const riskManagementTranslations = {
   en: {
     chapterNumber: "Chapter 34",
     chapterTitle: "Risk Management",

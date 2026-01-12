@@ -1,4 +1,4 @@
-export const translogicaTranslations: Record<string, Record<string, string>> = {
+export const translogicaTranslations = {
   en: {
     chapterNumber: "Chapter 29",
     chapterTitle: "Translogica TMS",

@@ -1,4 +1,4 @@
-export const carrierManagementTranslations: Record<string, Record<string, string>> = {
+export const carrierManagementTranslations = {
   en: {
     chapterNumber: "Chapter 24",
     chapterTitle: "Carrier Management",

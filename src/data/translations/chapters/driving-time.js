@@ -1,4 +1,4 @@
-export const drivingTimeTranslations: Record<string, Record<string, string>> = {
+export const drivingTimeTranslations = {
   en: {
     chapterNumber: "Chapter 6",
     chapterTitle: "Driving Time",
