@@ -1,4 +1,3 @@
-import { Language } from '@/contexts/LanguageContext';
 import { introTranslations } from './chapters/intro';
 import { mindsetTranslations } from './chapters/mindset';
 import { softskillsTranslations } from './chapters/softskills';
@@ -40,11 +39,8 @@ import { trainingTranslations } from './chapters/training';
 import { translogicaTranslations } from './chapters/translogica';
 import { warehouseTranslations } from './chapters/warehouse';
 
-// Chapter translations type
-type ChapterTranslations = Record<string, Record<string, string>>;
-
 // All chapter translations
-const allTranslations: Record<string, ChapterTranslations> = {
+const allTranslations = {
   intro: introTranslations,
   mindset: mindsetTranslations,
   'soft-skills': softskillsTranslations,
@@ -88,7 +84,7 @@ const allTranslations: Record<string, ChapterTranslations> = {
 };
 
 // Hook to get chapter translations
-export function getChapterTranslation(chapterId: string, key: string, language: Language): string {
+export function getChapterTranslation(chapterId, key, language) {
   const chapterTranslations = allTranslations[chapterId];
   if (!chapterTranslations) {
     return key;

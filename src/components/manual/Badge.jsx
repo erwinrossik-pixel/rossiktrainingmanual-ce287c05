@@ -1,11 +1,6 @@
 import { cn } from "@/lib/utils";
 
-interface BadgeProps {
-  children: React.ReactNode;
-  variant?: "default" | "info" | "success" | "warning" | "primary";
-}
-
-export function Badge({ children, variant = "default" }: BadgeProps) {
+export function Badge({ children, variant = "default" }) {
   const variants = {
     default: "bg-muted text-muted-foreground",
     info: "badge-info",
