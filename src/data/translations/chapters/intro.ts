@@ -135,6 +135,7 @@ export const introTranslations = {
     readyText: "Acum ești pregătit să-ți începi călătoria pentru a deveni un freight forwarder profesionist. Următorul capitol va explora mentalitatea și abilitățile de care ai nevoie pentru a excela în acest rol solicitant, dar plin de satisfacții.",
     tipTitle: "Sfat de Amintit",
     tipText: "Fiecare freight forwarder de succes a fost odată exact unde ești tu acum. Diferența dintre mediocru și excelent nu este talentul – este dedicarea de a învăța, adaptabilitatea și grija autentică pentru munca ta. Abordează fiecare zi ca pe o oportunitate de a-ți îmbunătăți abilitățile.",
+    quizTitle: "🎯 Verifică-ți Cunoștințele",
   },
   
   de: {
@@ -273,6 +274,7 @@ export const introTranslations = {
     readyText: "Sie sind jetzt bereit, Ihre Reise zu beginnen, um ein professioneller Spediteur zu werden. Das nächste Kapitel wird die Denkweise und Fähigkeiten erkunden, die Sie benötigen, um in dieser anspruchsvollen, aber lohnenden Rolle zu glänzen.",
     tipTitle: "Tipp zum Merken",
     tipText: "Jeder erfolgreiche Spediteur war einmal genau dort, wo Sie jetzt sind. Der Unterschied zwischen Durchschnitt und Exzellenz ist nicht Talent – es ist das Engagement zu lernen, die Anpassungsfähigkeit und die echte Fürsorge für Ihre Arbeit. Gehen Sie jeden Tag als Gelegenheit an, Ihre Fähigkeiten zu verbessern.",
+    quizTitle: "🎯 Wissenscheck",
   },
   
   en: {
@@ -411,5 +413,6 @@ export const introTranslations = {
     readyText: "You are now ready to begin your journey to becoming a professional freight forwarder. The next chapter will explore the mindset and skills you need to excel in this demanding but rewarding role.",
     tipTitle: "Tip to Remember",
     tipText: "Every successful freight forwarder was once exactly where you are now. The difference between average and excellent is not talent – it is the dedication to learn, adaptability, and genuine care for your work. Approach every day as an opportunity to improve your skills.",
+    quizTitle: "🎯 Knowledge Check",
   },
 };
