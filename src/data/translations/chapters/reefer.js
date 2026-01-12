@@ -1,4 +1,4 @@
-export const reeferTranslations: Record<string, Record<string, string>> = {
+export const reeferTranslations = {
   en: {
     chapterNumber: "Chapter 7",
     chapterTitle: "Reefer Transport",
