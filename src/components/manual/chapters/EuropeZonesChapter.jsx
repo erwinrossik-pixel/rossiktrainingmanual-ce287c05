@@ -408,26 +408,22 @@ export function EuropeZonesChapter() {
         />
 
         <div className="grid md:grid-cols-2 gap-4 mt-6">
-          <div className="bg-success/10 border border-success/30 p-4 rounded-lg">
-            <h4 className="font-semibold text-success mb-2">{ct("ceeAdvantages")}</h4>
+          <InfoCard title={ct("ceeAdvantages")} icon={CheckCircle2}>
             <ul className="text-sm space-y-1">
               <li>• {ct("ceeAdv1")}</li>
               <li>• {ct("ceeAdv2")}</li>
               <li>• {ct("ceeAdv3")}</li>
               <li>• {ct("ceeAdv4")}</li>
-              <li>• {ct("ceeAdv5")}</li>
             </ul>
-          </div>
-          <div className="bg-warning/10 border border-warning/30 p-4 rounded-lg">
-            <h4 className="font-semibold text-warning mb-2">{ct("ceeChallenges")}</h4>
+          </InfoCard>
+          <InfoCard title={ct("ceeChallenges")} icon={AlertTriangle}>
             <ul className="text-sm space-y-1">
               <li>• {ct("ceeChal1")}</li>
               <li>• {ct("ceeChal2")}</li>
               <li>• {ct("ceeChal3")}</li>
               <li>• {ct("ceeChal4")}</li>
-              <li>• {ct("ceeChal5")}</li>
             </ul>
-          </div>
+          </InfoCard>
         </div>
       </div>
 
@@ -435,72 +431,53 @@ export function EuropeZonesChapter() {
       <div className="info-card">
         <h2 className="section-title flex items-center gap-3">
           <span className="text-2xl">🇸🇪🇳🇴🇩🇰🇫🇮</span>
-          {ct("nordicsTitle")}
+          {ct("scandinaviaTitle")}
         </h2>
 
-        <div className="grid md:grid-cols-2 gap-6 mb-6">
-          <div>
-            <h3 className="font-semibold mb-3">{ct("nordicsMarket")}</h3>
-            <ul className="space-y-2 text-sm">
-              <li className="flex items-start gap-2">
-                <CheckCircle2 className="w-4 h-4 text-primary mt-0.5" />
-                <span>{ct("nordicsMarket1")}</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <CheckCircle2 className="w-4 h-4 text-primary mt-0.5" />
-                <span>{ct("nordicsMarket2")}</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <CheckCircle2 className="w-4 h-4 text-primary mt-0.5" />
-                <span>{ct("nordicsMarket3")}</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <Ship className="w-4 h-4 text-primary mt-0.5" />
-                <span>{ct("nordicsMarket4")}</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <AlertTriangle className="w-4 h-4 text-warning mt-0.5" />
-                <span>{ct("nordicsMarket5")}</span>
-              </li>
+        <div className="grid md:grid-cols-4 gap-4 mb-6">
+          <div className="bg-muted/50 p-4 rounded-lg">
+            <h4 className="font-semibold mb-2">🇸🇪 {ct("swedenTitle")}</h4>
+            <ul className="text-xs space-y-1 text-muted-foreground">
+              <li>• {ct("swedenItem1")}</li>
+              <li>• {ct("swedenItem2")}</li>
+              <li>• {ct("swedenItem3")}</li>
             </ul>
           </div>
-          <div>
-            <h3 className="font-semibold mb-3">{ct("nordicsAccess")}</h3>
-            <ul className="space-y-2 text-sm">
-              <li className="flex items-start gap-2">
-                <Route className="w-4 h-4 text-primary mt-0.5" />
-                <span>{ct("nordicsAccess1")}</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <Ship className="w-4 h-4 text-primary mt-0.5" />
-                <span>{ct("nordicsAccess2")}</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <Ship className="w-4 h-4 text-primary mt-0.5" />
-                <span>{ct("nordicsAccess3")}</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <Ship className="w-4 h-4 text-primary mt-0.5" />
-                <span>{ct("nordicsAccess4")}</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <AlertTriangle className="w-4 h-4 text-warning mt-0.5" />
-                <span>{ct("nordicsAccess5")}</span>
-              </li>
+          <div className="bg-muted/50 p-4 rounded-lg">
+            <h4 className="font-semibold mb-2">🇳🇴 {ct("norwayTitle")}</h4>
+            <ul className="text-xs space-y-1 text-muted-foreground">
+              <li>• {ct("norwayItem1")}</li>
+              <li>• {ct("norwayItem2")}</li>
+              <li>• {ct("norwayItem3")}</li>
+            </ul>
+          </div>
+          <div className="bg-muted/50 p-4 rounded-lg">
+            <h4 className="font-semibold mb-2">🇩🇰 {ct("denmarkTitle")}</h4>
+            <ul className="text-xs space-y-1 text-muted-foreground">
+              <li>• {ct("denmarkItem1")}</li>
+              <li>• {ct("denmarkItem2")}</li>
+              <li>• {ct("denmarkItem3")}</li>
+            </ul>
+          </div>
+          <div className="bg-muted/50 p-4 rounded-lg">
+            <h4 className="font-semibold mb-2">🇫🇮 {ct("finlandTitle")}</h4>
+            <ul className="text-xs space-y-1 text-muted-foreground">
+              <li>• {ct("finlandItem1")}</li>
+              <li>• {ct("finlandItem2")}</li>
+              <li>• {ct("finlandItem3")}</li>
             </ul>
           </div>
         </div>
 
-        <DataTable
-          headers={[ct("ferryRoute"), ct("duration"), ct("frequency"), ct("truckRate")]}
-          rows={[
-            ["Rostock → Trelleborg", "6h", "4-5/day", "€200-350"],
-            ["Kiel → Gothenburg", "14h", "1/day", "€400-600"],
-            ["Travemünde → Helsinki", "29h", "Every 2 days", "€500-800"],
-            ["Frederikshavn → Oslo", "9h", "1/day", "€300-450"],
-            ["Puttgarden → Rødby", "45 min", "Every 30 min", "€60-90"],
-          ]}
-        />
+        <div className="bg-info/10 border border-info/30 p-4 rounded-lg">
+          <h4 className="font-semibold mb-2">{ct("scandinaviaOperationalTips")}</h4>
+          <ul className="text-sm space-y-1">
+            <li>• {ct("scandinaviaTip1")}</li>
+            <li>• {ct("scandinaviaTip2")}</li>
+            <li>• {ct("scandinaviaTip3")}</li>
+            <li>• {ct("scandinaviaTip4")}</li>
+          </ul>
+        </div>
       </div>
 
       {/* UK & Ireland */}
@@ -510,62 +487,70 @@ export function EuropeZonesChapter() {
           {ct("ukIrelandTitle")}
         </h2>
 
-        <div className="bg-warning/10 border border-warning/30 p-4 rounded-lg mb-6">
-          <h4 className="font-semibold flex items-center gap-2 mb-2">
-            <AlertTriangle className="w-4 h-4" />
-            {ct("postBrexitTitle")}
-          </h4>
-          <ul className="text-sm space-y-1">
-            <li>• <strong>GVMS:</strong> {ct("postBrexit1")}</li>
-            <li>• <strong>GMR:</strong> {ct("postBrexit2")}</li>
-            <li>• <strong>Customs:</strong> {ct("postBrexit3")}</li>
-            <li>• <strong>Rules of origin:</strong> {ct("postBrexit4")}</li>
-            <li>• <strong>Sanitary checks:</strong> {ct("postBrexit5")}</li>
-          </ul>
+        <div className="grid md:grid-cols-2 gap-6 mb-6">
+          <div>
+            <h3 className="font-semibold mb-3">🇬🇧 {ct("ukTitle")}</h3>
+            <ul className="space-y-2 text-sm">
+              <li className="flex items-start gap-2">
+                <AlertTriangle className="w-4 h-4 text-warning mt-0.5" />
+                <span>{ct("ukItem1")}</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <CheckCircle2 className="w-4 h-4 text-primary mt-0.5" />
+                <span>{ct("ukItem2")}</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <Ship className="w-4 h-4 text-primary mt-0.5" />
+                <span>{ct("ukItem3")}</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <Euro className="w-4 h-4 text-primary mt-0.5" />
+                <span>{ct("ukItem4")}</span>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3 className="font-semibold mb-3">🇮🇪 {ct("irelandTitle")}</h3>
+            <ul className="space-y-2 text-sm">
+              <li className="flex items-start gap-2">
+                <CheckCircle2 className="w-4 h-4 text-primary mt-0.5" />
+                <span>{ct("irelandItem1")}</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <CheckCircle2 className="w-4 h-4 text-primary mt-0.5" />
+                <span>{ct("irelandItem2")}</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <Ship className="w-4 h-4 text-primary mt-0.5" />
+                <span>{ct("irelandItem3")}</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <Euro className="w-4 h-4 text-primary mt-0.5" />
+                <span>{ct("irelandItem4")}</span>
+              </li>
+            </ul>
+          </div>
         </div>
 
-        <DataTable
-          headers={[ct("route"), ct("options"), ct("transitTime"), ct("cost")]}
-          rows={[
-            ["Dover ↔ Calais", "Ferry (1.5h), Eurotunnel (35min)", "3-4h", "€180-280"],
-            ["Harwich ↔ Hook of Holland", "Ferry (7h overnight)", "8-10h", "€250-400"],
-            ["Liverpool ↔ Dublin", "Ferry (8h)", "10-12h", "€200-350"],
-            ["Holyhead ↔ Dublin", "Ferry (3h)", "5-6h", "€180-300"],
-            ["Fishguard ↔ Rosslare", "Ferry (3.5h)", "6-7h", "€180-300"],
-          ]}
-        />
-
-        <div className="grid md:grid-cols-2 gap-4 mt-4">
-          <div className="bg-info/10 border border-info/30 p-4 rounded-lg">
-            <h4 className="font-semibold mb-2">{ct("ukMarket")}</h4>
-            <ul className="text-sm space-y-1">
-              <li>• {ct("ukItem1")}</li>
-              <li>• {ct("ukItem2")}</li>
-              <li>• {ct("ukItem3")}</li>
-              <li>• {ct("ukItem4")}</li>
-              <li>• {ct("ukItem5")}</li>
-            </ul>
-          </div>
-          <div className="bg-info/10 border border-info/30 p-4 rounded-lg">
-            <h4 className="font-semibold mb-2">{ct("irelandMarket")}</h4>
-            <ul className="text-sm space-y-1">
-              <li>• {ct("irelandItem1")}</li>
-              <li>• {ct("irelandItem2")}</li>
-              <li>• {ct("irelandItem3")}</li>
-              <li>• {ct("irelandItem4")}</li>
-              <li>• {ct("irelandItem5")}</li>
-            </ul>
-          </div>
+        <div className="bg-warning/10 border border-warning/30 p-4 rounded-lg">
+          <h4 className="font-semibold flex items-center gap-2 mb-2">
+            <AlertTriangle className="w-4 h-4" />
+            {ct("brexitImpact")}
+          </h4>
+          <ul className="text-sm space-y-1">
+            <li>• {ct("brexitItem1")}</li>
+            <li>• {ct("brexitItem2")}</li>
+            <li>• {ct("brexitItem3")}</li>
+            <li>• {ct("brexitItem4")}</li>
+          </ul>
         </div>
       </div>
 
       {/* Quiz */}
       {quizzes["europe-zones"] && (
         <Quiz
-          title={ct("quizTitle")}
           questions={quizzes["europe-zones"]}
           chapterId="europe-zones"
-          questionsPerRound={5}
         />
       )}
     </div>
