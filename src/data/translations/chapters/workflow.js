@@ -1,4 +1,4 @@
-export const workflowTranslations: Record<string, Record<string, string>> = {
+export const workflowTranslations = {
   en: {
     chapterNumber: "Chapter 4",
     chapterTitle: "Workflow",
