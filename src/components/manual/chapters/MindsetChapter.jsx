@@ -396,63 +396,56 @@ export function MindsetChapter() {
         </div>
       </section>
 
-      {/* Core Principles */}
+      {/* First 90 Days */}
       <section>
         <h2 className="section-title flex items-center gap-3">
-          <Star className="w-6 h-6 text-primary" />
-          {ct('corePrinciples')}
+          <Calendar className="w-6 h-6 text-primary" />
+          {ct('first90Days')}
         </h2>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {[
-            { icon: Award, title: ct('principle1Title'), desc: ct('principle1Desc') },
-            { icon: Clock, title: ct('principle2Title'), desc: ct('principle2Desc') },
-            { icon: FileText, title: ct('principle3Title'), desc: ct('principle3Desc') },
-            { icon: Heart, title: ct('principle4Title'), desc: ct('principle4Desc') },
-            { icon: TrendingUp, title: ct('principle5Title'), desc: ct('principle5Desc') },
-            { icon: Shield, title: ct('principle6Title'), desc: ct('principle6Desc') },
-          ].map((principle, index) => (
-            <div key={index} className="bg-card border border-border rounded-xl p-4">
-              <div className="flex items-start gap-3">
-                <principle.icon className="w-6 h-6 text-primary flex-shrink-0" />
-                <div>
-                  <h3 className="font-semibold text-sm">{principle.title}</h3>
-                  <p className="text-xs text-muted-foreground mt-1">{principle.desc}</p>
-                </div>
-              </div>
-            </div>
-          ))}
+        <DataTable
+          headers={[ct('period'), ct('focus'), ct('goals'), ct('expectedOutcomes')]}
+          rows={[
+            [ct('week1to2'), ct('week1Focus'), ct('week1Goals'), ct('week1Outcomes')],
+            [ct('week3to4'), ct('week3Focus'), ct('week3Goals'), ct('week3Outcomes')],
+            [ct('month2'), ct('month2Focus'), ct('month2Goals'), ct('month2Outcomes')],
+            [ct('month3'), ct('month3Focus'), ct('month3Goals'), ct('month3Outcomes')],
+          ]}
+        />
+      </section>
+
+      {/* Performance Metrics */}
+      <section>
+        <h2 className="section-title flex items-center gap-3">
+          <TrendingUp className="w-6 h-6 text-primary" />
+          {ct('personalPerformanceMetrics')}
+        </h2>
+        <div className="grid md:grid-cols-4 gap-4">
+          <div className="bg-card border border-border rounded-xl p-4 text-center">
+            <Star className="w-8 h-8 text-primary mx-auto mb-2" />
+            <p className="text-2xl font-bold text-primary">95%+</p>
+            <p className="text-sm text-muted-foreground">{ct('onTimeDelivery')}</p>
+          </div>
+          <div className="bg-card border border-border rounded-xl p-4 text-center">
+            <Award className="w-8 h-8 text-success mx-auto mb-2" />
+            <p className="text-2xl font-bold text-success">&lt;1%</p>
+            <p className="text-sm text-muted-foreground">{ct('claimRate')}</p>
+          </div>
+          <div className="bg-card border border-border rounded-xl p-4 text-center">
+            <TrendingUp className="w-8 h-8 text-info mx-auto mb-2" />
+            <p className="text-2xl font-bold text-info">10-15%</p>
+            <p className="text-sm text-muted-foreground">{ct('averageMargin')}</p>
+          </div>
+          <div className="bg-card border border-border rounded-xl p-4 text-center">
+            <Phone className="w-8 h-8 text-warning mx-auto mb-2" />
+            <p className="text-2xl font-bold text-warning">&lt;30min</p>
+            <p className="text-sm text-muted-foreground">{ct('responseTime')}</p>
+          </div>
         </div>
       </section>
 
-      {/* Pre-Call Checklist */}
-      <Checklist
-        title={ct('preCallChecklist')}
-        items={[
-          ct('preCallItem1'),
-          ct('preCallItem2'),
-          ct('preCallItem3'),
-          ct('preCallItem4'),
-          ct('preCallItem5'),
-          ct('preCallItem6'),
-        ]}
-      />
-
-      {/* Post-Problem Checklist */}
-      <Checklist
-        title={ct('postProblemChecklist')}
-        items={[
-          ct('postProblemItem1'),
-          ct('postProblemItem2'),
-          ct('postProblemItem3'),
-          ct('postProblemItem4'),
-          ct('postProblemItem5'),
-          ct('postProblemItem6'),
-        ]}
-      />
-
       {/* Quiz */}
       {quizzes.mindset && (
-        <Quiz title={ct('quizTitle')} questions={quizzes.mindset} chapterId="mindset" />
+        <Quiz title={ct("quizTitle")} questions={quizzes.mindset} chapterId="mindset" />
       )}
     </div>
   );

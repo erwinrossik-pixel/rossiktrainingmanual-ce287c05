@@ -331,79 +331,36 @@ export function VehicleChapter() {
           </div>
           <div className="p-4 bg-muted/50 rounded-lg">
             <h3 className="font-semibold mb-2">{ct('securingEquipment')}</h3>
-            <p className="text-sm text-muted-foreground">{ct('securingEquipmentDesc')}</p>
+            <ul className="text-sm text-muted-foreground space-y-1">
+              <li>• {ct('straps')}</li>
+              <li>• {ct('antiSlipMats')}</li>
+              <li>• {ct('loadingBars')}</li>
+              <li>• {ct('edgeProtectors')}</li>
+            </ul>
           </div>
         </div>
-        <div className="grid md:grid-cols-3 gap-4 mt-4">
-          <div className="p-4 bg-primary/10 rounded-lg text-center">
-            <p className="text-3xl font-bold text-primary">80%</p>
-            <p className="text-sm text-muted-foreground">{ct('forwardRestraint')}</p>
-          </div>
-          <div className="p-4 bg-primary/10 rounded-lg text-center">
-            <p className="text-3xl font-bold text-primary">50%</p>
-            <p className="text-sm text-muted-foreground">{ct('sidewaysRestraint')}</p>
-          </div>
-          <div className="p-4 bg-primary/10 rounded-lg text-center">
-            <p className="text-3xl font-bold text-primary">50%</p>
-            <p className="text-sm text-muted-foreground">{ct('backwardRestraint')}</p>
+        <div className="mt-4 p-4 bg-info/10 border border-info/30 rounded-lg">
+          <h4 className="font-semibold mb-2">{ct('securingForces')}</h4>
+          <div className="grid grid-cols-3 gap-4 text-center text-sm">
+            <div>
+              <p className="text-xl font-bold text-primary">0.8g</p>
+              <p className="text-muted-foreground">{ct('forward')}</p>
+            </div>
+            <div>
+              <p className="text-xl font-bold text-primary">0.5g</p>
+              <p className="text-muted-foreground">{ct('sideways')}</p>
+            </div>
+            <div>
+              <p className="text-xl font-bold text-primary">0.5g</p>
+              <p className="text-muted-foreground">{ct('backward')}</p>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Pre-Trip Inspection */}
-      <ProcessMap
-        title={ct('preTripInspection')}
-        phases={[
-          {
-            name: ct('exteriorPhase'),
-            color: "primary" as const,
-            steps: [ct('tireCondition'), ct('lightsReflectors'), ct('bodyDamage')]
-          },
-          {
-            name: ct('trailerPhase'),
-            color: "info" as const,
-            steps: [ct('curtainsDoorsSeals'), ct('floorCondition'), ct('lashingPoints')]
-          },
-          {
-            name: ct('documentsPhase'),
-            color: "warning" as const,
-            steps: [ct('registrationInsurance'), ct('driverLicense'), ct('tachograph')]
-          },
-          {
-            name: ct('equipmentPhase'),
-            color: "success" as const,
-            steps: [ct('strapsChains'), ct('warningTriangle'), ct('firstAidKit')]
-          }
-        ]}
-      />
-
-      {/* Loading Checkpoints */}
-      <section>
-        <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
-          <CheckCircle2 className="w-6 h-6 text-primary" />
-          {ct('loadingCheckpoints')}
-        </h2>
-        <div className="grid md:grid-cols-2 gap-4">
-          {[
-            { title: ct('beforeLoading'), desc: ct('beforeLoadingDesc') },
-            { title: ct('duringLoading'), desc: ct('duringLoadingDesc') },
-            { title: ct('afterLoading'), desc: ct('afterLoadingDesc') },
-            { title: ct('documentation'), desc: ct('documentationDesc') }
-          ].map((item, index) => (
-            <div key={index} className="flex items-start gap-3 p-4 bg-card border border-border rounded-xl">
-              <CheckCircle2 className="w-5 h-5 text-success mt-0.5" />
-              <div>
-                <p className="font-medium">{item.title}</p>
-                <p className="text-sm text-muted-foreground">{item.desc}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* Quiz */}
       {quizzes.vehicle && (
-        <Quiz title={ct('quizTitle')} questions={quizzes.vehicle} chapterId="vehicle" />
+        <Quiz title={ct("quizTitle")} questions={quizzes.vehicle} chapterId="vehicle" />
       )}
     </div>
   );
