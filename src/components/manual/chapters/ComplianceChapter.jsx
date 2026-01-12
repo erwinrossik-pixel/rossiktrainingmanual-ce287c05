@@ -391,75 +391,60 @@ export function ComplianceChapter() {
         </div>
       </div>
 
-      {/* Planning Calculator */}
-      <div className="info-card">
-        <h2 className="section-title flex items-center gap-3">
-          <Calculator className="w-6 h-6 text-primary" />
-          {ct('calculatorTitle')}
-        </h2>
-
-        <div className="grid md:grid-cols-2 gap-6">
-          <div className="bg-muted/50 p-4 rounded-lg">
-            <h3 className="font-semibold mb-3">{ct('timeToDistance')}</h3>
-            <DataTable
-              headers={[ct('drivingTime'), ct('average75'), ct('withBreaks')]}
-              rows={[
-                ["4h 30min", "~340 km", "4h 30min total"],
-                ["9h (standard)", "~675 km", "~10h 15min total"],
-                ["10h (extended)", "~750 km", "~11h 30min total"],
-                ["18h (double)", "~1,200 km", "~21h total"],
-              ]}
-            />
-          </div>
-          <div className="bg-muted/50 p-4 rounded-lg">
-            <h3 className="font-semibold mb-3">{ct('commonRouteTimes')}</h3>
-            <DataTable
-              headers={[ct('routeHeader'), ct('distance'), ct('drivingDays')]}
-              rows={[
-                ["DE-UK", "~800-1,200 km", "1.5-2 days"],
-                ["DE-IT (North)", "~900 km", "1.5 days"],
-                ["DE-ES", "~1,800 km", "3 days"],
-                ["PL-FR", "~1,500 km", "2.5 days"],
-                ["NL-CZ", "~900 km", "1.5 days"],
-              ]}
-            />
-          </div>
-        </div>
-      </div>
-
-      {/* Multi-crew Rules */}
+      {/* Multi-manning */}
       <div className="info-card">
         <h2 className="section-title flex items-center gap-3">
           <Truck className="w-6 h-6 text-primary" />
           {ct('multiManningTitle')}
         </h2>
-
+        
         <p className="text-muted-foreground mb-4">
           {ct('multiManningDesc')}
         </p>
 
-        <DataTable
-          headers={[ct('aspect'), ct('singleDriverHeader'), ct('multiManningHeader')]}
-          rows={[
-            [ct('maxDrivingBeforeBreak'), "4h 30min", "4h 30min per driver"],
-            [ct('dailyDrivingMM'), "9h (10h 2×/week)", "9h per driver"],
-            [ct('dailyRestMM'), "11h (or 9h reduced)", "9h minimum, within 30h of last rest"],
-            [ct('totalShiftWindow'), "13-15 hours", "Up to 21 hours"],
-            [ct('distancePer24h'), "~700 km", "~1,200 km"],
-            [ct('presenceRequirement'), "-", "2nd driver must be present from hour 1"],
-          ]}
-        />
-
-        <div className="mt-4 p-4 bg-warning/10 border border-warning/30 rounded-lg">
-          <p className="text-sm flex items-start gap-2">
-            <AlertTriangle className="w-5 h-5 text-warning flex-shrink-0 mt-0.5" />
-            <span><strong>Important:</strong> {ct('multiManningImportant')}</span>
-          </p>
+        <div className="grid md:grid-cols-2 gap-6">
+          <div>
+            <h3 className="font-semibold mb-3">{ct('multiManningRules')}</h3>
+            <ul className="space-y-2 text-sm">
+              <li className="flex items-start gap-2">
+                <CheckCircle2 className="w-4 h-4 text-success mt-0.5" />
+                <span>{ct('multiManningRule1')}</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <CheckCircle2 className="w-4 h-4 text-success mt-0.5" />
+                <span>{ct('multiManningRule2')}</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <CheckCircle2 className="w-4 h-4 text-success mt-0.5" />
+                <span>{ct('multiManningRule3')}</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <CheckCircle2 className="w-4 h-4 text-success mt-0.5" />
+                <span>{ct('multiManningRule4')}</span>
+              </li>
+            </ul>
+          </div>
+          <div className="bg-muted/50 p-4 rounded-lg">
+            <h3 className="font-semibold mb-3">{ct('distanceAdvantage')}</h3>
+            <p className="text-sm text-muted-foreground mb-4">
+              {ct('distanceAdvantageDesc')}
+            </p>
+            <div className="flex justify-between items-center p-3 bg-background rounded-lg">
+              <span className="font-medium">{ct('singleDriver')}</span>
+              <span className="font-bold text-primary">~650-700 km/day</span>
+            </div>
+            <div className="flex justify-between items-center p-3 bg-background rounded-lg mt-2">
+              <span className="font-medium">{ct('twoDrivers')}</span>
+              <span className="font-bold text-success">~1,100-1,200 km/day</span>
+            </div>
+          </div>
         </div>
       </div>
 
       {/* Quiz */}
-      <Quiz title={ct('quizTitle')} questions={quizzes.compliance} chapterId="compliance" />
+      {quizzes.compliance && (
+        <Quiz title={ct('quizTitle')} questions={quizzes.compliance} chapterId="compliance" />
+      )}
     </div>
   );
 }

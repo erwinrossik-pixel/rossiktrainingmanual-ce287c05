@@ -437,78 +437,30 @@ export function CarrierManagementChapter() {
             </ul>
           </div>
           <div>
-            <h3 className="font-semibold mb-3">{ct("benefitsTitle")}</h3>
+            <h3 className="font-semibold mb-3">{ct("avoidTitle")}</h3>
             <ul className="space-y-2 text-sm">
               <li className="flex items-start gap-2">
-                <Star className="w-4 h-4 text-warning mt-0.5" />
-                <span>{ct("benefit1")}</span>
+                <AlertTriangle className="w-4 h-4 text-warning mt-0.5" />
+                <span>{ct("avoid1")}</span>
               </li>
               <li className="flex items-start gap-2">
-                <Star className="w-4 h-4 text-warning mt-0.5" />
-                <span>{ct("benefit2")}</span>
+                <AlertTriangle className="w-4 h-4 text-warning mt-0.5" />
+                <span>{ct("avoid2")}</span>
               </li>
               <li className="flex items-start gap-2">
-                <Star className="w-4 h-4 text-warning mt-0.5" />
-                <span>{ct("benefit3")}</span>
+                <AlertTriangle className="w-4 h-4 text-warning mt-0.5" />
+                <span>{ct("avoid3")}</span>
               </li>
               <li className="flex items-start gap-2">
-                <Star className="w-4 h-4 text-warning mt-0.5" />
-                <span>{ct("benefit4")}</span>
+                <AlertTriangle className="w-4 h-4 text-warning mt-0.5" />
+                <span>{ct("avoid4")}</span>
               </li>
               <li className="flex items-start gap-2">
-                <Star className="w-4 h-4 text-warning mt-0.5" />
-                <span>{ct("benefit5")}</span>
+                <AlertTriangle className="w-4 h-4 text-warning mt-0.5" />
+                <span>{ct("avoid5")}</span>
               </li>
             </ul>
           </div>
-        </div>
-      </div>
-
-      {/* Carrier Database */}
-      <div className="info-card bg-muted/30">
-        <h2 className="section-title">{ct("carrierDatabaseTitle")}</h2>
-        
-        <p className="text-muted-foreground mb-4">
-          {ct("carrierDatabaseDesc")}
-        </p>
-
-        <div className="grid md:grid-cols-3 gap-4">
-          <div className="bg-background p-4 rounded-lg">
-            <h4 className="font-semibold mb-2">{ct("companyDetails")}</h4>
-            <ul className="text-sm space-y-1 text-muted-foreground">
-              <li>• {ct("companyDetail1")}</li>
-              <li>• {ct("companyDetail2")}</li>
-              <li>• {ct("companyDetail3")}</li>
-              <li>• {ct("companyDetail4")}</li>
-              <li>• {ct("companyDetail5")}</li>
-            </ul>
-          </div>
-          <div className="bg-background p-4 rounded-lg">
-            <h4 className="font-semibold mb-2">{ct("operationalInfo")}</h4>
-            <ul className="text-sm space-y-1 text-muted-foreground">
-              <li>• {ct("opInfo1")}</li>
-              <li>• {ct("opInfo2")}</li>
-              <li>• {ct("opInfo3")}</li>
-              <li>• {ct("opInfo4")}</li>
-              <li>• {ct("opInfo5")}</li>
-            </ul>
-          </div>
-          <div className="bg-background p-4 rounded-lg">
-            <h4 className="font-semibold mb-2">{ct("compliancePerformance")}</h4>
-            <ul className="text-sm space-y-1 text-muted-foreground">
-              <li>• {ct("compPerf1")}</li>
-              <li>• {ct("compPerf2")}</li>
-              <li>• {ct("compPerf3")}</li>
-              <li>• {ct("compPerf4")}</li>
-              <li>• {ct("compPerf5")}</li>
-            </ul>
-          </div>
-        </div>
-
-        <div className="mt-4 p-4 bg-info/10 border border-info/30 rounded-lg">
-          <p className="text-sm">
-            <strong>Pro Tip:</strong> {ct("databaseProTip")}
-          </p>
         </div>
       </div>
 
