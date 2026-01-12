@@ -385,20 +385,28 @@ export function CaseStudiesChapter() {
         </h2>
         <p className="text-muted-foreground mb-4">{ct("summaryDesc")}</p>
         <div className="grid md:grid-cols-2 gap-3">
-          <div className="flex items-start gap-2"><CheckCircle className="w-4 h-4 text-success mt-1 flex-shrink-0" /><span className="text-sm">{ct("takeaway1")}</span></div>
-          <div className="flex items-start gap-2"><CheckCircle className="w-4 h-4 text-success mt-1 flex-shrink-0" /><span className="text-sm">{ct("takeaway2")}</span></div>
-          <div className="flex items-start gap-2"><CheckCircle className="w-4 h-4 text-success mt-1 flex-shrink-0" /><span className="text-sm">{ct("takeaway3")}</span></div>
-          <div className="flex items-start gap-2"><CheckCircle className="w-4 h-4 text-success mt-1 flex-shrink-0" /><span className="text-sm">{ct("takeaway4")}</span></div>
-          <div className="flex items-start gap-2"><CheckCircle className="w-4 h-4 text-success mt-1 flex-shrink-0" /><span className="text-sm">{ct("takeaway5")}</span></div>
-          <div className="flex items-start gap-2"><CheckCircle className="w-4 h-4 text-success mt-1 flex-shrink-0" /><span className="text-sm">{ct("takeaway6")}</span></div>
-          <div className="flex items-start gap-2"><CheckCircle className="w-4 h-4 text-success mt-1 flex-shrink-0" /><span className="text-sm">{ct("takeaway7")}</span></div>
-          <div className="flex items-start gap-2"><CheckCircle className="w-4 h-4 text-success mt-1 flex-shrink-0" /><span className="text-sm">{ct("takeaway8")}</span></div>
+          <div className="flex items-start gap-2">
+            <CheckCircle className="w-5 h-5 text-success mt-0.5 flex-shrink-0" />
+            <span className="text-sm">{ct("summaryPoint1")}</span>
+          </div>
+          <div className="flex items-start gap-2">
+            <CheckCircle className="w-5 h-5 text-success mt-0.5 flex-shrink-0" />
+            <span className="text-sm">{ct("summaryPoint2")}</span>
+          </div>
+          <div className="flex items-start gap-2">
+            <CheckCircle className="w-5 h-5 text-success mt-0.5 flex-shrink-0" />
+            <span className="text-sm">{ct("summaryPoint3")}</span>
+          </div>
+          <div className="flex items-start gap-2">
+            <CheckCircle className="w-5 h-5 text-success mt-0.5 flex-shrink-0" />
+            <span className="text-sm">{ct("summaryPoint4")}</span>
+          </div>
         </div>
       </section>
 
       {/* Quiz */}
-      {quizzes["case-studies"] && (
-        <Quiz title={ct("quizTitle")} questions={quizzes["case-studies"]} />
+      {quizzes['case-studies'] && (
+        <Quiz title={ct("quizTitle")} questions={quizzes['case-studies']} chapterId="case-studies" />
       )}
     </div>
   );
