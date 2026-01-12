@@ -32,6 +32,26 @@ export function Certificate({
     year: "numeric",
   });
 
+  // Sanitize name for filename - prevents path traversal attacks
+  const sanitizeFilename = (name) => {
+    return name
+      .trim()
+      .slice(0, 100)
+      .replace(/[^a-zA-Z0-9\s\-_àáâãäåæçèéêëìíîïñòóôõöùúûüýÿ]/gi, '')
+      .replace(/\s+/g, '_')
+      .replace(/^\.+/, '') // Remove leading dots
+      .replace(/\.+$/, ''); // Remove trailing dots
+  };
+
+  // Validate trainee name input
+  const handleNameChange = (e) => {
+    const value = e.target.value;
+    // Allow only letters, spaces, hyphens, and common diacritics, max 100 chars
+    if (value.length <= 100) {
+      setTraineeName(value);
+    }
+  };
+
   const handleDownload = async () => {
     if (!certificateRef.current || !traineeName.trim()) return;
 
@@ -54,7 +74,10 @@ export function Certificate({
       const pdfHeight = pdf.internal.pageSize.getHeight();
 
       pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
-      pdf.save(`Rossik_Certificate_${traineeName.replace(/\s+/g, "_")}.pdf`);
+      
+      // Use sanitized filename to prevent path traversal
+      const safeFilename = sanitizeFilename(traineeName);
+      pdf.save(`Rossik_Certificate_${safeFilename || 'Certificate'}.pdf`);
     } catch (error) {
       console.error("Error generating PDF:", error);
     } finally {
@@ -137,7 +160,8 @@ export function Certificate({
               id="name"
               placeholder="Enter your name as it should appear on the certificate"
               value={traineeName}
-              onChange={(e) => setTraineeName(e.target.value)}
+              onChange={handleNameChange}
+              maxLength={100}
             />
           </div>
 
