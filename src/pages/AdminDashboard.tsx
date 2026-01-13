@@ -1,0 +1,421 @@
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '@/hooks/useAuth';
+import { supabase } from '@/integrations/supabase/client';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Badge } from '@/components/ui/badge';
+import { Progress } from '@/components/ui/progress';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { ArrowLeft, Users, BookOpen, Trophy, Clock, Eye, Download } from 'lucide-react';
+import { format } from 'date-fns';
+
+interface UserWithProgress {
+  id: string;
+  email: string;
+  first_name: string | null;
+  last_name: string | null;
+  role: string;
+  created_at: string;
+  chaptersCompleted: number;
+  totalChapters: number;
+  averageScore: number;
+  lastActivity: string | null;
+}
+
+interface ChapterProgress {
+  chapter_id: string;
+  status: string;
+  best_score: number;
+  attempts_count: number;
+  completed_at: string | null;
+  last_attempt_at: string | null;
+}
+
+interface QuizAttempt {
+  id: string;
+  chapter_id: string;
+  score: number;
+  total_questions: number;
+  passed: boolean;
+  created_at: string;
+  language: string;
+}
+
+export default function AdminDashboard() {
+  const navigate = useNavigate();
+  const { user, profile, loading, isAdmin } = useAuth();
+  const [users, setUsers] = useState<UserWithProgress[]>([]);
+  const [loadingUsers, setLoadingUsers] = useState(true);
+  const [selectedUser, setSelectedUser] = useState<UserWithProgress | null>(null);
+  const [userProgress, setUserProgress] = useState<ChapterProgress[]>([]);
+  const [userAttempts, setUserAttempts] = useState<QuizAttempt[]>([]);
+  const [detailsOpen, setDetailsOpen] = useState(false);
+
+  useEffect(() => {
+    if (!loading && !user) {
+      navigate('/auth');
+    } else if (!loading && !isAdmin) {
+      navigate('/');
+    }
+  }, [user, loading, isAdmin, navigate]);
+
+  useEffect(() => {
+    if (isAdmin) {
+      fetchUsers();
+    }
+  }, [isAdmin]);
+
+  const fetchUsers = async () => {
+    setLoadingUsers(true);
+    
+    // Fetch all profiles
+    const { data: profiles, error: profilesError } = await supabase
+      .from('profiles')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if (profilesError) {
+      console.error('Error fetching profiles:', profilesError);
+      setLoadingUsers(false);
+      return;
+    }
+
+    // Fetch all chapter progress
+    const { data: progress } = await supabase
+      .from('chapter_progress')
+      .select('*');
+
+    // Fetch all quiz attempts for last activity
+    const { data: attempts } = await supabase
+      .from('quiz_attempts')
+      .select('user_id, created_at')
+      .order('created_at', { ascending: false });
+
+    // Count total chapters
+    const { count: totalChapters } = await supabase
+      .from('chapters')
+      .select('*', { count: 'exact', head: true });
+
+    // Process users with their progress
+    const usersWithProgress: UserWithProgress[] = profiles.map((profile) => {
+      const userProgress = progress?.filter(p => p.user_id === profile.id) || [];
+      const completedChapters = userProgress.filter(p => p.status === 'completed').length;
+      const scores = userProgress.filter(p => p.best_score > 0).map(p => p.best_score);
+      const averageScore = scores.length > 0 
+        ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) 
+        : 0;
+      
+      const userAttempts = attempts?.filter(a => a.user_id === profile.id) || [];
+      const lastActivity = userAttempts[0]?.created_at || profile.updated_at;
+
+      return {
+        id: profile.id,
+        email: profile.email,
+        first_name: profile.first_name,
+        last_name: profile.last_name,
+        role: profile.role,
+        created_at: profile.created_at,
+        chaptersCompleted: completedChapters,
+        totalChapters: totalChapters || 40,
+        averageScore,
+        lastActivity,
+      };
+    });
+
+    setUsers(usersWithProgress);
+    setLoadingUsers(false);
+  };
+
+  const openUserDetails = async (userItem: UserWithProgress) => {
+    setSelectedUser(userItem);
+    setDetailsOpen(true);
+
+    // Fetch user's chapter progress
+    const { data: progress } = await supabase
+      .from('chapter_progress')
+      .select('*')
+      .eq('user_id', userItem.id)
+      .order('chapter_id');
+
+    setUserProgress(progress || []);
+
+    // Fetch user's quiz attempts
+    const { data: attempts } = await supabase
+      .from('quiz_attempts')
+      .select('*')
+      .eq('user_id', userItem.id)
+      .order('created_at', { ascending: false })
+      .limit(50);
+
+    setUserAttempts(attempts || []);
+  };
+
+  const exportToCSV = () => {
+    const headers = ['Nume', 'Email', 'Rol', 'Capitole Completate', 'Total Capitole', 'Scor Mediu', 'Ultima Activitate', 'Data Înregistrare'];
+    const rows = users.map(u => [
+      `${u.first_name || ''} ${u.last_name || ''}`.trim() || 'N/A',
+      u.email,
+      u.role,
+      u.chaptersCompleted,
+      u.totalChapters,
+      `${u.averageScore}%`,
+      u.lastActivity ? format(new Date(u.lastActivity), 'dd.MM.yyyy HH:mm') : 'N/A',
+      format(new Date(u.created_at), 'dd.MM.yyyy'),
+    ]);
+
+    const csvContent = [headers, ...rows]
+      .map(row => row.map(cell => `"${cell}"`).join(','))
+      .join('\n');
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `rossik-users-${format(new Date(), 'yyyy-MM-dd')}.csv`;
+    link.click();
+  };
+
+  const getStatusBadge = (status: string) => {
+    switch (status) {
+      case 'completed':
+        return <Badge className="bg-green-500">Completat</Badge>;
+      case 'in_progress':
+        return <Badge className="bg-yellow-500">În Progres</Badge>;
+      case 'unlocked':
+        return <Badge className="bg-blue-500">Deblocat</Badge>;
+      default:
+        return <Badge variant="secondary">Blocat</Badge>;
+    }
+  };
+
+  if (loading || loadingUsers) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-background p-6">
+      <div className="max-w-7xl mx-auto space-y-6">
+        {/* Header */}
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <Button variant="outline" size="icon" onClick={() => navigate('/')}>
+              <ArrowLeft className="h-4 w-4" />
+            </Button>
+            <div>
+              <h1 className="text-3xl font-bold">Admin Dashboard</h1>
+              <p className="text-muted-foreground">Gestionare utilizatori și progres</p>
+            </div>
+          </div>
+          <Button onClick={exportToCSV}>
+            <Download className="h-4 w-4 mr-2" />
+            Export CSV
+          </Button>
+        </div>
+
+        {/* Stats Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between pb-2">
+              <CardTitle className="text-sm font-medium">Total Utilizatori</CardTitle>
+              <Users className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">{users.length}</div>
+            </CardContent>
+          </Card>
+          
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between pb-2">
+              <CardTitle className="text-sm font-medium">Capitole Total</CardTitle>
+              <BookOpen className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">{users[0]?.totalChapters || 40}</div>
+            </CardContent>
+          </Card>
+          
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between pb-2">
+              <CardTitle className="text-sm font-medium">Scor Mediu Global</CardTitle>
+              <Trophy className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">
+                {users.length > 0 
+                  ? Math.round(users.reduce((a, b) => a + b.averageScore, 0) / users.length)
+                  : 0}%
+              </div>
+            </CardContent>
+          </Card>
+          
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between pb-2">
+              <CardTitle className="text-sm font-medium">Utilizatori Activi (7 zile)</CardTitle>
+              <Clock className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">
+                {users.filter(u => {
+                  if (!u.lastActivity) return false;
+                  const lastActive = new Date(u.lastActivity);
+                  const weekAgo = new Date();
+                  weekAgo.setDate(weekAgo.getDate() - 7);
+                  return lastActive > weekAgo;
+                }).length}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Users Table */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Utilizatori</CardTitle>
+            <CardDescription>Lista tuturor utilizatorilor și progresul lor</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Nume</TableHead>
+                  <TableHead>Email</TableHead>
+                  <TableHead>Rol</TableHead>
+                  <TableHead>Progres</TableHead>
+                  <TableHead>Scor Mediu</TableHead>
+                  <TableHead>Ultima Activitate</TableHead>
+                  <TableHead>Acțiuni</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {users.map((userItem) => (
+                  <TableRow key={userItem.id}>
+                    <TableCell className="font-medium">
+                      {userItem.first_name || userItem.last_name 
+                        ? `${userItem.first_name || ''} ${userItem.last_name || ''}`.trim()
+                        : 'N/A'}
+                    </TableCell>
+                    <TableCell>{userItem.email}</TableCell>
+                    <TableCell>
+                      <Badge variant={userItem.role === 'admin' ? 'default' : 'secondary'}>
+                        {userItem.role === 'admin' ? 'Admin' : 'Utilizator'}
+                      </Badge>
+                    </TableCell>
+                    <TableCell>
+                      <div className="flex items-center gap-2">
+                        <Progress 
+                          value={(userItem.chaptersCompleted / userItem.totalChapters) * 100} 
+                          className="w-20"
+                        />
+                        <span className="text-sm text-muted-foreground">
+                          {userItem.chaptersCompleted}/{userItem.totalChapters}
+                        </span>
+                      </div>
+                    </TableCell>
+                    <TableCell>{userItem.averageScore}%</TableCell>
+                    <TableCell>
+                      {userItem.lastActivity 
+                        ? format(new Date(userItem.lastActivity), 'dd.MM.yyyy HH:mm')
+                        : 'N/A'}
+                    </TableCell>
+                    <TableCell>
+                      <Button variant="ghost" size="sm" onClick={() => openUserDetails(userItem)}>
+                        <Eye className="h-4 w-4 mr-1" />
+                        Detalii
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* User Details Dialog */}
+      <Dialog open={detailsOpen} onOpenChange={setDetailsOpen}>
+        <DialogContent className="max-w-4xl max-h-[80vh]">
+          <DialogHeader>
+            <DialogTitle>
+              Detalii Utilizator: {selectedUser?.first_name} {selectedUser?.last_name}
+            </DialogTitle>
+            <DialogDescription>{selectedUser?.email}</DialogDescription>
+          </DialogHeader>
+          
+          <ScrollArea className="h-[60vh]">
+            <div className="space-y-6 pr-4">
+              {/* Chapter Progress */}
+              <div>
+                <h3 className="text-lg font-semibold mb-3">Progres pe Capitole</h3>
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Capitol</TableHead>
+                      <TableHead>Status</TableHead>
+                      <TableHead>Cel Mai Bun Scor</TableHead>
+                      <TableHead>Încercări</TableHead>
+                      <TableHead>Completat La</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {userProgress.map((progress) => (
+                      <TableRow key={progress.chapter_id}>
+                        <TableCell className="font-medium">{progress.chapter_id}</TableCell>
+                        <TableCell>{getStatusBadge(progress.status)}</TableCell>
+                        <TableCell>{progress.best_score}/10</TableCell>
+                        <TableCell>{progress.attempts_count}</TableCell>
+                        <TableCell>
+                          {progress.completed_at 
+                            ? format(new Date(progress.completed_at), 'dd.MM.yyyy HH:mm')
+                            : '-'}
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
+
+              {/* Quiz Attempts */}
+              <div>
+                <h3 className="text-lg font-semibold mb-3">Istoric Încercări Quiz (ultimele 50)</h3>
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Capitol</TableHead>
+                      <TableHead>Scor</TableHead>
+                      <TableHead>Trecut</TableHead>
+                      <TableHead>Limbă</TableHead>
+                      <TableHead>Data</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {userAttempts.map((attempt) => (
+                      <TableRow key={attempt.id}>
+                        <TableCell className="font-medium">{attempt.chapter_id}</TableCell>
+                        <TableCell>{attempt.score}/{attempt.total_questions}</TableCell>
+                        <TableCell>
+                          {attempt.passed 
+                            ? <Badge className="bg-green-500">Da</Badge>
+                            : <Badge variant="destructive">Nu</Badge>}
+                        </TableCell>
+                        <TableCell>{attempt.language.toUpperCase()}</TableCell>
+                        <TableCell>
+                          {format(new Date(attempt.created_at), 'dd.MM.yyyy HH:mm')}
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
+            </div>
+          </ScrollArea>
+        </DialogContent>
+      </Dialog>
+    </div>
+  );
+}
