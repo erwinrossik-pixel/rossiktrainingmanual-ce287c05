@@ -108,7 +108,7 @@ export function Sidebar({ activeChapter, onChapterChange, onShowDashboard }: Sid
   const [mobileOpen, setMobileOpen] = useState(false);
   const { progress, getOverallProgress, getChapterProgress } = useProgressContext();
   const { t } = useLanguage();
-  const { user } = useAuth();
+  const { user, isAdmin } = useAuth();
   const { 
     progress: dbProgress, 
     isChapterUnlocked, 
@@ -148,6 +148,9 @@ export function Sidebar({ activeChapter, onChapterChange, onShowDashboard }: Sid
   const isChapterAccessible = (chapterId: string, chapterIndex: number, isIntro: boolean): boolean => {
     // If not logged in, all chapters accessible (no gating for guests)
     if (!user) return true;
+    
+    // Admins have access to all chapters
+    if (isAdmin) return true;
     
     // Intro chapter always accessible
     if (isIntro) return true;
