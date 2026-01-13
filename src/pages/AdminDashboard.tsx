@@ -9,8 +9,10 @@ import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { ArrowLeft, Users, BookOpen, Trophy, Clock, Eye, Download } from 'lucide-react';
-import { format } from 'date-fns';
+import { ArrowLeft, Users, BookOpen, Trophy, Clock, Eye, Download, BarChart3 } from 'lucide-react';
+import { format, subDays } from 'date-fns';
+import { AdminCharts } from '@/components/admin/AdminCharts';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 interface UserWithProgress {
   id: string;
@@ -53,6 +55,8 @@ export default function AdminDashboard() {
   const [userProgress, setUserProgress] = useState<ChapterProgress[]>([]);
   const [userAttempts, setUserAttempts] = useState<QuizAttempt[]>([]);
   const [detailsOpen, setDetailsOpen] = useState(false);
+  const [allAttempts, setAllAttempts] = useState<QuizAttempt[]>([]);
+  const [chapters, setChapters] = useState<{ id: string; slug: string }[]>([]);
 
   useEffect(() => {
     if (!loading && !user) {
@@ -94,10 +98,21 @@ export default function AdminDashboard() {
       .select('user_id, created_at')
       .order('created_at', { ascending: false });
 
-    // Count total chapters
-    const { count: totalChapters } = await supabase
+    // Fetch all chapters
+    const { data: chaptersData, count: totalChapters } = await supabase
       .from('chapters')
-      .select('*', { count: 'exact', head: true });
+      .select('id, slug', { count: 'exact' })
+      .order('order_index');
+
+    setChapters(chaptersData || []);
+
+    // Fetch all quiz attempts for charts
+    const { data: allAttemptsData } = await supabase
+      .from('quiz_attempts')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    setAllAttempts(allAttemptsData || []);
 
     // Process users with their progress
     const usersWithProgress: UserWithProgress[] = profiles.map((profile) => {
@@ -190,6 +205,51 @@ export default function AdminDashboard() {
     }
   };
 
+  // Calculate chart data
+  const chapterStats = chapters.map(chapter => {
+    const chapterAttempts = allAttempts.filter(a => a.chapter_id === chapter.id);
+    const passedAttempts = chapterAttempts.filter(a => a.passed);
+    const scores = chapterAttempts.map(a => a.score);
+    
+    return {
+      chapterId: chapter.id,
+      chapterName: chapter.slug.replace(/-/g, ' ').slice(0, 15),
+      attempts: chapterAttempts.length,
+      passRate: chapterAttempts.length > 0 ? (passedAttempts.length / chapterAttempts.length) * 100 : 0,
+      avgScore: scores.length > 0 ? scores.reduce((a, b) => a + b, 0) / scores.length : 0,
+    };
+  });
+
+  const dailyActivity = Array.from({ length: 30 }, (_, i) => {
+    const date = subDays(new Date(), 29 - i);
+    const dateStr = format(date, 'yyyy-MM-dd');
+    const dayAttempts = allAttempts.filter(a => 
+      format(new Date(a.created_at), 'yyyy-MM-dd') === dateStr
+    );
+    
+    return {
+      date: format(date, 'dd/MM'),
+      attempts: dayAttempts.length,
+      passed: dayAttempts.filter(a => a.passed).length,
+    };
+  });
+
+  const completionDistribution = [
+    { name: '0 capitole', value: users.filter(u => u.chaptersCompleted === 0).length, color: '#ef4444' },
+    { name: '1-10 capitole', value: users.filter(u => u.chaptersCompleted >= 1 && u.chaptersCompleted <= 10).length, color: '#eab308' },
+    { name: '11-25 capitole', value: users.filter(u => u.chaptersCompleted >= 11 && u.chaptersCompleted <= 25).length, color: '#3b82f6' },
+    { name: '26-39 capitole', value: users.filter(u => u.chaptersCompleted >= 26 && u.chaptersCompleted <= 39).length, color: '#8b5cf6' },
+    { name: 'Toate (40)', value: users.filter(u => u.chaptersCompleted >= 40).length, color: '#22c55e' },
+  ];
+
+  const scoreDistribution = [
+    { range: '0-2', count: allAttempts.filter(a => a.score >= 0 && a.score <= 2).length },
+    { range: '3-4', count: allAttempts.filter(a => a.score >= 3 && a.score <= 4).length },
+    { range: '5-6', count: allAttempts.filter(a => a.score >= 5 && a.score <= 6).length },
+    { range: '7-8', count: allAttempts.filter(a => a.score >= 7 && a.score <= 8).length },
+    { range: '9-10', count: allAttempts.filter(a => a.score >= 9 && a.score <= 10).length },
+  ];
+
   if (loading || loadingUsers) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
@@ -273,68 +333,92 @@ export default function AdminDashboard() {
           </Card>
         </div>
 
-        {/* Users Table */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Utilizatori</CardTitle>
-            <CardDescription>Lista tuturor utilizatorilor și progresul lor</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Nume</TableHead>
-                  <TableHead>Email</TableHead>
-                  <TableHead>Rol</TableHead>
-                  <TableHead>Progres</TableHead>
-                  <TableHead>Scor Mediu</TableHead>
-                  <TableHead>Ultima Activitate</TableHead>
-                  <TableHead>Acțiuni</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {users.map((userItem) => (
-                  <TableRow key={userItem.id}>
-                    <TableCell className="font-medium">
-                      {userItem.first_name || userItem.last_name 
-                        ? `${userItem.first_name || ''} ${userItem.last_name || ''}`.trim()
-                        : 'N/A'}
-                    </TableCell>
-                    <TableCell>{userItem.email}</TableCell>
-                    <TableCell>
-                      <Badge variant={userItem.role === 'admin' ? 'default' : 'secondary'}>
-                        {userItem.role === 'admin' ? 'Admin' : 'Utilizator'}
-                      </Badge>
-                    </TableCell>
-                    <TableCell>
-                      <div className="flex items-center gap-2">
-                        <Progress 
-                          value={(userItem.chaptersCompleted / userItem.totalChapters) * 100} 
-                          className="w-20"
-                        />
-                        <span className="text-sm text-muted-foreground">
-                          {userItem.chaptersCompleted}/{userItem.totalChapters}
-                        </span>
-                      </div>
-                    </TableCell>
-                    <TableCell>{userItem.averageScore}%</TableCell>
-                    <TableCell>
-                      {userItem.lastActivity 
-                        ? format(new Date(userItem.lastActivity), 'dd.MM.yyyy HH:mm')
-                        : 'N/A'}
-                    </TableCell>
-                    <TableCell>
-                      <Button variant="ghost" size="sm" onClick={() => openUserDetails(userItem)}>
-                        <Eye className="h-4 w-4 mr-1" />
-                        Detalii
-                      </Button>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </CardContent>
-        </Card>
+        {/* Tabs for Users and Analytics */}
+        <Tabs defaultValue="users" className="w-full">
+          <TabsList>
+            <TabsTrigger value="users" className="flex items-center gap-2">
+              <Users className="h-4 w-4" />
+              Utilizatori
+            </TabsTrigger>
+            <TabsTrigger value="analytics" className="flex items-center gap-2">
+              <BarChart3 className="h-4 w-4" />
+              Analiză
+            </TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="users" className="mt-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>Utilizatori</CardTitle>
+                <CardDescription>Lista tuturor utilizatorilor și progresul lor</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Nume</TableHead>
+                      <TableHead>Email</TableHead>
+                      <TableHead>Rol</TableHead>
+                      <TableHead>Progres</TableHead>
+                      <TableHead>Scor Mediu</TableHead>
+                      <TableHead>Ultima Activitate</TableHead>
+                      <TableHead>Acțiuni</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {users.map((userItem) => (
+                      <TableRow key={userItem.id}>
+                        <TableCell className="font-medium">
+                          {userItem.first_name || userItem.last_name 
+                            ? `${userItem.first_name || ''} ${userItem.last_name || ''}`.trim()
+                            : 'N/A'}
+                        </TableCell>
+                        <TableCell>{userItem.email}</TableCell>
+                        <TableCell>
+                          <Badge variant={userItem.role === 'admin' ? 'default' : 'secondary'}>
+                            {userItem.role === 'admin' ? 'Admin' : 'Utilizator'}
+                          </Badge>
+                        </TableCell>
+                        <TableCell>
+                          <div className="flex items-center gap-2">
+                            <Progress 
+                              value={(userItem.chaptersCompleted / userItem.totalChapters) * 100} 
+                              className="w-20"
+                            />
+                            <span className="text-sm text-muted-foreground">
+                              {userItem.chaptersCompleted}/{userItem.totalChapters}
+                            </span>
+                          </div>
+                        </TableCell>
+                        <TableCell>{userItem.averageScore}%</TableCell>
+                        <TableCell>
+                          {userItem.lastActivity 
+                            ? format(new Date(userItem.lastActivity), 'dd.MM.yyyy HH:mm')
+                            : 'N/A'}
+                        </TableCell>
+                        <TableCell>
+                          <Button variant="ghost" size="sm" onClick={() => openUserDetails(userItem)}>
+                            <Eye className="h-4 w-4 mr-1" />
+                            Detalii
+                          </Button>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="analytics" className="mt-6">
+            <AdminCharts 
+              chapterStats={chapterStats}
+              dailyActivity={dailyActivity}
+              completionDistribution={completionDistribution}
+              scoreDistribution={scoreDistribution}
+            />
+          </TabsContent>
+        </Tabs>
       </div>
 
       {/* User Details Dialog */}
