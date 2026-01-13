@@ -2,7 +2,7 @@ import { InfoCard } from "../InfoCard";
 import { DataTable } from "../DataTable";
 import { Quiz } from "../Quiz";
 import { quizzes } from "@/data/quizData";
-import { MapPin, Truck, BarChart3, Clock, Shield, Fuel, Settings, AlertTriangle } from "lucide-react";
+import { MapPin, Truck, BarChart3, Shield, Fuel, Settings, AlertTriangle, Monitor, Database, Navigation, Calendar, Users, FileText } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
 
@@ -17,6 +17,116 @@ export function FleetChapter() {
         icon={Truck}
         variant="fleet"
       />
+
+      {/* TMS Dispoplan Integration */}
+      <section>
+        <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
+          <Monitor className="w-6 h-6 text-primary" />
+          {ct("dispoplanTitle")}
+        </h2>
+        <p className="text-muted-foreground mb-4">{ct("dispoplanDescription")}</p>
+        <div className="grid md:grid-cols-2 gap-4">
+          <InfoCard title={ct("dispoplanInterface")} icon={Monitor} variant="highlight">
+            <ul className="space-y-2">
+              <li>• {ct("dispoplanTimeline")}</li>
+              <li>• {ct("dispoplanDragDrop")}</li>
+              <li>• {ct("dispoplanColorCoding")}</li>
+              <li>• {ct("dispoplanConflictDetection")}</li>
+            </ul>
+          </InfoCard>
+          <InfoCard title={ct("dispoplanFeatures")} icon={Navigation} variant="info">
+            <ul className="space-y-2">
+              <li>• {ct("dispoplanTourView")}</li>
+              <li>• {ct("dispoplanLoadOptimization")}</li>
+              <li>• {ct("dispoplanDriverAssignment")}</li>
+              <li>• {ct("dispoplanStatusTracking")}</li>
+            </ul>
+          </InfoCard>
+        </div>
+      </section>
+
+      {/* Vehicle Data Management */}
+      <section>
+        <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
+          <Database className="w-6 h-6 text-primary" />
+          {ct("fahrzeugdatenTitle")}
+        </h2>
+        <DataTable
+          headers={[ct("vehicleType"), ct("dimensions"), ct("payload"), ct("palletSpaces")]}
+          rows={[
+            ["Sattelzug (Tautliner)", "13.6m x 2.45m x 2.70m", "24-25t", "33 EUR"],
+            ["Anhängerzug (Jumbo)", "7.7m + 7.7m", "24t", "38 EUR"],
+            ["Mega Trailer", "13.6m x 2.45m x 3.00m", "24t", "33 EUR"],
+            ["Solo-LKW 12t", "7.2m x 2.45m x 2.40m", "5-6t", "15-18 EUR"],
+            ["Sprinter 3.5t", "4.2m x 1.8m x 1.9m", "1-1.2t", "6-8 EUR"],
+          ]}
+        />
+      </section>
+
+      {/* TMS Telematics Integration */}
+      <section>
+        <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
+          <MapPin className="w-6 h-6 text-primary" />
+          {ct("tmsTelematics")}
+        </h2>
+        <div className="grid md:grid-cols-3 gap-4">
+          <InfoCard title={ct("positionData")} icon={MapPin} variant="highlight">
+            <ul className="space-y-2">
+              <li>• {ct("realtimeGps")}</li>
+              <li>• {ct("routeHistory")}</li>
+              <li>• {ct("speedMonitoring")}</li>
+              <li>• {ct("borderCrossings")}</li>
+            </ul>
+          </InfoCard>
+          <InfoCard title={ct("vehicleTelemetry")} icon={Settings} variant="info">
+            <ul className="space-y-2">
+              <li>• {ct("fuelLevel")}</li>
+              <li>• {ct("reeferTemperature")}</li>
+              <li>• {ct("engineData")}</li>
+              <li>• {ct("doorStatus")}</li>
+            </ul>
+          </InfoCard>
+          <InfoCard title={ct("driverCommunication")} icon={Users} variant="success">
+            <ul className="space-y-2">
+              <li>• {ct("orderTransmission")}</li>
+              <li>• {ct("statusUpdates")}</li>
+              <li>• {ct("documentScanning")}</li>
+              <li>• {ct("twoWayMessaging")}</li>
+            </ul>
+          </InfoCard>
+        </div>
+      </section>
+
+      {/* Tour Planning */}
+      <section>
+        <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
+          <Calendar className="w-6 h-6 text-primary" />
+          {ct("tourPlanningTitle")}
+        </h2>
+        <div className="bg-card border border-border rounded-xl p-6">
+          <div className="grid md:grid-cols-2 gap-6">
+            <div>
+              <h3 className="font-semibold mb-3">{ct("tourCreation")}</h3>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li><strong>1.</strong> {ct("tourStep1")}</li>
+                <li><strong>2.</strong> {ct("tourStep2")}</li>
+                <li><strong>3.</strong> {ct("tourStep3")}</li>
+                <li><strong>4.</strong> {ct("tourStep4")}</li>
+                <li><strong>5.</strong> {ct("tourStep5")}</li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="font-semibold mb-3">{ct("tourOptimization")}</h3>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li>• {ct("multiStopRouting")}</li>
+                <li>• {ct("timeWindowCompliance")}</li>
+                <li>• {ct("drivingTimeCalc")}</li>
+                <li>• {ct("tollOptimization")}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* GPS Tracking Benefits */}
       <section>
@@ -52,23 +162,34 @@ export function FleetChapter() {
         </div>
       </section>
 
-      {/* Telematics Systems */}
+      {/* Document Expiry Alerts */}
       <section>
         <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
-          <Settings className="w-6 h-6 text-primary" />
-          {ct("telematicsSystems")}
+          <FileText className="w-6 h-6 text-warning" />
+          {ct("documentExpiryTitle")}
         </h2>
-        <DataTable
-          headers={[ct("system"), ct("keyFeatures"), ct("bestFor")]}
-          rows={[
-            ["Webfleet (TomTom)", "Route planning, driver feedback, fuel management", "Large fleets, comprehensive solution"],
-            ["Samsara", "AI dashcams, real-time alerts, maintenance", "Safety-focused fleets"],
-            ["Fleetboard (Mercedes)", "OEM integration, predictive maintenance", "Mercedes truck fleets"],
-            ["MAN TeleMatics", "OEM integration, driver scoring", "MAN truck fleets"],
-            ["Verizon Connect", "Workflow management, compliance", "Multi-brand fleets"],
-            ["Transics (WABCO)", "Tachograph integration, messaging", "European operations"],
-          ]}
-        />
+        <InfoCard title={ct("documentExpiryManagement")} icon={AlertTriangle} variant="warning">
+          <div className="grid md:grid-cols-2 gap-4">
+            <div>
+              <h4 className="font-semibold mb-2">{ct("trackedDocuments")}</h4>
+              <ul className="space-y-1 text-sm">
+                <li>• TÜV/HU - {ct("tuvHu")}</li>
+                <li>• {ct("adrCertificate")}</li>
+                <li>• {ct("insurancePolicy")}</li>
+                <li>• {ct("tachographCalibration")}</li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-semibold mb-2">{ct("alertConfiguration")}</h4>
+              <ul className="space-y-1 text-sm">
+                <li>• {ct("alert90Days")}</li>
+                <li>• {ct("alert30Days")}</li>
+                <li>• {ct("alert7Days")}</li>
+                <li>• {ct("alertExpired")}</li>
+              </ul>
+            </div>
+          </div>
+        </InfoCard>
       </section>
 
       {/* Key Metrics */}
@@ -86,49 +207,18 @@ export function FleetChapter() {
                 <li><strong>{ct("emptyKmPercentage")}:</strong> Target &lt;20%</li>
                 <li><strong>{ct("fuelConsumption")}:</strong> l/100km benchmark</li>
                 <li><strong>{ct("maintenanceCosts")}:</strong> €/km tracking</li>
-                <li><strong>{ct("downtime")}:</strong> Days out of service</li>
               </ul>
             </div>
             <div>
               <h3 className="font-semibold mb-3">{ct("driverKpis")}</h3>
               <ul className="space-y-2 text-sm text-muted-foreground">
                 <li><strong>{ct("drivingScore")}:</strong> Acceleration, braking, speed</li>
-                <li><strong>{ct("idleTime")}:</strong> Target &lt;10% of running time</li>
+                <li><strong>{ct("idleTime")}:</strong> Target &lt;10%</li>
                 <li><strong>{ct("onTimeDelivery")}:</strong> Target &gt;95%</li>
-                <li><strong>{ct("fuelEfficiency")}:</strong> vs. fleet average</li>
                 <li><strong>{ct("compliance")}:</strong> Driving hours adherence</li>
               </ul>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Route Optimization */}
-      <section>
-        <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
-          <Truck className="w-6 h-6 text-primary" />
-          {ct("routeOptimizationTitle")}
-        </h2>
-        <div className="grid md:grid-cols-2 gap-4">
-          <InfoCard title={ct("optimizationFactors")} icon={Settings} variant="info">
-            <ul className="space-y-2">
-              <li>• {ct("distanceTimeConstraints")}</li>
-              <li>• {ct("deliveryTimeWindows")}</li>
-              <li>• {ct("vehicleCapacityType")}</li>
-              <li>• {ct("driverHoursRemaining")}</li>
-              <li>• {ct("tollCostsVsTime")}</li>
-              <li>• {ct("trafficPatterns")}</li>
-            </ul>
-          </InfoCard>
-          <InfoCard title={ct("toolsSoftware")} icon={MapPin} variant="highlight">
-            <ul className="space-y-2">
-              <li>• Google Maps/Waze (basic routing)</li>
-              <li>• TomTom/HERE truck routing</li>
-              <li>• PTV Route Optimiser</li>
-              <li>• Trimble/ALK CoPilot</li>
-              <li>• TMS-integrated planners</li>
-            </ul>
-          </InfoCard>
         </div>
       </section>
 
@@ -146,7 +236,6 @@ export function FleetChapter() {
                 <li>• {ct("fuelCardIntegration")}</li>
                 <li>• {ct("tankLevelSensors")}</li>
                 <li>• {ct("consumptionAnalytics")}</li>
-                <li>• {ct("theftDetectionAlerts")}</li>
               </ul>
             </div>
             <div>
@@ -155,7 +244,6 @@ export function FleetChapter() {
                 <li>• {ct("driverTraining")}</li>
                 <li>• {ct("speedLimiters")}</li>
                 <li>• {ct("tirePressureChecks")}</li>
-                <li>• {ct("aerodynamicEquipment")}</li>
               </ul>
             </div>
             <div>
@@ -164,99 +252,6 @@ export function FleetChapter() {
                 <li>• {ct("longHaul")}: 28-32 l/100km</li>
                 <li>• {ct("regional")}: 30-35 l/100km</li>
                 <li>• {ct("distribution")}: 35-45 l/100km</li>
-                <li>• {ct("yearlyImprovement")}</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Geofencing */}
-      <section>
-        <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
-          <MapPin className="w-6 h-6 text-primary" />
-          {ct("geofencingApplications")}
-        </h2>
-        <div className="grid md:grid-cols-2 gap-4">
-          <div className="bg-card border border-border rounded-xl p-6">
-            <h3 className="font-semibold mb-3">{ct("useCases")}</h3>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>• {ct("automaticNotifications")}</li>
-              <li>• {ct("unauthorizedZoneAlerts")}</li>
-              <li>• {ct("customerEtaUpdates")}</li>
-              <li>• {ct("borderCrossingTimestamps")}</li>
-              <li>• {ct("loadingUnloadingTracking")}</li>
-            </ul>
-          </div>
-          <div className="bg-card border border-border rounded-xl p-6">
-            <h3 className="font-semibold mb-3">{ct("setupTips")}</h3>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>• {ct("appropriateRadius")}</li>
-              <li>• {ct("createZones")}</li>
-              <li>• {ct("secureParking")}</li>
-              <li>• {ct("configureAlerts")}</li>
-              <li>• {ct("reviewUpdate")}</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      {/* Maintenance Planning */}
-      <section>
-        <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
-          <Settings className="w-6 h-6 text-primary" />
-          {ct("predictiveMaintenance")}
-        </h2>
-        <InfoCard title={ct("fleetMaintenanceManagement")} icon={Settings} variant="warning">
-          <div className="grid md:grid-cols-2 gap-4">
-            <div>
-              <h4 className="font-semibold mb-2">{ct("monitoredParameters")}</h4>
-              <ul className="space-y-1 text-sm">
-                <li>• {ct("engineDiagnostics")}</li>
-                <li>• {ct("brakeWearIndicators")}</li>
-                <li>• {ct("tirePressureTemperature")}</li>
-                <li>• {ct("oilConditionSensors")}</li>
-                <li>• {ct("batteryHealth")}</li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-2">{ct("schedulingApproach")}</h4>
-              <ul className="space-y-1 text-sm">
-                <li>• {ct("kmBasedIntervals")}</li>
-                <li>• {ct("integrateTmsPlanning")}</li>
-                <li>• {ct("scheduleLowDemand")}</li>
-                <li>• {ct("digitalMaintenanceRecords")}</li>
-                <li>• {ct("trackWarrantyExpirations")}</li>
-              </ul>
-            </div>
-          </div>
-        </InfoCard>
-      </section>
-
-      {/* Data Security */}
-      <section>
-        <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
-          <AlertTriangle className="w-6 h-6 text-warning" />
-          {ct("dataPrivacyConsiderations")}
-        </h2>
-        <div className="bg-muted/30 rounded-xl p-6">
-          <div className="grid md:grid-cols-2 gap-6">
-            <div>
-              <h3 className="font-semibold mb-3">{ct("legalRequirements")}</h3>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li>• {ct("gdprCompliance")}</li>
-                <li>• {ct("informDrivers")}</li>
-                <li>• {ct("worksCouncilConsultation")}</li>
-                <li>• {ct("dataRetentionPolicies")}</li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-semibold mb-3">{ct("bestPractices")}</h3>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li>• {ct("clearTrackingPolicy")}</li>
-                <li>• {ct("limitAccessLocationData")}</li>
-                <li>• {ct("useDataForImprovement")}</li>
-                <li>• {ct("regularSecurityAudits")}</li>
               </ul>
             </div>
           </div>
