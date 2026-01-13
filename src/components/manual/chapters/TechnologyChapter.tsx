@@ -2,7 +2,7 @@ import { DataTable } from "../DataTable";
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { quizzes } from "@/data/quizData";
-import { Cpu, Smartphone, Cloud, Globe, BarChart3, Zap, Shield, TrendingUp, CheckCircle2, AlertTriangle, Bot, Wifi, Database, MapPin } from "lucide-react";
+import { Cpu, Smartphone, Cloud, Globe, BarChart3, Zap, Shield, TrendingUp, CheckCircle2, AlertTriangle, Bot, Wifi, Database, MapPin, Link, Users, Package, FileText, Workflow } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
 
@@ -337,6 +337,270 @@ export function TechnologyChapter() {
               <li>• {ct("verifyPaymentDetails")}</li>
               <li>• {ct("regularBackups")}</li>
               <li>• {ct("encryptedCommunications")}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      {/* TMS Deep Dive - Module Details */}
+      <div className="info-card">
+        <h2 className="section-title flex items-center gap-3">
+          <Database className="w-6 h-6 text-primary" />
+          {ct("tmsDeepDiveTitle")}
+        </h2>
+        <p className="text-muted-foreground mb-4">{ct("tmsDeepDiveDesc")}</p>
+
+        <div className="grid md:grid-cols-2 gap-6 mb-6">
+          <div>
+            <h3 className="font-semibold mb-3 flex items-center gap-2">
+              <Database className="w-4 h-4 text-primary" />
+              {ct("masterDataModule")}
+            </h3>
+            <ul className="space-y-2 text-sm">
+              <li className="flex items-start gap-2">
+                <CheckCircle2 className="w-4 h-4 text-success mt-0.5" />
+                <span><strong>{ct("addressMgmt")}:</strong> {ct("addressMgmtDesc")}</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <CheckCircle2 className="w-4 h-4 text-success mt-0.5" />
+                <span><strong>{ct("vehicleMgmt")}:</strong> {ct("vehicleMgmtDesc")}</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <CheckCircle2 className="w-4 h-4 text-success mt-0.5" />
+                <span><strong>{ct("personnelMgmt")}:</strong> {ct("personnelMgmtDesc")}</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <CheckCircle2 className="w-4 h-4 text-success mt-0.5" />
+                <span><strong>{ct("tariffMgmt")}:</strong> {ct("tariffMgmtDesc")}</span>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3 className="font-semibold mb-3 flex items-center gap-2">
+              <Package className="w-4 h-4 text-primary" />
+              {ct("orderModule")}
+            </h3>
+            <ul className="space-y-2 text-sm">
+              <li className="flex items-start gap-2">
+                <CheckCircle2 className="w-4 h-4 text-success mt-0.5" />
+                <span><strong>{ct("orderCapture")}:</strong> {ct("orderCaptureDesc")}</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <CheckCircle2 className="w-4 h-4 text-success mt-0.5" />
+                <span><strong>{ct("shipmentMgmt")}:</strong> {ct("shipmentMgmtDesc")}</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <CheckCircle2 className="w-4 h-4 text-success mt-0.5" />
+                <span><strong>{ct("adrHandling")}:</strong> {ct("adrHandlingDesc")}</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <CheckCircle2 className="w-4 h-4 text-success mt-0.5" />
+                <span><strong>{ct("splitRouting")}:</strong> {ct("splitRoutingDesc")}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <DataTable
+          headers={[ct("tmsModule"), ct("keyFeatures"), ct("businessValue")]}
+          rows={[
+            [ct("dispoplanModule"), ct("dispoplanFeatures"), ct("dispoplanValue")],
+            [ct("routeModule"), ct("routeFeatures"), ct("routeValue")],
+            [ct("invoiceModule"), ct("invoiceFeatures"), ct("invoiceValue")],
+            [ct("telematicsModule"), ct("telematicsFeatures"), ct("telematicsValue")],
+            [ct("palletModule"), ct("palletFeatures"), ct("palletValue")],
+            [ct("reportingModule"), ct("reportingFeatures"), ct("reportingValue")],
+          ]}
+        />
+      </div>
+
+      {/* EDI & API Integrations */}
+      <div className="info-card">
+        <h2 className="section-title flex items-center gap-3">
+          <Link className="w-6 h-6 text-primary" />
+          {ct("ediApiTitle")}
+        </h2>
+        <p className="text-muted-foreground mb-4">{ct("ediApiDesc")}</p>
+
+        <div className="grid md:grid-cols-3 gap-4 mb-6">
+          <InfoCard title={ct("freightExchangeInt")} icon={Globe}>
+            <ul className="text-sm space-y-1">
+              <li>• <strong>TIMOCOM:</strong> {ct("timocomDesc")}</li>
+              <li>• <strong>Trans.eu:</strong> {ct("transeuDesc")}</li>
+              <li>• <strong>Teleroute:</strong> {ct("telerouteDesc")}</li>
+            </ul>
+          </InfoCard>
+          <InfoCard title={ct("customerPortals")} icon={Users}>
+            <ul className="text-sm space-y-1">
+              <li>• <strong>Transporeon:</strong> {ct("transporeonDesc")}</li>
+              <li>• <strong>CargoLink:</strong> {ct("cargolinkDesc")}</li>
+              <li>• {ct("customEdiDesc")}</li>
+            </ul>
+          </InfoCard>
+          <InfoCard title={ct("internalSystems")} icon={Database}>
+            <ul className="text-sm space-y-1">
+              <li>• <strong>FIBU Export:</strong> {ct("fibuDesc")}</li>
+              <li>• <strong>dotiga:</strong> {ct("dotigaDesc")}</li>
+              <li>• <strong>PTV xServer:</strong> {ct("ptvDesc")}</li>
+            </ul>
+          </InfoCard>
+        </div>
+
+        <div className="bg-info/10 border border-info/30 p-4 rounded-lg mb-4">
+          <h4 className="font-semibold mb-2">{ct("ediFormatsTitle")}</h4>
+          <div className="grid md:grid-cols-4 gap-4 text-sm">
+            <div className="p-2 bg-background rounded">
+              <strong>EDIFACT</strong>
+              <p className="text-xs text-muted-foreground">{ct("edifactDesc")}</p>
+            </div>
+            <div className="p-2 bg-background rounded">
+              <strong>XML/JSON</strong>
+              <p className="text-xs text-muted-foreground">{ct("xmlJsonDesc")}</p>
+            </div>
+            <div className="p-2 bg-background rounded">
+              <strong>CSV/Excel</strong>
+              <p className="text-xs text-muted-foreground">{ct("csvExcelDesc")}</p>
+            </div>
+            <div className="p-2 bg-background rounded">
+              <strong>REST API</strong>
+              <p className="text-xs text-muted-foreground">{ct("restApiDesc")}</p>
+            </div>
+          </div>
+        </div>
+
+        <DataTable
+          headers={[ct("integrationName"), ct("dataFlow"), ct("frequency"), ct("purpose")]}
+          rows={[
+            [ct("transporeonInt"), ct("transporeonFlow"), ct("realTime"), ct("transporeonPurpose")],
+            [ct("timocomInt"), ct("timocomFlow"), ct("onDemand"), ct("timocomPurpose")],
+            [ct("telematicsInt"), ct("telematicsFlow"), ct("continuous"), ct("telematicsPurpose")],
+            [ct("fibuInt"), ct("fibuFlow"), ct("daily"), ct("fibuPurpose")],
+            [ct("dotigaInt"), ct("dotigaFlow"), ct("onEvent"), ct("dotigaPurpose")],
+          ]}
+        />
+      </div>
+
+      {/* Workflow Automation */}
+      <div className="info-card">
+        <h2 className="section-title flex items-center gap-3">
+          <Workflow className="w-6 h-6 text-primary" />
+          {ct("workflowTitle")}
+        </h2>
+        <p className="text-muted-foreground mb-4">{ct("workflowDesc")}</p>
+
+        <div className="grid md:grid-cols-2 gap-6 mb-6">
+          <div className="p-4 bg-muted/30 rounded-lg">
+            <h4 className="font-semibold mb-3">{ct("triggerEvents")}</h4>
+            <ul className="space-y-2 text-sm">
+              <li className="flex items-start gap-2">
+                <Zap className="w-4 h-4 text-warning mt-0.5" />
+                <span><strong>{ct("onCreate")}:</strong> {ct("onCreateDesc")}</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <Zap className="w-4 h-4 text-warning mt-0.5" />
+                <span><strong>{ct("onSave")}:</strong> {ct("onSaveDesc")}</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <Zap className="w-4 h-4 text-warning mt-0.5" />
+                <span><strong>{ct("onFieldChange")}:</strong> {ct("onFieldChangeDesc")}</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <Zap className="w-4 h-4 text-warning mt-0.5" />
+                <span><strong>{ct("onStatusChange")}:</strong> {ct("onStatusChangeDesc")}</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <Zap className="w-4 h-4 text-warning mt-0.5" />
+                <span><strong>{ct("scheduled")}:</strong> {ct("scheduledDesc")}</span>
+              </li>
+            </ul>
+          </div>
+          <div className="p-4 bg-muted/30 rounded-lg">
+            <h4 className="font-semibold mb-3">{ct("automatedActions")}</h4>
+            <ul className="space-y-2 text-sm">
+              <li className="flex items-start gap-2">
+                <Bot className="w-4 h-4 text-primary mt-0.5" />
+                <span><strong>{ct("setValues")}:</strong> {ct("setValuesDesc")}</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <Bot className="w-4 h-4 text-primary mt-0.5" />
+                <span><strong>{ct("sendNotifications")}:</strong> {ct("sendNotificationsDesc")}</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <Bot className="w-4 h-4 text-primary mt-0.5" />
+                <span><strong>{ct("createRecords")}:</strong> {ct("createRecordsDesc")}</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <Bot className="w-4 h-4 text-primary mt-0.5" />
+                <span><strong>{ct("validateData")}:</strong> {ct("validateDataDesc")}</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <Bot className="w-4 h-4 text-primary mt-0.5" />
+                <span><strong>{ct("calculatePrices")}:</strong> {ct("calculatePricesDesc")}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="bg-success/10 border border-success/30 p-4 rounded-lg">
+          <h4 className="font-semibold mb-2">{ct("workflowExamples")}</h4>
+          <div className="grid md:grid-cols-2 gap-4 text-sm">
+            <div>
+              <p className="font-medium">{ct("example1Title")}</p>
+              <p className="text-muted-foreground">{ct("example1Desc")}</p>
+            </div>
+            <div>
+              <p className="font-medium">{ct("example2Title")}</p>
+              <p className="text-muted-foreground">{ct("example2Desc")}</p>
+            </div>
+            <div>
+              <p className="font-medium">{ct("example3Title")}</p>
+              <p className="text-muted-foreground">{ct("example3Desc")}</p>
+            </div>
+            <div>
+              <p className="font-medium">{ct("example4Title")}</p>
+              <p className="text-muted-foreground">{ct("example4Desc")}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Document Management */}
+      <div className="info-card">
+        <h2 className="section-title flex items-center gap-3">
+          <FileText className="w-6 h-6 text-primary" />
+          {ct("docMgmtTitle")}
+        </h2>
+        <p className="text-muted-foreground mb-4">{ct("docMgmtDesc")}</p>
+
+        <div className="grid md:grid-cols-3 gap-4">
+          <div className="p-4 bg-muted/30 rounded-lg">
+            <h4 className="font-semibold mb-2">{ct("transportDocs")}</h4>
+            <ul className="text-sm space-y-1">
+              <li>• {ct("orderConfirmation")}</li>
+              <li>• {ct("loadingOrder")}</li>
+              <li>• {ct("cmrWaybill")}</li>
+              <li>• {ct("deliveryNote")}</li>
+              <li>• {ct("exportCert")}</li>
+            </ul>
+          </div>
+          <div className="p-4 bg-muted/30 rounded-lg">
+            <h4 className="font-semibold mb-2">{ct("financialDocs")}</h4>
+            <ul className="text-sm space-y-1">
+              <li>• {ct("invoices")}</li>
+              <li>• {ct("creditNotes")}</li>
+              <li>• {ct("costEstimates")}</li>
+              <li>• {ct("marginReports")}</li>
+              <li>• {ct("palletStatements")}</li>
+            </ul>
+          </div>
+          <div className="p-4 bg-muted/30 rounded-lg">
+            <h4 className="font-semibold mb-2">{ct("archiving")}</h4>
+            <ul className="text-sm space-y-1">
+              <li>• {ct("dotigaArchive")}</li>
+              <li>• {ct("scanProtocol")}</li>
+              <li>• {ct("emailAttach")}</li>
+              <li>• {ct("auditTrail")}</li>
+              <li>• {ct("legalRetention")}</li>
             </ul>
           </div>
         </div>
