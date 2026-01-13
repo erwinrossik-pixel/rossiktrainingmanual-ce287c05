@@ -795,6 +795,278 @@ export const quizTranslations: Record<string, TranslatedQuizQuestion[]> = {
         de: "Kabotage ist der Inlandsgüterverkehr durch einen ausländischen Transportunternehmer auf dem Gebiet eines anderen Staates."
       }
     }
+  ],
+  technology: [
+    {
+      question: {
+        ro: "Care sunt cele 8 module principale ale unui sistem TMS complet?",
+        en: "What are the 8 main modules of a complete TMS system?",
+        de: "Was sind die 8 Hauptmodule eines vollständigen TMS-Systems?"
+      },
+      options: {
+        ro: ["Doar facturare și raportare", "Stammdaten, Comenzi, Dispoziție, Rute, Facturare, Telematică, Paleți, Raportare", "Email și calendar", "Doar GPS și tracking"],
+        en: ["Only invoicing and reporting", "Master Data, Orders, Dispatch, Routes, Invoicing, Telematics, Pallets, Reporting", "Email and calendar", "Only GPS and tracking"],
+        de: ["Nur Fakturierung und Berichterstattung", "Stammdaten, Aufträge, Disposition, Routen, Fakturierung, Telematik, Paletten, Berichterstattung", "E-Mail und Kalender", "Nur GPS und Tracking"]
+      },
+      correctIndex: 1,
+      explanation: {
+        ro: "Un TMS complet include: Stammdaten (date master), Gestionare comenzi, Dispoplan, Planificare rute, Facturare, Telematică, Gestiune paleți și Raportare.",
+        en: "A complete TMS includes: Master Data, Order Management, Dispatch Planning, Route Planning, Invoicing, Telematics, Pallet Management, and Reporting.",
+        de: "Ein vollständiges TMS umfasst: Stammdaten, Auftragsverwaltung, Dispoplan, Routenplanung, Fakturierung, Telematik, Lademittelverwaltung und Berichterstattung."
+      }
+    },
+    {
+      question: {
+        ro: "Ce tipuri de adrese sunt gestionate în modulul Stammdaten?",
+        en: "What types of addresses are managed in the Master Data module?",
+        de: "Welche Adresstypen werden im Stammdaten-Modul verwaltet?"
+      },
+      options: {
+        ro: ["Doar adrese de facturare", "Adrese de încărcare, descărcare, mixte și puncte vamale", "Doar adrese de livrare", "Doar adrese email"],
+        en: ["Only billing addresses", "Loading, unloading, mixed addresses and customs points", "Only delivery addresses", "Only email addresses"],
+        de: ["Nur Rechnungsadressen", "Lade-, Entlade-, gemischte Adressen und Zollpunkte", "Nur Lieferadressen", "Nur E-Mail-Adressen"]
+      },
+      correctIndex: 1,
+      explanation: {
+        ro: "Stammdaten gestionează: Ladeadressen (încărcare), Entladeadressen (descărcare), Mixed (ambele), Zollpunkte (vamă), fiecare cu program, contact și coordonate GPS.",
+        en: "Master Data manages: Loading addresses, Unloading addresses, Mixed (both), Customs points, each with schedule, contact and GPS coordinates.",
+        de: "Stammdaten verwaltet: Ladeadressen, Entladeadressen, Mixed (beides), Zollpunkte, jeweils mit Öffnungszeiten, Kontakt und GPS-Koordinaten."
+      }
+    },
+    {
+      question: {
+        ro: "Ce reprezintă EDIFACT în contextul integrărilor EDI?",
+        en: "What does EDIFACT represent in the context of EDI integrations?",
+        de: "Was bedeutet EDIFACT im Kontext von EDI-Integrationen?"
+      },
+      options: {
+        ro: ["Un tip de vehicul", "Standard UN pentru schimb electronic de date în comerț și transport", "Software de contabilitate", "Format pentru imagini"],
+        en: ["A vehicle type", "UN standard for electronic data interchange in trade and transport", "Accounting software", "Image format"],
+        de: ["Ein Fahrzeugtyp", "UN-Standard für elektronischen Datenaustausch in Handel und Transport", "Buchhaltungssoftware", "Bildformat"]
+      },
+      correctIndex: 1,
+      explanation: {
+        ro: "EDIFACT (Electronic Data Interchange For Administration, Commerce and Transport) este standardul UN pentru schimbul electronic de date structurate între sisteme.",
+        en: "EDIFACT (Electronic Data Interchange For Administration, Commerce and Transport) is the UN standard for structured electronic data exchange between systems.",
+        de: "EDIFACT (Electronic Data Interchange For Administration, Commerce and Transport) ist der UN-Standard für strukturierten elektronischen Datenaustausch zwischen Systemen."
+      }
+    },
+    {
+      question: {
+        ro: "Care sunt principalele burse de transport integrate cu TMS?",
+        en: "What are the main freight exchanges integrated with TMS?",
+        de: "Welches sind die wichtigsten Frachtbörsen, die mit TMS integriert sind?"
+      },
+      options: {
+        ro: ["Facebook și LinkedIn", "TIMOCOM, Trans.eu, Teleroute", "Amazon și eBay", "Google și Microsoft"],
+        en: ["Facebook and LinkedIn", "TIMOCOM, Trans.eu, Teleroute", "Amazon and eBay", "Google and Microsoft"],
+        de: ["Facebook und LinkedIn", "TIMOCOM, Trans.eu, Teleroute", "Amazon und eBay", "Google und Microsoft"]
+      },
+      correctIndex: 1,
+      explanation: {
+        ro: "Principalele burse integrate sunt: TIMOCOM (lider DE/AT), Trans.eu (Europa de Est), Teleroute (Franța/Benelux) - pentru căutare capacitate și publicare oferte.",
+        en: "Main integrated exchanges are: TIMOCOM (DE/AT leader), Trans.eu (Eastern Europe), Teleroute (France/Benelux) - for capacity search and offer publishing.",
+        de: "Die wichtigsten integrierten Börsen sind: TIMOCOM (DE/AT-Marktführer), Trans.eu (Osteuropa), Teleroute (Frankreich/Benelux) - für Kapazitätssuche und Angebotsveröffentlichung."
+      }
+    },
+    {
+      question: {
+        ro: "Ce este Dispoplan în sistemul TMS?",
+        en: "What is Dispoplan in the TMS system?",
+        de: "Was ist Dispoplan im TMS-System?"
+      },
+      options: {
+        ro: ["Un calculator de prețuri", "Planificatorul vizual pentru alocarea vehiculelor și comenzilor pe timeline", "Un formular de contact", "Software de contabilitate"],
+        en: ["A price calculator", "The visual planner for allocating vehicles and orders on a timeline", "A contact form", "Accounting software"],
+        de: ["Ein Preisrechner", "Der visuelle Planer für die Zuordnung von Fahrzeugen und Aufträgen auf einer Zeitleiste", "Ein Kontaktformular", "Buchhaltungssoftware"]
+      },
+      correctIndex: 1,
+      explanation: {
+        ro: "Dispoplan este interfața vizuală centrală unde dispatcherul alocă comenzile vehiculelor, vizualizând turele pe timeline cu drag-and-drop.",
+        en: "Dispoplan is the central visual interface where the dispatcher allocates orders to vehicles, viewing tours on a timeline with drag-and-drop.",
+        de: "Dispoplan ist die zentrale visuelle Oberfläche, wo der Disponent Aufträge Fahrzeugen zuordnet, mit Drag-and-Drop auf einer Zeitleiste."
+      }
+    },
+    {
+      question: {
+        ro: "Ce formate de date sunt folosite pentru integrările API moderne?",
+        en: "What data formats are used for modern API integrations?",
+        de: "Welche Datenformate werden für moderne API-Integrationen verwendet?"
+      },
+      options: {
+        ro: ["Doar PDF", "JSON și XML prin REST API", "Doar imagini JPEG", "Doar fișiere audio"],
+        en: ["Only PDF", "JSON and XML via REST API", "Only JPEG images", "Only audio files"],
+        de: ["Nur PDF", "JSON und XML über REST API", "Nur JPEG-Bilder", "Nur Audiodateien"]
+      },
+      correctIndex: 1,
+      explanation: {
+        ro: "Integrările API moderne folosesc JSON (ușor, rapid) sau XML (structurat, validabil) prin REST API pentru comunicare în timp real.",
+        en: "Modern API integrations use JSON (lightweight, fast) or XML (structured, validatable) via REST API for real-time communication.",
+        de: "Moderne API-Integrationen verwenden JSON (leicht, schnell) oder XML (strukturiert, validierbar) über REST API für Echtzeit-Kommunikation."
+      }
+    },
+    {
+      question: {
+        ro: "Ce tipuri de evenimente trigger sunt folosite în workflow automation?",
+        en: "What types of trigger events are used in workflow automation?",
+        de: "Welche Arten von Trigger-Ereignissen werden in der Workflow-Automatisierung verwendet?"
+      },
+      options: {
+        ro: ["Doar click pe buton", "Evenimente temporale, de status, bazate pe date și bazate pe documente", "Doar alarme de calendar", "Doar notificări email"],
+        en: ["Only button clicks", "Time-based, status-based, data-based, and document-based events", "Only calendar alarms", "Only email notifications"],
+        de: ["Nur Schaltflächenklicks", "Zeitbasierte, statusbasierte, datenbasierte und dokumentbasierte Ereignisse", "Nur Kalenderalarme", "Nur E-Mail-Benachrichtigungen"]
+      },
+      correctIndex: 1,
+      explanation: {
+        ro: "Workflow automation folosește: evenimente temporale (cron), de status (comandă creată/finalizată), bazate pe date (întârzieri) și pe documente (POD primit).",
+        en: "Workflow automation uses: time-based events (cron), status-based (order created/completed), data-based (delays), and document-based (POD received).",
+        de: "Workflow-Automatisierung verwendet: zeitbasierte Ereignisse (Cron), statusbasierte (Auftrag erstellt/abgeschlossen), datenbasierte (Verzögerungen) und dokumentbasierte (POD empfangen)."
+      }
+    },
+    {
+      question: {
+        ro: "Ce reprezintă telematica în TMS?",
+        en: "What does telematics represent in TMS?",
+        de: "Was bedeutet Telematik im TMS?"
+      },
+      options: {
+        ro: ["Telefonie mobilă", "Urmărirea GPS în timp real, date despre vehicul și comunicare cu șoferul", "Televiziune", "Telegram"],
+        en: ["Mobile telephony", "Real-time GPS tracking, vehicle data, and driver communication", "Television", "Telegram"],
+        de: ["Mobiltelefonie", "GPS-Echtzeit-Tracking, Fahrzeugdaten und Fahrerkommunikation", "Fernsehen", "Telegram"]
+      },
+      correctIndex: 1,
+      explanation: {
+        ro: "Telematica combină: poziție GPS în timp real, date vehicle (consum, temperatură), comunicare cu șoferul și istoric trasee.",
+        en: "Telematics combines: real-time GPS position, vehicle data (fuel, temperature), driver communication, and route history.",
+        de: "Telematik kombiniert: GPS-Echtzeit-Position, Fahrzeugdaten (Verbrauch, Temperatur), Fahrerkommunikation und Routenhistorie."
+      }
+    },
+    {
+      question: {
+        ro: "Care sunt tipurile de documente gestionate în Document Management?",
+        en: "What types of documents are managed in Document Management?",
+        de: "Welche Dokumententypen werden im Dokumentenmanagement verwaltet?"
+      },
+      options: {
+        ro: ["Doar facturi", "Documente transport (CMR, POD), financiare (facturi) și arhivare cu OCR", "Doar emailuri", "Doar contracte"],
+        en: ["Only invoices", "Transport documents (CMR, POD), financial (invoices), and archiving with OCR", "Only emails", "Only contracts"],
+        de: ["Nur Rechnungen", "Transportdokumente (CMR, POD), Finanzdokumente (Rechnungen) und Archivierung mit OCR", "Nur E-Mails", "Nur Verträge"]
+      },
+      correctIndex: 1,
+      explanation: {
+        ro: "Document Management gestionează: documente transport (CMR, POD, liste încărcare), financiare (facturi intrare/ieșire) și arhivare automată cu OCR.",
+        en: "Document Management handles: transport documents (CMR, POD, loading lists), financial (incoming/outgoing invoices), and automatic archiving with OCR.",
+        de: "Dokumentenmanagement verwaltet: Transportdokumente (CMR, POD, Ladelisten), Finanzdokumente (Ein-/Ausgangsrechnungen) und automatische Archivierung mit OCR."
+      }
+    },
+    {
+      question: {
+        ro: "Ce informații sunt stocate în Fahrzeugdaten (Date vehicul)?",
+        en: "What information is stored in Vehicle Data?",
+        de: "Welche Informationen werden in den Fahrzeugdaten gespeichert?"
+      },
+      options: {
+        ro: ["Doar culoarea vehiculului", "Tip vehicul, capacitate, echipamente, certificări, date exipirare documente", "Doar marca", "Doar prețul de achiziție"],
+        en: ["Only the vehicle color", "Vehicle type, capacity, equipment, certifications, document expiry dates", "Only the brand", "Only the purchase price"],
+        de: ["Nur die Fahrzeugfarbe", "Fahrzeugtyp, Kapazität, Ausstattung, Zertifizierungen, Dokumentenablaufdaten", "Nur die Marke", "Nur der Kaufpreis"]
+      },
+      correctIndex: 1,
+      explanation: {
+        ro: "Fahrzeugdaten include: tip (Sattelzug, Anhängerzug), dimensiuni, capacitate, echipamente (Coil, ADR), certificări și alertă expirare documente.",
+        en: "Vehicle Data includes: type (Sattelzug, Anhängerzug), dimensions, capacity, equipment (Coil, ADR), certifications, and document expiry alerts.",
+        de: "Fahrzeugdaten umfassen: Typ (Sattelzug, Anhängerzug), Maße, Kapazität, Ausstattung (Coil, ADR), Zertifizierungen und Dokumentenablauf-Warnungen."
+      }
+    },
+    {
+      question: {
+        ro: "Ce sunt Geschäftsregeln (Business Rules) în TMS?",
+        en: "What are Business Rules in TMS?",
+        de: "Was sind Geschäftsregeln im TMS?"
+      },
+      options: {
+        ro: ["Reguli de conduită pentru angajați", "Reguli automate configurabile care controlează procesele și validările", "Reguli de trafic", "Reguli de parcare"],
+        en: ["Employee conduct rules", "Configurable automated rules that control processes and validations", "Traffic rules", "Parking rules"],
+        de: ["Verhaltensregeln für Mitarbeiter", "Konfigurierbare automatisierte Regeln, die Prozesse und Validierungen steuern", "Verkehrsregeln", "Parkregeln"]
+      },
+      correctIndex: 1,
+      explanation: {
+        ro: "Geschäftsregeln sunt reguli automate configurabile: validare cerințe client, verificare documente, alertă întârzieri, calcul automat prețuri.",
+        en: "Business Rules are configurable automated rules: client requirement validation, document verification, delay alerts, automatic price calculation.",
+        de: "Geschäftsregeln sind konfigurierbare automatische Regeln: Kundenanforderungsvalidierung, Dokumentenprüfung, Verzögerungswarnungen, automatische Preisberechnung."
+      }
+    },
+    {
+      question: {
+        ro: "Cum funcționează integrarea cu portalurile clienților?",
+        en: "How does integration with customer portals work?",
+        de: "Wie funktioniert die Integration mit Kundenportalen?"
+      },
+      options: {
+        ro: ["Prin fax", "Import automat comenzi și export tracking în timp real", "Prin poștă", "Doar manual"],
+        en: ["Via fax", "Automatic order import and real-time tracking export", "Via mail", "Manual only"],
+        de: ["Per Fax", "Automatischer Auftragsimport und Echtzeit-Tracking-Export", "Per Post", "Nur manuell"]
+      },
+      correctIndex: 1,
+      explanation: {
+        ro: "Integrarea cu portaluri clienți permite: import automat comenzi, sincronizare status, export tracking real-time și confirmare livrare automată.",
+        en: "Customer portal integration enables: automatic order import, status sync, real-time tracking export, and automatic delivery confirmation.",
+        de: "Kundenportal-Integration ermöglicht: automatischen Auftragsimport, Statussynchronisierung, Echtzeit-Tracking-Export und automatische Lieferbestätigung."
+      }
+    },
+    {
+      question: {
+        ro: "Ce include modulul de Routenplanung (Planificare rute)?",
+        en: "What does the Route Planning module include?",
+        de: "Was beinhaltet das Routenplanungs-Modul?"
+      },
+      options: {
+        ro: ["Doar hărți statice", "Optimizare multipoint, calcul costuri (taxe, tuneluri), restricții vehicul", "Doar adrese", "Doar distanțe"],
+        en: ["Only static maps", "Multipoint optimization, cost calculation (tolls, tunnels), vehicle restrictions", "Only addresses", "Only distances"],
+        de: ["Nur statische Karten", "Multipoint-Optimierung, Kostenberechnung (Maut, Tunnel), Fahrzeugbeschränkungen", "Nur Adressen", "Nur Entfernungen"]
+      },
+      correctIndex: 1,
+      explanation: {
+        ro: "Routenplanung include: optimizare multipoint, calcul taxe drum și tuneluri, restricții vehicul (înălțime, greutate), evitare zone interzise.",
+        en: "Route Planning includes: multipoint optimization, toll and tunnel calculation, vehicle restrictions (height, weight), forbidden zone avoidance.",
+        de: "Routenplanung umfasst: Multipoint-Optimierung, Maut- und Tunnelberechnung, Fahrzeugbeschränkungen (Höhe, Gewicht), Vermeidung verbotener Zonen."
+      }
+    },
+    {
+      question: {
+        ro: "Ce acțiuni automate pot fi configurate în workflow automation?",
+        en: "What automated actions can be configured in workflow automation?",
+        de: "Welche automatisierten Aktionen können in der Workflow-Automatisierung konfiguriert werden?"
+      },
+      options: {
+        ro: ["Doar trimitere email", "Notificări, actualizări status, generare documente, calcul prețuri, escalare", "Doar printare", "Doar salvare fișiere"],
+        en: ["Only sending emails", "Notifications, status updates, document generation, price calculation, escalation", "Only printing", "Only file saving"],
+        de: ["Nur E-Mail-Versand", "Benachrichtigungen, Statusaktualisierungen, Dokumentengenerierung, Preisberechnung, Eskalation", "Nur Drucken", "Nur Dateispeicherung"]
+      },
+      correctIndex: 1,
+      explanation: {
+        ro: "Acțiuni automate: notificări multicanal, actualizare status, generare CMR/factură, calcul automat prețuri, escalare la supervizor.",
+        en: "Automated actions: multichannel notifications, status update, CMR/invoice generation, automatic price calculation, supervisor escalation.",
+        de: "Automatisierte Aktionen: Mehrkanalbenachrichtigungen, Statusaktualisierung, CMR/Rechnungserstellung, automatische Preisberechnung, Eskalation an Vorgesetzte."
+      }
+    },
+    {
+      question: {
+        ro: "Care este avantajul principal al integrării TMS cu sistemele interne?",
+        en: "What is the main advantage of TMS integration with internal systems?",
+        de: "Was ist der Hauptvorteil der TMS-Integration mit internen Systemen?"
+      },
+      options: {
+        ro: ["Design mai frumos", "Eliminarea introducerii manuale de date și sincronizare în timp real", "Mai multe culori", "Fonturi mai mari"],
+        en: ["Prettier design", "Elimination of manual data entry and real-time synchronization", "More colors", "Larger fonts"],
+        de: ["Schöneres Design", "Eliminierung manueller Dateneingabe und Echtzeit-Synchronisierung", "Mehr Farben", "Größere Schriften"]
+      },
+      correctIndex: 1,
+      explanation: {
+        ro: "Integrarea internă elimină dublarea datelor, reduce erorile umane și asigură sincronizare în timp real între ERP, WMS și TMS.",
+        en: "Internal integration eliminates data duplication, reduces human errors, and ensures real-time synchronization between ERP, WMS, and TMS.",
+        de: "Interne Integration eliminiert Datenduplizierung, reduziert menschliche Fehler und gewährleistet Echtzeit-Synchronisierung zwischen ERP, WMS und TMS."
+      }
+    }
   ]
 };
 
