@@ -2,15 +2,18 @@ import {
   BookOpen, Users, Truck, Package, Shield, Calculator, 
   Building2, Route, Clock, Laptop, GraduationCap, AlertTriangle, 
   ClipboardList, Target, Menu, X, Phone, MessageSquare, Scale,
-  FileText, Flame, Book, Lightbulb, CheckCircle2, BarChart3, Award
+  FileText, Flame, Book, Lightbulb, CheckCircle2, BarChart3, Award, Lock
 } from "lucide-react";
 import rossikLogo from "@/assets/rossik-logo.jpg";
 import { cn } from "@/lib/utils";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useProgressContext } from "@/contexts/ProgressContext";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useAuth } from "@/hooks/useAuth";
+import { useChapterProgress } from "@/hooks/useChapterProgress";
 import { GlobalSearch } from "./GlobalSearch";
 import { LanguageSelector } from "./LanguageSelector";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 interface SidebarProps {
   activeChapter: string;
@@ -22,81 +25,81 @@ const getSections = (t: (key: string) => string) => [
   {
     title: t('section.foundation'),
     chapters: [
-      { id: "intro", labelKey: "chapter.intro", icon: BookOpen },
-      { id: "mindset", labelKey: "chapter.mindset", icon: Target },
-      { id: "soft-skills", labelKey: "chapter.soft-skills", icon: Users },
-      { id: "workflow", labelKey: "chapter.workflow", icon: Route },
+      { id: "intro", labelKey: "chapter.intro", icon: BookOpen, isIntro: true },
+      { id: "mindset", labelKey: "chapter.mindset", icon: Target, isIntro: false },
+      { id: "soft-skills", labelKey: "chapter.soft-skills", icon: Users, isIntro: false },
+      { id: "workflow", labelKey: "chapter.workflow", icon: Route, isIntro: false },
     ]
   },
   {
     title: t('section.equipment'),
     chapters: [
-      { id: "vehicle", labelKey: "chapter.vehicle", icon: Truck },
-      { id: "loading", labelKey: "chapter.loading", icon: Package },
-      { id: "reefer", labelKey: "chapter.reefer", icon: Package },
-      { id: "warehouse", labelKey: "chapter.warehouse", icon: Package },
-      { id: "adr", labelKey: "chapter.adr", icon: Flame },
+      { id: "vehicle", labelKey: "chapter.vehicle", icon: Truck, isIntro: false },
+      { id: "loading", labelKey: "chapter.loading", icon: Package, isIntro: false },
+      { id: "reefer", labelKey: "chapter.reefer", icon: Package, isIntro: false },
+      { id: "warehouse", labelKey: "chapter.warehouse", icon: Package, isIntro: false },
+      { id: "adr", labelKey: "chapter.adr", icon: Flame, isIntro: false },
     ]
   },
   {
     title: t('section.documents'),
     chapters: [
-      { id: "documents", labelKey: "chapter.documents", icon: FileText },
-      { id: "incoterms", labelKey: "chapter.incoterms", icon: Book },
-      { id: "customs", labelKey: "chapter.customs", icon: Shield },
-      { id: "compliance", labelKey: "chapter.compliance", icon: Clock },
-      { id: "driving-time", labelKey: "chapter.driving-time", icon: Clock },
-      { id: "licenses-oversize", labelKey: "chapter.licenses-oversize", icon: Award },
+      { id: "documents", labelKey: "chapter.documents", icon: FileText, isIntro: false },
+      { id: "incoterms", labelKey: "chapter.incoterms", icon: Book, isIntro: false },
+      { id: "customs", labelKey: "chapter.customs", icon: Shield, isIntro: false },
+      { id: "compliance", labelKey: "chapter.compliance", icon: Clock, isIntro: false },
+      { id: "driving-time", labelKey: "chapter.driving-time", icon: Clock, isIntro: false },
+      { id: "licenses-oversize", labelKey: "chapter.licenses-oversize", icon: Award, isIntro: false },
     ]
   },
   {
     title: t('section.geography'),
     chapters: [
-      { id: "europe-zones", labelKey: "chapter.europe-zones", icon: Route },
-      { id: "environment", labelKey: "chapter.environment", icon: Target },
-      { id: "supply-chain", labelKey: "chapter.supply-chain", icon: Route },
+      { id: "europe-zones", labelKey: "chapter.europe-zones", icon: Route, isIntro: false },
+      { id: "environment", labelKey: "chapter.environment", icon: Target, isIntro: false },
+      { id: "supply-chain", labelKey: "chapter.supply-chain", icon: Route, isIntro: false },
     ]
   },
   {
     title: t('section.commercial'),
     chapters: [
-      { id: "pricing", labelKey: "chapter.pricing", icon: Calculator },
-      { id: "commercial", labelKey: "chapter.commercial", icon: Target },
-      { id: "negotiation", labelKey: "chapter.negotiation", icon: Users },
-      { id: "clients", labelKey: "chapter.clients", icon: Building2 },
-      { id: "carrier-management", labelKey: "chapter.carrier-management", icon: Users },
-      { id: "exchanges", labelKey: "chapter.exchanges", icon: Users },
-      { id: "communication", labelKey: "chapter.communication", icon: MessageSquare },
-      { id: "kpi", labelKey: "chapter.kpi", icon: BarChart3 },
+      { id: "pricing", labelKey: "chapter.pricing", icon: Calculator, isIntro: false },
+      { id: "commercial", labelKey: "chapter.commercial", icon: Target, isIntro: false },
+      { id: "negotiation", labelKey: "chapter.negotiation", icon: Users, isIntro: false },
+      { id: "clients", labelKey: "chapter.clients", icon: Building2, isIntro: false },
+      { id: "carrier-management", labelKey: "chapter.carrier-management", icon: Users, isIntro: false },
+      { id: "exchanges", labelKey: "chapter.exchanges", icon: Users, isIntro: false },
+      { id: "communication", labelKey: "chapter.communication", icon: MessageSquare, isIntro: false },
+      { id: "kpi", labelKey: "chapter.kpi", icon: BarChart3, isIntro: false },
     ]
   },
   {
     title: t('section.technology'),
     chapters: [
-      { id: "translogica", labelKey: "chapter.translogica", icon: Laptop },
-      { id: "fleet", labelKey: "chapter.fleet", icon: Truck },
-      { id: "technology", labelKey: "chapter.technology", icon: Laptop },
+      { id: "translogica", labelKey: "chapter.translogica", icon: Laptop, isIntro: false },
+      { id: "fleet", labelKey: "chapter.fleet", icon: Truck, isIntro: false },
+      { id: "technology", labelKey: "chapter.technology", icon: Laptop, isIntro: false },
     ]
   },
   {
     title: t('section.finance'),
     chapters: [
-      { id: "risk-management", labelKey: "chapter.risk-management", icon: Shield },
-      { id: "insurance", labelKey: "chapter.insurance", icon: Shield },
-      { id: "claims", labelKey: "chapter.claims", icon: Scale },
-      { id: "payment", labelKey: "chapter.payment", icon: Calculator },
-      { id: "accounting", labelKey: "chapter.accounting", icon: Calculator },
+      { id: "risk-management", labelKey: "chapter.risk-management", icon: Shield, isIntro: false },
+      { id: "insurance", labelKey: "chapter.insurance", icon: Shield, isIntro: false },
+      { id: "claims", labelKey: "chapter.claims", icon: Scale, isIntro: false },
+      { id: "payment", labelKey: "chapter.payment", icon: Calculator, isIntro: false },
+      { id: "accounting", labelKey: "chapter.accounting", icon: Calculator, isIntro: false },
     ]
   },
   {
     title: t('section.practical'),
     chapters: [
-      { id: "training", labelKey: "chapter.training", icon: GraduationCap },
-      { id: "case-studies", labelKey: "chapter.case-studies", icon: Lightbulb },
-      { id: "emergency", labelKey: "chapter.emergency", icon: Phone },
-      { id: "red-flags", labelKey: "chapter.red-flags", icon: AlertTriangle },
-      { id: "checklists", labelKey: "chapter.checklists", icon: ClipboardList },
-      { id: "glossary", labelKey: "chapter.glossary", icon: Book },
+      { id: "training", labelKey: "chapter.training", icon: GraduationCap, isIntro: false },
+      { id: "case-studies", labelKey: "chapter.case-studies", icon: Lightbulb, isIntro: false },
+      { id: "emergency", labelKey: "chapter.emergency", icon: Phone, isIntro: false },
+      { id: "red-flags", labelKey: "chapter.red-flags", icon: AlertTriangle, isIntro: false },
+      { id: "checklists", labelKey: "chapter.checklists", icon: ClipboardList, isIntro: false },
+      { id: "glossary", labelKey: "chapter.glossary", icon: Book, isIntro: false },
     ]
   },
 ];
@@ -105,9 +108,27 @@ export function Sidebar({ activeChapter, onChapterChange, onShowDashboard }: Sid
   const [mobileOpen, setMobileOpen] = useState(false);
   const { progress, getOverallProgress, getChapterProgress } = useProgressContext();
   const { t } = useLanguage();
+  const { user } = useAuth();
+  const { 
+    progress: dbProgress, 
+    isChapterUnlocked, 
+    getChapterStatus, 
+    getBestScore,
+    initializeUserProgress 
+  } = useChapterProgress();
 
   const overallProgress = getOverallProgress();
   const sections = getSections(t);
+
+  // Get all chapter IDs in order
+  const allChapterIds = sections.flatMap(s => s.chapters.map(c => c.id));
+
+  // Initialize user progress when logged in
+  useEffect(() => {
+    if (user && allChapterIds.length > 0) {
+      initializeUserProgress(allChapterIds);
+    }
+  }, [user, initializeUserProgress]);
 
   // Calculate chapter numbers based on order in sections
   const getChapterNumber = (chapterId: string): number => {
@@ -123,7 +144,36 @@ export function Sidebar({ activeChapter, onChapterChange, onShowDashboard }: Sid
     return 0;
   };
 
+  // Check if chapter is accessible
+  const isChapterAccessible = (chapterId: string, chapterIndex: number, isIntro: boolean): boolean => {
+    // If not logged in, all chapters accessible (no gating for guests)
+    if (!user) return true;
+    
+    // Intro chapter always accessible
+    if (isIntro) return true;
+    
+    // Check database status
+    const status = getChapterStatus(chapterId);
+    if (status === 'unlocked' || status === 'in_progress' || status === 'completed') {
+      return true;
+    }
+    
+    // Check if previous chapter is completed
+    if (chapterIndex > 0) {
+      const prevChapterId = allChapterIds[chapterIndex - 1];
+      const prevStatus = getChapterStatus(prevChapterId);
+      return prevStatus === 'completed';
+    }
+    
+    return chapterIndex === 0;
+  };
+
   const totalChapters = sections.reduce((sum, section) => sum + section.chapters.length, 0);
+  
+  // Count completed chapters from DB
+  const completedCount = user 
+    ? Object.values(dbProgress).filter(p => p.status === 'completed').length
+    : progress.totalCompleted;
 
   return (
     <>
@@ -176,17 +226,19 @@ export function Sidebar({ activeChapter, onChapterChange, onShowDashboard }: Sid
         <div className="px-5 py-4 border-b border-border">
           <div className="flex items-center justify-between mb-2">
             <span className="text-xs font-medium text-muted-foreground">{t('sidebar.progress')}</span>
-            <span className="text-xs font-bold text-primary">{overallProgress}%</span>
+            <span className="text-xs font-bold text-primary">
+              {user ? Math.round((completedCount / totalChapters) * 100) : overallProgress}%
+            </span>
           </div>
           <div className="relative w-full h-1.5 bg-muted rounded-full overflow-hidden">
             <div 
               className="absolute left-0 top-0 h-full bg-primary rounded-full transition-all duration-500 ease-out"
-              style={{ width: `${overallProgress}%` }}
+              style={{ width: `${user ? (completedCount / totalChapters) * 100 : overallProgress}%` }}
             />
           </div>
           <div className="flex items-center justify-between mt-2">
             <span className="text-xs text-muted-foreground">
-              {progress.totalCompleted} / {totalChapters} {t('sidebar.chapters')}
+              {user ? completedCount : progress.totalCompleted} / {totalChapters} {t('sidebar.chapters')}
             </span>
             <button
               onClick={() => {
@@ -226,49 +278,84 @@ export function Sidebar({ activeChapter, onChapterChange, onShowDashboard }: Sid
                   const Icon = chapter.icon;
                   const isActive = activeChapter === chapter.id;
                   const chapterProgress = getChapterProgress(chapter.id);
-                  const isCompleted = chapterProgress?.completed;
-                  const hasQuizScore = chapterProgress?.quizScore !== undefined;
                   const chapterNumber = getChapterNumber(chapter.id);
+                  const globalIndex = allChapterIds.indexOf(chapter.id);
                   
-                  return (
-                    <li key={chapter.id}>
-                      <button
-                        onClick={() => {
+                  // Check if chapter is accessible (for logged in users)
+                  const isAccessible = isChapterAccessible(chapter.id, globalIndex, chapter.isIntro);
+                  const isLocked = user && !isAccessible;
+                  
+                  // Get status from DB for logged in users
+                  const dbStatus = user ? getChapterStatus(chapter.id) : null;
+                  const isCompleted = user ? dbStatus === 'completed' : chapterProgress?.completed;
+                  const bestScore = user ? getBestScore(chapter.id) : chapterProgress?.quizScore;
+                  const hasQuizScore = bestScore !== undefined && bestScore > 0;
+                  
+                  const button = (
+                    <button
+                      onClick={() => {
+                        if (!isLocked) {
                           onChapterChange(chapter.id);
                           setMobileOpen(false);
-                        }}
-                        className={cn(
-                          "nav-item w-full text-left group",
-                          isActive && "nav-item-active"
-                        )}
-                      >
-                        <div className="relative flex-shrink-0">
+                        }
+                      }}
+                      disabled={isLocked}
+                      className={cn(
+                        "nav-item w-full text-left group",
+                        isActive && "nav-item-active",
+                        isLocked && "opacity-50 cursor-not-allowed"
+                      )}
+                    >
+                      <div className="relative flex-shrink-0">
+                        {isLocked ? (
+                          <Lock className="w-4 h-4 text-muted-foreground" />
+                        ) : (
                           <Icon className={cn(
                             "w-4 h-4 transition-colors",
                             isActive ? "text-primary" : "text-muted-foreground group-hover:text-foreground"
                           )} />
-                          {isCompleted && (
-                            <CheckCircle2 className="w-2.5 h-2.5 text-success absolute -top-0.5 -right-1" />
-                          )}
-                        </div>
-                        <span className={cn(
-                          "flex-1 truncate text-[13px]",
-                          isActive ? "text-primary" : "text-foreground/80 group-hover:text-foreground"
-                        )}>
-                          <span className="font-medium text-muted-foreground mr-1.5">{chapterNumber}.</span>
-                          {t(chapter.labelKey)}
-                        </span>
-                        {hasQuizScore && (
-                          <span className={cn(
-                            "text-[10px] px-1.5 py-0.5 rounded font-medium",
-                            chapterProgress.quizScore! >= (chapterProgress.quizTotal! * 0.7)
-                              ? "bg-success/10 text-success"
-                              : "bg-warning/10 text-warning"
-                          )}>
-                            {chapterProgress.quizScore}/{chapterProgress.quizTotal}
-                          </span>
                         )}
-                      </button>
+                        {isCompleted && !isLocked && (
+                          <CheckCircle2 className="w-2.5 h-2.5 text-success absolute -top-0.5 -right-1" />
+                        )}
+                      </div>
+                      <span className={cn(
+                        "flex-1 truncate text-[13px]",
+                        isActive ? "text-primary" : "text-foreground/80 group-hover:text-foreground",
+                        isLocked && "text-muted-foreground"
+                      )}>
+                        <span className="font-medium text-muted-foreground mr-1.5">{chapterNumber}.</span>
+                        {t(chapter.labelKey)}
+                      </span>
+                      {hasQuizScore && !isLocked && (
+                        <span className={cn(
+                          "text-[10px] px-1.5 py-0.5 rounded font-medium",
+                          bestScore >= 9
+                            ? "bg-success/10 text-success"
+                            : bestScore >= 7
+                              ? "bg-warning/10 text-warning"
+                              : "bg-destructive/10 text-destructive"
+                        )}>
+                          {bestScore}/10
+                        </span>
+                      )}
+                    </button>
+                  );
+                  
+                  return (
+                    <li key={chapter.id}>
+                      {isLocked ? (
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            {button}
+                          </TooltipTrigger>
+                          <TooltipContent side="right">
+                            <p>{t('sidebar.locked') || 'Completează capitolul anterior cu scor ≥9/10'}</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      ) : (
+                        button
+                      )}
                     </li>
                   );
                 })}

@@ -22,6 +22,7 @@ const translations: Record<Language, Record<string, string>> = {
     'sidebar.details': 'Detalii',
     'sidebar.version': 'Versiunea 2025',
     'sidebar.edition': 'Ediție Completă',
+    'sidebar.locked': 'Completează capitolul anterior cu scor ≥9/10',
     
     // Sections
     'section.foundation': 'Fundament',
@@ -138,6 +139,7 @@ const translations: Record<Language, Record<string, string>> = {
     'sidebar.details': 'Details',
     'sidebar.version': 'Version 2025',
     'sidebar.edition': 'Vollständige Ausgabe',
+    'sidebar.locked': 'Schließen Sie das vorherige Kapitel mit ≥9/10 ab',
     
     // Sections
     'section.foundation': 'Grundlagen',
@@ -254,6 +256,7 @@ const translations: Record<Language, Record<string, string>> = {
     'sidebar.details': 'Details',
     'sidebar.version': 'Version 2025',
     'sidebar.edition': 'Complete Edition',
+    'sidebar.locked': 'Complete the previous chapter with score ≥9/10',
     
     // Sections
     'section.foundation': 'Foundation',
