@@ -212,25 +212,25 @@ export function IntroChapter() {
           <Route className="w-6 h-6 text-primary" />
           {ct("journeyTitle")}
         </h2>
+        <p className="text-sm text-muted-foreground mb-4">{ct("journeySubtitle")}</p>
         <div className="info-card">
           <div className="relative">
             <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-primary/20"></div>
             <div className="space-y-6">
               {[
-                { week: ct("week12"), title: ct("week12Title"), topics: ct("week12Topics") },
-                { week: ct("week34"), title: ct("week34Title"), topics: ct("week34Topics") },
-                { week: ct("week56"), title: ct("week56Title"), topics: ct("week56Topics") },
-                { week: ct("week78"), title: ct("week78Title"), topics: ct("week78Topics") },
-                { week: ct("week910"), title: ct("week910Title"), topics: ct("week910Topics") },
-                { week: ct("week1112"), title: ct("week1112Title"), topics: ct("week1112Topics") },
+                { day: ct("week12"), title: ct("week12Title"), topics: ct("week12Topics") },
+                { day: ct("week34"), title: ct("week34Title"), topics: ct("week34Topics") },
+                { day: ct("week56"), title: ct("week56Title"), topics: ct("week56Topics") },
+                { day: ct("week78"), title: ct("week78Title"), topics: ct("week78Topics") },
+                { day: ct("week910"), title: ct("week910Title"), topics: ct("week910Topics"), isBackup: true },
               ].map((phase, i) => (
                 <div key={i} className="flex gap-4 relative">
-                  <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-primary-foreground font-bold text-sm flex-shrink-0 z-10">
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center text-primary-foreground font-bold text-sm flex-shrink-0 z-10 ${phase.isBackup ? 'bg-muted-foreground' : 'bg-primary'}`}>
                     {i + 1}
                   </div>
                   <div className="flex-1 pb-2">
                     <div className="flex items-center gap-2 mb-1">
-                      <span className="text-xs bg-primary/10 text-primary px-2 py-0.5 rounded-full font-medium">{phase.week}</span>
+                      <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${phase.isBackup ? 'bg-muted text-muted-foreground' : 'bg-primary/10 text-primary'}`}>{phase.day}</span>
                     </div>
                     <h4 className="font-semibold">{phase.title}</h4>
                     <p className="text-sm text-muted-foreground">{phase.topics}</p>
