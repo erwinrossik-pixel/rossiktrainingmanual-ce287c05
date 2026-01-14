@@ -5,7 +5,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Button } from '@/components/ui/button';
-import { Clock, Timer, TrendingUp, Users, Download, RefreshCw } from 'lucide-react';
+import { Clock, Timer, TrendingUp, TrendingDown, Users, Download, RefreshCw, Zap, Minus } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell, PieChart, Pie } from 'recharts';
 import { format } from 'date-fns';
 import { toast } from 'sonner';
@@ -19,6 +19,8 @@ interface UserTrainingTime {
   totalSeconds: number;
   isCurrentlyTraining: boolean;
   trainingStartedAt: string | null;
+  efficiency: number; // percentage: 100% = on track, >100% = faster, <100% = slower
+  activePhasesCount: number;
 }
 
 const TARGET_HOURS_PER_PHASE = 8;
@@ -79,6 +81,18 @@ export function TrainingTimeAnalytics() {
       });
 
       const totalSeconds = Object.values(days).reduce((a, b) => a + b, 0);
+      
+      // Calculate efficiency: compare actual time vs recommended per phase
+      // Only count phases where user has spent time
+      const activePhasesCount = Object.values(days).filter(d => d > 0).length;
+      let efficiency = 0;
+      
+      if (activePhasesCount > 0 && totalSeconds > 0) {
+        // Target time for active phases
+        const targetSecondsForActivePhases = activePhasesCount * TARGET_HOURS_PER_PHASE * 3600;
+        // Efficiency = (target / actual) * 100 - if you spend less time, you're more efficient
+        efficiency = Math.round((targetSecondsForActivePhases / totalSeconds) * 100);
+      }
 
       return {
         userId: profile.id,
@@ -89,6 +103,8 @@ export function TrainingTimeAnalytics() {
         totalSeconds,
         isCurrentlyTraining,
         trainingStartedAt,
+        efficiency,
+        activePhasesCount,
       };
     });
 
@@ -134,6 +150,39 @@ export function TrainingTimeAnalytics() {
     : 0;
   const usersCurrentlyTraining = usersTime.filter(u => u.isCurrentlyTraining).length;
   const usersCompletedTarget = usersTime.filter(u => u.totalSeconds >= TOTAL_TARGET_HOURS * 3600).length;
+  
+  // Average efficiency across all users with time
+  const averageEfficiency = usersWithAnyTime.length > 0
+    ? Math.round(usersWithAnyTime.reduce((acc, u) => acc + u.efficiency, 0) / usersWithAnyTime.length)
+    : 0;
+  
+  // Efficiency distribution
+  const efficiencyDistribution = {
+    fast: usersWithAnyTime.filter(u => u.efficiency >= 120).length,      // Very fast learners
+    good: usersWithAnyTime.filter(u => u.efficiency >= 100 && u.efficiency < 120).length,  // On track
+    average: usersWithAnyTime.filter(u => u.efficiency >= 80 && u.efficiency < 100).length, // Slightly slower
+    slow: usersWithAnyTime.filter(u => u.efficiency < 80).length,        // Need attention
+  };
+
+  const getEfficiencyColor = (efficiency: number): string => {
+    if (efficiency >= 120) return 'text-success';
+    if (efficiency >= 100) return 'text-primary';
+    if (efficiency >= 80) return 'text-warning';
+    return 'text-destructive';
+  };
+
+  const getEfficiencyIcon = (efficiency: number) => {
+    if (efficiency >= 110) return <TrendingUp className="h-3 w-3 text-success" />;
+    if (efficiency >= 90) return <Minus className="h-3 w-3 text-primary" />;
+    return <TrendingDown className="h-3 w-3 text-warning" />;
+  };
+
+  const getEfficiencyLabel = (efficiency: number): string => {
+    if (efficiency >= 120) return 'Excelent';
+    if (efficiency >= 100) return 'Bun';
+    if (efficiency >= 80) return 'Mediu';
+    return 'Lent';
+  };
 
   // Chart data: time distribution by phase across all users
   const phaseDistribution = [1, 2, 3, 4, 5].map(phase => {
@@ -193,7 +242,7 @@ export function TrainingTimeAnalytics() {
   ].filter(d => d.value > 0);
 
   const exportToCSV = () => {
-    const headers = ['Nume', 'Email', 'Faza 1', 'Faza 2', 'Faza 3', 'Faza 4', 'Faza 5', 'Total', 'Progres %', 'Activ Acum', 'Început Training'];
+    const headers = ['Nume', 'Email', 'Faza 1', 'Faza 2', 'Faza 3', 'Faza 4', 'Faza 5', 'Total', 'Progres %', 'Eficiență %', 'Faze Active', 'Activ Acum', 'Început Training'];
     const rows = usersTime.map(u => [
       `${u.firstName || ''} ${u.lastName || ''}`.trim() || 'N/A',
       u.email,
@@ -204,6 +253,8 @@ export function TrainingTimeAnalytics() {
       formatTime(u.days[5] || 0),
       formatTime(u.totalSeconds),
       `${Math.min(100, Math.round((u.totalSeconds / (TOTAL_TARGET_HOURS * 3600)) * 100))}%`,
+      `${u.efficiency}%`,
+      u.activePhasesCount,
       u.isCurrentlyTraining ? 'Da' : 'Nu',
       u.trainingStartedAt ? format(new Date(u.trainingStartedAt), 'dd.MM.yyyy HH:mm') : 'N/A',
     ]);
@@ -246,7 +297,7 @@ export function TrainingTimeAnalytics() {
   return (
     <div className="space-y-6">
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium">Timp Total Platform</CardTitle>
@@ -266,6 +317,23 @@ export function TrainingTimeAnalytics() {
           <CardContent>
             <div className="text-2xl font-bold">{formatTime(Math.round(averageTime))}</div>
             <p className="text-xs text-muted-foreground">per utilizator activ</p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between pb-2">
+            <CardTitle className="text-sm font-medium">Eficiență Medie</CardTitle>
+            <Zap className="h-4 w-4 text-primary" />
+          </CardHeader>
+          <CardContent>
+            <div className={`text-2xl font-bold ${getEfficiencyColor(averageEfficiency)}`}>
+              {averageEfficiency}%
+            </div>
+            <div className="flex items-center gap-2 mt-1">
+              <span className="text-xs text-success">{efficiencyDistribution.fast} rapizi</span>
+              <span className="text-xs text-muted-foreground">·</span>
+              <span className="text-xs text-warning">{efficiencyDistribution.slow} lenți</span>
+            </div>
           </CardContent>
         </Card>
 
@@ -388,7 +456,8 @@ export function TrainingTimeAnalytics() {
                 <TableHead className="text-center">F4</TableHead>
                 <TableHead className="text-center">F5</TableHead>
                 <TableHead className="text-center">Total</TableHead>
-                <TableHead className="w-32">Progres</TableHead>
+                <TableHead className="w-28">Progres</TableHead>
+                <TableHead className="text-center">Eficiență</TableHead>
                 <TableHead className="text-center">Status</TableHead>
               </TableRow>
             </TableHeader>
@@ -428,9 +497,21 @@ export function TrainingTimeAnalytics() {
                     </TableCell>
                     <TableCell>
                       <div className="flex items-center gap-2">
-                        <Progress value={progressPercent} className="h-2 w-16" />
+                        <Progress value={progressPercent} className="h-2 w-14" />
                         <span className="text-xs text-muted-foreground w-8">{progressPercent}%</span>
                       </div>
+                    </TableCell>
+                    <TableCell className="text-center">
+                      {userTime.efficiency > 0 ? (
+                        <div className="flex items-center justify-center gap-1">
+                          {getEfficiencyIcon(userTime.efficiency)}
+                          <span className={`text-sm font-medium ${getEfficiencyColor(userTime.efficiency)}`}>
+                            {userTime.efficiency}%
+                          </span>
+                        </div>
+                      ) : (
+                        <span className="text-xs text-muted-foreground">-</span>
+                      )}
                     </TableCell>
                     <TableCell className="text-center">
                       {userTime.isCurrentlyTraining ? (
@@ -446,7 +527,7 @@ export function TrainingTimeAnalytics() {
               })}
               {usersTime.length === 0 && (
                 <TableRow>
-                  <TableCell colSpan={9} className="text-center text-muted-foreground py-8">
+                  <TableCell colSpan={10} className="text-center text-muted-foreground py-8">
                     Niciun utilizator nu a înregistrat timp de training încă
                   </TableCell>
                 </TableRow>
