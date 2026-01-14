@@ -9,7 +9,7 @@ import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { ArrowLeft, Users, BookOpen, Trophy, Clock, Eye, Download, BarChart3, RefreshCw, RotateCcw } from 'lucide-react';
+import { ArrowLeft, Users, BookOpen, Trophy, Clock, Eye, Download, BarChart3, RefreshCw, RotateCcw, Unlock } from 'lucide-react';
 import { toast } from 'sonner';
 import { format, subDays } from 'date-fns';
 import { AdminCharts } from '@/components/admin/AdminCharts';
@@ -242,6 +242,60 @@ export default function AdminDashboard() {
     
     // Refresh main users list
     fetchUsers();
+  };
+
+  const unlockChapter = async (chapterId: string, userId: string) => {
+    // Check if record exists
+    const { data: existing } = await supabase
+      .from('chapter_progress')
+      .select('id')
+      .eq('user_id', userId)
+      .eq('chapter_id', chapterId)
+      .single();
+
+    if (existing) {
+      // Update existing record
+      const { error } = await supabase
+        .from('chapter_progress')
+        .update({ status: 'unlocked' })
+        .eq('user_id', userId)
+        .eq('chapter_id', chapterId);
+
+      if (error) {
+        console.error('Error unlocking chapter:', error);
+        toast.error('Eroare la deblocarea capitolului');
+        return;
+      }
+    } else {
+      // Insert new record
+      const { error } = await supabase
+        .from('chapter_progress')
+        .insert({ 
+          user_id: userId,
+          chapter_id: chapterId,
+          status: 'unlocked',
+          best_score: 0,
+          attempts_count: 0
+        });
+
+      if (error) {
+        console.error('Error unlocking chapter:', error);
+        toast.error('Eroare la deblocarea capitolului');
+        return;
+      }
+    }
+
+    toast.success(`Capitolul ${chapterId} a fost deblocat`);
+    
+    // Refresh user progress
+    if (selectedUser) {
+      const { data: progress } = await supabase
+        .from('chapter_progress')
+        .select('*')
+        .eq('user_id', selectedUser.id)
+        .order('chapter_id');
+      setUserProgress(progress || []);
+    }
   };
 
   const exportToCSV = () => {
@@ -554,14 +608,28 @@ export default function AdminDashboard() {
                             : '-'}
                         </TableCell>
                         <TableCell>
-                          <Button 
-                            variant="ghost" 
-                            size="sm"
-                            onClick={() => selectedUser && resetBestScore(progress.chapter_id, selectedUser.id)}
-                            title="Resetează scorul"
-                          >
-                            <RotateCcw className="h-4 w-4" />
-                          </Button>
+                          <div className="flex gap-1">
+                            {progress.status === 'locked' && (
+                              <Button 
+                                variant="ghost" 
+                                size="sm"
+                                onClick={() => selectedUser && unlockChapter(progress.chapter_id, selectedUser.id)}
+                                title="Deblochează capitol"
+                                className="text-blue-600 hover:text-blue-800"
+                              >
+                                <Unlock className="h-4 w-4" />
+                              </Button>
+                            )}
+                            <Button 
+                              variant="ghost" 
+                              size="sm"
+                              onClick={() => selectedUser && resetBestScore(progress.chapter_id, selectedUser.id)}
+                              title="Resetează scorul"
+                              className="text-destructive hover:text-destructive"
+                            >
+                              <RotateCcw className="h-4 w-4" />
+                            </Button>
+                          </div>
                         </TableCell>
                       </TableRow>
                     ))}
