@@ -135,7 +135,36 @@ Generate a brief content update in JSON:
 
     // Create auto_update record
     const changeSeverity = (change?.severity as string) || 'minor';
-    const requiresApproval = changeSeverity === 'critical';
+    
+    // Check chapter's content level for governance rules
+    const { data: chapterData } = await supabase
+      .from('chapters')
+      .select('content_level, auto_update_blocked')
+      .eq('id', chId)
+      .single();
+    
+    const contentLevel = chapterData?.content_level || 'informational';
+    const isBlocked = chapterData?.auto_update_blocked || false;
+    
+    // Human-in-the-loop: CRITICAL content or MAJOR/CRITICAL severity always requires approval
+    const requiresApproval = 
+      changeSeverity === 'critical' || 
+      changeSeverity === 'major' || 
+      contentLevel === 'critical';
+    
+    // If chapter has auto-update blocked, skip creating update
+    if (isBlocked) {
+      console.log(`[BG-REGEN] Chapter ${chId} has auto-update blocked, skipping`);
+      await supabase.from('update_audit_log').insert({
+        action: 'auto_update_blocked_skip',
+        entity_type: 'chapter',
+        chapter_id: chId,
+        details: { reason: 'Chapter has auto-update blocked by admin' },
+        performed_by: 'system',
+        content_level: contentLevel
+      } as Record<string, unknown>);
+      return { success: true };
+    }
     
     await supabase
       .from('auto_updates')
@@ -144,6 +173,7 @@ Generate a brief content update in JSON:
         change_id: change_id,
         status: requiresApproval ? 'pending' : (auto_apply ? 'applied' : 'pending'),
         severity: changeSeverity,
+        content_level: contentLevel,
         title: `Update: ${change?.title || 'Content refresh'}`,
         description: regeneratedContent.summary,
         original_content: currentVersion?.content_snapshot,
