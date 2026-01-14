@@ -465,6 +465,36 @@ export type Database = {
         }
         Relationships: []
       }
+      page_views: {
+        Row: {
+          chapter_id: string | null
+          created_at: string
+          duration_seconds: number | null
+          id: string
+          page_path: string
+          session_id: string
+          user_id: string | null
+        }
+        Insert: {
+          chapter_id?: string | null
+          created_at?: string
+          duration_seconds?: number | null
+          id?: string
+          page_path: string
+          session_id: string
+          user_id?: string | null
+        }
+        Update: {
+          chapter_id?: string | null
+          created_at?: string
+          duration_seconds?: number | null
+          id?: string
+          page_path?: string
+          session_id?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -714,6 +744,42 @@ export type Database = {
           id?: string
           role?: Database["public"]["Enums"]["app_role"]
           user_id?: string
+        }
+        Relationships: []
+      }
+      user_sessions: {
+        Row: {
+          browser: string | null
+          device_type: string | null
+          id: string
+          last_activity_at: string
+          pages_visited: number | null
+          session_id: string
+          started_at: string
+          total_duration_seconds: number | null
+          user_id: string | null
+        }
+        Insert: {
+          browser?: string | null
+          device_type?: string | null
+          id?: string
+          last_activity_at?: string
+          pages_visited?: number | null
+          session_id: string
+          started_at?: string
+          total_duration_seconds?: number | null
+          user_id?: string | null
+        }
+        Update: {
+          browser?: string | null
+          device_type?: string | null
+          id?: string
+          last_activity_at?: string
+          pages_visited?: number | null
+          session_id?: string
+          started_at?: string
+          total_duration_seconds?: number | null
+          user_id?: string | null
         }
         Relationships: []
       }
