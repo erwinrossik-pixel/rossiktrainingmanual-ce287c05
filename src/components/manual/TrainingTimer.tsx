@@ -10,7 +10,7 @@ const translations = {
     start: "Start",
     pause: "Pauză",
     totalTime: "Timp total",
-    dayTime: "Ziua",
+    phaseTime: "Faza",
     noTraining: "Apasă Start pentru a începe",
     training: "Training în desfășurare",
     paused: "În pauză",
@@ -19,7 +19,7 @@ const translations = {
     start: "Start",
     pause: "Pause",
     totalTime: "Gesamtzeit",
-    dayTime: "Tag",
+    phaseTime: "Phase",
     noTraining: "Drücken Sie Start zum Beginnen",
     training: "Training läuft",
     paused: "Pausiert",
@@ -28,7 +28,7 @@ const translations = {
     start: "Start",
     pause: "Pause",
     totalTime: "Total time",
-    dayTime: "Day",
+    phaseTime: "Phase",
     noTraining: "Press Start to begin",
     training: "Training in progress",
     paused: "Paused",
@@ -36,11 +36,11 @@ const translations = {
 };
 
 interface TrainingTimerProps {
-  currentDay: number;
+  currentPhase: number;
   variant?: 'compact' | 'full';
 }
 
-export function TrainingTimer({ currentDay, variant = 'compact' }: TrainingTimerProps) {
+export function TrainingTimer({ currentPhase, variant = 'compact' }: TrainingTimerProps) {
   const { language } = useLanguage();
   const {
     startTraining,
@@ -55,13 +55,13 @@ export function TrainingTimer({ currentDay, variant = 'compact' }: TrainingTimer
   const t = translations[language] || translations.en;
   const isRunning = isAnyTimerRunning();
   const totalTime = getTotalTime();
-  const dayTime = getDayTime(currentDay);
+  const phaseTime = getDayTime(currentPhase);
 
   const handleToggle = () => {
     if (isRunning) {
       pauseTraining();
     } else {
-      startTraining(currentDay);
+      startTraining(currentPhase);
     }
   };
 
@@ -119,7 +119,7 @@ export function TrainingTimer({ currentDay, variant = 'compact' }: TrainingTimer
     );
   }
 
-  // Full variant for DailyTracker
+  // Full variant for PhaseTracker
   return (
     <div className="flex items-center justify-between bg-muted/50 rounded-lg p-3 mb-4">
       <div className="flex items-center gap-3">

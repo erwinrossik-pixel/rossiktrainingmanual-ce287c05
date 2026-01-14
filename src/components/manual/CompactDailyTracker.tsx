@@ -7,45 +7,47 @@ import { useProgressContext } from "@/contexts/ProgressContext";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { TrainingTimer } from "./TrainingTimer";
 
-interface DayInfo {
-  day: number;
+interface PhaseInfo {
+  phase: number;
   titleKey: string;
   chapters: number[];
-  isBackup?: boolean;
 }
 
-const TRAINING_DAYS: DayInfo[] = [
-  { day: 1, titleKey: "day1", chapters: [1, 2, 3, 4] },
-  { day: 2, titleKey: "day2", chapters: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15] },
-  { day: 3, titleKey: "day3", chapters: [16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26] },
-  { day: 4, titleKey: "day4", chapters: [27, 28, 29, 30, 31, 32, 33, 34] },
-  { day: 5, titleKey: "day5", chapters: [35, 36, 37, 38, 39, 40], isBackup: true },
+const TRAINING_PHASES: PhaseInfo[] = [
+  { phase: 1, titleKey: "phase1", chapters: [1, 2, 3, 4] },
+  { phase: 2, titleKey: "phase2", chapters: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15] },
+  { phase: 3, titleKey: "phase3", chapters: [16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26] },
+  { phase: 4, titleKey: "phase4", chapters: [27, 28, 29, 30, 31, 32, 33, 34] },
+  { phase: 5, titleKey: "phase5", chapters: [35, 36, 37, 38, 39, 40] },
 ];
 
 const translations = {
   ro: {
-    day1: "Fundamente",
-    day2: "Echipament & Documente",
-    day3: "Geografie & Comercial",
-    day4: "Tehnologie & Finanțe",
-    day5: "Aplicare Practică",
-    dayLabel: "Ziua",
+    phase1: "Fundamente",
+    phase2: "Echipament & Documente",
+    phase3: "Geografie & Comercial",
+    phase4: "Tehnologie & Finanțe",
+    phase5: "Aplicare Practică",
+    phaseLabel: "Faza",
+    chapters: "capitole",
   },
   de: {
-    day1: "Grundlagen",
-    day2: "Ausrüstung & Dokumente",
-    day3: "Geographie & Kommerziell",
-    day4: "Technologie & Finanzen",
-    day5: "Praktische Anwendung",
-    dayLabel: "Tag",
+    phase1: "Grundlagen",
+    phase2: "Ausrüstung & Dokumente",
+    phase3: "Geographie & Kommerziell",
+    phase4: "Technologie & Finanzen",
+    phase5: "Praktische Anwendung",
+    phaseLabel: "Phase",
+    chapters: "Kapitel",
   },
   en: {
-    day1: "Foundations",
-    day2: "Equipment & Documents",
-    day3: "Geography & Commercial",
-    day4: "Technology & Finance",
-    day5: "Practical Application",
-    dayLabel: "Day",
+    phase1: "Foundations",
+    phase2: "Equipment & Documents",
+    phase3: "Geography & Commercial",
+    phase4: "Technology & Finance",
+    phase5: "Practical Application",
+    phaseLabel: "Phase",
+    chapters: "chapters",
   },
 };
 
@@ -65,8 +67,8 @@ export function CompactDailyTracker() {
   
   const t = translations[language] || translations.en;
 
-  const getCompletedChaptersInDay = (dayInfo: DayInfo): number => {
-    return dayInfo.chapters.filter(chapterNum => {
+  const getCompletedChaptersInPhase = (phaseInfo: PhaseInfo): number => {
+    return phaseInfo.chapters.filter(chapterNum => {
       const chapterId = CHAPTER_ORDER[chapterNum - 1];
       if (user) {
         return getChapterStatus(chapterId) === 'completed';
@@ -75,54 +77,54 @@ export function CompactDailyTracker() {
     }).length;
   };
 
-  const getDayStatus = (dayInfo: DayInfo): 'completed' | 'in-progress' | 'locked' => {
-    const completed = getCompletedChaptersInDay(dayInfo);
-    const total = dayInfo.chapters.length;
+  const getPhaseStatus = (phaseInfo: PhaseInfo): 'completed' | 'in-progress' | 'locked' => {
+    const completed = getCompletedChaptersInPhase(phaseInfo);
+    const total = phaseInfo.chapters.length;
     
     if (completed === total) return 'completed';
     if (completed > 0) return 'in-progress';
-    if (dayInfo.day === 1) return 'in-progress';
+    if (phaseInfo.phase === 1) return 'in-progress';
     
-    const prevDay = TRAINING_DAYS[dayInfo.day - 2];
-    const prevCompleted = getCompletedChaptersInDay(prevDay);
-    const prevTotal = prevDay.chapters.length;
+    const prevPhase = TRAINING_PHASES[phaseInfo.phase - 2];
+    const prevCompleted = getCompletedChaptersInPhase(prevPhase);
+    const prevTotal = prevPhase.chapters.length;
     
     if (prevCompleted === prevTotal) return 'in-progress';
     return 'locked';
   };
 
-  const getCurrentDay = (): number => {
-    for (let i = TRAINING_DAYS.length - 1; i >= 0; i--) {
-      const status = getDayStatus(TRAINING_DAYS[i]);
-      if (status === 'in-progress') return TRAINING_DAYS[i].day;
-      if (status === 'completed' && i < TRAINING_DAYS.length - 1) {
-        const nextStatus = getDayStatus(TRAINING_DAYS[i + 1]);
-        if (nextStatus !== 'locked') return TRAINING_DAYS[i + 1].day;
+  const getCurrentPhase = (): number => {
+    for (let i = TRAINING_PHASES.length - 1; i >= 0; i--) {
+      const status = getPhaseStatus(TRAINING_PHASES[i]);
+      if (status === 'in-progress') return TRAINING_PHASES[i].phase;
+      if (status === 'completed' && i < TRAINING_PHASES.length - 1) {
+        const nextStatus = getPhaseStatus(TRAINING_PHASES[i + 1]);
+        if (nextStatus !== 'locked') return TRAINING_PHASES[i + 1].phase;
       }
     }
     return 1;
   };
 
-  const currentDay = getCurrentDay();
+  const currentPhase = getCurrentPhase();
 
   return (
     <div className="space-y-2">
       {/* Timer Controls */}
       <div className="flex justify-center">
-        <TrainingTimer currentDay={currentDay} variant="compact" />
+        <TrainingTimer currentPhase={currentPhase} variant="compact" />
       </div>
 
-      {/* Day Indicators */}
+      {/* Phase Indicators */}
       <div className="flex items-center justify-center gap-1">
-        {TRAINING_DAYS.map((dayInfo) => {
-          const status = getDayStatus(dayInfo);
-          const completed = getCompletedChaptersInDay(dayInfo);
-          const total = dayInfo.chapters.length;
-          const isCurrent = dayInfo.day === currentDay;
-          const dayTitle = t[dayInfo.titleKey as keyof typeof t];
+        {TRAINING_PHASES.map((phaseInfo) => {
+          const status = getPhaseStatus(phaseInfo);
+          const completed = getCompletedChaptersInPhase(phaseInfo);
+          const total = phaseInfo.chapters.length;
+          const isCurrent = phaseInfo.phase === currentPhase;
+          const phaseTitle = t[phaseInfo.titleKey as keyof typeof t];
 
           return (
-            <Tooltip key={dayInfo.day}>
+            <Tooltip key={phaseInfo.phase}>
               <TooltipTrigger asChild>
                 <div
                   className={cn(
@@ -139,13 +141,13 @@ export function CompactDailyTracker() {
                   ) : status === 'in-progress' && isCurrent ? (
                     <Clock className="w-3.5 h-3.5" />
                   ) : (
-                    dayInfo.day
+                    phaseInfo.phase
                   )}
                 </div>
               </TooltipTrigger>
               <TooltipContent side="bottom" className="text-center">
-                <p className="font-semibold">{t.dayLabel} {dayInfo.day}: {dayTitle}</p>
-                <p className="text-xs text-muted-foreground">{completed}/{total} capitole</p>
+                <p className="font-semibold">{t.phaseLabel} {phaseInfo.phase}: {phaseTitle}</p>
+                <p className="text-xs text-muted-foreground">{completed}/{total} {t.chapters}</p>
               </TooltipContent>
             </Tooltip>
           );
