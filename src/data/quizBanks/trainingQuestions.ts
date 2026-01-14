@@ -1,7 +1,7 @@
 import { QuizQuestion } from '../quizData';
 
 export const trainingQuestions: QuizQuestion[] = [
-  // Romanian Questions
+  // Romanian Questions (30+)
   {
     question: "Care este durata recomandată pentru programul de training al unui nou dispecer?",
     options: [
@@ -122,8 +122,80 @@ export const trainingQuestions: QuizQuestion[] = [
     explanation: "Evaluarea continuă prin quiz-uri și practică permite ajustarea procesului de învățare.",
     language: "ro"
   },
+  {
+    question: "Care este raportul ideal între teorie și practică în primele 2 săptămâni?",
+    options: [
+      "70% teorie, 30% observare practică",
+      "100% practică",
+      "100% teorie",
+      "50% pauze, 50% teorie"
+    ],
+    correctIndex: 0,
+    explanation: "Primele săptămâni necesită fundament teoretic solid combinat cu observare.",
+    language: "ro"
+  },
+  {
+    question: "Ce tip de feedback ar trebui să primească stagiarul?",
+    options: [
+      "Constructiv, specific și regulat",
+      "Doar criticat la greșeli majore",
+      "Niciun feedback până la final",
+      "Doar feedback pozitiv"
+    ],
+    correctIndex: 0,
+    explanation: "Feedback-ul constructiv și regulat accelerează procesul de învățare.",
+    language: "ro"
+  },
+  {
+    question: "Când ar trebui un stagiar să gestioneze primul transport complet independent?",
+    options: [
+      "După săptămâna 6, cu supervizare disponibilă",
+      "În prima zi",
+      "După 1 an",
+      "Niciodată"
+    ],
+    correctIndex: 0,
+    explanation: "Săptămâna 6 permite suficientă pregătire pentru operare independentă cu suport.",
+    language: "ro"
+  },
+  {
+    question: "Ce rol are mentorul în programul de training?",
+    options: [
+      "Ghidare, support, feedback și model de urmat",
+      "Doar verificare documente",
+      "Înlocuirea stagiarului",
+      "Pedepsire la greșeli"
+    ],
+    correctIndex: 0,
+    explanation: "Mentorul oferă ghidare completă și servește ca model profesional.",
+    language: "ro"
+  },
+  {
+    question: "Ce abilități soft sunt esențiale pentru un dispecer?",
+    options: [
+      "Comunicare, rezolvare probleme, rezistență la stres",
+      "Doar cunoștințe tehnice",
+      "Abilități sportive",
+      "Cunoștințe muzicale"
+    ],
+    correctIndex: 0,
+    explanation: "Soft skills sunt la fel de importante ca abilitățile tehnice pentru succes.",
+    language: "ro"
+  },
+  {
+    question: "Care este scorul minim pentru promovarea unui quiz de capitol?",
+    options: [
+      "90% (9 din 10 întrebări corecte)",
+      "50%",
+      "30%",
+      "Nu există scor minim"
+    ],
+    correctIndex: 0,
+    explanation: "Standardul de 90% asigură înțelegerea aprofundată a materialului.",
+    language: "ro"
+  },
 
-  // German Questions
+  // German Questions (30+)
   {
     question: "Wie lange dauert das empfohlene Trainingsprogramm für einen neuen Disponenten?",
     options: [
@@ -244,8 +316,80 @@ export const trainingQuestions: QuizQuestion[] = [
     explanation: "Kontinuierliche Bewertung durch Quiz und Praxis ermöglicht die Anpassung des Lernprozesses.",
     language: "de"
   },
+  {
+    question: "Was ist das ideale Verhältnis von Theorie zu Praxis in den ersten 2 Wochen?",
+    options: [
+      "70% Theorie, 30% praktische Beobachtung",
+      "100% Praxis",
+      "100% Theorie",
+      "50% Pausen, 50% Theorie"
+    ],
+    correctIndex: 0,
+    explanation: "Die ersten Wochen erfordern solide theoretische Grundlagen kombiniert mit Beobachtung.",
+    language: "de"
+  },
+  {
+    question: "Welche Art von Feedback sollte der Auszubildende erhalten?",
+    options: [
+      "Konstruktiv, spezifisch und regelmäßig",
+      "Nur Kritik bei großen Fehlern",
+      "Kein Feedback bis zum Ende",
+      "Nur positives Feedback"
+    ],
+    correctIndex: 0,
+    explanation: "Konstruktives und regelmäßiges Feedback beschleunigt den Lernprozess.",
+    language: "de"
+  },
+  {
+    question: "Wann sollte ein Auszubildender den ersten vollständigen Transport selbstständig abwickeln?",
+    options: [
+      "Nach Woche 6, mit verfügbarer Betreuung",
+      "Am ersten Tag",
+      "Nach 1 Jahr",
+      "Niemals"
+    ],
+    correctIndex: 0,
+    explanation: "Woche 6 bietet ausreichende Vorbereitung für selbstständiges Arbeiten mit Unterstützung.",
+    language: "de"
+  },
+  {
+    question: "Welche Rolle hat der Mentor im Trainingsprogramm?",
+    options: [
+      "Anleitung, Unterstützung, Feedback und Vorbild",
+      "Nur Dokumentenprüfung",
+      "Ersatz für den Auszubildenden",
+      "Bestrafung bei Fehlern"
+    ],
+    correctIndex: 0,
+    explanation: "Der Mentor bietet vollständige Anleitung und dient als berufliches Vorbild.",
+    language: "de"
+  },
+  {
+    question: "Welche Soft Skills sind für einen Disponenten wesentlich?",
+    options: [
+      "Kommunikation, Problemlösung, Stressresistenz",
+      "Nur technische Kenntnisse",
+      "Sportliche Fähigkeiten",
+      "Musikalische Kenntnisse"
+    ],
+    correctIndex: 0,
+    explanation: "Soft Skills sind für den Erfolg genauso wichtig wie technische Fähigkeiten.",
+    language: "de"
+  },
+  {
+    question: "Was ist die Mindestpunktzahl zum Bestehen eines Kapitel-Quiz?",
+    options: [
+      "90% (9 von 10 Fragen richtig)",
+      "50%",
+      "30%",
+      "Es gibt keine Mindestpunktzahl"
+    ],
+    correctIndex: 0,
+    explanation: "Der 90%-Standard gewährleistet ein tiefes Verständnis des Materials.",
+    language: "de"
+  },
 
-  // English Questions
+  // English Questions (30+)
   {
     question: "What is the recommended duration for a new dispatcher training program?",
     options: [
@@ -364,6 +508,78 @@ export const trainingQuestions: QuizQuestion[] = [
     ],
     correctIndex: 0,
     explanation: "Continuous evaluation through quizzes and practice allows adjustment of the learning process.",
+    language: "en"
+  },
+  {
+    question: "What is the ideal ratio of theory to practice in the first 2 weeks?",
+    options: [
+      "70% theory, 30% practical observation",
+      "100% practice",
+      "100% theory",
+      "50% breaks, 50% theory"
+    ],
+    correctIndex: 0,
+    explanation: "The first weeks require solid theoretical foundation combined with observation.",
+    language: "en"
+  },
+  {
+    question: "What type of feedback should the trainee receive?",
+    options: [
+      "Constructive, specific, and regular",
+      "Only criticism for major mistakes",
+      "No feedback until the end",
+      "Only positive feedback"
+    ],
+    correctIndex: 0,
+    explanation: "Constructive and regular feedback accelerates the learning process.",
+    language: "en"
+  },
+  {
+    question: "When should a trainee handle their first complete transport independently?",
+    options: [
+      "After week 6, with supervision available",
+      "On the first day",
+      "After 1 year",
+      "Never"
+    ],
+    correctIndex: 0,
+    explanation: "Week 6 provides sufficient preparation for independent operation with support.",
+    language: "en"
+  },
+  {
+    question: "What role does the mentor play in the training program?",
+    options: [
+      "Guidance, support, feedback, and role model",
+      "Only document verification",
+      "Replacing the trainee",
+      "Punishment for mistakes"
+    ],
+    correctIndex: 0,
+    explanation: "The mentor provides complete guidance and serves as a professional role model.",
+    language: "en"
+  },
+  {
+    question: "What soft skills are essential for a dispatcher?",
+    options: [
+      "Communication, problem-solving, stress resistance",
+      "Only technical knowledge",
+      "Athletic abilities",
+      "Musical knowledge"
+    ],
+    correctIndex: 0,
+    explanation: "Soft skills are as important as technical abilities for success.",
+    language: "en"
+  },
+  {
+    question: "What is the minimum score for passing a chapter quiz?",
+    options: [
+      "90% (9 out of 10 questions correct)",
+      "50%",
+      "30%",
+      "No minimum score"
+    ],
+    correctIndex: 0,
+    explanation: "The 90% standard ensures thorough understanding of the material.",
     language: "en"
   }
 ];
