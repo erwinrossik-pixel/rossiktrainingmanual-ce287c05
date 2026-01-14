@@ -6,6 +6,7 @@ import { ProgressDashboard } from "@/components/manual/ProgressDashboard";
 import { ProgressProvider, useProgressContext } from "@/contexts/ProgressContext";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { useAuth } from "@/hooks/useAuth";
+import { useAnalytics } from "@/hooks/useAnalytics";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -91,13 +92,15 @@ function ManualApp() {
   const [activeChapter, setActiveChapter] = useState("intro");
   const [showDashboard, setShowDashboard] = useState(false);
   const { visitChapter } = useProgressContext();
+  const { trackChapterVisit } = useAnalytics();
 
   // Track chapter visits
   useEffect(() => {
     if (!showDashboard) {
       visitChapter(activeChapter);
+      trackChapterVisit(activeChapter);
     }
-  }, [activeChapter, visitChapter, showDashboard]);
+  }, [activeChapter, visitChapter, showDashboard, trackChapterVisit]);
 
   const handleNavigateFromDashboard = (chapterId: string) => {
     setActiveChapter(chapterId);
