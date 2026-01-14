@@ -49,6 +49,7 @@ export type Database = {
           approved_by: string | null
           change_id: string | null
           chapter_id: string
+          content_level: Database["public"]["Enums"]["content_level"] | null
           created_at: string
           description: string | null
           id: string
@@ -71,6 +72,7 @@ export type Database = {
           approved_by?: string | null
           change_id?: string | null
           chapter_id: string
+          content_level?: Database["public"]["Enums"]["content_level"] | null
           created_at?: string
           description?: string | null
           id?: string
@@ -93,6 +95,7 @@ export type Database = {
           approved_by?: string | null
           change_id?: string | null
           chapter_id?: string
+          content_level?: Database["public"]["Enums"]["content_level"] | null
           created_at?: string
           description?: string | null
           id?: string
@@ -225,37 +228,49 @@ export type Database = {
       }
       chapter_versions: {
         Row: {
+          approved_at: string | null
+          approved_by: string | null
           change_summary: string | null
           chapter_id: string
           content_snapshot: Json
           created_at: string
           created_by: string | null
           id: string
+          is_approved: boolean
           related_change_ids: string[] | null
+          source_url: string | null
           update_source: string | null
           version_number: number
           word_count: number | null
         }
         Insert: {
+          approved_at?: string | null
+          approved_by?: string | null
           change_summary?: string | null
           chapter_id: string
           content_snapshot: Json
           created_at?: string
           created_by?: string | null
           id?: string
+          is_approved?: boolean
           related_change_ids?: string[] | null
+          source_url?: string | null
           update_source?: string | null
           version_number: number
           word_count?: number | null
         }
         Update: {
+          approved_at?: string | null
+          approved_by?: string | null
           change_summary?: string | null
           chapter_id?: string
           content_snapshot?: Json
           created_at?: string
           created_by?: string | null
           id?: string
+          is_approved?: boolean
           related_change_ids?: string[] | null
+          source_url?: string | null
           update_source?: string | null
           version_number?: number
           word_count?: number | null
@@ -272,6 +287,10 @@ export type Database = {
       }
       chapters: {
         Row: {
+          auto_update_blocked: boolean
+          auto_update_blocked_at: string | null
+          auto_update_blocked_by: string | null
+          content_level: Database["public"]["Enums"]["content_level"]
           created_at: string
           id: string
           is_intro: boolean | null
@@ -280,6 +299,10 @@ export type Database = {
           slug: string
         }
         Insert: {
+          auto_update_blocked?: boolean
+          auto_update_blocked_at?: string | null
+          auto_update_blocked_by?: string | null
+          content_level?: Database["public"]["Enums"]["content_level"]
           created_at?: string
           id: string
           is_intro?: boolean | null
@@ -288,6 +311,10 @@ export type Database = {
           slug: string
         }
         Update: {
+          auto_update_blocked?: boolean
+          auto_update_blocked_at?: string | null
+          auto_update_blocked_by?: string | null
+          content_level?: Database["public"]["Enums"]["content_level"]
           created_at?: string
           id?: string
           is_intro?: boolean | null
@@ -410,6 +437,33 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      governance_settings: {
+        Row: {
+          description: string | null
+          id: string
+          setting_key: string
+          setting_value: Json
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          description?: string | null
+          id?: string
+          setting_key: string
+          setting_value: Json
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          description?: string | null
+          id?: string
+          setting_key?: string
+          setting_value?: Json
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: []
       }
       profiles: {
         Row: {
@@ -595,35 +649,50 @@ export type Database = {
         Row: {
           action: string
           chapter_id: string | null
+          content_level: Database["public"]["Enums"]["content_level"] | null
           created_at: string
           details: Json | null
           entity_id: string | null
           entity_type: string
           id: string
           ip_address: string | null
+          new_version: number | null
           performed_by: string | null
+          previous_version: number | null
+          severity: string | null
+          source_url: string | null
         }
         Insert: {
           action: string
           chapter_id?: string | null
+          content_level?: Database["public"]["Enums"]["content_level"] | null
           created_at?: string
           details?: Json | null
           entity_id?: string | null
           entity_type: string
           id?: string
           ip_address?: string | null
+          new_version?: number | null
           performed_by?: string | null
+          previous_version?: number | null
+          severity?: string | null
+          source_url?: string | null
         }
         Update: {
           action?: string
           chapter_id?: string | null
+          content_level?: Database["public"]["Enums"]["content_level"] | null
           created_at?: string
           details?: Json | null
           entity_id?: string | null
           entity_type?: string
           id?: string
           ip_address?: string | null
+          new_version?: number | null
           performed_by?: string | null
+          previous_version?: number | null
+          severity?: string | null
+          source_url?: string | null
         }
         Relationships: []
       }
@@ -668,6 +737,7 @@ export type Database = {
     Enums: {
       app_role: "admin" | "user"
       change_severity: "minor" | "major" | "critical"
+      content_level: "informational" | "operational" | "critical"
       source_type: "api" | "rss" | "website" | "official" | "database"
       update_status:
         | "pending"
@@ -805,6 +875,7 @@ export const Constants = {
     Enums: {
       app_role: ["admin", "user"],
       change_severity: ["minor", "major", "critical"],
+      content_level: ["informational", "operational", "critical"],
       source_type: ["api", "rss", "website", "official", "database"],
       update_status: [
         "pending",
