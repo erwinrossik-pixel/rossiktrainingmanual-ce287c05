@@ -5,6 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { toast } from 'sonner';
 import { format } from 'date-fns';
 import { 
@@ -15,7 +16,8 @@ import {
   Loader2,
   RefreshCw,
   Zap,
-  AlertTriangle
+  AlertTriangle,
+  Wand2
 } from 'lucide-react';
 
 interface RegenerationJob {
@@ -34,6 +36,12 @@ interface RegenerationJob {
   created_at: string;
 }
 
+interface Chapter {
+  id: string;
+  slug: string;
+  order_index: number;
+}
+
 // Helper to safely parse chapters_failed
 const parseChaptersFailed = (data: unknown): { chapter: string; error: string }[] => {
   if (!data) return [];
@@ -47,10 +55,15 @@ const parseChaptersFailed = (data: unknown): { chapter: string; error: string }[
 
 export function JobsMonitor() {
   const [jobs, setJobs] = useState<RegenerationJob[]>([]);
+  const [chapters, setChapters] = useState<Chapter[]>([]);
+  const [selectedChapter, setSelectedChapter] = useState<string>('');
   const [loading, setLoading] = useState(true);
+  const [regenerating, setRegenerating] = useState(false);
 
   useEffect(() => {
     fetchJobs();
+    fetchChapters();
+
 
     // Subscribe to realtime updates
     const channel = supabase
@@ -105,6 +118,43 @@ export function JobsMonitor() {
       setJobs((data as RegenerationJob[]) || []);
     }
     setLoading(false);
+  };
+
+  const fetchChapters = async () => {
+    const { data, error } = await supabase
+      .from('chapters')
+      .select('id, slug, order_index')
+      .order('order_index');
+
+    if (error) {
+      console.error('Error fetching chapters:', error);
+    } else {
+      setChapters((data as Chapter[]) || []);
+    }
+  };
+
+  const handleManualRegeneration = async () => {
+    if (!selectedChapter) {
+      toast.error('Selectează un capitol pentru regenerare');
+      return;
+    }
+
+    setRegenerating(true);
+    try {
+      const { data, error } = await supabase.functions.invoke('content-regenerate', {
+        body: { chapter_id: selectedChapter, auto_apply: false }
+      });
+
+      if (error) throw error;
+
+      toast.success(`Job de regenerare pornit pentru "${selectedChapter}"`);
+      setSelectedChapter('');
+    } catch (error) {
+      console.error('Error starting regeneration:', error);
+      toast.error('Eroare la pornirea regenerării');
+    } finally {
+      setRegenerating(false);
+    }
   };
 
   const getStatusIcon = (status: string) => {
@@ -174,6 +224,55 @@ export function JobsMonitor() {
 
   return (
     <div className="space-y-4">
+      {/* Manual Regeneration Card */}
+      <Card className="border-dashed">
+        <CardHeader className="pb-3">
+          <div className="flex items-center gap-2">
+            <Wand2 className="h-5 w-5 text-primary" />
+            <CardTitle className="text-lg">Regenerare Manuală</CardTitle>
+          </div>
+          <CardDescription>Pornește regenerarea AI pentru un capitol specific</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="flex flex-col sm:flex-row gap-3">
+            <Select value={selectedChapter} onValueChange={setSelectedChapter}>
+              <SelectTrigger className="flex-1">
+                <SelectValue placeholder="Selectează capitol..." />
+              </SelectTrigger>
+              <SelectContent>
+                {chapters.map((chapter) => (
+                  <SelectItem key={chapter.id} value={chapter.id}>
+                    {chapter.order_index}. {chapter.slug}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <Button 
+              onClick={handleManualRegeneration}
+              disabled={!selectedChapter || regenerating || activeJobs.length > 0}
+              className="min-w-[180px]"
+            >
+              {regenerating ? (
+                <>
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                  Se pornește...
+                </>
+              ) : (
+                <>
+                  <Play className="h-4 w-4 mr-2" />
+                  Regenerează Capitol
+                </>
+              )}
+            </Button>
+          </div>
+          {activeJobs.length > 0 && (
+            <p className="text-sm text-muted-foreground mt-2">
+              ⚠️ Așteaptă finalizarea job-ului activ înainte de a porni unul nou
+            </p>
+          )}
+        </CardContent>
+      </Card>
+
       {/* Active Jobs */}
       <Card className={activeJobs.length > 0 ? 'border-blue-500 shadow-lg' : ''}>
         <CardHeader className="pb-3">
