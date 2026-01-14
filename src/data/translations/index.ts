@@ -39,6 +39,16 @@ import { technologyTranslations } from './chapters/technology';
 import { trainingTranslations } from './chapters/training';
 import { translogicaTranslations } from './chapters/translogica';
 import { warehouseTranslations } from './chapters/warehouse';
+import { intermodalTranslations } from './chapters/intermodal';
+import { authoritiesTranslations } from './chapters/authorities';
+import { sustainabilityTranslations } from './chapters/sustainability';
+import { expressTransportTranslations } from './chapters/express-transport';
+import { europeanCountriesTranslations } from './chapters/european-countries';
+import { highValueGoodsTranslations } from './chapters/high-value-goods';
+import { digitalizationTranslations } from './chapters/digitalization';
+import { stressManagementTranslations } from './chapters/stress-management';
+import { networkingTranslations } from './chapters/networking';
+import { professionalDevelopmentTranslations } from './chapters/professional-development';
 
 // Chapter translations type
 type ChapterTranslations = Record<string, Record<string, string>>;
@@ -85,6 +95,16 @@ const allTranslations: Record<string, ChapterTranslations> = {
   training: trainingTranslations,
   translogica: translogicaTranslations,
   warehouse: warehouseTranslations,
+  intermodal: intermodalTranslations,
+  authorities: authoritiesTranslations,
+  sustainability: sustainabilityTranslations,
+  'express-transport': expressTransportTranslations,
+  'european-countries': europeanCountriesTranslations,
+  'high-value-goods': highValueGoodsTranslations,
+  digitalization: digitalizationTranslations,
+  'stress-management': stressManagementTranslations,
+  networking: networkingTranslations,
+  'professional-development': professionalDevelopmentTranslations,
 };
 
 // Hook to get chapter translations
