@@ -5,7 +5,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Button } from '@/components/ui/button';
-import { Clock, Timer, TrendingUp, TrendingDown, Users, Download, RefreshCw, Zap, Minus } from 'lucide-react';
+import { Clock, Timer, TrendingUp, TrendingDown, Users, Download, RefreshCw, Zap, Minus, Trophy, Medal, Award } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell, PieChart, Pie } from 'recharts';
 import { format } from 'date-fns';
 import { toast } from 'sonner';
@@ -426,6 +426,130 @@ export function TrainingTimeAnalytics() {
           </CardContent>
         </Card>
       </div>
+
+      {/* Leaderboard */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Efficiency Leaderboard */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base flex items-center gap-2">
+              <Zap className="h-4 w-4 text-primary" />
+              Top Eficiență
+            </CardTitle>
+            <CardDescription>Utilizatorii cu cea mai mare eficiență (timp real vs recomandat)</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-3">
+              {usersWithAnyTime
+                .sort((a, b) => b.efficiency - a.efficiency)
+                .slice(0, 10)
+                .map((user, index) => {
+                  const getRankIcon = (rank: number) => {
+                    if (rank === 0) return <Trophy className="h-5 w-5 text-yellow-500" />;
+                    if (rank === 1) return <Medal className="h-5 w-5 text-gray-400" />;
+                    if (rank === 2) return <Award className="h-5 w-5 text-amber-600" />;
+                    return <span className="w-5 h-5 flex items-center justify-center text-xs font-bold text-muted-foreground">{rank + 1}</span>;
+                  };
+
+                  const userName = user.firstName || user.lastName 
+                    ? `${user.firstName || ''} ${user.lastName || ''}`.trim()
+                    : user.email.split('@')[0];
+
+                  return (
+                    <div 
+                      key={user.userId} 
+                      className={`flex items-center gap-3 p-2.5 rounded-lg ${
+                        index < 3 ? 'bg-primary/5 border border-primary/10' : 'bg-muted/30'
+                      }`}
+                    >
+                      <div className="flex-shrink-0">
+                        {getRankIcon(index)}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="font-medium text-sm truncate">{userName}</p>
+                        <p className="text-xs text-muted-foreground">
+                          {user.activePhasesCount} faze · {formatTime(user.totalSeconds)}
+                        </p>
+                      </div>
+                      <div className={`text-lg font-bold ${getEfficiencyColor(user.efficiency)}`}>
+                        {user.efficiency}%
+                      </div>
+                    </div>
+                  );
+                })}
+              {usersWithAnyTime.length === 0 && (
+                <p className="text-center text-muted-foreground py-4">Niciun utilizator în clasament</p>
+              )}
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Completion Speed Leaderboard */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-base flex items-center gap-2">
+              <Timer className="h-4 w-4 text-success" />
+              Top Timp Total
+            </CardTitle>
+            <CardDescription>Utilizatorii cu cel mai mult timp investit în training</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-3">
+              {usersWithAnyTime
+                .sort((a, b) => b.totalSeconds - a.totalSeconds)
+                .slice(0, 10)
+                .map((user, index) => {
+                  const getRankIcon = (rank: number) => {
+                    if (rank === 0) return <Trophy className="h-5 w-5 text-yellow-500" />;
+                    if (rank === 1) return <Medal className="h-5 w-5 text-gray-400" />;
+                    if (rank === 2) return <Award className="h-5 w-5 text-amber-600" />;
+                    return <span className="w-5 h-5 flex items-center justify-center text-xs font-bold text-muted-foreground">{rank + 1}</span>;
+                  };
+
+                  const userName = user.firstName || user.lastName 
+                    ? `${user.firstName || ''} ${user.lastName || ''}`.trim()
+                    : user.email.split('@')[0];
+                  
+                  const progressPercent = Math.min(100, Math.round((user.totalSeconds / (TOTAL_TARGET_HOURS * 3600)) * 100));
+                  const isCompleted = progressPercent >= 100;
+
+                  return (
+                    <div 
+                      key={user.userId} 
+                      className={`flex items-center gap-3 p-2.5 rounded-lg ${
+                        isCompleted ? 'bg-success/10 border border-success/20' : 
+                        index < 3 ? 'bg-primary/5 border border-primary/10' : 'bg-muted/30'
+                      }`}
+                    >
+                      <div className="flex-shrink-0">
+                        {getRankIcon(index)}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="font-medium text-sm truncate">{userName}</p>
+                        <div className="flex items-center gap-2 mt-0.5">
+                          <Progress value={progressPercent} className="h-1.5 w-16" />
+                          <span className="text-xs text-muted-foreground">{progressPercent}%</span>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <p className={`text-sm font-bold ${isCompleted ? 'text-success' : ''}`}>
+                          {formatTime(user.totalSeconds)}
+                        </p>
+                        {isCompleted && (
+                          <Badge className="bg-success text-[10px] h-4 px-1">Complet</Badge>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+              {usersWithAnyTime.length === 0 && (
+                <p className="text-center text-muted-foreground py-4">Niciun utilizator în clasament</p>
+              )}
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
 
       {/* Users Table */}
       <Card>
