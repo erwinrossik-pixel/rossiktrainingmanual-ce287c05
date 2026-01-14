@@ -114,37 +114,53 @@ Respond in JSON format:
         } | null = null;
 
         if (lovableApiKey) {
-          const aiResponse = await fetch('https://ai.gateway.lovable.dev/v1/chat/completions', {
-            method: 'POST',
-            headers: {
-              'Authorization': `Bearer ${lovableApiKey}`,
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              model: 'google/gemini-2.5-flash',
-              messages: [
-                { 
-                  role: 'system', 
-                  content: 'You are a professional freight forwarding training content writer. Generate comprehensive, accurate content updates. Respond only with valid JSON.' 
-                },
-                { role: 'user', content: updatePrompt }
-              ],
-            }),
-          });
+          try {
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 50000); // 50s timeout
+            
+            const aiResponse = await fetch('https://ai.gateway.lovable.dev/v1/chat/completions', {
+              method: 'POST',
+              headers: {
+                'Authorization': `Bearer ${lovableApiKey}`,
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                model: 'google/gemini-2.5-flash-lite', // Use lighter model for faster response
+                messages: [
+                  { 
+                    role: 'system', 
+                    content: 'You are a freight forwarding training content updater. Generate brief, accurate content updates. Respond only with valid JSON.' 
+                  },
+                  { role: 'user', content: updatePrompt }
+                ],
+              }),
+              signal: controller.signal,
+            });
 
-          if (aiResponse.ok) {
-            const aiData = await aiResponse.json();
-            const content = aiData.choices?.[0]?.message?.content || '{}';
-            try {
-              const jsonMatch = content.match(/\{[\s\S]*\}/);
-              if (jsonMatch) {
-                regeneratedContent = JSON.parse(jsonMatch[0]);
+            clearTimeout(timeoutId);
+
+            if (aiResponse.ok) {
+              const aiData = await aiResponse.json();
+              const content = aiData.choices?.[0]?.message?.content || '{}';
+              console.log(`[CONTENT-REGEN] AI response for ${chId}: ${content.substring(0, 200)}...`);
+              try {
+                const jsonMatch = content.match(/\{[\s\S]*\}/);
+                if (jsonMatch) {
+                  regeneratedContent = JSON.parse(jsonMatch[0]);
+                }
+              } catch (parseErr) {
+                console.log('[CONTENT-REGEN] Could not parse AI response:', parseErr);
               }
-            } catch {
-              console.log('[CONTENT-REGEN] Could not parse AI response');
+            } else {
+              const errText = await aiResponse.text();
+              console.error('[CONTENT-REGEN] AI API error:', aiResponse.status, errText);
             }
-          } else {
-            console.error('[CONTENT-REGEN] AI API error:', await aiResponse.text());
+          } catch (aiError) {
+            if (aiError instanceof Error && aiError.name === 'AbortError') {
+              console.log('[CONTENT-REGEN] AI request timed out for chapter:', chId);
+            } else {
+              console.error('[CONTENT-REGEN] AI fetch error:', aiError);
+            }
           }
         }
 
