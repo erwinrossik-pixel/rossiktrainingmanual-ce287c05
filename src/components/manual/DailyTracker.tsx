@@ -4,7 +4,8 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { useAuth } from "@/hooks/useAuth";
 import { useChapterProgress } from "@/hooks/useChapterProgress";
 import { useProgressContext } from "@/contexts/ProgressContext";
-
+import { TrainingTimer } from "./TrainingTimer";
+import { useTrainingTimer } from "@/hooks/useTrainingTimer";
 interface DayInfo {
   day: number;
   titleKey: string;
@@ -35,6 +36,7 @@ const translations = {
     locked: "Blocat",
     chaptersCompleted: "capitole completate",
     of: "din",
+    timeSpent: "Timp învățat",
   },
   de: {
     title: "Schulungsfortschritt",
@@ -50,6 +52,7 @@ const translations = {
     locked: "Gesperrt",
     chaptersCompleted: "Kapitel abgeschlossen",
     of: "von",
+    timeSpent: "Lernzeit",
   },
   en: {
     title: "Training Progress",
@@ -65,6 +68,7 @@ const translations = {
     locked: "Locked",
     chaptersCompleted: "chapters completed",
     of: "of",
+    timeSpent: "Time spent",
   },
 };
 
@@ -82,9 +86,9 @@ export function DailyTracker() {
   const { user } = useAuth();
   const { progress: dbProgress, getChapterStatus } = useChapterProgress();
   const { progress } = useProgressContext();
+  const { getDayTime, formatTime } = useTrainingTimer();
   
   const t = translations[language] || translations.en;
-
   // Count completed chapters
   const getCompletedChaptersInDay = (dayInfo: DayInfo): number => {
     return dayInfo.chapters.filter(chapterNum => {
@@ -137,6 +141,9 @@ export function DailyTracker() {
         <h3 className="font-semibold text-sm">{t.title}</h3>
       </div>
 
+      {/* Training Timer */}
+      <TrainingTimer currentDay={currentDay} variant="full" />
+
       <div className="space-y-2">
         {TRAINING_DAYS.map((dayInfo) => {
           const status = getDayStatus(dayInfo);
@@ -144,6 +151,7 @@ export function DailyTracker() {
           const total = dayInfo.chapters.length;
           const isCurrent = dayInfo.day === currentDay;
           const progressPercent = (completed / total) * 100;
+          const dayTimeSeconds = getDayTime(dayInfo.day);
 
           return (
             <div
@@ -193,9 +201,14 @@ export function DailyTracker() {
                   <p className="text-sm font-medium mt-1 truncate">
                     {t[dayInfo.titleKey as keyof typeof t]}
                   </p>
-                  <p className="text-xs text-muted-foreground">
-                    {completed} {t.of} {total} {t.chaptersCompleted}
-                  </p>
+                  <div className="flex items-center gap-3 text-xs text-muted-foreground">
+                    <span>{completed} {t.of} {total} {t.chaptersCompleted}</span>
+                    {dayTimeSeconds > 0 && (
+                      <span className="font-mono bg-muted px-1.5 py-0.5 rounded text-[10px]">
+                        {t.timeSpent}: {formatTime(dayTimeSeconds)}
+                      </span>
+                    )}
+                  </div>
                 </div>
               </div>
 
