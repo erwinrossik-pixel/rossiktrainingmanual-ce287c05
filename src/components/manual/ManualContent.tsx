@@ -39,6 +39,16 @@ import { AccountingChapter } from "./chapters/AccountingChapter";
 import { NegotiationChapter } from "./chapters/NegotiationChapter";
 import { WarehouseChapter } from "./chapters/WarehouseChapter";
 import { LicensesOversizeChapter } from "./chapters/LicensesOversizeChapter";
+import { StressManagementChapter } from "./chapters/StressManagementChapter";
+import { SustainabilityChapter } from "./chapters/SustainabilityChapter";
+import { AuthoritiesChapter } from "./chapters/AuthoritiesChapter";
+import { DigitalizationChapter } from "./chapters/DigitalizationChapter";
+import { EuropeanCountriesChapter } from "./chapters/EuropeanCountriesChapter";
+import { ExpressTransportChapter } from "./chapters/ExpressTransportChapter";
+import { HighValueGoodsChapter } from "./chapters/HighValueGoodsChapter";
+import { IntermodalChapter } from "./chapters/IntermodalChapter";
+import { NetworkingChapter } from "./chapters/NetworkingChapter";
+import { ProfessionalDevelopmentChapter } from "./chapters/ProfessionalDevelopmentChapter";
 import { ChapterNavigation } from "./ChapterNavigation";
 
 interface ManualContentProps {
@@ -88,6 +98,16 @@ export function ManualContent({ activeChapter, onChapterChange }: ManualContentP
     "red-flags": <RedFlagsChapter />,
     checklists: <ChecklistsChapter />,
     "licenses-oversize": <LicensesOversizeChapter />,
+    "stress-management": <StressManagementChapter />,
+    sustainability: <SustainabilityChapter />,
+    authorities: <AuthoritiesChapter />,
+    digitalization: <DigitalizationChapter />,
+    "european-countries": <EuropeanCountriesChapter />,
+    "express-transport": <ExpressTransportChapter />,
+    "high-value-goods": <HighValueGoodsChapter />,
+    intermodal: <IntermodalChapter />,
+    networking: <NetworkingChapter />,
+    "professional-development": <ProfessionalDevelopmentChapter />,
   };
 
   return (

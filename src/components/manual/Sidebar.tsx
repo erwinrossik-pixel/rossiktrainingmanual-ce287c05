@@ -2,7 +2,8 @@ import {
   BookOpen, Users, Truck, Package, Shield, Calculator, 
   Building2, Route, Clock, Laptop, GraduationCap, AlertTriangle, 
   ClipboardList, Target, Menu, X, Phone, MessageSquare, Scale,
-  FileText, Flame, Book, Lightbulb, CheckCircle2, BarChart3, Award, Lock
+  FileText, Flame, Book, Lightbulb, CheckCircle2, BarChart3, Award, Lock,
+  Brain, Leaf, BadgeCheck, Cpu, Globe, Zap, Gem, Train, Network, TrendingUp
 } from "lucide-react";
 import rossikLogo from "@/assets/rossik-logo.jpg";
 import { cn } from "@/lib/utils";
@@ -101,6 +102,21 @@ const getSections = (t: (key: string) => string) => [
       { id: "red-flags", labelKey: "chapter.red-flags", icon: AlertTriangle, isIntro: false },
       { id: "checklists", labelKey: "chapter.checklists", icon: ClipboardList, isIntro: false },
       { id: "glossary", labelKey: "chapter.glossary", icon: Book, isIntro: false },
+    ]
+  },
+  {
+    title: t('section.advanced'),
+    chapters: [
+      { id: "stress-management", labelKey: "chapter.stress-management", icon: Brain, isIntro: false },
+      { id: "sustainability", labelKey: "chapter.sustainability", icon: Leaf, isIntro: false },
+      { id: "authorities", labelKey: "chapter.authorities", icon: BadgeCheck, isIntro: false },
+      { id: "digitalization", labelKey: "chapter.digitalization", icon: Cpu, isIntro: false },
+      { id: "european-countries", labelKey: "chapter.european-countries", icon: Globe, isIntro: false },
+      { id: "express-transport", labelKey: "chapter.express-transport", icon: Zap, isIntro: false },
+      { id: "high-value-goods", labelKey: "chapter.high-value-goods", icon: Gem, isIntro: false },
+      { id: "intermodal", labelKey: "chapter.intermodal", icon: Train, isIntro: false },
+      { id: "networking", labelKey: "chapter.networking", icon: Network, isIntro: false },
+      { id: "professional-development", labelKey: "chapter.professional-development", icon: TrendingUp, isIntro: false },
     ]
   },
 ];
