@@ -1,4 +1,4 @@
-// Chapter order matching the sidebar structure
+// Chapter order matching the sidebar structure - 50 chapters
 const chapterOrder = [
   // Section 1: Foundation (1-4)
   "intro",
@@ -48,6 +48,17 @@ const chapterOrder = [
   "red-flags",
   "checklists",
   "glossary",
+  // Section 9: New Chapters (41-50)
+  "authorities",
+  "digitalization",
+  "european-countries",
+  "express-transport",
+  "high-value-goods",
+  "intermodal",
+  "networking",
+  "professional-development",
+  "stress-management",
+  "sustainability",
 ];
 
 export function getChapterNumber(chapterId: string): number {
