@@ -56,6 +56,17 @@ type HeroVariant =
   | "checklists"      // Lime green
   | "glossary"        // Steel gray
   | "fleet"           // Dark cyan
+  // New Chapters
+  | "authorities"
+  | "digitalization"
+  | "european-countries"
+  | "express-transport"
+  | "high-value-goods"
+  | "intermodal"
+  | "networking"
+  | "professional-development"
+  | "stress-management"
+  | "sustainability"
   | "default";
 
 // Map variant to chapter ID for number calculation
@@ -100,6 +111,17 @@ const variantToChapterId: Record<HeroVariant, string> = {
   checklists: "checklists",
   glossary: "glossary",
   fleet: "fleet",
+  // New chapters
+  authorities: "authorities",
+  digitalization: "digitalization",
+  "european-countries": "european-countries",
+  "express-transport": "express-transport",
+  "high-value-goods": "high-value-goods",
+  intermodal: "intermodal",
+  networking: "networking",
+  "professional-development": "professional-development",
+  "stress-management": "stress-management",
+  sustainability: "sustainability",
   default: "intro",
 };
 
