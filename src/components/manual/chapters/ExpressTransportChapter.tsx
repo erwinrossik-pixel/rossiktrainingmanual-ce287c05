@@ -1,8 +1,7 @@
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { ChapterHero } from "../ChapterHero";
-import { quizzes } from "@/data/quizData";
-import { 
+import {
   Zap, Clock, Truck, Target, Users, Calculator,
   FileText, Shield, BarChart3, XCircle, CheckCircle, AlertTriangle
 } from "lucide-react";
@@ -113,7 +112,7 @@ export function ExpressTransportChapter() {
           <InfoCard title={ct('section9Title')} icon={BarChart3}>
             <p className="text-muted-foreground">{ct('section9Content')}</p>
           </InfoCard>
-          <InfoCard title={ct('section10Title')} variant="error" icon={XCircle}>
+          <InfoCard title={ct('section10Title')} variant="warning" icon={XCircle}>
             <p className="text-muted-foreground">{ct('section10Content')}</p>
           </InfoCard>
         </div>
@@ -148,7 +147,7 @@ export function ExpressTransportChapter() {
       </section>
 
       {/* Quiz */}
-      <Quiz quizId="express-transport" questions={quizzes["express-transport"]} />
+      <Quiz title="Quiz" chapterId="express-transport" />
     </div>
   );
 }

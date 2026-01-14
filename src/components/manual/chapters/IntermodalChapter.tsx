@@ -1,8 +1,7 @@
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { ChapterHero } from "../ChapterHero";
-import { quizzes } from "@/data/quizData";
-import { 
+import {
   Train, Truck, Ship, Package, FileText, Users,
   Clock, AlertTriangle, Laptop, TrendingUp, CheckCircle, Leaf
 } from "lucide-react";
@@ -148,7 +147,7 @@ export function IntermodalChapter() {
       </section>
 
       {/* Quiz */}
-      <Quiz quizId="intermodal" questions={quizzes.intermodal} />
+      <Quiz title="Quiz" chapterId="intermodal" />
     </div>
   );
 }

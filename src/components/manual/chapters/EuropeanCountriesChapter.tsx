@@ -1,8 +1,7 @@
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { ChapterHero } from "../ChapterHero";
-import { quizzes } from "@/data/quizData";
-import { 
+import {
   Globe, MapPin, Truck, Clock, Shield, AlertTriangle,
   CheckCircle, Mountain, Ship, Snowflake, Building2
 } from "lucide-react";
@@ -148,7 +147,7 @@ export function EuropeanCountriesChapter() {
       </section>
 
       {/* Quiz */}
-      <Quiz quizId="european-countries" questions={quizzes["european-countries"]} />
+      <Quiz title="Quiz" chapterId="european-countries" />
     </div>
   );
 }
