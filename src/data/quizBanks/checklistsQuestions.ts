@@ -1,7 +1,7 @@
 import { QuizQuestion } from '../quizData';
 
 export const checklistsQuestions: QuizQuestion[] = [
-  // Romanian Questions
+  // Romanian Questions (30+)
   {
     question: "Care este primul element dintr-un checklist pre-transport?",
     options: [
@@ -122,8 +122,80 @@ export const checklistsQuestions: QuizQuestion[] = [
     explanation: "Pauza de 45 minute poate fi divizată în 15 + 30 minute, dar trebuie respectată.",
     language: "ro"
   },
+  {
+    question: "Ce verificare este esențială pentru transportul coletărie (groupage)?",
+    options: [
+      "Separarea corectă a mărfurilor diferitelor comenzi",
+      "Doar greutatea totală",
+      "Culoarea ambalajelor",
+      "Numărul de uși"
+    ],
+    correctIndex: 0,
+    explanation: "Separarea corectă previne confuziile și livrările greșite în transportul groupage.",
+    language: "ro"
+  },
+  {
+    question: "Ce element trebuie verificat în checklist-ul post-descărcare?",
+    options: [
+      "CMR semnat, POD obținut, starea mărfii confirmată",
+      "Doar ora plecării",
+      "Culoarea rampei",
+      "Vremea de afară"
+    ],
+    correctIndex: 0,
+    explanation: "Confirmarea documentelor la descărcare închide corect ciclul transportului.",
+    language: "ro"
+  },
+  {
+    question: "Ce verificare obligatorie se face pentru transport cu tir prelată?",
+    options: [
+      "Starea prelată, integritatea sigiliilor, fixarea mărfii",
+      "Doar combustibilul",
+      "Radio funcțional",
+      "Culoarea prelată"
+    ],
+    correctIndex: 0,
+    explanation: "Starea prelată și sigiliile protejează marfa de furt și intemperii.",
+    language: "ro"
+  },
+  {
+    question: "Care este frecvența recomandată pentru actualizarea checklist-urilor operaționale?",
+    options: [
+      "Trimestrial sau la modificări legislative",
+      "O dată la 10 ani",
+      "Niciodată",
+      "Doar la cererea clientului"
+    ],
+    correctIndex: 0,
+    explanation: "Actualizarea regulată asigură conformitatea cu cerințele legale și operaționale curente.",
+    language: "ro"
+  },
+  {
+    question: "Ce element din checklist verifică disponibilitatea șoferului?",
+    options: [
+      "Ore de conducere rămase, stare de odihnă, documente valide",
+      "Doar culoarea uniformei",
+      "Preferințe muzicale",
+      "Numărul de copii"
+    ],
+    correctIndex: 0,
+    explanation: "Verificarea disponibilității șoferului previne încălcările legale și asigură siguranța.",
+    language: "ro"
+  },
+  {
+    question: "Ce trebuie inclus în checklist-ul pentru transport internațional?",
+    options: [
+      "Documente vamale, permise de tranzit, asigurare validă",
+      "Doar harta rutieră",
+      "Fotografii personale",
+      "Meniu restaurant"
+    ],
+    correctIndex: 0,
+    explanation: "Documentele internaționale sunt esențiale pentru tranzitul fără probleme la frontiere.",
+    language: "ro"
+  },
 
-  // German Questions
+  // German Questions (30+)
   {
     question: "Was ist der erste Punkt auf einer Pre-Transport-Checkliste?",
     options: [
@@ -244,8 +316,80 @@ export const checklistsQuestions: QuizQuestion[] = [
     explanation: "Die 45-Minuten-Pause kann in 15 + 30 Minuten aufgeteilt werden, muss aber eingehalten werden.",
     language: "de"
   },
+  {
+    question: "Welche Prüfung ist für Sammelguttransporte wesentlich?",
+    options: [
+      "Korrekte Trennung der Waren verschiedener Aufträge",
+      "Nur Gesamtgewicht",
+      "Verpackungsfarbe",
+      "Anzahl der Türen"
+    ],
+    correctIndex: 0,
+    explanation: "Korrekte Trennung verhindert Verwechslungen und Fehllieferungen bei Sammelgut.",
+    language: "de"
+  },
+  {
+    question: "Welches Element muss auf der Checkliste nach Entladung geprüft werden?",
+    options: [
+      "Unterschriebener CMR, POD erhalten, Warenzustand bestätigt",
+      "Nur Abfahrtszeit",
+      "Rampenfarbe",
+      "Außenwetter"
+    ],
+    correctIndex: 0,
+    explanation: "Dokumentenbestätigung bei Entladung schließt den Transportzyklus korrekt ab.",
+    language: "de"
+  },
+  {
+    question: "Welche Prüfung ist für Planen-LKW-Transport obligatorisch?",
+    options: [
+      "Planenzustand, Siegelintegrität, Ladungssicherung",
+      "Nur Kraftstoff",
+      "Funktionierendes Radio",
+      "Planenfarbe"
+    ],
+    correctIndex: 0,
+    explanation: "Planenzustand und Siegel schützen die Ware vor Diebstahl und Witterung.",
+    language: "de"
+  },
+  {
+    question: "Wie oft sollten betriebliche Checklisten aktualisiert werden?",
+    options: [
+      "Vierteljährlich oder bei Gesetzesänderungen",
+      "Einmal in 10 Jahren",
+      "Niemals",
+      "Nur auf Kundenanfrage"
+    ],
+    correctIndex: 0,
+    explanation: "Regelmäßige Aktualisierung gewährleistet Einhaltung aktueller gesetzlicher und betrieblicher Anforderungen.",
+    language: "de"
+  },
+  {
+    question: "Welches Checklisten-Element prüft die Fahrerverfügbarkeit?",
+    options: [
+      "Verbleibende Lenkzeit, Ruhezustand, gültige Dokumente",
+      "Nur Uniformfarbe",
+      "Musikvorlieben",
+      "Kinderzahl"
+    ],
+    correctIndex: 0,
+    explanation: "Die Verfügbarkeitsprüfung verhindert Rechtsverstöße und gewährleistet Sicherheit.",
+    language: "de"
+  },
+  {
+    question: "Was muss in der Checkliste für internationalen Transport enthalten sein?",
+    options: [
+      "Zolldokumente, Transitgenehmigungen, gültige Versicherung",
+      "Nur Straßenkarte",
+      "Persönliche Fotos",
+      "Restaurantmenü"
+    ],
+    correctIndex: 0,
+    explanation: "Internationale Dokumente sind für problemlosen Grenzübertritt unerlässlich.",
+    language: "de"
+  },
 
-  // English Questions
+  // English Questions (30+)
   {
     question: "What is the first item on a pre-transport checklist?",
     options: [
@@ -364,6 +508,78 @@ export const checklistsQuestions: QuizQuestion[] = [
     ],
     correctIndex: 0,
     explanation: "The 45-minute break can be split into 15 + 30 minutes but must be observed.",
+    language: "en"
+  },
+  {
+    question: "What check is essential for groupage transport?",
+    options: [
+      "Correct separation of goods from different orders",
+      "Only total weight",
+      "Package color",
+      "Number of doors"
+    ],
+    correctIndex: 0,
+    explanation: "Correct separation prevents confusion and wrong deliveries in groupage transport.",
+    language: "en"
+  },
+  {
+    question: "What element must be checked on post-unloading checklist?",
+    options: [
+      "Signed CMR, POD obtained, cargo condition confirmed",
+      "Only departure time",
+      "Ramp color",
+      "Outside weather"
+    ],
+    correctIndex: 0,
+    explanation: "Document confirmation at unloading properly closes the transport cycle.",
+    language: "en"
+  },
+  {
+    question: "What mandatory check is done for tarpaulin trailer transport?",
+    options: [
+      "Tarpaulin condition, seal integrity, cargo securing",
+      "Only fuel",
+      "Working radio",
+      "Tarpaulin color"
+    ],
+    correctIndex: 0,
+    explanation: "Tarpaulin condition and seals protect cargo from theft and weather.",
+    language: "en"
+  },
+  {
+    question: "How often should operational checklists be updated?",
+    options: [
+      "Quarterly or upon legislative changes",
+      "Once every 10 years",
+      "Never",
+      "Only upon client request"
+    ],
+    correctIndex: 0,
+    explanation: "Regular updating ensures compliance with current legal and operational requirements.",
+    language: "en"
+  },
+  {
+    question: "What checklist element verifies driver availability?",
+    options: [
+      "Remaining driving hours, rest status, valid documents",
+      "Only uniform color",
+      "Music preferences",
+      "Number of children"
+    ],
+    correctIndex: 0,
+    explanation: "Availability verification prevents legal violations and ensures safety.",
+    language: "en"
+  },
+  {
+    question: "What must be included in the international transport checklist?",
+    options: [
+      "Customs documents, transit permits, valid insurance",
+      "Only road map",
+      "Personal photos",
+      "Restaurant menu"
+    ],
+    correctIndex: 0,
+    explanation: "International documents are essential for smooth border crossing.",
     language: "en"
   }
 ];

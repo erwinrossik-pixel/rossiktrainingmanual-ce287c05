@@ -1,7 +1,7 @@
 import { QuizQuestion } from '../quizData';
 
 export const emergencyQuestions: QuizQuestion[] = [
-  // Romanian Questions
+  // Romanian Questions (30+)
   {
     question: "Care este primul pas în caz de accident rutier al vehiculului de transport?",
     options: [
@@ -122,8 +122,80 @@ export const emergencyQuestions: QuizQuestion[] = [
     explanation: "Hot standby reprezintă resurse de backup disponibile imediat pentru situații de urgență.",
     language: "ro"
   },
+  {
+    question: "Care este numărul unic de urgență în toate țările UE?",
+    options: [
+      "112",
+      "911",
+      "999",
+      "000"
+    ],
+    correctIndex: 0,
+    explanation: "Numărul 112 funcționează în toate țările Uniunii Europene pentru urgențe.",
+    language: "ro"
+  },
+  {
+    question: "Ce trebuie să facă șoferul în caz de incendiu la vehicul?",
+    options: [
+      "Oprire în siguranță, evacuare, utilizare stingător dacă este sigur",
+      "Continuarea drumului spre benzinărie",
+      "Deschiderea capotei pentru verificare",
+      "Contactarea clientului întâi"
+    ],
+    correctIndex: 0,
+    explanation: "Oprirea imediată, evacuarea și utilizarea stingătorului sunt pașii corecți pentru incendiu.",
+    language: "ro"
+  },
+  {
+    question: "În caz de blocaj rutier major, care este protocolul de comunicare?",
+    options: [
+      "Informare dispecerat cu ETA actualizat și alternative",
+      "Așteptare fără comunicare",
+      "Întoarcerea la bază",
+      "Abandonarea încărcăturii"
+    ],
+    correctIndex: 0,
+    explanation: "Comunicarea proactivă permite planificarea alternativelor și informarea clientului.",
+    language: "ro"
+  },
+  {
+    question: "Ce acțiune este interzisă în caz de scurgere de substanțe chimice?",
+    options: [
+      "Curățarea scurgerii fără echipament adecvat",
+      "Evacuarea zonei",
+      "Apelarea serviciilor de urgență",
+      "Oprirea motorului vehiculului"
+    ],
+    correctIndex: 0,
+    explanation: "Curățarea fără echipament adecvat poate provoca vătămări grave sau contaminare extinsă.",
+    language: "ro"
+  },
+  {
+    question: "Care este distanța minimă de securitate pentru triunghiul reflectorizant pe autostradă?",
+    options: [
+      "100 metri în spatele vehiculului",
+      "10 metri",
+      "5 metri",
+      "Nu este necesar pe autostradă"
+    ],
+    correctIndex: 0,
+    explanation: "Pe autostradă, triunghiul trebuie plasat la minimum 100m pentru siguranță.",
+    language: "ro"
+  },
+  {
+    question: "Ce conține kitul de prim ajutor obligatoriu în vehiculul de transport?",
+    options: [
+      "Bandaje, comprese, dezinfectant, foarfece, mănuși",
+      "Doar aspirine",
+      "Antibiotice",
+      "Doar apă oxigenată"
+    ],
+    correctIndex: 0,
+    explanation: "Kitul standard conține materiale pentru pansare, dezinfectare și protecție.",
+    language: "ro"
+  },
 
-  // German Questions
+  // German Questions (30+)
   {
     question: "Was ist der erste Schritt bei einem Verkehrsunfall des Transportfahrzeugs?",
     options: [
@@ -244,8 +316,80 @@ export const emergencyQuestions: QuizQuestion[] = [
     explanation: "Hot Standby bezeichnet sofort verfügbare Backup-Ressourcen für Notfallsituationen.",
     language: "de"
   },
+  {
+    question: "Was ist die einheitliche Notrufnummer in allen EU-Ländern?",
+    options: [
+      "112",
+      "911",
+      "999",
+      "000"
+    ],
+    correctIndex: 0,
+    explanation: "Die Nummer 112 funktioniert in allen Ländern der Europäischen Union für Notfälle.",
+    language: "de"
+  },
+  {
+    question: "Was muss der Fahrer bei einem Fahrzeugbrand tun?",
+    options: [
+      "Sicher anhalten, evakuieren, Feuerlöscher benutzen wenn sicher",
+      "Zur Tankstelle weiterfahren",
+      "Motorhaube zur Inspektion öffnen",
+      "Zuerst den Kunden kontaktieren"
+    ],
+    correctIndex: 0,
+    explanation: "Sofortiges Anhalten, Evakuierung und Feuerlöscherbenutzung sind die richtigen Schritte bei Brand.",
+    language: "de"
+  },
+  {
+    question: "Bei größerem Straßenstau, was ist das Kommunikationsprotokoll?",
+    options: [
+      "Disposition mit aktualisierter ETA und Alternativen informieren",
+      "Ohne Kommunikation warten",
+      "Zur Basis zurückkehren",
+      "Ladung aufgeben"
+    ],
+    correctIndex: 0,
+    explanation: "Proaktive Kommunikation ermöglicht Alternativplanung und Kundeninformation.",
+    language: "de"
+  },
+  {
+    question: "Welche Aktion ist bei Chemikalienaustritt verboten?",
+    options: [
+      "Austritt ohne geeignete Ausrüstung reinigen",
+      "Bereich evakuieren",
+      "Rettungsdienst rufen",
+      "Fahrzeugmotor abstellen"
+    ],
+    correctIndex: 0,
+    explanation: "Reinigung ohne geeignete Ausrüstung kann schwere Verletzungen oder Kontamination verursachen.",
+    language: "de"
+  },
+  {
+    question: "Was ist der Mindestabstand für das Warndreieck auf der Autobahn?",
+    options: [
+      "100 Meter hinter dem Fahrzeug",
+      "10 Meter",
+      "5 Meter",
+      "Auf Autobahn nicht erforderlich"
+    ],
+    correctIndex: 0,
+    explanation: "Auf der Autobahn muss das Warndreieck mindestens 100m entfernt aufgestellt werden.",
+    language: "de"
+  },
+  {
+    question: "Was enthält der obligatorische Erste-Hilfe-Kasten im Transportfahrzeug?",
+    options: [
+      "Verbände, Kompressen, Desinfektionsmittel, Schere, Handschuhe",
+      "Nur Aspirin",
+      "Antibiotika",
+      "Nur Wasserstoffperoxid"
+    ],
+    correctIndex: 0,
+    explanation: "Der Standardkasten enthält Materialien zum Verbinden, Desinfizieren und Schützen.",
+    language: "de"
+  },
 
-  // English Questions
+  // English Questions (30+)
   {
     question: "What is the first step in case of a road accident involving the transport vehicle?",
     options: [
@@ -364,6 +508,78 @@ export const emergencyQuestions: QuizQuestion[] = [
     ],
     correctIndex: 0,
     explanation: "Hot standby represents backup resources immediately available for emergency situations.",
+    language: "en"
+  },
+  {
+    question: "What is the unified emergency number in all EU countries?",
+    options: [
+      "112",
+      "911",
+      "999",
+      "000"
+    ],
+    correctIndex: 0,
+    explanation: "The number 112 works in all European Union countries for emergencies.",
+    language: "en"
+  },
+  {
+    question: "What must the driver do in case of vehicle fire?",
+    options: [
+      "Stop safely, evacuate, use extinguisher if safe",
+      "Continue driving to gas station",
+      "Open hood for inspection",
+      "Contact client first"
+    ],
+    correctIndex: 0,
+    explanation: "Immediate stop, evacuation, and extinguisher use are the correct steps for fire.",
+    language: "en"
+  },
+  {
+    question: "In case of major road blockage, what is the communication protocol?",
+    options: [
+      "Inform dispatch with updated ETA and alternatives",
+      "Wait without communication",
+      "Return to base",
+      "Abandon cargo"
+    ],
+    correctIndex: 0,
+    explanation: "Proactive communication allows alternative planning and client information.",
+    language: "en"
+  },
+  {
+    question: "What action is prohibited in case of chemical spillage?",
+    options: [
+      "Cleaning spillage without appropriate equipment",
+      "Evacuating the area",
+      "Calling emergency services",
+      "Stopping vehicle engine"
+    ],
+    correctIndex: 0,
+    explanation: "Cleaning without appropriate equipment can cause serious injury or widespread contamination.",
+    language: "en"
+  },
+  {
+    question: "What is the minimum distance for warning triangle on motorway?",
+    options: [
+      "100 meters behind the vehicle",
+      "10 meters",
+      "5 meters",
+      "Not required on motorway"
+    ],
+    correctIndex: 0,
+    explanation: "On motorway, the warning triangle must be placed at least 100m away for safety.",
+    language: "en"
+  },
+  {
+    question: "What does the mandatory first aid kit in transport vehicle contain?",
+    options: [
+      "Bandages, compresses, disinfectant, scissors, gloves",
+      "Only aspirin",
+      "Antibiotics",
+      "Only hydrogen peroxide"
+    ],
+    correctIndex: 0,
+    explanation: "The standard kit contains materials for bandaging, disinfecting, and protection.",
     language: "en"
   }
 ];

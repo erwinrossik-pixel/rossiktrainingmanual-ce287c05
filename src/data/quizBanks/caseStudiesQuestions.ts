@@ -1,7 +1,7 @@
 import { QuizQuestion } from '../quizData';
 
 export const caseStudiesQuestions: QuizQuestion[] = [
-  // Romanian Questions
+  // Romanian Questions (30+)
   {
     question: "În cazul unei deviații de temperatură la transport frigorific, care este prima acțiune?",
     options: [
@@ -122,8 +122,80 @@ export const caseStudiesQuestions: QuizQuestion[] = [
     explanation: "Discounturile trebuie condiționate de beneficii reciproce concrete.",
     language: "ro"
   },
+  {
+    question: "Un client raportează că a primit mai puține colete decât cele declarate. Ce faci?",
+    options: [
+      "Verifici CMR, POD și ambalajul original cu fotografii",
+      "Respingi cererea imediat",
+      "Plătești fără verificare",
+      "Ignori reclamația"
+    ],
+    correctIndex: 0,
+    explanation: "Verificarea documentelor și dovezilor este primul pas în rezolvarea discrepanțelor.",
+    language: "ro"
+  },
+  {
+    question: "Transport de produse farmaceutice: ce certificare specială este necesară?",
+    options: [
+      "GDP (Good Distribution Practice) pentru lanțul de frig",
+      "Doar licență transport standard",
+      "Certificat de vopsitor auto",
+      "Diploma de bucătar"
+    ],
+    correctIndex: 0,
+    explanation: "GDP asigură conformitatea cu cerințele stricte pentru produse farmaceutice.",
+    language: "ro"
+  },
+  {
+    question: "Când un destinatar refuză marfa fără motiv valid, ce faci?",
+    options: [
+      "Documentezi refuzul, contactezi expeditorul pentru instrucțiuni",
+      "Abandonezi marfa la rampă",
+      "O arunci în drum",
+      "O vinzi pe cont propriu"
+    ],
+    correctIndex: 0,
+    explanation: "Documentarea și comunicarea cu expeditorul sunt esențiale pentru rezolvare corectă.",
+    language: "ro"
+  },
+  {
+    question: "Client solicită livrare sâmbătă, dar șoferul nu are ore suficiente. Soluția?",
+    options: [
+      "Propui livrare luni sau organizezi schimb de șofer",
+      "Îl trimiți oricum",
+      "Anulezi comanda",
+      "Minți clientul despre program"
+    ],
+    correctIndex: 0,
+    explanation: "Respectarea regulamentelor și comunicarea transparentă sunt prioritare.",
+    language: "ro"
+  },
+  {
+    question: "Marfă perisabilă ajunge cu 2 ore întârziere la încărcare din vina clientului. Ce faci?",
+    options: [
+      "Documentezi întârzierea și recalculezi fereastra de livrare",
+      "Refuzi transportul complet",
+      "Pleci fără marfă",
+      "Ignori întârzierea"
+    ],
+    correctIndex: 0,
+    explanation: "Documentarea protejează împotriva reclamațiilor ulterioare cauzate de întârzierea la origine.",
+    language: "ro"
+  },
+  {
+    question: "Un transport urgent necesită plecare în 2 ore, dar nu ai capacitate proprie. Soluția?",
+    options: [
+      "Activezi rețeaua de subcontractori cu verificare rapidă",
+      "Refuzi transportul",
+      "Amâni 3 zile",
+      "Trimiți un vehicul neadecvat"
+    ],
+    correctIndex: 0,
+    explanation: "Subcontractarea verificată rapid rezolvă urgențele păstrând calitatea.",
+    language: "ro"
+  },
 
-  // German Questions
+  // German Questions (30+)
   {
     question: "Bei einer Temperaturabweichung im Kühltransport, was ist die erste Maßnahme?",
     options: [
@@ -244,8 +316,80 @@ export const caseStudiesQuestions: QuizQuestion[] = [
     explanation: "Rabatte sollten an konkrete gegenseitige Vorteile geknüpft sein.",
     language: "de"
   },
+  {
+    question: "Ein Kunde meldet weniger Pakete als deklariert erhalten. Was tun Sie?",
+    options: [
+      "CMR, POD und Originalverpackung mit Fotos überprüfen",
+      "Anspruch sofort ablehnen",
+      "Ohne Prüfung bezahlen",
+      "Reklamation ignorieren"
+    ],
+    correctIndex: 0,
+    explanation: "Dokumenten- und Beweisprüfung ist der erste Schritt zur Klärung von Abweichungen.",
+    language: "de"
+  },
+  {
+    question: "Pharmatransport: Welche Spezialisierung ist erforderlich?",
+    options: [
+      "GDP (Good Distribution Practice) für die Kühlkette",
+      "Nur Standard-Transportlizenz",
+      "Autolackierer-Zertifikat",
+      "Kochdiplom"
+    ],
+    correctIndex: 0,
+    explanation: "GDP gewährleistet die Einhaltung strenger Anforderungen für Pharmaprodukte.",
+    language: "de"
+  },
+  {
+    question: "Wenn ein Empfänger Ware ohne triftigen Grund ablehnt, was tun Sie?",
+    options: [
+      "Ablehnung dokumentieren, Absender für Anweisungen kontaktieren",
+      "Ware an der Rampe aufgeben",
+      "Unterwegs wegwerfen",
+      "Auf eigene Rechnung verkaufen"
+    ],
+    correctIndex: 0,
+    explanation: "Dokumentation und Kommunikation mit Absender sind für korrekte Lösung wesentlich.",
+    language: "de"
+  },
+  {
+    question: "Kunde wünscht Samstagslieferung, aber Fahrer hat nicht genug Stunden. Lösung?",
+    options: [
+      "Montagslieferung vorschlagen oder Fahrerwechsel organisieren",
+      "Trotzdem schicken",
+      "Auftrag stornieren",
+      "Kunden über Zeitplan belügen"
+    ],
+    correctIndex: 0,
+    explanation: "Einhaltung der Vorschriften und transparente Kommunikation haben Priorität.",
+    language: "de"
+  },
+  {
+    question: "Verderbliche Ware kommt 2 Stunden zu spät zur Beladung durch Kundenverschulden. Was tun?",
+    options: [
+      "Verspätung dokumentieren und Lieferfenster neu berechnen",
+      "Transport komplett ablehnen",
+      "Ohne Ware abfahren",
+      "Verspätung ignorieren"
+    ],
+    correctIndex: 0,
+    explanation: "Dokumentation schützt vor späteren Reklamationen durch Ursprungsverspätung.",
+    language: "de"
+  },
+  {
+    question: "Ein dringender Transport erfordert Abfahrt in 2 Stunden ohne eigene Kapazität. Lösung?",
+    options: [
+      "Subunternehmer-Netzwerk mit Schnellprüfung aktivieren",
+      "Transport ablehnen",
+      "3 Tage verschieben",
+      "Ungeeignetes Fahrzeug schicken"
+    ],
+    correctIndex: 0,
+    explanation: "Schnell geprüfte Subunternehmer lösen Notfälle unter Qualitätserhalt.",
+    language: "de"
+  },
 
-  // English Questions
+  // English Questions (30+)
   {
     question: "In case of temperature deviation in refrigerated transport, what is the first action?",
     options: [
@@ -364,6 +508,78 @@ export const caseStudiesQuestions: QuizQuestion[] = [
     ],
     correctIndex: 0,
     explanation: "Discounts should be conditioned on concrete mutual benefits.",
+    language: "en"
+  },
+  {
+    question: "A client reports receiving fewer packages than declared. What do you do?",
+    options: [
+      "Verify CMR, POD, and original packaging with photos",
+      "Reject the claim immediately",
+      "Pay without verification",
+      "Ignore the complaint"
+    ],
+    correctIndex: 0,
+    explanation: "Document and evidence verification is the first step in resolving discrepancies.",
+    language: "en"
+  },
+  {
+    question: "Pharmaceutical transport: What special certification is required?",
+    options: [
+      "GDP (Good Distribution Practice) for cold chain",
+      "Only standard transport license",
+      "Auto painter certificate",
+      "Chef diploma"
+    ],
+    correctIndex: 0,
+    explanation: "GDP ensures compliance with strict requirements for pharmaceutical products.",
+    language: "en"
+  },
+  {
+    question: "When a consignee refuses cargo without valid reason, what do you do?",
+    options: [
+      "Document refusal, contact shipper for instructions",
+      "Abandon cargo at the ramp",
+      "Throw it away on the road",
+      "Sell it on your own account"
+    ],
+    correctIndex: 0,
+    explanation: "Documentation and communication with shipper are essential for correct resolution.",
+    language: "en"
+  },
+  {
+    question: "Client requests Saturday delivery, but driver doesn't have enough hours. Solution?",
+    options: [
+      "Propose Monday delivery or organize driver change",
+      "Send anyway",
+      "Cancel the order",
+      "Lie to client about schedule"
+    ],
+    correctIndex: 0,
+    explanation: "Compliance with regulations and transparent communication are priority.",
+    language: "en"
+  },
+  {
+    question: "Perishable cargo arrives 2 hours late for loading due to client's fault. What do you do?",
+    options: [
+      "Document delay and recalculate delivery window",
+      "Refuse transport completely",
+      "Leave without cargo",
+      "Ignore the delay"
+    ],
+    correctIndex: 0,
+    explanation: "Documentation protects against later claims caused by delay at origin.",
+    language: "en"
+  },
+  {
+    question: "An urgent transport requires departure in 2 hours with no own capacity. Solution?",
+    options: [
+      "Activate subcontractor network with quick verification",
+      "Refuse the transport",
+      "Delay 3 days",
+      "Send inadequate vehicle"
+    ],
+    correctIndex: 0,
+    explanation: "Quickly verified subcontracting solves urgencies while maintaining quality.",
     language: "en"
   }
 ];
