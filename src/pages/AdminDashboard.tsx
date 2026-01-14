@@ -9,8 +9,9 @@ import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { ArrowLeft, Users, BookOpen, Trophy, Clock, Eye, Download, BarChart3, RefreshCw, RotateCcw, Unlock } from 'lucide-react';
+import { ArrowLeft, Users, BookOpen, Trophy, Clock, Eye, Download, BarChart3, RefreshCw, RotateCcw, Unlock, Shield } from 'lucide-react';
 import { toast } from 'sonner';
+import { GovernanceDashboard } from '@/components/admin/GovernanceDashboard';
 import { format, subDays } from 'date-fns';
 import { AdminCharts } from '@/components/admin/AdminCharts';
 import { AutoUpdateDashboard } from '@/components/admin/AutoUpdateDashboard';
@@ -474,11 +475,15 @@ export default function AdminDashboard() {
               <BarChart3 className="h-4 w-4" />
               Analiză
             </TabsTrigger>
-            <TabsTrigger value="auto-updates" className="flex items-center gap-2">
-              <RefreshCw className="h-4 w-4" />
-              Auto-Update Engine
-            </TabsTrigger>
-          </TabsList>
+          <TabsTrigger value="governance" className="flex items-center gap-2">
+            <Shield className="h-4 w-4" />
+            Guvernanță
+          </TabsTrigger>
+          <TabsTrigger value="auto-updates" className="flex items-center gap-2">
+            <RefreshCw className="h-4 w-4" />
+            Auto-Update Engine
+          </TabsTrigger>
+        </TabsList>
 
           <TabsContent value="users" className="mt-6">
             <Card>
@@ -551,6 +556,10 @@ export default function AdminDashboard() {
               completionDistribution={completionDistribution}
               scoreDistribution={scoreDistribution}
             />
+          </TabsContent>
+
+          <TabsContent value="governance" className="mt-6">
+            <GovernanceDashboard />
           </TabsContent>
 
           <TabsContent value="auto-updates" className="mt-6">

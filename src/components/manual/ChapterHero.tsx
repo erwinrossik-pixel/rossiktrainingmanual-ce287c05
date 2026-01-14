@@ -2,6 +2,11 @@ import { LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { getChapterNumber } from "@/hooks/useChapterNumber";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { ContentLevelBadge, ContentLevel } from "./ContentLevelBadge";
+import { ContentDisclaimer } from "./ContentDisclaimer";
+import { VersionInfo } from "./VersionInfo";
+import { useState, useEffect } from "react";
+import { supabase } from "@/integrations/supabase/client";
 
 type HeroVariant = 
   // Foundation Section (Chapters 1-4) - Purple tones
@@ -112,10 +117,27 @@ export function ChapterHero({
   variant = "default" 
 }: ChapterHeroProps) {
   const { language } = useLanguage();
+  const [contentLevel, setContentLevel] = useState<ContentLevel>('informational');
   
   // Get chapter number based on variant
   const chapterId = variantToChapterId[variant];
   const chapterNum = getChapterNumber(chapterId);
+  
+  // Fetch content level from database
+  useEffect(() => {
+    const fetchContentLevel = async () => {
+      const { data, error } = await supabase
+        .from('chapters')
+        .select('content_level')
+        .eq('id', chapterId)
+        .single();
+      
+      if (data && !error) {
+        setContentLevel(data.content_level as ContentLevel);
+      }
+    };
+    fetchContentLevel();
+  }, [chapterId]);
   
   // Generate chapter label based on language
   const chapterLabels: Record<string, string> = {
@@ -176,25 +198,36 @@ export function ChapterHero({
   };
 
   return (
-    <div className={cn("hero-section text-primary-foreground", variantClasses[variant])}>
-      <div className="relative z-10">
-        <div className="flex items-center gap-4 mb-6">
-          <div className="w-20 h-20 rounded-2xl bg-white/25 backdrop-blur-sm flex items-center justify-center shadow-lg">
-            <Icon className="w-10 h-10" />
+    <div className="space-y-4">
+      <div className={cn("hero-section text-primary-foreground", variantClasses[variant])}>
+        <div className="relative z-10">
+          <div className="flex items-center gap-4 mb-6">
+            <div className="w-20 h-20 rounded-2xl bg-white/25 backdrop-blur-sm flex items-center justify-center shadow-lg">
+              <Icon className="w-10 h-10" />
+            </div>
+            <div>
+              <div className="flex items-center gap-3 mb-2">
+                <p className="text-white/80 text-sm font-semibold uppercase tracking-widest">
+                  {chapterLabel}
+                </p>
+                <ContentLevelBadge level={contentLevel} size="sm" showLabel={false} className="bg-white/20 border-white/30 text-white" />
+              </div>
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold leading-none">
+                {title}
+              </h1>
+            </div>
           </div>
-          <div>
-            <p className="text-white/80 text-sm font-semibold uppercase tracking-widest mb-2">
-              {chapterLabel}
-            </p>
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold leading-none">
-              {title}
-            </h1>
-          </div>
+          <p className="text-xl md:text-2xl text-white/90 max-w-4xl leading-relaxed font-medium mt-6">
+            {description}
+          </p>
         </div>
-        <p className="text-xl md:text-2xl text-white/90 max-w-4xl leading-relaxed font-medium mt-6">
-          {description}
-        </p>
       </div>
+      
+      {/* Version Info */}
+      <VersionInfo chapterId={chapterId} />
+      
+      {/* Content Disclaimer for Level 2 and 3 */}
+      <ContentDisclaimer level={contentLevel} />
     </div>
   );
 }
