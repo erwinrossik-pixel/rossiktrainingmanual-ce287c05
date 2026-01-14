@@ -42,6 +42,17 @@ import { emergencyQuestions } from './quizBanks/emergencyQuestions';
 import { redFlagsQuestions } from './quizBanks/redFlagsQuestions';
 import { checklistsQuestions } from './quizBanks/checklistsQuestions';
 import { glossaryQuestions } from './quizBanks/glossaryQuestions';
+// New 10 chapters
+import { stressManagementQuestions } from './quizBanks/stressManagementQuestions';
+import { sustainabilityQuestions } from './quizBanks/sustainabilityQuestions';
+import { authoritiesQuestions } from './quizBanks/authoritiesQuestions';
+import { digitalizationQuestions } from './quizBanks/digitalizationQuestions';
+import { europeanCountriesQuestions } from './quizBanks/europeanCountriesQuestions';
+import { expressTransportQuestions } from './quizBanks/expressTransportQuestions';
+import { highValueGoodsQuestions } from './quizBanks/highValueGoodsQuestions';
+import { intermodalQuestions } from './quizBanks/intermodalQuestions';
+import { networkingQuestions } from './quizBanks/networkingQuestions';
+import { professionalDevelopmentQuestions } from './quizBanks/professionalDevelopmentQuestions';
 
 export interface TranslatedQuizQuestion {
   question: Record<Language, string>;
@@ -163,33 +174,39 @@ function ensureTranslatedFormat(data: unknown): TranslatedQuizQuestion[] {
 // Map all quiz banks to chapter IDs
 // Each bank contains 30+ questions in all 3 languages
 export const quizTranslations: Record<string, TranslatedQuizQuestion[]> = {
-  // Foundation module
+  // Foundation module (1-5)
   intro: introExtendedQuestions,
   mindset: ensureTranslatedFormat(mindsetQuestions),
   'soft-skills': ensureTranslatedFormat(softSkillsQuestions),
+  'stress-management': ensureTranslatedFormat(stressManagementQuestions),
   workflow: ensureTranslatedFormat(workflowQuestions),
   
-  // Equipment module
+  // Equipment module (6-12)
   vehicle: vehicleExtendedQuestions,
   loading: ensureTranslatedFormat(loadingQuestions),
   reefer: ensureTranslatedFormat(reeferQuestions),
+  'express-transport': ensureTranslatedFormat(expressTransportQuestions),
+  intermodal: ensureTranslatedFormat(intermodalQuestions),
   warehouse: ensureTranslatedFormat(warehouseQuestions),
   adr: ensureTranslatedFormat(adrQuestions),
   
-  // Documents module
+  // Documents module (13-19)
   documents: ensureTranslatedFormat(documentsQuestions),
   incoterms: ensureTranslatedFormat(incotermsQuestions),
   customs: ensureTranslatedFormat(customsQuestions),
+  authorities: ensureTranslatedFormat(authoritiesQuestions),
   compliance: ensureTranslatedFormat(complianceQuestions),
   'driving-time': ensureTranslatedFormat(drivingTimeQuestions),
   'licenses-oversize': ensureTranslatedFormat(licensesOversizeQuestions),
   
-  // Geography module
+  // Geography module (20-24)
   'europe-zones': ensureTranslatedFormat(europeZonesQuestions),
+  'european-countries': ensureTranslatedFormat(europeanCountriesQuestions),
   environment: ensureTranslatedFormat(environmentQuestions),
+  sustainability: ensureTranslatedFormat(sustainabilityQuestions),
   'supply-chain': ensureTranslatedFormat(supplyChainQuestions),
   
-  // Commercial module
+  // Commercial module (25-33)
   pricing: ensureTranslatedFormat(pricingQuestions),
   commercial: ensureTranslatedFormat(commercialQuestions),
   negotiation: ensureTranslatedFormat(negotiationQuestions),
@@ -197,22 +214,26 @@ export const quizTranslations: Record<string, TranslatedQuizQuestion[]> = {
   'carrier-management': ensureTranslatedFormat(carrierManagementQuestions),
   exchanges: ensureTranslatedFormat(exchangesQuestions),
   communication: ensureTranslatedFormat(communicationQuestions),
+  networking: ensureTranslatedFormat(networkingQuestions),
   kpi: ensureTranslatedFormat(kpiQuestions),
   
-  // Technology module
+  // Technology module (34-37)
   translogica: ensureTranslatedFormat(translogicaQuestions),
   fleet: ensureTranslatedFormat(fleetQuestions),
   technology: ensureTranslatedFormat(technologyQuestions),
+  digitalization: ensureTranslatedFormat(digitalizationQuestions),
   
-  // Finance module
+  // Finance module (38-43)
   'risk-management': ensureTranslatedFormat(riskManagementQuestions),
   insurance: ensureTranslatedFormat(insuranceQuestions),
+  'high-value-goods': ensureTranslatedFormat(highValueGoodsQuestions),
   claims: ensureTranslatedFormat(claimsQuestions),
   payment: ensureTranslatedFormat(paymentQuestions),
   accounting: ensureTranslatedFormat(accountingQuestions),
   
-  // Practical module
+  // Practical module (44-50)
   training: ensureTranslatedFormat(trainingQuestions),
+  'professional-development': ensureTranslatedFormat(professionalDevelopmentQuestions),
   'case-studies': ensureTranslatedFormat(caseStudiesQuestions),
   emergency: ensureTranslatedFormat(emergencyQuestions),
   'red-flags': ensureTranslatedFormat(redFlagsQuestions),
