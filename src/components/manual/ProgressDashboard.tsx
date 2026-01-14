@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Certificate } from "./Certificate";
 import { QuizDiagnostics } from "./QuizDiagnostics";
+import { DailyTracker } from "./DailyTracker";
 import { getQuestionCount, getTotalQuestionCount } from "@/data/quizTranslations";
 import { jsPDF } from "jspdf";
 import { toast } from "sonner";
@@ -426,6 +427,9 @@ export function ProgressDashboard({ onNavigate, onClose }: ProgressDashboardProp
           </CardContent>
         </Card>
       </div>
+
+      {/* Daily Tracker */}
+      <DailyTracker />
 
       {/* Two Column Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">

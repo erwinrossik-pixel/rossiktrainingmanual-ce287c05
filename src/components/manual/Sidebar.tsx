@@ -13,6 +13,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { useChapterProgress } from "@/hooks/useChapterProgress";
 import { GlobalSearch } from "./GlobalSearch";
 import { LanguageSelector } from "./LanguageSelector";
+import { CompactDailyTracker } from "./CompactDailyTracker";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 interface SidebarProps {
@@ -223,6 +224,11 @@ export function Sidebar({ activeChapter, onChapterChange, onShowDashboard }: Sid
         {/* Language Selector */}
         <div className="px-4 py-3 border-b border-border flex justify-center">
           <LanguageSelector />
+        </div>
+
+        {/* Daily Tracker */}
+        <div className="px-4 py-3 border-b border-border">
+          <CompactDailyTracker />
         </div>
 
         {/* Progress Overview */}
