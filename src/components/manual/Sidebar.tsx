@@ -30,6 +30,7 @@ const getSections = (t: (key: string) => string) => [
       { id: "intro", labelKey: "chapter.intro", icon: BookOpen, isIntro: true },
       { id: "mindset", labelKey: "chapter.mindset", icon: Target, isIntro: false },
       { id: "soft-skills", labelKey: "chapter.soft-skills", icon: Users, isIntro: false },
+      { id: "stress-management", labelKey: "chapter.stress-management", icon: Brain, isIntro: false },
       { id: "workflow", labelKey: "chapter.workflow", icon: Route, isIntro: false },
     ]
   },
@@ -39,6 +40,8 @@ const getSections = (t: (key: string) => string) => [
       { id: "vehicle", labelKey: "chapter.vehicle", icon: Truck, isIntro: false },
       { id: "loading", labelKey: "chapter.loading", icon: Package, isIntro: false },
       { id: "reefer", labelKey: "chapter.reefer", icon: Package, isIntro: false },
+      { id: "express-transport", labelKey: "chapter.express-transport", icon: Zap, isIntro: false },
+      { id: "intermodal", labelKey: "chapter.intermodal", icon: Train, isIntro: false },
       { id: "warehouse", labelKey: "chapter.warehouse", icon: Package, isIntro: false },
       { id: "adr", labelKey: "chapter.adr", icon: Flame, isIntro: false },
     ]
@@ -49,6 +52,7 @@ const getSections = (t: (key: string) => string) => [
       { id: "documents", labelKey: "chapter.documents", icon: FileText, isIntro: false },
       { id: "incoterms", labelKey: "chapter.incoterms", icon: Book, isIntro: false },
       { id: "customs", labelKey: "chapter.customs", icon: Shield, isIntro: false },
+      { id: "authorities", labelKey: "chapter.authorities", icon: BadgeCheck, isIntro: false },
       { id: "compliance", labelKey: "chapter.compliance", icon: Clock, isIntro: false },
       { id: "driving-time", labelKey: "chapter.driving-time", icon: Clock, isIntro: false },
       { id: "licenses-oversize", labelKey: "chapter.licenses-oversize", icon: Award, isIntro: false },
@@ -58,7 +62,9 @@ const getSections = (t: (key: string) => string) => [
     title: t('section.geography'),
     chapters: [
       { id: "europe-zones", labelKey: "chapter.europe-zones", icon: Route, isIntro: false },
+      { id: "european-countries", labelKey: "chapter.european-countries", icon: Globe, isIntro: false },
       { id: "environment", labelKey: "chapter.environment", icon: Target, isIntro: false },
+      { id: "sustainability", labelKey: "chapter.sustainability", icon: Leaf, isIntro: false },
       { id: "supply-chain", labelKey: "chapter.supply-chain", icon: Route, isIntro: false },
     ]
   },
@@ -72,6 +78,7 @@ const getSections = (t: (key: string) => string) => [
       { id: "carrier-management", labelKey: "chapter.carrier-management", icon: Users, isIntro: false },
       { id: "exchanges", labelKey: "chapter.exchanges", icon: Users, isIntro: false },
       { id: "communication", labelKey: "chapter.communication", icon: MessageSquare, isIntro: false },
+      { id: "networking", labelKey: "chapter.networking", icon: Network, isIntro: false },
       { id: "kpi", labelKey: "chapter.kpi", icon: BarChart3, isIntro: false },
     ]
   },
@@ -81,6 +88,7 @@ const getSections = (t: (key: string) => string) => [
       { id: "translogica", labelKey: "chapter.translogica", icon: Laptop, isIntro: false },
       { id: "fleet", labelKey: "chapter.fleet", icon: Truck, isIntro: false },
       { id: "technology", labelKey: "chapter.technology", icon: Laptop, isIntro: false },
+      { id: "digitalization", labelKey: "chapter.digitalization", icon: Cpu, isIntro: false },
     ]
   },
   {
@@ -88,6 +96,7 @@ const getSections = (t: (key: string) => string) => [
     chapters: [
       { id: "risk-management", labelKey: "chapter.risk-management", icon: Shield, isIntro: false },
       { id: "insurance", labelKey: "chapter.insurance", icon: Shield, isIntro: false },
+      { id: "high-value-goods", labelKey: "chapter.high-value-goods", icon: Gem, isIntro: false },
       { id: "claims", labelKey: "chapter.claims", icon: Scale, isIntro: false },
       { id: "payment", labelKey: "chapter.payment", icon: Calculator, isIntro: false },
       { id: "accounting", labelKey: "chapter.accounting", icon: Calculator, isIntro: false },
@@ -97,26 +106,12 @@ const getSections = (t: (key: string) => string) => [
     title: t('section.practical'),
     chapters: [
       { id: "training", labelKey: "chapter.training", icon: GraduationCap, isIntro: false },
+      { id: "professional-development", labelKey: "chapter.professional-development", icon: TrendingUp, isIntro: false },
       { id: "case-studies", labelKey: "chapter.case-studies", icon: Lightbulb, isIntro: false },
       { id: "emergency", labelKey: "chapter.emergency", icon: Phone, isIntro: false },
       { id: "red-flags", labelKey: "chapter.red-flags", icon: AlertTriangle, isIntro: false },
       { id: "checklists", labelKey: "chapter.checklists", icon: ClipboardList, isIntro: false },
       { id: "glossary", labelKey: "chapter.glossary", icon: Book, isIntro: false },
-    ]
-  },
-  {
-    title: t('section.advanced'),
-    chapters: [
-      { id: "stress-management", labelKey: "chapter.stress-management", icon: Brain, isIntro: false },
-      { id: "sustainability", labelKey: "chapter.sustainability", icon: Leaf, isIntro: false },
-      { id: "authorities", labelKey: "chapter.authorities", icon: BadgeCheck, isIntro: false },
-      { id: "digitalization", labelKey: "chapter.digitalization", icon: Cpu, isIntro: false },
-      { id: "european-countries", labelKey: "chapter.european-countries", icon: Globe, isIntro: false },
-      { id: "express-transport", labelKey: "chapter.express-transport", icon: Zap, isIntro: false },
-      { id: "high-value-goods", labelKey: "chapter.high-value-goods", icon: Gem, isIntro: false },
-      { id: "intermodal", labelKey: "chapter.intermodal", icon: Train, isIntro: false },
-      { id: "networking", labelKey: "chapter.networking", icon: Network, isIntro: false },
-      { id: "professional-development", labelKey: "chapter.professional-development", icon: TrendingUp, isIntro: false },
     ]
   },
 ];

@@ -1,28 +1,34 @@
-// Chapter order matching the sidebar structure - 50 chapters
+// Chapter order matching the sidebar structure - 50 chapters integrated
 const chapterOrder = [
-  // Section 1: Foundation (1-4)
+  // Section 1: Foundation (1-5)
   "intro",
   "mindset", 
   "soft-skills",
+  "stress-management",
   "workflow",
-  // Section 2: Equipment (5-9)
+  // Section 2: Equipment (6-12)
   "vehicle",
   "loading",
   "reefer",
+  "express-transport",
+  "intermodal",
   "warehouse",
   "adr",
-  // Section 3: Documents & Regulations (10-15)
+  // Section 3: Documents & Regulations (13-19)
   "documents",
   "incoterms",
   "customs",
+  "authorities",
   "compliance",
   "driving-time",
   "licenses-oversize",
-  // Section 4: Geography & Routes (16-18)
+  // Section 4: Geography & Routes (20-24)
   "europe-zones",
+  "european-countries",
   "environment",
+  "sustainability",
   "supply-chain",
-  // Section 5: Commercial Skills (19-26)
+  // Section 5: Commercial Skills (25-33)
   "pricing",
   "commercial",
   "negotiation",
@@ -30,35 +36,28 @@ const chapterOrder = [
   "carrier-management",
   "exchanges",
   "communication",
+  "networking",
   "kpi",
-  // Section 6: Technology (27-29)
+  // Section 6: Technology (34-37)
   "translogica",
   "fleet",
   "technology",
-  // Section 7: Risk & Finance (30-34)
+  "digitalization",
+  // Section 7: Risk & Finance (38-43)
   "risk-management",
   "insurance",
+  "high-value-goods",
   "claims",
   "payment",
   "accounting",
-  // Section 8: Practical Application (35-40)
+  // Section 8: Practical Application (44-50)
   "training",
+  "professional-development",
   "case-studies",
   "emergency",
   "red-flags",
   "checklists",
   "glossary",
-  // Section 9: New Chapters (41-50)
-  "authorities",
-  "digitalization",
-  "european-countries",
-  "express-transport",
-  "high-value-goods",
-  "intermodal",
-  "networking",
-  "professional-development",
-  "stress-management",
-  "sustainability",
 ];
 
 export function getChapterNumber(chapterId: string): number {
