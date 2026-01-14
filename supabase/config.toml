@@ -1,1 +1,10 @@
 project_id = "mvhiqkotxolxrogwyxsa"
+
+[functions.auto-update-check]
+verify_jwt = false
+
+[functions.content-regenerate]
+verify_jwt = false
+
+[functions.admin-update-actions]
+verify_jwt = false

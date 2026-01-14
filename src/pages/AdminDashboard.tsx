@@ -9,9 +9,10 @@ import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { ArrowLeft, Users, BookOpen, Trophy, Clock, Eye, Download, BarChart3 } from 'lucide-react';
+import { ArrowLeft, Users, BookOpen, Trophy, Clock, Eye, Download, BarChart3, RefreshCw } from 'lucide-react';
 import { format, subDays } from 'date-fns';
 import { AdminCharts } from '@/components/admin/AdminCharts';
+import { AutoUpdateDashboard } from '@/components/admin/AutoUpdateDashboard';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 interface UserWithProgress {
@@ -333,7 +334,7 @@ export default function AdminDashboard() {
           </Card>
         </div>
 
-        {/* Tabs for Users and Analytics */}
+        {/* Tabs for Users, Analytics and Auto-Updates */}
         <Tabs defaultValue="users" className="w-full">
           <TabsList>
             <TabsTrigger value="users" className="flex items-center gap-2">
@@ -343,6 +344,10 @@ export default function AdminDashboard() {
             <TabsTrigger value="analytics" className="flex items-center gap-2">
               <BarChart3 className="h-4 w-4" />
               Analiză
+            </TabsTrigger>
+            <TabsTrigger value="auto-updates" className="flex items-center gap-2">
+              <RefreshCw className="h-4 w-4" />
+              Auto-Update Engine
             </TabsTrigger>
           </TabsList>
 
@@ -417,6 +422,10 @@ export default function AdminDashboard() {
               completionDistribution={completionDistribution}
               scoreDistribution={scoreDistribution}
             />
+          </TabsContent>
+
+          <TabsContent value="auto-updates" className="mt-6">
+            <AutoUpdateDashboard />
           </TabsContent>
         </Tabs>
       </div>
