@@ -3,6 +3,7 @@ export interface QuizQuestion {
   options: string[];
   correctIndex: number;
   explanation: string;
+  language?: 'ro' | 'de' | 'en';
 }
 
 export const quizzes: Record<string, QuizQuestion[]> = {
