@@ -21,10 +21,10 @@ interface UserTrainingTime {
   trainingStartedAt: string | null;
 }
 
-const TARGET_HOURS_PER_DAY = 8;
-const TOTAL_TARGET_HOURS = 40; // 5 days * 8 hours
+const TARGET_HOURS_PER_PHASE = 8;
+const TOTAL_TARGET_HOURS = 40; // 5 phases * 8 hours
 
-const DAY_NAMES = {
+const PHASE_NAMES = {
   1: 'Fundamente',
   2: 'Echipament & Documente',
   3: 'Geografie & Comercial',
@@ -135,14 +135,14 @@ export function TrainingTimeAnalytics() {
   const usersCurrentlyTraining = usersTime.filter(u => u.isCurrentlyTraining).length;
   const usersCompletedTarget = usersTime.filter(u => u.totalSeconds >= TOTAL_TARGET_HOURS * 3600).length;
 
-  // Chart data: time distribution by day across all users
-  const dayDistribution = [1, 2, 3, 4, 5].map(day => {
-    const totalForDay = usersTime.reduce((acc, u) => acc + (u.days[day] || 0), 0);
+  // Chart data: time distribution by phase across all users
+  const phaseDistribution = [1, 2, 3, 4, 5].map(phase => {
+    const totalForPhase = usersTime.reduce((acc, u) => acc + (u.days[phase] || 0), 0);
     return {
-      day: `Z${day}`,
-      fullName: DAY_NAMES[day as keyof typeof DAY_NAMES],
-      hours: totalForDay / 3600,
-      users: usersTime.filter(u => (u.days[day] || 0) > 0).length,
+      phase: `F${phase}`,
+      fullName: PHASE_NAMES[phase as keyof typeof PHASE_NAMES],
+      hours: totalForPhase / 3600,
+      users: usersTime.filter(u => (u.days[phase] || 0) > 0).length,
     };
   });
 
@@ -193,7 +193,7 @@ export function TrainingTimeAnalytics() {
   ].filter(d => d.value > 0);
 
   const exportToCSV = () => {
-    const headers = ['Nume', 'Email', 'Ziua 1', 'Ziua 2', 'Ziua 3', 'Ziua 4', 'Ziua 5', 'Total', 'Progres %', 'Activ Acum', 'Început Training'];
+    const headers = ['Nume', 'Email', 'Faza 1', 'Faza 2', 'Faza 3', 'Faza 4', 'Faza 5', 'Total', 'Progres %', 'Activ Acum', 'Început Training'];
     const rows = usersTime.map(u => [
       `${u.firstName || ''} ${u.lastName || ''}`.trim() || 'N/A',
       u.email,
@@ -296,15 +296,15 @@ export function TrainingTimeAnalytics() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card>
           <CardHeader>
-            <CardTitle className="text-base">Distribuție Timp pe Zile</CardTitle>
-            <CardDescription>Ore totale petrecute de toți utilizatorii pe fiecare zi</CardDescription>
+            <CardTitle className="text-base">Distribuție Timp pe Faze</CardTitle>
+            <CardDescription>Ore totale petrecute de toți utilizatorii pe fiecare fază</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="h-64">
               <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={dayDistribution} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
+                <BarChart data={phaseDistribution} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
                   <XAxis 
-                    dataKey="day" 
+                    dataKey="phase"
                     tick={{ fontSize: 11, fill: 'hsl(var(--muted-foreground))' }}
                     axisLine={{ stroke: 'hsl(var(--border))' }}
                     tickLine={false}
@@ -364,7 +364,7 @@ export function TrainingTimeAnalytics() {
         <CardHeader className="flex flex-row items-center justify-between">
           <div>
             <CardTitle className="text-base">Timp Training per Utilizator</CardTitle>
-            <CardDescription>Detalii despre timpul petrecut de fiecare utilizator</CardDescription>
+            <CardDescription>Detalii despre timpul petrecut de fiecare utilizator pe faze</CardDescription>
           </div>
           <div className="flex items-center gap-2">
             <Button variant="outline" size="sm" onClick={fetchTrainingTime}>
@@ -382,11 +382,11 @@ export function TrainingTimeAnalytics() {
             <TableHeader>
               <TableRow>
                 <TableHead>Utilizator</TableHead>
-                <TableHead className="text-center">Z1</TableHead>
-                <TableHead className="text-center">Z2</TableHead>
-                <TableHead className="text-center">Z3</TableHead>
-                <TableHead className="text-center">Z4</TableHead>
-                <TableHead className="text-center">Z5</TableHead>
+                <TableHead className="text-center">F1</TableHead>
+                <TableHead className="text-center">F2</TableHead>
+                <TableHead className="text-center">F3</TableHead>
+                <TableHead className="text-center">F4</TableHead>
+                <TableHead className="text-center">F5</TableHead>
                 <TableHead className="text-center">Total</TableHead>
                 <TableHead className="w-32">Progres</TableHead>
                 <TableHead className="text-center">Status</TableHead>
