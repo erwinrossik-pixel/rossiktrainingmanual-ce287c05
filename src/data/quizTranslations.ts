@@ -239,7 +239,7 @@ export function getQuestionCount(chapterId: string): number {
   return chapter?.length || 0;
 }
 
-// Get all chapter question counts
+// Get all chapter question counts with details about which are below minimum
 export function getAllQuestionCounts(): Record<string, number> {
   const counts: Record<string, number> = {};
   Object.keys(quizTranslations).forEach(chapterId => {
@@ -251,4 +251,35 @@ export function getAllQuestionCounts(): Record<string, number> {
 // Total questions across all chapters
 export function getTotalQuestionCount(): number {
   return Object.values(quizTranslations).reduce((total, questions) => total + (questions?.length || 0), 0);
+}
+
+// Get chapters that need more questions (below 30)
+export function getChaptersNeedingQuestions(minimum: number = 30): { chapterId: string; count: number; needed: number }[] {
+  const results: { chapterId: string; count: number; needed: number }[] = [];
+  Object.entries(quizTranslations).forEach(([chapterId, questions]) => {
+    const count = questions?.length || 0;
+    if (count < minimum) {
+      results.push({ chapterId, count, needed: minimum - count });
+    }
+  });
+  return results.sort((a, b) => a.count - b.count);
+}
+
+// Get quiz stats summary
+export function getQuizStats(): { 
+  totalChapters: number; 
+  totalQuestions: number; 
+  chaptersBelow30: number; 
+  chaptersAt30Plus: number;
+  averageQuestionsPerChapter: number;
+} {
+  const counts = getAllQuestionCounts();
+  const values = Object.values(counts);
+  const totalChapters = values.length;
+  const totalQuestions = values.reduce((sum, count) => sum + count, 0);
+  const chaptersBelow30 = values.filter(c => c < 30).length;
+  const chaptersAt30Plus = values.filter(c => c >= 30).length;
+  const averageQuestionsPerChapter = totalChapters > 0 ? Math.round(totalQuestions / totalChapters) : 0;
+  
+  return { totalChapters, totalQuestions, chaptersBelow30, chaptersAt30Plus, averageQuestionsPerChapter };
 }
