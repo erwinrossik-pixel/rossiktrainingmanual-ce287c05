@@ -24,8 +24,10 @@ import {
   Zap,
   Settings,
   History,
-  Eye
+  Eye,
+  Cpu
 } from 'lucide-react';
+import { JobsMonitor } from './JobsMonitor';
 
 interface ContentSource {
   id: string;
@@ -337,8 +339,12 @@ export function AutoUpdateDashboard() {
       </div>
 
       {/* Main Tabs */}
-      <Tabs defaultValue="updates" className="w-full">
-        <TabsList className="grid w-full grid-cols-4">
+      <Tabs defaultValue="jobs" className="w-full">
+        <TabsList className="grid w-full grid-cols-5">
+          <TabsTrigger value="jobs" className="flex items-center gap-2">
+            <Cpu className="h-4 w-4" />
+            Job-uri
+          </TabsTrigger>
           <TabsTrigger value="updates" className="flex items-center gap-2">
             <FileText className="h-4 w-4" />
             Actualizări
@@ -353,9 +359,14 @@ export function AutoUpdateDashboard() {
           </TabsTrigger>
           <TabsTrigger value="audit" className="flex items-center gap-2">
             <History className="h-4 w-4" />
-            Audit Log
+            Audit
           </TabsTrigger>
         </TabsList>
+
+        {/* Jobs Monitor Tab */}
+        <TabsContent value="jobs" className="mt-6">
+          <JobsMonitor />
+        </TabsContent>
 
         {/* Updates Tab */}
         <TabsContent value="updates" className="mt-6">
