@@ -75,6 +75,19 @@ const translations: Record<Language, Record<string, string>> = {
     'chapter.glossary': 'Glosar',
     'chapter.checklists': 'Checklists',
     'chapter.licenses-oversize': 'Licențe & Agabaritic',
+    'chapter.stress-management': 'Gestionare Stres',
+    'chapter.sustainability': 'Sustenabilitate',
+    'chapter.authorities': 'Autorități & Reglementări',
+    'chapter.digitalization': 'Digitalizare',
+    'chapter.european-countries': 'Țări Europene',
+    'chapter.express-transport': 'Transport Express',
+    'chapter.high-value-goods': 'Mărfuri de Valoare',
+    'chapter.intermodal': 'Transport Intermodal',
+    'chapter.networking': 'Networking',
+    'chapter.professional-development': 'Dezvoltare Profesională',
+    
+    // Sections
+    'section.advanced': 'Avansat',
     
     // Dashboard
     'dashboard.title': 'Dashboard Progres',
@@ -192,6 +205,19 @@ const translations: Record<Language, Record<string, string>> = {
     'chapter.glossary': 'Glossar',
     'chapter.checklists': 'Checklisten',
     'chapter.licenses-oversize': 'Lizenzen & Schwertransport',
+    'chapter.stress-management': 'Stressmanagement',
+    'chapter.sustainability': 'Nachhaltigkeit',
+    'chapter.authorities': 'Behörden & Vorschriften',
+    'chapter.digitalization': 'Digitalisierung',
+    'chapter.european-countries': 'Europäische Länder',
+    'chapter.express-transport': 'Expresstransport',
+    'chapter.high-value-goods': 'Wertgüter',
+    'chapter.intermodal': 'Intermodaler Transport',
+    'chapter.networking': 'Networking',
+    'chapter.professional-development': 'Berufliche Entwicklung',
+    
+    // Sections
+    'section.advanced': 'Fortgeschritten',
     
     // Dashboard
     'dashboard.title': 'Fortschritts-Dashboard',
@@ -309,6 +335,19 @@ const translations: Record<Language, Record<string, string>> = {
     'chapter.glossary': 'Glossary',
     'chapter.checklists': 'Checklists',
     'chapter.licenses-oversize': 'Licenses & Oversize',
+    'chapter.stress-management': 'Stress Management',
+    'chapter.sustainability': 'Sustainability',
+    'chapter.authorities': 'Authorities & Regulations',
+    'chapter.digitalization': 'Digitalization',
+    'chapter.european-countries': 'European Countries',
+    'chapter.express-transport': 'Express Transport',
+    'chapter.high-value-goods': 'High-Value Goods',
+    'chapter.intermodal': 'Intermodal Transport',
+    'chapter.networking': 'Networking',
+    'chapter.professional-development': 'Professional Development',
+    
+    // Sections
+    'section.advanced': 'Advanced',
     
     // Dashboard
     'dashboard.title': 'Progress Dashboard',
