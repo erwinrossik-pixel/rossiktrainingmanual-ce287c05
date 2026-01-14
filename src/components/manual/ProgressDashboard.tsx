@@ -9,6 +9,7 @@ import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Certificate } from "./Certificate";
+import { QuizDiagnostics } from "./QuizDiagnostics";
 import { getQuestionCount, getTotalQuestionCount } from "@/data/quizTranslations";
 
 const chapters = [
@@ -426,6 +427,9 @@ export function ProgressDashboard({ onNavigate, onClose }: ProgressDashboardProp
           {t('dashboard.reset')}
         </Button>
       </div>
+
+      {/* Quiz Diagnostics - for admin/development */}
+      <QuizDiagnostics />
     </div>
   );
 }
