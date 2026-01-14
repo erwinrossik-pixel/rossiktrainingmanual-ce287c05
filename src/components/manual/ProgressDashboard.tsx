@@ -1,6 +1,6 @@
 import { 
   Trophy, Target, Clock, CheckCircle2, XCircle, TrendingUp, 
-  Award, BarChart3, Percent, BookOpen, RotateCcw, ArrowLeft, HelpCircle
+  Award, BarChart3, Percent, BookOpen, RotateCcw, ArrowLeft, HelpCircle, Download
 } from "lucide-react";
 import { useProgressContext } from "@/contexts/ProgressContext";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -11,6 +11,8 @@ import { cn } from "@/lib/utils";
 import { Certificate } from "./Certificate";
 import { QuizDiagnostics } from "./QuizDiagnostics";
 import { getQuestionCount, getTotalQuestionCount } from "@/data/quizTranslations";
+import { jsPDF } from "jspdf";
+import { toast } from "sonner";
 
 const chapters = [
   { id: "intro", labelKey: "chapter.intro", section: "section.foundation" },
@@ -121,6 +123,203 @@ export function ProgressDashboard({ onNavigate, onClose }: ProgressDashboardProp
     });
   };
 
+  const exportPDF = () => {
+    const doc = new jsPDF();
+    const pageWidth = doc.internal.pageSize.getWidth();
+    
+    const titles = {
+      ro: {
+        title: "Raport Progres Training",
+        subtitle: "Manual Freight Forwarding - Rossik",
+        generatedOn: "Generat la",
+        summary: "Sumar General",
+        overallProgress: "Progres General",
+        completedChapters: "Capitole Completate",
+        quizzesTaken: "Quiz-uri Susținute",
+        averageScore: "Scor Mediu",
+        passRate: "Rata de Promovare",
+        chapterDetails: "Detalii Capitole",
+        chapter: "Capitol",
+        status: "Status",
+        score: "Scor",
+        completed: "Completat",
+        inProgress: "În Progres",
+        notStarted: "Neînceput",
+      },
+      de: {
+        title: "Training-Fortschrittsbericht",
+        subtitle: "Handbuch Spedition - Rossik",
+        generatedOn: "Erstellt am",
+        summary: "Allgemeine Zusammenfassung",
+        overallProgress: "Gesamtfortschritt",
+        completedChapters: "Abgeschlossene Kapitel",
+        quizzesTaken: "Absolvierte Quiz",
+        averageScore: "Durchschnittsnote",
+        passRate: "Bestehensquote",
+        chapterDetails: "Kapiteldetails",
+        chapter: "Kapitel",
+        status: "Status",
+        score: "Punktzahl",
+        completed: "Abgeschlossen",
+        inProgress: "In Bearbeitung",
+        notStarted: "Nicht begonnen",
+      },
+      en: {
+        title: "Training Progress Report",
+        subtitle: "Freight Forwarding Manual - Rossik",
+        generatedOn: "Generated on",
+        summary: "General Summary",
+        overallProgress: "Overall Progress",
+        completedChapters: "Completed Chapters",
+        quizzesTaken: "Quizzes Taken",
+        averageScore: "Average Score",
+        passRate: "Pass Rate",
+        chapterDetails: "Chapter Details",
+        chapter: "Chapter",
+        status: "Status",
+        score: "Score",
+        completed: "Completed",
+        inProgress: "In Progress",
+        notStarted: "Not Started",
+      }
+    };
+    
+    const txt = titles[language];
+    const now = new Date();
+    const dateStr = now.toLocaleDateString(language === 'de' ? 'de-DE' : language === 'en' ? 'en-GB' : 'ro-RO', {
+      year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit'
+    });
+
+    // Header
+    doc.setFillColor(220, 38, 38);
+    doc.rect(0, 0, pageWidth, 35, 'F');
+    
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(22);
+    doc.setFont("helvetica", "bold");
+    doc.text(txt.title, pageWidth / 2, 18, { align: "center" });
+    
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "normal");
+    doc.text(txt.subtitle, pageWidth / 2, 28, { align: "center" });
+
+    // Date
+    doc.setTextColor(100, 100, 100);
+    doc.setFontSize(9);
+    doc.text(`${txt.generatedOn}: ${dateStr}`, pageWidth / 2, 45, { align: "center" });
+
+    // Summary Section
+    let yPos = 60;
+    doc.setTextColor(30, 30, 30);
+    doc.setFontSize(14);
+    doc.setFont("helvetica", "bold");
+    doc.text(txt.summary, 20, yPos);
+    
+    yPos += 12;
+    doc.setFontSize(10);
+    doc.setFont("helvetica", "normal");
+    
+    const summaryData = [
+      [txt.overallProgress, `${overallProgress}%`],
+      [txt.completedChapters, `${quizStats.completedChapters} / ${chapters.length}`],
+      [txt.quizzesTaken, `${quizStats.totalQuizzes}`],
+      [txt.averageScore, `${averageScore}%`],
+      [txt.passRate, `${passRate}%`],
+    ];
+
+    summaryData.forEach(([label, value]) => {
+      doc.setFont("helvetica", "normal");
+      doc.text(label, 25, yPos);
+      doc.setFont("helvetica", "bold");
+      doc.text(value, 120, yPos);
+      yPos += 8;
+    });
+
+    // Chapter Details
+    yPos += 10;
+    doc.setFontSize(14);
+    doc.setFont("helvetica", "bold");
+    doc.text(txt.chapterDetails, 20, yPos);
+    
+    yPos += 10;
+    
+    // Table header
+    doc.setFillColor(240, 240, 240);
+    doc.rect(20, yPos - 5, pageWidth - 40, 8, 'F');
+    doc.setFontSize(9);
+    doc.setFont("helvetica", "bold");
+    doc.text(txt.chapter, 25, yPos);
+    doc.text(txt.status, 120, yPos);
+    doc.text(txt.score, 165, yPos);
+    
+    yPos += 10;
+    doc.setFont("helvetica", "normal");
+    
+    chapters.forEach((chapter, index) => {
+      if (yPos > 270) {
+        doc.addPage();
+        yPos = 20;
+      }
+      
+      const chapterProgress = getChapterProgress(chapter.id);
+      const status = chapterProgress?.completed 
+        ? txt.completed 
+        : chapterProgress?.lastVisited 
+          ? txt.inProgress 
+          : txt.notStarted;
+      
+      const score = chapterProgress?.quizScore !== undefined 
+        ? `${chapterProgress.quizScore}/${chapterProgress.quizTotal}` 
+        : "-";
+      
+      // Alternate row colors
+      if (index % 2 === 0) {
+        doc.setFillColor(250, 250, 250);
+        doc.rect(20, yPos - 4, pageWidth - 40, 7, 'F');
+      }
+      
+      doc.setFontSize(8);
+      doc.text(`${index + 1}. ${t(chapter.labelKey)}`, 25, yPos);
+      
+      // Status with color
+      if (chapterProgress?.completed) {
+        doc.setTextColor(34, 197, 94);
+      } else if (chapterProgress?.lastVisited) {
+        doc.setTextColor(234, 179, 8);
+      } else {
+        doc.setTextColor(156, 163, 175);
+      }
+      doc.text(status, 120, yPos);
+      
+      doc.setTextColor(30, 30, 30);
+      doc.text(score, 165, yPos);
+      
+      yPos += 7;
+    });
+
+    // Footer
+    const totalPages = doc.internal.pages.length - 1;
+    for (let i = 1; i <= totalPages; i++) {
+      doc.setPage(i);
+      doc.setFontSize(8);
+      doc.setTextColor(150, 150, 150);
+      doc.text(
+        `Rossik Training Manual - Page ${i} of ${totalPages}`,
+        pageWidth / 2,
+        doc.internal.pageSize.getHeight() - 10,
+        { align: "center" }
+      );
+    }
+
+    doc.save(`progress-report-${now.toISOString().split('T')[0]}.pdf`);
+    
+    toast.success(
+      language === 'ro' ? 'Raport PDF descărcat!' : 
+      language === 'de' ? 'PDF-Bericht heruntergeladen!' : 
+      'PDF report downloaded!'
+    );
+  };
+
   return (
     <div className="space-y-6 max-w-5xl mx-auto">
       {/* Header */}
@@ -134,15 +333,26 @@ export function ProgressDashboard({ onNavigate, onClose }: ProgressDashboardProp
           </h1>
           <p className="text-muted-foreground mt-1 text-sm">{t('dashboard.subtitle')}</p>
         </div>
-        <Button 
-          variant="outline" 
-          size="sm" 
-          onClick={onClose}
-          className="gap-2"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          {t('dashboard.back')}
-        </Button>
+        <div className="flex items-center gap-2">
+          <Button 
+            variant="outline" 
+            size="sm" 
+            onClick={exportPDF}
+            className="gap-2"
+          >
+            <Download className="w-4 h-4" />
+            {language === 'ro' ? 'Export PDF' : language === 'de' ? 'PDF Export' : 'Export PDF'}
+          </Button>
+          <Button 
+            variant="outline" 
+            size="sm" 
+            onClick={onClose}
+            className="gap-2"
+          >
+            <ArrowLeft className="w-4 h-4" />
+            {t('dashboard.back')}
+          </Button>
+        </div>
       </div>
 
       {/* Stats Grid */}
