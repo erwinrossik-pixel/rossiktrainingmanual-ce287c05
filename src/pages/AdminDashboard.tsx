@@ -9,13 +9,14 @@ import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { ArrowLeft, Users, BookOpen, Trophy, Clock, Eye, Download, BarChart3, RefreshCw, RotateCcw, Unlock, Shield, Activity } from 'lucide-react';
+import { ArrowLeft, Users, BookOpen, Trophy, Clock, Eye, Download, BarChart3, RefreshCw, RotateCcw, Unlock, Shield, Activity, Timer } from 'lucide-react';
 import { toast } from 'sonner';
 import { GovernanceDashboard } from '@/components/admin/GovernanceDashboard';
 import { format, subDays } from 'date-fns';
 import { AdminCharts } from '@/components/admin/AdminCharts';
 import { AutoUpdateDashboard } from '@/components/admin/AutoUpdateDashboard';
 import { UsageAnalytics } from '@/components/admin/UsageAnalytics';
+import { TrainingTimeAnalytics } from '@/components/admin/TrainingTimeAnalytics';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 interface UserWithProgress {
@@ -480,6 +481,10 @@ export default function AdminDashboard() {
               <Activity className="h-4 w-4" />
               Utilizare
             </TabsTrigger>
+            <TabsTrigger value="training-time" className="flex items-center gap-2">
+              <Timer className="h-4 w-4" />
+              Timp Training
+            </TabsTrigger>
             <TabsTrigger value="governance" className="flex items-center gap-2">
               <Shield className="h-4 w-4" />
               Guvernanță
@@ -565,6 +570,10 @@ export default function AdminDashboard() {
 
           <TabsContent value="usage" className="mt-6">
             <UsageAnalytics />
+          </TabsContent>
+
+          <TabsContent value="training-time" className="mt-6">
+            <TrainingTimeAnalytics />
           </TabsContent>
 
           <TabsContent value="governance" className="mt-6">
