@@ -9,7 +9,8 @@ import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { ArrowLeft, Users, BookOpen, Trophy, Clock, Eye, Download, BarChart3, RefreshCw } from 'lucide-react';
+import { ArrowLeft, Users, BookOpen, Trophy, Clock, Eye, Download, BarChart3, RefreshCw, RotateCcw } from 'lucide-react';
+import { toast } from 'sonner';
 import { format, subDays } from 'date-fns';
 import { AdminCharts } from '@/components/admin/AdminCharts';
 import { AutoUpdateDashboard } from '@/components/admin/AutoUpdateDashboard';
@@ -167,6 +168,80 @@ export default function AdminDashboard() {
       .limit(50);
 
     setUserAttempts(attempts || []);
+  };
+
+  const resetBestScore = async (chapterId: string, userId: string) => {
+    const { error } = await supabase
+      .from('chapter_progress')
+      .update({ 
+        best_score: 0,
+        status: 'unlocked',
+        completed_at: null,
+        attempts_count: 0
+      })
+      .eq('user_id', userId)
+      .eq('chapter_id', chapterId);
+
+    if (error) {
+      console.error('Error resetting score:', error);
+      toast.error('Eroare la resetarea scorului');
+      return;
+    }
+
+    toast.success(`Scorul pentru ${chapterId} a fost resetat`);
+    
+    // Refresh user progress
+    if (selectedUser) {
+      const { data: progress } = await supabase
+        .from('chapter_progress')
+        .select('*')
+        .eq('user_id', selectedUser.id)
+        .order('chapter_id');
+      setUserProgress(progress || []);
+    }
+    
+    // Refresh main users list
+    fetchUsers();
+  };
+
+  const resetAllScores = async (userId: string) => {
+    const { error } = await supabase
+      .from('chapter_progress')
+      .update({ 
+        best_score: 0,
+        status: 'locked',
+        completed_at: null,
+        attempts_count: 0
+      })
+      .eq('user_id', userId);
+
+    if (error) {
+      console.error('Error resetting all scores:', error);
+      toast.error('Eroare la resetarea scorurilor');
+      return;
+    }
+
+    // Unlock first chapter
+    await supabase
+      .from('chapter_progress')
+      .update({ status: 'unlocked' })
+      .eq('user_id', userId)
+      .eq('chapter_id', 'intro');
+
+    toast.success('Toate scorurile au fost resetate');
+    
+    // Refresh user progress
+    if (selectedUser) {
+      const { data: progress } = await supabase
+        .from('chapter_progress')
+        .select('*')
+        .eq('user_id', selectedUser.id)
+        .order('chapter_id');
+      setUserProgress(progress || []);
+    }
+    
+    // Refresh main users list
+    fetchUsers();
   };
 
   const exportToCSV = () => {
@@ -444,7 +519,17 @@ export default function AdminDashboard() {
             <div className="space-y-6 pr-4">
               {/* Chapter Progress */}
               <div>
-                <h3 className="text-lg font-semibold mb-3">Progres pe Capitole</h3>
+                <div className="flex items-center justify-between mb-3">
+                  <h3 className="text-lg font-semibold">Progres pe Capitole</h3>
+                  <Button 
+                    variant="destructive" 
+                    size="sm"
+                    onClick={() => selectedUser && resetAllScores(selectedUser.id)}
+                  >
+                    <RotateCcw className="h-4 w-4 mr-2" />
+                    Resetează Tot
+                  </Button>
+                </div>
                 <Table>
                   <TableHeader>
                     <TableRow>
@@ -453,6 +538,7 @@ export default function AdminDashboard() {
                       <TableHead>Cel Mai Bun Scor</TableHead>
                       <TableHead>Încercări</TableHead>
                       <TableHead>Completat La</TableHead>
+                      <TableHead>Acțiuni</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -466,6 +552,16 @@ export default function AdminDashboard() {
                           {progress.completed_at 
                             ? format(new Date(progress.completed_at), 'dd.MM.yyyy HH:mm')
                             : '-'}
+                        </TableCell>
+                        <TableCell>
+                          <Button 
+                            variant="ghost" 
+                            size="sm"
+                            onClick={() => selectedUser && resetBestScore(progress.chapter_id, selectedUser.id)}
+                            title="Resetează scorul"
+                          >
+                            <RotateCcw className="h-4 w-4" />
+                          </Button>
                         </TableCell>
                       </TableRow>
                     ))}
