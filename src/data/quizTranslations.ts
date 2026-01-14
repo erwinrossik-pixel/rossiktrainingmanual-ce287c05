@@ -232,3 +232,23 @@ export function getTranslatedQuiz(chapterId: string, language: Language): { ques
     explanation: q.explanation[language] || q.explanation.en || ''
   }));
 }
+
+// Get question count for a specific chapter
+export function getQuestionCount(chapterId: string): number {
+  const chapter = quizTranslations[chapterId];
+  return chapter?.length || 0;
+}
+
+// Get all chapter question counts
+export function getAllQuestionCounts(): Record<string, number> {
+  const counts: Record<string, number> = {};
+  Object.keys(quizTranslations).forEach(chapterId => {
+    counts[chapterId] = quizTranslations[chapterId]?.length || 0;
+  });
+  return counts;
+}
+
+// Total questions across all chapters
+export function getTotalQuestionCount(): number {
+  return Object.values(quizTranslations).reduce((total, questions) => total + (questions?.length || 0), 0);
+}
