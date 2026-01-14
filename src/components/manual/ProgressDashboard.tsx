@@ -1,6 +1,6 @@
 import { 
   Trophy, Target, Clock, CheckCircle2, XCircle, TrendingUp, 
-  Award, BarChart3, Percent, BookOpen, RotateCcw, ArrowLeft
+  Award, BarChart3, Percent, BookOpen, RotateCcw, ArrowLeft, HelpCircle
 } from "lucide-react";
 import { useProgressContext } from "@/contexts/ProgressContext";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -9,6 +9,7 @@ import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Certificate } from "./Certificate";
+import { getQuestionCount, getTotalQuestionCount } from "@/data/quizTranslations";
 
 const chapters = [
   { id: "intro", labelKey: "chapter.intro", section: "section.foundation" },
@@ -144,7 +145,7 @@ export function ProgressDashboard({ onNavigate, onClose }: ProgressDashboardProp
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
         <Card className="border-border">
           <CardContent className="pt-5 pb-4">
             <div className="flex items-center justify-between mb-3">
@@ -194,6 +195,23 @@ export function ProgressDashboard({ onNavigate, onClose }: ProgressDashboardProp
             </div>
             <p className="text-xs text-muted-foreground">{t('dashboard.average')}</p>
             <p className="text-[10px] text-muted-foreground/70 mt-1">{passRate}% {t('dashboard.passRate')}</p>
+          </CardContent>
+        </Card>
+
+        <Card className="border-border">
+          <CardContent className="pt-5 pb-4">
+            <div className="flex items-center justify-between mb-3">
+              <div className="w-9 h-9 rounded-lg bg-accent/10 flex items-center justify-center">
+                <HelpCircle className="w-4 h-4 text-accent-foreground" />
+              </div>
+              <span className="text-2xl font-bold text-accent-foreground">{getTotalQuestionCount()}</span>
+            </div>
+            <p className="text-xs text-muted-foreground">
+              {language === 'ro' ? 'Total Întrebări' : language === 'de' ? 'Gesamt Fragen' : 'Total Questions'}
+            </p>
+            <p className="text-[10px] text-muted-foreground/70 mt-1">
+              {language === 'ro' ? 'În baza de date' : language === 'de' ? 'In der Datenbank' : 'In question bank'}
+            </p>
           </CardContent>
         </Card>
       </div>
@@ -319,6 +337,7 @@ export function ProgressDashboard({ onNavigate, onClose }: ProgressDashboardProp
               const isCompleted = chapterProgress?.completed;
               const hasQuiz = chapterProgress?.quizScore !== undefined;
               const quizPassed = hasQuiz && chapterProgress.quizScore! >= (chapterProgress.quizTotal! * 0.7);
+              const questionCount = getQuestionCount(chapter.id);
               
               return (
                 <button
@@ -339,7 +358,13 @@ export function ProgressDashboard({ onNavigate, onClose }: ProgressDashboardProp
                       )}>
                         {t(chapter.labelKey)}
                       </p>
-                      <p className="text-[10px] text-muted-foreground mt-0.5">{t(chapter.section)}</p>
+                      <div className="flex items-center gap-2 mt-0.5">
+                        <p className="text-[10px] text-muted-foreground">{t(chapter.section)}</p>
+                        <span className="text-[10px] text-muted-foreground/70 flex items-center gap-0.5">
+                          <HelpCircle className="w-2.5 h-2.5" />
+                          {questionCount} {language === 'ro' ? 'întrebări' : language === 'de' ? 'Fragen' : 'questions'}
+                        </span>
+                      </div>
                     </div>
                     <div className="flex items-center gap-1.5 ml-2">
                       {hasQuiz && (
