@@ -14,6 +14,168 @@ export type Database = {
   }
   public: {
     Tables: {
+      auto_update_settings: {
+        Row: {
+          description: string | null
+          id: string
+          setting_key: string
+          setting_value: Json
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          description?: string | null
+          id?: string
+          setting_key: string
+          setting_value: Json
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          description?: string | null
+          id?: string
+          setting_key?: string
+          setting_value?: Json
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: []
+      }
+      auto_updates: {
+        Row: {
+          ai_model_used: string | null
+          applied_at: string | null
+          approved_at: string | null
+          approved_by: string | null
+          change_id: string | null
+          chapter_id: string
+          created_at: string
+          description: string | null
+          id: string
+          languages_updated: string[] | null
+          original_content: Json | null
+          requires_approval: boolean | null
+          rollback_reason: string | null
+          rolled_back_at: string | null
+          sections_affected: string[] | null
+          severity: Database["public"]["Enums"]["change_severity"]
+          status: Database["public"]["Enums"]["update_status"]
+          title: string
+          updated_at: string
+          updated_content: Json | null
+        }
+        Insert: {
+          ai_model_used?: string | null
+          applied_at?: string | null
+          approved_at?: string | null
+          approved_by?: string | null
+          change_id?: string | null
+          chapter_id: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          languages_updated?: string[] | null
+          original_content?: Json | null
+          requires_approval?: boolean | null
+          rollback_reason?: string | null
+          rolled_back_at?: string | null
+          sections_affected?: string[] | null
+          severity: Database["public"]["Enums"]["change_severity"]
+          status?: Database["public"]["Enums"]["update_status"]
+          title: string
+          updated_at?: string
+          updated_content?: Json | null
+        }
+        Update: {
+          ai_model_used?: string | null
+          applied_at?: string | null
+          approved_at?: string | null
+          approved_by?: string | null
+          change_id?: string | null
+          chapter_id?: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          languages_updated?: string[] | null
+          original_content?: Json | null
+          requires_approval?: boolean | null
+          rollback_reason?: string | null
+          rolled_back_at?: string | null
+          sections_affected?: string[] | null
+          severity?: Database["public"]["Enums"]["change_severity"]
+          status?: Database["public"]["Enums"]["update_status"]
+          title?: string
+          updated_at?: string
+          updated_content?: Json | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "auto_updates_change_id_fkey"
+            columns: ["change_id"]
+            isOneToOne: false
+            referencedRelation: "detected_changes"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "auto_updates_chapter_id_fkey"
+            columns: ["chapter_id"]
+            isOneToOne: false
+            referencedRelation: "chapters"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      chapter_impacts: {
+        Row: {
+          affected_sections: Json | null
+          ai_confidence: number | null
+          change_id: string
+          chapter_id: string
+          created_at: string
+          id: string
+          impact_level: string
+          is_override: boolean | null
+          suggested_updates: string | null
+        }
+        Insert: {
+          affected_sections?: Json | null
+          ai_confidence?: number | null
+          change_id: string
+          chapter_id: string
+          created_at?: string
+          id?: string
+          impact_level: string
+          is_override?: boolean | null
+          suggested_updates?: string | null
+        }
+        Update: {
+          affected_sections?: Json | null
+          ai_confidence?: number | null
+          change_id?: string
+          chapter_id?: string
+          created_at?: string
+          id?: string
+          impact_level?: string
+          is_override?: boolean | null
+          suggested_updates?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "chapter_impacts_change_id_fkey"
+            columns: ["change_id"]
+            isOneToOne: false
+            referencedRelation: "detected_changes"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "chapter_impacts_chapter_id_fkey"
+            columns: ["chapter_id"]
+            isOneToOne: false
+            referencedRelation: "chapters"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       chapter_progress: {
         Row: {
           attempts_count: number | null
@@ -61,6 +223,53 @@ export type Database = {
           },
         ]
       }
+      chapter_versions: {
+        Row: {
+          change_summary: string | null
+          chapter_id: string
+          content_snapshot: Json
+          created_at: string
+          created_by: string | null
+          id: string
+          related_change_ids: string[] | null
+          update_source: string | null
+          version_number: number
+          word_count: number | null
+        }
+        Insert: {
+          change_summary?: string | null
+          chapter_id: string
+          content_snapshot: Json
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          related_change_ids?: string[] | null
+          update_source?: string | null
+          version_number: number
+          word_count?: number | null
+        }
+        Update: {
+          change_summary?: string | null
+          chapter_id?: string
+          content_snapshot?: Json
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          related_change_ids?: string[] | null
+          update_source?: string | null
+          version_number?: number
+          word_count?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "chapter_versions_chapter_id_fkey"
+            columns: ["chapter_id"]
+            isOneToOne: false
+            referencedRelation: "chapters"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       chapters: {
         Row: {
           created_at: string
@@ -87,6 +296,120 @@ export type Database = {
           slug?: string
         }
         Relationships: []
+      }
+      content_sources: {
+        Row: {
+          category: string
+          check_frequency_hours: number
+          created_at: string
+          description: string | null
+          id: string
+          is_active: boolean
+          last_checked_at: string | null
+          last_hash: string | null
+          name: string
+          reliability_score: number | null
+          source_type: Database["public"]["Enums"]["source_type"]
+          updated_at: string
+          url: string
+        }
+        Insert: {
+          category: string
+          check_frequency_hours?: number
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          last_checked_at?: string | null
+          last_hash?: string | null
+          name: string
+          reliability_score?: number | null
+          source_type?: Database["public"]["Enums"]["source_type"]
+          updated_at?: string
+          url: string
+        }
+        Update: {
+          category?: string
+          check_frequency_hours?: number
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_active?: boolean
+          last_checked_at?: string | null
+          last_hash?: string | null
+          name?: string
+          reliability_score?: number | null
+          source_type?: Database["public"]["Enums"]["source_type"]
+          updated_at?: string
+          url?: string
+        }
+        Relationships: []
+      }
+      detected_changes: {
+        Row: {
+          change_type: string
+          check_log_id: string | null
+          description: string | null
+          detected_at: string
+          id: string
+          is_processed: boolean | null
+          new_value: string | null
+          old_value: string | null
+          processed_at: string | null
+          raw_data: Json | null
+          severity: Database["public"]["Enums"]["change_severity"]
+          source_id: string
+          source_url: string | null
+          title: string
+        }
+        Insert: {
+          change_type: string
+          check_log_id?: string | null
+          description?: string | null
+          detected_at?: string
+          id?: string
+          is_processed?: boolean | null
+          new_value?: string | null
+          old_value?: string | null
+          processed_at?: string | null
+          raw_data?: Json | null
+          severity?: Database["public"]["Enums"]["change_severity"]
+          source_id: string
+          source_url?: string | null
+          title: string
+        }
+        Update: {
+          change_type?: string
+          check_log_id?: string | null
+          description?: string | null
+          detected_at?: string
+          id?: string
+          is_processed?: boolean | null
+          new_value?: string | null
+          old_value?: string | null
+          processed_at?: string | null
+          raw_data?: Json | null
+          severity?: Database["public"]["Enums"]["change_severity"]
+          source_id?: string
+          source_url?: string | null
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "detected_changes_check_log_id_fkey"
+            columns: ["check_log_id"]
+            isOneToOne: false
+            referencedRelation: "source_check_logs"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "detected_changes_source_id_fkey"
+            columns: ["source_id"]
+            isOneToOne: false
+            referencedRelation: "content_sources"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       profiles: {
         Row: {
@@ -165,6 +488,86 @@ export type Database = {
           },
         ]
       }
+      source_check_logs: {
+        Row: {
+          changes_detected: boolean | null
+          checked_at: string
+          content_hash: string | null
+          error_message: string | null
+          id: string
+          raw_data: Json | null
+          response_time_ms: number | null
+          source_id: string
+          status: string
+        }
+        Insert: {
+          changes_detected?: boolean | null
+          checked_at?: string
+          content_hash?: string | null
+          error_message?: string | null
+          id?: string
+          raw_data?: Json | null
+          response_time_ms?: number | null
+          source_id: string
+          status: string
+        }
+        Update: {
+          changes_detected?: boolean | null
+          checked_at?: string
+          content_hash?: string | null
+          error_message?: string | null
+          id?: string
+          raw_data?: Json | null
+          response_time_ms?: number | null
+          source_id?: string
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "source_check_logs_source_id_fkey"
+            columns: ["source_id"]
+            isOneToOne: false
+            referencedRelation: "content_sources"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      update_audit_log: {
+        Row: {
+          action: string
+          chapter_id: string | null
+          created_at: string
+          details: Json | null
+          entity_id: string | null
+          entity_type: string
+          id: string
+          ip_address: string | null
+          performed_by: string | null
+        }
+        Insert: {
+          action: string
+          chapter_id?: string | null
+          created_at?: string
+          details?: Json | null
+          entity_id?: string | null
+          entity_type: string
+          id?: string
+          ip_address?: string | null
+          performed_by?: string | null
+        }
+        Update: {
+          action?: string
+          chapter_id?: string | null
+          created_at?: string
+          details?: Json | null
+          entity_id?: string | null
+          entity_type?: string
+          id?: string
+          ip_address?: string | null
+          performed_by?: string | null
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string
@@ -205,6 +608,15 @@ export type Database = {
     }
     Enums: {
       app_role: "admin" | "user"
+      change_severity: "minor" | "major" | "critical"
+      source_type: "api" | "rss" | "website" | "official" | "database"
+      update_status:
+        | "pending"
+        | "approved"
+        | "rejected"
+        | "applied"
+        | "failed"
+        | "rolled_back"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -333,6 +745,16 @@ export const Constants = {
   public: {
     Enums: {
       app_role: ["admin", "user"],
+      change_severity: ["minor", "major", "critical"],
+      source_type: ["api", "rss", "website", "official", "database"],
+      update_status: [
+        "pending",
+        "approved",
+        "rejected",
+        "applied",
+        "failed",
+        "rolled_back",
+      ],
     },
   },
 } as const
