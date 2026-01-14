@@ -675,6 +675,42 @@ export type Database = {
           },
         ]
       }
+      training_time: {
+        Row: {
+          created_at: string
+          day_number: number
+          id: string
+          is_running: boolean
+          last_start_time: string | null
+          total_seconds: number
+          training_started_at: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          day_number: number
+          id?: string
+          is_running?: boolean
+          last_start_time?: string | null
+          total_seconds?: number
+          training_started_at?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          day_number?: number
+          id?: string
+          is_running?: boolean
+          last_start_time?: string | null
+          total_seconds?: number
+          training_started_at?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       update_audit_log: {
         Row: {
           action: string

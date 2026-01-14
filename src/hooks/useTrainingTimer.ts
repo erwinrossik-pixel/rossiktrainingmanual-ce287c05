@@ -1,4 +1,6 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
+import { supabase } from '@/integrations/supabase/client';
+import { useAuth } from '@/hooks/useAuth';
 
 interface DayTimerData {
   totalSeconds: number;
@@ -14,34 +16,82 @@ interface TrainingTimerData {
 
 const STORAGE_KEY = 'rossik-training-timer';
 
+const defaultDayData: DayTimerData = {
+  totalSeconds: 0,
+  lastStartTime: null,
+  isRunning: false,
+};
+
 const defaultTimerData: TrainingTimerData = {
   days: {
-    1: { totalSeconds: 0, lastStartTime: null, isRunning: false },
-    2: { totalSeconds: 0, lastStartTime: null, isRunning: false },
-    3: { totalSeconds: 0, lastStartTime: null, isRunning: false },
-    4: { totalSeconds: 0, lastStartTime: null, isRunning: false },
-    5: { totalSeconds: 0, lastStartTime: null, isRunning: false },
+    1: { ...defaultDayData },
+    2: { ...defaultDayData },
+    3: { ...defaultDayData },
+    4: { ...defaultDayData },
+    5: { ...defaultDayData },
   },
   currentActiveDay: null,
   trainingStartedAt: null,
 };
 
 export function useTrainingTimer() {
+  const { user } = useAuth();
   const [timerData, setTimerData] = useState<TrainingTimerData>(defaultTimerData);
   const [currentTime, setCurrentTime] = useState(Date.now());
+  const [isLoading, setIsLoading] = useState(true);
+  const syncTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Load data from localStorage on mount
+  // Load data from Supabase or localStorage
   useEffect(() => {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored) {
-      try {
-        const parsed = JSON.parse(stored);
-        setTimerData(parsed);
-      } catch (e) {
-        console.error('Failed to parse timer data:', e);
+    const loadData = async () => {
+      setIsLoading(true);
+      
+      if (user) {
+        // Load from Supabase
+        const { data, error } = await supabase
+          .from('training_time')
+          .select('*')
+          .eq('user_id', user.id);
+
+        if (!error && data && data.length > 0) {
+          const days: Record<number, DayTimerData> = { ...defaultTimerData.days };
+          let currentActiveDay: number | null = null;
+          let trainingStartedAt: string | null = null;
+
+          data.forEach((row) => {
+            days[row.day_number] = {
+              totalSeconds: row.total_seconds,
+              lastStartTime: row.last_start_time ? new Date(row.last_start_time).getTime() : null,
+              isRunning: row.is_running,
+            };
+            if (row.is_running) {
+              currentActiveDay = row.day_number;
+            }
+            if (row.training_started_at && !trainingStartedAt) {
+              trainingStartedAt = row.training_started_at;
+            }
+          });
+
+          setTimerData({ days, currentActiveDay, trainingStartedAt });
+        }
+      } else {
+        // Load from localStorage
+        const stored = localStorage.getItem(STORAGE_KEY);
+        if (stored) {
+          try {
+            const parsed = JSON.parse(stored);
+            setTimerData(parsed);
+          } catch (e) {
+            console.error('Failed to parse timer data:', e);
+          }
+        }
       }
-    }
-  }, []);
+      
+      setIsLoading(false);
+    };
+
+    loadData();
+  }, [user]);
 
   // Update current time every second when any timer is running
   useEffect(() => {
@@ -56,11 +106,47 @@ export function useTrainingTimer() {
     return () => clearInterval(interval);
   }, [timerData.days]);
 
-  // Save to localStorage
+  // Sync to Supabase (debounced)
+  const syncToSupabase = useCallback(async (data: TrainingTimerData) => {
+    if (!user) return;
+
+    // Clear any pending sync
+    if (syncTimeoutRef.current) {
+      clearTimeout(syncTimeoutRef.current);
+    }
+
+    // Debounce the sync to avoid too many writes
+    syncTimeoutRef.current = setTimeout(async () => {
+      for (const [dayNum, dayData] of Object.entries(data.days)) {
+        const { error } = await supabase
+          .from('training_time')
+          .upsert({
+            user_id: user.id,
+            day_number: parseInt(dayNum),
+            total_seconds: dayData.totalSeconds,
+            last_start_time: dayData.lastStartTime ? new Date(dayData.lastStartTime).toISOString() : null,
+            is_running: dayData.isRunning,
+            training_started_at: data.trainingStartedAt,
+          }, {
+            onConflict: 'user_id,day_number'
+          });
+
+        if (error) {
+          console.error('Failed to sync training time:', error);
+        }
+      }
+    }, 500);
+  }, [user]);
+
+  // Save to localStorage and optionally sync to Supabase
   const saveData = useCallback((data: TrainingTimerData) => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
     setTimerData(data);
-  }, []);
+    
+    if (user) {
+      syncToSupabase(data);
+    }
+  }, [user, syncToSupabase]);
 
   // Start training for a specific day
   const startTraining = useCallback((day: number) => {
@@ -98,9 +184,12 @@ export function useTrainingTimer() {
       };
 
       localStorage.setItem(STORAGE_KEY, JSON.stringify(newData));
+      if (user) {
+        syncToSupabase(newData);
+      }
       return newData;
     });
-  }, []);
+  }, [user, syncToSupabase]);
 
   // Pause training
   const pauseTraining = useCallback(() => {
@@ -129,9 +218,12 @@ export function useTrainingTimer() {
       };
 
       localStorage.setItem(STORAGE_KEY, JSON.stringify(newData));
+      if (user) {
+        syncToSupabase(newData);
+      }
       return newData;
     });
-  }, []);
+  }, [user, syncToSupabase]);
 
   // Get time for a specific day (including running time)
   const getDayTime = useCallback((day: number): number => {
@@ -172,9 +264,26 @@ export function useTrainingTimer() {
   }, []);
 
   // Reset all timer data
-  const resetTimers = useCallback(() => {
+  const resetTimers = useCallback(async () => {
     localStorage.removeItem(STORAGE_KEY);
     setTimerData(defaultTimerData);
+    
+    if (user) {
+      // Delete all training time records for this user
+      await supabase
+        .from('training_time')
+        .delete()
+        .eq('user_id', user.id);
+    }
+  }, [user]);
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      if (syncTimeoutRef.current) {
+        clearTimeout(syncTimeoutRef.current);
+      }
+    };
   }, []);
 
   return {
@@ -188,5 +297,6 @@ export function useTrainingTimer() {
     resetTimers,
     currentActiveDay: timerData.currentActiveDay,
     trainingStartedAt: timerData.trainingStartedAt,
+    isLoading,
   };
 }
