@@ -21,7 +21,7 @@ export function ADRChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
           <Book className="w-6 h-6 text-primary" />
-          {ct('whatIsADR')}
+          {ct('whatIsAdr')}
         </h2>
         <InfoCard title={ct('adrOverview')} icon={FileText} variant="info">
           <p className="mb-4">
@@ -164,7 +164,7 @@ export function ADRChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
           <FileText className="w-6 h-6 text-primary" />
-          {ct('requiredADRDocuments')}
+          {ct('requiredAdrDocuments')}
         </h2>
         <div className="bg-card border border-border rounded-xl p-6">
           <div className="grid md:grid-cols-2 gap-6">
@@ -177,7 +177,7 @@ export function ADRChapter() {
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle className="w-4 h-4 text-success mt-0.5" />
-                  <span>{ct('driverADRCertificate')}</span>
+                  <span>{ct('driverAdrCertificate')}</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle className="w-4 h-4 text-success mt-0.5" />
@@ -185,7 +185,7 @@ export function ADRChapter() {
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle className="w-4 h-4 text-success mt-0.5" />
-                  <span>{ct('photoID')}</span>
+                  <span>{ct('photoId')}</span>
                 </li>
               </ul>
             </div>
@@ -194,7 +194,7 @@ export function ADRChapter() {
               <ul className="space-y-2 text-sm">
                 <li className="flex items-start gap-2">
                   <AlertTriangle className="w-4 h-4 text-warning mt-0.5" />
-                  <span>{ct('vehicleADRApproval')}</span>
+                  <span>{ct('vehicleAdrApproval')}</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <AlertTriangle className="w-4 h-4 text-warning mt-0.5" />
@@ -220,7 +220,7 @@ export function ADRChapter() {
           <Shield className="w-6 h-6 text-primary" />
           {ct('limitedQuantitiesException')}
         </h2>
-        <InfoCard title={ct('whenFullADRDoesntApply')} icon={CheckCircle} variant="success">
+        <InfoCard title={ct('whenFullAdrNotApply')} icon={CheckCircle} variant="success">
           <p className="mb-4">
             {ct('lqDescription')}
           </p>
@@ -228,10 +228,10 @@ export function ADRChapter() {
             <div>
               <h4 className="font-semibold mb-2">{ct('lqRequirements')}:</h4>
               <ul className="space-y-1 text-sm">
-                <li>• {ct('lqInnerPackaging')}</li>
-                <li>• {ct('lqGrossWeight')}</li>
-                <li>• {ct('lqMarking')}</li>
-                <li>• {ct('lqNoPlacards')}</li>
+                <li>• {ct('innerPackagingLimit')}</li>
+                <li>• {ct('grossWeightLimit')}</li>
+                <li>• {ct('properLqMarking')}</li>
+                <li>• {ct('noAdrPlacardsNeeded')}</li>
               </ul>
             </div>
             <div>
@@ -239,7 +239,7 @@ export function ADRChapter() {
               <ul className="space-y-1 text-sm">
                 <li>• {ct('properPackaging')}</li>
                 <li>• {ct('lqDiamondMarking')}</li>
-                <li>• {ct('transportDocumentReq')}</li>
+                <li>• {ct('transportDocument')}</li>
                 <li>• {ct('generalSafetyTraining')}</li>
               </ul>
             </div>
@@ -251,16 +251,16 @@ export function ADRChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
           <XCircle className="w-6 h-6 text-primary" />
-          {ct('commonADRMistakes')}
+          {ct('commonAdrMistakes')}
         </h2>
         <div className="grid md:grid-cols-2 gap-4">
           {[
-            { mistake: ct('mixingIncompatible'), consequence: ct('mixingConsequence') },
-            { mistake: ct('missingPlacards'), consequence: ct('missingPlacardsConsequence') },
-            { mistake: ct('driverWithoutCertificate'), consequence: ct('driverWithoutConsequence') },
-            { mistake: ct('incorrectUNNumber'), consequence: ct('incorrectUNConsequence') },
-            { mistake: ct('tunnelRestrictionsIgnored'), consequence: ct('tunnelConsequence') },
-            { mistake: ct('expiredVehicleCertificate'), consequence: ct('expiredConsequence') },
+            { mistake: ct('mixingIncompatible'), consequence: ct('chemicalReaction') },
+            { mistake: ct('missingPlacards'), consequence: ct('finesImpounded') },
+            { mistake: ct('driverWithoutCertificate'), consequence: ct('driverLiability') },
+            { mistake: ct('incorrectUnNumber'), consequence: ct('wrongEmergencyResponse') },
+            { mistake: ct('tunnelRestrictionsIgnored'), consequence: ct('finesRerouting') },
+            { mistake: ct('expiredVehicleCertificate'), consequence: ct('transportProhibited') },
           ].map((item, index) => (
             <div key={index} className="bg-destructive/10 border border-destructive/30 rounded-lg p-4">
               <div className="flex items-start gap-3">
@@ -279,21 +279,21 @@ export function ADRChapter() {
       <section>
         <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
           <CheckCircle className="w-6 h-6 text-primary" />
-          {ct('preTransportADRChecklist')}
+          {ct('preTransportAdrChecklist')}
         </h2>
         <div className="bg-muted/30 rounded-xl p-6">
           <div className="grid md:grid-cols-2 gap-4">
             {[
-              ct('checklistUN'),
-              ct('checklistPackingGroup'),
-              ct('checklistDriverCertificate'),
-              ct('checklistVehicleApproval'),
-              ct('checklistPlacards'),
-              ct('checklistInstructions'),
-              ct('checklistEquipment'),
-              ct('checklistTunnel'),
-              ct('checklistCombinations'),
-              ct('checklistTransportDocument')
+              ct('unNumberConfirmed'),
+              ct('packingGroupIdentified'),
+              ct('driverHasValidCertificate'),
+              ct('vehicleApprovalValid'),
+              ct('correctPlacardsOrangePlates'),
+              ct('instructionsDriverLanguage'),
+              ct('emergencyEquipmentOnBoard'),
+              ct('tunnelCategoryChecked'),
+              ct('noProhibitedCombinations'),
+              ct('transportDocumentComplete')
             ].map((item, index) => (
               <div key={index} className="flex items-center gap-3 p-3 bg-card rounded-lg border border-border">
                 <CheckCircle className="w-5 h-5 text-success" />
