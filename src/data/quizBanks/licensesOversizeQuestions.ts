@@ -1,7 +1,7 @@
 import { QuizQuestion } from '../quizData';
 
 export const licensesOversizeQuestions: QuizQuestion[] = [
-  // Romanian Questions
+  // Romanian Questions (16)
   {
     question: "Ce este o autorizație de transport agabaritic?",
     options: [
@@ -122,8 +122,80 @@ export const licensesOversizeQuestions: QuizQuestion[] = [
     explanation: "Transporturile peste 100 tone sunt clasificate ca super-heavy și necesită planificare și autorizații extinse.",
     language: "ro"
   },
-  
-  // German Questions
+  {
+    question: "Ce înseamnă 'încărcătură indivizibilă' în contextul transportului agabaritic?",
+    options: [
+      "Marfă care nu poate fi împărțită fără deteriorare sau costuri excesive",
+      "Orice marfă supradimensionată",
+      "Doar materiale periculoase",
+      "Mărfuri containerizate"
+    ],
+    correctIndex: 0,
+    explanation: "Încărcătura indivizibilă este cea care nu poate fi împărțită în mod rezonabil fără deteriorare sau costuri excesive.",
+    language: "ro"
+  },
+  {
+    question: "Ce vehicul specializat este folosit pentru transportul turbinelor eoliene?",
+    options: [
+      "Blade trailer (remorcă pentru pale)",
+      "Camion standard cu prelată",
+      "Containership",
+      "Vehicul frigorific"
+    ],
+    correctIndex: 0,
+    explanation: "Blade trailer-ele sunt remorci specializate concepute pentru transportul palelor de turbine eoliene.",
+    language: "ro"
+  },
+  {
+    question: "Care este lungimea maximă standard pentru un ansamblu rutier în UE?",
+    options: [
+      "16,50 metri",
+      "18,75 metri",
+      "20,00 metri",
+      "22,00 metri"
+    ],
+    correctIndex: 1,
+    explanation: "Lungimea maximă standard pentru un ansamblu rutier (cap tractor + semiremorcă) în UE este de 18,75 metri.",
+    language: "ro"
+  },
+  {
+    question: "Ce tip de autorizație este necesară pentru transportul transfrontalier agabaritic?",
+    options: [
+      "Autorizații separate pentru fiecare țară tranzitată",
+      "Doar autorizația țării de origine",
+      "Licența comunitară este suficientă",
+      "Nu sunt necesare autorizații"
+    ],
+    correctIndex: 0,
+    explanation: "Transportul agabaritic transfrontalier necesită autorizații separate pentru fiecare țară traversată.",
+    language: "ro"
+  },
+  {
+    question: "Ce este un 'pilot car' în transportul agabaritic?",
+    options: [
+      "Vehicul de escortă care precedă sau urmează transportul",
+      "Primul camion din convoy",
+      "Vehicul de urgență",
+      "Mașina managerului de transport"
+    ],
+    correctIndex: 0,
+    explanation: "Pilot car este vehiculul de escortă care avertizează traficul și verifică obstacolele pentru transportul agabaritic.",
+    language: "ro"
+  },
+  {
+    question: "Ce semnalizare specială este obligatorie pentru transporturile agabaritice?",
+    options: [
+      "Panouri reflectorizante și lumini de avertizare",
+      "Doar claxon puternic",
+      "Steaguri albastre",
+      "Nicio semnalizare specială"
+    ],
+    correctIndex: 0,
+    explanation: "Transporturile agabaritice trebuie să aibă panouri reflectorizante și lumini de avertizare pentru vizibilitate.",
+    language: "ro"
+  },
+
+  // German Questions (16)
   {
     question: "Was ist eine Schwertransportgenehmigung?",
     options: [
@@ -244,8 +316,80 @@ export const licensesOversizeQuestions: QuizQuestion[] = [
     explanation: "LÜ steht für die Klassifizierung von Sondertransporten nach Art der Maßüberschreitung.",
     language: "de"
   },
+  {
+    question: "Was ist eine 'unteilbare Ladung' im Schwertransportkontext?",
+    options: [
+      "Ladung, die nicht ohne Beschädigung oder hohe Kosten zerteilt werden kann",
+      "Jede übergroße Ladung",
+      "Nur Gefahrgut",
+      "Containerware"
+    ],
+    correctIndex: 0,
+    explanation: "Eine unteilbare Ladung ist eine, die nicht vernünftig in kleinere Ladungen ohne Beschädigung oder übermäßige Kosten aufgeteilt werden kann.",
+    language: "de"
+  },
+  {
+    question: "Welches spezialisierte Fahrzeug wird für den Transport von Windturbinenblättern verwendet?",
+    options: [
+      "Rotorblattanhänger",
+      "Standard-Planenauflieger",
+      "Containerschiff",
+      "Kühlfahrzeug"
+    ],
+    correctIndex: 0,
+    explanation: "Rotorblattanhänger sind spezialisierte Anhänger für den Transport von Windturbinenblättern.",
+    language: "de"
+  },
+  {
+    question: "Was ist die maximale Standardlänge für einen Sattelzug in der EU?",
+    options: [
+      "16,50 Meter",
+      "18,75 Meter",
+      "20,00 Meter",
+      "22,00 Meter"
+    ],
+    correctIndex: 1,
+    explanation: "Die maximale Standardlänge für einen Sattelzug (Zugmaschine + Auflieger) in der EU beträgt 18,75 Meter.",
+    language: "de"
+  },
+  {
+    question: "Welche Art von Genehmigung ist für grenzüberschreitende Schwertransporte erforderlich?",
+    options: [
+      "Separate Genehmigungen für jedes durchquerte Land",
+      "Nur die Genehmigung des Ursprungslandes",
+      "Gemeinschaftslizenz ist ausreichend",
+      "Keine Genehmigungen erforderlich"
+    ],
+    correctIndex: 0,
+    explanation: "Grenzüberschreitende Schwertransporte erfordern separate Genehmigungen für jedes durchquerte Land.",
+    language: "de"
+  },
+  {
+    question: "Was ist ein 'Begleitfahrzeug' im Schwertransport?",
+    options: [
+      "Eskortfahrzeug, das dem Transport vorausfährt oder folgt",
+      "Der erste LKW im Konvoi",
+      "Notfallfahrzeug",
+      "Fahrzeug des Transportleiters"
+    ],
+    correctIndex: 0,
+    explanation: "Das Begleitfahrzeug warnt den Verkehr und prüft Hindernisse für den Schwertransport.",
+    language: "de"
+  },
+  {
+    question: "Welche spezielle Kennzeichnung ist für Schwertransporte obligatorisch?",
+    options: [
+      "Reflektierende Tafeln und Warnleuchten",
+      "Nur laute Hupe",
+      "Blaue Flaggen",
+      "Keine besondere Kennzeichnung"
+    ],
+    correctIndex: 0,
+    explanation: "Schwertransporte müssen reflektierende Tafeln und Warnleuchten für bessere Sichtbarkeit haben.",
+    language: "de"
+  },
 
-  // English Questions
+  // English Questions (16)
   {
     question: "What is an abnormal load transport permit?",
     options: [
@@ -364,6 +508,78 @@ export const licensesOversizeQuestions: QuizQuestion[] = [
     ],
     correctIndex: 0,
     explanation: "An indivisible load is one that cannot be reasonably divided into smaller loads without damage or excessive cost.",
+    language: "en"
+  },
+  {
+    question: "What specialized vehicle is used for transporting wind turbine blades?",
+    options: [
+      "Blade trailer",
+      "Standard curtainsider truck",
+      "Container ship",
+      "Refrigerated vehicle"
+    ],
+    correctIndex: 0,
+    explanation: "Blade trailers are specialized trailers designed for transporting wind turbine blades.",
+    language: "en"
+  },
+  {
+    question: "What is the maximum standard length for a road train in the EU?",
+    options: [
+      "16.50 meters",
+      "18.75 meters",
+      "20.00 meters",
+      "22.00 meters"
+    ],
+    correctIndex: 1,
+    explanation: "The maximum standard length for a road train (tractor + semi-trailer) in the EU is 18.75 meters.",
+    language: "en"
+  },
+  {
+    question: "What type of permit is required for cross-border abnormal load transport?",
+    options: [
+      "Separate permits for each country transited",
+      "Only origin country permit",
+      "Community license is sufficient",
+      "No permits required"
+    ],
+    correctIndex: 0,
+    explanation: "Cross-border abnormal load transport requires separate permits for each country traversed.",
+    language: "en"
+  },
+  {
+    question: "What is a 'pilot car' in abnormal load transport?",
+    options: [
+      "Escort vehicle preceding or following the transport",
+      "The first truck in the convoy",
+      "Emergency vehicle",
+      "Transport manager's car"
+    ],
+    correctIndex: 0,
+    explanation: "A pilot car is the escort vehicle that warns traffic and checks for obstacles for the abnormal load.",
+    language: "en"
+  },
+  {
+    question: "What special signage is mandatory for abnormal loads?",
+    options: [
+      "Reflective panels and warning lights",
+      "Only loud horn",
+      "Blue flags",
+      "No special signage"
+    ],
+    correctIndex: 0,
+    explanation: "Abnormal loads must have reflective panels and warning lights for visibility.",
+    language: "en"
+  },
+  {
+    question: "What is the purpose of a multi-axle modular trailer?",
+    options: [
+      "To distribute heavy load weight across multiple axles",
+      "To increase speed",
+      "To reduce fuel consumption",
+      "To carry refrigerated goods"
+    ],
+    correctIndex: 0,
+    explanation: "Multi-axle modular trailers distribute extremely heavy loads across many axles to comply with road weight limits.",
     language: "en"
   }
 ];
