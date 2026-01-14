@@ -12,6 +12,7 @@ import { Certificate } from "./Certificate";
 import { QuizDiagnostics } from "./QuizDiagnostics";
 import { DailyTracker } from "./DailyTracker";
 import { TimeDistributionChart } from "./TimeDistributionChart";
+import { EfficiencyIndicator } from "./EfficiencyIndicator";
 import { getQuestionCount, getTotalQuestionCount } from "@/data/quizTranslations";
 import { jsPDF } from "jspdf";
 import { toast } from "sonner";
@@ -434,6 +435,9 @@ export function ProgressDashboard({ onNavigate, onClose }: ProgressDashboardProp
         <DailyTracker />
         <TimeDistributionChart />
       </div>
+
+      {/* Efficiency Indicator */}
+      <EfficiencyIndicator />
 
       {/* Two Column Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
