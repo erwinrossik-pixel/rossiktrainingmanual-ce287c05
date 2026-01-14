@@ -488,6 +488,65 @@ export type Database = {
           },
         ]
       }
+      regeneration_jobs: {
+        Row: {
+          auto_apply: boolean | null
+          change_id: string | null
+          chapters_completed: string[] | null
+          chapters_failed: Json | null
+          chapters_to_process: string[]
+          completed_at: string | null
+          created_at: string
+          error_message: string | null
+          id: string
+          processed_chapters: number
+          started_at: string | null
+          status: string
+          total_chapters: number
+          updated_at: string
+        }
+        Insert: {
+          auto_apply?: boolean | null
+          change_id?: string | null
+          chapters_completed?: string[] | null
+          chapters_failed?: Json | null
+          chapters_to_process: string[]
+          completed_at?: string | null
+          created_at?: string
+          error_message?: string | null
+          id?: string
+          processed_chapters?: number
+          started_at?: string | null
+          status?: string
+          total_chapters?: number
+          updated_at?: string
+        }
+        Update: {
+          auto_apply?: boolean | null
+          change_id?: string | null
+          chapters_completed?: string[] | null
+          chapters_failed?: Json | null
+          chapters_to_process?: string[]
+          completed_at?: string | null
+          created_at?: string
+          error_message?: string | null
+          id?: string
+          processed_chapters?: number
+          started_at?: string | null
+          status?: string
+          total_chapters?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "regeneration_jobs_change_id_fkey"
+            columns: ["change_id"]
+            isOneToOne: false
+            referencedRelation: "detected_changes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       source_check_logs: {
         Row: {
           changes_detected: boolean | null
