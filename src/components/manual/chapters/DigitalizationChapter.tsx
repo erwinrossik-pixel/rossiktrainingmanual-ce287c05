@@ -1,8 +1,7 @@
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { ChapterHero } from "../ChapterHero";
-import { quizzes } from "@/data/quizData";
-import { 
+import {
   Laptop, Brain, Cpu, BarChart3, Globe, Wifi, 
   Lock, FileText, Zap, GraduationCap, CheckCircle, AlertTriangle
 } from "lucide-react";
@@ -154,7 +153,7 @@ export function DigitalizationChapter() {
       </section>
 
       {/* Quiz */}
-      <Quiz quizId="digitalization" questions={quizzes.digitalization} />
+      <Quiz title="Quiz" chapterId="digitalization" />
     </div>
   );
 }

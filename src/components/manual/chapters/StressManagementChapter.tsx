@@ -1,8 +1,7 @@
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { ChapterHero } from "../ChapterHero";
-import { quizzes } from "@/data/quizData";
-import { 
+import {
   Brain, Zap, AlertTriangle, Clock, MessageSquare,
   Users, Heart, Shield, Phone, TrendingUp, CheckCircle
 } from "lucide-react";
@@ -97,7 +96,7 @@ export function StressManagementChapter() {
           <InfoCard title={ct('section7Title')} variant="success" icon={Heart}>
             <p className="text-muted-foreground">{ct('section7Content')}</p>
           </InfoCard>
-          <InfoCard title={ct('section8Title')} variant="error" icon={Shield}>
+          <InfoCard title={ct('section8Title')} variant="warning" icon={Shield}>
             <p className="text-muted-foreground">{ct('section8Content')}</p>
           </InfoCard>
         </div>
@@ -148,7 +147,7 @@ export function StressManagementChapter() {
       </section>
 
       {/* Quiz */}
-      <Quiz quizId="stress-management" questions={quizzes["stress-management"]} />
+      <Quiz title="Quiz" chapterId="stress-management" />
     </div>
   );
 }

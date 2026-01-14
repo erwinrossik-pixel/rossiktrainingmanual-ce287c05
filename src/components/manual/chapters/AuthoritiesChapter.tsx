@@ -2,8 +2,7 @@ import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { Checklist } from "../Checklist";
 import { ChapterHero } from "../ChapterHero";
-import { quizzes } from "@/data/quizData";
-import { 
+import {
   Shield, FileText, AlertTriangle, CheckCircle, Users,
   Phone, Clock, Scale, Eye, Truck, BookOpen, Info
 } from "lucide-react";
@@ -155,7 +154,7 @@ export function AuthoritiesChapter() {
       </section>
 
       {/* Quiz */}
-      <Quiz quizId="authorities" questions={quizzes.authorities} />
+      <Quiz title="Quiz" chapterId="authorities" />
     </div>
   );
 }

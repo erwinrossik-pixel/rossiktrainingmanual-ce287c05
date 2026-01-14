@@ -1,8 +1,7 @@
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { ChapterHero } from "../ChapterHero";
-import { quizzes } from "@/data/quizData";
-import { 
+import {
   Diamond, Shield, Lock, Eye, Truck, MapPin,
   FileText, AlertTriangle, Phone, Users, CheckCircle
 } from "lucide-react";
@@ -110,7 +109,7 @@ export function HighValueGoodsChapter() {
           {ct('section9Title')}
         </h2>
         <div className="grid md:grid-cols-2 gap-4">
-          <InfoCard title={ct('section9Title')} variant="error" icon={Phone}>
+          <InfoCard title={ct('section9Title')} variant="warning" icon={Phone}>
             <p className="text-muted-foreground">{ct('section9Content')}</p>
           </InfoCard>
           <InfoCard title={ct('section10Title')} icon={Users}>
@@ -148,7 +147,7 @@ export function HighValueGoodsChapter() {
       </section>
 
       {/* Quiz */}
-      <Quiz quizId="high-value-goods" questions={quizzes["high-value-goods"]} />
+      <Quiz title="Quiz" chapterId="high-value-goods" />
     </div>
   );
 }

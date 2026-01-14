@@ -216,6 +216,17 @@ export function ChapterHero({
     checklists: "hero-checklists",
     glossary: "hero-glossary",
     fleet: "hero-fleet",
+    // New chapters
+    authorities: "hero-authorities",
+    digitalization: "hero-digitalization",
+    "european-countries": "hero-european-countries",
+    "express-transport": "hero-express-transport",
+    "high-value-goods": "hero-high-value-goods",
+    intermodal: "hero-intermodal",
+    networking: "hero-networking",
+    "professional-development": "hero-professional-development",
+    "stress-management": "hero-stress-management",
+    sustainability: "hero-sustainability",
     default: "",
   };
 

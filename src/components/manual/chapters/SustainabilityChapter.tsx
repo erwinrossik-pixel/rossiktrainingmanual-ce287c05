@@ -1,8 +1,7 @@
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { ChapterHero } from "../ChapterHero";
-import { quizzes } from "@/data/quizData";
-import { 
+import {
   Leaf, Globe, Calculator, FileText, Award,
   TrendingDown, Fuel, BarChart3, Users, Target, CheckCircle, AlertTriangle
 } from "lucide-react";
@@ -148,7 +147,7 @@ export function SustainabilityChapter() {
       </section>
 
       {/* Quiz */}
-      <Quiz quizId="sustainability" questions={quizzes.sustainability} />
+      <Quiz title="Quiz" chapterId="sustainability" />
     </div>
   );
 }

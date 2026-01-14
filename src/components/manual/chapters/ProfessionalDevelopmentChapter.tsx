@@ -1,8 +1,7 @@
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { ChapterHero } from "../ChapterHero";
-import { quizzes } from "@/data/quizData";
-import { 
+import {
   GraduationCap, TrendingUp, Award, BookOpen, Globe,
   Laptop, Users, Heart, Star, Target, CheckCircle, AlertTriangle
 } from "lucide-react";
@@ -148,7 +147,7 @@ export function ProfessionalDevelopmentChapter() {
       </section>
 
       {/* Quiz */}
-      <Quiz quizId="professional-development" questions={quizzes["professional-development"]} />
+      <Quiz title="Quiz" chapterId="professional-development" />
     </div>
   );
 }
