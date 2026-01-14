@@ -8,3 +8,6 @@ verify_jwt = false
 
 [functions.admin-update-actions]
 verify_jwt = false
+
+[functions.send-admin-notification]
+verify_jwt = false

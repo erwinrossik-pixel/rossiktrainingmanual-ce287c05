@@ -302,6 +302,31 @@ If no significant changes, return {"hasChanges": false, "changes": []}`;
               ai_confidence: 0.75,
             });
           }
+
+          // Send email notification for CRITICAL changes
+          if (change.severity === 'critical') {
+            console.log(`[AUTO-UPDATE] Sending email notification for critical change: ${change.title}`);
+            try {
+              await fetch(`${supabaseUrl}/functions/v1/send-admin-notification`, {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${supabaseServiceKey}`,
+                },
+                body: JSON.stringify({
+                  type: 'critical_change',
+                  data: {
+                    change_title: change.title,
+                    source_name: detectedChanges[i]?.source_url || 'Unknown source',
+                    severity: change.severity,
+                    summary: change.description,
+                  }
+                }),
+              });
+            } catch (notifError) {
+              console.error('[AUTO-UPDATE] Failed to send notification:', notifError);
+            }
+          }
         }
       }
     }

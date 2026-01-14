@@ -250,16 +250,62 @@ async function processRegenerationJob(
       ? 'failed' 
       : 'partial';
 
+  const completedAt = new Date().toISOString();
   await supabase
     .from('regeneration_jobs')
     .update({ 
       status: finalStatus,
-      completed_at: new Date().toISOString(),
+      completed_at: completedAt,
       error_message: failed.length > 0 ? `${failed.length} chapter(s) failed` : null
     } as Record<string, unknown>)
     .eq('id', jobId);
 
   console.log(`[BG-REGEN] Job ${jobId} finished - Status: ${finalStatus}, Completed: ${completed.length}, Failed: ${failed.length}`);
+
+  // Send email notification when job completes
+  const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
+  const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
+
+  // Fetch the job to get started_at for duration calculation
+  const { data: jobData } = await supabase
+    .from('regeneration_jobs')
+    .select('started_at')
+    .eq('id', jobId)
+    .single();
+
+  let duration = 'N/A';
+  if (jobData?.started_at) {
+    const startTime = new Date(jobData.started_at as string).getTime();
+    const endTime = new Date(completedAt).getTime();
+    const durationMs = endTime - startTime;
+    const minutes = Math.floor(durationMs / 60000);
+    const seconds = Math.floor((durationMs % 60000) / 1000);
+    duration = minutes > 0 ? `${minutes}m ${seconds}s` : `${seconds}s`;
+  }
+
+  try {
+    const notificationType = finalStatus === 'failed' ? 'job_failed' : 'job_completed';
+    await fetch(`${supabaseUrl}/functions/v1/send-admin-notification`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${supabaseServiceKey}`,
+      },
+      body: JSON.stringify({
+        type: notificationType,
+        data: {
+          job_id: jobId,
+          chapters_completed: completed.length,
+          chapters_failed: failed.length,
+          duration,
+          error_message: failed.length > 0 ? failed.map(f => `${f.chapter}: ${f.error}`).join('; ') : undefined,
+        }
+      }),
+    });
+    console.log(`[BG-REGEN] Notification email sent for job ${jobId}`);
+  } catch (notifError) {
+    console.error(`[BG-REGEN] Failed to send notification for job ${jobId}:`, notifError);
+  }
 }
 
 // Shutdown handler
