@@ -5,6 +5,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { useChapterProgress } from "@/hooks/useChapterProgress";
 import { useProgressContext } from "@/contexts/ProgressContext";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { TrainingTimer } from "./TrainingTimer";
 
 interface DayInfo {
   day: number;
@@ -105,43 +106,51 @@ export function CompactDailyTracker() {
   const currentDay = getCurrentDay();
 
   return (
-    <div className="flex items-center justify-center gap-1">
-      {TRAINING_DAYS.map((dayInfo) => {
-        const status = getDayStatus(dayInfo);
-        const completed = getCompletedChaptersInDay(dayInfo);
-        const total = dayInfo.chapters.length;
-        const isCurrent = dayInfo.day === currentDay;
-        const dayTitle = t[dayInfo.titleKey as keyof typeof t];
+    <div className="space-y-2">
+      {/* Timer Controls */}
+      <div className="flex justify-center">
+        <TrainingTimer currentDay={currentDay} variant="compact" />
+      </div>
 
-        return (
-          <Tooltip key={dayInfo.day}>
-            <TooltipTrigger asChild>
-              <div
-                className={cn(
-                  "w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold cursor-default transition-all",
-                  isCurrent && "ring-2 ring-primary ring-offset-1 ring-offset-background scale-110",
-                  status === 'completed' && "bg-success text-success-foreground",
-                  status === 'in-progress' && !isCurrent && "bg-primary/20 text-primary",
-                  status === 'in-progress' && isCurrent && "bg-primary text-primary-foreground",
-                  status === 'locked' && "bg-muted text-muted-foreground"
-                )}
-              >
-                {status === 'completed' ? (
-                  <CheckCircle2 className="w-4 h-4" />
-                ) : status === 'in-progress' && isCurrent ? (
-                  <Clock className="w-3.5 h-3.5" />
-                ) : (
-                  dayInfo.day
-                )}
-              </div>
-            </TooltipTrigger>
-            <TooltipContent side="bottom" className="text-center">
-              <p className="font-semibold">{t.dayLabel} {dayInfo.day}: {dayTitle}</p>
-              <p className="text-xs text-muted-foreground">{completed}/{total} capitole</p>
-            </TooltipContent>
-          </Tooltip>
-        );
-      })}
+      {/* Day Indicators */}
+      <div className="flex items-center justify-center gap-1">
+        {TRAINING_DAYS.map((dayInfo) => {
+          const status = getDayStatus(dayInfo);
+          const completed = getCompletedChaptersInDay(dayInfo);
+          const total = dayInfo.chapters.length;
+          const isCurrent = dayInfo.day === currentDay;
+          const dayTitle = t[dayInfo.titleKey as keyof typeof t];
+
+          return (
+            <Tooltip key={dayInfo.day}>
+              <TooltipTrigger asChild>
+                <div
+                  className={cn(
+                    "w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold cursor-default transition-all",
+                    isCurrent && "ring-2 ring-primary ring-offset-1 ring-offset-background scale-110",
+                    status === 'completed' && "bg-success text-success-foreground",
+                    status === 'in-progress' && !isCurrent && "bg-primary/20 text-primary",
+                    status === 'in-progress' && isCurrent && "bg-primary text-primary-foreground",
+                    status === 'locked' && "bg-muted text-muted-foreground"
+                  )}
+                >
+                  {status === 'completed' ? (
+                    <CheckCircle2 className="w-4 h-4" />
+                  ) : status === 'in-progress' && isCurrent ? (
+                    <Clock className="w-3.5 h-3.5" />
+                  ) : (
+                    dayInfo.day
+                  )}
+                </div>
+              </TooltipTrigger>
+              <TooltipContent side="bottom" className="text-center">
+                <p className="font-semibold">{t.dayLabel} {dayInfo.day}: {dayTitle}</p>
+                <p className="text-xs text-muted-foreground">{completed}/{total} capitole</p>
+              </TooltipContent>
+            </Tooltip>
+          );
+        })}
+      </div>
     </div>
   );
 }
