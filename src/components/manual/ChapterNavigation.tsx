@@ -1,4 +1,4 @@
-import { ChevronLeft, ChevronRight, CheckCircle2, Circle, Sparkles, Lock } from "lucide-react";
+import { ChevronLeft, ChevronRight, CheckCircle2, Sparkles, Lock, BookOpen, GraduationCap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useProgressContext } from "@/contexts/ProgressContext";
 import { useChapterProgress } from "@/hooks/useChapterProgress";
@@ -98,13 +98,23 @@ export function ChapterNavigation({ activeChapter, onChapterChange }: ChapterNav
 
   return (
     <div className="mt-16 pt-10 border-t border-border/50 space-y-8">
+      {/* Chapter Type Indicator */}
+      {isIntroChapter && !isCompleted && (
+        <div className="flex items-center justify-center">
+          <div className="flex items-center gap-2 px-4 py-2 bg-blue-500/10 text-blue-600 dark:text-blue-400 rounded-xl border border-blue-500/20">
+            <BookOpen className="w-4 h-4" />
+            <span className="text-sm font-medium">Capitol introductiv - nu necesită quiz</span>
+          </div>
+        </div>
+      )}
+
       {/* Mark as Complete */}
       <div className="flex items-center justify-center">
         {isCompleted ? (
           <div className="flex items-center gap-3 px-6 py-3 bg-success/10 text-success rounded-2xl border border-success/20 shadow-sm">
             <CheckCircle2 className="w-5 h-5" />
             <span className="font-semibold">Capitol Finalizat</span>
-            {chapterProgress?.quizScore !== undefined && (
+            {chapterProgress?.quizScore !== undefined && chapterProgress.quizScore > 0 && (
               <span className="text-sm opacity-80 bg-success/20 px-2 py-0.5 rounded-full">
                 Quiz: {chapterProgress.quizScore}/{chapterProgress.quizTotal}
               </span>
@@ -121,9 +131,14 @@ export function ChapterNavigation({ activeChapter, onChapterChange }: ChapterNav
             Marchează Capitol ca Finalizat
           </Button>
         ) : (
-          <div className="flex items-center gap-3 px-6 py-3 bg-muted/50 text-muted-foreground rounded-2xl border border-border/50 shadow-sm">
-            <Lock className="w-5 h-5" />
-            <span className="font-medium">Finalizează quiz-ul pentru a debloca următorul capitol</span>
+          <div className="flex flex-col items-center gap-3">
+            <div className="flex items-center gap-3 px-6 py-3 bg-amber-500/10 text-amber-600 dark:text-amber-400 rounded-2xl border border-amber-500/20 shadow-sm">
+              <GraduationCap className="w-5 h-5" />
+              <span className="font-medium">Acest capitol necesită finalizarea quiz-ului</span>
+            </div>
+            <p className="text-xs text-muted-foreground text-center max-w-md">
+              Răspunde la quiz-ul de la sfârșitul capitolului și obține minim 9/10 pentru a debloca următorul capitol
+            </p>
           </div>
         )}
       </div>
