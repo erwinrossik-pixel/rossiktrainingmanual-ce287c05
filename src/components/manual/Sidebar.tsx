@@ -354,7 +354,14 @@ export function Sidebar({ activeChapter, onChapterChange, onShowDashboard }: Sid
                         <span className="font-medium text-muted-foreground mr-1.5">{chapterNumber}.</span>
                         {t(chapter.labelKey)}
                       </span>
-                      {hasQuizScore && !isLocked && (
+                      {/* Show quiz score for non-intro chapters, or "Intro" badge for intro */}
+                      {chapter.isIntro ? (
+                        !isCompleted && (
+                          <span className="text-[9px] px-1.5 py-0.5 rounded font-medium bg-blue-500/10 text-blue-600 dark:text-blue-400 whitespace-nowrap">
+                            Intro
+                          </span>
+                        )
+                      ) : hasQuizScore && !isLocked ? (
                         <span className={cn(
                           "text-[10px] px-1.5 py-0.5 rounded font-medium",
                           bestScore >= 9
@@ -364,6 +371,10 @@ export function Sidebar({ activeChapter, onChapterChange, onShowDashboard }: Sid
                               : "bg-destructive/10 text-destructive"
                         )}>
                           {bestScore}/10
+                        </span>
+                      ) : !isLocked && !isCompleted && (
+                        <span className="text-[9px] px-1.5 py-0.5 rounded font-medium bg-amber-500/10 text-amber-600 dark:text-amber-400 whitespace-nowrap">
+                          Quiz
                         </span>
                       )}
                     </button>
