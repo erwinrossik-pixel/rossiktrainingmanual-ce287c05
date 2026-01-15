@@ -1,10 +1,12 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { AlertTriangle, CheckCircle2, HelpCircle, Download } from "lucide-react";
+import { AlertTriangle, CheckCircle2, HelpCircle, Download, BarChart3 } from "lucide-react";
 import { getQuizStats, getChaptersNeedingQuestions, getAllQuestionCounts } from "@/data/quizTranslations";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { toast } from "@/hooks/use-toast";
+import { useState } from "react";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell, ReferenceLine } from "recharts";
 
 export function QuizDiagnostics() {
   const { language } = useLanguage();
@@ -93,6 +95,39 @@ export function QuizDiagnostics() {
 
   const text = t[language];
 
+  const [showChart, setShowChart] = useState(false);
+
+  // Prepare chart data
+  const chartData = Object.entries(allCounts)
+    .sort((a, b) => a[0].localeCompare(b[0]))
+    .map(([chapterId, count]) => ({
+      name: chapterId.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase()).substring(0, 15),
+      fullName: chapterId,
+      questions: count,
+    }));
+
+  const getBarColor = (count: number) => {
+    if (count >= 45) return 'hsl(142, 76%, 36%)'; // green-600
+    if (count >= 30) return 'hsl(142, 71%, 45%)'; // green-500
+    if (count >= 20) return 'hsl(45, 93%, 47%)'; // amber-500
+    return 'hsl(0, 84%, 60%)'; // red-500
+  };
+
+  const CustomTooltip = ({ active, payload }: any) => {
+    if (active && payload && payload.length) {
+      const data = payload[0].payload;
+      return (
+        <div className="bg-popover border border-border rounded-lg p-2 shadow-lg">
+          <p className="font-medium text-sm">{data.fullName}</p>
+          <p className="text-xs text-muted-foreground">
+            {language === 'ro' ? 'Întrebări' : language === 'de' ? 'Fragen' : 'Questions'}: <span className="font-bold">{data.questions}</span>
+          </p>
+        </div>
+      );
+    }
+    return null;
+  };
+
   return (
     <Card className="border-border">
       <CardHeader className="pb-3">
@@ -101,13 +136,70 @@ export function QuizDiagnostics() {
             <HelpCircle className="w-5 h-5" />
             {text.title}
           </div>
-          <Button variant="outline" size="sm" onClick={exportToCSV} className="gap-1">
-            <Download className="w-4 h-4" />
-            CSV
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button 
+              variant={showChart ? "default" : "outline"} 
+              size="sm" 
+              onClick={() => setShowChart(!showChart)} 
+              className="gap-1"
+            >
+              <BarChart3 className="w-4 h-4" />
+              {language === 'ro' ? 'Grafic' : language === 'de' ? 'Diagramm' : 'Chart'}
+            </Button>
+            <Button variant="outline" size="sm" onClick={exportToCSV} className="gap-1">
+              <Download className="w-4 h-4" />
+              CSV
+            </Button>
+          </div>
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
+        {/* Distribution Chart */}
+        {showChart && (
+          <div className="w-full h-64 mt-2">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={chartData} margin={{ top: 10, right: 10, left: -10, bottom: 60 }}>
+                <XAxis 
+                  dataKey="name" 
+                  angle={-45} 
+                  textAnchor="end" 
+                  interval={0}
+                  tick={{ fontSize: 8, fill: 'hsl(var(--muted-foreground))' }}
+                  height={70}
+                />
+                <YAxis 
+                  tick={{ fontSize: 10, fill: 'hsl(var(--muted-foreground))' }}
+                  domain={[0, 'auto']}
+                />
+                <Tooltip content={<CustomTooltip />} />
+                <ReferenceLine y={30} stroke="hsl(var(--primary))" strokeDasharray="3 3" label={{ value: '30', position: 'left', fontSize: 10 }} />
+                <Bar dataKey="questions" radius={[2, 2, 0, 0]}>
+                  {chartData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={getBarColor(entry.questions)} />
+                  ))}
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
+            <div className="flex justify-center gap-4 text-xs mt-2">
+              <div className="flex items-center gap-1">
+                <div className="w-3 h-3 rounded" style={{ backgroundColor: 'hsl(0, 84%, 60%)' }} />
+                <span>&lt;20</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <div className="w-3 h-3 rounded" style={{ backgroundColor: 'hsl(45, 93%, 47%)' }} />
+                <span>20-29</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <div className="w-3 h-3 rounded" style={{ backgroundColor: 'hsl(142, 71%, 45%)' }} />
+                <span>30-44</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <div className="w-3 h-3 rounded" style={{ backgroundColor: 'hsl(142, 76%, 36%)' }} />
+                <span>≥45</span>
+              </div>
+            </div>
+          </div>
+        )}
         {/* Stats Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
           <div className="text-center p-2 bg-muted/50 rounded-lg">
