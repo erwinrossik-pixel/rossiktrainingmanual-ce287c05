@@ -28,7 +28,7 @@ interface ProgressDashboardProps {
 }
 
 export function ProgressDashboard({ onNavigate, onClose }: ProgressDashboardProps) {
-  const { progress, getOverallProgress, getChapterProgress, resetProgress } = useProgressContext();
+  const { getOverallProgress, getChapterProgress, resetProgress } = useProgressContext();
   const { t, language } = useLanguage();
   const { isAdmin } = useAuth();
   
