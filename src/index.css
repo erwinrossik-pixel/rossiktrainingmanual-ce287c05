@@ -15,46 +15,51 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222 47% 11%;
 
-    --primary: 350 89% 55%;
+    /* Primary - Rossik red with improved contrast (4.5:1 ratio on white) */
+    --primary: 350 85% 42%;
     --primary-foreground: 0 0% 100%;
 
     --secondary: 220 14% 96%;
     --secondary-foreground: 222 47% 11%;
 
+    /* Muted foreground - improved contrast (4.5:1 on white) */
     --muted: 220 14% 96%;
-    --muted-foreground: 220 9% 46%;
+    --muted-foreground: 220 13% 40%;
 
-    --accent: 350 100% 98%;
-    --accent-foreground: 350 89% 45%;
+    --accent: 350 100% 97%;
+    --accent-foreground: 350 85% 35%;
 
-    --destructive: 0 84% 60%;
+    --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
 
     --border: 220 13% 91%;
     --input: 220 13% 91%;
-    --ring: 350 89% 55%;
+    --ring: 350 85% 42%;
 
     --radius: 0.75rem;
 
     --sidebar-background: 0 0% 100%;
     --sidebar-foreground: 222 47% 11%;
-    --sidebar-primary: 350 89% 55%;
+    --sidebar-primary: 350 85% 42%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 220 14% 96%;
     --sidebar-accent-foreground: 222 47% 11%;
     --sidebar-border: 220 13% 91%;
-    --sidebar-ring: 350 89% 55%;
+    --sidebar-ring: 350 85% 42%;
     --sidebar-muted: 220 14% 96%;
 
-    /* Custom tokens */
-    --rossik-red: 350 89% 55%;
-    --rossik-red-light: 350 100% 98%;
-    --rossik-red-dark: 350 89% 45%;
-    --info: 210 100% 50%;
+    /* Custom tokens - improved contrast ratios */
+    --rossik-red: 350 85% 42%;
+    --rossik-red-light: 350 100% 97%;
+    --rossik-red-dark: 350 85% 35%;
+    /* Info blue - darkened for 4.5:1 contrast */
+    --info: 210 100% 40%;
     --info-foreground: 0 0% 100%;
-    --success: 142 76% 36%;
+    /* Success green - darkened for 4.5:1 contrast */
+    --success: 142 76% 30%;
     --success-foreground: 0 0% 100%;
-    --warning: 38 92% 50%;
+    /* Warning - use darker shade for text, amber for backgrounds */
+    --warning: 25 95% 40%;
     --warning-foreground: 0 0% 100%;
     
     /* Shadows - lighter for clean design */

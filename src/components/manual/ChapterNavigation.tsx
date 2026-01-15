@@ -101,8 +101,8 @@ export function ChapterNavigation({ activeChapter, onChapterChange }: ChapterNav
       {/* Chapter Type Indicator */}
       {isIntroChapter && !isCompleted && (
         <div className="flex items-center justify-center">
-          <div className="flex items-center gap-2 px-4 py-2 bg-blue-500/10 text-blue-600 dark:text-blue-400 rounded-xl border border-blue-500/20">
-            <BookOpen className="w-4 h-4" />
+          <div className="flex items-center gap-2 px-4 py-2 bg-blue-600/15 text-blue-700 dark:text-blue-300 rounded-xl border border-blue-600/25">
+            <BookOpen className="w-4 h-4" aria-hidden="true" />
             <span className="text-sm font-medium">Capitol introductiv - nu necesită quiz</span>
           </div>
         </div>
@@ -125,15 +125,15 @@ export function ChapterNavigation({ activeChapter, onChapterChange }: ChapterNav
             variant="outline"
             size="lg"
             onClick={handleMarkComplete}
-            className="flex items-center gap-3 border-success/30 text-success hover:bg-success/10 hover:text-success hover:border-success/50 rounded-xl shadow-sm transition-all duration-200 hover:-translate-y-0.5"
+            className="flex items-center gap-3 border-success/40 text-success hover:bg-success/10 hover:text-success hover:border-success/60 rounded-xl shadow-sm transition-all duration-200 hover:-translate-y-0.5"
           >
-            <Sparkles className="w-4 h-4" />
+            <Sparkles className="w-4 h-4" aria-hidden="true" />
             Marchează Capitol ca Finalizat
           </Button>
         ) : (
           <div className="flex flex-col items-center gap-3">
-            <div className="flex items-center gap-3 px-6 py-3 bg-amber-500/10 text-amber-600 dark:text-amber-400 rounded-2xl border border-amber-500/20 shadow-sm">
-              <GraduationCap className="w-5 h-5" />
+            <div className="flex items-center gap-3 px-6 py-3 bg-amber-600/15 text-amber-700 dark:text-amber-300 rounded-2xl border border-amber-600/25 shadow-sm">
+              <GraduationCap className="w-5 h-5" aria-hidden="true" />
               <span className="font-medium">Acest capitol necesită finalizarea quiz-ului</span>
             </div>
             <p className="text-xs text-muted-foreground text-center max-w-md">
