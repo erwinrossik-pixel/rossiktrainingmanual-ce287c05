@@ -4,6 +4,7 @@ import {
 } from "lucide-react";
 import { useProgressContext } from "@/contexts/ProgressContext";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useAuth } from "@/hooks/useAuth";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
@@ -68,6 +69,7 @@ interface ProgressDashboardProps {
 export function ProgressDashboard({ onNavigate, onClose }: ProgressDashboardProps) {
   const { progress, getOverallProgress, getChapterProgress, resetProgress } = useProgressContext();
   const { t, language } = useLanguage();
+  const { isAdmin } = useAuth();
   
   const overallProgress = getOverallProgress();
   
@@ -650,8 +652,8 @@ export function ProgressDashboard({ onNavigate, onClose }: ProgressDashboardProp
         </Button>
       </div>
 
-      {/* Quiz Diagnostics - for admin/development */}
-      <QuizDiagnostics />
+      {/* Quiz Diagnostics - Admin only */}
+      {isAdmin && <QuizDiagnostics />}
     </div>
   );
 }
