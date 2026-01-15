@@ -180,6 +180,13 @@ export type Database = {
             referencedRelation: "chapters"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "auto_updates_chapter_id_fkey"
+            columns: ["chapter_id"]
+            isOneToOne: false
+            referencedRelation: "content_quality_summary"
+            referencedColumns: ["chapter_id"]
+          },
         ]
       }
       chapter_impacts: {
@@ -231,6 +238,13 @@ export type Database = {
             referencedRelation: "chapters"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "chapter_impacts_chapter_id_fkey"
+            columns: ["chapter_id"]
+            isOneToOne: false
+            referencedRelation: "content_quality_summary"
+            referencedColumns: ["chapter_id"]
+          },
         ]
       }
       chapter_progress: {
@@ -277,6 +291,13 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "chapters"
             referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "chapter_progress_chapter_id_fkey"
+            columns: ["chapter_id"]
+            isOneToOne: false
+            referencedRelation: "content_quality_summary"
+            referencedColumns: ["chapter_id"]
           },
         ]
       }
@@ -336,6 +357,13 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "chapters"
             referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "chapter_versions_chapter_id_fkey"
+            columns: ["chapter_id"]
+            isOneToOne: false
+            referencedRelation: "content_quality_summary"
+            referencedColumns: ["chapter_id"]
           },
         ]
       }
@@ -431,6 +459,97 @@ export type Database = {
             isOneToOne: true
             referencedRelation: "chapters"
             referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "content_difficulty_analysis_chapter_id_fkey"
+            columns: ["chapter_id"]
+            isOneToOne: true
+            referencedRelation: "content_quality_summary"
+            referencedColumns: ["chapter_id"]
+          },
+        ]
+      }
+      content_quality_analysis: {
+        Row: {
+          ai_model_used: string | null
+          analysis_version: number
+          analyzed_at: string
+          analyzed_by: string | null
+          chapter_id: string
+          consistency_issues: Json | null
+          created_at: string
+          duplication_issues: Json | null
+          id: string
+          language: string
+          outdated_content: Json | null
+          quality_score: number
+          review_notes: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          status: string
+          suggested_corrections: Json | null
+          terminology_issues: Json | null
+          translation_issues: Json | null
+          updated_at: string
+        }
+        Insert: {
+          ai_model_used?: string | null
+          analysis_version?: number
+          analyzed_at?: string
+          analyzed_by?: string | null
+          chapter_id: string
+          consistency_issues?: Json | null
+          created_at?: string
+          duplication_issues?: Json | null
+          id?: string
+          language?: string
+          outdated_content?: Json | null
+          quality_score?: number
+          review_notes?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: string
+          suggested_corrections?: Json | null
+          terminology_issues?: Json | null
+          translation_issues?: Json | null
+          updated_at?: string
+        }
+        Update: {
+          ai_model_used?: string | null
+          analysis_version?: number
+          analyzed_at?: string
+          analyzed_by?: string | null
+          chapter_id?: string
+          consistency_issues?: Json | null
+          created_at?: string
+          duplication_issues?: Json | null
+          id?: string
+          language?: string
+          outdated_content?: Json | null
+          quality_score?: number
+          review_notes?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: string
+          suggested_corrections?: Json | null
+          terminology_issues?: Json | null
+          translation_issues?: Json | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "content_quality_analysis_chapter_id_fkey"
+            columns: ["chapter_id"]
+            isOneToOne: false
+            referencedRelation: "chapters"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "content_quality_analysis_chapter_id_fkey"
+            columns: ["chapter_id"]
+            isOneToOne: false
+            referencedRelation: "content_quality_summary"
+            referencedColumns: ["chapter_id"]
           },
         ]
       }
@@ -770,6 +889,13 @@ export type Database = {
             referencedRelation: "chapters"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "question_analytics_chapter_id_fkey"
+            columns: ["chapter_id"]
+            isOneToOne: false
+            referencedRelation: "content_quality_summary"
+            referencedColumns: ["chapter_id"]
+          },
         ]
       }
       quiz_attempts: {
@@ -813,6 +939,13 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "chapters"
             referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "quiz_attempts_chapter_id_fkey"
+            columns: ["chapter_id"]
+            isOneToOne: false
+            referencedRelation: "content_quality_summary"
+            referencedColumns: ["chapter_id"]
           },
         ]
       }
@@ -1057,6 +1190,13 @@ export type Database = {
             referencedRelation: "chapters"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "user_learning_analytics_chapter_id_fkey"
+            columns: ["chapter_id"]
+            isOneToOne: false
+            referencedRelation: "content_quality_summary"
+            referencedColumns: ["chapter_id"]
+          },
         ]
       }
       user_roles: {
@@ -1118,7 +1258,48 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      content_quality_summary: {
+        Row: {
+          avg_score: number | null
+          chapter_id: string | null
+          content_level: Database["public"]["Enums"]["content_level"] | null
+          de_score: number | null
+          en_score: number | null
+          last_analyzed: string | null
+          latest_status: string | null
+          module: string | null
+          order_index: number | null
+          ro_score: number | null
+          slug: string | null
+        }
+        Insert: {
+          avg_score?: never
+          chapter_id?: string | null
+          content_level?: Database["public"]["Enums"]["content_level"] | null
+          de_score?: never
+          en_score?: never
+          last_analyzed?: never
+          latest_status?: never
+          module?: string | null
+          order_index?: number | null
+          ro_score?: never
+          slug?: string | null
+        }
+        Update: {
+          avg_score?: never
+          chapter_id?: string | null
+          content_level?: Database["public"]["Enums"]["content_level"] | null
+          de_score?: never
+          en_score?: never
+          last_analyzed?: never
+          latest_status?: never
+          module?: string | null
+          order_index?: number | null
+          ro_score?: never
+          slug?: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       get_user_role: {
