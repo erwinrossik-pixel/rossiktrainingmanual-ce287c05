@@ -1,4 +1,5 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from './useAuth';
 
@@ -16,46 +17,44 @@ const TOTAL_QUESTIONS = 10;
 
 export function useChapterProgress() {
   const { user } = useAuth();
-  const [progress, setProgress] = useState<Record<string, ChapterProgress>>({});
-  const [loading, setLoading] = useState(true);
+  const queryClient = useQueryClient();
 
-  const fetchProgress = useCallback(async () => {
-    if (!user) {
-      setProgress({});
-      setLoading(false);
-      return;
-    }
+  // Use React Query for caching
+  const { data: progressData, isLoading: loading } = useQuery({
+    queryKey: ['chapterProgress', user?.id],
+    queryFn: async () => {
+      if (!user) return {};
+      
+      const { data, error } = await supabase
+        .from('chapter_progress')
+        .select('*')
+        .eq('user_id', user.id);
 
-    const { data, error } = await supabase
-      .from('chapter_progress')
-      .select('*')
-      .eq('user_id', user.id);
+      if (error) {
+        console.error('Error fetching progress:', error);
+        return {};
+      }
 
-    if (error) {
-      console.error('Error fetching progress:', error);
-      setLoading(false);
-      return;
-    }
+      const progressMap: Record<string, ChapterProgress> = {};
+      data?.forEach((item) => {
+        progressMap[item.chapter_id] = {
+          chapter_id: item.chapter_id,
+          status: item.status as ChapterProgress['status'],
+          best_score: item.best_score || 0,
+          attempts_count: item.attempts_count || 0,
+          completed_at: item.completed_at,
+          last_attempt_at: item.last_attempt_at,
+        };
+      });
 
-    const progressMap: Record<string, ChapterProgress> = {};
-    data?.forEach((item) => {
-      progressMap[item.chapter_id] = {
-        chapter_id: item.chapter_id,
-        status: item.status as ChapterProgress['status'],
-        best_score: item.best_score || 0,
-        attempts_count: item.attempts_count || 0,
-        completed_at: item.completed_at,
-        last_attempt_at: item.last_attempt_at,
-      };
-    });
+      return progressMap;
+    },
+    enabled: !!user,
+    staleTime: 5 * 60 * 1000, // 5 minutes
+    gcTime: 10 * 60 * 1000, // 10 minutes
+  });
 
-    setProgress(progressMap);
-    setLoading(false);
-  }, [user]);
-
-  useEffect(() => {
-    fetchProgress();
-  }, [fetchProgress]);
+  const progress = progressData || {};
 
   const isChapterUnlocked = useCallback((chapterId: string, chapterIndex: number, isIntro: boolean): boolean => {
     // Intro chapter is always unlocked
@@ -172,10 +171,10 @@ export function useChapterProgress() {
       }
     }
 
-    // Refresh progress
-    await fetchProgress();
+    // Invalidate cache to refresh progress
+    queryClient.invalidateQueries({ queryKey: ['chapterProgress', user.id] });
     return passed;
-  }, [user, progress, fetchProgress]);
+  }, [user, progress, queryClient]);
 
   const initializeUserProgress = useCallback(async (chapterIds: string[]) => {
     if (!user || chapterIds.length === 0) return;
@@ -187,8 +186,8 @@ export function useChapterProgress() {
       .eq('user_id', user.id);
 
     if (existingProgress && existingProgress.length > 0) {
-      // User already has progress, just fetch it
-      await fetchProgress();
+      // User already has progress, just invalidate to refresh
+      queryClient.invalidateQueries({ queryKey: ['chapterProgress', user.id] });
       return;
     }
 
@@ -202,8 +201,14 @@ export function useChapterProgress() {
         status: 'unlocked',
       });
 
-    await fetchProgress();
-  }, [user, fetchProgress]);
+    queryClient.invalidateQueries({ queryKey: ['chapterProgress', user.id] });
+  }, [user, queryClient]);
+
+  const refreshProgress = useCallback(() => {
+    if (user) {
+      queryClient.invalidateQueries({ queryKey: ['chapterProgress', user.id] });
+    }
+  }, [user, queryClient]);
 
   return {
     progress,
@@ -214,7 +219,7 @@ export function useChapterProgress() {
     getAttemptsCount,
     recordQuizAttempt,
     initializeUserProgress,
-    refreshProgress: fetchProgress,
+    refreshProgress,
     PASSING_SCORE,
     TOTAL_QUESTIONS,
   };

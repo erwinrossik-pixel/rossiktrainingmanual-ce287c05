@@ -3,6 +3,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
 
 const SESSION_KEY = 'analytics_session_id';
+const ACTIVITY_UPDATE_INTERVAL = 30000; // 30 seconds minimum between updates
 
 function generateSessionId(): string {
   return `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
@@ -30,6 +31,9 @@ export function useAnalytics() {
   const pageStartTime = useRef<number>(Date.now());
   const currentPath = useRef<string>('');
   const sessionId = useRef<string>('');
+  const lastActivityUpdate = useRef<number>(0);
+  const sessionInitialized = useRef<boolean>(false);
+  const pendingUpdate = useRef<NodeJS.Timeout | null>(null);
 
   // Initialize or get session
   useEffect(() => {
@@ -41,16 +45,16 @@ export function useAnalytics() {
     sessionId.current = storedSession;
   }, []);
 
-  // Track session start/update
+  // Track session start/update - only once per session
   const initSession = useCallback(async () => {
-    if (!user || !sessionId.current) return;
+    if (!user || !sessionId.current || sessionInitialized.current) return;
 
     try {
       const { data: existing } = await supabase
         .from('user_sessions')
         .select('id')
         .eq('session_id', sessionId.current)
-        .single();
+        .maybeSingle();
 
       if (!existing) {
         await supabase.from('user_sessions').insert({
@@ -60,14 +64,30 @@ export function useAnalytics() {
           browser: getBrowser(),
         });
       }
+      sessionInitialized.current = true;
     } catch (error) {
       console.error('Error initializing session:', error);
     }
   }, [user]);
 
-  // Update session activity
+  // Throttled session activity update
   const updateSessionActivity = useCallback(async (durationSeconds: number) => {
     if (!user || !sessionId.current) return;
+    
+    const now = Date.now();
+    // Throttle updates to once per 30 seconds
+    if (now - lastActivityUpdate.current < ACTIVITY_UPDATE_INTERVAL) {
+      // Schedule a delayed update instead
+      if (pendingUpdate.current) {
+        clearTimeout(pendingUpdate.current);
+      }
+      pendingUpdate.current = setTimeout(() => {
+        updateSessionActivity(durationSeconds);
+      }, ACTIVITY_UPDATE_INTERVAL - (now - lastActivityUpdate.current));
+      return;
+    }
+
+    lastActivityUpdate.current = now;
 
     try {
       await supabase
@@ -82,15 +102,18 @@ export function useAnalytics() {
     }
   }, [user]);
 
-  // Track page view
+  // Track page view - debounced
   const trackPageView = useCallback(async (pagePath: string, chapterId?: string) => {
     if (!user || !sessionId.current) return;
+
+    // Prevent duplicate tracking for same page
+    if (currentPath.current === pagePath) return;
 
     // Save duration for previous page
     if (currentPath.current) {
       const duration = Math.floor((Date.now() - pageStartTime.current) / 1000);
       if (duration > 0) {
-        await updateSessionActivity(duration);
+        updateSessionActivity(duration);
       }
     }
 
@@ -105,31 +128,31 @@ export function useAnalytics() {
         chapter_id: chapterId || null,
         session_id: sessionId.current,
       });
-
-      // Update pages visited count
-      await supabase
-        .from('user_sessions')
-        .update({
-          pages_visited: supabase.rpc ? undefined : 1,
-          last_activity_at: new Date().toISOString(),
-        })
-        .eq('session_id', sessionId.current);
     } catch (error) {
       console.error('Error tracking page view:', error);
     }
   }, [user, updateSessionActivity]);
 
-  // Track chapter visit
+  // Track chapter visit - memoized
   const trackChapterVisit = useCallback((chapterId: string) => {
     trackPageView(`/chapter/${chapterId}`, chapterId);
   }, [trackPageView]);
 
-  // Initialize session on mount
+  // Initialize session on mount - only once
   useEffect(() => {
-    if (user) {
+    if (user && !sessionInitialized.current) {
       initSession();
     }
   }, [user, initSession]);
+
+  // Cleanup pending updates on unmount
+  useEffect(() => {
+    return () => {
+      if (pendingUpdate.current) {
+        clearTimeout(pendingUpdate.current);
+      }
+    };
+  }, []);
 
   // Track page unload
   useEffect(() => {
