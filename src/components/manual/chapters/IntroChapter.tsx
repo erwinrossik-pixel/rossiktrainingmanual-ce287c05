@@ -229,9 +229,9 @@ export function IntroChapter() {
                   </div>
                   <div className="flex-1 pb-2">
                     <div className="flex items-center gap-2 mb-1">
-                      <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${phase.isBackup ? 'bg-muted text-muted-foreground' : 'bg-primary/10 text-primary'}`}>{phase.day}</span>
+                      <span className={`text-xs px-2 py-0.5 rounded-full font-semibold ${phase.isBackup ? 'bg-muted text-foreground' : 'bg-primary/15 text-primary'}`}>{phase.day}</span>
                     </div>
-                    <h4 className="font-semibold">{phase.title}</h4>
+                    <h3 className="font-semibold text-base">{phase.title}</h3>
                     <p className="text-sm text-muted-foreground">{phase.topics}</p>
                   </div>
                 </div>
@@ -277,8 +277,8 @@ export function IntroChapter() {
         </h2>
         <div className="info-card">
           <div className="grid md:grid-cols-3 gap-6">
-            <div className="p-4 bg-primary/5 rounded-lg">
-              <h3 className="font-semibold mb-3 text-primary">{ct("deptOperations")}</h3>
+            <div className="p-4 bg-primary/10 rounded-lg">
+              <h3 className="font-semibold mb-3 text-foreground">{ct("deptOperations")}</h3>
               <ul className="space-y-2 text-sm text-muted-foreground">
                 <li>• {ct("opsMgr")}</li>
                 <li>• {ct("opsTeamLead")}</li>
@@ -287,8 +287,8 @@ export function IntroChapter() {
                 <li>• {ct("opsNight")}</li>
               </ul>
             </div>
-            <div className="p-4 bg-info/5 rounded-lg">
-              <h3 className="font-semibold mb-3 text-info">{ct("deptCommercial")}</h3>
+            <div className="p-4 bg-info/10 rounded-lg">
+              <h3 className="font-semibold mb-3 text-foreground">{ct("deptCommercial")}</h3>
               <ul className="space-y-2 text-sm text-muted-foreground">
                 <li>• {ct("commDir")}</li>
                 <li>• {ct("commKAM")}</li>
@@ -297,8 +297,8 @@ export function IntroChapter() {
                 <li>• {ct("commTender")}</li>
               </ul>
             </div>
-            <div className="p-4 bg-success/5 rounded-lg">
-              <h3 className="font-semibold mb-3 text-success">{ct("deptSupport")}</h3>
+            <div className="p-4 bg-success/10 rounded-lg">
+              <h3 className="font-semibold mb-3 text-foreground">{ct("deptSupport")}</h3>
               <ul className="space-y-2 text-sm text-muted-foreground">
                 <li>• {ct("suppFinance")}</li>
                 <li>• {ct("suppCS")}</li>
@@ -320,15 +320,15 @@ export function IntroChapter() {
         <p className="text-muted-foreground mb-6">{ct("contactText")}</p>
         <div className="grid md:grid-cols-3 gap-4">
           <InfoCard title={ct("contactOps")} icon={Phone} variant="info">
-            <p className="font-medium text-info">{ct("contactOpsAvail")}</p>
+            <p className="font-semibold text-foreground">{ct("contactOpsAvail")}</p>
             <p>{ct("contactOpsDesc")}</p>
           </InfoCard>
           <InfoCard title={ct("contactHR")} icon={Users} variant="success">
-            <p className="font-medium text-success">{ct("contactHRAvail")}</p>
+            <p className="font-semibold text-foreground">{ct("contactHRAvail")}</p>
             <p>{ct("contactHRDesc")}</p>
           </InfoCard>
           <InfoCard title={ct("contactIT")} icon={Mail} variant="warning">
-            <p className="font-medium text-warning">{ct("contactITAvail")}</p>
+            <p className="font-semibold text-foreground">{ct("contactITAvail")}</p>
             <p>{ct("contactITDesc")}</p>
           </InfoCard>
         </div>

@@ -203,11 +203,13 @@ export function Sidebar({ activeChapter, onChapterChange, onShowDashboard }: Sid
       <button
         className="fixed top-4 left-4 z-50 lg:hidden bg-card p-2.5 rounded-lg shadow-md border border-border transition-transform duration-150 hover:scale-105 active:scale-95"
         onClick={() => setMobileOpen(!mobileOpen)}
+        aria-label={mobileOpen ? "Închide meniul" : "Deschide meniul"}
+        aria-expanded={mobileOpen}
       >
         {mobileOpen ? (
-          <X className="w-5 h-5 text-foreground" />
+          <X className="w-5 h-5 text-foreground" aria-hidden="true" />
         ) : (
-          <Menu className="w-5 h-5 text-foreground" />
+          <Menu className="w-5 h-5 text-foreground" aria-hidden="true" />
         )}
       </button>
 
@@ -298,7 +300,7 @@ export function Sidebar({ activeChapter, onChapterChange, onShowDashboard }: Sid
             <div key={section.title} className={cn(sectionIndex > 0 && "mt-5")}>
               {/* Section Header */}
               <div className="px-2 mb-1.5">
-                <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground/70">
+                <span className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
                   {section.title}
                 </span>
               </div>
@@ -361,23 +363,23 @@ export function Sidebar({ activeChapter, onChapterChange, onShowDashboard }: Sid
                       {/* Show quiz score for non-intro chapters, or "Intro" badge for intro */}
                       {chapter.isIntro ? (
                         !isCompleted && (
-                          <span className="text-[9px] px-1.5 py-0.5 rounded font-medium bg-blue-500/10 text-blue-600 dark:text-blue-400 whitespace-nowrap">
+                          <span className="text-[10px] px-1.5 py-0.5 rounded font-semibold bg-blue-600/15 text-blue-700 dark:text-blue-300 whitespace-nowrap">
                             Intro
                           </span>
                         )
                       ) : hasQuizScore && !isLocked ? (
                         <span className={cn(
-                          "text-[10px] px-1.5 py-0.5 rounded font-medium",
+                          "text-[10px] px-1.5 py-0.5 rounded font-semibold",
                           bestScore >= 9
-                            ? "bg-success/10 text-success"
+                            ? "bg-success/15 text-success"
                             : bestScore >= 7
-                              ? "bg-warning/10 text-warning"
-                              : "bg-destructive/10 text-destructive"
+                              ? "bg-amber-600/15 text-amber-700 dark:text-amber-300"
+                              : "bg-destructive/15 text-destructive"
                         )}>
                           {bestScore}/10
                         </span>
                       ) : !isLocked && !isCompleted && (
-                        <span className="text-[9px] px-1.5 py-0.5 rounded font-medium bg-amber-500/10 text-amber-600 dark:text-amber-400 whitespace-nowrap">
+                        <span className="text-[10px] px-1.5 py-0.5 rounded font-semibold bg-amber-600/15 text-amber-700 dark:text-amber-300 whitespace-nowrap">
                           Quiz
                         </span>
                       )}
@@ -408,10 +410,10 @@ export function Sidebar({ activeChapter, onChapterChange, onShowDashboard }: Sid
 
         {/* Footer */}
         <div className="p-4 border-t border-border">
-          <div className="flex items-center justify-center gap-2 text-muted-foreground/50">
-            <span className="text-[10px] font-medium">{t('sidebar.version')}</span>
-            <span className="w-1 h-1 rounded-full bg-current" />
-            <span className="text-[10px] font-medium">{t('sidebar.edition')}</span>
+          <div className="flex items-center justify-center gap-2 text-muted-foreground">
+            <span className="text-[11px] font-medium">{t('sidebar.version')}</span>
+            <span className="w-1 h-1 rounded-full bg-current" aria-hidden="true" />
+            <span className="text-[11px] font-medium">{t('sidebar.edition')}</span>
           </div>
         </div>
       </aside>
