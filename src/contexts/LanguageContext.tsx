@@ -15,6 +15,13 @@ const STORAGE_KEY = 'rossik-manual-language';
 // UI Translations
 const translations: Record<Language, Record<string, string>> = {
   ro: {
+    // Header
+    'header.services': 'Servicii',
+    'header.about': 'Despre noi',
+    'header.career': 'Carieră',
+    'header.contact': 'Solicită ofertă',
+    'header.login': 'Autentificare',
+    
     // Sidebar
     'sidebar.title': 'Manual Freight Forwarding',
     'sidebar.progress': 'Progres General',
