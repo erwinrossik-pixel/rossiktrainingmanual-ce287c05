@@ -482,6 +482,57 @@ export type Database = {
         }
         Relationships: []
       }
+      cron_job_logs: {
+        Row: {
+          completed_at: string | null
+          created_at: string
+          duration_ms: number | null
+          error_message: string | null
+          execution_details: Json | null
+          execution_type: string
+          id: string
+          items_failed: number | null
+          items_processed: number | null
+          job_name: string
+          result_summary: string | null
+          started_at: string
+          status: string
+          triggered_by: string | null
+        }
+        Insert: {
+          completed_at?: string | null
+          created_at?: string
+          duration_ms?: number | null
+          error_message?: string | null
+          execution_details?: Json | null
+          execution_type?: string
+          id?: string
+          items_failed?: number | null
+          items_processed?: number | null
+          job_name: string
+          result_summary?: string | null
+          started_at?: string
+          status?: string
+          triggered_by?: string | null
+        }
+        Update: {
+          completed_at?: string | null
+          created_at?: string
+          duration_ms?: number | null
+          error_message?: string | null
+          execution_details?: Json | null
+          execution_type?: string
+          id?: string
+          items_failed?: number | null
+          items_processed?: number | null
+          job_name?: string
+          result_summary?: string | null
+          started_at?: string
+          status?: string
+          triggered_by?: string | null
+        }
+        Relationships: []
+      }
       detected_changes: {
         Row: {
           change_type: string
