@@ -227,16 +227,6 @@ export function useTrainingTimer() {
     }, 500);
   }, [user]);
 
-  // Save to localStorage and optionally sync to Supabase
-  const saveData = useCallback((data: TrainingTimerData) => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
-    setTimerData(data);
-    
-    if (user) {
-      syncToSupabase(data);
-    }
-  }, [user, syncToSupabase]);
-
   // Start training for a specific day
   const startTraining = useCallback((day: number) => {
     const now = Date.now();

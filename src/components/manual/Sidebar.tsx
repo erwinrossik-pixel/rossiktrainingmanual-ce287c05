@@ -123,7 +123,6 @@ export function Sidebar({ activeChapter, onChapterChange, onShowDashboard }: Sid
   const { user, isAdmin } = useAuth();
   const { 
     progress: dbProgress, 
-    isChapterUnlocked, 
     getChapterStatus, 
     getBestScore,
     initializeUserProgress 
