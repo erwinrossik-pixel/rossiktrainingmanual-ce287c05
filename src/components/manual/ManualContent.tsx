@@ -113,7 +113,7 @@ export function ManualContent({ activeChapter, onChapterChange }: ManualContentP
   return (
     <>
       <ReadingProgress />
-      <main className="lg:ml-72 min-h-screen pt-14 bg-background">
+      <main className="lg:ml-72 min-h-screen bg-background">
         {/* Clean background */}
         <div className="fixed inset-0 lg:left-72 pointer-events-none overflow-hidden -z-10">
           <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/[0.02] rounded-full blur-3xl translate-x-1/3 -translate-y-1/3" />

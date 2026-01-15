@@ -5,10 +5,9 @@ import { cn } from "@/lib/utils";
 
 interface GlobalSearchProps {
   onNavigate: (chapterId: string) => void;
-  variant?: 'light' | 'dark';
 }
 
-export function GlobalSearch({ onNavigate, variant = 'dark' }: GlobalSearchProps) {
+export function GlobalSearch({ onNavigate }: GlobalSearchProps) {
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<SearchableItem[]>([]);
   const [isOpen, setIsOpen] = useState(false);

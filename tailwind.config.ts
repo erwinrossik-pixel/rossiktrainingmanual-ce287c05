@@ -66,7 +66,6 @@ export default {
           DEFAULT: "hsl(var(--rossik-red))",
           light: "hsl(var(--rossik-red-light))",
           dark: "hsl(var(--rossik-red-dark))",
-          navy: "hsl(var(--rossik-navy))",
         },
         info: {
           DEFAULT: "hsl(var(--info))",
