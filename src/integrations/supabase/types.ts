@@ -189,6 +189,93 @@ export type Database = {
           },
         ]
       }
+      certificate_settings: {
+        Row: {
+          description: string | null
+          id: string
+          setting_key: string
+          setting_value: Json
+          updated_at: string | null
+          updated_by: string | null
+        }
+        Insert: {
+          description?: string | null
+          id?: string
+          setting_key: string
+          setting_value: Json
+          updated_at?: string | null
+          updated_by?: string | null
+        }
+        Update: {
+          description?: string | null
+          id?: string
+          setting_key?: string
+          setting_value?: Json
+          updated_at?: string | null
+          updated_by?: string | null
+        }
+        Relationships: []
+      }
+      certificates: {
+        Row: {
+          average_score: number
+          certificate_code: string
+          chapters_completed: number
+          created_at: string | null
+          expires_at: string
+          id: string
+          is_revoked: boolean | null
+          issued_at: string
+          pdf_url: string | null
+          quizzes_passed: number
+          revoke_reason: string | null
+          revoked_at: string | null
+          revoked_by: string | null
+          total_training_hours: number | null
+          trainee_name: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          average_score: number
+          certificate_code: string
+          chapters_completed: number
+          created_at?: string | null
+          expires_at: string
+          id?: string
+          is_revoked?: boolean | null
+          issued_at?: string
+          pdf_url?: string | null
+          quizzes_passed: number
+          revoke_reason?: string | null
+          revoked_at?: string | null
+          revoked_by?: string | null
+          total_training_hours?: number | null
+          trainee_name: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          average_score?: number
+          certificate_code?: string
+          chapters_completed?: number
+          created_at?: string | null
+          expires_at?: string
+          id?: string
+          is_revoked?: boolean | null
+          issued_at?: string
+          pdf_url?: string | null
+          quizzes_passed?: number
+          revoke_reason?: string | null
+          revoked_at?: string | null
+          revoked_by?: string | null
+          total_training_hours?: number | null
+          trainee_name?: string
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       chapter_impacts: {
         Row: {
           affected_sections: Json | null
@@ -1302,6 +1389,7 @@ export type Database = {
       }
     }
     Functions: {
+      generate_certificate_code: { Args: never; Returns: string }
       get_user_role: {
         Args: { _user_id: string }
         Returns: Database["public"]["Enums"]["app_role"]

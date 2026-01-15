@@ -11,6 +11,7 @@ import Index from "./pages/Index";
 const Auth = lazy(() => import("./pages/Auth"));
 const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
 const NotFound = lazy(() => import("./pages/NotFound"));
+const VerifyCertificate = lazy(() => import("./pages/VerifyCertificate"));
 
 // Optimized QueryClient with caching
 const queryClient = new QueryClient({
@@ -48,6 +49,16 @@ const App = () => (
             <Route path="/admin" element={
               <Suspense fallback={<PageLoader />}>
                 <AdminDashboard />
+              </Suspense>
+            } />
+            <Route path="/verify" element={
+              <Suspense fallback={<PageLoader />}>
+                <VerifyCertificate />
+              </Suspense>
+            } />
+            <Route path="/verify/:code" element={
+              <Suspense fallback={<PageLoader />}>
+                <VerifyCertificate />
               </Suspense>
             } />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
