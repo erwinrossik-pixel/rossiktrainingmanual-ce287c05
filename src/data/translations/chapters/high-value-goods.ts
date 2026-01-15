@@ -1076,25 +1076,26 @@ LA LIVRARE:
 
     // Glosar
     glossaryTitle: "Glosar High-Value Transport",
-    glossaryItems: `TAPA (Transported Asset Protection Association): Organizație internațională care stabilește standarde de securitate pentru lanțul de aprovizionare.
-
-TSR (Trucking Security Requirements): Standard TAPA pentru securitatea transportului rutier, cu trei nivele de certificare.
-
-All-Risk Insurance: Asigurare care acoperă toate riscurile, inclusiv furt, pierdere și deteriorare, cu excluderi specificate.
-
-Geofencing: Tehnologie GPS care creează "garduri virtuale" și alertează la traversarea lor.
-
-E-Seal (Electronic Seal): Sigiliu electronic care transmite status în timp real și alertează la deschidere.
-
-SDR (Special Drawing Rights): Unitate de cont FMI utilizată pentru calculul limitelor CMR (1 SDR ≈ 1,20 EUR).
-
-Chain of Custody: Documentarea continuă a posesiei mărfii de la origine la destinație.
-
-GDP (Good Distribution Practice): Standard european pentru distribuția produselor farmaceutice.
-
-Serialization: Alocarea de coduri unice fiecărei unități individuale de produs pentru tracking.
-
-FMD (Falsified Medicines Directive): Directiva UE care impune serialization pentru produse farmaceutice.`,
+    glossaryTerm1: "TAPA",
+    glossaryDef1: "Transported Asset Protection Association - Organizație internațională care stabilește standarde de securitate pentru lanțul de aprovizionare.",
+    glossaryTerm2: "TSR",
+    glossaryDef2: "Trucking Security Requirements - Standard TAPA pentru securitatea transportului rutier, cu trei nivele de certificare.",
+    glossaryTerm3: "All-Risk Insurance",
+    glossaryDef3: "Asigurare care acoperă toate riscurile, inclusiv furt, pierdere și deteriorare, cu excluderi specificate.",
+    glossaryTerm4: "Geofencing",
+    glossaryDef4: "Tehnologie GPS care creează 'garduri virtuale' și alertează la traversarea lor.",
+    glossaryTerm5: "E-Seal",
+    glossaryDef5: "Electronic Seal - Sigiliu electronic care transmite status în timp real și alertează la deschidere.",
+    glossaryTerm6: "SDR",
+    glossaryDef6: "Special Drawing Rights - Unitate de cont FMI utilizată pentru calculul limitelor CMR (1 SDR ≈ 1,20 EUR).",
+    glossaryTerm7: "Chain of Custody",
+    glossaryDef7: "Documentarea continuă a posesiei mărfii de la origine la destinație, asigurând trasabilitatea completă.",
+    glossaryTerm8: "GDP",
+    glossaryDef8: "Good Distribution Practice - Standard european pentru distribuția produselor farmaceutice în condiții de siguranță.",
+    glossaryTerm9: "Serialization",
+    glossaryDef9: "Alocarea de coduri unice fiecărei unități individuale de produs pentru tracking și autentificare.",
+    glossaryTerm10: "FMD",
+    glossaryDef10: "Falsified Medicines Directive - Directiva UE care impune serialization pentru produse farmaceutice.",
   },
 
   de: {
@@ -1675,21 +1676,26 @@ BEI LIEFERUNG:
 □ Disposition bei Abschluss informiert`,
 
     glossaryTitle: "High-Value Transport Glossar",
-    glossaryItems: `TAPA (Transported Asset Protection Association): Internationale Organisation, die Sicherheitsstandards für die Lieferkette festlegt.
-
-TSR (Trucking Security Requirements): TAPA-Standard für Straßentransportsicherheit mit drei Zertifizierungsstufen.
-
-All-Risk Insurance: Versicherung, die alle Risiken abdeckt, einschließlich Diebstahl, Verlust und Beschädigung, mit spezifizierten Ausschlüssen.
-
-Geofencing: GPS-Technologie, die "virtuelle Zäune" erstellt und bei Überschreitung alarmiert.
-
-E-Seal (Electronic Seal): Elektronisches Siegel, das Status in Echtzeit überträgt und bei Öffnung alarmiert.
-
-SZR (Sonderziehungsrechte): IWF-Rechnungseinheit für CMR-Limitberechnung (1 SZR ≈ 1,20 EUR).
-
-Chain of Custody: Kontinuierliche Dokumentation des Warenbesitzes von Ursprung bis Ziel.
-
-GDP (Good Distribution Practice): Europäischer Standard für die Verteilung pharmazeutischer Produkte.`,
+    glossaryTerm1: "TAPA",
+    glossaryDef1: "Transported Asset Protection Association - Internationale Organisation, die Sicherheitsstandards für die Lieferkette festlegt.",
+    glossaryTerm2: "TSR",
+    glossaryDef2: "Trucking Security Requirements - TAPA-Standard für Straßentransportsicherheit mit drei Zertifizierungsstufen.",
+    glossaryTerm3: "All-Risk Insurance",
+    glossaryDef3: "Versicherung, die alle Risiken abdeckt, einschließlich Diebstahl, Verlust und Beschädigung, mit spezifizierten Ausschlüssen.",
+    glossaryTerm4: "Geofencing",
+    glossaryDef4: "GPS-Technologie, die 'virtuelle Zäune' erstellt und bei Überschreitung alarmiert.",
+    glossaryTerm5: "E-Seal",
+    glossaryDef5: "Electronic Seal - Elektronisches Siegel, das Status in Echtzeit überträgt und bei Öffnung alarmiert.",
+    glossaryTerm6: "SZR",
+    glossaryDef6: "Sonderziehungsrechte - IWF-Rechnungseinheit für CMR-Limitberechnung (1 SZR ≈ 1,20 EUR).",
+    glossaryTerm7: "Chain of Custody",
+    glossaryDef7: "Kontinuierliche Dokumentation des Warenbesitzes von Ursprung bis Ziel, zur Sicherstellung vollständiger Rückverfolgbarkeit.",
+    glossaryTerm8: "GDP",
+    glossaryDef8: "Good Distribution Practice - Europäischer Standard für die sichere Verteilung pharmazeutischer Produkte.",
+    glossaryTerm9: "Serialization",
+    glossaryDef9: "Zuweisung eindeutiger Codes für jede einzelne Produkteinheit zur Nachverfolgung und Authentifizierung.",
+    glossaryTerm10: "FMD",
+    glossaryDef10: "Falsified Medicines Directive - EU-Richtlinie, die Serialisierung für pharmazeutische Produkte vorschreibt.",
   },
 
   en: {
@@ -2270,24 +2276,25 @@ AT DELIVERY:
 □ Dispatch notified at completion`,
 
     glossaryTitle: "High-Value Transport Glossary",
-    glossaryItems: `TAPA (Transported Asset Protection Association): International organization setting security standards for the supply chain.
-
-TSR (Trucking Security Requirements): TAPA standard for road transport security with three certification levels.
-
-All-Risk Insurance: Insurance covering all risks including theft, loss, and damage, with specified exclusions.
-
-Geofencing: GPS technology that creates "virtual fences" and alerts when crossed.
-
-E-Seal (Electronic Seal): Electronic seal that transmits status in real-time and alerts when opened.
-
-SDR (Special Drawing Rights): IMF unit of account used for CMR limit calculation (1 SDR ≈ €1.20).
-
-Chain of Custody: Continuous documentation of goods possession from origin to destination.
-
-GDP (Good Distribution Practice): European standard for pharmaceutical product distribution.
-
-Serialization: Allocation of unique codes to each individual product unit for tracking.
-
-FMD (Falsified Medicines Directive): EU directive requiring serialization for pharmaceutical products.`,
+    glossaryTerm1: "TAPA",
+    glossaryDef1: "Transported Asset Protection Association - International organization setting security standards for the supply chain.",
+    glossaryTerm2: "TSR",
+    glossaryDef2: "Trucking Security Requirements - TAPA standard for road transport security with three certification levels.",
+    glossaryTerm3: "All-Risk Insurance",
+    glossaryDef3: "Insurance covering all risks including theft, loss, and damage, with specified exclusions.",
+    glossaryTerm4: "Geofencing",
+    glossaryDef4: "GPS technology that creates 'virtual fences' and alerts when crossed.",
+    glossaryTerm5: "E-Seal",
+    glossaryDef5: "Electronic Seal - Transmits status in real-time and alerts when opened.",
+    glossaryTerm6: "SDR",
+    glossaryDef6: "Special Drawing Rights - IMF unit of account used for CMR limit calculation (1 SDR ≈ €1.20).",
+    glossaryTerm7: "Chain of Custody",
+    glossaryDef7: "Continuous documentation of goods possession from origin to destination, ensuring complete traceability.",
+    glossaryTerm8: "GDP",
+    glossaryDef8: "Good Distribution Practice - European standard for safe pharmaceutical product distribution.",
+    glossaryTerm9: "Serialization",
+    glossaryDef9: "Allocation of unique codes to each individual product unit for tracking and authentication.",
+    glossaryTerm10: "FMD",
+    glossaryDef10: "Falsified Medicines Directive - EU directive requiring serialization for pharmaceutical products.",
   },
 };
