@@ -9,7 +9,7 @@ import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { ArrowLeft, Users, BookOpen, Trophy, Clock, Eye, Download, BarChart3, RefreshCw, RotateCcw, Unlock, Shield, Activity, Timer, TrendingUp, Calendar } from 'lucide-react';
+import { ArrowLeft, Users, BookOpen, Trophy, Clock, Eye, Download, BarChart3, RefreshCw, RotateCcw, Unlock, Shield, Activity, Timer, TrendingUp, Calendar, TimerReset } from 'lucide-react';
 import { toast } from 'sonner';
 import { GovernanceDashboard } from '@/components/admin/GovernanceDashboard';
 import { format, subDays } from 'date-fns';
@@ -301,6 +301,21 @@ export default function AdminDashboard() {
         .order('chapter_id');
       setUserProgress(progress || []);
     }
+  };
+
+  const resetUserTrainingTime = async (userId: string) => {
+    const { error } = await supabase
+      .from('training_time')
+      .delete()
+      .eq('user_id', userId);
+
+    if (error) {
+      console.error('Error resetting training time:', error);
+      toast.error('Eroare la resetarea timpului de training');
+      return;
+    }
+
+    toast.success('Timpul de training a fost resetat cu succes');
   };
 
   const exportToCSV = () => {
@@ -618,16 +633,27 @@ export default function AdminDashboard() {
             <div className="space-y-6 pr-4">
               {/* Chapter Progress */}
               <div>
-                <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center justify-between mb-3 flex-wrap gap-2">
                   <h3 className="text-lg font-semibold">Progres pe Capitole</h3>
-                  <Button 
-                    variant="destructive" 
-                    size="sm"
-                    onClick={() => selectedUser && resetAllScores(selectedUser.id)}
-                  >
-                    <RotateCcw className="h-4 w-4 mr-2" />
-                    Resetează Tot
-                  </Button>
+                  <div className="flex gap-2">
+                    <Button 
+                      variant="outline" 
+                      size="sm"
+                      onClick={() => selectedUser && resetUserTrainingTime(selectedUser.id)}
+                      className="text-amber-600 hover:text-amber-800 border-amber-300"
+                    >
+                      <TimerReset className="h-4 w-4 mr-2" />
+                      Reset Timer
+                    </Button>
+                    <Button 
+                      variant="destructive" 
+                      size="sm"
+                      onClick={() => selectedUser && resetAllScores(selectedUser.id)}
+                    >
+                      <RotateCcw className="h-4 w-4 mr-2" />
+                      Resetează Tot
+                    </Button>
+                  </div>
                 </div>
                 <Table>
                   <TableHeader>
