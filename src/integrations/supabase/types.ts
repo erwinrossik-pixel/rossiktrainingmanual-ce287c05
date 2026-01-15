@@ -14,6 +14,60 @@ export type Database = {
   }
   public: {
     Tables: {
+      ai_recommendations: {
+        Row: {
+          ai_confidence: number | null
+          applied_at: string | null
+          applied_by: string | null
+          created_at: string
+          description: string
+          dismissed_reason: string | null
+          id: string
+          kpi_data: Json | null
+          recommendation_type: string
+          severity: string
+          status: string
+          suggested_action: string | null
+          target_entity: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          ai_confidence?: number | null
+          applied_at?: string | null
+          applied_by?: string | null
+          created_at?: string
+          description: string
+          dismissed_reason?: string | null
+          id?: string
+          kpi_data?: Json | null
+          recommendation_type: string
+          severity?: string
+          status?: string
+          suggested_action?: string | null
+          target_entity: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          ai_confidence?: number | null
+          applied_at?: string | null
+          applied_by?: string | null
+          created_at?: string
+          description?: string
+          dismissed_reason?: string | null
+          id?: string
+          kpi_data?: Json | null
+          recommendation_type?: string
+          severity?: string
+          status?: string
+          suggested_action?: string | null
+          target_entity?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       auto_update_settings: {
         Row: {
           description: string | null
@@ -324,6 +378,62 @@ export type Database = {
         }
         Relationships: []
       }
+      content_difficulty_analysis: {
+        Row: {
+          avg_attempts_to_pass: number | null
+          avg_pass_rate: number | null
+          avg_time_to_pass_hours: number | null
+          bounce_rate: number | null
+          chapter_id: string
+          comprehension_issues: Json | null
+          correlation_with_auto_updates: number | null
+          created_at: string
+          difficulty_rating: string
+          id: string
+          last_analyzed_at: string
+          needs_review: boolean | null
+          skip_rate: number | null
+        }
+        Insert: {
+          avg_attempts_to_pass?: number | null
+          avg_pass_rate?: number | null
+          avg_time_to_pass_hours?: number | null
+          bounce_rate?: number | null
+          chapter_id: string
+          comprehension_issues?: Json | null
+          correlation_with_auto_updates?: number | null
+          created_at?: string
+          difficulty_rating?: string
+          id?: string
+          last_analyzed_at?: string
+          needs_review?: boolean | null
+          skip_rate?: number | null
+        }
+        Update: {
+          avg_attempts_to_pass?: number | null
+          avg_pass_rate?: number | null
+          avg_time_to_pass_hours?: number | null
+          bounce_rate?: number | null
+          chapter_id?: string
+          comprehension_issues?: Json | null
+          correlation_with_auto_updates?: number | null
+          created_at?: string
+          difficulty_rating?: string
+          id?: string
+          last_analyzed_at?: string
+          needs_review?: boolean | null
+          skip_rate?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "content_difficulty_analysis_chapter_id_fkey"
+            columns: ["chapter_id"]
+            isOneToOne: true
+            referencedRelation: "chapters"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       content_sources: {
         Row: {
           category: string
@@ -465,6 +575,36 @@ export type Database = {
         }
         Relationships: []
       }
+      learning_kpi_cache: {
+        Row: {
+          computed_at: string
+          created_at: string
+          entity_id: string
+          id: string
+          kpi_type: string
+          metrics: Json
+          valid_until: string
+        }
+        Insert: {
+          computed_at?: string
+          created_at?: string
+          entity_id: string
+          id?: string
+          kpi_type: string
+          metrics?: Json
+          valid_until?: string
+        }
+        Update: {
+          computed_at?: string
+          created_at?: string
+          entity_id?: string
+          id?: string
+          kpi_type?: string
+          metrics?: Json
+          valid_until?: string
+        }
+        Relationships: []
+      }
       page_views: {
         Row: {
           chapter_id: string | null
@@ -527,6 +667,59 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      question_analytics: {
+        Row: {
+          avg_time_seconds: number | null
+          chapter_id: string
+          correct_attempts: number
+          created_at: string
+          difficulty_score: number | null
+          id: string
+          incorrect_attempts: number
+          language: string
+          last_updated_at: string
+          question_index: number
+          question_text: string | null
+          total_attempts: number
+        }
+        Insert: {
+          avg_time_seconds?: number | null
+          chapter_id: string
+          correct_attempts?: number
+          created_at?: string
+          difficulty_score?: number | null
+          id?: string
+          incorrect_attempts?: number
+          language?: string
+          last_updated_at?: string
+          question_index: number
+          question_text?: string | null
+          total_attempts?: number
+        }
+        Update: {
+          avg_time_seconds?: number | null
+          chapter_id?: string
+          correct_attempts?: number
+          created_at?: string
+          difficulty_score?: number | null
+          id?: string
+          incorrect_attempts?: number
+          language?: string
+          last_updated_at?: string
+          question_index?: number
+          question_text?: string | null
+          total_attempts?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "question_analytics_chapter_id_fkey"
+            columns: ["chapter_id"]
+            isOneToOne: false
+            referencedRelation: "chapters"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       quiz_attempts: {
         Row: {
@@ -761,6 +954,59 @@ export type Database = {
           source_url?: string | null
         }
         Relationships: []
+      }
+      user_learning_analytics: {
+        Row: {
+          attempts_before_pass: number | null
+          chapter_id: string
+          created_at: string
+          first_attempt_at: string | null
+          id: string
+          learning_velocity: number | null
+          passed_at: string | null
+          score_progression: Json | null
+          time_to_pass_seconds: number | null
+          total_study_time_seconds: number | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          attempts_before_pass?: number | null
+          chapter_id: string
+          created_at?: string
+          first_attempt_at?: string | null
+          id?: string
+          learning_velocity?: number | null
+          passed_at?: string | null
+          score_progression?: Json | null
+          time_to_pass_seconds?: number | null
+          total_study_time_seconds?: number | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          attempts_before_pass?: number | null
+          chapter_id?: string
+          created_at?: string
+          first_attempt_at?: string | null
+          id?: string
+          learning_velocity?: number | null
+          passed_at?: string | null
+          score_progression?: Json | null
+          time_to_pass_seconds?: number | null
+          total_study_time_seconds?: number | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_learning_analytics_chapter_id_fkey"
+            columns: ["chapter_id"]
+            isOneToOne: false
+            referencedRelation: "chapters"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       user_roles: {
         Row: {
