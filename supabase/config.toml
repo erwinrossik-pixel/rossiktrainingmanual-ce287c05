@@ -11,3 +11,6 @@ verify_jwt = false
 
 [functions.send-admin-notification]
 verify_jwt = false
+
+[functions.ai-kpi-analyzer]
+verify_jwt = false
