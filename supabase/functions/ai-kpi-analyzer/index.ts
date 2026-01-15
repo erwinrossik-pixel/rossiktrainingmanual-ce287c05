@@ -35,18 +35,38 @@ serve(async (req) => {
     return new Response(null, { headers: corsHeaders });
   }
 
+  const startTime = Date.now();
+  let logId: string | null = null;
+
+  const LOVABLE_API_KEY = Deno.env.get('LOVABLE_API_KEY');
+  const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
+  const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
+  const supabase = createClient(supabaseUrl, supabaseServiceKey);
+
   try {
-    const LOVABLE_API_KEY = Deno.env.get('LOVABLE_API_KEY');
     if (!LOVABLE_API_KEY) {
       throw new Error('LOVABLE_API_KEY is not configured');
     }
 
-    const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
-    const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
-    const supabase = createClient(supabaseUrl, supabaseServiceKey);
+    const { type, chapterId, sendNotification, manual, triggered_by }: AnalysisRequest & { manual?: boolean; triggered_by?: string } = await req.json();
+    const executionType = manual ? 'manual' : 'scheduled';
+    
+    console.log(`AI KPI Analyzer: Starting ${type} analysis${chapterId ? ` for ${chapterId}` : ''}, Type: ${executionType}`);
 
-    const { type, chapterId, sendNotification }: AnalysisRequest = await req.json();
-    console.log(`AI KPI Analyzer: Starting ${type} analysis${chapterId ? ` for ${chapterId}` : ''}${sendNotification ? ' with notification' : ''}`);
+    // Create cron job log entry
+    const { data: logEntry } = await supabase
+      .from('cron_job_logs' as any)
+      .insert({
+        job_name: 'ai-kpi-analyzer',
+        execution_type: executionType,
+        status: 'running',
+        triggered_by: triggered_by || null,
+        execution_details: { type, chapterId, sendNotification }
+      })
+      .select('id')
+      .single();
+    
+    logId = (logEntry as any)?.id;
 
     // Fetch quiz attempts data
     const { data: attempts, error: attemptsError } = await supabase
@@ -361,6 +381,32 @@ Generează recomandări concrete pentru îmbunătățirea conținutului educați
       }
     }
 
+    const durationMs = Date.now() - startTime;
+
+    // Update cron job log with success
+    if (logId) {
+      await supabase
+        .from('cron_job_logs' as any)
+        .update({
+          status: 'success',
+          completed_at: new Date().toISOString(),
+          duration_ms: durationMs,
+          items_processed: chapters.length,
+          items_failed: 0,
+          result_summary: `Analizate ${chapters.length} capitole, generate ${recommendations.length} recomandări (${criticalCount} critice, ${highCount} high)`,
+          execution_details: {
+            chaptersAnalyzed: chapters.length,
+            recommendationsGenerated: recommendations.length,
+            criticalCount,
+            highCount,
+            problematicChapters: problematicChapters.length
+          }
+        })
+        .eq('id', logId);
+    }
+
+    console.log(`AI KPI Analyzer: Completed in ${durationMs}ms`);
+
     return new Response(JSON.stringify({
       success: true,
       ...parsedRecommendations,
@@ -371,6 +417,7 @@ Generează recomandări concrete pentru îmbunătățirea conținutului educați
         analyzedAt: new Date().toISOString(),
         criticalCount,
         highCount,
+        durationMs,
       }
     }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
@@ -378,8 +425,25 @@ Generează recomandări concrete pentru îmbunătățirea conținutului educați
 
   } catch (error) {
     console.error('Error in AI KPI Analyzer:', error);
+    const durationMs = Date.now() - startTime;
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+
+    // Update cron job log with failure
+    if (logId) {
+      await supabase
+        .from('cron_job_logs' as any)
+        .update({
+          status: 'failed',
+          completed_at: new Date().toISOString(),
+          duration_ms: durationMs,
+          error_message: errorMessage,
+          result_summary: `Eroare: ${errorMessage}`
+        })
+        .eq('id', logId);
+    }
+
     return new Response(JSON.stringify({ 
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: errorMessage,
       success: false 
     }), {
       status: 500,

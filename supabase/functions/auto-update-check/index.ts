@@ -58,13 +58,31 @@ serve(async (req) => {
   const lovableApiKey = Deno.env.get('LOVABLE_API_KEY');
   
   const supabase = createClient(supabaseUrl, supabaseServiceKey);
+  const startTime = Date.now();
+  let logId: string | null = null;
 
   try {
-    const { action, source_id, force_check } = await req.json().catch(() => ({}));
+    const { action, source_id, force_check, manual, triggered_by } = await req.json().catch(() => ({}));
+    const executionType = manual ? 'manual' : 'scheduled';
     
-    console.log(`[AUTO-UPDATE] Action: ${action || 'daily_check'}, Source: ${source_id || 'all'}`);
+    console.log(`[AUTO-UPDATE] Action: ${action || 'daily_check'}, Source: ${source_id || 'all'}, Type: ${executionType}`);
 
-    // Log the start
+    // Create cron job log entry
+    const { data: logEntry } = await supabase
+      .from('cron_job_logs')
+      .insert({
+        job_name: 'auto-update-check',
+        execution_type: executionType,
+        status: 'running',
+        triggered_by: triggered_by || null,
+        execution_details: { action: action || 'daily_check', source_id, force_check }
+      })
+      .select('id')
+      .single();
+    
+    logId = logEntry?.id;
+
+    // Log the start in audit log
     await supabase.from('update_audit_log').insert({
       action: 'source_check',
       entity_type: 'system',
@@ -337,7 +355,29 @@ If no significant changes, return {"hasChanges": false, "changes": []}`;
       .update({ setting_value: JSON.stringify(new Date().toISOString()) })
       .eq('setting_key', 'last_full_check');
 
-    // Log completion
+    const durationMs = Date.now() - startTime;
+
+    // Update cron job log with success
+    if (logId) {
+      await supabase
+        .from('cron_job_logs')
+        .update({
+          status: 'success',
+          completed_at: new Date().toISOString(),
+          duration_ms: durationMs,
+          items_processed: results.length,
+          items_failed: 0,
+          result_summary: `Verificate ${results.length} surse, detectate ${detectedChanges.length} schimbări`,
+          execution_details: {
+            sources_checked: results.length,
+            changes_detected: detectedChanges.length,
+            results: results.map(r => ({ source: r.source, status: r.status, changes: r.changes_detected }))
+          }
+        })
+        .eq('id', logId);
+    }
+
+    // Log completion in audit log
     await supabase.from('update_audit_log').insert({
       action: 'source_check',
       entity_type: 'system',
@@ -345,16 +385,18 @@ If no significant changes, return {"hasChanges": false, "changes": []}`;
         completed: true,
         sources_checked: results.length,
         changes_detected: detectedChanges.length,
+        duration_ms: durationMs
       },
       performed_by: 'system'
     });
 
-    console.log(`[AUTO-UPDATE] Completed. Checked ${results.length} sources, found ${detectedChanges.length} changes`);
+    console.log(`[AUTO-UPDATE] Completed in ${durationMs}ms. Checked ${results.length} sources, found ${detectedChanges.length} changes`);
 
     return new Response(JSON.stringify({
       success: true,
       sources_checked: results.length,
       changes_detected: detectedChanges.length,
+      duration_ms: durationMs,
       results,
     }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
@@ -362,16 +404,32 @@ If no significant changes, return {"hasChanges": false, "changes": []}`;
 
   } catch (error) {
     console.error('[AUTO-UPDATE] Error:', error);
+    const durationMs = Date.now() - startTime;
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
     
+    // Update cron job log with failure
+    if (logId) {
+      await supabase
+        .from('cron_job_logs')
+        .update({
+          status: 'failed',
+          completed_at: new Date().toISOString(),
+          duration_ms: durationMs,
+          error_message: errorMessage,
+          result_summary: `Eroare: ${errorMessage}`
+        })
+        .eq('id', logId);
+    }
+
     await supabase.from('update_audit_log').insert({
       action: 'source_check',
       entity_type: 'system',
-      details: { error: error instanceof Error ? error.message : 'Unknown error' },
+      details: { error: errorMessage, duration_ms: durationMs },
       performed_by: 'system'
     });
 
     return new Response(JSON.stringify({ 
-      error: error instanceof Error ? error.message : 'Unknown error',
+      error: errorMessage,
       success: false 
     }), {
       status: 500,
