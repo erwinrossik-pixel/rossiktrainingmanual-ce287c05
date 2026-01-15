@@ -2,7 +2,6 @@ import { Truck, Globe, BookOpen, Target, Award, Users, MapPin, Building2, CheckC
 import rossikLogo from "@/assets/rossik-logo.jpg";
 import { InfoCard } from "../InfoCard";
 import { ChapterHero } from "../ChapterHero";
-import { Quiz } from "../Quiz";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 
 export function IntroChapter() {
@@ -348,8 +347,6 @@ export function IntroChapter() {
         </div>
       </div>
 
-      {/* Quiz */}
-      <Quiz title={ct("quizTitle")} chapterId="intro" />
     </div>
   );
 }
