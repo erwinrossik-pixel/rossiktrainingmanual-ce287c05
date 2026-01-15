@@ -42,6 +42,13 @@ export function useTrainingTimer() {
   const syncTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const userIdRef = useRef<string | undefined>(undefined);
 
+  const clearPendingSync = () => {
+    if (syncTimeoutRef.current) {
+      clearTimeout(syncTimeoutRef.current);
+      syncTimeoutRef.current = null;
+    }
+  };
+
   // Load data from Supabase or localStorage
   useEffect(() => {
     const loadData = async () => {
@@ -76,6 +83,7 @@ export function useTrainingTimer() {
           setTimerData({ days, currentActiveDay, trainingStartedAt });
         } else if (!error && (!data || data.length === 0)) {
           // Reset to default if no data found (e.g., after admin reset)
+          clearPendingSync();
           setTimerData(defaultTimerData);
           localStorage.removeItem(STORAGE_KEY);
         }
@@ -125,6 +133,7 @@ export function useTrainingTimer() {
             
             if (!data || data.length === 0) {
               // All records deleted, reset to default
+              clearPendingSync();
               setTimerData(defaultTimerData);
               localStorage.removeItem(STORAGE_KEY);
             }
@@ -156,6 +165,7 @@ export function useTrainingTimer() {
 
               setTimerData({ days, currentActiveDay, trainingStartedAt });
             } else if (!error && (!data || data.length === 0)) {
+              clearPendingSync();
               setTimerData(defaultTimerData);
               localStorage.removeItem(STORAGE_KEY);
             }
@@ -191,6 +201,7 @@ export function useTrainingTimer() {
     // Clear any pending sync
     if (syncTimeoutRef.current) {
       clearTimeout(syncTimeoutRef.current);
+      syncTimeoutRef.current = null;
     }
 
     // Debounce the sync to avoid too many writes
@@ -343,6 +354,7 @@ export function useTrainingTimer() {
 
   // Reset all timer data
   const resetTimers = useCallback(async () => {
+    clearPendingSync();
     localStorage.removeItem(STORAGE_KEY);
     setTimerData(defaultTimerData);
     
