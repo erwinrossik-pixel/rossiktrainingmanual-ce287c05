@@ -1,11 +1,12 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { AlertTriangle, CheckCircle2, HelpCircle, Download, BarChart3 } from "lucide-react";
+import { AlertTriangle, CheckCircle2, HelpCircle, Download, BarChart3, ArrowUpDown, Filter } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { getQuizStats, getChaptersNeedingQuestions, getAllQuestionCounts } from "@/data/quizTranslations";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { toast } from "@/hooks/use-toast";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell, ReferenceLine } from "recharts";
 
 export function QuizDiagnostics() {
@@ -64,6 +65,12 @@ export function QuizDiagnostics() {
       current: "Actual",
       needed: "Necesar",
       allGood: "Toate capitolele au minim 30 de întrebări!",
+      filterAll: "Toate",
+      filterOk: "OK (≥30)",
+      filterNeedsWork: "Necesită (<30)",
+      sortAlpha: "Alfabetic",
+      sortCount: "După întrebări",
+      sortStatus: "După status",
     },
     de: {
       title: "Quiz-Diagnose",
@@ -77,6 +84,12 @@ export function QuizDiagnostics() {
       current: "Aktuell",
       needed: "Benötigt",
       allGood: "Alle Kapitel haben mindestens 30 Fragen!",
+      filterAll: "Alle",
+      filterOk: "OK (≥30)",
+      filterNeedsWork: "Benötigt (<30)",
+      sortAlpha: "Alphabetisch",
+      sortCount: "Nach Fragen",
+      sortStatus: "Nach Status",
     },
     en: {
       title: "Quiz Diagnostics",
@@ -90,12 +103,52 @@ export function QuizDiagnostics() {
       current: "Current",
       needed: "Needed",
       allGood: "All chapters have at least 30 questions!",
+      filterAll: "All",
+      filterOk: "OK (≥30)",
+      filterNeedsWork: "Needs work (<30)",
+      sortAlpha: "Alphabetic",
+      sortCount: "By questions",
+      sortStatus: "By status",
     },
   };
 
   const text = t[language];
 
   const [showChart, setShowChart] = useState(false);
+  const [filter, setFilter] = useState<'all' | 'ok' | 'needsWork'>('all');
+  const [sortBy, setSortBy] = useState<'alpha' | 'count' | 'status'>('alpha');
+
+  // Filter and sort chapters
+  const filteredAndSortedChapters = useMemo(() => {
+    let entries = Object.entries(allCounts);
+
+    // Apply filter
+    if (filter === 'ok') {
+      entries = entries.filter(([, count]) => count >= 30);
+    } else if (filter === 'needsWork') {
+      entries = entries.filter(([, count]) => count < 30);
+    }
+
+    // Apply sort
+    switch (sortBy) {
+      case 'alpha':
+        entries.sort((a, b) => a[0].localeCompare(b[0]));
+        break;
+      case 'count':
+        entries.sort((a, b) => b[1] - a[1]); // Descending
+        break;
+      case 'status':
+        entries.sort((a, b) => {
+          const aOk = a[1] >= 30 ? 1 : 0;
+          const bOk = b[1] >= 30 ? 1 : 0;
+          if (aOk !== bOk) return aOk - bOk; // Needs work first
+          return a[0].localeCompare(b[0]); // Then alphabetic
+        });
+        break;
+    }
+
+    return entries;
+  }, [allCounts, filter, sortBy]);
 
   // Prepare chart data
   const chartData = Object.entries(allCounts)
@@ -261,23 +314,62 @@ export function QuizDiagnostics() {
         <details className="mt-4">
           <summary className="text-sm font-medium cursor-pointer text-muted-foreground hover:text-foreground">
             {language === 'ro' ? 'Vezi toate capitolele' : language === 'de' ? 'Alle Kapitel anzeigen' : 'View all chapters'}
+            {filter !== 'all' && (
+              <Badge variant="secondary" className="ml-2 text-xs">
+                {filteredAndSortedChapters.length}/{Object.keys(allCounts).length}
+              </Badge>
+            )}
           </summary>
-          <div className="mt-2 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 text-xs">
-            {Object.entries(allCounts)
-              .sort((a, b) => a[0].localeCompare(b[0]))
-              .map(([chapterId, count]) => (
-                <div 
-                  key={chapterId}
-                  className={`flex items-center justify-between p-1.5 rounded ${
-                    count >= 30 
-                      ? 'bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400' 
-                      : 'bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-400'
-                  }`}
-                >
-                  <span className="truncate">{chapterId}</span>
-                  <span className="font-bold ml-1">{count}</span>
-                </div>
-              ))}
+          
+          {/* Filter and Sort Controls */}
+          <div className="flex flex-wrap gap-2 mt-3 mb-2">
+            <div className="flex items-center gap-1">
+              <Filter className="w-3 h-3 text-muted-foreground" />
+              <Select value={filter} onValueChange={(v) => setFilter(v as typeof filter)}>
+                <SelectTrigger className="h-7 text-xs w-[120px]">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">{text.filterAll}</SelectItem>
+                  <SelectItem value="ok">{text.filterOk}</SelectItem>
+                  <SelectItem value="needsWork">{text.filterNeedsWork}</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="flex items-center gap-1">
+              <ArrowUpDown className="w-3 h-3 text-muted-foreground" />
+              <Select value={sortBy} onValueChange={(v) => setSortBy(v as typeof sortBy)}>
+                <SelectTrigger className="h-7 text-xs w-[130px]">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="alpha">{text.sortAlpha}</SelectItem>
+                  <SelectItem value="count">{text.sortCount}</SelectItem>
+                  <SelectItem value="status">{text.sortStatus}</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2 text-xs">
+            {filteredAndSortedChapters.map(([chapterId, count]) => (
+              <div 
+                key={chapterId}
+                className={`flex items-center justify-between p-1.5 rounded ${
+                  count >= 30 
+                    ? 'bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400' 
+                    : 'bg-amber-50 dark:bg-amber-900/20 text-amber-700 dark:text-amber-400'
+                }`}
+              >
+                <span className="truncate">{chapterId}</span>
+                <span className="font-bold ml-1">{count}</span>
+              </div>
+            ))}
+            {filteredAndSortedChapters.length === 0 && (
+              <div className="col-span-full text-center text-muted-foreground py-2">
+                {language === 'ro' ? 'Niciun rezultat' : language === 'de' ? 'Keine Ergebnisse' : 'No results'}
+              </div>
+            )}
           </div>
         </details>
       </CardContent>
