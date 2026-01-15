@@ -210,6 +210,62 @@ export function useChapterProgress() {
     }
   }, [user, queryClient]);
 
+  // Special function to complete intro chapter without quiz
+  const completeIntroChapter = useCallback(async (): Promise<boolean> => {
+    if (!user) return false;
+
+    const chapterId = 'intro';
+
+    // Mark intro as completed
+    const { error: progressError } = await supabase
+      .from('chapter_progress')
+      .upsert({
+        user_id: user.id,
+        chapter_id: chapterId,
+        status: 'completed',
+        best_score: 0,
+        attempts_count: 0,
+        completed_at: new Date().toISOString(),
+      }, {
+        onConflict: 'user_id,chapter_id',
+      });
+
+    if (progressError) {
+      console.error('Error completing intro:', progressError);
+      return false;
+    }
+
+    // Get all chapters to find the next one (mindset)
+    const { data: chapters } = await supabase
+      .from('chapters')
+      .select('id, order_index')
+      .order('order_index');
+
+    if (chapters) {
+      const introIndex = chapters.findIndex(c => c.id === 'intro');
+      if (introIndex >= 0 && introIndex < chapters.length - 1) {
+        const nextChapter = chapters[introIndex + 1];
+        
+        // Unlock next chapter
+        await supabase
+          .from('chapter_progress')
+          .upsert({
+            user_id: user.id,
+            chapter_id: nextChapter.id,
+            status: 'unlocked',
+            best_score: 0,
+            attempts_count: 0,
+          }, {
+            onConflict: 'user_id,chapter_id',
+          });
+      }
+    }
+
+    // Invalidate cache to refresh progress
+    queryClient.invalidateQueries({ queryKey: ['chapterProgress', user.id] });
+    return true;
+  }, [user, queryClient]);
+
   return {
     progress,
     loading,
@@ -220,6 +276,7 @@ export function useChapterProgress() {
     recordQuizAttempt,
     initializeUserProgress,
     refreshProgress,
+    completeIntroChapter,
     PASSING_SCORE,
     TOTAL_QUESTIONS,
   };

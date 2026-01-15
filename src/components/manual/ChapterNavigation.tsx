@@ -1,7 +1,10 @@
-import { ChevronLeft, ChevronRight, CheckCircle2, Circle, Sparkles } from "lucide-react";
+import { ChevronLeft, ChevronRight, CheckCircle2, Circle, Sparkles, Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useProgressContext } from "@/contexts/ProgressContext";
+import { useChapterProgress } from "@/hooks/useChapterProgress";
+import { useAuth } from "@/hooks/useAuth";
 import { cn } from "@/lib/utils";
+import { toast } from "sonner";
 
 // Ordered chapter list matching sidebar sections
 const chapterOrder = [
@@ -60,15 +63,37 @@ interface ChapterNavigationProps {
 
 export function ChapterNavigation({ activeChapter, onChapterChange }: ChapterNavigationProps) {
   const { getChapterProgress, completeChapter } = useProgressContext();
+  const { completeIntroChapter } = useChapterProgress();
+  const { user } = useAuth();
   const currentIndex = chapterOrder.findIndex(c => c.id === activeChapter);
   const prevChapter = currentIndex > 0 ? chapterOrder[currentIndex - 1] : null;
   const nextChapter = currentIndex < chapterOrder.length - 1 ? chapterOrder[currentIndex + 1] : null;
   
   const chapterProgress = getChapterProgress(activeChapter);
   const isCompleted = chapterProgress?.completed;
+  
+  // Only intro chapter can be marked complete manually (without quiz)
+  const isIntroChapter = activeChapter === 'intro';
+  const canMarkComplete = isIntroChapter;
 
-  const handleMarkComplete = () => {
+  const handleMarkComplete = async () => {
+    if (!canMarkComplete) {
+      toast.error("Trebuie să finalizezi quiz-ul pentru a marca capitolul ca finalizat");
+      return;
+    }
+    
+    // Mark intro as complete in local progress
     completeChapter(activeChapter);
+    
+    // If user is logged in, also update database and unlock next chapter
+    if (user) {
+      const success = await completeIntroChapter();
+      if (success) {
+        toast.success("Capitol finalizat! Următorul capitol a fost deblocat.");
+      }
+    } else {
+      toast.success("Capitol marcat ca finalizat!");
+    }
   };
 
   return (
@@ -78,14 +103,14 @@ export function ChapterNavigation({ activeChapter, onChapterChange }: ChapterNav
         {isCompleted ? (
           <div className="flex items-center gap-3 px-6 py-3 bg-success/10 text-success rounded-2xl border border-success/20 shadow-sm">
             <CheckCircle2 className="w-5 h-5" />
-            <span className="font-semibold">Chapter Completed</span>
+            <span className="font-semibold">Capitol Finalizat</span>
             {chapterProgress?.quizScore !== undefined && (
               <span className="text-sm opacity-80 bg-success/20 px-2 py-0.5 rounded-full">
                 Quiz: {chapterProgress.quizScore}/{chapterProgress.quizTotal}
               </span>
             )}
           </div>
-        ) : (
+        ) : canMarkComplete ? (
           <Button
             variant="outline"
             size="lg"
@@ -93,8 +118,13 @@ export function ChapterNavigation({ activeChapter, onChapterChange }: ChapterNav
             className="flex items-center gap-3 border-success/30 text-success hover:bg-success/10 hover:text-success hover:border-success/50 rounded-xl shadow-sm transition-all duration-200 hover:-translate-y-0.5"
           >
             <Sparkles className="w-4 h-4" />
-            Mark Chapter as Complete
+            Marchează Capitol ca Finalizat
           </Button>
+        ) : (
+          <div className="flex items-center gap-3 px-6 py-3 bg-muted/50 text-muted-foreground rounded-2xl border border-border/50 shadow-sm">
+            <Lock className="w-5 h-5" />
+            <span className="font-medium">Finalizează quiz-ul pentru a debloca următorul capitol</span>
+          </div>
         )}
       </div>
 
