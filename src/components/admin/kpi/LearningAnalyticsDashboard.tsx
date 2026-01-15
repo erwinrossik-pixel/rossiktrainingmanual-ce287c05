@@ -6,6 +6,7 @@ import { useLearningKPI } from '@/hooks/useLearningKPI';
 import { LearningKPIPanel } from './LearningKPIPanel';
 import { UserKPIPanel } from './UserKPIPanel';
 import { ContentKPIPanel } from './ContentKPIPanel';
+import { AIRecommendationsPanel } from './AIRecommendationsPanel';
 import { RefreshCw, BookOpen, Users, FileText, TrendingUp, Brain } from 'lucide-react';
 import { toast } from 'sonner';
 
@@ -95,7 +96,7 @@ export const LearningAnalyticsDashboard = memo(function LearningAnalyticsDashboa
 
       {/* KPI Tabs */}
       <Tabs defaultValue="learning" className="w-full">
-        <TabsList className="grid w-full grid-cols-3">
+        <TabsList className="grid w-full grid-cols-4">
           <TabsTrigger value="learning" className="flex items-center gap-2">
             <BookOpen className="h-4 w-4" />
             KPI Învățare
@@ -107,6 +108,10 @@ export const LearningAnalyticsDashboard = memo(function LearningAnalyticsDashboa
           <TabsTrigger value="content" className="flex items-center gap-2">
             <FileText className="h-4 w-4" />
             KPI Conținut
+          </TabsTrigger>
+          <TabsTrigger value="ai-feedback" className="flex items-center gap-2">
+            <Brain className="h-4 w-4" />
+            AI Feedback
           </TabsTrigger>
         </TabsList>
 
@@ -120,6 +125,10 @@ export const LearningAnalyticsDashboard = memo(function LearningAnalyticsDashboa
 
         <TabsContent value="content" className="mt-6">
           <ContentKPIPanel contentKPIs={contentKPIs} loading={loading} />
+        </TabsContent>
+
+        <TabsContent value="ai-feedback" className="mt-6">
+          <AIRecommendationsPanel />
         </TabsContent>
       </Tabs>
 
