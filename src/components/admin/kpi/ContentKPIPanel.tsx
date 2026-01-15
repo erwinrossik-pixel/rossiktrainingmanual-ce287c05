@@ -1,0 +1,371 @@
+import React, { memo, useState, useMemo } from 'react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Progress } from '@/components/ui/progress';
+import { Button } from '@/components/ui/button';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { ContentKPI } from '@/hooks/useLearningKPI';
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  Cell,
+  ScatterChart,
+  Scatter,
+  ZAxis,
+  Legend,
+} from 'recharts';
+import { 
+  AlertTriangle, 
+  CheckCircle2, 
+  HelpCircle,
+  TrendingUp,
+  TrendingDown,
+  ArrowUpDown,
+  BookX,
+  Lightbulb,
+  Target,
+} from 'lucide-react';
+
+interface ContentKPIPanelProps {
+  contentKPIs: ContentKPI[];
+  loading: boolean;
+}
+
+const difficultyColors: Record<ContentKPI['difficulty'], string> = {
+  very_easy: '#22c55e',
+  easy: '#84cc16',
+  medium: '#eab308',
+  hard: '#f97316',
+  very_hard: '#ef4444',
+};
+
+const difficultyLabels: Record<ContentKPI['difficulty'], string> = {
+  very_easy: 'Foarte Ușor',
+  easy: 'Ușor',
+  medium: 'Mediu',
+  hard: 'Greu',
+  very_hard: 'Foarte Greu',
+};
+
+export const ContentKPIPanel = memo(function ContentKPIPanel({ 
+  contentKPIs, 
+  loading 
+}: ContentKPIPanelProps) {
+  const [sortBy, setSortBy] = useState<'passRate' | 'difficulty' | 'bounceRate'>('passRate');
+  const [filterDifficulty, setFilterDifficulty] = useState<string>('all');
+
+  const filteredAndSorted = useMemo(() => {
+    let result = [...contentKPIs];
+    
+    if (filterDifficulty !== 'all') {
+      result = result.filter(c => c.difficulty === filterDifficulty);
+    }
+    
+    result.sort((a, b) => {
+      switch (sortBy) {
+        case 'passRate':
+          return a.avgPassRate - b.avgPassRate;
+        case 'bounceRate':
+          return b.bounceRate - a.bounceRate;
+        case 'difficulty':
+          const diffOrder = { very_hard: 0, hard: 1, medium: 2, easy: 3, very_easy: 4 };
+          return diffOrder[a.difficulty] - diffOrder[b.difficulty];
+        default:
+          return 0;
+      }
+    });
+    
+    return result;
+  }, [contentKPIs, sortBy, filterDifficulty]);
+
+  // Summary stats
+  const veryHardChapters = contentKPIs.filter(c => c.difficulty === 'very_hard' || c.difficulty === 'hard');
+  const veryEasyChapters = contentKPIs.filter(c => c.difficulty === 'very_easy' || c.difficulty === 'easy');
+  const chaptersNeedingReview = contentKPIs.filter(c => c.needsReview);
+  const avgBounceRate = contentKPIs.length > 0 
+    ? contentKPIs.reduce((sum, c) => sum + c.bounceRate, 0) / contentKPIs.length 
+    : 0;
+
+  // Difficulty distribution for chart
+  const difficultyDistribution = [
+    { name: 'Foarte Ușor', value: contentKPIs.filter(c => c.difficulty === 'very_easy').length, color: difficultyColors.very_easy },
+    { name: 'Ușor', value: contentKPIs.filter(c => c.difficulty === 'easy').length, color: difficultyColors.easy },
+    { name: 'Mediu', value: contentKPIs.filter(c => c.difficulty === 'medium').length, color: difficultyColors.medium },
+    { name: 'Greu', value: contentKPIs.filter(c => c.difficulty === 'hard').length, color: difficultyColors.hard },
+    { name: 'Foarte Greu', value: contentKPIs.filter(c => c.difficulty === 'very_hard').length, color: difficultyColors.very_hard },
+  ];
+
+  // Scatter data for pass rate vs attempts
+  const scatterData = contentKPIs.map(c => ({
+    x: c.avgPassRate,
+    y: c.avgAttemptsToPass,
+    z: c.bounceRate + 10,
+    name: c.chapterName,
+    difficulty: c.difficulty,
+  }));
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary" />
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-6">
+      {/* Summary Stats */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <Card>
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm font-medium flex items-center gap-2">
+              <TrendingDown className="h-4 w-4 text-destructive" />
+              Capitole Grele
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold text-destructive">{veryHardChapters.length}</div>
+            <p className="text-xs text-muted-foreground">necesită simplificare</p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm font-medium flex items-center gap-2">
+              <TrendingUp className="h-4 w-4 text-green-600" />
+              Capitole Ușoare
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold text-green-600">{veryEasyChapters.length}</div>
+            <p className="text-xs text-muted-foreground">pot fi extinse</p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm font-medium flex items-center gap-2">
+              <AlertTriangle className="h-4 w-4 text-orange-500" />
+              Necesită Review
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold text-orange-600">{chaptersNeedingReview.length}</div>
+            <p className="text-xs text-muted-foreground">atenție prioritară</p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm font-medium flex items-center gap-2">
+              <BookX className="h-4 w-4 text-muted-foreground" />
+              Bounce Rate Mediu
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{avgBounceRate.toFixed(1)}%</div>
+            <p className="text-xs text-muted-foreground">abandon capitol</p>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Charts Row */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Difficulty Distribution */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg">Distribuția Dificultății</CardTitle>
+            <CardDescription>Câte capitole per nivel de dificultate</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <ResponsiveContainer width="100%" height={250}>
+              <BarChart data={difficultyDistribution}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" tick={{ fontSize: 11 }} />
+                <YAxis />
+                <Tooltip />
+                <Bar dataKey="value" name="Capitole">
+                  {difficultyDistribution.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.color} />
+                  ))}
+                </Bar>
+              </BarChart>
+            </ResponsiveContainer>
+          </CardContent>
+        </Card>
+
+        {/* Pass Rate vs Attempts Scatter */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg">Analiză Corelație</CardTitle>
+            <CardDescription>Rata promovare vs. încercări medii (dimensiune = bounce rate)</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <ResponsiveContainer width="100%" height={250}>
+              <ScatterChart>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis 
+                  dataKey="x" 
+                  name="Rata Promovare" 
+                  unit="%" 
+                  domain={[0, 100]}
+                  label={{ value: 'Rata Promovare (%)', position: 'bottom', offset: -5 }}
+                />
+                <YAxis 
+                  dataKey="y" 
+                  name="Încercări" 
+                  label={{ value: 'Încercări', angle: -90, position: 'insideLeft' }}
+                />
+                <ZAxis dataKey="z" range={[50, 400]} />
+                <Tooltip 
+                  content={({ active, payload }) => {
+                    if (active && payload && payload.length) {
+                      const data = payload[0].payload;
+                      return (
+                        <div className="bg-background border rounded-lg p-2 shadow-lg">
+                          <p className="font-medium">{data.name}</p>
+                          <p className="text-sm">Promovare: {data.x.toFixed(1)}%</p>
+                          <p className="text-sm">Încercări: {data.y.toFixed(1)}</p>
+                          <Badge 
+                            className="mt-1"
+                            style={{ backgroundColor: difficultyColors[data.difficulty as ContentKPI['difficulty']] }}
+                          >
+                            {difficultyLabels[data.difficulty as ContentKPI['difficulty']]}
+                          </Badge>
+                        </div>
+                      );
+                    }
+                    return null;
+                  }}
+                />
+                <Scatter 
+                  data={scatterData} 
+                  fill="hsl(var(--primary))"
+                />
+              </ScatterChart>
+            </ResponsiveContainer>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Chapters List with Recommendations */}
+      <Card>
+        <CardHeader>
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div>
+              <CardTitle className="text-lg flex items-center gap-2">
+                <Lightbulb className="h-5 w-5 text-yellow-500" />
+                Analiza Detaliată & Recomandări
+              </CardTitle>
+              <CardDescription>Capitole ordonate după {sortBy}</CardDescription>
+            </div>
+            <div className="flex gap-2">
+              <Select value={filterDifficulty} onValueChange={setFilterDifficulty}>
+                <SelectTrigger className="w-[140px]">
+                  <SelectValue placeholder="Dificultate" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">Toate</SelectItem>
+                  <SelectItem value="very_easy">Foarte Ușor</SelectItem>
+                  <SelectItem value="easy">Ușor</SelectItem>
+                  <SelectItem value="medium">Mediu</SelectItem>
+                  <SelectItem value="hard">Greu</SelectItem>
+                  <SelectItem value="very_hard">Foarte Greu</SelectItem>
+                </SelectContent>
+              </Select>
+              <Select value={sortBy} onValueChange={(v) => setSortBy(v as any)}>
+                <SelectTrigger className="w-[140px]">
+                  <ArrowUpDown className="h-4 w-4 mr-2" />
+                  <SelectValue placeholder="Sortare" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="passRate">Rata Promovare</SelectItem>
+                  <SelectItem value="bounceRate">Bounce Rate</SelectItem>
+                  <SelectItem value="difficulty">Dificultate</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+        </CardHeader>
+        <CardContent>
+          <ScrollArea className="h-[500px]">
+            <div className="space-y-3 pr-4">
+              {filteredAndSorted.map((chapter) => (
+                <div 
+                  key={chapter.chapterId}
+                  className={`p-4 rounded-lg border ${
+                    chapter.needsReview 
+                      ? 'border-orange-500/50 bg-orange-500/5' 
+                      : 'border-border bg-muted/30'
+                  }`}
+                >
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 mb-2">
+                        <h4 className="font-medium truncate">{chapter.chapterName}</h4>
+                        <Badge 
+                          style={{ backgroundColor: difficultyColors[chapter.difficulty] }}
+                          className="text-white"
+                        >
+                          {difficultyLabels[chapter.difficulty]}
+                        </Badge>
+                        {chapter.needsReview && (
+                          <Badge variant="outline" className="border-orange-500 text-orange-600">
+                            <AlertTriangle className="h-3 w-3 mr-1" />
+                            Review
+                          </Badge>
+                        )}
+                        {chapter.correlationWithUpdates > 0 && (
+                          <Badge variant="secondary">
+                            {chapter.correlationWithUpdates} update-uri
+                          </Badge>
+                        )}
+                      </div>
+                      
+                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-sm">
+                        <div>
+                          <p className="text-muted-foreground">Rata Promovare</p>
+                          <p className="font-medium">{chapter.avgPassRate.toFixed(1)}%</p>
+                          <Progress value={chapter.avgPassRate} className="h-1 mt-1" />
+                        </div>
+                        <div>
+                          <p className="text-muted-foreground">Încercări Medii</p>
+                          <p className="font-medium">{chapter.avgAttemptsToPass.toFixed(1)}</p>
+                        </div>
+                        <div>
+                          <p className="text-muted-foreground">Skip Rate</p>
+                          <p className="font-medium">{chapter.skipRate.toFixed(1)}%</p>
+                        </div>
+                        <div>
+                          <p className="text-muted-foreground">Bounce Rate</p>
+                          <p className="font-medium text-orange-600">{chapter.bounceRate.toFixed(1)}%</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {chapter.recommendation && (
+                    <div className="mt-3 p-3 bg-yellow-500/10 rounded border border-yellow-500/30">
+                      <div className="flex items-start gap-2">
+                        <Lightbulb className="h-4 w-4 text-yellow-600 mt-0.5 shrink-0" />
+                        <p className="text-sm text-yellow-800 dark:text-yellow-200">
+                          {chapter.recommendation}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </ScrollArea>
+        </CardContent>
+      </Card>
+    </div>
+  );
+});
