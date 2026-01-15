@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
-import { CheckCircle2, XCircle, RotateCcw, Trophy, ChevronRight, Shuffle, Lock, Unlock } from "lucide-react";
+import { CheckCircle2, XCircle, RotateCcw, Trophy, ChevronRight, Shuffle, Lock, Unlock, AlertTriangle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useProgressContext } from "@/contexts/ProgressContext";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -89,7 +89,8 @@ export function Quiz({ title, questions, chapterId, questionsPerRound = QUESTION
   const isChapterCompleted = dbStatus === 'completed';
 
   const handleAnswer = (index: number) => {
-    if (!question || answeredQuestions[currentQuestion]) return;
+    // GUARD: Prevent submission without valid selection
+    if (typeof index !== 'number' || index < 0 || !question || answeredQuestions[currentQuestion]) return;
     
     setSelectedAnswer(index);
     setShowResult(true);
@@ -145,7 +146,28 @@ export function Quiz({ title, questions, chapterId, questionsPerRound = QUESTION
     setQuizCompleted(false);
   };
 
-  if (shuffledQuestions.length === 0 || !question) {
+  // FALLBACK: Handle empty question bank gracefully
+  if (shuffledQuestions.length === 0) {
+    return (
+      <div className="mt-12 p-8 bg-card rounded-2xl border border-border shadow-card text-center">
+        <div className="text-amber-500 mb-4">
+          <AlertTriangle className="w-12 h-12 mx-auto" />
+        </div>
+        <h3 className="text-lg font-bold mb-2">
+          {language === 'ro' ? 'Quiz indisponibil' : language === 'de' ? 'Quiz nicht verfügbar' : 'Quiz unavailable'}
+        </h3>
+        <p className="text-muted-foreground text-sm">
+          {language === 'ro' 
+            ? 'Nu există suficiente întrebări pentru acest capitol. Contactați administratorul.' 
+            : language === 'de'
+            ? 'Für dieses Kapitel sind nicht genügend Fragen vorhanden. Kontaktieren Sie den Administrator.'
+            : 'Not enough questions available for this chapter. Please contact the administrator.'}
+        </p>
+      </div>
+    );
+  }
+
+  if (!question) {
     return null;
   }
 

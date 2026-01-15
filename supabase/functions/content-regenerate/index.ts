@@ -98,17 +98,39 @@ Generate a brief content update in JSON:
       }
     }
 
-    if (!regeneratedContent) {
+    // VALIDATION: Ensure content meets minimum word count (prevents content reduction attacks)
+    const MIN_WORD_COUNT = 100; // Minimum per language
+    const validateContent = (content: RegeneratedContent | null): boolean => {
+      if (!content || !content.word_counts) return false;
+      const { ro, de, en } = content.word_counts;
+      return ro >= MIN_WORD_COUNT && de >= MIN_WORD_COUNT && en >= MIN_WORD_COUNT;
+    };
+
+    if (!regeneratedContent || !validateContent(regeneratedContent)) {
+      console.log(`[BG-REGEN] Content validation failed for ${chId}, using fallback`);
       regeneratedContent = {
         sections_updated: ['general'],
         content: { 
-          ro: `Capitol ${chId} actualizat conform ultimelor standarde din industrie.`,
-          de: `Kapitel ${chId} gemäß den neuesten Industriestandards aktualisiert.`,
-          en: `Chapter ${chId} updated according to latest industry standards.`
+          ro: `Capitol ${chId} actualizat conform ultimelor standarde din industrie. Acest conținut va fi revizuit manual.`,
+          de: `Kapitel ${chId} gemäß den neuesten Industriestandards aktualisiert. Dieser Inhalt wird manuell überprüft.`,
+          en: `Chapter ${chId} updated according to latest industry standards. This content will be reviewed manually.`
         },
-        summary: 'Fallback update - AI content pending',
-        word_counts: { ro: 10, de: 10, en: 10 }
+        summary: 'Fallback update - AI content did not meet minimum requirements',
+        word_counts: { ro: 15, de: 14, en: 16 }
       };
+      
+      // Log the validation failure for admin review
+      await supabase.from('update_audit_log').insert({
+        action: 'content_validation_failed',
+        entity_type: 'chapter',
+        chapter_id: chId,
+        details: { 
+          reason: 'AI content did not meet minimum word count requirement',
+          min_required: MIN_WORD_COUNT,
+          job_id: jobId
+        },
+        performed_by: 'system'
+      } as Record<string, unknown>);
     }
 
     // Create new version

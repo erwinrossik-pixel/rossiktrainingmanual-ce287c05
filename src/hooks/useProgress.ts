@@ -18,21 +18,33 @@ const STORAGE_KEY = 'rossik-manual-progress';
 const defaultProgress: ProgressData = {
   chapters: {},
   totalCompleted: 0,
-  totalChapters: 40,
+  totalChapters: 50, // Updated to match actual chapter count
 };
 
 export function useProgress() {
   const [progress, setProgress] = useState<ProgressData>(defaultProgress);
 
-  // Load progress from localStorage on mount
+  // Load progress from localStorage on mount with validation
   useEffect(() => {
     const stored = localStorage.getItem(STORAGE_KEY);
     if (stored) {
       try {
         const parsed = JSON.parse(stored);
-        setProgress(parsed);
+        // VALIDATION: Ensure parsed data has required structure
+        if (parsed && typeof parsed === 'object' && parsed.chapters && typeof parsed.totalCompleted === 'number') {
+          setProgress({
+            chapters: parsed.chapters || {},
+            totalCompleted: Math.max(0, parsed.totalCompleted || 0),
+            totalChapters: parsed.totalChapters || 50,
+          });
+        } else {
+          console.warn('Invalid progress data structure, resetting to defaults');
+          localStorage.removeItem(STORAGE_KEY);
+        }
       } catch (e) {
         console.error('Failed to parse progress data:', e);
+        // RECOVERY: Remove corrupted data
+        localStorage.removeItem(STORAGE_KEY);
       }
     }
   }, []);
