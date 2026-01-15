@@ -7,7 +7,7 @@ import {
 } from "lucide-react";
 import rossikLogo from "@/assets/rossik-logo.jpg";
 import { cn } from "@/lib/utils";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import { useProgressContext } from "@/contexts/ProgressContext";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useAuth } from "@/hooks/useAuth";
@@ -132,15 +132,22 @@ export function Sidebar({ activeChapter, onChapterChange, onShowDashboard }: Sid
   const overallProgress = getOverallProgress();
   const sections = getSections(t);
 
-  // Get all chapter IDs in order
-  const allChapterIds = sections.flatMap(s => s.chapters.map(c => c.id));
+  // Memoize chapter IDs to prevent unnecessary recalculations
+  const allChapterIds = useMemo(() => 
+    sections.flatMap(s => s.chapters.map(c => c.id)), 
+    [sections]
+  );
 
-  // Initialize user progress when logged in
+  // Track if initialization has been attempted
+  const hasInitialized = useRef(false);
+
+  // Initialize user progress when logged in (only once)
   useEffect(() => {
-    if (user && allChapterIds.length > 0) {
+    if (user && allChapterIds.length > 0 && !hasInitialized.current) {
+      hasInitialized.current = true;
       initializeUserProgress(allChapterIds);
     }
-  }, [user, initializeUserProgress]);
+  }, [user?.id, allChapterIds.length]); // Stable dependencies
 
   // Calculate chapter numbers based on order in sections
   const getChapterNumber = (chapterId: string): number => {
