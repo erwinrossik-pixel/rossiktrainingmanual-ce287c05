@@ -240,5 +240,62 @@ export const networkingQuestions: QuizQuestion[] = [
     options: ["Always winning", "Outcomes that benefit all parties involved in a relationship", "Competition", "Lottery"],
     correctIndex: 1,
     explanation: "Win-Win describes business relationships and deals where all parties benefit, creating sustainable partnerships."
+  },
+  // Additional Glossary Questions - Romanian (40-42)
+  {
+    question: "Ce înseamnă Cold Calling în vânzări?",
+    options: ["Apeluri pe vreme rece", "Contactarea potențialilor clienți fără relație prealabilă", "Apeluri din frigider", "Apeluri scurte"],
+    correctIndex: 1,
+    explanation: "Cold Calling este contactarea potențialilor clienți sau parteneri fără o relație sau introducere prealabilă."
+  },
+  {
+    question: "Ce este un Referral în business?",
+    options: ["O referință bibliografică", "Recomandarea unui client sau partener de către altcineva", "O contestație", "Un raport"],
+    correctIndex: 1,
+    explanation: "Referral este recomandarea unui potențial client sau partener de către cineva din rețeaua ta profesională."
+  },
+  {
+    question: "Ce înseamnă Personal Branding?",
+    options: ["Tatuaje personale", "Construirea și promovarea identității profesionale personale", "Haine de marcă", "Siglă personală"],
+    correctIndex: 1,
+    explanation: "Personal Branding este procesul de construire și promovare a identității și reputației profesionale personale."
+  },
+  // Additional Glossary Questions - German (43-45)
+  {
+    question: "Was ist ein 'Branchenevent' für Networking?",
+    options: ["Ein Feuerwehreinsatz", "Veranstaltung der Logistikbranche zum Networking", "Branchen löschen", "Notfall"],
+    correctIndex: 1,
+    explanation: "Branchenevents sind Veranstaltungen der Logistikbranche (Messen, Kongresse) zum Knüpfen von Kontakten."
+  },
+  {
+    question: "Was bedeutet 'Kaltakquise' im B2B-Bereich?",
+    options: ["Kühlung von Waren", "Erstansprache potenzieller Kunden ohne vorherigen Kontakt", "Wintermarketing", "Kühlkette"],
+    correctIndex: 1,
+    explanation: "Kaltakquise ist die Erstansprache potenzieller Kunden ohne vorherige Geschäftsbeziehung oder Empfehlung."
+  },
+  {
+    question: "Was ist 'Vertrauensaufbau' im Geschäftsnetzwerk?",
+    options: ["Bauunternehmen", "Prozess des Aufbaus von Glaubwürdigkeit und Verlässlichkeit", "Vertrauensbruch", "Misstrauen"],
+    correctIndex: 1,
+    explanation: "Vertrauensaufbau ist der langfristige Prozess, Glaubwürdigkeit und Verlässlichkeit in Geschäftsbeziehungen aufzubauen."
+  },
+  // Additional Glossary Questions - English (46-48)
+  {
+    question: "What is 'Strategic Partnership' in logistics?",
+    options: ["Chess club", "Long-term collaboration between companies for mutual benefit", "Military alliance", "Temporary agreement"],
+    correctIndex: 1,
+    explanation: "Strategic Partnership is a long-term business collaboration where both parties invest in shared success."
+  },
+  {
+    question: "What does 'Value Proposition' mean in networking?",
+    options: ["Price quote", "Clear statement of benefits you offer to partners or clients", "Marriage proposal", "Investment offer"],
+    correctIndex: 1,
+    explanation: "Value Proposition clearly communicates the unique benefits and value you offer to potential partners or clients."
+  },
+  {
+    question: "What is 'Industry Association' membership for?",
+    options: ["Social club", "Access to networking, training and industry representation", "Discount cards", "Free products"],
+    correctIndex: 1,
+    explanation: "Industry Association membership provides networking opportunities, training, and collective representation."
   }
 ];

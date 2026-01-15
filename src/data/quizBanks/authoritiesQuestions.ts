@@ -240,5 +240,62 @@ export const authoritiesQuestions: QuizQuestion[] = [
     options: ["Insurance document", "Internal Market Information system registration for posted workers", "Import manifest", "Inspection manual"],
     correctIndex: 1,
     explanation: "IMI Declaration is the mandatory registration in the Internal Market Information system for posting workers in EU countries."
+  },
+  // Additional Glossary Questions - Romanian (40-42)
+  {
+    question: "Ce este AETR în transportul internațional?",
+    options: ["O companie", "Acordul European privind timpul de conducere și odihnă", "O autostradă", "Un tip de vehicul"],
+    correctIndex: 1,
+    explanation: "AETR este Acordul European care reglementează timpul de conducere și odihnă pentru șoferii în transport internațional."
+  },
+  {
+    question: "Ce înseamnă Posting (Detașare) în contextul UE?",
+    options: ["Trimiterea corespondenței", "Detașarea temporară a lucrătorilor în altă țară UE", "Postarea pe social media", "Livrare poștală"],
+    correctIndex: 1,
+    explanation: "Posting reprezintă detașarea temporară a lucrătorilor pentru prestarea de servicii în altă țară membră UE."
+  },
+  {
+    question: "Ce este Toll Collect în Germania?",
+    options: ["Un serviciu de curierat", "Sistemul electronic de colectare a taxei de drum Maut", "O bancă", "Un serviciu de asigurări"],
+    correctIndex: 1,
+    explanation: "Toll Collect este operatorul sistemului electronic de colectare a taxei Maut pentru camioane în Germania."
+  },
+  // Additional Glossary Questions - German (43-45)
+  {
+    question: "Was ist ein 'Bußgeldbescheid' im Transportrecht?",
+    options: ["Ein Lob", "Amtlicher Bescheid über eine Geldbuße für Verstöße", "Ein Führerschein", "Eine Rechnung"],
+    correctIndex: 1,
+    explanation: "Ein Bußgeldbescheid ist der amtliche Bescheid über eine Geldbuße bei Ordnungswidrigkeiten im Straßenverkehr."
+  },
+  {
+    question: "Was bedeutet 'Fahrpersonalverordnung' (FPersV)?",
+    options: ["Fahrplanverordnung", "Deutsche Verordnung über Lenk- und Ruhezeiten", "Fahrzeugverordnung", "Personalausweis"],
+    correctIndex: 1,
+    explanation: "Die FPersV ist die deutsche Verordnung zur Durchführung der EU-Vorschriften über Lenk- und Ruhezeiten."
+  },
+  {
+    question: "Was ist die Funktion des digitalen Tachographen?",
+    options: ["Nur Geschwindigkeitsmessung", "Aufzeichnung von Lenk-, Ruhe- und Arbeitszeiten", "Nur Navigation", "Unterhaltung"],
+    correctIndex: 1,
+    explanation: "Der digitale Tachograph zeichnet Lenk-, Ruhe- und Arbeitszeiten zur Einhaltung der Sozialvorschriften auf."
+  },
+  // Additional Glossary Questions - English (46-48)
+  {
+    question: "What is the DVSA in the UK?",
+    options: ["A transport company", "Driver and Vehicle Standards Agency - UK enforcement authority", "A logistics association", "A toll system"],
+    correctIndex: 1,
+    explanation: "DVSA (Driver and Vehicle Standards Agency) is the UK government agency responsible for vehicle and driver enforcement."
+  },
+  {
+    question: "What is a Roadside Check in transport enforcement?",
+    options: ["Tire check only", "Control of vehicle, driver and cargo documentation on public roads", "Fuel check", "Speed test"],
+    correctIndex: 1,
+    explanation: "Roadside Check is a control by authorities of vehicle condition, driver documents and cargo compliance on public roads."
+  },
+  {
+    question: "What does Cross-Border Enforcement mean in EU?",
+    options: ["International police", "Enforcement of fines and penalties across EU member state borders", "Border control only", "Customs enforcement"],
+    correctIndex: 1,
+    explanation: "Cross-Border Enforcement allows EU member states to collect fines from drivers/operators based in other EU countries."
   }
 ];

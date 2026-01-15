@@ -240,5 +240,62 @@ export const intermodalQuestions: QuizQuestion[] = [
     options: ["A warehouse corridor", "Designated rail route with priority for freight and guaranteed capacity", "A highway lane for trucks", "A customs corridor"],
     correctIndex: 1,
     explanation: "EU Freight Corridors are priority rail routes with guaranteed capacity and coordinated infrastructure for efficient freight transport."
+  },
+  // Additional Glossary Questions - Romanian (40-42)
+  {
+    question: "Ce este un Reach Stacker în terminal intermodal?",
+    options: ["Un muncitor", "Vehicul special pentru manipularea containerelor cu braț extensibil", "Un macara mică", "Un stivuitor standard"],
+    correctIndex: 1,
+    explanation: "Reach Stacker este un vehicul special cu braț extensibil folosit pentru ridicarea și stivuirea containerelor în terminale."
+  },
+  {
+    question: "Ce înseamnă TEN-T în contextul european?",
+    options: ["Un tip de container", "Rețeaua Trans-Europeană de Transport", "O taxă de tranzit", "Un standard de calitate"],
+    correctIndex: 1,
+    explanation: "TEN-T (Trans-European Transport Network) este rețeaua europeană de coridoare de transport prioritare."
+  },
+  {
+    question: "Ce este Last Mile în transport intermodal?",
+    options: ["Ultima cursă", "Segmentul final de livrare de la terminal la destinație", "Prima încărcare", "Distanța totală"],
+    correctIndex: 1,
+    explanation: "Last Mile este segmentul final de transport rutier de la terminalul intermodal la destinația finală."
+  },
+  // Additional Glossary Questions - German (43-45)
+  {
+    question: "Was ist ein 'Wechselbrücke' im kombinierten Verkehr?",
+    options: ["Eine Autobahnbrücke", "Austauschbare Ladeeinheit mit Stützbeinen", "Eine Fußgängerbrücke", "Eine Bahnbrücke"],
+    correctIndex: 1,
+    explanation: "Eine Wechselbrücke ist eine austauschbare Ladeeinheit mit Stützbeinen für den intermodalen Transfer."
+  },
+  {
+    question: "Was bedeutet 'FEU' in der Containerschifffahrt?",
+    options: ["Forty-foot Equivalent Unit - 40-Fuß-Container-Einheit", "First European Unit", "Full Equipment Unit", "Freight Entry Unit"],
+    correctIndex: 0,
+    explanation: "FEU (Forty-foot Equivalent Unit) bezeichnet einen 40-Fuß-Container, entspricht zwei TEU."
+  },
+  {
+    question: "Was ist eine 'Umschlagzeit' im Terminal?",
+    options: ["Arbeitszeit", "Zeit für den Transfer von Ladeeinheiten zwischen Verkehrsträgern", "Pausenzeit", "Fahrzeit"],
+    correctIndex: 1,
+    explanation: "Umschlagzeit ist die Zeit, die für den Transfer von Ladeeinheiten zwischen Verkehrsträgern benötigt wird."
+  },
+  // Additional Glossary Questions - English (46-48)
+  {
+    question: "What is 'Piggyback' transport in intermodal logistics?",
+    options: ["Carrying passengers", "Transporting truck trailers on rail flatcars", "Double-deck buses", "Hitchhiking"],
+    correctIndex: 1,
+    explanation: "Piggyback is the transport of truck trailers or containers on specialized rail flatcars."
+  },
+  {
+    question: "What is an Inland Container Depot (ICD)?",
+    options: ["A port", "Dry port facility for container handling and customs clearance inland", "A train station", "A warehouse only"],
+    correctIndex: 1,
+    explanation: "An ICD is a dry port facility located inland where containers can be handled and cleared through customs."
+  },
+  {
+    question: "What does 'Break Bulk' mean in intermodal context?",
+    options: ["Breaking containers", "Cargo that must be loaded individually rather than in containers", "Splitting shipments", "Damaged goods"],
+    correctIndex: 1,
+    explanation: "Break Bulk refers to cargo that is too large or awkward to fit in standard containers and must be loaded individually."
   }
 ];

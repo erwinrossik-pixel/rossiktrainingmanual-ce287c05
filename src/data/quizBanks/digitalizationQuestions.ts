@@ -240,5 +240,62 @@ export const digitalizationQuestions: QuizQuestion[] = [
     options: ["Two computers", "Virtual replica of physical systems for simulation and testing", "Online backup", "Duplicate website"],
     correctIndex: 1,
     explanation: "A Digital Twin is a virtual replica of physical systems that allows testing scenarios before real-world implementation."
+  },
+  // Additional Glossary Questions - Romanian (40-42)
+  {
+    question: "Ce este OCR în digitalizarea documentelor?",
+    options: ["Un tip de fișier", "Recunoașterea Optică a Caracterelor pentru extragerea datelor", "Un program de editare", "O imprimantă"],
+    correctIndex: 1,
+    explanation: "OCR (Optical Character Recognition) extrage automat text din documente scanate sau fotografiate."
+  },
+  {
+    question: "Ce înseamnă EDI în schimbul de date?",
+    options: ["Email Direct", "Schimb Electronic de Date între sisteme în formate standard", "Editor Digital", "Ecran Digital"],
+    correctIndex: 1,
+    explanation: "EDI (Electronic Data Interchange) permite schimbul automat de date între parteneri în formate standardizate."
+  },
+  {
+    question: "Ce este Geofencing în transport?",
+    options: ["Garduri fizice", "Limite virtuale care declanșează notificări automate", "Cartografiere", "Navigație GPS"],
+    correctIndex: 1,
+    explanation: "Geofencing creează limite virtuale care declanșează notificări automate la intrarea sau ieșirea din zone definite."
+  },
+  // Additional Glossary Questions - German (43-45)
+  {
+    question: "Was bedeutet 'Cloud Computing' für Spediteure?",
+    options: ["Wettervorhersage", "IT-Ressourcen über Internet ohne eigene Server", "Wolkenbeobachtung", "Datenlöschung"],
+    correctIndex: 1,
+    explanation: "Cloud Computing bietet skalierbare IT-Ressourcen über das Internet, ohne eigene Server-Infrastruktur zu benötigen."
+  },
+  {
+    question: "Was ist 'Predictive Maintenance'?",
+    options: ["Reparatur nach Ausfall", "Vorausschauende Wartung basierend auf Datenanalyse", "Regelmäßige Wartung", "Notfallreparatur"],
+    correctIndex: 1,
+    explanation: "Predictive Maintenance nutzt Sensordaten und Analysen, um Wartungsbedarf vorherzusagen, bevor Ausfälle auftreten."
+  },
+  {
+    question: "Was bedeutet 'Visibility' in der digitalen Logistik?",
+    options: ["Sichtbarkeit des LKW", "Echtzeit-Transparenz über Sendungsstatus und Position", "Marketingpräsenz", "Beleuchtung"],
+    correctIndex: 1,
+    explanation: "Visibility bedeutet Echtzeit-Transparenz über Sendungsstatus, Position und voraussichtliche Ankunftszeit."
+  },
+  // Additional Glossary Questions - English (46-48)
+  {
+    question: "What is a TMS (Transport Management System)?",
+    options: ["Traffic Management System", "Software for planning, executing and monitoring transport operations", "Truck Maintenance System", "Time Management System"],
+    correctIndex: 1,
+    explanation: "TMS is software that centralizes planning, execution, monitoring and billing of transport operations."
+  },
+  {
+    question: "What is 'ePOD' (Electronic Proof of Delivery)?",
+    options: ["Email confirmation", "Digital capture of delivery confirmation with signature and photos", "Electronic payment", "E-commerce platform"],
+    correctIndex: 1,
+    explanation: "ePOD digitally captures delivery confirmation including timestamp, signature and photos on mobile devices."
+  },
+  {
+    question: "What does 'Big Data' enable in logistics?",
+    options: ["Larger files", "Analysis of massive datasets for operational insights and optimization", "Bigger warehouses", "More paperwork"],
+    correctIndex: 1,
+    explanation: "Big Data enables analysis of large volumes of operational data to discover patterns and optimize logistics."
   }
 ];
