@@ -14,49 +14,54 @@ interface PhaseInfo {
 }
 
 const TRAINING_PHASES: PhaseInfo[] = [
-  { phase: 1, titleKey: "phase1", chapters: [1, 2, 3, 4] },
-  { phase: 2, titleKey: "phase2", chapters: [5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15] },
-  { phase: 3, titleKey: "phase3", chapters: [16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26] },
-  { phase: 4, titleKey: "phase4", chapters: [27, 28, 29, 30, 31, 32, 33, 34] },
-  { phase: 5, titleKey: "phase5", chapters: [35, 36, 37, 38, 39, 40] },
+  { phase: 1, titleKey: "phase1", chapters: [1, 2, 3, 4, 5] },
+  { phase: 2, titleKey: "phase2", chapters: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19] },
+  { phase: 3, titleKey: "phase3", chapters: [20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33] },
+  { phase: 4, titleKey: "phase4", chapters: [34, 35, 36, 37, 38, 39, 40, 41, 42, 43] },
+  { phase: 5, titleKey: "phase5", chapters: [44, 45, 46, 47, 48, 49, 50] },
 ];
 
 const translations = {
   ro: {
-    phase1: "Fundamente",
-    phase2: "Echipament & Documente",
-    phase3: "Geografie & Comercial",
-    phase4: "Tehnologie & Finanțe",
-    phase5: "Aplicare Practică",
+    phase1: "Fundamente & Operațiuni",
+    phase2: "Conformitate & Documente",
+    phase3: "Prețuri & Comercial",
+    phase4: "Management & Avansat",
+    phase5: "Recapitulare & Consolidare",
     phaseLabel: "Faza",
     chapters: "capitole",
   },
   de: {
-    phase1: "Grundlagen",
-    phase2: "Ausrüstung & Dokumente",
-    phase3: "Geographie & Kommerziell",
-    phase4: "Technologie & Finanzen",
-    phase5: "Praktische Anwendung",
+    phase1: "Grundlagen & Betrieb",
+    phase2: "Compliance & Dokumente",
+    phase3: "Preise & Kommerziell",
+    phase4: "Management & Fortgeschritten",
+    phase5: "Wiederholung & Konsolidierung",
     phaseLabel: "Phase",
     chapters: "Kapitel",
   },
   en: {
-    phase1: "Foundations",
-    phase2: "Equipment & Documents",
-    phase3: "Geography & Commercial",
-    phase4: "Technology & Finance",
-    phase5: "Practical Application",
+    phase1: "Foundations & Operations",
+    phase2: "Compliance & Documents",
+    phase3: "Pricing & Commercial",
+    phase4: "Management & Advanced",
+    phase5: "Review & Consolidation",
     phaseLabel: "Phase",
     chapters: "chapters",
   },
 };
 
 const CHAPTER_ORDER = [
-  "intro", "mindset", "soft-skills", "workflow",
-  "vehicle", "loading", "reefer", "warehouse", "adr", "documents", "incoterms", "customs", "compliance", "driving-time", "licenses-oversize",
-  "europe-zones", "environment", "supply-chain", "pricing", "commercial", "negotiation", "clients", "carrier-management", "exchanges", "communication", "kpi",
-  "translogica", "fleet", "technology", "risk-management", "insurance", "claims", "payment", "accounting",
-  "training", "case-studies", "emergency", "red-flags", "checklists", "glossary",
+  // Phase 1: Foundations & Operations (1-5)
+  "intro", "mindset", "soft-skills", "stress-management", "workflow",
+  // Phase 2: Compliance & Documents (6-19)
+  "vehicle", "loading", "reefer", "express-transport", "intermodal", "warehouse", "adr", "documents", "incoterms", "customs", "authorities", "licenses-oversize", "compliance", "driving-time",
+  // Phase 3: Pricing & Commercial (20-33)
+  "europe-zones", "european-countries", "environment", "sustainability", "supply-chain", "pricing", "commercial", "negotiation", "networking", "clients", "carrier-management", "exchanges", "communication", "kpi",
+  // Phase 4: Management & Advanced (34-43)
+  "translogica", "fleet", "technology", "digitalization", "risk-management", "high-value-goods", "insurance", "claims", "payment", "accounting",
+  // Phase 5: Review & Consolidation (44-50)
+  "training", "professional-development", "case-studies", "emergency", "red-flags", "checklists", "glossary",
 ];
 
 export function CompactDailyTracker() {
