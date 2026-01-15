@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, memo } from "react";
 import { useNavigate } from "react-router-dom";
 import { Sidebar } from "@/components/manual/Sidebar";
 import { ManualContent } from "@/components/manual/ManualContent";
@@ -19,7 +19,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { LogIn, LogOut, Settings, User, Shield } from "lucide-react";
 
-function UserMenu() {
+// Memoized UserMenu to prevent unnecessary re-renders
+const UserMenu = memo(function UserMenu() {
   const navigate = useNavigate();
   const { user, profile, loading, isAdmin, signOut } = useAuth();
 
@@ -86,26 +87,38 @@ function UserMenu() {
       </DropdownMenuContent>
     </DropdownMenu>
   );
-}
+});
 
 function ManualApp() {
   const [activeChapter, setActiveChapter] = useState("intro");
   const [showDashboard, setShowDashboard] = useState(false);
   const { visitChapter } = useProgressContext();
   const { trackChapterVisit } = useAnalytics();
+  const lastTrackedChapter = useState<string>("");
 
-  // Track chapter visits
-  useEffect(() => {
-    if (!showDashboard) {
-      visitChapter(activeChapter);
-      trackChapterVisit(activeChapter);
-    }
-  }, [activeChapter, visitChapter, showDashboard, trackChapterVisit]);
+  // Memoized chapter change handler
+  const handleChapterChange = useCallback((chapter: string) => {
+    setActiveChapter(chapter);
+    setShowDashboard(false);
+  }, []);
 
-  const handleNavigateFromDashboard = (chapterId: string) => {
+  // Memoized dashboard handlers
+  const handleShowDashboard = useCallback(() => setShowDashboard(true), []);
+  const handleCloseDashboard = useCallback(() => setShowDashboard(false), []);
+
+  const handleNavigateFromDashboard = useCallback((chapterId: string) => {
     setActiveChapter(chapterId);
     setShowDashboard(false);
-  };
+  }, []);
+
+  // Track chapter visits - only when chapter actually changes
+  useEffect(() => {
+    if (!showDashboard && activeChapter !== lastTrackedChapter[0]) {
+      visitChapter(activeChapter);
+      trackChapterVisit(activeChapter);
+      lastTrackedChapter[0] = activeChapter;
+    }
+  }, [activeChapter, showDashboard]);
 
   return (
     <div className="min-h-screen bg-background">
@@ -116,21 +129,18 @@ function ManualApp() {
       
       <Sidebar 
         activeChapter={activeChapter} 
-        onChapterChange={(chapter) => {
-          setActiveChapter(chapter);
-          setShowDashboard(false);
-        }}
-        onShowDashboard={() => setShowDashboard(true)}
+        onChapterChange={handleChapterChange}
+        onShowDashboard={handleShowDashboard}
       />
       {showDashboard ? (
         <main className="lg:ml-72 min-h-screen p-6 lg:p-10">
           <ProgressDashboard 
             onNavigate={handleNavigateFromDashboard}
-            onClose={() => setShowDashboard(false)}
+            onClose={handleCloseDashboard}
           />
         </main>
       ) : (
-        <ManualContent activeChapter={activeChapter} onChapterChange={setActiveChapter} />
+        <ManualContent activeChapter={activeChapter} onChapterChange={handleChapterChange} />
       )}
     </div>
   );

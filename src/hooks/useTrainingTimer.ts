@@ -94,17 +94,19 @@ export function useTrainingTimer() {
   }, [user]);
 
   // Update current time every second when any timer is running
+  // Use a more efficient approach - only update when needed
   useEffect(() => {
     const hasRunningTimer = Object.values(timerData.days).some(d => d.isRunning);
     
     if (!hasRunningTimer) return;
 
+    // Update less frequently for display purposes
     const interval = setInterval(() => {
       setCurrentTime(Date.now());
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [timerData.days]);
+  }, [timerData.currentActiveDay]); // Only depend on currentActiveDay, not full days object
 
   // Sync to Supabase (debounced)
   const syncToSupabase = useCallback(async (data: TrainingTimerData) => {
