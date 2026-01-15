@@ -8,7 +8,7 @@ const corsHeaders = {
 };
 
 interface NotificationRequest {
-  type: "critical_change" | "job_completed" | "job_failed";
+  type: "critical_change" | "job_completed" | "job_failed" | "ai_kpi_analysis";
   data: {
     // For critical_change
     change_title?: string;
@@ -21,6 +21,13 @@ interface NotificationRequest {
     chapters_failed?: number;
     duration?: string;
     error_message?: string;
+    // For ai_kpi_analysis
+    recommendations_count?: number;
+    critical_count?: number;
+    high_count?: number;
+    problematic_chapters?: number;
+    analyzed_at?: string;
+    priority_actions?: string[];
   };
 }
 
@@ -156,6 +163,59 @@ serve(async (req: Request): Promise<Response> => {
             <div style="background: #f3f4f6; padding: 15px; border-radius: 0 0 8px 8px; text-align: center;">
               <p style="color: #6b7280; margin: 0; font-size: 14px;">
                 Verifică log-urile în Admin Dashboard pentru detalii.
+              </p>
+            </div>
+          </div>
+        `;
+        break;
+
+      case "ai_kpi_analysis":
+        const hasCritical = (data.critical_count || 0) > 0;
+        const hasHigh = (data.high_count || 0) > 0;
+        const emoji = hasCritical ? '🚨' : hasHigh ? '⚠️' : '📊';
+        subject = `${emoji} Analiză AI KPI - ${data.recommendations_count} recomandări noi`;
+        htmlContent = `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+            <div style="background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%); padding: 20px; border-radius: 8px 8px 0 0;">
+              <h1 style="color: white; margin: 0; font-size: 24px;">🤖 Analiză AI Learning KPI</h1>
+            </div>
+            <div style="background: #f5f3ff; padding: 20px; border: 1px solid #c4b5fd;">
+              <h2 style="color: #5b21b6; margin-top: 0;">Raport Zilnic de Analiză</h2>
+              
+              <table style="width: 100%; margin: 20px 0; border-spacing: 10px;">
+                <tr>
+                  <td style="background: white; padding: 15px; border-radius: 8px; text-align: center;">
+                    <p style="font-size: 28px; font-weight: bold; color: #8b5cf6; margin: 0;">${data.recommendations_count || 0}</p>
+                    <p style="color: #6b7280; margin: 5px 0 0 0; font-size: 13px;">Recomandări Noi</p>
+                  </td>
+                  <td style="background: white; padding: 15px; border-radius: 8px; text-align: center;">
+                    <p style="font-size: 28px; font-weight: bold; color: #dc2626; margin: 0;">${data.critical_count || 0}</p>
+                    <p style="color: #6b7280; margin: 5px 0 0 0; font-size: 13px;">Critical</p>
+                  </td>
+                  <td style="background: white; padding: 15px; border-radius: 8px; text-align: center;">
+                    <p style="font-size: 28px; font-weight: bold; color: #f97316; margin: 0;">${data.high_count || 0}</p>
+                    <p style="color: #6b7280; margin: 5px 0 0 0; font-size: 13px;">High</p>
+                  </td>
+                </tr>
+              </table>
+
+              <div style="background: white; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                <p style="color: #374151; margin: 0 0 10px 0;"><strong>📚 Capitole Problematice:</strong> ${data.problematic_chapters || 0}</p>
+                <p style="color: #6b7280; margin: 0; font-size: 13px;">Analiză efectuată: ${data.analyzed_at ? new Date(data.analyzed_at).toLocaleString('ro-RO') : 'N/A'}</p>
+              </div>
+
+              ${data.priority_actions && data.priority_actions.length > 0 ? `
+              <div style="background: #fef3c7; padding: 15px; border-radius: 8px; margin-top: 15px; border-left: 4px solid #f59e0b;">
+                <p style="color: #92400e; margin: 0 0 10px 0; font-weight: bold;">⚡ Acțiuni Prioritare:</p>
+                <ul style="color: #78350f; margin: 0; padding-left: 20px;">
+                  ${data.priority_actions.slice(0, 5).map(action => `<li style="margin-bottom: 5px;">${action}</li>`).join('')}
+                </ul>
+              </div>
+              ` : ''}
+            </div>
+            <div style="background: #f3f4f6; padding: 15px; border-radius: 0 0 8px 8px; text-align: center;">
+              <p style="color: #6b7280; margin: 0; font-size: 14px;">
+                Accesează <strong>Admin Dashboard → Learning KPI → AI Feedback</strong> pentru detalii complete.
               </p>
             </div>
           </div>

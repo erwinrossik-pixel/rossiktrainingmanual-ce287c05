@@ -26,6 +26,7 @@ interface ContentAnalysis {
 interface AnalysisRequest {
   type: 'full' | 'chapter' | 'questions';
   chapterId?: string;
+  sendNotification?: boolean; // For cron job
 }
 
 serve(async (req) => {
@@ -44,8 +45,8 @@ serve(async (req) => {
     const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
-    const { type, chapterId }: AnalysisRequest = await req.json();
-    console.log(`AI KPI Analyzer: Starting ${type} analysis${chapterId ? ` for ${chapterId}` : ''}`);
+    const { type, chapterId, sendNotification }: AnalysisRequest = await req.json();
+    console.log(`AI KPI Analyzer: Starting ${type} analysis${chapterId ? ` for ${chapterId}` : ''}${sendNotification ? ' with notification' : ''}`);
 
     // Fetch quiz attempts data
     const { data: attempts, error: attemptsError } = await supabase
@@ -322,6 +323,44 @@ Generează recomandări concrete pentru îmbunătățirea conținutului educați
 
     console.log('Analysis complete!');
 
+    // Count severities for notification
+    const recommendations = parsedRecommendations.recommendations || [];
+    const criticalCount = recommendations.filter((r: { severity: string }) => r.severity === 'critical').length;
+    const highCount = recommendations.filter((r: { severity: string }) => r.severity === 'high').length;
+
+    // Send admin notification if requested (for cron job)
+    if (sendNotification && recommendations.length > 0) {
+      console.log('Sending admin notification...');
+      try {
+        const notificationResponse = await fetch(`${supabaseUrl}/functions/v1/send-admin-notification`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${supabaseServiceKey}`,
+          },
+          body: JSON.stringify({
+            type: 'ai_kpi_analysis',
+            data: {
+              recommendations_count: recommendations.length,
+              critical_count: criticalCount,
+              high_count: highCount,
+              problematic_chapters: problematicChapters.length,
+              analyzed_at: new Date().toISOString(),
+              priority_actions: parsedRecommendations.priorityActions || [],
+            }
+          }),
+        });
+
+        if (!notificationResponse.ok) {
+          console.error('Failed to send notification:', await notificationResponse.text());
+        } else {
+          console.log('Admin notification sent successfully');
+        }
+      } catch (notifError) {
+        console.error('Error sending notification:', notifError);
+      }
+    }
+
     return new Response(JSON.stringify({
       success: true,
       ...parsedRecommendations,
@@ -330,6 +369,8 @@ Generează recomandări concrete pentru îmbunătățirea conținutului educați
         problematicCount: problematicChapters.length,
         tooEasyCount: tooEasyChapters.length,
         analyzedAt: new Date().toISOString(),
+        criticalCount,
+        highCount,
       }
     }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
