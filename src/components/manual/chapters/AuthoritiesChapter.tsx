@@ -4,7 +4,7 @@ import { Checklist } from "../Checklist";
 import { ChapterHero } from "../ChapterHero";
 import {
   Shield, FileText, AlertTriangle, CheckCircle, Users,
-  Phone, Clock, Scale, Eye, Truck, BookOpen, Info
+  Phone, Clock, Scale, Eye, Truck, BookOpen, Info, Book
 } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 
@@ -150,6 +150,26 @@ export function AuthoritiesChapter() {
               <li>• {ct('commonMistake3')}</li>
             </ul>
           </div>
+        </div>
+      </section>
+
+      {/* Glossary */}
+      <section>
+        <h2 className="section-title flex items-center gap-3">
+          <Book className="w-6 h-6 text-primary" />
+          {ct('glossaryTitle')}
+        </h2>
+        <div className="grid md:grid-cols-2 gap-3">
+          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
+            <div key={num} className="bg-card border border-border rounded-lg p-4 hover:border-primary/50 transition-colors">
+              <dt className="font-semibold text-primary mb-1">
+                {ct(`glossaryTerm${num}`)}
+              </dt>
+              <dd className="text-sm text-muted-foreground">
+                {ct(`glossaryDef${num}`)}
+              </dd>
+            </div>
+          ))}
         </div>
       </section>
 
