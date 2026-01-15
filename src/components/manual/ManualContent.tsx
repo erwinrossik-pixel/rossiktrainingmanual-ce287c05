@@ -2,6 +2,7 @@ import { IntroChapter } from "./chapters/IntroChapter";
 import { MindsetChapter } from "./chapters/MindsetChapter";
 import { WorkflowChapter } from "./chapters/WorkflowChapter";
 import { ReadingProgress } from "./ReadingProgress";
+import { AITutor } from "./AITutor";
 import { VehicleChapter } from "./chapters/VehicleChapter";
 import { LoadingChapter } from "./chapters/LoadingChapter";
 import { ReeferChapter } from "./chapters/ReeferChapter";
@@ -135,6 +136,9 @@ export function ManualContent({ activeChapter, onChapterChange }: ManualContentP
           </div>
         </div>
       </main>
+      
+      {/* AI Tutor - available on all chapters */}
+      <AITutor chapterId={activeChapter} />
     </>
   );
 }
