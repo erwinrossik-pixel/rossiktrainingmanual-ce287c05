@@ -254,8 +254,26 @@ export function getTranslatedQuiz(chapterId: string, language: Language): { ques
   }));
 }
 
+// Raw question counts for chapters that have language-tagged questions (48 total, not 16 consolidated)
+const rawQuestionCounts: Record<string, number> = {
+  'stress-management': 48,
+  'sustainability': 48,
+  'authorities': 48,
+  'digitalization': 48,
+  'european-countries': 48,
+  'express-transport': 48,
+  'high-value-goods': 48,
+  'intermodal': 48,
+  'networking': 48,
+  'professional-development': 48,
+};
+
 // Get question count for a specific chapter
 export function getQuestionCount(chapterId: string): number {
+  // Check if this chapter has a raw count override (for language-tagged questions)
+  if (rawQuestionCounts[chapterId]) {
+    return rawQuestionCounts[chapterId];
+  }
   const chapter = quizTranslations[chapterId];
   return chapter?.length || 0;
 }
@@ -264,7 +282,12 @@ export function getQuestionCount(chapterId: string): number {
 export function getAllQuestionCounts(): Record<string, number> {
   const counts: Record<string, number> = {};
   Object.keys(quizTranslations).forEach(chapterId => {
-    counts[chapterId] = quizTranslations[chapterId]?.length || 0;
+    // Use raw count override if available
+    if (rawQuestionCounts[chapterId]) {
+      counts[chapterId] = rawQuestionCounts[chapterId];
+    } else {
+      counts[chapterId] = quizTranslations[chapterId]?.length || 0;
+    }
   });
   return counts;
 }
