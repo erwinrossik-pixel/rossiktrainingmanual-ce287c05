@@ -40,64 +40,64 @@ export function useTrainingTimer() {
   const [currentTime, setCurrentTime] = useState(Date.now());
   const [isLoading, setIsLoading] = useState(true);
   const syncTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const userIdRef = useRef<string | undefined>(undefined);
 
   // Load data from Supabase or localStorage
-  const loadData = useCallback(async () => {
-    if (!user) {
-      // Load from localStorage
-      const stored = localStorage.getItem(STORAGE_KEY);
-      if (stored) {
-        try {
-          const parsed = JSON.parse(stored);
-          setTimerData(parsed);
-        } catch (e) {
-          console.error('Failed to parse timer data:', e);
+  useEffect(() => {
+    const loadData = async () => {
+      setIsLoading(true);
+      
+      if (user) {
+        // Load from Supabase
+        const { data, error } = await supabase
+          .from('training_time')
+          .select('*')
+          .eq('user_id', user.id);
+
+        if (!error && data && data.length > 0) {
+          const days: Record<number, DayTimerData> = { ...defaultTimerData.days };
+          let currentActiveDay: number | null = null;
+          let trainingStartedAt: string | null = null;
+
+          data.forEach((row) => {
+            days[row.day_number] = {
+              totalSeconds: row.total_seconds,
+              lastStartTime: row.last_start_time ? new Date(row.last_start_time).getTime() : null,
+              isRunning: row.is_running,
+            };
+            if (row.is_running) {
+              currentActiveDay = row.day_number;
+            }
+            if (row.training_started_at && !trainingStartedAt) {
+              trainingStartedAt = row.training_started_at;
+            }
+          });
+
+          setTimerData({ days, currentActiveDay, trainingStartedAt });
+        } else if (!error && (!data || data.length === 0)) {
+          // Reset to default if no data found (e.g., after admin reset)
+          setTimerData(defaultTimerData);
+          localStorage.removeItem(STORAGE_KEY);
+        }
+      } else {
+        // Load from localStorage
+        const stored = localStorage.getItem(STORAGE_KEY);
+        if (stored) {
+          try {
+            const parsed = JSON.parse(stored);
+            setTimerData(parsed);
+          } catch (e) {
+            console.error('Failed to parse timer data:', e);
+          }
         }
       }
+      
       setIsLoading(false);
-      return;
-    }
+    };
 
-    // Load from Supabase
-    const { data, error } = await supabase
-      .from('training_time')
-      .select('*')
-      .eq('user_id', user.id);
-
-    if (!error && data && data.length > 0) {
-      const days: Record<number, DayTimerData> = { ...defaultTimerData.days };
-      let currentActiveDay: number | null = null;
-      let trainingStartedAt: string | null = null;
-
-      data.forEach((row) => {
-        days[row.day_number] = {
-          totalSeconds: row.total_seconds,
-          lastStartTime: row.last_start_time ? new Date(row.last_start_time).getTime() : null,
-          isRunning: row.is_running,
-        };
-        if (row.is_running) {
-          currentActiveDay = row.day_number;
-        }
-        if (row.training_started_at && !trainingStartedAt) {
-          trainingStartedAt = row.training_started_at;
-        }
-      });
-
-      setTimerData({ days, currentActiveDay, trainingStartedAt });
-    } else if (!error && (!data || data.length === 0)) {
-      // Reset to default if no data found (e.g., after admin reset)
-      setTimerData(defaultTimerData);
-      localStorage.removeItem(STORAGE_KEY);
-    }
-    
-    setIsLoading(false);
-  }, [user]);
-
-  // Initial load
-  useEffect(() => {
-    setIsLoading(true);
     loadData();
-  }, [loadData]);
+    userIdRef.current = user?.id;
+  }, [user]);
 
   // Subscribe to realtime changes for authenticated users
   useEffect(() => {
@@ -113,15 +113,52 @@ export function useTrainingTimer() {
           table: 'training_time',
           filter: `user_id=eq.${user.id}`,
         },
-        (payload) => {
+        async (payload) => {
           console.log('Training time changed:', payload);
           // Reload data when changes are detected
           if (payload.eventType === 'DELETE') {
-            // If all records deleted, reset to default
-            setTimerData(defaultTimerData);
-            localStorage.removeItem(STORAGE_KEY);
+            // Check if there's still data for this user
+            const { data } = await supabase
+              .from('training_time')
+              .select('*')
+              .eq('user_id', user.id);
+            
+            if (!data || data.length === 0) {
+              // All records deleted, reset to default
+              setTimerData(defaultTimerData);
+              localStorage.removeItem(STORAGE_KEY);
+            }
           } else {
-            loadData();
+            // Reload all data
+            const { data, error } = await supabase
+              .from('training_time')
+              .select('*')
+              .eq('user_id', user.id);
+
+            if (!error && data && data.length > 0) {
+              const days: Record<number, DayTimerData> = { ...defaultTimerData.days };
+              let currentActiveDay: number | null = null;
+              let trainingStartedAt: string | null = null;
+
+              data.forEach((row) => {
+                days[row.day_number] = {
+                  totalSeconds: row.total_seconds,
+                  lastStartTime: row.last_start_time ? new Date(row.last_start_time).getTime() : null,
+                  isRunning: row.is_running,
+                };
+                if (row.is_running) {
+                  currentActiveDay = row.day_number;
+                }
+                if (row.training_started_at && !trainingStartedAt) {
+                  trainingStartedAt = row.training_started_at;
+                }
+              });
+
+              setTimerData({ days, currentActiveDay, trainingStartedAt });
+            } else if (!error && (!data || data.length === 0)) {
+              setTimerData(defaultTimerData);
+              localStorage.removeItem(STORAGE_KEY);
+            }
           }
         }
       )
@@ -130,7 +167,7 @@ export function useTrainingTimer() {
     return () => {
       supabase.removeChannel(channel);
     };
-  }, [user, loadData]);
+  }, [user]);
 
   // Update current time every second when any timer is running
   // Use a more efficient approach - only update when needed
@@ -225,12 +262,12 @@ export function useTrainingTimer() {
       };
 
       localStorage.setItem(STORAGE_KEY, JSON.stringify(newData));
-      if (user) {
+      if (userIdRef.current) {
         syncToSupabase(newData);
       }
       return newData;
     });
-  }, [user, syncToSupabase]);
+  }, [syncToSupabase]);
 
   // Pause training
   const pauseTraining = useCallback(() => {
@@ -259,12 +296,12 @@ export function useTrainingTimer() {
       };
 
       localStorage.setItem(STORAGE_KEY, JSON.stringify(newData));
-      if (user) {
+      if (userIdRef.current) {
         syncToSupabase(newData);
       }
       return newData;
     });
-  }, [user, syncToSupabase]);
+  }, [syncToSupabase]);
 
   // Get time for a specific day (including running time)
   const getDayTime = useCallback((day: number): number => {
