@@ -2,7 +2,6 @@ import { Language } from "@/contexts/LanguageContext";
 import { QuizQuestion } from "./quizData";
 
 // Import all quiz banks - various formats
-import { introExtendedQuestions } from './quizBanks/introQuestions';
 import { mindsetQuestions } from './quizBanks/mindsetQuestions';
 import { softSkillsQuestions } from './quizBanks/softSkillsQuestions';
 import { workflowQuestions } from './quizBanks/workflowQuestions';
@@ -173,9 +172,9 @@ function ensureTranslatedFormat(data: unknown): TranslatedQuizQuestion[] {
 
 // Map all quiz banks to chapter IDs
 // Each bank contains 30+ questions in all 3 languages
+// Note: Intro chapter has no quiz - it's an introductory chapter without examination
 export const quizTranslations: Record<string, TranslatedQuizQuestion[]> = {
-  // Foundation module (1-5)
-  intro: introExtendedQuestions,
+  // Foundation module (2-5) - Intro has no quiz
   mindset: ensureTranslatedFormat(mindsetQuestions),
   'soft-skills': ensureTranslatedFormat(softSkillsQuestions),
   'stress-management': ensureTranslatedFormat(stressManagementQuestions),
