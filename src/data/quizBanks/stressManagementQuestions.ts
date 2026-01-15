@@ -183,5 +183,62 @@ export const stressManagementQuestions: QuizQuestion[] = [
     options: ["No relationship", "Feeling in control reduces stress, lack of control increases it", "Control causes stress", "Only physical control matters"],
     correctIndex: 1,
     explanation: "Feeling in control reduces stress, lack of control intensifies it."
+  },
+  // Glossary Questions - Romanian (31-33)
+  {
+    question: "Ce este Burnout-ul?",
+    options: ["O febră", "Epuizare fizică și emoțională cauzată de stres cronic de muncă", "O boală infecțioasă", "O urgență medicală"],
+    correctIndex: 1,
+    explanation: "Burnout-ul este o stare de epuizare fizică și emoțională totală rezultată din stres profesional prelungit."
+  },
+  {
+    question: "Ce înseamnă Reziliență în context profesional?",
+    options: ["Rezistența materialelor", "Capacitatea de a se recupera rapid din dificultăți și a se adapta", "Un tip de material", "Rigiditate"],
+    correctIndex: 1,
+    explanation: "Reziliența este capacitatea de a face față provocărilor, de a se recupera și de a învăța din experiențele dificile."
+  },
+  {
+    question: "Ce este Time Blocking?",
+    options: ["Blocarea ceasului", "Tehnica de alocare a blocurilor de timp pentru sarcini specifice", "Întârzierea muncii", "Lipsa timpului"],
+    correctIndex: 1,
+    explanation: "Time Blocking este tehnica de planificare prin care se alocă intervale de timp dedicate pentru sarcini sau categorii de activități."
+  },
+  // Glossary Questions - German (34-36)
+  {
+    question: "Was bedeutet 'Distress' vs 'Eustress'?",
+    options: ["Beides ist gleich", "Distress ist schädlicher Stress, Eustress ist positiver motivierender Stress", "Beides ist schlecht", "Medizinische Begriffe"],
+    correctIndex: 1,
+    explanation: "Distress ist negativer, schädlicher Stress, während Eustress positiver, motivierender Stress ist, der die Leistung steigert."
+  },
+  {
+    question: "Was ist 'Progressive Muskelentspannung'?",
+    options: ["Sport", "Entspannungstechnik durch systematisches An- und Entspannen von Muskeln", "Massage", "Physiotherapie"],
+    correctIndex: 1,
+    explanation: "Progressive Muskelentspannung ist eine Technik zur Stressreduktion durch bewusstes Anspannen und Entspannen von Muskelgruppen."
+  },
+  {
+    question: "Was bedeutet 'Work-Life-Balance'?",
+    options: ["Weniger arbeiten", "Gesundes Gleichgewicht zwischen Beruf und Privatleben", "Nur Arbeit", "Nur Freizeit"],
+    correctIndex: 1,
+    explanation: "Work-Life-Balance bezeichnet das gesunde Gleichgewicht zwischen beruflichen Anforderungen und persönlichem Leben."
+  },
+  // Glossary Questions - English (37-39)
+  {
+    question: "What is Mindfulness in stress management?",
+    options: ["Being smart", "Practice of focusing on present moment awareness to reduce anxiety", "Mind reading", "Memory technique"],
+    correctIndex: 1,
+    explanation: "Mindfulness is the practice of focusing on the present moment without judgment, reducing anxiety and improving focus."
+  },
+  {
+    question: "What is the Pomodoro Technique?",
+    options: ["A cooking method", "Time management using 25-minute focused work intervals with breaks", "A tomato sauce recipe", "A meditation technique"],
+    correctIndex: 1,
+    explanation: "The Pomodoro Technique uses 25-minute focused work intervals followed by short breaks to maintain productivity and prevent burnout."
+  },
+  {
+    question: "What does Emotional Intelligence mean in workplace stress?",
+    options: ["High IQ", "Ability to recognize and manage own and others' emotions", "Being emotional", "Avoiding emotions"],
+    correctIndex: 1,
+    explanation: "Emotional Intelligence is the ability to recognize, understand and manage your own emotions and those of others."
   }
 ];

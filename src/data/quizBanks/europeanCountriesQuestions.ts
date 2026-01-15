@@ -183,5 +183,62 @@ export const europeanCountriesQuestions: QuizQuestion[] = [
     options: ["No difference", "Southern Europe: more heat restrictions, Northern: more winter equipment requirements", "Northern Europe is stricter overall", "Southern Europe has no regulations"],
     correctIndex: 1,
     explanation: "Southern Europe has heat restrictions, Northern Europe has winter equipment requirements."
+  },
+  // Glossary Questions - Romanian (31-33)
+  {
+    question: "Ce este sistemul Maut în Germania?",
+    options: ["O autostradă", "Sistemul german de taxare pe kilometru pentru camioane", "O stație de benzină", "Un tip de vehicul"],
+    correctIndex: 1,
+    explanation: "Maut este sistemul german de taxare electronică pe kilometru pentru vehiculele comerciale grele, operat prin Toll Collect."
+  },
+  {
+    question: "Ce înseamnă LEZ (Low Emission Zone)?",
+    options: ["Zonă cu emisii scăzute unde vehiculele poluante au restricții", "Zonă cu lumini", "Zonă de livrare", "Zonă de parcare"],
+    correctIndex: 0,
+    explanation: "LEZ (Low Emission Zone) sunt zone urbane care restricționează accesul vehiculelor cu emisii ridicate pentru a îmbunătăți calitatea aerului."
+  },
+  {
+    question: "Ce este Siesta în contextul transportului în Spania?",
+    options: ["O siestă pentru șoferi", "Restricții de circulație în orele de după-amiază", "O pauză obligatorie", "Un festival local"],
+    correctIndex: 1,
+    explanation: "Siesta se referă la restricțiile de circulație pentru camioane în orele calde de după-amiază din Spania, în special vara."
+  },
+  // Glossary Questions - German (34-36)
+  {
+    question: "Was bedeutet 'Brenner Transit' in Österreich?",
+    options: ["Ein Feuer", "Transit durch den Brenner-Pass zwischen Österreich und Italien", "Ein Zug", "Eine Grenze"],
+    correctIndex: 1,
+    explanation: "Brenner Transit bezeichnet den Güterverkehr durch den Brenner-Pass, eine der wichtigsten Alpenrouten zwischen Österreich und Italien."
+  },
+  {
+    question: "Was ist die LSVA in der Schweiz?",
+    options: ["Eine Versicherung", "Leistungsabhängige Schwerverkehrsabgabe - Maut für schwere Fahrzeuge", "Ein Führerschein", "Eine Zulassung"],
+    correctIndex: 1,
+    explanation: "LSVA (Leistungsabhängige Schwerverkehrsabgabe) ist die Schweizer Maut für schwere Nutzfahrzeuge, basierend auf Gewicht und Strecke."
+  },
+  {
+    question: "Was ist das 'Sektorale Fahrverbot' in Tirol?",
+    options: ["Allgemeines Fahrverbot", "Einschränkung für bestimmte Güter zur Verkehrsverlagerung auf Schiene", "Verbot für alle LKW", "Nur nachts"],
+    correctIndex: 1,
+    explanation: "Das Sektorale Fahrverbot beschränkt den Transport bestimmter Güter in Tirol, um Verkehr auf die Schiene zu verlagern."
+  },
+  // Glossary Questions - English (37-39)
+  {
+    question: "What is the GMR (Goods Movement Reference) for UK transport?",
+    options: ["A vehicle type", "Reference number for goods moving between UK and EU post-Brexit", "A fuel type", "A driver license"],
+    correctIndex: 1,
+    explanation: "GMR is the reference number required for goods movements between UK and EU after Brexit, linking customs declarations."
+  },
+  {
+    question: "What is the Eurovignette system?",
+    options: ["A European visa", "Joint road user charge for certain EU countries", "A currency", "A speed limit"],
+    correctIndex: 1,
+    explanation: "Eurovignette is a joint road user charge applied by certain EU countries (Belgium, Denmark, Luxembourg, Netherlands, Sweden) for HGVs."
+  },
+  {
+    question: "What is RoLa (Rollende Landstraße) service in Austria?",
+    options: ["A highway", "Accompanied combined transport of trucks on rail through Alps", "A toll road", "A ferry service"],
+    correctIndex: 1,
+    explanation: "RoLa is the Austrian/German service where complete trucks with drivers are transported on special rail wagons through Alpine tunnels."
   }
 ];

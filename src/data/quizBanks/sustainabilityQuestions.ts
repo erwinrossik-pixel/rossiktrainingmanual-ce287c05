@@ -183,5 +183,62 @@ export const sustainabilityQuestions: QuizQuestion[] = [
     options: ["No changes expected", "Increasing regulation, technology and customer pressure driving transformation", "Becoming less important", "Only for large companies"],
     correctIndex: 1,
     explanation: "Regulation, technology and customer pressure will accelerate sustainable transformation."
+  },
+  // Glossary Questions - Romanian (31-33)
+  {
+    question: "Ce înseamnă Amprentă de Carbon (Carbon Footprint)?",
+    options: ["Urma unui vehicul", "Totalul emisiilor de CO2 generate de o activitate", "O taxă de mediu", "Un tip de combustibil"],
+    correctIndex: 1,
+    explanation: "Amprenta de Carbon reprezintă totalul emisiilor de gaze cu efect de seră generate de o activitate sau organizație."
+  },
+  {
+    question: "Ce este GLEC Framework?",
+    options: ["Un cadru legal", "Metodologie standardizată pentru calculul emisiilor în transport", "O certificare de calitate", "Un sistem de management"],
+    correctIndex: 1,
+    explanation: "GLEC (Global Logistics Emissions Council) Framework este metodologia standard pentru calculul și raportarea emisiilor în logistică."
+  },
+  {
+    question: "Ce înseamnă EU ETS pentru transport?",
+    options: ["Sistem de taxare europeană", "Sistemul European de Comercializare a Emisiilor", "Standard european de siguranță", "Protocol de transport"],
+    correctIndex: 1,
+    explanation: "EU ETS (Emission Trading System) este sistemul european de comercializare a certificatelor de emisii de carbon."
+  },
+  // Glossary Questions - German (34-36)
+  {
+    question: "Was bedeutet 'Lean & Green' Zertifizierung?",
+    options: ["Eine Fahrzeugfarbe", "Programm zur Anerkennung von CO2-Reduktionsbemühungen", "Ein Reinigungsprodukt", "Eine Diät"],
+    correctIndex: 1,
+    explanation: "Lean & Green ist ein internationales Programm, das Unternehmen für ihre CO2-Reduktionsbemühungen in der Logistik zertifiziert."
+  },
+  {
+    question: "Was ist 'Carbon Offsetting' (Kohlenstoffkompensation)?",
+    options: ["Kohlenstoffverbrennung", "Ausgleich von CO2-Emissionen durch Umweltprojekte", "Kohlenstoffmessung", "CO2-Speicherung"],
+    correctIndex: 1,
+    explanation: "Carbon Offsetting bedeutet den Ausgleich von CO2-Emissionen durch Investitionen in Umweltprojekte wie Aufforstung."
+  },
+  {
+    question: "Was bedeutet 'Modal Shift' in der nachhaltigen Logistik?",
+    options: ["Modewechsel", "Verlagerung von Gütern auf umweltfreundlichere Verkehrsträger", "Systemwechsel", "Fahrerwechsel"],
+    correctIndex: 1,
+    explanation: "Modal Shift bezeichnet die Verlagerung von Gütertransport von der Straße auf umweltfreundlichere Verkehrsträger wie Schiene oder Schiff."
+  },
+  // Glossary Questions - English (37-39)
+  {
+    question: "What are Science Based Targets (SBTs) in sustainability?",
+    options: ["Scientific research goals", "Emission reduction goals aligned with Paris Agreement climate science", "Laboratory targets", "Academic benchmarks"],
+    correctIndex: 1,
+    explanation: "Science Based Targets are emission reduction goals aligned with the Paris Agreement climate science to limit global warming."
+  },
+  {
+    question: "What is HVO (Hydrotreated Vegetable Oil)?",
+    options: ["A cooking oil", "Renewable diesel fuel made from vegetable oils or waste fats", "Heavy vehicle oil", "Hydraulic fluid"],
+    correctIndex: 1,
+    explanation: "HVO is a renewable diesel fuel made from vegetable oils or waste fats that can reduce CO2 emissions by up to 90%."
+  },
+  {
+    question: "What does 'Well-to-Wheel' emission analysis include?",
+    options: ["Only tailpipe emissions", "Complete lifecycle emissions from fuel production to vehicle use", "Only production emissions", "Only distribution emissions"],
+    correctIndex: 1,
+    explanation: "Well-to-Wheel analysis includes all emissions from fuel production, distribution and vehicle combustion."
   }
 ];

@@ -183,5 +183,62 @@ export const intermodalQuestions: QuizQuestion[] = [
     options: ["10 km", "Typically 500-700 km depending on route and cargo", "1 km", "5000 km minimum"],
     correctIndex: 1,
     explanation: "Break-even distance for rail vs road is typically 500-700 km."
+  },
+  // Glossary Questions - Romanian (31-33)
+  {
+    question: "Ce înseamnă TEU în transportul de containere?",
+    options: ["Transport European Unit", "Twenty-foot Equivalent Unit - unitatea de măsură standard pentru containere", "Terminal Equipment Usage", "Transit Entry Unit"],
+    correctIndex: 1,
+    explanation: "TEU (Twenty-foot Equivalent Unit) este unitatea standard de măsură pentru containere, echivalentă cu un container de 20 picioare."
+  },
+  {
+    question: "Ce este un Swap Body în transport intermodal?",
+    options: ["O cabină detașabilă", "Caroserie interschimbabilă standardizată pentru transfer între moduri", "Un tip de container frigorific", "O remorcă specială"],
+    correctIndex: 1,
+    explanation: "Swap Body este o caroserie interschimbabilă cu dimensiuni europene, proiectată pentru transfer ușor între moduri de transport."
+  },
+  {
+    question: "Ce înseamnă Ro-La (Rollende Landstraße)?",
+    options: ["O autostradă cu role", "Sistem de transport al camioanelor complete pe tren", "O rută rutieră specială", "Un tip de terminal"],
+    correctIndex: 1,
+    explanation: "Ro-La (Rollende Landstraße / Autostrada rulantă) transportă camioane complete cu șofer pe vagoane speciale de tren."
+  },
+  // Glossary Questions - German (34-36)
+  {
+    question: "Was ist eine Gantry Crane (Portalkran)?",
+    options: ["Ein kleiner Kran", "Ein Brückenkran für den Containerumschlag in Terminals", "Ein Fahrzeugkran", "Ein Handkran"],
+    correctIndex: 1,
+    explanation: "Ein Portalkran ist ein Brückenkran, der Container in intermodalen Terminals hebt und bewegt."
+  },
+  {
+    question: "Was bedeutet 'Huckepack' im Güterverkehr?",
+    options: ["Ein Kindertragetuch", "Transport von Sattelaufliegern auf speziellen Bahnwaggons", "Ein Rucksack für Fahrer", "Ein Verpackungssystem"],
+    correctIndex: 1,
+    explanation: "Huckepack bezeichnet den Transport von Sattelaufliegern auf speziellen Niedrigflur-Bahnwaggons."
+  },
+  {
+    question: "Was ist ein 'Ganzzug' im intermodalen Transport?",
+    options: ["Ein vollständig belegter Zug ohne Rangieren für eine Route/Kunde", "Ein sehr langer Zug", "Ein leerer Zug", "Ein Personenzug"],
+    correctIndex: 0,
+    explanation: "Ein Ganzzug ist ein kompletter Zug für einen Kunden oder eine Route, der ohne Rangierbewegungen verkehrt."
+  },
+  // Glossary Questions - English (37-39)
+  {
+    question: "What is a Short Sea Shipping route?",
+    options: ["Only river transport", "Maritime transport along coastlines and between nearby ports", "Shallow water shipping", "Small boat transport"],
+    correctIndex: 1,
+    explanation: "Short Sea Shipping refers to maritime transport along coastlines and between nearby ports, often integrated with road transport."
+  },
+  {
+    question: "What does 'Modal Split' mean in logistics?",
+    options: ["Splitting cargo between modes", "The distribution of transport volume across different modes", "A broken transport mode", "Dividing a shipment"],
+    correctIndex: 1,
+    explanation: "Modal Split refers to the percentage distribution of freight transport volume across different transport modes (road, rail, sea, air)."
+  },
+  {
+    question: "What is a Freight Corridor in the EU context?",
+    options: ["A warehouse corridor", "Designated rail route with priority for freight and guaranteed capacity", "A highway lane for trucks", "A customs corridor"],
+    correctIndex: 1,
+    explanation: "EU Freight Corridors are priority rail routes with guaranteed capacity and coordinated infrastructure for efficient freight transport."
   }
 ];

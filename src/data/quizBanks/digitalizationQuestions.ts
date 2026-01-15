@@ -183,5 +183,62 @@ export const digitalizationQuestions: QuizQuestion[] = [
     options: ["Nothing special", "Access to advanced tools and global networks previously only available to large companies", "Higher costs", "More paperwork"],
     correctIndex: 1,
     explanation: "Digitalization gives SMBs access to tools and networks previously only available to large companies."
+  },
+  // Glossary Questions - Romanian (31-33)
+  {
+    question: "Ce înseamnă API în digitalizare?",
+    options: ["Aplicație pentru iPhone", "Interfață de Programare a Aplicațiilor pentru integrare sisteme", "Administrație Publică", "Asigurare de Produse"],
+    correctIndex: 1,
+    explanation: "API (Application Programming Interface) permite integrarea automată între diferite sisteme software."
+  },
+  {
+    question: "Ce este RPA (Robotic Process Automation)?",
+    options: ["Roboți fizici", "Automatizarea sarcinilor repetitive prin software", "Reparații auto", "Planificare rutieră"],
+    correctIndex: 1,
+    explanation: "RPA folosește software pentru a automatiza sarcini repetitive precum introducerea datelor, eliberând timp pentru activități cu valoare adăugată."
+  },
+  {
+    question: "Ce înseamnă IoT (Internet of Things) în transport?",
+    options: ["Internet pentru toți", "Rețea de dispozitive și senzori conectați pentru date în timp real", "Impozit pe transport", "Protocol internet"],
+    correctIndex: 1,
+    explanation: "IoT conectează senzori pe vehicule și mărfuri pentru monitorizare continuă și date în timp real."
+  },
+  // Glossary Questions - German (34-36)
+  {
+    question: "Was bedeutet 'Blockchain' in der Logistik?",
+    options: ["Eine Kette von Blöcken", "Dezentrales, unveränderliches Register für sichere Transaktionen", "Blockierte Kette", "Lieferkette"],
+    correctIndex: 1,
+    explanation: "Blockchain ist ein dezentrales, unveränderliches digitales Register, das Transaktionen sicher und transparent aufzeichnet."
+  },
+  {
+    question: "Was ist 'Machine Learning' im Logistikkontext?",
+    options: ["Maschinenreparatur", "Algorithmen, die aus Daten lernen für Prognosen", "Führerscheintraining", "Automatische Wartung"],
+    correctIndex: 1,
+    explanation: "Machine Learning nutzt Algorithmen, die aus historischen Daten lernen, um Nachfrage, Preise und Lieferzeiten vorherzusagen."
+  },
+  {
+    question: "Was bedeutet 'e-CMR'?",
+    options: ["Elektronische Musik", "Elektronische Version des CMR-Frachtbriefs", "E-Mail-CMR", "Europäischer CMR"],
+    correctIndex: 1,
+    explanation: "e-CMR ist die digitale Version des CMR-Frachtbriefs mit rechtlicher Gültigkeit in den Unterzeichnerländern."
+  },
+  // Glossary Questions - English (37-39)
+  {
+    question: "What is AI (Artificial Intelligence) used for in transport?",
+    options: ["Only chatbots", "Route optimization, demand prediction and decision automation", "Entertainment", "Just marketing"],
+    correctIndex: 1,
+    explanation: "AI in transport optimizes routes, predicts demand, automates pricing and improves decision-making through data analysis."
+  },
+  {
+    question: "What is 'Cybersecurity' in logistics context?",
+    options: ["Internet browsing", "Protection of digital systems and data from attacks and breaches", "Security guards", "Firewall only"],
+    correctIndex: 1,
+    explanation: "Cybersecurity protects logistics systems and sensitive data from ransomware attacks, data theft and other digital threats."
+  },
+  {
+    question: "What is a 'Digital Twin' in logistics?",
+    options: ["Two computers", "Virtual replica of physical systems for simulation and testing", "Online backup", "Duplicate website"],
+    correctIndex: 1,
+    explanation: "A Digital Twin is a virtual replica of physical systems that allows testing scenarios before real-world implementation."
   }
 ];
