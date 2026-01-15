@@ -9,7 +9,7 @@ import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { ArrowLeft, Users, BookOpen, Trophy, Clock, Eye, Download, BarChart3, RefreshCw, RotateCcw, Unlock, Shield, Activity, Timer } from 'lucide-react';
+import { ArrowLeft, Users, BookOpen, Trophy, Clock, Eye, Download, BarChart3, RefreshCw, RotateCcw, Unlock, Shield, Activity, Timer, TrendingUp } from 'lucide-react';
 import { toast } from 'sonner';
 import { GovernanceDashboard } from '@/components/admin/GovernanceDashboard';
 import { format, subDays } from 'date-fns';
@@ -17,6 +17,7 @@ import { AdminCharts } from '@/components/admin/AdminCharts';
 import { AutoUpdateDashboard } from '@/components/admin/AutoUpdateDashboard';
 import { UsageAnalytics } from '@/components/admin/UsageAnalytics';
 import { TrainingTimeAnalytics } from '@/components/admin/TrainingTimeAnalytics';
+import { LearningAnalyticsDashboard } from '@/components/admin/kpi/LearningAnalyticsDashboard';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 interface UserWithProgress {
@@ -493,6 +494,10 @@ export default function AdminDashboard() {
               <RefreshCw className="h-4 w-4" />
               Auto-Update Engine
             </TabsTrigger>
+            <TabsTrigger value="learning-kpi" className="flex items-center gap-2">
+              <TrendingUp className="h-4 w-4" />
+              Learning KPI
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="users" className="mt-6">
@@ -582,6 +587,10 @@ export default function AdminDashboard() {
 
           <TabsContent value="auto-updates" className="mt-6">
             <AutoUpdateDashboard />
+          </TabsContent>
+
+          <TabsContent value="learning-kpi" className="mt-6">
+            <LearningAnalyticsDashboard />
           </TabsContent>
         </Tabs>
       </div>
