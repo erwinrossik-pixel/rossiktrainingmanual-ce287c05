@@ -190,7 +190,7 @@ export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
 
       {/* Stats */}
       {stats && (
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
           <Card className="bg-purple-500/5 border-purple-500/20">
             <CardContent className="pt-4">
               <p className="text-sm text-muted-foreground">Capitole Analizate</p>
@@ -215,6 +215,15 @@ export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
               <p className="text-sm font-medium">
                 {new Date(stats.analyzedAt).toLocaleString('ro-RO')}
               </p>
+            </CardContent>
+          </Card>
+          <Card className="bg-primary/5 border-primary/20">
+            <CardContent className="pt-4">
+              <p className="text-sm text-muted-foreground">Cron Job</p>
+              <div className="flex items-center gap-1">
+                <Clock className="h-4 w-4 text-green-500" />
+                <p className="text-sm font-medium text-green-600">Zilnic 09:00</p>
+              </div>
             </CardContent>
           </Card>
         </div>
