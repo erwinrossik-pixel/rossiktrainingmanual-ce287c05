@@ -1,4 +1,4 @@
-import { CheckCircle2, Circle, Clock } from "lucide-react";
+import { CheckCircle2, Clock } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useAuth } from "@/hooks/useAuth";
@@ -6,20 +6,7 @@ import { useChapterProgress } from "@/hooks/useChapterProgress";
 import { useProgressContext } from "@/contexts/ProgressContext";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { TrainingTimer } from "./TrainingTimer";
-
-interface PhaseInfo {
-  phase: number;
-  titleKey: string;
-  chapters: number[];
-}
-
-const TRAINING_PHASES: PhaseInfo[] = [
-  { phase: 1, titleKey: "phase1", chapters: [1, 2, 3, 4, 5] },
-  { phase: 2, titleKey: "phase2", chapters: [6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19] },
-  { phase: 3, titleKey: "phase3", chapters: [20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33] },
-  { phase: 4, titleKey: "phase4", chapters: [34, 35, 36, 37, 38, 39, 40, 41, 42, 43] },
-  { phase: 5, titleKey: "phase5", chapters: [44, 45, 46, 47, 48, 49, 50] },
-];
+import { TRAINING_PHASES, getChapterIdByNumber, type PhaseInfo } from "@/data/chaptersConfig";
 
 const translations = {
   ro: {
@@ -51,19 +38,6 @@ const translations = {
   },
 };
 
-const CHAPTER_ORDER = [
-  // Phase 1: Foundations & Operations (1-5)
-  "intro", "mindset", "soft-skills", "stress-management", "workflow",
-  // Phase 2: Compliance & Documents (6-19)
-  "vehicle", "loading", "reefer", "express-transport", "intermodal", "warehouse", "adr", "documents", "incoterms", "customs", "authorities", "licenses-oversize", "compliance", "driving-time",
-  // Phase 3: Pricing & Commercial (20-33)
-  "europe-zones", "european-countries", "environment", "sustainability", "supply-chain", "pricing", "commercial", "negotiation", "networking", "clients", "carrier-management", "exchanges", "communication", "kpi",
-  // Phase 4: Management & Advanced (34-43)
-  "translogica", "fleet", "technology", "digitalization", "risk-management", "high-value-goods", "insurance", "claims", "payment", "accounting",
-  // Phase 5: Review & Consolidation (44-50)
-  "training", "professional-development", "case-studies", "emergency", "red-flags", "checklists", "glossary",
-];
-
 export function CompactDailyTracker() {
   const { language } = useLanguage();
   const { user } = useAuth();
@@ -73,8 +47,9 @@ export function CompactDailyTracker() {
   const t = translations[language] || translations.en;
 
   const getCompletedChaptersInPhase = (phaseInfo: PhaseInfo): number => {
-    return phaseInfo.chapters.filter(chapterNum => {
-      const chapterId = CHAPTER_ORDER[chapterNum - 1];
+    return phaseInfo.chapters.filter((chapterNum: number) => {
+      const chapterId = getChapterIdByNumber(chapterNum);
+      if (!chapterId) return false;
       if (user) {
         return getChapterStatus(chapterId) === 'completed';
       }

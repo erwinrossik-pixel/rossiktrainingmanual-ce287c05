@@ -15,51 +15,12 @@ import { DailyTracker } from "./DailyTracker";
 import { TimeDistributionChart } from "./TimeDistributionChart";
 import { EfficiencyIndicator } from "./EfficiencyIndicator";
 import { getQuestionCount, getTotalQuestionCount } from "@/data/quizTranslations";
+import { ALL_CHAPTERS, TOTAL_CHAPTERS, getChapterNumber } from "@/data/chaptersConfig";
 import { jsPDF } from "jspdf";
 import { toast } from "sonner";
 
-const chapters = [
-  { id: "intro", labelKey: "chapter.intro", section: "section.foundation" },
-  { id: "mindset", labelKey: "chapter.mindset", section: "section.foundation" },
-  { id: "soft-skills", labelKey: "chapter.soft-skills", section: "section.foundation" },
-  { id: "workflow", labelKey: "chapter.workflow", section: "section.foundation" },
-  { id: "vehicle", labelKey: "chapter.vehicle", section: "section.equipment" },
-  { id: "loading", labelKey: "chapter.loading", section: "section.equipment" },
-  { id: "reefer", labelKey: "chapter.reefer", section: "section.equipment" },
-  { id: "warehouse", labelKey: "chapter.warehouse", section: "section.equipment" },
-  { id: "adr", labelKey: "chapter.adr", section: "section.equipment" },
-  { id: "documents", labelKey: "chapter.documents", section: "section.equipment" },
-  { id: "incoterms", labelKey: "chapter.incoterms", section: "section.trade" },
-  { id: "compliance", labelKey: "chapter.compliance", section: "section.trade" },
-  { id: "driving-time", labelKey: "chapter.driving-time", section: "section.trade" },
-  { id: "customs", labelKey: "chapter.customs", section: "section.trade" },
-  { id: "europe-zones", labelKey: "chapter.europe-zones", section: "section.trade" },
-  { id: "environment", labelKey: "chapter.environment", section: "section.trade" },
-  { id: "supply-chain", labelKey: "chapter.supply-chain", section: "section.trade" },
-  { id: "pricing", labelKey: "chapter.pricing", section: "section.commercial" },
-  { id: "commercial", labelKey: "chapter.commercial", section: "section.commercial" },
-  { id: "negotiation", labelKey: "chapter.negotiation", section: "section.commercial" },
-  { id: "clients", labelKey: "chapter.clients", section: "section.commercial" },
-  { id: "carrier-management", labelKey: "chapter.carrier-management", section: "section.commercial" },
-  { id: "exchanges", labelKey: "chapter.exchanges", section: "section.commercial" },
-  { id: "communication", labelKey: "chapter.communication", section: "section.commercial" },
-  { id: "kpi", labelKey: "chapter.kpi", section: "section.commercial" },
-  { id: "translogica", labelKey: "chapter.translogica", section: "section.technology" },
-  { id: "fleet", labelKey: "chapter.fleet", section: "section.technology" },
-  { id: "technology", labelKey: "chapter.technology", section: "section.technology" },
-  { id: "risk-management", labelKey: "chapter.risk-management", section: "section.finance" },
-  { id: "insurance", labelKey: "chapter.insurance", section: "section.finance" },
-  { id: "claims", labelKey: "chapter.claims", section: "section.finance" },
-  { id: "payment", labelKey: "chapter.payment", section: "section.finance" },
-  { id: "accounting", labelKey: "chapter.accounting", section: "section.finance" },
-  { id: "emergency", labelKey: "chapter.emergency", section: "section.practical" },
-  { id: "case-studies", labelKey: "chapter.case-studies", section: "section.practical" },
-  { id: "training", labelKey: "chapter.training", section: "section.practical" },
-  { id: "red-flags", labelKey: "chapter.red-flags", section: "section.practical" },
-  { id: "glossary", labelKey: "chapter.glossary", section: "section.practical" },
-  { id: "checklists", labelKey: "chapter.checklists", section: "section.practical" },
-  { id: "licenses-oversize", labelKey: "chapter.licenses-oversize", section: "section.practical" },
-];
+// Use centralized chapter configuration
+const chapters = ALL_CHAPTERS;
 
 interface ProgressDashboardProps {
   onNavigate: (chapterId: string) => void;
