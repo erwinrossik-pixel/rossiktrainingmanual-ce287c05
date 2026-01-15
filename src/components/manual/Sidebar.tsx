@@ -231,7 +231,11 @@ export function Sidebar({ activeChapter, onChapterChange, onShowDashboard }: Sid
             <img 
               src={rossikLogo} 
               alt="Rossik Transport & Logistic" 
+              width={255}
+              height={51}
               className="w-full h-auto object-contain rounded-xl"
+              loading="eager"
+              decoding="async"
             />
             <p className="text-sm font-medium text-muted-foreground">
               {t('sidebar.title')}
