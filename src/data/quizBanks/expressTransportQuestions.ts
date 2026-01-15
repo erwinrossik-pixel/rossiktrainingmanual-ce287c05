@@ -183,5 +183,62 @@ export const expressTransportQuestions: QuizQuestion[] = [
     options: ["Hidden fees are acceptable", "Clear breakdown: base rate, distance, time window, surcharges", "Lump sum only", "Negotiate each time"],
     correctIndex: 1,
     explanation: "Transparent express pricing includes clear details: base rate, distance, urgency."
+  },
+  // Glossary Questions - Romanian (31-33)
+  {
+    question: "Ce înseamnă 'Same-Day Delivery' în transport express?",
+    options: ["Livrare în aceeași săptămână", "Livrare în aceeași zi în care s-a plasat comanda", "Livrare similară", "Livrare standard"],
+    correctIndex: 1,
+    explanation: "Same-Day înseamnă livrare în aceeași zi calendaristică în care s-a efectuat comanda."
+  },
+  {
+    question: "Ce este un 'Line Stop' în industria auto?",
+    options: ["O stație de autobuz", "Oprirea liniei de producție din cauza lipsei pieselor", "Un semn de oprire", "O pauză de masă"],
+    correctIndex: 1,
+    explanation: "Line Stop reprezintă oprirea liniei de producție din cauza lipsei de piese, situație care necesită transport express urgent."
+  },
+  {
+    question: "Ce înseamnă 'Dedicated FTL' în transport express?",
+    options: ["Camion parțial", "Camion complet dedicat unui singur transport", "Transport de grup", "Transport lent"],
+    correctIndex: 1,
+    explanation: "Dedicated FTL (Full Truck Load) înseamnă un vehicul complet dedicat exclusiv unui singur transport express."
+  },
+  // Glossary Questions - German (34-36)
+  {
+    question: "Was bedeutet 'Hot Shot' in der Logistik?",
+    options: ["Heißes Getränk", "Dringender Kleintransport mit schnellen Fahrzeugen", "Wärmetransport", "Gefährlicher Transport"],
+    correctIndex: 1,
+    explanation: "Hot Shot bezeichnet einen dringenden Kleintransport, meist mit Sprinter oder Transporter durchgeführt."
+  },
+  {
+    question: "Was ist ein 'On-Board Courier' (OBC)?",
+    options: ["Ein Paketdienst", "Person, die Waren persönlich als Handgepäck im Flugzeug transportiert", "Ein Bordcomputer", "Ein Fahrzeugkurier"],
+    correctIndex: 1,
+    explanation: "Ein On-Board Courier transportiert dringende Waren persönlich als Handgepäck im Flugzeug."
+  },
+  {
+    question: "Was bedeutet 'Time Critical' Transport?",
+    options: ["Langsamer Transport", "Transport mit fester Lieferzeitgarantie und Strafen bei Verzug", "Zeitlose Lieferung", "Normaler Transport"],
+    correctIndex: 1,
+    explanation: "Time Critical bezeichnet Transporte mit fester Lieferzeitgarantie, oft mit Vertragsstrafen bei Verzögerung."
+  },
+  // Glossary Questions - English (37-39)
+  {
+    question: "What is 'Cross-Docking' in express logistics?",
+    options: ["Ship loading", "Direct transfer from incoming to outgoing vehicle with minimal storage", "Dock building", "Container stacking"],
+    correctIndex: 1,
+    explanation: "Cross-Docking is the practice of directly transferring goods from incoming to outgoing vehicles with minimal or no storage time."
+  },
+  {
+    question: "What does 'Direct Drive' mean in express transport?",
+    options: ["Automatic transmission", "Direct transport without transshipment or intermediate stops", "Electric vehicle", "GPS navigation"],
+    correctIndex: 1,
+    explanation: "Direct Drive means the vehicle goes directly from pickup to delivery without any transshipment or intermediate stops."
+  },
+  {
+    question: "What is 'Night Express' service?",
+    options: ["Evening delivery", "Overnight transport arriving before business hours next day", "Dark vehicle", "Late pickup"],
+    correctIndex: 1,
+    explanation: "Night Express is overnight transport service where goods are picked up evening and delivered before business hours the next morning."
   }
 ];

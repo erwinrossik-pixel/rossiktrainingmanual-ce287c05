@@ -183,5 +183,62 @@ export const authoritiesQuestions: QuizQuestion[] = [
     options: ["Local police", "DGT (Dirección General de Tráfico)", "Customs", "Private companies"],
     correctIndex: 1,
     explanation: "DGT is the Spanish authority responsible for enforcing cabotage rules."
+  },
+  // Glossary Questions - Romanian (31-33)
+  {
+    question: "Ce este ISCTR în România?",
+    options: ["O companie de transport", "Inspectoratul de Stat pentru Control în Transportul Rutier", "O asociație de șoferi", "Un sindicat"],
+    correctIndex: 1,
+    explanation: "ISCTR este autoritatea română responsabilă pentru controlul transportului rutier de marfă și pasageri."
+  },
+  {
+    question: "Ce înseamnă Proces Verbal în contextul controalelor?",
+    options: ["O conversație", "Documentul oficial de constatare a neregulilor", "O plângere", "Un raport de activitate"],
+    correctIndex: 1,
+    explanation: "Procesul Verbal este documentul oficial prin care se constată neregulile și se aplică sancțiunile la control."
+  },
+  {
+    question: "Ce este Cabotajul în transportul rutier?",
+    options: ["Transport între cabine", "Transport intern efectuat de un transportator străin", "Transport de cablu", "Un tip de taxă"],
+    correctIndex: 1,
+    explanation: "Cabotajul reprezintă operațiunile de transport intern efectuate de un transportator înregistrat în altă țară."
+  },
+  // Glossary Questions - German (34-36)
+  {
+    question: "Was ist das BAG (Bundesamt für Güterverkehr)?",
+    options: ["Ein Transportunternehmen", "Die deutsche Bundesbehörde für Güterverkehrskontrolle", "Ein Logistikverband", "Eine Spedition"],
+    correctIndex: 1,
+    explanation: "Das BAG ist die deutsche Bundesbehörde, die für die Kontrolle des Güterverkehrs auf Straßen zuständig ist."
+  },
+  {
+    question: "Was bedeutet 'Ordnungswidrigkeit' im Transportrecht?",
+    options: ["Ein Verbrechen", "Ein administrativer Verstoß mit Bußgeld", "Eine Warnung", "Ein Lob"],
+    correctIndex: 1,
+    explanation: "Eine Ordnungswidrigkeit ist ein administrativer Verstoß, der mit einem Bußgeld geahndet wird, im Gegensatz zu einer Straftat."
+  },
+  {
+    question: "Was ist die A1-Bescheinigung?",
+    options: ["Ein Führerschein", "Nachweis der Sozialversicherung für entsandte Arbeitnehmer", "Eine Fahrzeugzulassung", "Ein Zolldokument"],
+    correctIndex: 1,
+    explanation: "Die A1-Bescheinigung weist nach, in welchem Land ein entsandter Arbeitnehmer sozialversichert ist."
+  },
+  // Glossary Questions - English (37-39)
+  {
+    question: "What is DREAL in France?",
+    options: ["A transport company", "Regional authority for environment, planning and housing", "A customs office", "A toll system"],
+    correctIndex: 1,
+    explanation: "DREAL (Direction Régionale de l'Environnement, de l'Aménagement et du Logement) is the French regional authority for transport control."
+  },
+  {
+    question: "What is the Euro Contrôle Route network?",
+    options: ["A European toll system", "International cooperation network for harmonized road transport control", "A highway network", "A customs union"],
+    correctIndex: 1,
+    explanation: "Euro Contrôle Route is the European cooperation network for harmonized road transport control across countries."
+  },
+  {
+    question: "What does IMI Declaration refer to?",
+    options: ["Insurance document", "Internal Market Information system registration for posted workers", "Import manifest", "Inspection manual"],
+    correctIndex: 1,
+    explanation: "IMI Declaration is the mandatory registration in the Internal Market Information system for posting workers in EU countries."
   }
 ];

@@ -183,5 +183,62 @@ export const networkingQuestions: QuizQuestion[] = [
     options: ["Number of cards collected", "Quality relationships, referrals received and business generated over time", "Events attended", "LinkedIn connections only"],
     correctIndex: 1,
     explanation: "Success is measured by quality relationships and business generated over time."
+  },
+  // Glossary Questions - Romanian (31-33)
+  {
+    question: "Ce este un 'Elevator Pitch' în networking?",
+    options: ["O prezentare în lift", "Descriere scurtă și convingătoare a serviciilor în 30-60 secunde", "O ofertă de preț", "O prezentare lungă"],
+    correctIndex: 1,
+    explanation: "Elevator Pitch este o prezentare scurtă și memorabilă a companiei și serviciilor, livrabilă în 30-60 de secunde."
+  },
+  {
+    question: "Ce înseamnă CRM în context business?",
+    options: ["Control Rutier Mandatory", "Customer Relationship Management - gestiunea relațiilor cu clienții", "Credit Rating Model", "Contract Review Meeting"],
+    correctIndex: 1,
+    explanation: "CRM (Customer Relationship Management) este un sistem pentru gestionarea sistematică a relațiilor și interacțiunilor cu clienții."
+  },
+  {
+    question: "Ce este Reciprocitatea în networking?",
+    options: ["Primirea fără a da", "Principiul de a oferi valoare înainte de a aștepta să primești", "Egalitate matematică", "Schimb de cărți de vizită"],
+    correctIndex: 1,
+    explanation: "Reciprocitatea este principiul că relațiile durabile se construiesc oferind valoare înainte de a cere ceva în schimb."
+  },
+  // Glossary Questions - German (34-36)
+  {
+    question: "Was bedeutet 'Thought Leadership' im Networking?",
+    options: ["Gedankenkontrolle", "Etablierung als Experte durch Fachwissen und Inhalte", "Führungsposition", "Mentale Stärke"],
+    correctIndex: 1,
+    explanation: "Thought Leadership bedeutet, sich durch Fachwissen, Veröffentlichungen und Vorträge als Branchenexperte zu positionieren."
+  },
+  {
+    question: "Was ist ein 'Follow-up' nach einer Networking-Veranstaltung?",
+    options: ["Jemanden verfolgen", "Kontaktaufnahme nach dem Treffen zur Beziehungspflege", "Social Media folgen", "Weitergehen"],
+    correctIndex: 1,
+    explanation: "Follow-up ist die zeitnahe Kontaktaufnahme (24-48h) nach einem Treffen, um die neue Beziehung zu festigen."
+  },
+  {
+    question: "Was ist 'Social Selling' im B2B-Kontext?",
+    options: ["Verkauf auf Märkten", "Aufbau von Geschäftsbeziehungen über soziale Medien", "Soziales Unternehmen", "Charity-Verkauf"],
+    correctIndex: 1,
+    explanation: "Social Selling nutzt soziale Medien wie LinkedIn zum Aufbau von Vertrauen und Geschäftsbeziehungen."
+  },
+  // Glossary Questions - English (37-39)
+  {
+    question: "What is Relationship-Based Selling in freight forwarding?",
+    options: ["Selling to relatives", "Building long-term trust partnerships rather than transactional relationships", "Dating clients", "Family business"],
+    correctIndex: 1,
+    explanation: "Relationship-Based Selling focuses on building long-term partnerships based on trust rather than one-time transactions."
+  },
+  {
+    question: "What is 'Mentorship' in professional networking?",
+    options: ["Paid consulting", "Guidance from experienced professional for career development", "Mental health support", "Membership"],
+    correctIndex: 1,
+    explanation: "Mentorship is a relationship where an experienced professional guides and advises someone earlier in their career."
+  },
+  {
+    question: "What does 'Win-Win' mean in business networking?",
+    options: ["Always winning", "Outcomes that benefit all parties involved in a relationship", "Competition", "Lottery"],
+    correctIndex: 1,
+    explanation: "Win-Win describes business relationships and deals where all parties benefit, creating sustainable partnerships."
   }
 ];

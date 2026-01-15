@@ -183,5 +183,62 @@ export const highValueGoodsQuestions: QuizQuestion[] = [
     options: ["Next day", "Immediate - within minutes for tracking center and authorities", "Within an hour", "When convenient"],
     correctIndex: 1,
     explanation: "Response to security alerts must be immediate, within minutes."
+  },
+  // Glossary Questions - Romanian (31-33)
+  {
+    question: "Ce este TAPA TSR?",
+    options: ["O companie de transport", "Standard de securitate pentru transportul mărfurilor valoroase", "Un tip de sigiliu", "O asigurare"],
+    correctIndex: 1,
+    explanation: "TAPA TSR (Trucking Security Requirements) sunt standardele globale pentru securitatea transportului rutier de mărfuri valoroase."
+  },
+  {
+    question: "Ce înseamnă 'Hard-sided Trailer' pentru transport valoros?",
+    options: ["Remorcă dură", "Remorcă cu pereți solizi metalici pentru securitate sporită", "Remorcă frigoriferă", "Remorcă deschisă"],
+    correctIndex: 1,
+    explanation: "Hard-sided Trailer este o remorcă cu pereți metalici solizi care oferă protecție suplimentară împotriva efracției."
+  },
+  {
+    question: "Ce este un 'Panic Button' în vehiculele pentru mărfuri valoroase?",
+    options: ["Buton de claxon", "Buton de alarmă silențioasă care alertează centrul de securitate", "Buton de aer condiționat", "Buton de oprire"],
+    correctIndex: 1,
+    explanation: "Panic Button este un buton de alarmă silențioasă care alertează centrul de monitorizare fără a alerta potențialii infractori."
+  },
+  // Glossary Questions - German (34-36)
+  {
+    question: "Was bedeutet 'Cargo at Rest' Risiko?",
+    options: ["Ruhende Fracht", "Höchstes Diebstahlrisiko bei geparkten Fahrzeugen oder Lagergütern", "Fracht in Bewegung", "Keine Gefahr"],
+    correctIndex: 1,
+    explanation: "Cargo at Rest bezeichnet das höchste Diebstahlrisiko, wenn Fahrzeuge geparkt sind oder Güter gelagert werden."
+  },
+  {
+    question: "Was ist eine 'Secure Parking Facility'?",
+    options: ["Normaler Parkplatz", "Eingezäunter, beleuchteter, überwachter Parkplatz mit Zugangskontrolle", "Kostenloser Parkplatz", "Straßenrand"],
+    correctIndex: 1,
+    explanation: "Eine Secure Parking Facility ist ein gesicherter Parkplatz mit Zaun, Beleuchtung, Überwachung und Zugangskontrolle."
+  },
+  {
+    question: "Was ist 'Covert Routing'?",
+    options: ["Schnellste Route", "Geheimhaltung der Transportroute und des Zeitplans", "Kürzeste Route", "Öffentliche Route"],
+    correctIndex: 1,
+    explanation: "Covert Routing bedeutet die Geheimhaltung der Transportroute und des Zeitplans zum Schutz wertvoller Güter."
+  },
+  // Glossary Questions - English (37-39)
+  {
+    question: "What is TAPA FSR certification?",
+    options: ["A transport license", "Facility Security Requirements for warehouses handling high-value goods", "A driving permit", "An insurance policy"],
+    correctIndex: 1,
+    explanation: "TAPA FSR (Facility Security Requirements) certifies that warehouses meet global security standards for storing high-value goods."
+  },
+  {
+    question: "What is GDP (Good Distribution Practice) for pharmaceuticals?",
+    options: ["Economic indicator", "Standards ensuring pharmaceutical quality during storage and transport", "A pricing method", "A logistics company"],
+    correctIndex: 1,
+    explanation: "GDP ensures pharmaceutical products maintain quality and integrity throughout storage and transportation."
+  },
+  {
+    question: "What is 'Chain of Custody' documentation?",
+    options: ["Prisoner transport", "Unbroken record of who handled goods from origin to destination", "Vehicle maintenance log", "Driver schedule"],
+    correctIndex: 1,
+    explanation: "Chain of Custody documents every person who handled the goods, ensuring accountability and traceability."
   }
 ];

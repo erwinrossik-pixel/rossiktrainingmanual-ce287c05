@@ -183,5 +183,62 @@ export const professionalDevelopmentQuestions: QuizQuestion[] = [
     options: ["No documentation needed", "Portfolio of achievements, certifications and project outcomes", "Only CV updates", "Memory is enough"],
     correctIndex: 1,
     explanation: "A portfolio of achievements, certifications and project outcomes shows development."
+  },
+  // Glossary Questions - Romanian (31-33)
+  {
+    question: "Ce este certificarea FIATA?",
+    options: ["O marcă de mașini", "Diploma internațională pentru expeditori de marfă", "Un permis de conducere", "O asigurare"],
+    correctIndex: 1,
+    explanation: "Diploma FIATA este o certificare internațională recunoscută pentru profesioniștii din freight forwarding."
+  },
+  {
+    question: "Ce înseamnă CPC (Certificate of Professional Competence)?",
+    options: ["Curs de programare", "Certificat de competență profesională pentru transportul de mărfuri", "Control de calitate", "Carnet de conducere"],
+    correctIndex: 1,
+    explanation: "CPC este certificatul obligatoriu de competență profesională pentru operatorii și managerii de transport."
+  },
+  {
+    question: "Ce este Mentorship-ul în carieră?",
+    options: ["Training plătit", "Ghidare de la un profesionist experimentat pentru dezvoltare", "Management", "Consultanță generală"],
+    correctIndex: 1,
+    explanation: "Mentorship-ul este o relație în care un profesionist cu experiență ghidează și sfătuiește pe cineva la început de carieră."
+  },
+  // Glossary Questions - German (34-36)
+  {
+    question: "Was bedeutet 'CILT' in der Logistikbranche?",
+    options: ["Ein Fahrzeugtyp", "Chartered Institute of Logistics and Transport - Berufsverband", "Ein Containertyp", "Eine Zertifizierung"],
+    correctIndex: 1,
+    explanation: "CILT (Chartered Institute of Logistics and Transport) ist der führende internationale Berufsverband für Logistik- und Transportfachleute."
+  },
+  {
+    question: "Was sind 'Soft Skills' im beruflichen Kontext?",
+    options: ["Technische Fähigkeiten", "Zwischenmenschliche Fähigkeiten wie Kommunikation und Teamarbeit", "Körperliche Fähigkeiten", "Computerkenntnisse"],
+    correctIndex: 1,
+    explanation: "Soft Skills umfassen zwischenmenschliche Fähigkeiten wie Kommunikation, Teamarbeit, Problemlösung und emotionale Intelligenz."
+  },
+  {
+    question: "Was bedeutet 'Upskilling' in der Digitalisierung?",
+    options: ["Aufwärts fahren", "Erwerb neuer digitaler Kompetenzen zur Anpassung an Veränderungen", "Computer aufrüsten", "Beförderung"],
+    correctIndex: 1,
+    explanation: "Upskilling bedeutet das Erlernen neuer (besonders digitaler) Fähigkeiten, um in einer sich verändernden Branche relevant zu bleiben."
+  },
+  // Glossary Questions - English (37-39)
+  {
+    question: "What is IATA certification for?",
+    options: ["Road transport", "Air cargo and aviation industry professionals", "Maritime shipping", "Rail transport"],
+    correctIndex: 1,
+    explanation: "IATA (International Air Transport Association) certifications are industry-recognized qualifications for air cargo professionals."
+  },
+  {
+    question: "What are Micro-credentials in professional learning?",
+    options: ["Small badges", "Short, focused certifications for specific skills or knowledge", "Mini degrees", "Children's education"],
+    correctIndex: 1,
+    explanation: "Micro-credentials are short, focused certifications that validate specific skills or competencies in targeted areas."
+  },
+  {
+    question: "What is a PDP (Personal Development Plan)?",
+    options: ["Project plan", "Structured document outlining career goals and development activities", "Payment plan", "Product description"],
+    correctIndex: 1,
+    explanation: "A Personal Development Plan is a structured document outlining career goals, skill gaps and planned development activities."
   }
 ];
