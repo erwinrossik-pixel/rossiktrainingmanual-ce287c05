@@ -240,5 +240,62 @@ export const europeanCountriesQuestions: QuizQuestion[] = [
     options: ["A highway", "Accompanied combined transport of trucks on rail through Alps", "A toll road", "A ferry service"],
     correctIndex: 1,
     explanation: "RoLa is the Austrian/German service where complete trucks with drivers are transported on special rail wagons through Alpine tunnels."
+  },
+  // Additional Glossary Questions - Romanian (40-42)
+  {
+    question: "Ce înseamnă Cabotaj în transport?",
+    options: ["Transport de cablu", "Transport intern efectuat de un transportator străin", "Transport de pasageri", "Transport aerian"],
+    correctIndex: 1,
+    explanation: "Cabotajul este transportul intern de mărfuri într-o țară efectuat de un transportator înregistrat în altă țară."
+  },
+  {
+    question: "Ce este Via Baltica?",
+    options: ["O companie", "Coridorul de transport de la Polonia la țările Baltice", "O mare", "Un port"],
+    correctIndex: 1,
+    explanation: "Via Baltica este coridorul rutier european care conectează Polonia cu țările Baltice (Lituania, Letonia, Estonia)."
+  },
+  {
+    question: "Ce înseamnă Ecotaxă în Franța?",
+    options: ["Taxă ecologică pentru vehicule comerciale grele", "Taxă pentru mașini electrice", "Impozit pe venit", "Taxă de parcare"],
+    correctIndex: 0,
+    explanation: "Ecotaxa este taxa ecologică franceză pentru vehiculele comerciale grele, similară cu Maut-ul german."
+  },
+  // Additional Glossary Questions - German (43-45)
+  {
+    question: "Was ist die 'Vignette' in Österreich?",
+    options: ["Ein Aufkleber für die Mautentrichtung auf Autobahnen", "Ein Führerschein", "Ein Visum", "Ein Stempel"],
+    correctIndex: 0,
+    explanation: "Die Vignette ist der Mautaufkleber für die Nutzung österreichischer Autobahnen und Schnellstraßen."
+  },
+  {
+    question: "Was bedeutet 'Winterausrüstungspflicht'?",
+    options: ["Winterkleidung", "Gesetzliche Pflicht für Winterreifen und Schneeketten", "Heizungspflicht", "Beleuchtungspflicht"],
+    correctIndex: 1,
+    explanation: "Winterausrüstungspflicht bezeichnet die gesetzliche Pflicht für Winterreifen/Schneeketten in bestimmten Ländern und Zeiträumen."
+  },
+  {
+    question: "Was ist das 'Nachtfahrverbot' in Österreich und der Schweiz?",
+    options: ["Verbot von Nachtarbeit", "Fahrverbot für LKW während bestimmter Nachtstunden", "Beleuchtungsvorschrift", "Geschwindigkeitsbegrenzung"],
+    correctIndex: 1,
+    explanation: "Das Nachtfahrverbot untersagt LKW-Fahrten während bestimmter Nachtstunden auf definierten Strecken."
+  },
+  // Additional Glossary Questions - English (46-48)
+  {
+    question: "What is the TEN-T Network?",
+    options: ["A telephone network", "Trans-European Transport Network of priority infrastructure", "Television network", "Tech network"],
+    correctIndex: 1,
+    explanation: "TEN-T (Trans-European Transport Network) is the EU's priority network of roads, railways, airports and ports."
+  },
+  {
+    question: "What is an ECMT Permit used for?",
+    options: ["European permit for road haulage between ECMT member countries", "Emergency transport", "Customs clearance", "Driver licensing"],
+    correctIndex: 0,
+    explanation: "ECMT Permits allow road haulage between European Conference of Ministers of Transport member countries."
+  },
+  {
+    question: "What is the 'Posting Directive' in EU transport?",
+    options: ["Mail regulations", "Rules for temporary worker deployment in other EU countries", "Border posting", "Social media policy"],
+    correctIndex: 1,
+    explanation: "The Posting Directive regulates conditions for workers temporarily posted to work in other EU member states."
   }
 ];

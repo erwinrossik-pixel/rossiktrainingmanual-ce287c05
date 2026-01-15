@@ -240,5 +240,62 @@ export const expressTransportQuestions: QuizQuestion[] = [
     options: ["Evening delivery", "Overnight transport arriving before business hours next day", "Dark vehicle", "Late pickup"],
     correctIndex: 1,
     explanation: "Night Express is overnight transport service where goods are picked up evening and delivered before business hours the next morning."
+  },
+  // Additional Glossary Questions - Romanian (40-42)
+  {
+    question: "Ce este Premium Freight?",
+    options: ["Marfă scumpă", "Transport prioritar cu manipulare dedicată și livrare garantată", "Transport standard premium", "Marfă grea"],
+    correctIndex: 1,
+    explanation: "Premium Freight reprezintă transporturi cu prioritate maximă, manipulare dedicată și garanție de livrare."
+  },
+  {
+    question: "Ce înseamnă SLA în transport express?",
+    options: ["Super Long Arrival", "Service Level Agreement - acord privind nivelul serviciului", "Standard Loading Area", "Special Logistics Area"],
+    correctIndex: 1,
+    explanation: "SLA (Service Level Agreement) este acordul care definește timpul garantat de livrare și compensațiile pentru întârzieri."
+  },
+  {
+    question: "Ce este Real-time Tracking în transport express?",
+    options: ["Urmărire săptămânală", "Monitorizare GPS continuă cu actualizări la minut", "Urmărire la destinație", "Raport final"],
+    correctIndex: 1,
+    explanation: "Real-time Tracking oferă vizibilitate continuă asupra poziției și statusului transportului cu actualizări frecvente."
+  },
+  // Additional Glossary Questions - German (43-45)
+  {
+    question: "Was bedeutet 'Expressaufschlag' in der Preisgestaltung?",
+    options: ["Rabatt", "Zusatzgebühr für dringenden Transport über Standardtarif", "Normalpreis", "Versicherung"],
+    correctIndex: 1,
+    explanation: "Expressaufschlag ist die zusätzliche Gebühr für dringende Transporte über dem Standardtarif."
+  },
+  {
+    question: "Was ist ein 'Backup Vehicle' im Expresstransport?",
+    options: ["Altes Fahrzeug", "Reservefahrzeug für Notfälle und Ausfälle", "Ersatzteil", "Anhänger"],
+    correctIndex: 1,
+    explanation: "Ein Backup Vehicle ist ein Reservefahrzeug, das bei Pannen oder Ausfällen sofort eingesetzt werden kann."
+  },
+  {
+    question: "Was bedeutet 'Door-to-Door' Service?",
+    options: ["Türlieferung", "Komplettservice von Abholadresse bis Lieferadresse", "Haustürgeschäft", "Türproduktion"],
+    correctIndex: 1,
+    explanation: "Door-to-Door bedeutet kompletten Service von der Abholadresse des Absenders bis zur Lieferadresse des Empfängers."
+  },
+  // Additional Glossary Questions - English (46-48)
+  {
+    question: "What is 'Contingency Planning' in express transport?",
+    options: ["Financial planning", "Preparation of backup plans for delays, breakdowns or emergencies", "Route planning only", "Budget planning"],
+    correctIndex: 1,
+    explanation: "Contingency Planning prepares alternative solutions for vehicle breakdowns, delays or other emergencies."
+  },
+  {
+    question: "What does 'Cutoff Time' mean in express logistics?",
+    options: ["Closing time", "Deadline for accepting shipments for same/next day delivery", "End of business", "Lunch break"],
+    correctIndex: 1,
+    explanation: "Cutoff Time is the deadline by which shipments must be received to qualify for same-day or next-day delivery."
+  },
+  {
+    question: "What is 'Proof of Delivery' (POD) in express transport?",
+    options: ["Peas on delivery", "Documentation confirming successful delivery with signature and timestamp", "Payment on delivery", "Price of delivery"],
+    correctIndex: 1,
+    explanation: "POD is documentation confirming successful delivery, typically including signature, timestamp and sometimes photos."
   }
 ];

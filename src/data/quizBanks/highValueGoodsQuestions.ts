@@ -240,5 +240,62 @@ export const highValueGoodsQuestions: QuizQuestion[] = [
     options: ["Prisoner transport", "Unbroken record of who handled goods from origin to destination", "Vehicle maintenance log", "Driver schedule"],
     correctIndex: 1,
     explanation: "Chain of Custody documents every person who handled the goods, ensuring accountability and traceability."
+  },
+  // Additional Glossary Questions - Romanian (40-42)
+  {
+    question: "Ce înseamnă In-transit Visibility?",
+    options: ["Ferestre mari", "Monitorizare continuă a poziției și statusului în timpul transportului", "Vizibilitate pe drum", "Vedere bună"],
+    correctIndex: 1,
+    explanation: "In-transit Visibility oferă monitorizare continuă a poziției, condițiilor și statusului mărfii pe tot parcursul transportului."
+  },
+  {
+    question: "Ce este Dual Driver Strategy?",
+    options: ["Două volane", "Utilizarea a doi șoferi pentru continuitate și securitate sporită", "Șoferi gemeni", "Conducere dublă"],
+    correctIndex: 1,
+    explanation: "Dual Driver Strategy folosește doi șoferi pentru a asigura transport continuu și securitate sporită."
+  },
+  {
+    question: "Ce înseamnă Cargo Theft Hotspot?",
+    options: ["Marfă fierbinte", "Zonă geografică cu incidență mare de furturi de marfă", "Punct de încărcare", "Parcare caldă"],
+    correctIndex: 1,
+    explanation: "Cargo Theft Hotspot este o zonă geografică identificată ca având risc crescut de furt de marfă."
+  },
+  // Additional Glossary Questions - German (43-45)
+  {
+    question: "Was ist ein 'High Security Seal'?",
+    options: ["Ein Aquariumsiegel", "Hochsicherheitssiegel gemäß ISO 17712 Standard", "Ein normales Siegel", "Ein Aufkleber"],
+    correctIndex: 1,
+    explanation: "High Security Seals sind Hochsicherheitssiegel nach ISO 17712, die Manipulationsversuche sichtbar machen."
+  },
+  {
+    question: "Was bedeutet 'Intelligence Sharing' im Sicherheitsbereich?",
+    options: ["IQ-Austausch", "Austausch von Informationen über Diebstahlmuster zwischen Unternehmen", "Schulung", "Datenverkauf"],
+    correctIndex: 1,
+    explanation: "Intelligence Sharing ist der Austausch von Informationen über Diebstahlmuster und Hotspots zur gemeinsamen Prävention."
+  },
+  {
+    question: "Was ist eine 'Geofence Alert' bei Werttransporten?",
+    options: ["Ein Zaun", "Automatische Warnung bei Verlassen definierter Routen oder Zonen", "Ein Alarm", "GPS-Signal"],
+    correctIndex: 1,
+    explanation: "Geofence Alerts warnen automatisch, wenn ein Fahrzeug definierte Routen oder Zonen verlässt."
+  },
+  // Additional Glossary Questions - English (46-48)
+  {
+    question: "What is 'Vetted Personnel' in high-value transport?",
+    options: ["Veterinarians", "Staff who have passed background security checks", "Medical personnel", "Trained animals"],
+    correctIndex: 1,
+    explanation: "Vetted Personnel are employees who have undergone thorough background checks and security screening."
+  },
+  {
+    question: "What is 'Tamper-Evident' packaging?",
+    options: ["Temperature packaging", "Packaging that shows visible signs if opened or manipulated", "Waterproof packaging", "Decorative packaging"],
+    correctIndex: 1,
+    explanation: "Tamper-Evident packaging shows clear visual signs if it has been opened, accessed or manipulated."
+  },
+  {
+    question: "What is 'Risk Corridor' in cargo security?",
+    options: ["A dangerous hallway", "Route sections identified as high-risk for theft or attack", "Insurance term", "Legal term"],
+    correctIndex: 1,
+    explanation: "Risk Corridors are route sections identified as having higher risk of cargo theft, requiring enhanced security measures."
   }
 ];

@@ -240,5 +240,62 @@ export const stressManagementQuestions: QuizQuestion[] = [
     options: ["High IQ", "Ability to recognize and manage own and others' emotions", "Being emotional", "Avoiding emotions"],
     correctIndex: 1,
     explanation: "Emotional Intelligence is the ability to recognize, understand and manage your own emotions and those of others."
+  },
+  // Additional Glossary Questions - Romanian (40-42)
+  {
+    question: "Ce înseamnă Coping Mechanism?",
+    options: ["Un mecanism tehnic", "Strategie de adaptare pentru gestionarea stresului", "Un dispozitiv medical", "O tehnică de vânzare"],
+    correctIndex: 1,
+    explanation: "Coping Mechanisms sunt strategiile folosite pentru a face față stresului, fie sănătoase (sport) fie nesănătoase (alcool)."
+  },
+  {
+    question: "Ce este Cortizolul în context de stres?",
+    options: ["Un medicament", "Hormonul stresului eliberat în situații tensionate", "O vitamină", "Un supliment"],
+    correctIndex: 1,
+    explanation: "Cortizolul este hormonul stresului, eliberat de corp în situații tensionate, cu efecte negative pe termen lung."
+  },
+  {
+    question: "Ce înseamnă Prioritizare în managementul stresului?",
+    options: ["A face totul odată", "Ordonarea sarcinilor după importanță și urgență", "A amâna tot", "A delega totul"],
+    correctIndex: 1,
+    explanation: "Prioritizarea înseamnă ordonarea sarcinilor după importanță și urgență pentru a reduce supraîncărcarea."
+  },
+  // Additional Glossary Questions - German (43-45)
+  {
+    question: "Was ist 'Achtsamkeit' (Mindfulness) bei der Stressbewältigung?",
+    options: ["Vorsicht im Verkehr", "Bewusste Fokussierung auf den gegenwärtigen Moment", "Aufmerksamkeit für andere", "Sicherheitsmaßnahme"],
+    correctIndex: 1,
+    explanation: "Achtsamkeit ist die bewusste Fokussierung auf den gegenwärtigen Moment ohne Bewertung zur Stressreduktion."
+  },
+  {
+    question: "Was bedeutet 'Delegieren' im Stressmanagement?",
+    options: ["Alles selbst machen", "Aufgaben an andere übertragen zur Entlastung", "Aufgaben vermeiden", "Nichts tun"],
+    correctIndex: 1,
+    explanation: "Delegieren bedeutet das Übertragen von Aufgaben an andere, um die eigene Arbeitslast zu reduzieren."
+  },
+  {
+    question: "Was ist ein 'Trigger' im Stresskontext?",
+    options: ["Eine Waffe", "Auslöser, der Stressreaktionen hervorruft", "Ein Schalter", "Ein Alarm"],
+    correctIndex: 1,
+    explanation: "Ein Trigger ist ein Auslöser (Situation, Person, Gedanke), der automatische Stressreaktionen hervorruft."
+  },
+  // Additional Glossary Questions - English (46-48)
+  {
+    question: "What is 'Overwhelm' in stress management?",
+    options: ["Swimming technique", "State of being completely overcome by workload or emotions", "Victory", "Success"],
+    correctIndex: 1,
+    explanation: "Overwhelm is the state of being completely overcome by too much work, information or emotional pressure."
+  },
+  {
+    question: "What does 'Self-Care' mean in preventing burnout?",
+    options: ["Being selfish", "Intentional activities to maintain physical and mental wellbeing", "Medical treatment", "Solo work"],
+    correctIndex: 1,
+    explanation: "Self-Care includes intentional activities like exercise, rest and hobbies to maintain physical and mental health."
+  },
+  {
+    question: "What is 'Cognitive Restructuring' in stress therapy?",
+    options: ["Brain surgery", "Technique to identify and change negative thought patterns", "Building renovation", "Computer programming"],
+    correctIndex: 1,
+    explanation: "Cognitive Restructuring is a technique to identify and change negative or irrational thought patterns that cause stress."
   }
 ];

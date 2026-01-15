@@ -240,5 +240,62 @@ export const sustainabilityQuestions: QuizQuestion[] = [
     options: ["Only tailpipe emissions", "Complete lifecycle emissions from fuel production to vehicle use", "Only production emissions", "Only distribution emissions"],
     correctIndex: 1,
     explanation: "Well-to-Wheel analysis includes all emissions from fuel production, distribution and vehicle combustion."
+  },
+  // Additional Glossary Questions - Romanian (40-42)
+  {
+    question: "Ce înseamnă Eco-Driving?",
+    options: ["Conducerea unui vehicul electric", "Tehnici de conducere eficientă pentru reducerea consumului și emisiilor", "Condusul lent", "Condusul rapid"],
+    correctIndex: 1,
+    explanation: "Eco-Driving include tehnici precum accelerare lină, viteză constantă și anticiparea traficului pentru eficiență."
+  },
+  {
+    question: "Ce este ISO 14001?",
+    options: ["Un cod de drum", "Standard internațional pentru sisteme de management de mediu", "Un tip de combustibil", "O licență de transport"],
+    correctIndex: 1,
+    explanation: "ISO 14001 este standardul internațional pentru implementarea sistemelor de management de mediu în organizații."
+  },
+  {
+    question: "Ce înseamnă LNG ca alternativă de combustibil?",
+    options: ["Long Natural Gas", "Gaz Natural Lichefiat - combustibil alternativ pentru camioane", "Liquid Nitrogen Gas", "Low Noise Generator"],
+    correctIndex: 1,
+    explanation: "LNG (Liquefied Natural Gas) este gaz natural lichefiat folosit ca alternativă mai curată la diesel în camioane."
+  },
+  // Additional Glossary Questions - German (43-45)
+  {
+    question: "Was bedeutet 'Scope 1, 2, 3' bei CO2-Emissionen?",
+    options: ["Geschwindigkeitsbegrenzungen", "Kategorien für direkte und indirekte Emissionen", "Fahrzeugklassen", "Versicherungsstufen"],
+    correctIndex: 1,
+    explanation: "Scope 1 sind direkte Emissionen, Scope 2 Stromemissionen, Scope 3 indirekte Emissionen in der Lieferkette."
+  },
+  {
+    question: "Was ist ein 'Green Corridor' in der Logistik?",
+    options: ["Ein Waldweg", "Transportroute mit nachhaltiger Infrastruktur und alternativen Kraftstoffen", "Eine Grünfläche", "Ein Radweg"],
+    correctIndex: 1,
+    explanation: "Ein Green Corridor ist eine Transportroute mit Infrastruktur für alternative Kraftstoffe und nachhaltige Logistik."
+  },
+  {
+    question: "Was bedeutet 'Zero Emission Vehicle' (ZEV)?",
+    options: ["Sehr leises Fahrzeug", "Fahrzeug ohne direkte Abgasemissionen wie Elektro oder Wasserstoff", "Langsameres Fahrzeug", "Kleines Fahrzeug"],
+    correctIndex: 1,
+    explanation: "Ein ZEV ist ein Fahrzeug, das keine direkten Abgasemissionen produziert, wie Elektro- oder Wasserstofffahrzeuge."
+  },
+  // Additional Glossary Questions - English (46-48)
+  {
+    question: "What is Circular Economy in logistics?",
+    options: ["Circular routes", "System where materials are reused and recycled to minimize waste", "Round packaging", "Loop deliveries"],
+    correctIndex: 1,
+    explanation: "Circular Economy designs out waste by reusing, repairing, refurbishing and recycling materials in logistics operations."
+  },
+  {
+    question: "What does ESG stand for in corporate sustainability?",
+    options: ["European Safety Guidelines", "Environmental, Social, and Governance criteria", "Energy Saving Goals", "Express Shipping Group"],
+    correctIndex: 1,
+    explanation: "ESG (Environmental, Social, Governance) are criteria used to evaluate a company's sustainability and ethical impact."
+  },
+  {
+    question: "What is a Carbon Neutral certification?",
+    options: ["No vehicles used", "Certification that emissions are fully offset or eliminated", "Only electric vehicles", "No fuel used"],
+    correctIndex: 1,
+    explanation: "Carbon Neutral certification indicates that an organization has offset or eliminated its carbon emissions to net zero."
   }
 ];

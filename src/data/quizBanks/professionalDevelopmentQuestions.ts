@@ -240,5 +240,62 @@ export const professionalDevelopmentQuestions: QuizQuestion[] = [
     options: ["Project plan", "Structured document outlining career goals and development activities", "Payment plan", "Product description"],
     correctIndex: 1,
     explanation: "A Personal Development Plan is a structured document outlining career goals, skill gaps and planned development activities."
+  },
+  // Additional Glossary Questions - Romanian (40-42)
+  {
+    question: "Ce înseamnă Competență Digitală?",
+    options: ["Repararea computerelor", "Abilitatea de a utiliza eficient tehnologiile și instrumentele digitale", "Programare avansată", "Vânzare online"],
+    correctIndex: 1,
+    explanation: "Competența Digitală este abilitatea de a utiliza eficient tehnologiile, software-ul și instrumentele digitale în muncă."
+  },
+  {
+    question: "Ce este Cross-Training în dezvoltare profesională?",
+    options: ["Antrenament fizic", "Învățarea funcțiilor din diferite departamente pentru versatilitate", "Antrenament în străinătate", "Sport de echipă"],
+    correctIndex: 1,
+    explanation: "Cross-Training înseamnă învățarea sarcinilor și funcțiilor din alte departamente pentru a deveni mai versatil."
+  },
+  {
+    question: "Ce înseamnă Lifelong Learning?",
+    options: ["Învățare pentru toată viața - dezvoltare continuă a competențelor", "Curs foarte lung", "Studii universitare", "Memorare"],
+    correctIndex: 0,
+    explanation: "Lifelong Learning este angajamentul de a învăța și dezvolta competențe pe tot parcursul carierei profesionale."
+  },
+  // Additional Glossary Questions - German (43-45)
+  {
+    question: "Was bedeutet 'Karrierepfad' in der Spedition?",
+    options: ["Wanderweg", "Mögliche Stationen und Positionen in der beruflichen Entwicklung", "Fahrroute", "Urlaubsplanung"],
+    correctIndex: 1,
+    explanation: "Ein Karrierepfad zeigt mögliche Positionen und Entwicklungsschritte innerhalb eines Unternehmens oder der Branche."
+  },
+  {
+    question: "Was ist ein 'Kompetenzlücke' (Skill Gap)?",
+    options: ["Eine Pause", "Unterschied zwischen vorhandenen und benötigten Fähigkeiten", "Ein Fehler", "Eine Öffnung"],
+    correctIndex: 1,
+    explanation: "Eine Kompetenzlücke ist der Unterschied zwischen vorhandenen Fähigkeiten und den für eine Position benötigten."
+  },
+  {
+    question: "Was bedeutet 'Weiterbildung' im beruflichen Kontext?",
+    options: ["Weitergehen", "Berufliche Fortbildung zur Erweiterung von Kenntnissen", "Weiterfahren", "Weiterverkauf"],
+    correctIndex: 1,
+    explanation: "Weiterbildung umfasst alle Maßnahmen zur Erweiterung beruflicher Kenntnisse und Fähigkeiten nach der Ausbildung."
+  },
+  // Additional Glossary Questions - English (46-48)
+  {
+    question: "What is 'Continuous Professional Development' (CPD)?",
+    options: ["One-time training", "Ongoing learning and skill development throughout career", "College degree", "Initial certification"],
+    correctIndex: 1,
+    explanation: "CPD is the ongoing process of tracking and documenting skills, knowledge and experience gained throughout a career."
+  },
+  {
+    question: "What does 'Industry Benchmarking' mean for professionals?",
+    options: ["Sitting on benches", "Comparing skills and performance against industry standards", "Industry seating", "Workplace furniture"],
+    correctIndex: 1,
+    explanation: "Industry Benchmarking compares your skills, certifications and performance against industry standards and peers."
+  },
+  {
+    question: "What is 'Knowledge Transfer' in organizational development?",
+    options: ["Moving files", "Sharing expertise and best practices from experienced to newer staff", "Data migration", "Office relocation"],
+    correctIndex: 1,
+    explanation: "Knowledge Transfer is the systematic sharing of expertise from experienced employees to newer team members."
   }
 ];
