@@ -1,14 +1,53 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { AlertTriangle, CheckCircle2, HelpCircle } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { AlertTriangle, CheckCircle2, HelpCircle, Download } from "lucide-react";
 import { getQuizStats, getChaptersNeedingQuestions, getAllQuestionCounts } from "@/data/quizTranslations";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { toast } from "@/hooks/use-toast";
 
 export function QuizDiagnostics() {
   const { language } = useLanguage();
   const stats = getQuizStats();
   const chaptersNeedingMore = getChaptersNeedingQuestions(30);
   const allCounts = getAllQuestionCounts();
+
+  const exportToCSV = () => {
+    const headers = ['Chapter ID', 'Question Count', 'Status', 'Needed'];
+    const rows = Object.entries(allCounts)
+      .sort((a, b) => a[0].localeCompare(b[0]))
+      .map(([chapterId, count]) => {
+        const needed = count < 30 ? 30 - count : 0;
+        const status = count >= 30 ? 'OK' : 'Needs More';
+        return [chapterId, count, status, needed];
+      });
+
+    // Add summary row
+    rows.push([]);
+    rows.push(['--- SUMMARY ---', '', '', '']);
+    rows.push(['Total Chapters', stats.totalChapters, '', '']);
+    rows.push(['Total Questions', stats.totalQuestions, '', '']);
+    rows.push(['Average/Chapter', stats.averageQuestionsPerChapter, '', '']);
+    rows.push(['Chapters ≥30', stats.chaptersAt30Plus, '', '']);
+    rows.push(['Chapters <30', stats.chaptersBelow30, '', '']);
+
+    const csvContent = [
+      headers.join(','),
+      ...rows.map(row => row.join(','))
+    ].join('\n');
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `quiz-diagnostics-${new Date().toISOString().split('T')[0]}.csv`;
+    link.click();
+    URL.revokeObjectURL(link.href);
+
+    toast({
+      title: language === 'ro' ? 'CSV exportat!' : language === 'de' ? 'CSV exportiert!' : 'CSV exported!',
+      description: language === 'ro' ? 'Fișierul a fost descărcat.' : language === 'de' ? 'Datei wurde heruntergeladen.' : 'File has been downloaded.',
+    });
+  };
 
   const t = {
     ro: {
@@ -57,9 +96,15 @@ export function QuizDiagnostics() {
   return (
     <Card className="border-border">
       <CardHeader className="pb-3">
-        <CardTitle className="flex items-center gap-2 text-lg">
-          <HelpCircle className="w-5 h-5" />
-          {text.title}
+        <CardTitle className="flex items-center justify-between text-lg">
+          <div className="flex items-center gap-2">
+            <HelpCircle className="w-5 h-5" />
+            {text.title}
+          </div>
+          <Button variant="outline" size="sm" onClick={exportToCSV} className="gap-1">
+            <Download className="w-4 h-4" />
+            CSV
+          </Button>
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
