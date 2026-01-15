@@ -41,6 +41,7 @@ export function useTrainingTimer() {
   const [isLoading, setIsLoading] = useState(true);
   const syncTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const userIdRef = useRef<string | undefined>(undefined);
+  const isResettingRef = useRef<boolean>(false); // Flag to prevent sync during reset
 
   const clearPendingSync = () => {
     if (syncTimeoutRef.current) {
@@ -125,6 +126,10 @@ export function useTrainingTimer() {
           console.log('Training time changed:', payload);
           // Reload data when changes are detected
           if (payload.eventType === 'DELETE') {
+            // Immediately block any pending syncs to prevent race condition
+            isResettingRef.current = true;
+            clearPendingSync();
+            
             // Check if there's still data for this user
             const { data } = await supabase
               .from('training_time')
@@ -132,10 +137,17 @@ export function useTrainingTimer() {
               .eq('user_id', user.id);
             
             if (!data || data.length === 0) {
-              // All records deleted, reset to default
-              clearPendingSync();
+              // All records deleted, reset to default immediately
               setTimerData(defaultTimerData);
               localStorage.removeItem(STORAGE_KEY);
+              
+              // Re-enable syncing after a delay to ensure no pending operations
+              setTimeout(() => {
+                isResettingRef.current = false;
+              }, 1000);
+            } else {
+              // Still have some data, re-enable syncing
+              isResettingRef.current = false;
             }
           } else {
             // Reload all data
@@ -196,7 +208,8 @@ export function useTrainingTimer() {
 
   // Sync to Supabase (debounced)
   const syncToSupabase = useCallback(async (data: TrainingTimerData) => {
-    if (!user) return;
+    // Skip sync if user is not authenticated or if a reset is in progress
+    if (!user || isResettingRef.current) return;
 
     // Clear any pending sync
     if (syncTimeoutRef.current) {
@@ -206,6 +219,9 @@ export function useTrainingTimer() {
 
     // Debounce the sync to avoid too many writes
     syncTimeoutRef.current = setTimeout(async () => {
+      // Double-check resetting flag inside the timeout as well
+      if (isResettingRef.current) return;
+      
       for (const [dayNum, dayData] of Object.entries(data.days)) {
         const { error } = await supabase
           .from('training_time')
