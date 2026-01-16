@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
+import { useCertificateNotifications } from '@/hooks/useCertificateNotifications';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -9,7 +10,7 @@ import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { ArrowLeft, Users, BookOpen, Trophy, Clock, Eye, Download, BarChart3, RefreshCw, RotateCcw, Unlock, Shield, Activity, Timer, TrendingUp, Calendar, TimerReset, FileSearch, Award } from 'lucide-react';
+import { ArrowLeft, Users, BookOpen, Trophy, Clock, Eye, Download, BarChart3, RefreshCw, RotateCcw, Unlock, Shield, Activity, Timer, TrendingUp, Calendar, TimerReset, FileSearch, Award, Bell, BellOff } from 'lucide-react';
 import { toast } from 'sonner';
 import { GovernanceDashboard } from '@/components/admin/GovernanceDashboard';
 import { format, subDays } from 'date-fns';
@@ -22,6 +23,7 @@ import { CronJobsMonitor } from '@/components/admin/CronJobsMonitor';
 import { ContentQualityDashboard } from '@/components/admin/ContentQualityDashboard';
 import { CertificatesDashboard } from '@/components/admin/CertificatesDashboard';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 interface UserWithProgress {
   id: string;
@@ -58,6 +60,7 @@ interface QuizAttempt {
 export default function AdminDashboard() {
   const navigate = useNavigate();
   const { user, profile, loading, isAdmin } = useAuth();
+  const { requestNotificationPermission, areNotificationsEnabled } = useCertificateNotifications(isAdmin);
   const [users, setUsers] = useState<UserWithProgress[]>([]);
   const [loadingUsers, setLoadingUsers] = useState(true);
   const [selectedUser, setSelectedUser] = useState<UserWithProgress | null>(null);
@@ -66,6 +69,21 @@ export default function AdminDashboard() {
   const [detailsOpen, setDetailsOpen] = useState(false);
   const [allAttempts, setAllAttempts] = useState<QuizAttempt[]>([]);
   const [chapters, setChapters] = useState<{ id: string; slug: string }[]>([]);
+  const [notificationsEnabled, setNotificationsEnabled] = useState(false);
+
+  // Check notification status on mount and when it changes
+  useEffect(() => {
+    setNotificationsEnabled(areNotificationsEnabled());
+  }, [areNotificationsEnabled]);
+
+  const handleToggleNotifications = async () => {
+    if (notificationsEnabled) {
+      toast.info('Pentru a dezactiva notificările, folosește setările browser-ului');
+    } else {
+      const success = await requestNotificationPermission();
+      setNotificationsEnabled(success);
+    }
+  };
 
   useEffect(() => {
     if (!loading && !user) {
@@ -424,10 +442,35 @@ export default function AdminDashboard() {
               <p className="text-muted-foreground">Gestionare utilizatori și progres</p>
             </div>
           </div>
-          <Button onClick={exportToCSV}>
-            <Download className="h-4 w-4 mr-2" />
-            Export CSV
-          </Button>
+          <div className="flex items-center gap-2">
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button 
+                    variant="outline" 
+                    size="icon"
+                    onClick={handleToggleNotifications}
+                    className={notificationsEnabled ? 'text-green-600 border-green-300' : ''}
+                  >
+                    {notificationsEnabled ? (
+                      <Bell className="h-4 w-4" />
+                    ) : (
+                      <BellOff className="h-4 w-4" />
+                    )}
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  {notificationsEnabled 
+                    ? 'Notificări active pentru certificate noi' 
+                    : 'Activează notificările pentru certificate noi'}
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+            <Button onClick={exportToCSV}>
+              <Download className="h-4 w-4 mr-2" />
+              Export CSV
+            </Button>
+          </div>
         </div>
 
         {/* Stats Cards */}
