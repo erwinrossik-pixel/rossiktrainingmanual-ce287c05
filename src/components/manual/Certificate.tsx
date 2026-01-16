@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from "react";
-import { Award, Download, CheckCircle2, ExternalLink, Copy, Check } from "lucide-react";
+import { Award, Download, CheckCircle2, ExternalLink, Copy, Check, Mail, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import { supabase } from "@/integrations/supabase/client";
@@ -39,7 +40,10 @@ export function Certificate({
 }: CertificateProps) {
   const { user } = useAuth();
   const [traineeName, setTraineeName] = useState("");
+  const [recipientEmail, setRecipientEmail] = useState("");
+  const [sendEmail, setSendEmail] = useState(true);
   const [isGenerating, setIsGenerating] = useState(false);
+  const [isSendingEmail, setIsSendingEmail] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [generatedCertificate, setGeneratedCertificate] = useState<{
     code: string;
@@ -48,7 +52,15 @@ export function Certificate({
   } | null>(null);
   const [codeCopied, setCodeCopied] = useState(false);
   const [qrCodeDataUrl, setQrCodeDataUrl] = useState<string>("");
+  const [emailSent, setEmailSent] = useState(false);
   const certificateRef = useRef<HTMLDivElement>(null);
+
+  // Pre-fill email from user
+  useEffect(() => {
+    if (user?.email) {
+      setRecipientEmail(user.email);
+    }
+  }, [user]);
 
   const verificationUrl = typeof window !== "undefined" 
     ? `${window.location.origin}/verify/` 
@@ -76,6 +88,42 @@ export function Certificate({
     };
     generateQRCode();
   }, [generatedCertificate, verificationUrl]);
+
+  const sendCertificateEmail = async (code: string, issuedAt: Date, expiresAt: Date) => {
+    if (!recipientEmail.trim()) return;
+
+    setIsSendingEmail(true);
+    try {
+      const { data, error } = await supabase.functions.invoke("send-certificate-email", {
+        body: {
+          recipientEmail: recipientEmail.trim(),
+          traineeName: traineeName.trim(),
+          certificateCode: code,
+          issuedAt: issuedAt.toISOString(),
+          expiresAt: expiresAt.toISOString(),
+          chaptersCompleted: completedChapters,
+          quizzesPassed: passedQuizzes,
+          averageScore,
+          totalTrainingHours,
+          verificationUrl: `${verificationUrl}${code}`,
+        },
+      });
+
+      if (error) throw error;
+
+      if (data?.success) {
+        setEmailSent(true);
+        toast.success(`Email trimis la ${recipientEmail}`);
+      } else {
+        throw new Error(data?.error || "Failed to send email");
+      }
+    } catch (error) {
+      console.error("Error sending certificate email:", error);
+      toast.error("Eroare la trimiterea emailului");
+    } finally {
+      setIsSendingEmail(false);
+    }
+  };
 
   const handleGenerateCertificate = async () => {
     if (!certificateRef.current || !traineeName.trim() || !user) return;
@@ -165,6 +213,11 @@ export function Certificate({
       pdf.save(`Rossik_Certificate_${traineeName.replace(/\s+/g, "_")}_${certificateCode}.pdf`);
 
       toast.success("Certificatul a fost generat și salvat!");
+
+      // Send email if option is checked
+      if (sendEmail && recipientEmail.trim()) {
+        await sendCertificateEmail(certificateCode, issuedAt, expiresAt);
+      }
     } catch (error) {
       console.error("Error generating certificate:", error);
       toast.error("Eroare la generarea certificatului");
@@ -267,6 +320,44 @@ export function Certificate({
               value={traineeName}
               onChange={(e) => setTraineeName(e.target.value)}
             />
+          </div>
+
+          {/* Email Option */}
+          <div className="space-y-3 p-4 bg-muted/50 rounded-lg border">
+            <div className="flex items-center space-x-2">
+              <Checkbox
+                id="sendEmail"
+                checked={sendEmail}
+                onCheckedChange={(checked) => setSendEmail(checked === true)}
+              />
+              <Label htmlFor="sendEmail" className="flex items-center gap-2 cursor-pointer">
+                <Mail className="w-4 h-4 text-primary" />
+                Trimite certificatul pe email
+              </Label>
+            </div>
+            
+            {sendEmail && (
+              <div className="space-y-2 pl-6">
+                <Label htmlFor="email" className="text-sm">Adresa de email</Label>
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="email@exemplu.com"
+                  value={recipientEmail}
+                  onChange={(e) => setRecipientEmail(e.target.value)}
+                />
+                <p className="text-xs text-muted-foreground">
+                  Vei primi un email cu detaliile certificatului și linkul de verificare.
+                </p>
+              </div>
+            )}
+            
+            {emailSent && (
+              <div className="flex items-center gap-2 text-sm text-success pl-6">
+                <CheckCircle2 className="w-4 h-4" />
+                Email trimis cu succes!
+              </div>
+            )}
           </div>
 
           {/* Generated Certificate Info */}
@@ -433,16 +524,45 @@ export function Certificate({
             </div>
           </div>
 
-          <div className="flex gap-3 justify-end">
+          <div className="flex gap-3 justify-end flex-wrap">
             <Button variant="outline" onClick={() => setDialogOpen(false)}>
               Cancel
             </Button>
+            
+            {/* Resend Email Button - shown after certificate is generated */}
+            {generatedCertificate && !emailSent && sendEmail && recipientEmail.trim() && (
+              <Button
+                variant="outline"
+                onClick={() => sendCertificateEmail(
+                  generatedCertificate.code,
+                  generatedCertificate.issuedAt,
+                  generatedCertificate.expiresAt
+                )}
+                disabled={isSendingEmail}
+              >
+                {isSendingEmail ? (
+                  <>
+                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                    Trimite...
+                  </>
+                ) : (
+                  <>
+                    <Mail className="w-4 h-4 mr-2" />
+                    Trimite Email
+                  </>
+                )}
+              </Button>
+            )}
+            
             <Button
               onClick={handleGenerateCertificate}
-              disabled={!traineeName.trim() || isGenerating}
+              disabled={!traineeName.trim() || isGenerating || (sendEmail && !recipientEmail.trim())}
             >
               {isGenerating ? (
-                "Generating..."
+                <>
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                  Generează...
+                </>
               ) : (
                 <>
                   <Download className="w-4 h-4 mr-2" />

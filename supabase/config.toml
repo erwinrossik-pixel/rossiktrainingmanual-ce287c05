@@ -17,3 +17,9 @@ verify_jwt = false
 
 [functions.ai-tutor]
 verify_jwt = false
+
+[functions.content-quality-analyzer]
+verify_jwt = false
+
+[functions.send-certificate-email]
+verify_jwt = false
