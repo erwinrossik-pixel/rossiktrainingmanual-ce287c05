@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useCompany, Company, CompanyBranding, CompanySettings, CompanySubscription } from '@/contexts/CompanyContext';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -12,7 +12,7 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
-import { Building2, Palette, Settings, Users, CreditCard, Plus, Globe, Edit, Trash2 } from 'lucide-react';
+import { Building2, Palette, Settings, Users, CreditCard, Plus, Globe, Edit, Trash2, Upload, Image, X } from 'lucide-react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 
 interface ExtendedCompany extends Company {
@@ -457,14 +457,13 @@ function CompanyDetailDialog({
                 onChange={(e) => setFormData({ ...formData, platform_name: e.target.value })}
               />
             </div>
-            <div className="space-y-2">
-              <Label>URL Logo</Label>
-              <Input
-                value={formData.logo_url}
-                onChange={(e) => setFormData({ ...formData, logo_url: e.target.value })}
-                placeholder="https://..."
-              />
-            </div>
+            
+            {/* Logo Upload */}
+            <LogoUpload 
+              companyId={company.id}
+              currentLogoUrl={formData.logo_url}
+              onLogoChange={(url) => setFormData({ ...formData, logo_url: url })}
+            />
             <div className="grid grid-cols-3 gap-4">
               <div className="space-y-2">
                 <Label>Culoare Primară</Label>
@@ -593,5 +592,145 @@ function CompanyDetailDialog({
         </DialogFooter>
       </DialogContent>
     </Dialog>
+  );
+}
+
+// Logo Upload Component
+function LogoUpload({ 
+  companyId, 
+  currentLogoUrl, 
+  onLogoChange 
+}: { 
+  companyId: string; 
+  currentLogoUrl: string; 
+  onLogoChange: (url: string) => void;
+}) {
+  const { toast } = useToast();
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [uploading, setUploading] = useState(false);
+  const [previewUrl, setPreviewUrl] = useState(currentLogoUrl);
+
+  const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // Validate file type
+    const allowedTypes = ['image/png', 'image/jpeg', 'image/gif', 'image/webp', 'image/svg+xml'];
+    if (!allowedTypes.includes(file.type)) {
+      toast({
+        title: 'Tip de fișier invalid',
+        description: 'Încarcă o imagine PNG, JPG, GIF, WebP sau SVG',
+        variant: 'destructive'
+      });
+      return;
+    }
+
+    // Validate file size (max 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      toast({
+        title: 'Fișier prea mare',
+        description: 'Dimensiunea maximă este 5MB',
+        variant: 'destructive'
+      });
+      return;
+    }
+
+    setUploading(true);
+    try {
+      const fileExt = file.name.split('.').pop();
+      const fileName = `logo.${fileExt}`;
+      const filePath = `${companyId}/${fileName}`;
+
+      // Upload to Supabase Storage
+      const { error: uploadError } = await supabase.storage
+        .from('company-assets')
+        .upload(filePath, file, { upsert: true });
+
+      if (uploadError) throw uploadError;
+
+      // Get public URL
+      const { data: { publicUrl } } = supabase.storage
+        .from('company-assets')
+        .getPublicUrl(filePath);
+
+      setPreviewUrl(publicUrl);
+      onLogoChange(publicUrl);
+      
+      toast({ title: 'Logo încărcat', description: 'Logo-ul a fost salvat cu succes' });
+    } catch (error: any) {
+      console.error('Upload error:', error);
+      toast({
+        title: 'Eroare la încărcare',
+        description: error.message || 'Nu s-a putut încărca logo-ul',
+        variant: 'destructive'
+      });
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const removeLogo = async () => {
+    try {
+      // Delete from storage
+      await supabase.storage
+        .from('company-assets')
+        .remove([`${companyId}/logo.png`, `${companyId}/logo.jpg`, `${companyId}/logo.jpeg`, `${companyId}/logo.svg`]);
+
+      setPreviewUrl('');
+      onLogoChange('');
+      toast({ title: 'Logo șters', description: 'Logo-ul a fost eliminat' });
+    } catch (error) {
+      console.error('Delete error:', error);
+    }
+  };
+
+  return (
+    <div className="space-y-2">
+      <Label>Logo Companie</Label>
+      <div className="flex items-start gap-4">
+        {/* Preview */}
+        <div className="w-24 h-24 border-2 border-dashed border-border rounded-lg flex items-center justify-center bg-muted/30 overflow-hidden">
+          {previewUrl ? (
+            <img src={previewUrl} alt="Logo" className="w-full h-full object-contain" />
+          ) : (
+            <Image className="w-8 h-8 text-muted-foreground" />
+          )}
+        </div>
+        
+        {/* Actions */}
+        <div className="flex-1 space-y-2">
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/*"
+            className="hidden"
+            onChange={handleFileSelect}
+          />
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => fileInputRef.current?.click()}
+            disabled={uploading}
+          >
+            <Upload className="h-4 w-4 mr-2" />
+            {uploading ? 'Se încarcă...' : 'Încarcă Logo'}
+          </Button>
+          {previewUrl && (
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={removeLogo}
+              className="text-destructive"
+            >
+              <X className="h-4 w-4 mr-2" />
+              Șterge
+            </Button>
+          )}
+          <p className="text-xs text-muted-foreground">
+            PNG, JPG, SVG. Max 5MB. Recomandat: 200x200px
+          </p>
+        </div>
+      </div>
+    </div>
   );
 }
