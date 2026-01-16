@@ -1,10 +1,11 @@
 import { useState, useEffect, useMemo } from "react";
-import { CheckCircle2, XCircle, RotateCcw, Trophy, ChevronRight, Shuffle, Lock, Unlock, AlertTriangle, ChevronDown, ChevronUp, BookOpen } from "lucide-react";
+import { CheckCircle2, XCircle, RotateCcw, Trophy, ChevronRight, Shuffle, Lock, Unlock, AlertTriangle, ChevronDown, ChevronUp, BookOpen, Bookmark, BookmarkCheck } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useProgressContext } from "@/contexts/ProgressContext";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useAuth } from "@/hooks/useAuth";
 import { useChapterProgress } from "@/hooks/useChapterProgress";
+import { useBookmarks } from "@/hooks/useBookmarks";
 import { quizTranslations, TranslatedQuizQuestion } from "@/data/quizTranslations";
 import { Button } from "@/components/ui/button";
 
@@ -39,6 +40,7 @@ export function Quiz({ title, questions, chapterId, questionsPerRound = QUESTION
   const { language } = useLanguage();
   const { user } = useAuth();
   const { recordQuizAttempt, getBestScore, getChapterStatus, PASSING_SCORE: dbPassingScore } = useChapterProgress();
+  const { isBookmarked, toggleBookmark } = useBookmarks();
   
   // Get translated questions if available, otherwise use passed questions
   const translatedQuestions = useMemo(() => {
@@ -234,6 +236,8 @@ export function Quiz({ title, questions, chapterId, questionsPerRound = QUESTION
     yourAnswer: language === 'ro' ? 'Răspunsul tău:' : language === 'de' ? 'Deine Antwort:' : 'Your answer:',
     correctAnswerLabel: language === 'ro' ? 'Răspuns corect:' : language === 'de' ? 'Richtige Antwort:' : 'Correct answer:',
     allCorrect: language === 'ro' ? 'Felicitări! Ai răspuns corect la toate întrebările!' : language === 'de' ? 'Herzlichen Glückwunsch! Du hast alle Fragen richtig beantwortet!' : 'Congratulations! You answered all questions correctly!',
+    bookmark: language === 'ro' ? 'Salvează întrebarea' : language === 'de' ? 'Frage speichern' : 'Bookmark question',
+    bookmarked: language === 'ro' ? 'Întrebare salvată' : language === 'de' ? 'Frage gespeichert' : 'Question bookmarked',
   };
 
   if (quizCompleted) {
@@ -499,7 +503,7 @@ export function Quiz({ title, questions, chapterId, questionsPerRound = QUESTION
             ) : (
               <XCircle className="w-5 h-5 text-destructive flex-shrink-0 mt-0.5" />
             )}
-            <div>
+            <div className="flex-1">
               <p className={cn(
                 "font-medium mb-1",
                 selectedAnswer === question.correctIndex ? "text-success" : "text-destructive"
@@ -508,6 +512,33 @@ export function Quiz({ title, questions, chapterId, questionsPerRound = QUESTION
               </p>
               <p className="text-sm text-muted-foreground">{question.explanation}</p>
             </div>
+            {/* Bookmark button */}
+            {user && chapterId && (
+              <Button
+                variant="ghost"
+                size="icon"
+                className={cn(
+                  "h-8 w-8 flex-shrink-0",
+                  isBookmarked(chapterId, question.question) 
+                    ? "text-primary hover:text-primary" 
+                    : "text-muted-foreground hover:text-primary"
+                )}
+                onClick={() => toggleBookmark(
+                  chapterId,
+                  question.question,
+                  question.options,
+                  question.correctIndex,
+                  question.explanation
+                )}
+                title={isBookmarked(chapterId, question.question) ? labels.bookmarked : labels.bookmark}
+              >
+                {isBookmarked(chapterId, question.question) ? (
+                  <BookmarkCheck className="w-5 h-5" />
+                ) : (
+                  <Bookmark className="w-5 h-5" />
+                )}
+              </Button>
+            )}
           </div>
         </div>
       )}
