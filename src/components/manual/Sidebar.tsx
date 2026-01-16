@@ -3,7 +3,8 @@ import {
   Building2, Route, Clock, Laptop, GraduationCap, AlertTriangle, 
   ClipboardList, Target, Menu, X, Phone, MessageSquare, Scale,
   FileText, Flame, Book, Lightbulb, CheckCircle2, BarChart3, Award, Lock,
-  Brain, Leaf, BadgeCheck, Cpu, Globe, Zap, Gem, Train, Network, TrendingUp, Crown
+  Brain, Leaf, BadgeCheck, Cpu, Globe, Zap, Gem, Train, Network, TrendingUp, Crown,
+  Gamepad2, Trophy, Star
 } from "lucide-react";
 import rossikLogo from "@/assets/rossik-logo.jpg";
 import { cn } from "@/lib/utils";
@@ -13,15 +14,18 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { useAuth } from "@/hooks/useAuth";
 import { useChapterProgress } from "@/hooks/useChapterProgress";
 import { usePremiumChapters } from "@/hooks/usePremiumChapters";
+import { useGamification } from "@/hooks/useGamification";
 import { GlobalSearch } from "./GlobalSearch";
 import { LanguageSelector } from "./LanguageSelector";
 import { CompactDailyTracker } from "./CompactDailyTracker";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { Progress } from "@/components/ui/progress";
 
 interface SidebarProps {
   activeChapter: string;
   onChapterChange: (chapter: string) => void;
   onShowDashboard: () => void;
+  onShowSimulations?: () => void;
 }
 
 const getSections = (t: (key: string) => string) => [
@@ -117,7 +121,7 @@ const getSections = (t: (key: string) => string) => [
   },
 ];
 
-export function Sidebar({ activeChapter, onChapterChange, onShowDashboard }: SidebarProps) {
+export function Sidebar({ activeChapter, onChapterChange, onShowDashboard, onShowSimulations }: SidebarProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const { progress, getOverallProgress, getChapterProgress } = useProgressContext();
   const { t } = useLanguage();
@@ -129,9 +133,11 @@ export function Sidebar({ activeChapter, onChapterChange, onShowDashboard }: Sid
     initializeUserProgress 
   } = useChapterProgress();
   const { isChapterLocked: isPremiumLocked, getChapterMinPlan } = usePremiumChapters();
+  const { gamification, calculateLevel } = useGamification();
 
   const overallProgress = getOverallProgress();
   const sections = getSections(t);
+  const userLevel = gamification ? calculateLevel(gamification.total_xp) : 1;
 
   // Memoize chapter IDs to prevent unnecessary recalculations
   const allChapterIds = useMemo(() => 
@@ -286,6 +292,59 @@ export function Sidebar({ activeChapter, onChapterChange, onShowDashboard }: Sid
             </button>
           </div>
         </div>
+
+        {/* Gamification Stats */}
+        {user && gamification && (
+          <div className="px-4 py-3 border-b border-border">
+            <div className="flex items-center gap-3 p-2 rounded-lg bg-gradient-to-r from-violet-500/10 to-purple-500/10 border border-violet-500/20">
+              <div className="flex items-center justify-center w-10 h-10 rounded-full bg-gradient-to-br from-violet-500 to-purple-600 text-white font-bold text-sm">
+                {userLevel}
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center justify-between mb-1">
+                  <span className="text-xs font-medium text-foreground">{gamification.total_xp} XP</span>
+                  <div className="flex items-center gap-1">
+                    <Trophy className="w-3 h-3 text-amber-500" />
+                    <span className="text-xs text-muted-foreground">{gamification.simulations_completed}</span>
+                  </div>
+                </div>
+                <Progress value={(gamification.total_xp % 100)} className="h-1.5" />
+              </div>
+              {gamification.streak_days > 0 && (
+                <div className="flex items-center gap-1 text-orange-500">
+                  <Star className="w-4 h-4 fill-current" />
+                  <span className="text-xs font-bold">{gamification.streak_days}</span>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* Simulations Button */}
+        {onShowSimulations && (
+          <div className="px-4 py-3 border-b border-border">
+            <button
+              onClick={() => {
+                onShowSimulations();
+                setMobileOpen(false);
+              }}
+              className="w-full flex items-center gap-3 p-3 rounded-lg bg-gradient-to-r from-violet-600/20 to-purple-600/20 border border-violet-500/30 hover:border-violet-500/50 hover:from-violet-600/30 hover:to-purple-600/30 transition-all group"
+            >
+              <div className="p-2 rounded-lg bg-gradient-to-br from-violet-500 to-purple-600">
+                <Gamepad2 className="w-4 h-4 text-white" />
+              </div>
+              <div className="flex-1 text-left">
+                <span className="text-sm font-medium text-foreground group-hover:text-violet-400 transition-colors">
+                  {t('sidebar.simulations') || 'Simulări Operaționale'}
+                </span>
+                <p className="text-[10px] text-muted-foreground">
+                  {t('sidebar.simulationsDesc') || 'Învață prin practică'}
+                </p>
+              </div>
+              <Zap className="w-4 h-4 text-violet-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+            </button>
+          </div>
+        )}
 
         {/* Global Search */}
         <div className="px-4 py-3 border-b border-border">

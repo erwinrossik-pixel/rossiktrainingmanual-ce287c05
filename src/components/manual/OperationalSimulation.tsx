@@ -16,15 +16,17 @@ import {
   Award,
   Zap,
   Brain,
-  TrendingUp
+  TrendingUp,
+  Star,
+  Flame
 } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { useGamification } from '@/hooks/useGamification';
+import { useAuth } from '@/hooks/useAuth';
 import { 
   Simulation, 
-  SimulationScenario, 
   SimulationChoice,
-  simulations, 
-  getSimulationById, 
+  simulations,
   getScenarioById 
 } from '@/data/simulationScenarios';
 
@@ -157,8 +159,11 @@ const translations = {
 
 const OperationalSimulation: React.FC = () => {
   const { language } = useLanguage();
+  const { user } = useAuth();
+  const { gamification, recordSimulationAttempt, calculateLevel } = useGamification();
   const t = translations[language as keyof typeof translations] || translations.en;
   const lang = language as 'ro' | 'de' | 'en';
+  const userLevel = gamification ? calculateLevel(gamification.total_xp) : 1;
 
   const [selectedSimulation, setSelectedSimulation] = useState<Simulation | null>(null);
   const [state, setState] = useState<SimulationState>({
@@ -172,6 +177,7 @@ const OperationalSimulation: React.FC = () => {
   const [showFeedback, setShowFeedback] = useState<SimulationChoice | null>(null);
   const [isComplete, setIsComplete] = useState(false);
   const [countdown, setCountdown] = useState<number | null>(null);
+  const [xpEarned, setXpEarned] = useState(0);
 
   // Timer effect
   useEffect(() => {
@@ -250,15 +256,39 @@ const OperationalSimulation: React.FC = () => {
     setTimeout(() => {
       setShowFeedback(null);
       if (choice.isEndpoint) {
-        setIsComplete(true);
-        setState(prev => ({ ...prev, isActive: false }));
+        handleSimulationComplete();
       } else if (choice.nextScenarioId) {
         setState(prev => ({ ...prev, currentScenarioId: choice.nextScenarioId! }));
       }
     }, 3000);
   }, [selectedSimulation, state.currentScenarioId, lang]);
 
+  // Handle simulation completion with gamification
+  const handleSimulationComplete = useCallback(async () => {
+    if (!selectedSimulation) return;
+    
+    setIsComplete(true);
+    setState(prev => ({ ...prev, isActive: false }));
+    
+    // Save to database and update gamification
+    if (user) {
+      try {
+        const result = await recordSimulationAttempt(
+          selectedSimulation.id,
+          state.totalScore,
+          selectedSimulation.maxScore,
+          state.decisions,
+          state.elapsedTime
+        );
+        setXpEarned(result.xpEarned);
+      } catch (error) {
+        console.error('Error saving simulation:', error);
+      }
+    }
+  }, [selectedSimulation, state, user, recordSimulationAttempt]);
+
   const resetSimulation = useCallback(() => {
+    setXpEarned(0);
     if (selectedSimulation) {
       startSimulation(selectedSimulation);
     }
@@ -316,8 +346,8 @@ const OperationalSimulation: React.FC = () => {
   if (!selectedSimulation) {
     return (
       <div className="space-y-6">
-        {/* Header */}
-        <div className="text-center space-y-2">
+        {/* Header with Gamification Stats */}
+        <div className="text-center space-y-4">
           <div className="flex items-center justify-center gap-3">
             <div className="p-3 rounded-xl bg-gradient-to-br from-violet-500/20 to-purple-600/20 border border-violet-500/30">
               <Brain className="h-8 w-8 text-violet-400" />
@@ -327,6 +357,41 @@ const OperationalSimulation: React.FC = () => {
             </h2>
           </div>
           <p className="text-muted-foreground max-w-2xl mx-auto">{t.subtitle}</p>
+          
+          {/* User Stats Banner */}
+          {user && gamification && (
+            <div className="flex items-center justify-center gap-6 p-4 rounded-xl bg-gradient-to-r from-violet-500/10 to-purple-500/10 border border-violet-500/20 max-w-md mx-auto">
+              <div className="flex items-center gap-2">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center text-white font-bold">
+                  {userLevel}
+                </div>
+                <div className="text-left">
+                  <div className="text-xs text-muted-foreground">Level</div>
+                  <div className="text-sm font-semibold text-foreground">{gamification.total_xp} XP</div>
+                </div>
+              </div>
+              <div className="h-8 w-px bg-border" />
+              <div className="flex items-center gap-2">
+                <Trophy className="w-5 h-5 text-amber-500" />
+                <div className="text-left">
+                  <div className="text-xs text-muted-foreground">Simulations</div>
+                  <div className="text-sm font-semibold text-foreground">{gamification.simulations_completed}</div>
+                </div>
+              </div>
+              {gamification.streak_days > 0 && (
+                <>
+                  <div className="h-8 w-px bg-border" />
+                  <div className="flex items-center gap-2">
+                    <Flame className="w-5 h-5 text-orange-500" />
+                    <div className="text-left">
+                      <div className="text-xs text-muted-foreground">Streak</div>
+                      <div className="text-sm font-semibold text-foreground">{gamification.streak_days} days</div>
+                    </div>
+                  </div>
+                </>
+              )}
+            </div>
+          )}
         </div>
 
         {/* Simulation Cards */}
@@ -412,6 +477,15 @@ const OperationalSimulation: React.FC = () => {
               </div>
             </div>
             <Progress value={scorePercentage} className="h-3 bg-slate-700" />
+            
+            {/* XP Earned Badge */}
+            {xpEarned > 0 && (
+              <div className="flex items-center justify-center gap-2 p-3 rounded-lg bg-gradient-to-r from-green-500/20 to-emerald-500/20 border border-green-500/30 animate-fade-in">
+                <Star className="w-5 h-5 text-yellow-400 fill-yellow-400" />
+                <span className="text-lg font-bold text-green-400">+{xpEarned} XP</span>
+              </div>
+            )}
+            
             <div className="flex gap-3 justify-center pt-2">
               <Button onClick={resetSimulation} variant="outline" className="border-violet-500/30">
                 <RotateCcw className="h-4 w-4 mr-2" />
