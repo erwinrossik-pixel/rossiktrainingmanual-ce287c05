@@ -387,6 +387,44 @@ export type Database = {
         }
         Relationships: []
       }
+      challenge_participants: {
+        Row: {
+          challenge_id: string | null
+          completed: boolean | null
+          completed_at: string | null
+          current_value: number | null
+          id: string
+          joined_at: string | null
+          user_id: string
+        }
+        Insert: {
+          challenge_id?: string | null
+          completed?: boolean | null
+          completed_at?: string | null
+          current_value?: number | null
+          id?: string
+          joined_at?: string | null
+          user_id: string
+        }
+        Update: {
+          challenge_id?: string | null
+          completed?: boolean | null
+          completed_at?: string | null
+          current_value?: number | null
+          id?: string
+          joined_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "challenge_participants_challenge_id_fkey"
+            columns: ["challenge_id"]
+            isOneToOne: false
+            referencedRelation: "weekly_challenges"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       chapter_discussions: {
         Row: {
           chapter_id: string
@@ -1622,6 +1660,119 @@ export type Database = {
         }
         Relationships: []
       }
+      mentor_profiles: {
+        Row: {
+          availability_hours: number | null
+          bio: string | null
+          created_at: string | null
+          expertise_areas: string[] | null
+          id: string
+          is_active: boolean | null
+          max_mentees: number | null
+          rating: number | null
+          total_sessions: number | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          availability_hours?: number | null
+          bio?: string | null
+          created_at?: string | null
+          expertise_areas?: string[] | null
+          id?: string
+          is_active?: boolean | null
+          max_mentees?: number | null
+          rating?: number | null
+          total_sessions?: number | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          availability_hours?: number | null
+          bio?: string | null
+          created_at?: string | null
+          expertise_areas?: string[] | null
+          id?: string
+          is_active?: boolean | null
+          max_mentees?: number | null
+          rating?: number | null
+          total_sessions?: number | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      mentorships: {
+        Row: {
+          created_at: string | null
+          ended_at: string | null
+          id: string
+          mentee_id: string
+          mentor_id: string | null
+          notes: string | null
+          started_at: string | null
+          status: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          ended_at?: string | null
+          id?: string
+          mentee_id: string
+          mentor_id?: string | null
+          notes?: string | null
+          started_at?: string | null
+          status?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          ended_at?: string | null
+          id?: string
+          mentee_id?: string
+          mentor_id?: string | null
+          notes?: string | null
+          started_at?: string | null
+          status?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "mentorships_mentor_id_fkey"
+            columns: ["mentor_id"]
+            isOneToOne: false
+            referencedRelation: "mentor_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      ml_predictions: {
+        Row: {
+          confidence: number | null
+          created_at: string | null
+          id: string
+          prediction_data: Json
+          prediction_type: string
+          user_id: string
+          valid_until: string | null
+        }
+        Insert: {
+          confidence?: number | null
+          created_at?: string | null
+          id?: string
+          prediction_data: Json
+          prediction_type: string
+          user_id: string
+          valid_until?: string | null
+        }
+        Update: {
+          confidence?: number | null
+          created_at?: string | null
+          id?: string
+          prediction_data?: Json
+          prediction_type?: string
+          user_id?: string
+          valid_until?: string | null
+        }
+        Relationships: []
+      }
       page_views: {
         Row: {
           chapter_id: string | null
@@ -2199,6 +2350,36 @@ export type Database = {
           period_end?: string
           period_start?: string
           target_value?: number
+        }
+        Relationships: []
+      }
+      social_shares: {
+        Row: {
+          content_id: string | null
+          id: string
+          platform: string
+          share_type: string
+          share_url: string | null
+          shared_at: string | null
+          user_id: string
+        }
+        Insert: {
+          content_id?: string | null
+          id?: string
+          platform: string
+          share_type: string
+          share_url?: string | null
+          shared_at?: string | null
+          user_id: string
+        }
+        Update: {
+          content_id?: string | null
+          id?: string
+          platform?: string
+          share_type?: string
+          share_url?: string | null
+          shared_at?: string | null
+          user_id?: string
         }
         Relationships: []
       }
@@ -2837,6 +3018,208 @@ export type Database = {
           started_at?: string
           total_duration_seconds?: number | null
           user_id?: string | null
+        }
+        Relationships: []
+      }
+      video_lessons: {
+        Row: {
+          chapter_id: string
+          created_at: string | null
+          description: string | null
+          duration_minutes: number | null
+          id: string
+          is_premium: boolean | null
+          order_index: number | null
+          title: string
+          updated_at: string | null
+          video_type: string | null
+          video_url: string
+        }
+        Insert: {
+          chapter_id: string
+          created_at?: string | null
+          description?: string | null
+          duration_minutes?: number | null
+          id?: string
+          is_premium?: boolean | null
+          order_index?: number | null
+          title: string
+          updated_at?: string | null
+          video_type?: string | null
+          video_url: string
+        }
+        Update: {
+          chapter_id?: string
+          created_at?: string | null
+          description?: string | null
+          duration_minutes?: number | null
+          id?: string
+          is_premium?: boolean | null
+          order_index?: number | null
+          title?: string
+          updated_at?: string | null
+          video_type?: string | null
+          video_url?: string
+        }
+        Relationships: []
+      }
+      video_progress: {
+        Row: {
+          completed: boolean | null
+          created_at: string | null
+          id: string
+          last_watched_at: string | null
+          user_id: string
+          video_id: string | null
+          watched_seconds: number | null
+        }
+        Insert: {
+          completed?: boolean | null
+          created_at?: string | null
+          id?: string
+          last_watched_at?: string | null
+          user_id: string
+          video_id?: string | null
+          watched_seconds?: number | null
+        }
+        Update: {
+          completed?: boolean | null
+          created_at?: string | null
+          id?: string
+          last_watched_at?: string | null
+          user_id?: string
+          video_id?: string | null
+          watched_seconds?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "video_progress_video_id_fkey"
+            columns: ["video_id"]
+            isOneToOne: false
+            referencedRelation: "video_lessons"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      webinar_registrations: {
+        Row: {
+          attended: boolean | null
+          id: string
+          registered_at: string | null
+          user_id: string
+          webinar_id: string | null
+        }
+        Insert: {
+          attended?: boolean | null
+          id?: string
+          registered_at?: string | null
+          user_id: string
+          webinar_id?: string | null
+        }
+        Update: {
+          attended?: boolean | null
+          id?: string
+          registered_at?: string | null
+          user_id?: string
+          webinar_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "webinar_registrations_webinar_id_fkey"
+            columns: ["webinar_id"]
+            isOneToOne: false
+            referencedRelation: "webinars"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      webinars: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          duration_minutes: number | null
+          host_id: string
+          id: string
+          is_recorded: boolean | null
+          max_participants: number | null
+          meeting_url: string | null
+          recording_url: string | null
+          scheduled_at: string
+          status: string | null
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          duration_minutes?: number | null
+          host_id: string
+          id?: string
+          is_recorded?: boolean | null
+          max_participants?: number | null
+          meeting_url?: string | null
+          recording_url?: string | null
+          scheduled_at: string
+          status?: string | null
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          duration_minutes?: number | null
+          host_id?: string
+          id?: string
+          is_recorded?: boolean | null
+          max_participants?: number | null
+          meeting_url?: string | null
+          recording_url?: string | null
+          scheduled_at?: string
+          status?: string | null
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      weekly_challenges: {
+        Row: {
+          badge_reward: string | null
+          challenge_type: string
+          created_at: string | null
+          description: string | null
+          end_date: string
+          id: string
+          is_active: boolean | null
+          start_date: string
+          target_value: number
+          title: string
+          xp_reward: number | null
+        }
+        Insert: {
+          badge_reward?: string | null
+          challenge_type: string
+          created_at?: string | null
+          description?: string | null
+          end_date: string
+          id?: string
+          is_active?: boolean | null
+          start_date: string
+          target_value: number
+          title: string
+          xp_reward?: number | null
+        }
+        Update: {
+          badge_reward?: string | null
+          challenge_type?: string
+          created_at?: string | null
+          description?: string | null
+          end_date?: string
+          id?: string
+          is_active?: boolean | null
+          start_date?: string
+          target_value?: number
+          title?: string
+          xp_reward?: number | null
         }
         Relationships: []
       }
