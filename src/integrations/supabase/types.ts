@@ -68,6 +68,39 @@ export type Database = {
         }
         Relationships: []
       }
+      audio_cache: {
+        Row: {
+          audio_url: string | null
+          chapter_id: string
+          created_at: string | null
+          duration_seconds: number | null
+          id: string
+          language: string
+          text_hash: string
+          voice_id: string | null
+        }
+        Insert: {
+          audio_url?: string | null
+          chapter_id: string
+          created_at?: string | null
+          duration_seconds?: number | null
+          id?: string
+          language: string
+          text_hash: string
+          voice_id?: string | null
+        }
+        Update: {
+          audio_url?: string | null
+          chapter_id?: string
+          created_at?: string | null
+          duration_seconds?: number | null
+          id?: string
+          language?: string
+          text_hash?: string
+          voice_id?: string | null
+        }
+        Relationships: []
+      }
       auto_update_settings: {
         Row: {
           description: string | null
@@ -529,6 +562,48 @@ export type Database = {
             referencedColumns: ["chapter_id"]
           },
         ]
+      }
+      chapter_media: {
+        Row: {
+          chapter_id: string
+          content: Json
+          created_at: string | null
+          duration_estimate: number | null
+          id: string
+          is_active: boolean | null
+          language: string | null
+          media_type: string
+          order_index: number | null
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          chapter_id: string
+          content: Json
+          created_at?: string | null
+          duration_estimate?: number | null
+          id?: string
+          is_active?: boolean | null
+          language?: string | null
+          media_type: string
+          order_index?: number | null
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          chapter_id?: string
+          content?: Json
+          created_at?: string | null
+          duration_estimate?: number | null
+          id?: string
+          is_active?: boolean | null
+          language?: string | null
+          media_type?: string
+          order_index?: number | null
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: []
       }
       chapter_progress: {
         Row: {
@@ -1659,6 +1734,50 @@ export type Database = {
           valid_until?: string
         }
         Relationships: []
+      }
+      media_progress: {
+        Row: {
+          completed: boolean | null
+          completed_at: string | null
+          created_at: string | null
+          id: string
+          last_position: number | null
+          media_id: string | null
+          progress_percent: number | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          completed?: boolean | null
+          completed_at?: string | null
+          created_at?: string | null
+          id?: string
+          last_position?: number | null
+          media_id?: string | null
+          progress_percent?: number | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          completed?: boolean | null
+          completed_at?: string | null
+          created_at?: string | null
+          id?: string
+          last_position?: number | null
+          media_id?: string | null
+          progress_percent?: number | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "media_progress_media_id_fkey"
+            columns: ["media_id"]
+            isOneToOne: false
+            referencedRelation: "chapter_media"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       mentor_profiles: {
         Row: {
