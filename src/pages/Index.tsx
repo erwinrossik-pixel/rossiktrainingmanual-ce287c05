@@ -12,6 +12,7 @@ import { PendingApproval } from "@/components/PendingApproval";
 import { TrialBanner } from "@/components/subscription";
 import NotificationCenter from "@/components/NotificationCenter";
 import { LearningPathAI } from "@/components/manual/LearningPathAI";
+import { LearningGoals } from "@/components/manual/LearningGoals";
 
 // Lazy load OperationalSimulation for better performance
 const OperationalSimulation = lazy(() => import("@/components/manual/OperationalSimulation"));
@@ -180,10 +181,13 @@ function ManualApp() {
       ) : (
         <div className="lg:ml-72">
           <ManualContent activeChapter={activeChapter} onChapterChange={handleChapterChange} />
-          {/* Learning Path AI - shown on intro chapter */}
+          {/* Learning Path AI & Goals - shown on intro chapter */}
           {activeChapter === 'intro' && (
-            <div className="px-6 lg:px-10 pb-10">
-              <LearningPathAI />
+            <div className="px-6 lg:px-10 pb-10 space-y-6">
+              <div className="grid lg:grid-cols-2 gap-6">
+                <LearningPathAI />
+                <LearningGoals />
+              </div>
             </div>
           )}
         </div>
