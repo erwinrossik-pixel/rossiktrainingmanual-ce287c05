@@ -13,6 +13,7 @@ import { TrialBanner } from "@/components/subscription";
 import NotificationCenter from "@/components/NotificationCenter";
 import { LearningPathAI } from "@/components/manual/LearningPathAI";
 import { LearningGoals } from "@/components/manual/LearningGoals";
+import { CelebrationOverlay } from "@/components/manual/CelebrationOverlay";
 
 // Lazy load OperationalSimulation for better performance
 const OperationalSimulation = lazy(() => import("@/components/manual/OperationalSimulation"));
@@ -201,6 +202,7 @@ const Index = () => {
     <LanguageProvider>
       <ProgressProvider>
         <ManualApp />
+        <CelebrationOverlay />
       </ProgressProvider>
     </LanguageProvider>
   );

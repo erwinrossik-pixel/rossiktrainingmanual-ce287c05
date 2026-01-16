@@ -37,6 +37,7 @@ import { CompetencyGapAnalysis } from '@/components/admin/CompetencyGapAnalysis'
 import { KnowledgeGraph } from '@/components/admin/KnowledgeGraph';
 import { GamificationLeaderboard } from '@/components/admin/GamificationLeaderboard';
 import { CompanyReportGenerator } from '@/components/admin/CompanyReportGenerator';
+import { CompetencyMatrix } from '@/components/admin/CompetencyMatrix';
 import { SubscriptionCard } from '@/components/subscription';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
@@ -668,6 +669,10 @@ export default function AdminDashboard() {
               <Gamepad2 className="h-4 w-4" />
               Gamificare
             </TabsTrigger>
+            <TabsTrigger value="competency-matrix" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-teal-700 data-[state=active]:border-b-2 data-[state=active]:border-teal-500">
+              <BarChart3 className="h-4 w-4" />
+              Competențe Echipă
+            </TabsTrigger>
             {(isCompanyAdmin || isSuperAdmin) && (
               <TabsTrigger value="reports" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-cyan-700 data-[state=active]:border-b-2 data-[state=active]:border-cyan-500">
                 <FileBarChart className="h-4 w-4" />
@@ -882,6 +887,10 @@ export default function AdminDashboard() {
 
           <TabsContent value="gamification" className="mt-6">
             <GamificationLeaderboard />
+          </TabsContent>
+
+          <TabsContent value="competency-matrix" className="mt-6">
+            <CompetencyMatrix />
           </TabsContent>
 
           {/* Enterprise Deployment Tabs - Super Admin only */}

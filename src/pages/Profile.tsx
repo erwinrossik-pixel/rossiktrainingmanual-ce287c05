@@ -19,13 +19,15 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { 
   ArrowLeft, User, Settings, BarChart3, Globe, Save, CheckCircle2, 
-  Trophy, Target, BookOpen, Award, Building2, Gamepad2, Star, Flame, Zap, Lock, Bell
+  Trophy, Target, BookOpen, Award, Building2, Gamepad2, Star, Flame, Zap, Lock, Bell, CalendarDays, Shield
 } from "lucide-react";
 import { toast } from "sonner";
 import { ALL_CHAPTERS } from "@/data/chaptersConfig";
 import ProgressCharts from "@/components/profile/ProgressCharts";
 import { NotificationSettings } from "@/components/settings/NotificationSettings";
 import { LearningGoals } from "@/components/manual/LearningGoals";
+import { TrainingCalendar } from "@/components/manual/TrainingCalendar";
+import { TwoFactorSettings } from "@/components/settings/TwoFactorSettings";
 
 function ProfileContent() {
   const navigate = useNavigate();
@@ -286,6 +288,10 @@ function ProfileContent() {
             <TabsTrigger value="goals" className="gap-2">
               <Target className="h-4 w-4" />
               <span className="hidden sm:inline">Obiective</span>
+            </TabsTrigger>
+            <TabsTrigger value="calendar" className="gap-2">
+              <CalendarDays className="h-4 w-4" />
+              <span className="hidden sm:inline">Calendar</span>
             </TabsTrigger>
             <TabsTrigger value="gamification" className="gap-2">
               <Gamepad2 className="h-4 w-4" />
@@ -605,6 +611,13 @@ function ProfileContent() {
             </div>
           </TabsContent>
 
+          {/* Calendar Tab */}
+          <TabsContent value="calendar">
+            <div className="space-y-6">
+              <TrainingCalendar />
+            </div>
+          </TabsContent>
+
           {/* Preferences Tab */}
           <TabsContent value="preferences">
             <div className="space-y-6">
@@ -650,6 +663,9 @@ function ProfileContent() {
                   </div>
                 </CardContent>
               </Card>
+
+              {/* 2FA Settings */}
+              <TwoFactorSettings />
             </div>
           </TabsContent>
         </Tabs>

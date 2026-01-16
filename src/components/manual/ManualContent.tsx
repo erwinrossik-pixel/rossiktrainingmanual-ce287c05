@@ -53,6 +53,7 @@ import { IntermodalChapter } from "./chapters/IntermodalChapter";
 import { NetworkingChapter } from "./chapters/NetworkingChapter";
 import { ProfessionalDevelopmentChapter } from "./chapters/ProfessionalDevelopmentChapter";
 import { ChapterNavigation } from "./ChapterNavigation";
+import { ChapterDiscussions } from "./ChapterDiscussions";
 
 interface ManualContentProps {
   activeChapter: string;
@@ -202,6 +203,8 @@ export function ManualContent({ activeChapter, onChapterChange }: ManualContentP
                     activeChapter={activeChapter} 
                     onChapterChange={onChapterChange} 
                   />
+                  {/* Chapter Discussions */}
+                  <ChapterDiscussions chapterId={activeChapter} />
                 </>
               )}
             </div>
