@@ -345,7 +345,7 @@ export function RiskManagementChapter() {
           title={ct("quizTitle")}
           questions={quizzes["risk-management"]}
           chapterId="risk-management"
-          questionsPerRound={5}
+          questionsPerRound={10}
         />
       )}
     </div>

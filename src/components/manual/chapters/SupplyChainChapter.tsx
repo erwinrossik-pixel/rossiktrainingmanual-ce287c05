@@ -311,7 +311,7 @@ export function SupplyChainChapter() {
           title={ct("quizTitle")}
           questions={quizzes["supply-chain"]}
           chapterId="supply-chain"
-          questionsPerRound={5}
+          questionsPerRound={10}
         />
       )}
     </div>

@@ -518,7 +518,7 @@ export function CarrierManagementChapter() {
           title={ct("quizTitle")}
           questions={quizzes["carrier-management"]}
           chapterId="carrier-management"
-          questionsPerRound={5}
+          questionsPerRound={10}
         />
       )}
     </div>

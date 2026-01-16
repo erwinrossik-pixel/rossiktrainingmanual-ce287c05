@@ -345,7 +345,7 @@ export function KPIChapter() {
           title={ct("knowledgeCheck")}
           questions={quizzes["kpi"]}
           chapterId="kpi"
-          questionsPerRound={5}
+          questionsPerRound={10}
         />
       )}
     </div>

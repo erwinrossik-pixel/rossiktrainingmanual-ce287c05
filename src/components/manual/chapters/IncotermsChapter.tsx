@@ -373,7 +373,7 @@ export function IncotermsChapter() {
           title={ct("quizTitle")}
           questions={quizzes["incoterms"]}
           chapterId="incoterms"
-          questionsPerRound={5}
+          questionsPerRound={10}
         />
       )}
     </div>

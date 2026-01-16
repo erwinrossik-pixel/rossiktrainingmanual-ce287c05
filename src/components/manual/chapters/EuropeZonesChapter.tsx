@@ -565,7 +565,7 @@ export function EuropeZonesChapter() {
           title={ct("quizTitle")}
           questions={quizzes["europe-zones"]}
           chapterId="europe-zones"
-          questionsPerRound={5}
+          questionsPerRound={10}
         />
       )}
     </div>

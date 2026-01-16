@@ -360,7 +360,7 @@ export function NegotiationChapter() {
           title={ct("quizTitle")}
           questions={quizzes["negotiation"]}
           chapterId="negotiation"
-          questionsPerRound={5}
+          questionsPerRound={10}
         />
       )}
     </div>
