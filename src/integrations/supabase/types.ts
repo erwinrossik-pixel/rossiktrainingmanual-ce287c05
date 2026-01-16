@@ -189,6 +189,48 @@ export type Database = {
           },
         ]
       }
+      backup_logs: {
+        Row: {
+          backup_type: string
+          completed_at: string | null
+          created_at: string
+          duration_ms: number | null
+          error_message: string | null
+          id: string
+          size_bytes: number | null
+          started_at: string
+          status: string
+          storage_location: string | null
+          tables_backed_up: string[] | null
+        }
+        Insert: {
+          backup_type: string
+          completed_at?: string | null
+          created_at?: string
+          duration_ms?: number | null
+          error_message?: string | null
+          id?: string
+          size_bytes?: number | null
+          started_at?: string
+          status?: string
+          storage_location?: string | null
+          tables_backed_up?: string[] | null
+        }
+        Update: {
+          backup_type?: string
+          completed_at?: string | null
+          created_at?: string
+          duration_ms?: number | null
+          error_message?: string | null
+          id?: string
+          size_bytes?: number | null
+          started_at?: string
+          status?: string
+          storage_location?: string | null
+          tables_backed_up?: string[] | null
+        }
+        Relationships: []
+      }
       bookmarked_questions: {
         Row: {
           bookmarked_at: string
@@ -1134,6 +1176,54 @@ export type Database = {
           },
         ]
       }
+      error_logs: {
+        Row: {
+          created_at: string
+          error_message: string
+          error_stack: string | null
+          error_type: string
+          id: string
+          metadata: Json | null
+          page_url: string | null
+          resolved_at: string | null
+          resolved_by: string | null
+          session_id: string | null
+          severity: string
+          user_agent: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          error_message: string
+          error_stack?: string | null
+          error_type: string
+          id?: string
+          metadata?: Json | null
+          page_url?: string | null
+          resolved_at?: string | null
+          resolved_by?: string | null
+          session_id?: string | null
+          severity?: string
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          error_message?: string
+          error_stack?: string | null
+          error_type?: string
+          id?: string
+          metadata?: Json | null
+          page_url?: string | null
+          resolved_at?: string | null
+          resolved_by?: string | null
+          session_id?: string | null
+          severity?: string
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       governance_settings: {
         Row: {
           description: string | null
@@ -1158,6 +1248,107 @@ export type Database = {
           setting_value?: Json
           updated_at?: string
           updated_by?: string | null
+        }
+        Relationships: []
+      }
+      incident_timeline: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          description: string
+          event_type: string
+          id: string
+          incident_id: string | null
+          new_status: string | null
+          old_status: string | null
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          description: string
+          event_type: string
+          id?: string
+          incident_id?: string | null
+          new_status?: string | null
+          old_status?: string | null
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          description?: string
+          event_type?: string
+          id?: string
+          incident_id?: string | null
+          new_status?: string | null
+          old_status?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "incident_timeline_incident_id_fkey"
+            columns: ["incident_id"]
+            isOneToOne: false
+            referencedRelation: "incidents"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      incidents: {
+        Row: {
+          acknowledged_at: string | null
+          affected_services: string[] | null
+          assigned_to: string | null
+          created_at: string
+          created_by: string | null
+          description: string | null
+          detected_at: string
+          id: string
+          impact: string | null
+          incident_number: string
+          resolution: string | null
+          resolved_at: string | null
+          root_cause: string | null
+          severity: string
+          status: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          acknowledged_at?: string | null
+          affected_services?: string[] | null
+          assigned_to?: string | null
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          detected_at?: string
+          id?: string
+          impact?: string | null
+          incident_number: string
+          resolution?: string | null
+          resolved_at?: string | null
+          root_cause?: string | null
+          severity: string
+          status?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          acknowledged_at?: string | null
+          affected_services?: string[] | null
+          assigned_to?: string | null
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          detected_at?: string
+          id?: string
+          impact?: string | null
+          incident_number?: string
+          resolution?: string | null
+          resolved_at?: string | null
+          root_cause?: string | null
+          severity?: string
+          status?: string
+          title?: string
+          updated_at?: string
         }
         Relationships: []
       }
@@ -1218,6 +1409,81 @@ export type Database = {
           page_path?: string
           session_id?: string
           user_id?: string | null
+        }
+        Relationships: []
+      }
+      performance_metrics: {
+        Row: {
+          id: string
+          metric_name: string
+          metric_type: string
+          recorded_at: string
+          tags: Json | null
+          unit: string
+          value: number
+        }
+        Insert: {
+          id?: string
+          metric_name: string
+          metric_type: string
+          recorded_at?: string
+          tags?: Json | null
+          unit: string
+          value: number
+        }
+        Update: {
+          id?: string
+          metric_name?: string
+          metric_type?: string
+          recorded_at?: string
+          tags?: Json | null
+          unit?: string
+          value?: number
+        }
+        Relationships: []
+      }
+      production_checklist: {
+        Row: {
+          category: string
+          completed_at: string | null
+          completed_by: string | null
+          created_at: string
+          description: string | null
+          evidence_url: string | null
+          id: string
+          is_completed: boolean | null
+          is_required: boolean | null
+          item_name: string
+          notes: string | null
+          updated_at: string
+        }
+        Insert: {
+          category: string
+          completed_at?: string | null
+          completed_by?: string | null
+          created_at?: string
+          description?: string | null
+          evidence_url?: string | null
+          id?: string
+          is_completed?: boolean | null
+          is_required?: boolean | null
+          item_name: string
+          notes?: string | null
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          completed_at?: string | null
+          completed_by?: string | null
+          created_at?: string
+          description?: string | null
+          evidence_url?: string | null
+          id?: string
+          is_completed?: boolean | null
+          is_required?: boolean | null
+          item_name?: string
+          notes?: string | null
+          updated_at?: string
         }
         Relationships: []
       }
@@ -1365,6 +1631,56 @@ export type Database = {
           },
         ]
       }
+      recovery_tests: {
+        Row: {
+          backup_id: string | null
+          completed_at: string | null
+          discrepancies_found: number | null
+          id: string
+          performed_by: string | null
+          records_verified: number | null
+          started_at: string
+          status: string
+          tables_tested: string[] | null
+          test_results: Json | null
+          test_type: string
+        }
+        Insert: {
+          backup_id?: string | null
+          completed_at?: string | null
+          discrepancies_found?: number | null
+          id?: string
+          performed_by?: string | null
+          records_verified?: number | null
+          started_at?: string
+          status?: string
+          tables_tested?: string[] | null
+          test_results?: Json | null
+          test_type: string
+        }
+        Update: {
+          backup_id?: string | null
+          completed_at?: string | null
+          discrepancies_found?: number | null
+          id?: string
+          performed_by?: string | null
+          records_verified?: number | null
+          started_at?: string
+          status?: string
+          tables_tested?: string[] | null
+          test_results?: Json | null
+          test_type?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "recovery_tests_backup_id_fkey"
+            columns: ["backup_id"]
+            isOneToOne: false
+            referencedRelation: "backup_logs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       regeneration_jobs: {
         Row: {
           auto_apply: boolean | null
@@ -1423,6 +1739,87 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      sla_configuration: {
+        Row: {
+          created_at: string
+          critical_threshold: number | null
+          description: string | null
+          id: string
+          is_active: boolean | null
+          measurement_period: string
+          metric_name: string
+          target_value: number
+          unit: string
+          updated_at: string
+          warning_threshold: number | null
+        }
+        Insert: {
+          created_at?: string
+          critical_threshold?: number | null
+          description?: string | null
+          id?: string
+          is_active?: boolean | null
+          measurement_period: string
+          metric_name: string
+          target_value: number
+          unit: string
+          updated_at?: string
+          warning_threshold?: number | null
+        }
+        Update: {
+          created_at?: string
+          critical_threshold?: number | null
+          description?: string | null
+          id?: string
+          is_active?: boolean | null
+          measurement_period?: string
+          metric_name?: string
+          target_value?: number
+          unit?: string
+          updated_at?: string
+          warning_threshold?: number | null
+        }
+        Relationships: []
+      }
+      sla_metrics: {
+        Row: {
+          actual_value: number
+          breach_count: number | null
+          created_at: string
+          details: Json | null
+          id: string
+          is_met: boolean
+          metric_name: string
+          period_end: string
+          period_start: string
+          target_value: number
+        }
+        Insert: {
+          actual_value: number
+          breach_count?: number | null
+          created_at?: string
+          details?: Json | null
+          id?: string
+          is_met: boolean
+          metric_name: string
+          period_end: string
+          period_start: string
+          target_value: number
+        }
+        Update: {
+          actual_value?: number
+          breach_count?: number | null
+          created_at?: string
+          details?: Json | null
+          id?: string
+          is_met?: boolean
+          metric_name?: string
+          period_end?: string
+          period_start?: string
+          target_value?: number
+        }
+        Relationships: []
       }
       source_check_logs: {
         Row: {
@@ -1513,6 +1910,36 @@ export type Database = {
           plan_type?: Database["public"]["Enums"]["plan_type"]
           price_monthly?: number | null
           price_yearly?: number | null
+        }
+        Relationships: []
+      }
+      system_health_checks: {
+        Row: {
+          check_type: string
+          checked_at: string
+          created_at: string
+          details: Json | null
+          id: string
+          response_time_ms: number | null
+          status: string
+        }
+        Insert: {
+          check_type: string
+          checked_at?: string
+          created_at?: string
+          details?: Json | null
+          id?: string
+          response_time_ms?: number | null
+          status?: string
+        }
+        Update: {
+          check_type?: string
+          checked_at?: string
+          created_at?: string
+          details?: Json | null
+          id?: string
+          response_time_ms?: number | null
+          status?: string
         }
         Relationships: []
       }
