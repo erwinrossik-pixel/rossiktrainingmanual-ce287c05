@@ -11,7 +11,7 @@ import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { ArrowLeft, Users, BookOpen, Trophy, Clock, Eye, Download, BarChart3, RefreshCw, RotateCcw, Unlock, Shield, Activity, Timer, TrendingUp, Calendar, TimerReset, FileSearch, Award, Bell, BellOff, Radio, Building2, CreditCard, Server, Database, AlertTriangle, CheckCircle, Lock } from 'lucide-react';
+import { ArrowLeft, Users, BookOpen, Trophy, Clock, Eye, Download, BarChart3, RefreshCw, RotateCcw, Unlock, Shield, Activity, Timer, TrendingUp, Calendar, TimerReset, FileSearch, Award, Bell, BellOff, Radio, Building2, CreditCard, Server, Database, AlertTriangle, CheckCircle, Lock, Target } from 'lucide-react';
 import { toast } from 'sonner';
 import { GovernanceDashboard } from '@/components/admin/GovernanceDashboard';
 import { format, subDays } from 'date-fns';
@@ -33,6 +33,7 @@ import { BackupRecovery } from '@/components/admin/BackupRecovery';
 import { IncidentManagement } from '@/components/admin/IncidentManagement';
 import { ProductionChecklist } from '@/components/admin/ProductionChecklist';
 import { PremiumChaptersManager } from '@/components/admin/PremiumChaptersManager';
+import { CompetencyGapAnalysis } from '@/components/admin/CompetencyGapAnalysis';
 import { SubscriptionCard } from '@/components/subscription';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
@@ -605,6 +606,10 @@ export default function AdminDashboard() {
               <TrendingUp className="h-4 w-4" />
               Learning KPI
             </TabsTrigger>
+            <TabsTrigger value="competency-gap" className="flex items-center gap-2">
+              <Target className="h-4 w-4" />
+              Lipsuri Competențe
+            </TabsTrigger>
             <TabsTrigger value="cron-jobs" className="flex items-center gap-2">
               <Calendar className="h-4 w-4" />
               Cron Jobs
@@ -798,6 +803,10 @@ export default function AdminDashboard() {
 
           <TabsContent value="learning-kpi" className="mt-6">
             <LearningAnalyticsDashboard />
+          </TabsContent>
+
+          <TabsContent value="competency-gap" className="mt-6">
+            <CompetencyGapAnalysis />
           </TabsContent>
 
           <TabsContent value="cron-jobs" className="mt-6">
