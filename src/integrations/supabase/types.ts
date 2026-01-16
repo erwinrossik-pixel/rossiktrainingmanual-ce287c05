@@ -273,6 +273,33 @@ export type Database = {
         }
         Relationships: []
       }
+      celebration_events: {
+        Row: {
+          created_at: string | null
+          event_data: Json | null
+          event_type: string
+          id: string
+          shown: boolean | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          event_data?: Json | null
+          event_type: string
+          id?: string
+          shown?: boolean | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          event_data?: Json | null
+          event_type?: string
+          id?: string
+          shown?: boolean | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       certificate_settings: {
         Row: {
           description: string | null
@@ -359,6 +386,53 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      chapter_discussions: {
+        Row: {
+          chapter_id: string
+          content: string
+          created_at: string | null
+          id: string
+          is_pinned: boolean | null
+          is_resolved: boolean | null
+          likes_count: number | null
+          parent_id: string | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          chapter_id: string
+          content: string
+          created_at?: string | null
+          id?: string
+          is_pinned?: boolean | null
+          is_resolved?: boolean | null
+          likes_count?: number | null
+          parent_id?: string | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          chapter_id?: string
+          content?: string
+          created_at?: string | null
+          id?: string
+          is_pinned?: boolean | null
+          is_resolved?: boolean | null
+          likes_count?: number | null
+          parent_id?: string | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "chapter_discussions_parent_id_fkey"
+            columns: ["parent_id"]
+            isOneToOne: false
+            referencedRelation: "chapter_discussions"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       chapter_impacts: {
         Row: {
@@ -923,6 +997,39 @@ export type Database = {
           },
         ]
       }
+      competency_scores: {
+        Row: {
+          competency_area: string
+          created_at: string | null
+          id: string
+          last_assessment_at: string | null
+          max_score: number | null
+          score: number | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          competency_area: string
+          created_at?: string | null
+          id?: string
+          last_assessment_at?: string | null
+          max_score?: number | null
+          score?: number | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          competency_area?: string
+          created_at?: string | null
+          id?: string
+          last_assessment_at?: string | null
+          max_score?: number | null
+          score?: number | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       content_difficulty_analysis: {
         Row: {
           avg_attempts_to_pass: number | null
@@ -1231,6 +1338,35 @@ export type Database = {
             columns: ["source_id"]
             isOneToOne: false
             referencedRelation: "content_sources"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      discussion_likes: {
+        Row: {
+          created_at: string | null
+          discussion_id: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          discussion_id: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          discussion_id?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "discussion_likes_discussion_id_fkey"
+            columns: ["discussion_id"]
+            isOneToOne: false
+            referencedRelation: "chapter_discussions"
             referencedColumns: ["id"]
           },
         ]
@@ -1949,6 +2085,42 @@ export type Database = {
         }
         Relationships: []
       }
+      skill_assessments: {
+        Row: {
+          assessment_type: string
+          completed_at: string | null
+          created_at: string | null
+          id: string
+          max_score: number | null
+          recommendations: Json | null
+          skill_scores: Json | null
+          total_score: number | null
+          user_id: string
+        }
+        Insert: {
+          assessment_type: string
+          completed_at?: string | null
+          created_at?: string | null
+          id?: string
+          max_score?: number | null
+          recommendations?: Json | null
+          skill_scores?: Json | null
+          total_score?: number | null
+          user_id: string
+        }
+        Update: {
+          assessment_type?: string
+          completed_at?: string | null
+          created_at?: string | null
+          id?: string
+          max_score?: number | null
+          recommendations?: Json | null
+          skill_scores?: Json | null
+          total_score?: number | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       sla_configuration: {
         Row: {
           created_at: string
@@ -2219,6 +2391,54 @@ export type Database = {
         }
         Relationships: []
       }
+      training_sessions: {
+        Row: {
+          chapter_id: string | null
+          completed: boolean | null
+          completed_at: string | null
+          created_at: string | null
+          description: string | null
+          duration_minutes: number | null
+          id: string
+          recurrence: string | null
+          reminder_sent: boolean | null
+          scheduled_at: string
+          title: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          chapter_id?: string | null
+          completed?: boolean | null
+          completed_at?: string | null
+          created_at?: string | null
+          description?: string | null
+          duration_minutes?: number | null
+          id?: string
+          recurrence?: string | null
+          reminder_sent?: boolean | null
+          scheduled_at: string
+          title: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          chapter_id?: string | null
+          completed?: boolean | null
+          completed_at?: string | null
+          created_at?: string | null
+          description?: string | null
+          duration_minutes?: number | null
+          id?: string
+          recurrence?: string | null
+          reminder_sent?: boolean | null
+          scheduled_at?: string
+          title?: string
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       training_time: {
         Row: {
           created_at: string
@@ -2303,6 +2523,39 @@ export type Database = {
           previous_version?: number | null
           severity?: string | null
           source_url?: string | null
+        }
+        Relationships: []
+      }
+      user_2fa: {
+        Row: {
+          backup_codes: Json | null
+          created_at: string | null
+          id: string
+          is_enabled: boolean | null
+          secret_encrypted: string | null
+          updated_at: string | null
+          user_id: string
+          verified_at: string | null
+        }
+        Insert: {
+          backup_codes?: Json | null
+          created_at?: string | null
+          id?: string
+          is_enabled?: boolean | null
+          secret_encrypted?: string | null
+          updated_at?: string | null
+          user_id: string
+          verified_at?: string | null
+        }
+        Update: {
+          backup_codes?: Json | null
+          created_at?: string | null
+          id?: string
+          is_enabled?: boolean | null
+          secret_encrypted?: string | null
+          updated_at?: string | null
+          user_id?: string
+          verified_at?: string | null
         }
         Relationships: []
       }
@@ -2630,6 +2883,27 @@ export type Database = {
           slug?: string | null
         }
         Relationships: []
+      }
+      team_competency_matrix: {
+        Row: {
+          avg_score: number | null
+          company_id: string | null
+          competencies: Json | null
+          email: string | null
+          first_name: string | null
+          last_name: string | null
+          last_updated: string | null
+          user_id: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "company_users_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Functions: {
