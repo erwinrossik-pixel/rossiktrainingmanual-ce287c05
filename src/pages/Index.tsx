@@ -74,13 +74,9 @@ const UserMenu = memo(function UserMenu() {
             <span>Admin Dashboard</span>
           </DropdownMenuItem>
         )}
-        <DropdownMenuItem disabled>
+        <DropdownMenuItem onClick={() => navigate('/profile')}>
           <User className="mr-2 h-4 w-4" />
           <span>Profil</span>
-        </DropdownMenuItem>
-        <DropdownMenuItem disabled>
-          <Settings className="mr-2 h-4 w-4" />
-          <span>Setări</span>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={() => signOut()}>
