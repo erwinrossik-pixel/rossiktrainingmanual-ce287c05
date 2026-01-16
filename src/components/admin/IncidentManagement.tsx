@@ -69,25 +69,26 @@ export function IncidentManagement() {
     mutationFn: async (incident: typeof newIncident) => {
       const { data, error } = await supabase
         .from('incidents')
-        .insert({
+        .insert([{
+          incident_number: 'PENDING', // Will be overwritten by trigger
           title: incident.title,
           description: incident.description,
           severity: incident.severity,
           affected_services: incident.affected_services,
           impact: incident.impact
-        })
+        }])
         .select()
         .single();
       if (error) throw error;
       
       // Add timeline entry
-      await supabase.from('incident_timeline').insert({
+      await supabase.from('incident_timeline').insert([{
         incident_id: data.id,
         event_type: 'created',
         description: 'Incident created',
         new_status: 'open',
         created_by: user?.id
-      });
+      }]);
       
       return data;
     },
