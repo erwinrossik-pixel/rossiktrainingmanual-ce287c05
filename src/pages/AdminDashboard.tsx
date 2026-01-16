@@ -11,7 +11,7 @@ import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { ArrowLeft, Users, BookOpen, Trophy, Clock, Eye, Download, BarChart3, RefreshCw, RotateCcw, Unlock, Shield, Activity, Timer, TrendingUp, Calendar, TimerReset, FileSearch, Award, Bell, BellOff, Radio, Building2, CreditCard } from 'lucide-react';
+import { ArrowLeft, Users, BookOpen, Trophy, Clock, Eye, Download, BarChart3, RefreshCw, RotateCcw, Unlock, Shield, Activity, Timer, TrendingUp, Calendar, TimerReset, FileSearch, Award, Bell, BellOff, Radio, Building2, CreditCard, Server, Database, AlertTriangle, CheckCircle } from 'lucide-react';
 import { toast } from 'sonner';
 import { GovernanceDashboard } from '@/components/admin/GovernanceDashboard';
 import { format, subDays } from 'date-fns';
@@ -28,6 +28,10 @@ import { CompanyManagement } from '@/components/admin/CompanyManagement';
 import { UserManagement } from '@/components/admin/UserManagement';
 import { SubscriptionPlansManager } from '@/components/admin/SubscriptionPlansManager';
 import { ChapterManagement } from '@/components/admin/ChapterManagement';
+import { EnterpriseMonitoring } from '@/components/admin/EnterpriseMonitoring';
+import { BackupRecovery } from '@/components/admin/BackupRecovery';
+import { IncidentManagement } from '@/components/admin/IncidentManagement';
+import { ProductionChecklist } from '@/components/admin/ProductionChecklist';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
@@ -611,6 +615,27 @@ export default function AdminDashboard() {
               <Radio className="h-4 w-4" />
               Timp Real
             </TabsTrigger>
+            {/* Enterprise Deployment - Super Admin only */}
+            {isSuperAdmin && (
+              <>
+                <TabsTrigger value="monitoring" className="flex items-center gap-2">
+                  <Server className="h-4 w-4" />
+                  Monitorizare
+                </TabsTrigger>
+                <TabsTrigger value="backup" className="flex items-center gap-2">
+                  <Database className="h-4 w-4" />
+                  Backup
+                </TabsTrigger>
+                <TabsTrigger value="incidents" className="flex items-center gap-2">
+                  <AlertTriangle className="h-4 w-4" />
+                  Incidente
+                </TabsTrigger>
+                <TabsTrigger value="production" className="flex items-center gap-2">
+                  <CheckCircle className="h-4 w-4" />
+                  Production
+                </TabsTrigger>
+              </>
+            )}
           </TabsList>
 
           {/* Company Management - Super Admin only */}
@@ -745,6 +770,24 @@ export default function AdminDashboard() {
           <TabsContent value="realtime" className="mt-6">
             <RealTimeActivityPanel />
           </TabsContent>
+
+          {/* Enterprise Deployment Tabs - Super Admin only */}
+          {isSuperAdmin && (
+            <>
+              <TabsContent value="monitoring" className="mt-6">
+                <EnterpriseMonitoring />
+              </TabsContent>
+              <TabsContent value="backup" className="mt-6">
+                <BackupRecovery />
+              </TabsContent>
+              <TabsContent value="incidents" className="mt-6">
+                <IncidentManagement />
+              </TabsContent>
+              <TabsContent value="production" className="mt-6">
+                <ProductionChecklist />
+              </TabsContent>
+            </>
+          )}
         </Tabs>
       </div>
 
