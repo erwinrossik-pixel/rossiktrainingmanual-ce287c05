@@ -189,6 +189,48 @@ export type Database = {
           },
         ]
       }
+      bookmarked_questions: {
+        Row: {
+          bookmarked_at: string
+          chapter_id: string
+          correct_answer: string
+          correct_index: number
+          created_at: string
+          explanation: string
+          id: string
+          notes: string | null
+          options: Json
+          question_text: string
+          user_id: string
+        }
+        Insert: {
+          bookmarked_at?: string
+          chapter_id: string
+          correct_answer: string
+          correct_index: number
+          created_at?: string
+          explanation: string
+          id?: string
+          notes?: string | null
+          options: Json
+          question_text: string
+          user_id: string
+        }
+        Update: {
+          bookmarked_at?: string
+          chapter_id?: string
+          correct_answer?: string
+          correct_index?: number
+          created_at?: string
+          explanation?: string
+          id?: string
+          notes?: string | null
+          options?: Json
+          question_text?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       certificate_settings: {
         Row: {
           description: string | null

@@ -1,6 +1,6 @@
 import { 
   Trophy, Target, Clock, CheckCircle2, XCircle, TrendingUp, 
-  Award, BarChart3, Percent, BookOpen, RotateCcw, ArrowLeft, HelpCircle, Download
+  Award, BarChart3, Percent, BookOpen, RotateCcw, ArrowLeft, HelpCircle, Download, Bookmark
 } from "lucide-react";
 import { useProgressContext } from "@/contexts/ProgressContext";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -14,6 +14,7 @@ import { QuizDiagnostics } from "./QuizDiagnostics";
 import { DailyTracker } from "./DailyTracker";
 import { TimeDistributionChart } from "./TimeDistributionChart";
 import { EfficiencyIndicator } from "./EfficiencyIndicator";
+import { BookmarkedQuestions } from "./BookmarkedQuestions";
 import { getQuestionCount, getTotalQuestionCount } from "@/data/quizTranslations";
 import { ALL_CHAPTERS, TOTAL_CHAPTERS, getChapterNumber } from "@/data/chaptersConfig";
 import { jsPDF } from "jspdf";
@@ -612,6 +613,9 @@ export function ProgressDashboard({ onNavigate, onClose }: ProgressDashboardProp
           {t('dashboard.reset')}
         </Button>
       </div>
+
+      {/* Bookmarked Questions */}
+      <BookmarkedQuestions onNavigateToChapter={onNavigate} />
 
       {/* Quiz Diagnostics - Admin only */}
       {isAdmin && <QuizDiagnostics />}
