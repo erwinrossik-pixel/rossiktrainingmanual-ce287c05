@@ -19,11 +19,13 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { 
   ArrowLeft, User, Settings, BarChart3, Globe, Save, CheckCircle2, 
-  Trophy, Target, BookOpen, Award, Building2, Gamepad2, Star, Flame, Zap, Lock
+  Trophy, Target, BookOpen, Award, Building2, Gamepad2, Star, Flame, Zap, Lock, Bell
 } from "lucide-react";
 import { toast } from "sonner";
 import { ALL_CHAPTERS } from "@/data/chaptersConfig";
 import ProgressCharts from "@/components/profile/ProgressCharts";
+import { NotificationSettings } from "@/components/settings/NotificationSettings";
+import { LearningGoals } from "@/components/manual/LearningGoals";
 
 function ProfileContent() {
   const navigate = useNavigate();
@@ -272,7 +274,7 @@ function ProfileContent() {
 
         {/* Tabs */}
         <Tabs defaultValue="info" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-4">
+          <TabsList className="grid w-full grid-cols-5">
             <TabsTrigger value="info" className="gap-2">
               <User className="h-4 w-4" />
               <span className="hidden sm:inline">{txt.personalInfo}</span>
@@ -280,6 +282,10 @@ function ProfileContent() {
             <TabsTrigger value="progress" className="gap-2">
               <BarChart3 className="h-4 w-4" />
               <span className="hidden sm:inline">{txt.progress}</span>
+            </TabsTrigger>
+            <TabsTrigger value="goals" className="gap-2">
+              <Target className="h-4 w-4" />
+              <span className="hidden sm:inline">Obiective</span>
             </TabsTrigger>
             <TabsTrigger value="gamification" className="gap-2">
               <Gamepad2 className="h-4 w-4" />
@@ -592,49 +598,59 @@ function ProfileContent() {
             </div>
           </TabsContent>
 
+          {/* Goals Tab */}
+          <TabsContent value="goals">
+            <div className="space-y-6">
+              <LearningGoals />
+            </div>
+          </TabsContent>
+
           {/* Preferences Tab */}
           <TabsContent value="preferences">
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Settings className="h-5 w-5 text-primary" />
-                  {txt.preferences}
-                </CardTitle>
-                <CardDescription>{txt.preferencesDesc}</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="space-y-3">
-                  <Label className="flex items-center gap-2">
-                    <Globe className="h-4 w-4" />
-                    {txt.language}
-                  </Label>
-                  <div className="flex gap-2">
-                    <Button
-                      variant={language === 'ro' ? 'default' : 'outline'}
-                      onClick={() => handleLanguageChange('ro')}
-                      className="flex-1"
-                    >
-                      🇷🇴 Română
-                    </Button>
-                    <Button
-                      variant={language === 'de' ? 'default' : 'outline'}
-                      onClick={() => handleLanguageChange('de')}
-                      className="flex-1"
-                    >
-                      🇩🇪 Deutsch
-                    </Button>
-                    <Button
-                      variant={language === 'en' ? 'default' : 'outline'}
-                      onClick={() => handleLanguageChange('en')}
-                      className="flex-1"
-                    >
-                      🇬🇧 English
-                    </Button>
+            <div className="space-y-6">
+              <NotificationSettings />
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Settings className="h-5 w-5 text-primary" />
+                    {txt.preferences}
+                  </CardTitle>
+                  <CardDescription>{txt.preferencesDesc}</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  <div className="space-y-3">
+                    <Label className="flex items-center gap-2">
+                      <Globe className="h-4 w-4" />
+                      {txt.language}
+                    </Label>
+                    <div className="flex gap-2">
+                      <Button
+                        variant={language === 'ro' ? 'default' : 'outline'}
+                        onClick={() => handleLanguageChange('ro')}
+                        className="flex-1"
+                      >
+                        🇷🇴 Română
+                      </Button>
+                      <Button
+                        variant={language === 'de' ? 'default' : 'outline'}
+                        onClick={() => handleLanguageChange('de')}
+                        className="flex-1"
+                      >
+                        🇩🇪 Deutsch
+                      </Button>
+                      <Button
+                        variant={language === 'en' ? 'default' : 'outline'}
+                        onClick={() => handleLanguageChange('en')}
+                        className="flex-1"
+                      >
+                        🇬🇧 English
+                      </Button>
+                    </div>
+                    <p className="text-xs text-muted-foreground">{txt.languageHint}</p>
                   </div>
-                  <p className="text-xs text-muted-foreground">{txt.languageHint}</p>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            </div>
           </TabsContent>
         </Tabs>
       </div>
