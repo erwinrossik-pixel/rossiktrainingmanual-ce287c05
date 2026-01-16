@@ -88,12 +88,30 @@ const JOB_CONFIGS: CronJob[] = [
     command: 'ai-kpi-analyzer',
     nodename: 'localhost',
     active: true
+  },
+  {
+    jobid: 3,
+    jobname: 'health-check-5min',
+    schedule: '*/5 * * * *',
+    command: 'health-check',
+    nodename: 'localhost',
+    active: true
+  },
+  {
+    jobid: 4,
+    jobname: 'daily-backup-0200',
+    schedule: '0 2 * * *',
+    command: 'backup-manager',
+    nodename: 'localhost',
+    active: true
   }
 ];
 
 const JOB_DESCRIPTIONS: Record<string, string> = {
   'auto-update-check': 'Verifică sursele externe pentru actualizări de conținut și detectează schimbări relevante',
-  'ai-kpi-analyzer': 'Analizează KPI-urile de învățare și generează recomandări AI pentru îmbunătățirea conținutului'
+  'ai-kpi-analyzer': 'Analizează KPI-urile de învățare și generează recomandări AI pentru îmbunătățirea conținutului',
+  'health-check': 'Monitorizează starea sistemului: Database, Auth, Storage. Rulează la fiecare 5 minute',
+  'backup-manager': 'Backup zilnic automat al bazei de date la 02:00 UTC. Include toate tabelele critice'
 };
 
 export const CronJobsMonitor = memo(function CronJobsMonitor() {
@@ -168,14 +186,24 @@ export const CronJobsMonitor = memo(function CronJobsMonitor() {
   };
 
   const handleRunNow = async (jobName: string) => {
-    const functionName = jobName === 'daily-auto-update-check' ? 'auto-update-check' : 'ai-kpi-analyzer';
+    // Map job names to function names
+    const functionMap: Record<string, string> = {
+      'daily-auto-update-check': 'auto-update-check',
+      'daily-ai-kpi-analysis': 'ai-kpi-analyzer',
+      'health-check-5min': 'health-check',
+      'daily-backup-0200': 'backup-manager'
+    };
+    
+    const functionName = functionMap[jobName] || jobName;
     
     try {
       toast.info(`Se execută ${functionName}...`);
       
-      const { error } = await supabase.functions.invoke(functionName, {
-        body: { manual: true, type: 'full' }
-      });
+      const body = functionName === 'backup-manager' 
+        ? { action: 'backup', manual: true }
+        : { manual: true, type: 'full' };
+      
+      const { error } = await supabase.functions.invoke(functionName, { body });
 
       if (error) {
         toast.error(`Eroare la executarea ${functionName}`);
