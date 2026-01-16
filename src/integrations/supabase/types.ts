@@ -535,6 +535,293 @@ export type Database = {
         }
         Relationships: []
       }
+      companies: {
+        Row: {
+          created_at: string | null
+          custom_domain: string | null
+          id: string
+          is_active: boolean | null
+          is_master: boolean | null
+          name: string
+          slug: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          custom_domain?: string | null
+          id?: string
+          is_active?: boolean | null
+          is_master?: boolean | null
+          name: string
+          slug: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          custom_domain?: string | null
+          id?: string
+          is_active?: boolean | null
+          is_master?: boolean | null
+          name?: string
+          slug?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      company_branding: {
+        Row: {
+          accent_color: string | null
+          background_color: string | null
+          company_id: string
+          created_at: string | null
+          custom_css: string | null
+          favicon_url: string | null
+          font_family: string | null
+          id: string
+          logo_url: string | null
+          platform_name: string | null
+          primary_color: string | null
+          secondary_color: string | null
+          text_color: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          accent_color?: string | null
+          background_color?: string | null
+          company_id: string
+          created_at?: string | null
+          custom_css?: string | null
+          favicon_url?: string | null
+          font_family?: string | null
+          id?: string
+          logo_url?: string | null
+          platform_name?: string | null
+          primary_color?: string | null
+          secondary_color?: string | null
+          text_color?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          accent_color?: string | null
+          background_color?: string | null
+          company_id?: string
+          created_at?: string | null
+          custom_css?: string | null
+          favicon_url?: string | null
+          font_family?: string | null
+          id?: string
+          logo_url?: string | null
+          platform_name?: string | null
+          primary_color?: string | null
+          secondary_color?: string | null
+          text_color?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "company_branding_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: true
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      company_chapters: {
+        Row: {
+          chapter_id: string
+          company_id: string
+          created_at: string | null
+          custom_order: number | null
+          id: string
+          is_active: boolean | null
+          is_premium: boolean | null
+        }
+        Insert: {
+          chapter_id: string
+          company_id: string
+          created_at?: string | null
+          custom_order?: number | null
+          id?: string
+          is_active?: boolean | null
+          is_premium?: boolean | null
+        }
+        Update: {
+          chapter_id?: string
+          company_id?: string
+          created_at?: string | null
+          custom_order?: number | null
+          id?: string
+          is_active?: boolean | null
+          is_premium?: boolean | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "company_chapters_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      company_settings: {
+        Row: {
+          active_languages: string[] | null
+          company_id: string
+          created_at: string | null
+          default_language: string | null
+          id: string
+          registration_code: string | null
+          require_approval: boolean | null
+          support_email: string | null
+          timezone: string | null
+          updated_at: string | null
+          welcome_message: string | null
+        }
+        Insert: {
+          active_languages?: string[] | null
+          company_id: string
+          created_at?: string | null
+          default_language?: string | null
+          id?: string
+          registration_code?: string | null
+          require_approval?: boolean | null
+          support_email?: string | null
+          timezone?: string | null
+          updated_at?: string | null
+          welcome_message?: string | null
+        }
+        Update: {
+          active_languages?: string[] | null
+          company_id?: string
+          created_at?: string | null
+          default_language?: string | null
+          id?: string
+          registration_code?: string | null
+          require_approval?: boolean | null
+          support_email?: string | null
+          timezone?: string | null
+          updated_at?: string | null
+          welcome_message?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "company_settings_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: true
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      company_subscriptions: {
+        Row: {
+          billing_cycle: string | null
+          company_id: string
+          created_at: string | null
+          expires_at: string | null
+          id: string
+          plan_id: string
+          started_at: string | null
+          status: string | null
+          trial_ends_at: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          billing_cycle?: string | null
+          company_id: string
+          created_at?: string | null
+          expires_at?: string | null
+          id?: string
+          plan_id: string
+          started_at?: string | null
+          status?: string | null
+          trial_ends_at?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          billing_cycle?: string | null
+          company_id?: string
+          created_at?: string | null
+          expires_at?: string | null
+          id?: string
+          plan_id?: string
+          started_at?: string | null
+          status?: string | null
+          trial_ends_at?: string | null
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "company_subscriptions_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: true
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "company_subscriptions_plan_id_fkey"
+            columns: ["plan_id"]
+            isOneToOne: false
+            referencedRelation: "subscription_plans"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      company_users: {
+        Row: {
+          approved_at: string | null
+          approved_by: string | null
+          company_id: string
+          created_at: string | null
+          id: string
+          invited_at: string | null
+          invited_by: string | null
+          notes: string | null
+          role: Database["public"]["Enums"]["company_role"] | null
+          status: Database["public"]["Enums"]["user_company_status"] | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          approved_at?: string | null
+          approved_by?: string | null
+          company_id: string
+          created_at?: string | null
+          id?: string
+          invited_at?: string | null
+          invited_by?: string | null
+          notes?: string | null
+          role?: Database["public"]["Enums"]["company_role"] | null
+          status?: Database["public"]["Enums"]["user_company_status"] | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          approved_at?: string | null
+          approved_by?: string | null
+          company_id?: string
+          created_at?: string | null
+          id?: string
+          invited_at?: string | null
+          invited_by?: string | null
+          notes?: string | null
+          role?: Database["public"]["Enums"]["company_role"] | null
+          status?: Database["public"]["Enums"]["user_company_status"] | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "company_users_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       content_difficulty_analysis: {
         Row: {
           avg_attempts_to_pass: number | null
@@ -1181,6 +1468,54 @@ export type Database = {
           },
         ]
       }
+      subscription_plans: {
+        Row: {
+          created_at: string | null
+          has_ai_tutor: boolean | null
+          has_analytics: boolean | null
+          has_certificates: boolean | null
+          has_custom_branding: boolean | null
+          id: string
+          is_active: boolean | null
+          max_chapters: number | null
+          max_users: number | null
+          name: string
+          plan_type: Database["public"]["Enums"]["plan_type"]
+          price_monthly: number | null
+          price_yearly: number | null
+        }
+        Insert: {
+          created_at?: string | null
+          has_ai_tutor?: boolean | null
+          has_analytics?: boolean | null
+          has_certificates?: boolean | null
+          has_custom_branding?: boolean | null
+          id?: string
+          is_active?: boolean | null
+          max_chapters?: number | null
+          max_users?: number | null
+          name: string
+          plan_type: Database["public"]["Enums"]["plan_type"]
+          price_monthly?: number | null
+          price_yearly?: number | null
+        }
+        Update: {
+          created_at?: string | null
+          has_ai_tutor?: boolean | null
+          has_analytics?: boolean | null
+          has_certificates?: boolean | null
+          has_custom_branding?: boolean | null
+          id?: string
+          is_active?: boolean | null
+          max_chapters?: number | null
+          max_users?: number | null
+          name?: string
+          plan_type?: Database["public"]["Enums"]["plan_type"]
+          price_monthly?: number | null
+          price_yearly?: number | null
+        }
+        Relationships: []
+      }
       training_time: {
         Row: {
           created_at: string
@@ -1328,6 +1663,56 @@ export type Database = {
           },
         ]
       }
+      user_registration_requests: {
+        Row: {
+          company_id: string
+          created_at: string | null
+          email: string
+          first_name: string | null
+          id: string
+          last_name: string | null
+          rejection_reason: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          status: Database["public"]["Enums"]["user_company_status"] | null
+          user_id: string | null
+        }
+        Insert: {
+          company_id: string
+          created_at?: string | null
+          email: string
+          first_name?: string | null
+          id?: string
+          last_name?: string | null
+          rejection_reason?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: Database["public"]["Enums"]["user_company_status"] | null
+          user_id?: string | null
+        }
+        Update: {
+          company_id?: string
+          created_at?: string | null
+          email?: string
+          first_name?: string | null
+          id?: string
+          last_name?: string | null
+          rejection_reason?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: Database["public"]["Enums"]["user_company_status"] | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_registration_requests_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       user_roles: {
         Row: {
           created_at: string
@@ -1444,6 +1829,11 @@ export type Database = {
     }
     Functions: {
       generate_certificate_code: { Args: never; Returns: string }
+      get_user_company_id: { Args: { _user_id: string }; Returns: string }
+      get_user_company_role: {
+        Args: { _company_id: string; _user_id: string }
+        Returns: Database["public"]["Enums"]["company_role"]
+      }
       get_user_role: {
         Args: { _user_id: string }
         Returns: Database["public"]["Enums"]["app_role"]
@@ -1455,11 +1845,22 @@ export type Database = {
         }
         Returns: boolean
       }
+      is_company_admin: {
+        Args: { _company_id: string; _user_id: string }
+        Returns: boolean
+      }
+      is_super_admin: { Args: { _user_id: string }; Returns: boolean }
+      user_belongs_to_company: {
+        Args: { _company_id: string; _user_id: string }
+        Returns: boolean
+      }
     }
     Enums: {
       app_role: "admin" | "user"
       change_severity: "minor" | "major" | "critical"
+      company_role: "super_admin" | "company_admin" | "user"
       content_level: "informational" | "operational" | "critical"
+      plan_type: "free" | "starter" | "professional" | "enterprise"
       source_type: "api" | "rss" | "website" | "official" | "database"
       update_status:
         | "pending"
@@ -1468,6 +1869,7 @@ export type Database = {
         | "applied"
         | "failed"
         | "rolled_back"
+      user_company_status: "pending" | "approved" | "rejected" | "suspended"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -1597,7 +1999,9 @@ export const Constants = {
     Enums: {
       app_role: ["admin", "user"],
       change_severity: ["minor", "major", "critical"],
+      company_role: ["super_admin", "company_admin", "user"],
       content_level: ["informational", "operational", "critical"],
+      plan_type: ["free", "starter", "professional", "enterprise"],
       source_type: ["api", "rss", "website", "official", "database"],
       update_status: [
         "pending",
@@ -1607,6 +2011,7 @@ export const Constants = {
         "failed",
         "rolled_back",
       ],
+      user_company_status: ["pending", "approved", "rejected", "suspended"],
     },
   },
 } as const
