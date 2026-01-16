@@ -207,115 +207,181 @@ export function useGamification() {
     decisions: any[],
     timeSpent: number
   ): Promise<{ xpEarned: number; newAchievements: Achievement[]; levelUp: boolean }> => {
-    if (!user) return { xpEarned: 0, newAchievements: [], levelUp: false };
+    if (!user) {
+      console.warn('[Gamification] No user, cannot record simulation attempt');
+      return { xpEarned: 0, newAchievements: [], levelUp: false };
+    }
 
-    // Record the attempt
-    await supabase.from('simulation_attempts').insert({
+    console.log('[Gamification] Recording simulation attempt:', { simulationId, score, maxScore, timeSpent });
+
+    // Record the attempt in simulation_attempts table
+    const { data: attemptData, error: attemptError } = await supabase.from('simulation_attempts').insert({
       user_id: user.id,
       simulation_id: simulationId,
       score,
       max_score: maxScore,
       decisions_made: decisions,
       time_spent_seconds: timeSpent
-    });
+    }).select().single();
 
-    // Calculate XP
+    if (attemptError) {
+      console.error('[Gamification] Error inserting simulation attempt:', attemptError);
+    } else {
+      console.log('[Gamification] Simulation attempt saved:', attemptData?.id);
+    }
+
+    // Calculate XP earned based on performance
     const percentScore = (score / maxScore) * 100;
     let xpEarned = Math.round(percentScore / 2); // Base: 0-50 XP based on score
-    if (score === maxScore) xpEarned += 25; // Perfect bonus
-
-    // Update gamification stats
     const isPerfect = score === maxScore;
-    const today = new Date().toISOString().split('T')[0];
-    
-    const { data: currentGam } = await supabase
+    if (isPerfect) xpEarned += 25; // Perfect bonus
+
+    // Get fresh gamification data from DB (not from state which may be stale)
+    const { data: currentGam, error: gamError } = await supabase
       .from('user_gamification')
       .select('*')
       .eq('user_id', user.id)
       .single();
 
-    if (currentGam) {
-      const lastActivity = currentGam.last_activity_date;
-      let newStreak = currentGam.streak_days;
-      
-      if (lastActivity) {
-        const lastDate = new Date(lastActivity);
-        const todayDate = new Date(today);
-        const diffDays = Math.floor((todayDate.getTime() - lastDate.getTime()) / (1000 * 60 * 60 * 24));
-        
-        if (diffDays === 1) {
-          newStreak += 1;
-          xpEarned += 10; // Streak bonus
-        } else if (diffDays > 1) {
-          newStreak = 1;
-        }
-      } else {
-        newStreak = 1;
-      }
-
-      await supabase
-        .from('user_gamification')
-        .update({
-          simulations_completed: currentGam.simulations_completed + 1,
-          perfect_simulations: isPerfect ? currentGam.perfect_simulations + 1 : currentGam.perfect_simulations,
-          streak_days: newStreak,
-          last_activity_date: today
-        })
-        .eq('user_id', user.id);
+    if (gamError) {
+      console.error('[Gamification] Error fetching current gamification:', gamError);
+      return { xpEarned: 0, newAchievements: [], levelUp: false };
     }
 
-    // Add XP and check for level up
-    const { levelUp } = await addXP(xpEarned);
+    // Calculate streak
+    const today = new Date().toISOString().split('T')[0];
+    let newStreak = currentGam.streak_days || 0;
+    const lastActivity = currentGam.last_activity_date;
+    
+    if (lastActivity) {
+      const lastDate = new Date(lastActivity);
+      const todayDate = new Date(today);
+      const diffDays = Math.floor((todayDate.getTime() - lastDate.getTime()) / (1000 * 60 * 60 * 24));
+      
+      if (diffDays === 1) {
+        newStreak += 1;
+        xpEarned += 10; // Streak bonus
+      } else if (diffDays > 1) {
+        newStreak = 1;
+      }
+      // If diffDays === 0, keep same streak (already trained today)
+    } else {
+      newStreak = 1;
+    }
+
+    // Calculate new XP and level
+    const newTotalXP = (currentGam.total_xp || 0) + xpEarned;
+    const oldLevel = currentGam.level || 1;
+    const newLevel = calculateLevel(newTotalXP);
+    const levelUp = newLevel > oldLevel;
+
+    // Update gamification stats in a single update
+    const { error: updateError } = await supabase
+      .from('user_gamification')
+      .update({
+        simulations_completed: (currentGam.simulations_completed || 0) + 1,
+        perfect_simulations: isPerfect 
+          ? (currentGam.perfect_simulations || 0) + 1 
+          : (currentGam.perfect_simulations || 0),
+        streak_days: newStreak,
+        last_activity_date: today,
+        total_xp: newTotalXP,
+        level: newLevel,
+        updated_at: new Date().toISOString()
+      })
+      .eq('user_id', user.id);
+
+    if (updateError) {
+      console.error('[Gamification] Error updating gamification:', updateError);
+    } else {
+      console.log('[Gamification] Updated gamification: +' + xpEarned + ' XP, Level ' + newLevel + ', Streak ' + newStreak);
+    }
 
     // Check for new achievements
     const newAchievements: Achievement[] = [];
-    await fetchGamification(); // Refresh data
+    
+    // Get current achievements from DB
+    const { data: currentAchievements } = await supabase
+      .from('user_achievements')
+      .select('achievement_id')
+      .eq('user_id', user.id);
 
-    const updatedGam = gamification;
-    if (updatedGam) {
-      for (const achievement of ACHIEVEMENTS) {
-        // Skip if already earned
-        if (achievements.find(a => a.achievement_id === achievement.id)) continue;
+    const earnedAchievementIds = new Set((currentAchievements || []).map(a => a.achievement_id));
+    
+    // Updated stats for achievement checking
+    const updatedStats = {
+      simulations_completed: (currentGam.simulations_completed || 0) + 1,
+      perfect_simulations: isPerfect 
+        ? (currentGam.perfect_simulations || 0) + 1 
+        : (currentGam.perfect_simulations || 0),
+      streak_days: newStreak,
+      level: newLevel
+    };
 
-        let earned = false;
-        switch (achievement.id) {
-          case 'first-simulation':
-            earned = (updatedGam.simulations_completed + 1) >= 1;
-            break;
-          case 'simulation-master':
-            earned = (updatedGam.simulations_completed + 1) >= 5;
-            break;
-          case 'perfect-score':
-            earned = isPerfect && updatedGam.perfect_simulations === 0;
-            break;
-          case 'perfectionist':
-            earned = (updatedGam.perfect_simulations + (isPerfect ? 1 : 0)) >= 3;
-            break;
-          case 'streak-3':
-            earned = updatedGam.streak_days >= 3;
-            break;
-          case 'streak-7':
-            earned = updatedGam.streak_days >= 7;
-            break;
-        }
+    for (const achievement of ACHIEVEMENTS) {
+      // Skip if already earned
+      if (earnedAchievementIds.has(achievement.id)) continue;
 
-        if (earned) {
-          await supabase.from('user_achievements').insert({
-            user_id: user.id,
-            achievement_id: achievement.id
-          });
+      let earned = false;
+      switch (achievement.id) {
+        case 'first-simulation':
+          earned = updatedStats.simulations_completed >= 1;
+          break;
+        case 'simulation-master':
+          earned = updatedStats.simulations_completed >= 5;
+          break;
+        case 'perfect-score':
+          earned = updatedStats.perfect_simulations >= 1;
+          break;
+        case 'perfectionist':
+          earned = updatedStats.perfect_simulations >= 3;
+          break;
+        case 'streak-3':
+          earned = updatedStats.streak_days >= 3;
+          break;
+        case 'streak-7':
+          earned = updatedStats.streak_days >= 7;
+          break;
+        case 'level-5':
+          earned = updatedStats.level >= 5;
+          break;
+        case 'level-10':
+          earned = updatedStats.level >= 10;
+          break;
+      }
+
+      if (earned) {
+        const { error: achError } = await supabase.from('user_achievements').insert({
+          user_id: user.id,
+          achievement_id: achievement.id
+        });
+        
+        if (achError) {
+          console.error('[Gamification] Error inserting achievement:', achievement.id, achError);
+        } else {
+          console.log('[Gamification] Achievement unlocked:', achievement.id);
           newAchievements.push(achievement);
           
-          // Add achievement XP
+          // Add achievement XP bonus if any
           if (achievement.xpReward > 0) {
-            await addXP(achievement.xpReward);
+            const bonusXP = achievement.xpReward;
+            await supabase
+              .from('user_gamification')
+              .update({ 
+                total_xp: newTotalXP + bonusXP,
+                updated_at: new Date().toISOString()
+              })
+              .eq('user_id', user.id);
           }
         }
       }
     }
 
+    // Refresh local state
+    await fetchGamification();
+
     return { xpEarned, newAchievements, levelUp };
-  }, [user, gamification, achievements, addXP, fetchGamification]);
+  }, [user, fetchGamification]);
 
   const getLeaderboard = useCallback(async (limit = 10) => {
     const { data } = await supabase
