@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
-import { CheckCircle2, XCircle, RotateCcw, Trophy, ChevronRight, Shuffle, Lock, Unlock, AlertTriangle } from "lucide-react";
+import { CheckCircle2, XCircle, RotateCcw, Trophy, ChevronRight, Shuffle, Lock, Unlock, AlertTriangle, ChevronDown, ChevronUp, BookOpen } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useProgressContext } from "@/contexts/ProgressContext";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -72,6 +72,14 @@ export function Quiz({ title, questions, chapterId, questionsPerRound = QUESTION
   const [answeredQuestions, setAnsweredQuestions] = useState<boolean[]>([]);
   const [quizCompleted, setQuizCompleted] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
+  const [wrongAnswers, setWrongAnswers] = useState<Array<{
+    question: string;
+    userAnswer: string;
+    correctAnswer: string;
+    explanation: string;
+    questionIndex: number;
+  }>>([]);
+  const [showWrongAnswers, setShowWrongAnswers] = useState(false);
   
   const { saveQuizScore, getChapterProgress } = useProgressContext();
 
@@ -101,6 +109,15 @@ export function Quiz({ title, questions, chapterId, questionsPerRound = QUESTION
     
     if (index === question.correctIndex) {
       setScore(score + 1);
+    } else {
+      // Track wrong answer
+      setWrongAnswers(prev => [...prev, {
+        question: question.question,
+        userAnswer: question.options[index],
+        correctAnswer: question.options[question.correctIndex],
+        explanation: question.explanation,
+        questionIndex: currentQuestion + 1
+      }]);
     }
   };
 
@@ -134,6 +151,8 @@ export function Quiz({ title, questions, chapterId, questionsPerRound = QUESTION
     setShowResult(false);
     setScore(0);
     setQuizCompleted(false);
+    setWrongAnswers([]);
+    setShowWrongAnswers(false);
   };
 
   const handleNewQuestions = () => {
@@ -144,6 +163,8 @@ export function Quiz({ title, questions, chapterId, questionsPerRound = QUESTION
     setScore(0);
     setAnsweredQuestions([]);
     setQuizCompleted(false);
+    setWrongAnswers([]);
+    setShowWrongAnswers(false);
   };
 
   // FALLBACK: Handle empty question bank gracefully
@@ -207,6 +228,12 @@ export function Quiz({ title, questions, chapterId, questionsPerRound = QUESTION
     keepStudying: language === 'ro' ? "Continuă să studiezi! Revizuiește capitolul și încearcă din nou." : language === 'de' ? "Weiterstudieren! Überprüfen Sie das Kapitel und versuchen Sie es erneut." : "Keep studying! Review the chapter and try again.",
     alreadyCompleted: language === 'ro' ? 'Capitol deja completat' : language === 'de' ? 'Kapitel bereits abgeschlossen' : 'Chapter already completed',
     loginToSave: language === 'ro' ? 'Autentifică-te pentru a salva progresul' : language === 'de' ? 'Melden Sie sich an, um den Fortschritt zu speichern' : 'Log in to save your progress',
+    showWrongAnswers: language === 'ro' ? 'Vezi Răspunsurile Greșite' : language === 'de' ? 'Falsche Antworten Anzeigen' : 'Show Wrong Answers',
+    hideWrongAnswers: language === 'ro' ? 'Ascunde Răspunsurile Greșite' : language === 'de' ? 'Falsche Antworten Ausblenden' : 'Hide Wrong Answers',
+    wrongAnswersTitle: language === 'ro' ? 'Răspunsuri Greșite' : language === 'de' ? 'Falsche Antworten' : 'Wrong Answers',
+    yourAnswer: language === 'ro' ? 'Răspunsul tău:' : language === 'de' ? 'Deine Antwort:' : 'Your answer:',
+    correctAnswerLabel: language === 'ro' ? 'Răspuns corect:' : language === 'de' ? 'Richtige Antwort:' : 'Correct answer:',
+    allCorrect: language === 'ro' ? 'Felicitări! Ai răspuns corect la toate întrebările!' : language === 'de' ? 'Herzlichen Glückwunsch! Du hast alle Fragen richtig beantwortet!' : 'Congratulations! You answered all questions correctly!',
   };
 
   if (quizCompleted) {
@@ -288,7 +315,7 @@ export function Quiz({ title, questions, chapterId, questionsPerRound = QUESTION
             </div>
           )}
           
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+          <div className="flex flex-col sm:flex-row gap-3 justify-center mb-6">
             <Button
               onClick={handleNewQuestions}
               disabled={isRecording}
@@ -307,6 +334,67 @@ export function Quiz({ title, questions, chapterId, questionsPerRound = QUESTION
               {labels.tryAgain}
             </Button>
           </div>
+          
+          {/* Wrong Answers Section */}
+          {wrongAnswers.length > 0 ? (
+            <div className="mt-6">
+              <Button
+                variant="outline"
+                onClick={() => setShowWrongAnswers(!showWrongAnswers)}
+                className="w-full mb-4 flex items-center justify-center gap-2"
+              >
+                <BookOpen className="w-4 h-4" />
+                {showWrongAnswers ? labels.hideWrongAnswers : labels.showWrongAnswers}
+                {showWrongAnswers ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                <span className="ml-2 bg-destructive/20 text-destructive px-2 py-0.5 rounded-full text-xs font-medium">
+                  {wrongAnswers.length}
+                </span>
+              </Button>
+              
+              {showWrongAnswers && (
+                <div className="space-y-4 animate-fade-in">
+                  <h4 className="font-semibold text-lg flex items-center gap-2 text-destructive">
+                    <XCircle className="w-5 h-5" />
+                    {labels.wrongAnswersTitle}
+                  </h4>
+                  {wrongAnswers.map((wa, index) => (
+                    <div 
+                      key={index} 
+                      className="p-4 bg-destructive/5 border border-destructive/20 rounded-xl text-left"
+                    >
+                      <p className="font-medium mb-3 text-sm">
+                        <span className="text-muted-foreground">#{wa.questionIndex}:</span> {wa.question}
+                      </p>
+                      <div className="space-y-2 text-sm">
+                        <div className="flex items-start gap-2">
+                          <XCircle className="w-4 h-4 text-destructive mt-0.5 flex-shrink-0" />
+                          <div>
+                            <span className="text-muted-foreground">{labels.yourAnswer}</span>
+                            <span className="ml-1 text-destructive font-medium">{wa.userAnswer}</span>
+                          </div>
+                        </div>
+                        <div className="flex items-start gap-2">
+                          <CheckCircle2 className="w-4 h-4 text-success mt-0.5 flex-shrink-0" />
+                          <div>
+                            <span className="text-muted-foreground">{labels.correctAnswerLabel}</span>
+                            <span className="ml-1 text-success font-medium">{wa.correctAnswer}</span>
+                          </div>
+                        </div>
+                        <div className="mt-3 p-3 bg-muted/50 rounded-lg">
+                          <p className="text-muted-foreground text-xs leading-relaxed">{wa.explanation}</p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          ) : (
+            <div className="mt-6 p-4 bg-success/10 border border-success/20 rounded-xl text-center">
+              <CheckCircle2 className="w-8 h-8 text-success mx-auto mb-2" />
+              <p className="text-success font-medium">{labels.allCorrect}</p>
+            </div>
+          )}
         </div>
       </div>
     );
