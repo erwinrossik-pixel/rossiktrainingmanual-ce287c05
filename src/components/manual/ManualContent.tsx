@@ -54,6 +54,7 @@ import { NetworkingChapter } from "./chapters/NetworkingChapter";
 import { ProfessionalDevelopmentChapter } from "./chapters/ProfessionalDevelopmentChapter";
 import { ChapterNavigation } from "./ChapterNavigation";
 import { ChapterDiscussions } from "./ChapterDiscussions";
+import { MultiModalContent } from "./MultiModalContent";
 
 interface ManualContentProps {
   activeChapter: string;
@@ -197,8 +198,14 @@ export function ManualContent({ activeChapter, onChapterChange }: ManualContentP
                   {chapters[activeChapter] || <IntroChapter />}
                 </PaywallOverlay>
               ) : (
-                <>
+              <>
                   {chapters[activeChapter] || <IntroChapter />}
+                  
+                  {/* Multi-Modal Content: Audio, Video Scripts, Diagrams */}
+                  <div className="mt-8">
+                    <MultiModalContent chapterId={activeChapter} />
+                  </div>
+                  
                   <ChapterNavigation 
                     activeChapter={activeChapter} 
                     onChapterChange={onChapterChange} 

@@ -1,0 +1,432 @@
+import { useState, useRef, useEffect } from 'react';
+import { useChapterMedia, AudioSummaryContent, DiagramContent, VideoScriptContent } from '@/hooks/useChapterMedia';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Progress } from '@/components/ui/progress';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { 
+  Play, Pause, Volume2, VolumeX, RotateCcw,
+  Video, Headphones, GitBranch, Clock, CheckCircle
+} from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
+
+interface MultiModalContentProps {
+  chapterId: string;
+}
+
+export function MultiModalContent({ chapterId }: MultiModalContentProps) {
+  const { audioSummaries, diagrams, videoScripts, progress, loading, updateProgress } = useChapterMedia(chapterId);
+  const { t } = useLanguage();
+
+  if (loading) {
+    return (
+      <Card className="animate-pulse">
+        <CardHeader>
+          <div className="h-6 bg-muted rounded w-1/3" />
+        </CardHeader>
+        <CardContent>
+          <div className="h-32 bg-muted rounded" />
+        </CardContent>
+      </Card>
+    );
+  }
+
+  const hasContent = audioSummaries.length > 0 || diagrams.length > 0 || videoScripts.length > 0;
+  if (!hasContent) return null;
+
+  const completedCount = Object.values(progress).filter(p => p.completed).length;
+  const totalCount = audioSummaries.length + diagrams.length + videoScripts.length;
+
+  return (
+    <Card>
+      <CardHeader>
+        <div className="flex items-center justify-between">
+          <CardTitle className="text-lg flex items-center gap-2">
+            📚 Conținut Multi-Modal
+          </CardTitle>
+          <Badge variant="secondary">
+            {completedCount}/{totalCount} parcurse
+          </Badge>
+        </div>
+      </CardHeader>
+      <CardContent>
+        <Tabs defaultValue={audioSummaries.length > 0 ? 'audio' : diagrams.length > 0 ? 'diagrams' : 'video'}>
+          <TabsList className="grid w-full grid-cols-3">
+            {audioSummaries.length > 0 && (
+              <TabsTrigger value="audio" className="flex items-center gap-1">
+                <Headphones className="h-4 w-4" />
+                Audio
+              </TabsTrigger>
+            )}
+            {diagrams.length > 0 && (
+              <TabsTrigger value="diagrams" className="flex items-center gap-1">
+                <GitBranch className="h-4 w-4" />
+                Diagrame
+              </TabsTrigger>
+            )}
+            {videoScripts.length > 0 && (
+              <TabsTrigger value="video" className="flex items-center gap-1">
+                <Video className="h-4 w-4" />
+                Video Script
+              </TabsTrigger>
+            )}
+          </TabsList>
+
+          {audioSummaries.length > 0 && (
+            <TabsContent value="audio" className="mt-4">
+              {audioSummaries.map(audio => (
+                <AudioPlayer
+                  key={audio.id}
+                  mediaId={audio.id}
+                  title={audio.title}
+                  content={audio.content as AudioSummaryContent}
+                  duration={audio.duration_estimate}
+                  progress={progress[audio.id]}
+                  onProgress={(percent, position) => updateProgress(audio.id, percent, position)}
+                />
+              ))}
+            </TabsContent>
+          )}
+
+          {diagrams.length > 0 && (
+            <TabsContent value="diagrams" className="mt-4 space-y-4">
+              {diagrams.map(diagram => (
+                <DiagramViewer
+                  key={diagram.id}
+                  mediaId={diagram.id}
+                  title={diagram.title}
+                  content={diagram.content as DiagramContent}
+                  isCompleted={progress[diagram.id]?.completed}
+                  onView={() => updateProgress(diagram.id, 100)}
+                />
+              ))}
+            </TabsContent>
+          )}
+
+          {videoScripts.length > 0 && (
+            <TabsContent value="video" className="mt-4">
+              {videoScripts.map(script => (
+                <VideoScriptViewer
+                  key={script.id}
+                  mediaId={script.id}
+                  title={script.title}
+                  content={script.content as VideoScriptContent}
+                  duration={script.duration_estimate}
+                  progress={progress[script.id]}
+                  onProgress={(percent) => updateProgress(script.id, percent)}
+                />
+              ))}
+            </TabsContent>
+          )}
+        </Tabs>
+      </CardContent>
+    </Card>
+  );
+}
+
+// Audio Player Component using Web Speech API
+interface AudioPlayerProps {
+  mediaId: string;
+  title: string;
+  content: AudioSummaryContent;
+  duration: number | null;
+  progress?: { progress_percent: number; completed: boolean; last_position: number };
+  onProgress: (percent: number, position: number) => void;
+}
+
+function AudioPlayer({ title, content, duration, progress, onProgress }: AudioPlayerProps) {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [isMuted, setIsMuted] = useState(false);
+  const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
+  const totalDuration = duration || 60;
+
+  useEffect(() => {
+    return () => {
+      if (utteranceRef.current) {
+        speechSynthesis.cancel();
+      }
+    };
+  }, []);
+
+  const handlePlay = () => {
+    if (isPlaying) {
+      speechSynthesis.pause();
+      setIsPlaying(false);
+    } else {
+      if (speechSynthesis.paused) {
+        speechSynthesis.resume();
+      } else {
+        const utterance = new SpeechSynthesisUtterance(content.text);
+        utterance.lang = 'ro-RO';
+        utterance.rate = 1.0;
+        utterance.pitch = 1.0;
+
+        utterance.onend = () => {
+          setIsPlaying(false);
+          setCurrentTime(totalDuration);
+          onProgress(100, totalDuration);
+        };
+
+        utterance.onboundary = (event) => {
+          const percent = (event.charIndex / content.text.length) * 100;
+          const time = (percent / 100) * totalDuration;
+          setCurrentTime(time);
+          onProgress(percent, time);
+        };
+
+        utteranceRef.current = utterance;
+        speechSynthesis.speak(utterance);
+      }
+      setIsPlaying(true);
+    }
+  };
+
+  const handleRestart = () => {
+    speechSynthesis.cancel();
+    setCurrentTime(0);
+    setIsPlaying(false);
+  };
+
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  };
+
+  const progressPercent = (currentTime / totalDuration) * 100;
+
+  return (
+    <div className="p-4 rounded-lg bg-muted/50 space-y-3">
+      <div className="flex items-center justify-between">
+        <h4 className="font-medium flex items-center gap-2">
+          <Headphones className="h-4 w-4 text-primary" />
+          {title}
+        </h4>
+        {progress?.completed && (
+          <Badge variant="secondary" className="bg-green-500/20 text-green-700">
+            <CheckCircle className="h-3 w-3 mr-1" />
+            Parcurs
+          </Badge>
+        )}
+      </div>
+
+      <div className="flex items-center gap-3">
+        <Button
+          size="icon"
+          variant="outline"
+          onClick={handlePlay}
+          className="h-10 w-10"
+        >
+          {isPlaying ? <Pause className="h-4 w-4" /> : <Play className="h-4 w-4" />}
+        </Button>
+
+        <div className="flex-grow space-y-1">
+          <Progress value={progressPercent} className="h-2" />
+          <div className="flex justify-between text-xs text-muted-foreground">
+            <span>{formatTime(currentTime)}</span>
+            <span>{formatTime(totalDuration)}</span>
+          </div>
+        </div>
+
+        <Button
+          size="icon"
+          variant="ghost"
+          onClick={() => setIsMuted(!isMuted)}
+        >
+          {isMuted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
+        </Button>
+
+        <Button
+          size="icon"
+          variant="ghost"
+          onClick={handleRestart}
+        >
+          <RotateCcw className="h-4 w-4" />
+        </Button>
+      </div>
+
+      <p className="text-sm text-muted-foreground line-clamp-2">
+        {content.text.slice(0, 150)}...
+      </p>
+    </div>
+  );
+}
+
+// Diagram Viewer Component
+interface DiagramViewerProps {
+  mediaId: string;
+  title: string;
+  content: DiagramContent;
+  isCompleted?: boolean;
+  onView: () => void;
+}
+
+function DiagramViewer({ title, content, isCompleted, onView }: DiagramViewerProps) {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (isExpanded && containerRef.current) {
+      // Render mermaid diagram using simple pre-formatted display
+      // For full mermaid support, add mermaid package
+      const diagramCode = content.mermaid.replace(/\\n/g, '\n');
+      containerRef.current.innerHTML = `
+        <pre class="text-xs font-mono p-4 bg-muted rounded overflow-x-auto whitespace-pre-wrap">${diagramCode}</pre>
+        <p class="text-xs text-muted-foreground mt-2">
+          💡 Diagrama Mermaid - pentru vizualizare completă, copiază codul în 
+          <a href="https://mermaid.live" target="_blank" rel="noopener" class="text-primary underline">mermaid.live</a>
+        </p>
+      `;
+      onView();
+    }
+  }, [isExpanded, content.mermaid, onView]);
+
+  return (
+    <div className="p-4 rounded-lg bg-muted/50 space-y-3">
+      <div className="flex items-center justify-between">
+        <h4 className="font-medium flex items-center gap-2">
+          <GitBranch className="h-4 w-4 text-primary" />
+          {title}
+        </h4>
+        <div className="flex items-center gap-2">
+          {isCompleted && (
+            <Badge variant="secondary" className="bg-green-500/20 text-green-700">
+              <CheckCircle className="h-3 w-3 mr-1" />
+              Văzut
+            </Badge>
+          )}
+          <Button
+            size="sm"
+            variant={isExpanded ? "secondary" : "default"}
+            onClick={() => setIsExpanded(!isExpanded)}
+          >
+            {isExpanded ? 'Ascunde' : 'Vezi Diagrama'}
+          </Button>
+        </div>
+      </div>
+
+      {isExpanded && (
+        <div 
+          ref={containerRef}
+          className="p-4 bg-background rounded-lg border overflow-x-auto min-h-[200px]"
+        />
+      )}
+
+      {!isExpanded && (
+        <p className="text-sm text-muted-foreground">
+          Click pentru a vizualiza diagrama interactivă
+        </p>
+      )}
+    </div>
+  );
+}
+
+// Video Script Viewer Component
+interface VideoScriptViewerProps {
+  mediaId: string;
+  title: string;
+  content: VideoScriptContent;
+  duration: number | null;
+  progress?: { progress_percent: number; completed: boolean };
+  onProgress: (percent: number) => void;
+}
+
+function VideoScriptViewer({ title, content, duration, progress, onProgress }: VideoScriptViewerProps) {
+  const [currentScene, setCurrentScene] = useState(0);
+  const scenes = content.scenes || [];
+
+  const goToScene = (index: number) => {
+    setCurrentScene(index);
+    const percent = ((index + 1) / scenes.length) * 100;
+    onProgress(percent);
+  };
+
+  const totalDuration = duration || scenes.reduce((acc, s) => acc + s.duration, 0);
+
+  return (
+    <div className="p-4 rounded-lg bg-muted/50 space-y-4">
+      <div className="flex items-center justify-between">
+        <h4 className="font-medium flex items-center gap-2">
+          <Video className="h-4 w-4 text-primary" />
+          {title}
+        </h4>
+        <div className="flex items-center gap-2">
+          <Badge variant="outline" className="flex items-center gap-1">
+            <Clock className="h-3 w-3" />
+            {Math.ceil(totalDuration / 60)} min
+          </Badge>
+          {progress?.completed && (
+            <Badge variant="secondary" className="bg-green-500/20 text-green-700">
+              <CheckCircle className="h-3 w-3 mr-1" />
+              Parcurs
+            </Badge>
+          )}
+        </div>
+      </div>
+
+      {/* Scene Navigation */}
+      <div className="flex gap-1 overflow-x-auto pb-2">
+        {scenes.map((scene, index) => (
+          <Button
+            key={index}
+            size="sm"
+            variant={currentScene === index ? 'default' : 'outline'}
+            onClick={() => goToScene(index)}
+            className="flex-shrink-0"
+          >
+            {index + 1}. {scene.title}
+          </Button>
+        ))}
+      </div>
+
+      {/* Current Scene */}
+      {scenes[currentScene] && (
+        <div className="p-4 bg-background rounded-lg border space-y-3">
+          <div className="flex items-center justify-between">
+            <h5 className="font-semibold">{scenes[currentScene].title}</h5>
+            <Badge variant="secondary">{scenes[currentScene].duration}s</Badge>
+          </div>
+          
+          <div className="space-y-2">
+            <div>
+              <p className="text-xs text-muted-foreground uppercase tracking-wide">Narațiune:</p>
+              <p className="text-sm">{scenes[currentScene].narration}</p>
+            </div>
+            <div>
+              <p className="text-xs text-muted-foreground uppercase tracking-wide">Visual:</p>
+              <p className="text-sm italic text-muted-foreground">{scenes[currentScene].visuals}</p>
+            </div>
+          </div>
+
+          {/* Navigation */}
+          <div className="flex justify-between pt-2">
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={() => goToScene(Math.max(0, currentScene - 1))}
+              disabled={currentScene === 0}
+            >
+              ← Anterior
+            </Button>
+            <span className="text-sm text-muted-foreground self-center">
+              {currentScene + 1} / {scenes.length}
+            </span>
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={() => goToScene(Math.min(scenes.length - 1, currentScene + 1))}
+              disabled={currentScene === scenes.length - 1}
+            >
+              Următorul →
+            </Button>
+          </div>
+        </div>
+      )}
+
+      {/* Progress */}
+      <Progress value={(currentScene + 1) / scenes.length * 100} className="h-1" />
+    </div>
+  );
+}
