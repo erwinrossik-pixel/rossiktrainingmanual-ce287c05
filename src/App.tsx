@@ -11,6 +11,7 @@ import Index from "./pages/Index";
 // Lazy load non-critical pages
 const Auth = lazy(() => import("./pages/Auth"));
 const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
+const Profile = lazy(() => import("./pages/Profile"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const VerifyCertificate = lazy(() => import("./pages/VerifyCertificate"));
 
@@ -51,6 +52,11 @@ const App = () => (
               <Route path="/admin" element={
                 <Suspense fallback={<PageLoader />}>
                   <AdminDashboard />
+                </Suspense>
+              } />
+              <Route path="/profile" element={
+                <Suspense fallback={<PageLoader />}>
+                  <Profile />
                 </Suspense>
               } />
               <Route path="/verify" element={
