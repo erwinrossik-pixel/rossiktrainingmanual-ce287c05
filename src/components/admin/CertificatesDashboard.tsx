@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -9,9 +9,11 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Award, Search, Download, XCircle, Eye, RefreshCw, CheckCircle2, Clock, AlertTriangle, ExternalLink } from "lucide-react";
-import { format } from "date-fns";
+import { Award, Search, Download, XCircle, Eye, RefreshCw, CheckCircle2, Clock, AlertTriangle, ExternalLink, TrendingUp, Calendar, Users, BarChart3 } from "lucide-react";
+import { format, subMonths, startOfMonth, endOfMonth, parseISO, isSameMonth } from "date-fns";
+import { ro } from "date-fns/locale";
 import { toast } from "sonner";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, LineChart, Line, Legend } from "recharts";
 
 interface Certificate {
   id: string;
@@ -83,6 +85,81 @@ export function CertificatesDashboard() {
     expired: certificates.filter((c) => getStatus(c) === "expired").length,
     revoked: certificates.filter((c) => getStatus(c) === "revoked").length,
   };
+
+  // Monthly chart data - last 12 months
+  const monthlyData = useMemo(() => {
+    const months: { month: string; issued: number; active: number; expired: number; revoked: number }[] = [];
+    
+    for (let i = 11; i >= 0; i--) {
+      const monthDate = subMonths(new Date(), i);
+      const monthStart = startOfMonth(monthDate);
+      const monthEnd = endOfMonth(monthDate);
+      
+      const monthCerts = certificates.filter(cert => {
+        const issuedDate = parseISO(cert.issued_at);
+        return issuedDate >= monthStart && issuedDate <= monthEnd;
+      });
+      
+      months.push({
+        month: format(monthDate, "MMM yy", { locale: ro }),
+        issued: monthCerts.length,
+        active: monthCerts.filter(c => getStatus(c) === "active").length,
+        expired: monthCerts.filter(c => getStatus(c) === "expired").length,
+        revoked: monthCerts.filter(c => getStatus(c) === "revoked").length,
+      });
+    }
+    
+    return months;
+  }, [certificates]);
+
+  // Status distribution for pie chart
+  const statusDistribution = useMemo(() => [
+    { name: "Active", value: stats.active, color: "#22c55e" },
+    { name: "Expirate", value: stats.expired, color: "#eab308" },
+    { name: "Revocate", value: stats.revoked, color: "#ef4444" },
+  ].filter(item => item.value > 0), [stats]);
+
+  // Average score trend
+  const scoreTrend = useMemo(() => {
+    const months: { month: string; avgScore: number; count: number }[] = [];
+    
+    for (let i = 11; i >= 0; i--) {
+      const monthDate = subMonths(new Date(), i);
+      const monthStart = startOfMonth(monthDate);
+      const monthEnd = endOfMonth(monthDate);
+      
+      const monthCerts = certificates.filter(cert => {
+        const issuedDate = parseISO(cert.issued_at);
+        return issuedDate >= monthStart && issuedDate <= monthEnd;
+      });
+      
+      const avgScore = monthCerts.length > 0 
+        ? Math.round(monthCerts.reduce((sum, c) => sum + c.average_score, 0) / monthCerts.length)
+        : 0;
+      
+      months.push({
+        month: format(monthDate, "MMM yy", { locale: ro }),
+        avgScore,
+        count: monthCerts.length
+      });
+    }
+    
+    return months;
+  }, [certificates]);
+
+  // Top performers
+  const topPerformers = useMemo(() => {
+    return [...certificates]
+      .sort((a, b) => b.average_score - a.average_score)
+      .slice(0, 5);
+  }, [certificates]);
+
+  // Calculate rate and growth
+  const thisMonthCount = monthlyData[monthlyData.length - 1]?.issued || 0;
+  const lastMonthCount = monthlyData[monthlyData.length - 2]?.issued || 0;
+  const growthRate = lastMonthCount > 0 
+    ? Math.round(((thisMonthCount - lastMonthCount) / lastMonthCount) * 100) 
+    : 0;
 
   const handleRevoke = async () => {
     if (!selectedCertificate || !revokeReason.trim()) return;
@@ -195,7 +272,7 @@ export function CertificatesDashboard() {
   return (
     <div className="space-y-6">
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium">Total Certificate</CardTitle>
@@ -203,6 +280,9 @@ export function CertificatesDashboard() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{stats.total}</div>
+            <p className="text-xs text-muted-foreground mt-1">
+              {thisMonthCount} luna aceasta
+            </p>
           </CardContent>
         </Card>
         <Card>
@@ -212,6 +292,9 @@ export function CertificatesDashboard() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-green-600">{stats.active}</div>
+            <p className="text-xs text-muted-foreground mt-1">
+              {stats.total > 0 ? Math.round((stats.active / stats.total) * 100) : 0}% din total
+            </p>
           </CardContent>
         </Card>
         <Card>
@@ -221,6 +304,9 @@ export function CertificatesDashboard() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-yellow-600">{stats.expired}</div>
+            <p className="text-xs text-muted-foreground mt-1">
+              {stats.total > 0 ? Math.round((stats.expired / stats.total) * 100) : 0}% din total
+            </p>
           </CardContent>
         </Card>
         <Card>
@@ -230,6 +316,184 @@ export function CertificatesDashboard() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-red-600">{stats.revoked}</div>
+            <p className="text-xs text-muted-foreground mt-1">
+              {stats.total > 0 ? Math.round((stats.revoked / stats.total) * 100) : 0}% din total
+            </p>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between pb-2">
+            <CardTitle className="text-sm font-medium">Creștere</CardTitle>
+            <TrendingUp className={`h-4 w-4 ${growthRate >= 0 ? 'text-green-500' : 'text-red-500'}`} />
+          </CardHeader>
+          <CardContent>
+            <div className={`text-2xl font-bold ${growthRate >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+              {growthRate >= 0 ? '+' : ''}{growthRate}%
+            </div>
+            <p className="text-xs text-muted-foreground mt-1">
+              vs. luna trecută
+            </p>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Charts Section */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Monthly Issued Chart */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <BarChart3 className="h-5 w-5 text-primary" />
+              Certificate Emise pe Luni
+            </CardTitle>
+            <CardDescription>Ultimele 12 luni</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="h-[300px]">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={monthlyData}>
+                  <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
+                  <XAxis dataKey="month" tick={{ fontSize: 12 }} className="fill-muted-foreground" />
+                  <YAxis tick={{ fontSize: 12 }} className="fill-muted-foreground" />
+                  <Tooltip 
+                    contentStyle={{ 
+                      backgroundColor: 'hsl(var(--background))', 
+                      border: '1px solid hsl(var(--border))',
+                      borderRadius: '8px'
+                    }}
+                  />
+                  <Legend />
+                  <Bar dataKey="active" name="Active" fill="#22c55e" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="expired" name="Expirate" fill="#eab308" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="revoked" name="Revocate" fill="#ef4444" radius={[4, 4, 0, 0]} />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Status Distribution Pie Chart */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Users className="h-5 w-5 text-primary" />
+              Distribuție Status
+            </CardTitle>
+            <CardDescription>Certificate după status</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="h-[300px] flex items-center justify-center">
+              {statusDistribution.length > 0 ? (
+                <ResponsiveContainer width="100%" height="100%">
+                  <PieChart>
+                    <Pie
+                      data={statusDistribution}
+                      cx="50%"
+                      cy="50%"
+                      innerRadius={60}
+                      outerRadius={100}
+                      paddingAngle={5}
+                      dataKey="value"
+                    >
+                      {statusDistribution.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={entry.color} />
+                      ))}
+                    </Pie>
+                    <Tooltip 
+                      contentStyle={{ 
+                        backgroundColor: 'hsl(var(--background))', 
+                        border: '1px solid hsl(var(--border))',
+                        borderRadius: '8px'
+                      }}
+                    />
+                    <Legend />
+                  </PieChart>
+                </ResponsiveContainer>
+              ) : (
+                <div className="text-center text-muted-foreground">
+                  <Award className="h-12 w-12 mx-auto mb-2 opacity-50" />
+                  <p>Nu există certificate</p>
+                </div>
+              )}
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Score Trend and Top Performers */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Score Trend Chart */}
+        <Card className="lg:col-span-2">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <TrendingUp className="h-5 w-5 text-primary" />
+              Evoluția Scorului Mediu
+            </CardTitle>
+            <CardDescription>Media scorurilor pe ultimele 12 luni</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="h-[250px]">
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart data={scoreTrend}>
+                  <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
+                  <XAxis dataKey="month" tick={{ fontSize: 12 }} className="fill-muted-foreground" />
+                  <YAxis domain={[0, 100]} tick={{ fontSize: 12 }} className="fill-muted-foreground" />
+                  <Tooltip 
+                    contentStyle={{ 
+                      backgroundColor: 'hsl(var(--background))', 
+                      border: '1px solid hsl(var(--border))',
+                      borderRadius: '8px'
+                    }}
+                    formatter={(value: number) => [`${value}%`, 'Scor Mediu']}
+                  />
+                  <Line 
+                    type="monotone" 
+                    dataKey="avgScore" 
+                    stroke="hsl(var(--primary))" 
+                    strokeWidth={3}
+                    dot={{ fill: 'hsl(var(--primary))', strokeWidth: 2 }}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Top Performers */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Award className="h-5 w-5 text-yellow-500" />
+              Top Performeri
+            </CardTitle>
+            <CardDescription>Cele mai mari scoruri</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-3">
+              {topPerformers.length === 0 ? (
+                <p className="text-sm text-muted-foreground text-center py-4">Nu există certificate</p>
+              ) : (
+                topPerformers.map((cert, index) => (
+                  <div key={cert.id} className="flex items-center gap-3">
+                    <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
+                      index === 0 ? 'bg-yellow-100 text-yellow-700' :
+                      index === 1 ? 'bg-gray-100 text-gray-700' :
+                      index === 2 ? 'bg-orange-100 text-orange-700' :
+                      'bg-muted text-muted-foreground'
+                    }`}>
+                      {index + 1}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-medium truncate">{cert.trainee_name}</p>
+                      <p className="text-xs text-muted-foreground">{format(parseISO(cert.issued_at), "dd.MM.yyyy")}</p>
+                    </div>
+                    <Badge variant="outline" className="font-mono">
+                      {cert.average_score}%
+                    </Badge>
+                  </div>
+                ))
+              )}
+            </div>
           </CardContent>
         </Card>
       </div>
