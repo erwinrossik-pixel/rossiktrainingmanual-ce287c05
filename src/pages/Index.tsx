@@ -6,7 +6,9 @@ import { ProgressDashboard } from "@/components/manual/ProgressDashboard";
 import { ProgressProvider, useProgressContext } from "@/contexts/ProgressContext";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { useAuth } from "@/hooks/useAuth";
+import { useCompany } from "@/contexts/CompanyContext";
 import { useAnalytics } from "@/hooks/useAnalytics";
+import { PendingApproval } from "@/components/PendingApproval";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -23,6 +25,7 @@ import { LogIn, LogOut, Settings, User, Shield } from "lucide-react";
 const UserMenu = memo(function UserMenu() {
   const navigate = useNavigate();
   const { user, profile, loading, isAdmin, signOut } = useAuth();
+  const { isSuperAdmin, isCompanyAdmin, company, branding } = useCompany();
 
   if (loading) {
     return (
@@ -65,7 +68,7 @@ const UserMenu = memo(function UserMenu() {
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        {isAdmin && (
+        {(isAdmin || isSuperAdmin || isCompanyAdmin) && (
           <DropdownMenuItem onClick={() => navigate('/admin')}>
             <Shield className="mr-2 h-4 w-4" />
             <span>Admin Dashboard</span>
@@ -90,6 +93,7 @@ const UserMenu = memo(function UserMenu() {
 });
 
 function ManualApp() {
+  const { isPendingApproval, company, branding } = useCompany();
   const [activeChapter, setActiveChapter] = useState("intro");
   const [showDashboard, setShowDashboard] = useState(false);
   const { visitChapter } = useProgressContext();
@@ -119,6 +123,11 @@ function ManualApp() {
       lastTrackedChapter[0] = activeChapter;
     }
   }, [activeChapter, showDashboard]);
+
+  // Show pending approval screen if user is waiting for approval
+  if (isPendingApproval) {
+    return <PendingApproval />;
+  }
 
   return (
     <div className="min-h-screen bg-background">

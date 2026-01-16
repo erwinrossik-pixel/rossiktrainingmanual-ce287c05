@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
+import { useCompany } from '@/contexts/CompanyContext';
 import { useCertificateNotifications } from '@/hooks/useCertificateNotifications';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
@@ -10,7 +11,7 @@ import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { ArrowLeft, Users, BookOpen, Trophy, Clock, Eye, Download, BarChart3, RefreshCw, RotateCcw, Unlock, Shield, Activity, Timer, TrendingUp, Calendar, TimerReset, FileSearch, Award, Bell, BellOff, Radio } from 'lucide-react';
+import { ArrowLeft, Users, BookOpen, Trophy, Clock, Eye, Download, BarChart3, RefreshCw, RotateCcw, Unlock, Shield, Activity, Timer, TrendingUp, Calendar, TimerReset, FileSearch, Award, Bell, BellOff, Radio, Building2, CreditCard } from 'lucide-react';
 import { toast } from 'sonner';
 import { GovernanceDashboard } from '@/components/admin/GovernanceDashboard';
 import { format, subDays } from 'date-fns';
@@ -23,6 +24,9 @@ import { CronJobsMonitor } from '@/components/admin/CronJobsMonitor';
 import { ContentQualityDashboard } from '@/components/admin/ContentQualityDashboard';
 import { CertificatesDashboard } from '@/components/admin/CertificatesDashboard';
 import RealTimeActivityPanel from '@/components/admin/RealTimeActivityPanel';
+import { CompanyManagement } from '@/components/admin/CompanyManagement';
+import { UserManagement } from '@/components/admin/UserManagement';
+import { SubscriptionPlansManager } from '@/components/admin/SubscriptionPlansManager';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
@@ -61,7 +65,8 @@ interface QuizAttempt {
 export default function AdminDashboard() {
   const navigate = useNavigate();
   const { user, profile, loading, isAdmin } = useAuth();
-  const { requestNotificationPermission, areNotificationsEnabled } = useCertificateNotifications(isAdmin);
+  const { isSuperAdmin, isCompanyAdmin, company, branding } = useCompany();
+  const { requestNotificationPermission, areNotificationsEnabled } = useCertificateNotifications(isAdmin || isCompanyAdmin);
   const [users, setUsers] = useState<UserWithProgress[]>([]);
   const [loadingUsers, setLoadingUsers] = useState(true);
   const [selectedUser, setSelectedUser] = useState<UserWithProgress | null>(null);
@@ -86,19 +91,22 @@ export default function AdminDashboard() {
     }
   };
 
+  // Check access - allow both old admin role and new company admin roles
+  const hasAdminAccess = isAdmin || isSuperAdmin || isCompanyAdmin;
+
   useEffect(() => {
     if (!loading && !user) {
       navigate('/auth');
-    } else if (!loading && !isAdmin) {
+    } else if (!loading && !hasAdminAccess) {
       navigate('/');
     }
-  }, [user, loading, isAdmin, navigate]);
+  }, [user, loading, hasAdminAccess, navigate]);
 
   useEffect(() => {
-    if (isAdmin) {
+    if (hasAdminAccess) {
       fetchUsers();
     }
-  }, [isAdmin]);
+  }, [hasAdminAccess]);
 
   const fetchUsers = async () => {
     setLoadingUsers(true);
@@ -529,12 +537,32 @@ export default function AdminDashboard() {
           </Card>
         </div>
 
-        {/* Tabs for Users, Analytics and Auto-Updates */}
+        {/* Tabs for different sections */}
         <Tabs defaultValue="users" className="w-full">
           <TabsList className="flex-wrap">
+            {/* Multi-tenant Management - Super Admin only */}
+            {isSuperAdmin && (
+              <>
+                <TabsTrigger value="companies" className="flex items-center gap-2">
+                  <Building2 className="h-4 w-4" />
+                  Companii
+                </TabsTrigger>
+                <TabsTrigger value="plans" className="flex items-center gap-2">
+                  <CreditCard className="h-4 w-4" />
+                  Planuri
+                </TabsTrigger>
+              </>
+            )}
+            {/* Company Admin and above */}
+            {(isCompanyAdmin || isSuperAdmin) && (
+              <TabsTrigger value="company-users" className="flex items-center gap-2">
+                <Users className="h-4 w-4" />
+                Utilizatori Companie
+              </TabsTrigger>
+            )}
             <TabsTrigger value="users" className="flex items-center gap-2">
               <Users className="h-4 w-4" />
-              Utilizatori
+              Toate Profilurile
             </TabsTrigger>
             <TabsTrigger value="analytics" className="flex items-center gap-2">
               <BarChart3 className="h-4 w-4" />
@@ -577,6 +605,25 @@ export default function AdminDashboard() {
               Timp Real
             </TabsTrigger>
           </TabsList>
+
+          {/* Company Management - Super Admin only */}
+          {isSuperAdmin && (
+            <>
+              <TabsContent value="companies" className="mt-6">
+                <CompanyManagement />
+              </TabsContent>
+              <TabsContent value="plans" className="mt-6">
+                <SubscriptionPlansManager />
+              </TabsContent>
+            </>
+          )}
+
+          {/* User Management for Company */}
+          {(isCompanyAdmin || isSuperAdmin) && (
+            <TabsContent value="company-users" className="mt-6">
+              <UserManagement />
+            </TabsContent>
+          )}
 
           <TabsContent value="users" className="mt-6">
             <Card>
