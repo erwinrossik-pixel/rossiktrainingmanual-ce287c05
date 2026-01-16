@@ -307,10 +307,46 @@ export function Certificate({
               className="bg-white p-8 aspect-[297/210]"
               style={{ minHeight: "400px" }}
             >
-              <div className="h-full border-4 border-primary/30 rounded-lg p-8 flex flex-col items-center justify-center relative">
+              <div className="h-full border-4 border-primary/30 rounded-lg p-8 flex flex-col items-center justify-center relative overflow-hidden">
+                {/* Background Watermark */}
+                <div className="absolute inset-0 flex items-center justify-center opacity-[0.03] pointer-events-none">
+                  <div className="text-[120px] font-bold text-gray-900 rotate-[-30deg] whitespace-nowrap tracking-widest">
+                    ROSSIK CERTIFIED
+                  </div>
+                </div>
+
+                {/* Official Seal - Top Right */}
+                <div className="absolute top-6 right-6 w-20 h-20">
+                  <div className="relative w-full h-full">
+                    {/* Outer ring */}
+                    <div className="absolute inset-0 rounded-full border-[3px] border-primary/70" />
+                    {/* Inner ring */}
+                    <div className="absolute inset-2 rounded-full border-2 border-primary/50" />
+                    {/* Center content */}
+                    <div className="absolute inset-0 flex flex-col items-center justify-center">
+                      <span className="text-[6px] font-bold text-primary uppercase tracking-wider">Official</span>
+                      <span className="text-lg font-bold text-primary">✓</span>
+                      <span className="text-[6px] font-bold text-primary uppercase tracking-wider">Verified</span>
+                    </div>
+                    {/* Circular text simulation */}
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <svg viewBox="0 0 100 100" className="w-full h-full">
+                        <defs>
+                          <path id="circlePath" d="M 50,50 m -35,0 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0" fill="none" />
+                        </defs>
+                        <text className="text-[8px] fill-primary/70 font-semibold uppercase">
+                          <textPath href="#circlePath" startOffset="0%">
+                            • ROSSIK TRANSPORT • TRAINING CERTIFICATE •
+                          </textPath>
+                        </text>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+
                 {/* Decorative corners */}
                 <div className="absolute top-4 left-4 w-16 h-16 border-t-4 border-l-4 border-primary/50 rounded-tl-lg" />
-                <div className="absolute top-4 right-4 w-16 h-16 border-t-4 border-r-4 border-primary/50 rounded-tr-lg" />
+                <div className="absolute top-4 right-28 w-16 h-16 border-t-4 border-r-4 border-primary/50 rounded-tr-lg" />
                 <div className="absolute bottom-4 left-4 w-16 h-16 border-b-4 border-l-4 border-primary/50 rounded-bl-lg" />
                 <div className="absolute bottom-4 right-4 w-16 h-16 border-b-4 border-r-4 border-primary/50 rounded-br-lg" />
 
