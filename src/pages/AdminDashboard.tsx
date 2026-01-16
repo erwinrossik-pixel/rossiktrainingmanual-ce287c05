@@ -10,7 +10,7 @@ import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { ArrowLeft, Users, BookOpen, Trophy, Clock, Eye, Download, BarChart3, RefreshCw, RotateCcw, Unlock, Shield, Activity, Timer, TrendingUp, Calendar, TimerReset, FileSearch, Award, Bell, BellOff } from 'lucide-react';
+import { ArrowLeft, Users, BookOpen, Trophy, Clock, Eye, Download, BarChart3, RefreshCw, RotateCcw, Unlock, Shield, Activity, Timer, TrendingUp, Calendar, TimerReset, FileSearch, Award, Bell, BellOff, Radio } from 'lucide-react';
 import { toast } from 'sonner';
 import { GovernanceDashboard } from '@/components/admin/GovernanceDashboard';
 import { format, subDays } from 'date-fns';
@@ -22,6 +22,7 @@ import { LearningAnalyticsDashboard } from '@/components/admin/kpi/LearningAnaly
 import { CronJobsMonitor } from '@/components/admin/CronJobsMonitor';
 import { ContentQualityDashboard } from '@/components/admin/ContentQualityDashboard';
 import { CertificatesDashboard } from '@/components/admin/CertificatesDashboard';
+import RealTimeActivityPanel from '@/components/admin/RealTimeActivityPanel';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
@@ -571,6 +572,10 @@ export default function AdminDashboard() {
               <Award className="h-4 w-4" />
               Certificate
             </TabsTrigger>
+            <TabsTrigger value="realtime" className="flex items-center gap-2">
+              <Radio className="h-4 w-4" />
+              Timp Real
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="users" className="mt-6">
@@ -676,6 +681,10 @@ export default function AdminDashboard() {
 
           <TabsContent value="certificates" className="mt-6">
             <CertificatesDashboard />
+          </TabsContent>
+
+          <TabsContent value="realtime" className="mt-6">
+            <RealTimeActivityPanel />
           </TabsContent>
         </Tabs>
       </div>
