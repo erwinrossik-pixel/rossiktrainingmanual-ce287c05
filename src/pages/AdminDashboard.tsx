@@ -39,6 +39,7 @@ import { GamificationLeaderboard } from '@/components/admin/GamificationLeaderbo
 import { SubscriptionCard } from '@/components/subscription';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import NotificationCenter from '@/components/NotificationCenter';
 
 interface UserWithProgress {
   id: string;
@@ -468,6 +469,10 @@ export default function AdminDashboard() {
               </div>
             </div>
             <div className="flex items-center gap-3">
+              {/* Notification Center */}
+              <div className="bg-white/10 rounded-lg p-1">
+                <NotificationCenter />
+              </div>
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>

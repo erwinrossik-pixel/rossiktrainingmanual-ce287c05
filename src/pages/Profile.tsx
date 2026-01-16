@@ -23,6 +23,7 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 import { ALL_CHAPTERS } from "@/data/chaptersConfig";
+import ProgressCharts from "@/components/profile/ProgressCharts";
 
 function ProfileContent() {
   const navigate = useNavigate();
@@ -36,20 +37,50 @@ function ProfileContent() {
   const [lastName, setLastName] = useState(profile?.last_name || "");
   const [saving, setSaving] = useState(false);
   const [simulationHistory, setSimulationHistory] = useState<any[]>([]);
+  const [quizAttempts, setQuizAttempts] = useState<any[]>([]);
+  const [chapterProgressData, setChapterProgressData] = useState<any[]>([]);
+  const [trainingTime, setTrainingTime] = useState<any[]>([]);
 
-  // Fetch simulation history
+  // Fetch data for charts
   useEffect(() => {
-    const fetchSimHistory = async () => {
+    const fetchData = async () => {
       if (!user) return;
-      const { data } = await supabase
+      
+      // Fetch simulation history
+      const { data: simData } = await supabase
         .from('simulation_attempts')
         .select('*')
         .eq('user_id', user.id)
         .order('created_at', { ascending: false })
         .limit(10);
-      setSimulationHistory(data || []);
+      setSimulationHistory(simData || []);
+      
+      // Fetch quiz attempts for charts
+      const { data: quizData } = await supabase
+        .from('quiz_attempts')
+        .select('chapter_id, score, passed, created_at')
+        .eq('user_id', user.id)
+        .order('created_at', { ascending: false })
+        .limit(50);
+      setQuizAttempts(quizData || []);
+      
+      // Fetch chapter progress
+      const { data: progressData } = await supabase
+        .from('chapter_progress')
+        .select('chapter_id, status, best_score, attempts_count, completed_at')
+        .eq('user_id', user.id);
+      setChapterProgressData(progressData || []);
+      
+      // Fetch training time
+      const { data: timeData } = await supabase
+        .from('training_time')
+        .select('date, total_seconds')
+        .eq('user_id', user.id)
+        .order('date', { ascending: false })
+        .limit(30);
+      setTrainingTime(timeData || []);
     };
-    fetchSimHistory();
+    fetchData();
   }, [user]);
 
   useEffect(() => {
@@ -380,6 +411,17 @@ function ProfileContent() {
                     </div>
                     <span className="font-medium">{stats.passedQuizzes} / {stats.totalQuizzes}</span>
                   </div>
+                </div>
+
+                {/* Progress Charts */}
+                <div className="mt-8">
+                  <ProgressCharts
+                    quizAttempts={quizAttempts}
+                    chapterProgress={chapterProgressData}
+                    trainingTime={trainingTime}
+                    totalChapters={ALL_CHAPTERS.length}
+                    gamification={gamification}
+                  />
                 </div>
               </CardContent>
             </Card>
