@@ -938,6 +938,780 @@ export const simulations: Simulation[] = [
       }
     ]
   }
+  ,
+  // ============ NEW SIMULATION: ADR INCIDENT ============
+  {
+    id: 'adr-incident',
+    title: {
+      ro: 'Incident ADR pe Autostradă',
+      de: 'ADR-Vorfall auf der Autobahn',
+      en: 'ADR Incident on Highway'
+    },
+    description: {
+      ro: 'Gestionează un incident cu marfă periculoasă pe autostrada A1.',
+      de: 'Bewältigen Sie einen Gefahrgutvorfall auf der Autobahn A1.',
+      en: 'Handle a dangerous goods incident on the A1 highway.'
+    },
+    category: 'safety',
+    difficulty: 'hard',
+    estimatedTime: 12,
+    maxScore: 100,
+    icon: '☢️',
+    scenarios: [
+      {
+        id: 'start',
+        title: { ro: 'Alertă de Urgență', de: 'Notfallalarm', en: 'Emergency Alert' },
+        description: {
+          ro: 'Primești un apel de la șofer: "Am o scurgere la un recipient!"',
+          de: 'Sie erhalten einen Anruf vom Fahrer: "Ich habe ein Leck an einem Behälter!"',
+          en: 'You receive a call from the driver: "I have a leak at a container!"'
+        },
+        context: {
+          ro: 'Transport ADR Clasa 3 (lichide inflamabile - 500L solvent industrial). Locație: A1 km 234, bandă de urgență. Ora: 16:30, trafic intens.',
+          de: 'ADR-Transport Klasse 3 (entzündbare Flüssigkeiten - 500L Industrielösungsmittel). Standort: A1 km 234, Standstreifen. Zeit: 16:30, starker Verkehr.',
+          en: 'ADR Class 3 transport (flammable liquids - 500L industrial solvent). Location: A1 km 234, emergency lane. Time: 4:30 PM, heavy traffic.'
+        },
+        difficulty: 'hard',
+        category: 'safety',
+        timeLimit: 45,
+        choices: [
+          {
+            id: 'emergency-protocol',
+            text: { ro: 'Activează protocolul de urgență ADR imediat', de: 'ADR-Notfallprotokoll sofort aktivieren', en: 'Activate ADR emergency protocol immediately' },
+            points: 25,
+            feedback: {
+              ro: '✅ Corect! Protocolul ADR: 1) Oprire motor, 2) Semnalizare 30m, 3) Evacuare zonă, 4) Apel 112, 5) Folosire echipament protecție.',
+              de: '✅ Richtig! ADR-Protokoll: 1) Motor aus, 2) Warnschilder 30m, 3) Bereich räumen, 4) 112 anrufen, 5) Schutzausrüstung verwenden.',
+              en: '✅ Correct! ADR protocol: 1) Stop engine, 2) Warning signs 30m, 3) Evacuate area, 4) Call 112, 5) Use protection equipment.'
+            },
+            nextScenarioId: 'containment'
+          },
+          {
+            id: 'check-damage',
+            text: { ro: 'Cere șoferului să verifice gravitatea scurgerii', de: 'Fahrer bitten, Schwere des Lecks zu prüfen', en: 'Ask driver to check leak severity' },
+            points: 5,
+            feedback: {
+              ro: '⚠️ Riscant! Fără echipament de protecție, șoferul se expune la vapori toxici. Siguranța personală e prioritară!',
+              de: '⚠️ Riskant! Ohne Schutzausrüstung ist der Fahrer giftigen Dämpfen ausgesetzt. Persönliche Sicherheit hat Priorität!',
+              en: '⚠️ Risky! Without protection equipment, driver is exposed to toxic fumes. Personal safety is priority!'
+            },
+            nextScenarioId: 'containment'
+          },
+          {
+            id: 'continue-driving',
+            text: { ro: 'Încearcă să continue până la cea mai apropiată parcare', de: 'Versuchen Sie bis zum nächsten Parkplatz weiterzufahren', en: 'Try to continue to nearest parking' },
+            points: -20,
+            feedback: {
+              ro: '❌ INTERZIS! Continuarea cu scurgere activă încalcă ADR și pune în pericol viețile. Amendă: 10.000-50.000€ + răspundere penală.',
+              de: '❌ VERBOTEN! Weiterfahren mit aktivem Leck verstößt gegen ADR und gefährdet Leben. Bußgeld: 10.000-50.000€ + strafrechtliche Haftung.',
+              en: '❌ FORBIDDEN! Continuing with active leak violates ADR and endangers lives. Fine: 10,000-50,000€ + criminal liability.'
+            },
+            nextScenarioId: 'crisis-adr'
+          }
+        ]
+      },
+      {
+        id: 'containment',
+        title: { ro: 'Izolare și Containment', de: 'Isolierung und Eindämmung', en: 'Isolation and Containment' },
+        description: { ro: 'Autoritățile sunt pe drum. Ce faci acum?', de: 'Behörden sind unterwegs. Was tun Sie jetzt?', en: 'Authorities are on the way. What do you do now?' },
+        context: {
+          ro: 'Scurgerea continuă la ~2L/min. Vânt slab dinspre nord. Șoferul are kit ADR cu materiale absorbante și echipament protecție.',
+          de: 'Das Leck setzt sich mit ~2L/Min fort. Schwacher Wind aus Norden. Fahrer hat ADR-Kit mit Absorptionsmaterial und Schutzausrüstung.',
+          en: 'Leak continues at ~2L/min. Light wind from north. Driver has ADR kit with absorbent materials and protection equipment.'
+        },
+        difficulty: 'hard',
+        category: 'safety',
+        choices: [
+          {
+            id: 'use-kit',
+            text: { ro: 'Instruiește șoferul să folosească kit-ul ADR pentru containment', de: 'Fahrer anweisen, ADR-Kit zur Eindämmung zu verwenden', en: 'Instruct driver to use ADR kit for containment' },
+            points: 25,
+            feedback: {
+              ro: '✅ Perfect! Cu echipament de protecție: mănuși chimice, ochelari, mască. Plasează materiale absorbante în jurul scurgerii.',
+              de: '✅ Perfekt! Mit Schutzausrüstung: Chemikalienhandschuhe, Brille, Maske. Absorptionsmaterial um das Leck platzieren.',
+              en: '✅ Perfect! With protection equipment: chemical gloves, goggles, mask. Place absorbent materials around the leak.'
+            },
+            nextScenarioId: 'notification'
+          },
+          {
+            id: 'wait-authorities',
+            text: { ro: 'Așteaptă autoritățile fără intervenție', de: 'Auf Behörden warten ohne Eingriff', en: 'Wait for authorities without intervention' },
+            points: 10,
+            feedback: {
+              ro: '⚠️ Prudent dar pasiv. Scurgerea continuă poate contamina solul și infiltra apa freatică. Containment-ul primar e responsabilitatea transportatorului.',
+              de: '⚠️ Vorsichtig aber passiv. Das anhaltende Leck kann Boden kontaminieren und Grundwasser erreichen. Primäreindämmung ist Transporteur-Verantwortung.',
+              en: '⚠️ Cautious but passive. Ongoing leak can contaminate soil and reach groundwater. Primary containment is carrier responsibility.'
+            },
+            nextScenarioId: 'notification'
+          }
+        ]
+      },
+      {
+        id: 'crisis-adr',
+        title: { ro: 'Situație Critică', de: 'Kritische Situation', en: 'Critical Situation' },
+        description: { ro: 'Decizia ta a dus la escaladare!', de: 'Ihre Entscheidung führte zur Eskalation!', en: 'Your decision led to escalation!' },
+        context: {
+          ro: 'Continuând drumul, scurgerea s-a extins. Pompierii și poliția au oprit traficul pe 10km. Media a ajuns la fața locului.',
+          de: 'Durch die Weiterfahrt hat sich das Leck ausgebreitet. Feuerwehr und Polizei haben den Verkehr auf 10km gesperrt. Medien sind vor Ort.',
+          en: 'By continuing, the leak spread. Fire and police blocked traffic for 10km. Media arrived at the scene.'
+        },
+        difficulty: 'hard',
+        category: 'safety',
+        choices: [
+          {
+            id: 'take-responsibility',
+            text: { ro: 'Recunoaște greșeala și cooperează complet', de: 'Fehler eingestehen und voll kooperieren', en: 'Acknowledge mistake and cooperate fully' },
+            points: 10,
+            feedback: {
+              ro: '✅ Cel mai bun răspuns la criză. Cooperarea poate reduce sancțiunile. Documentează totul pentru asigurare.',
+              de: '✅ Beste Krisenreaktion. Kooperation kann Sanktionen reduzieren. Alles für die Versicherung dokumentieren.',
+              en: '✅ Best crisis response. Cooperation can reduce sanctions. Document everything for insurance.'
+            },
+            isEndpoint: true
+          },
+          {
+            id: 'blame-driver',
+            text: { ro: 'Pune vina pe șofer pentru decizie', de: 'Fahrer für Entscheidung beschuldigen', en: 'Blame driver for the decision' },
+            points: -10,
+            feedback: {
+              ro: '❌ Neprofesionist! Ca dispatcher, tu ai responsabilitatea deciziilor operaționale. Compania răspunde solidar.',
+              de: '❌ Unprofessionell! Als Dispatcher haben Sie die Verantwortung für operative Entscheidungen. Unternehmen haftet solidarisch.',
+              en: '❌ Unprofessional! As dispatcher, you have responsibility for operational decisions. Company is jointly liable.'
+            },
+            isEndpoint: true
+          }
+        ]
+      },
+      {
+        id: 'notification',
+        title: { ro: 'Notificări și Raportare', de: 'Benachrichtigungen und Berichterstattung', en: 'Notifications and Reporting' },
+        description: { ro: 'Incidentul e sub control. Cine trebuie notificat?', de: 'Vorfall unter Kontrolle. Wer muss benachrichtigt werden?', en: 'Incident is under control. Who needs to be notified?' },
+        context: {
+          ro: 'Autoritățile au ajuns. Scurgerea totală: ~50L. Nu sunt victime. Trebuie să faci notificările.',
+          de: 'Behörden sind eingetroffen. Gesamtleck: ~50L. Keine Opfer. Sie müssen die Benachrichtigungen machen.',
+          en: 'Authorities arrived. Total leak: ~50L. No casualties. You need to make the notifications.'
+        },
+        difficulty: 'medium',
+        category: 'safety',
+        choices: [
+          {
+            id: 'full-notification',
+            text: { ro: 'Client + Asigurare + Management + Agenția de Mediu', de: 'Kunde + Versicherung + Management + Umweltbehörde', en: 'Client + Insurance + Management + Environment Agency' },
+            points: 25,
+            feedback: {
+              ro: '✅ Complet! Toate părțile relevante: clientul pentru marfa sa, asigurare pentru claim, management pentru decizie, agenția de mediu obligatoriu la scurgeri >10L.',
+              de: '✅ Vollständig! Alle relevanten Parteien: Kunde für seine Ware, Versicherung für Schadensfall, Management für Entscheidung, Umweltbehörde obligatorisch bei Lecks >10L.',
+              en: '✅ Complete! All relevant parties: client for their cargo, insurance for claim, management for decision, environment agency mandatory for leaks >10L.'
+            },
+            isEndpoint: true
+          },
+          {
+            id: 'minimal-notification',
+            text: { ro: 'Doar client și management', de: 'Nur Kunde und Management', en: 'Only client and management' },
+            points: 5,
+            feedback: {
+              ro: '⚠️ Incomplet! Omiterea asigurării poate invalida polița. Neraportarea la agenția de mediu = amendă separată.',
+              de: '⚠️ Unvollständig! Versicherung weglassen kann Police ungültig machen. Keine Meldung an Umweltbehörde = separate Strafe.',
+              en: '⚠️ Incomplete! Omitting insurance can invalidate policy. Not reporting to environment agency = separate fine.'
+            },
+            isEndpoint: true
+          }
+        ]
+      }
+    ]
+  },
+  // ============ NEW SIMULATION: REEFER FAILURE ============
+  {
+    id: 'reefer-failure',
+    title: {
+      ro: 'Avarie Reefer în Tranzit',
+      de: 'Kühlfahrzeug-Ausfall im Transit',
+      en: 'Reefer Breakdown in Transit'
+    },
+    description: {
+      ro: 'Sistemul de refrigerare s-a defectat cu marfă farmaceutică la bord.',
+      de: 'Das Kühlsystem ist mit pharmazeutischer Fracht an Bord ausgefallen.',
+      en: 'Refrigeration system failed with pharmaceutical cargo on board.'
+    },
+    category: 'operations',
+    difficulty: 'hard',
+    estimatedTime: 10,
+    maxScore: 100,
+    icon: '❄️',
+    scenarios: [
+      {
+        id: 'start',
+        title: { ro: 'Alertă Temperatură', de: 'Temperaturalarm', en: 'Temperature Alert' },
+        description: { ro: 'Sistemul de monitorizare a trimis alertă!', de: 'Das Überwachungssystem hat einen Alarm gesendet!', en: 'Monitoring system sent an alert!' },
+        context: {
+          ro: 'Transport vaccin COVID-19 (2-8°C requis). Temperatura actuală: 12°C și crește. Locație: Ungaria, 300km de destinație. Ora: 02:00 noaptea.',
+          de: 'COVID-19-Impfstofftransport (2-8°C erforderlich). Aktuelle Temperatur: 12°C und steigend. Standort: Ungarn, 300km vom Ziel. Zeit: 02:00 Uhr nachts.',
+          en: 'COVID-19 vaccine transport (2-8°C required). Current temperature: 12°C and rising. Location: Hungary, 300km from destination. Time: 2:00 AM.'
+        },
+        difficulty: 'hard',
+        category: 'operations',
+        timeLimit: 30,
+        choices: [
+          {
+            id: 'emergency-cold-chain',
+            text: { ro: 'Activează protocolul de urgență cold chain', de: 'Notfall-Kühlketten-Protokoll aktivieren', en: 'Activate emergency cold chain protocol' },
+            points: 25,
+            feedback: {
+              ro: '✅ Esențial! Vaccinurile au strict 2-8°C. Peste 15°C = marfă compromisă definitiv. Fiecare minut contează.',
+              de: '✅ Wesentlich! Impfstoffe erfordern strikt 2-8°C. Über 15°C = Ware definitiv kompromittiert. Jede Minute zählt.',
+              en: '✅ Essential! Vaccines require strict 2-8°C. Above 15°C = cargo definitely compromised. Every minute counts.'
+            },
+            nextScenarioId: 'locate-solution'
+          },
+          {
+            id: 'call-driver',
+            text: { ro: 'Sună șoferul să verifice agregatul', de: 'Fahrer anrufen, um Aggregat zu prüfen', en: 'Call driver to check the unit' },
+            points: 15,
+            feedback: {
+              ro: '⚠️ OK dar pierde timp. Protocolul de urgență include verificarea tehnică. Acționează paralel, nu secvențial.',
+              de: '⚠️ OK aber verliert Zeit. Das Notfallprotokoll umfasst technische Prüfung. Parallel handeln, nicht sequentiell.',
+              en: '⚠️ OK but loses time. Emergency protocol includes technical check. Act in parallel, not sequentially.'
+            },
+            nextScenarioId: 'locate-solution'
+          },
+          {
+            id: 'continue-hope',
+            text: { ro: 'Continuă și speră că se stabilizează', de: 'Weitermachen und hoffen, dass es sich stabilisiert', en: 'Continue and hope it stabilizes' },
+            points: -15,
+            feedback: {
+              ro: '❌ CATASTROFAL! Marfă de 500.000€+ pierdută. Vaccinuri pentru 50.000 persoane compromise. Răspundere: milioane €.',
+              de: '❌ KATASTROPHAL! Ware über 500.000€ verloren. Impfstoffe für 50.000 Personen kompromittiert. Haftung: Millionen €.',
+              en: '❌ CATASTROPHIC! Cargo worth 500,000€+ lost. Vaccines for 50,000 people compromised. Liability: millions €.'
+            },
+            nextScenarioId: 'crisis-reefer'
+          }
+        ]
+      },
+      {
+        id: 'locate-solution',
+        title: { ro: 'Găsește Soluția', de: 'Lösung finden', en: 'Find Solution' },
+        description: { ro: 'Temperatura: 14°C. Timp rămas: ~20 minute.', de: 'Temperatur: 14°C. Verbleibende Zeit: ~20 Minuten.', en: 'Temperature: 14°C. Time remaining: ~20 minutes.' },
+        context: {
+          ro: 'Opțiuni: A) Depozit frigorific în Győr (25km). B) Service Carrier Transics (40km, 24h). C) Camion de schimb din flota proprie (2h distanță).',
+          de: 'Optionen: A) Kühllager in Győr (25km). B) Carrier Transics Service (40km, 24h). C) Ersatzwagen aus eigener Flotte (2h Entfernung).',
+          en: 'Options: A) Cold storage in Győr (25km). B) Carrier Transics service (40km, 24h). C) Replacement truck from own fleet (2h away).'
+        },
+        difficulty: 'hard',
+        category: 'operations',
+        choices: [
+          {
+            id: 'cold-storage',
+            text: { ro: 'Depozit frigorific Győr - cel mai rapid', de: 'Kühllager Győr - am schnellsten', en: 'Cold storage Győr - fastest' },
+            points: 25,
+            feedback: {
+              ro: '✅ Decizie optimă! 25km = 30 min. Marfa e stabilizată la 4°C, apoi reorganizezi transportul. Prioritate: salvează marfa!',
+              de: '✅ Optimale Entscheidung! 25km = 30 Min. Ware wird bei 4°C stabilisiert, dann Transport reorganisieren. Priorität: Ware retten!',
+              en: '✅ Optimal decision! 25km = 30 min. Cargo is stabilized at 4°C, then reorganize transport. Priority: save the cargo!'
+            },
+            nextScenarioId: 'documentation-reefer'
+          },
+          {
+            id: 'repair-service',
+            text: { ro: 'Service Transics - repară agregatul', de: 'Transics Service - Aggregat reparieren', en: 'Transics service - repair the unit' },
+            points: 10,
+            feedback: {
+              ro: '⚠️ Risc! 40km + timp reparație = marfa depășește 15°C. Pentru farmaceutice, depozitul sigur e prioritar.',
+              de: '⚠️ Risiko! 40km + Reparaturzeit = Ware übersteigt 15°C. Für Pharmazeutika hat sicheres Lager Priorität.',
+              en: '⚠️ Risk! 40km + repair time = cargo exceeds 15°C. For pharmaceuticals, safe storage is priority.'
+            },
+            nextScenarioId: 'documentation-reefer'
+          },
+          {
+            id: 'wait-replacement',
+            text: { ro: 'Așteaptă camionul de schimb - 2 ore', de: 'Auf Ersatzwagen warten - 2 Stunden', en: 'Wait for replacement truck - 2 hours' },
+            points: -10,
+            feedback: {
+              ro: '❌ Prea lent! În 2 ore, temperatura ajunge la 20°C+. Marfă pierdută. Întotdeauna alege soluția CEA MAI RAPIDĂ pentru cold chain.',
+              de: '❌ Zu langsam! In 2 Stunden erreicht Temperatur 20°C+. Ware verloren. Wählen Sie immer die SCHNELLSTE Lösung für Kühlkette.',
+              en: '❌ Too slow! In 2 hours, temperature reaches 20°C+. Cargo lost. Always choose the FASTEST solution for cold chain.'
+            },
+            nextScenarioId: 'documentation-reefer'
+          }
+        ]
+      },
+      {
+        id: 'crisis-reefer',
+        title: { ro: 'Marfă Compromisă', de: 'Kompromittierte Ware', en: 'Compromised Cargo' },
+        description: { ro: 'Temperatura a depășit 15°C. Vaccinurile sunt pierdute.', de: 'Temperatur überstieg 15°C. Impfstoffe sind verloren.', en: 'Temperature exceeded 15°C. Vaccines are lost.' },
+        context: { ro: 'Valoare pierdere: 500.000€. Client: Ministerul Sănătății. 50.000 doze compromisă.', de: 'Verlustwert: 500.000€. Kunde: Gesundheitsministerium. 50.000 Dosen kompromittiert.', en: 'Loss value: 500,000€. Client: Ministry of Health. 50,000 doses compromised.' },
+        difficulty: 'hard',
+        category: 'operations',
+        choices: [
+          {
+            id: 'immediate-disclosure',
+            text: { ro: 'Notificare imediată client + asigurare', de: 'Sofortige Benachrichtigung Kunde + Versicherung', en: 'Immediate notification client + insurance' },
+            points: 10,
+            feedback: {
+              ro: '✅ Singura opțiune corectă în criză. Transparența poate salva relația comercială pe termen lung.',
+              de: '✅ Einzige richtige Option in der Krise. Transparenz kann langfristige Geschäftsbeziehung retten.',
+              en: '✅ Only correct option in crisis. Transparency can save long-term business relationship.'
+            },
+            isEndpoint: true
+          },
+          {
+            id: 'hide-problem',
+            text: { ro: 'Livrează și speră să nu se observe', de: 'Liefern und hoffen, dass es nicht bemerkt wird', en: 'Deliver and hope it goes unnoticed' },
+            points: -25,
+            feedback: {
+              ro: '❌ INFRACȚIUNE! Livrarea de medicamente compromise = răspundere penală. Dacă cineva e vaccinat cu vaccin inactiv = consecințe fatale.',
+              de: '❌ STRAFTAT! Lieferung kompromittierter Medikamente = strafrechtliche Haftung. Wenn jemand mit inaktivem Impfstoff geimpft wird = tödliche Folgen.',
+              en: '❌ CRIME! Delivering compromised medication = criminal liability. If someone is vaccinated with inactive vaccine = fatal consequences.'
+            },
+            isEndpoint: true
+          }
+        ]
+      },
+      {
+        id: 'documentation-reefer',
+        title: { ro: 'Documentație și Claim', de: 'Dokumentation und Anspruch', en: 'Documentation and Claim' },
+        description: { ro: 'Marfa e salvată. Ce documente pregătești?', de: 'Ware ist gerettet. Welche Dokumente bereiten Sie vor?', en: 'Cargo is saved. What documents do you prepare?' },
+        context: { ro: 'Pentru claim la asigurare și raport către client.', de: 'Für Versicherungsanspruch und Kundenbericht.', en: 'For insurance claim and client report.' },
+        difficulty: 'medium',
+        category: 'operations',
+        choices: [
+          {
+            id: 'full-documentation',
+            text: { ro: 'Log temperatură + Raport incident + Facturi depozit + Photos', de: 'Temperaturlog + Vorfallbericht + Lagerrechnungen + Fotos', en: 'Temperature log + Incident report + Storage invoices + Photos' },
+            points: 20,
+            feedback: {
+              ro: '✅ Dosarul complet pentru claim: dovada temperaturii, acțiunile luate, costurile suportate. Asigurarea acoperă cheltuielile suplimentare.',
+              de: '✅ Vollständige Akte für Anspruch: Temperaturnachweis, ergriffene Maßnahmen, angefallene Kosten. Versicherung deckt Zusatzkosten.',
+              en: '✅ Complete file for claim: temperature proof, actions taken, costs incurred. Insurance covers additional expenses.'
+            },
+            isEndpoint: true
+          },
+          {
+            id: 'minimal-docs',
+            text: { ro: 'Doar raportul de incident', de: 'Nur Vorfallbericht', en: 'Only incident report' },
+            points: 5,
+            feedback: {
+              ro: '⚠️ Insuficient pentru claim! Fără log temperatură și dovezi, asigurarea poate refuza plata.',
+              de: '⚠️ Unzureichend für Anspruch! Ohne Temperaturlog und Nachweise kann Versicherung Zahlung verweigern.',
+              en: '⚠️ Insufficient for claim! Without temperature log and proof, insurance may refuse payment.'
+            },
+            isEndpoint: true
+          }
+        ]
+      }
+    ]
+  },
+  // ============ NEW SIMULATION: CUSTOMS REJECTION ============
+  {
+    id: 'customs-rejection',
+    title: {
+      ro: 'Refuz Vamal la Frontieră',
+      de: 'Zollablehnung an der Grenze',
+      en: 'Customs Rejection at Border'
+    },
+    description: {
+      ro: 'Marfa a fost respinsă la vamă. Gestionează situația!',
+      de: 'Ware wurde am Zoll abgelehnt. Bewältigen Sie die Situation!',
+      en: 'Cargo was rejected at customs. Handle the situation!'
+    },
+    category: 'documentation',
+    difficulty: 'medium',
+    estimatedTime: 12,
+    maxScore: 100,
+    icon: '🛂',
+    scenarios: [
+      {
+        id: 'start',
+        title: { ro: 'Blocaj la Nădlac', de: 'Blockade bei Nădlac', en: 'Blockade at Nădlac' },
+        description: { ro: 'Șoferul raportează problemă la vamă.', de: 'Fahrer meldet Problem am Zoll.', en: 'Driver reports problem at customs.' },
+        context: {
+          ro: 'Export textile din România în Germania. Valoare: 45.000€. Problema: certificatul EUR.1 lipsește, iar vama cere dovada originii UE.',
+          de: 'Textilexport aus Rumänien nach Deutschland. Wert: 45.000€. Problem: EUR.1-Zertifikat fehlt, Zoll verlangt EU-Ursprungsnachweis.',
+          en: 'Textile export from Romania to Germany. Value: 45,000€. Problem: EUR.1 certificate missing, customs requires EU origin proof.'
+        },
+        difficulty: 'medium',
+        category: 'documentation',
+        choices: [
+          {
+            id: 'contact-shipper',
+            text: { ro: 'Contactează expeditorul pentru EUR.1 original', de: 'Absender für EUR.1-Original kontaktieren', en: 'Contact shipper for original EUR.1' },
+            points: 20,
+            feedback: {
+              ro: '✅ Prima opțiune corectă! EUR.1 poate fi emis post-factum de vamă în 24h. Cere scan urgent + original prin curier.',
+              de: '✅ Erste richtige Option! EUR.1 kann nachträglich vom Zoll in 24h ausgestellt werden. Dringenden Scan + Original per Kurier anfordern.',
+              en: '✅ First correct option! EUR.1 can be issued post-factum by customs in 24h. Request urgent scan + original via courier.'
+            },
+            nextScenarioId: 'waiting-solution'
+          },
+          {
+            id: 'negotiate-customs',
+            text: { ro: 'Negociază cu vama pentru eliberare condiționată', de: 'Mit Zoll über bedingte Freigabe verhandeln', en: 'Negotiate with customs for conditional release' },
+            points: 15,
+            feedback: {
+              ro: '⚠️ Posibil dar rar! Vama poate cere garanție bancară egală cu taxele (4-12% din valoare). Costisitor și lent.',
+              de: '⚠️ Möglich aber selten! Zoll kann Bankgarantie in Höhe der Abgaben (4-12% vom Wert) verlangen. Teuer und langsam.',
+              en: '⚠️ Possible but rare! Customs may require bank guarantee equal to duties (4-12% of value). Expensive and slow.'
+            },
+            nextScenarioId: 'waiting-solution'
+          },
+          {
+            id: 'return-cargo',
+            text: { ro: 'Returnează marfa în România', de: 'Ware nach Rumänien zurücksenden', en: 'Return cargo to Romania' },
+            points: -5,
+            feedback: {
+              ro: '❌ Soluție extremă și costisitoare! Costuri retur + pierdere client + reputație. Încearcă mai întâi să rezolvi documentația.',
+              de: '❌ Extreme und teure Lösung! Rücksendekosten + Kundenverlust + Reputation. Versuchen Sie zuerst, die Dokumentation zu lösen.',
+              en: '❌ Extreme and expensive solution! Return costs + client loss + reputation. Try to solve documentation first.'
+            },
+            nextScenarioId: 'waiting-solution'
+          }
+        ]
+      },
+      {
+        id: 'waiting-solution',
+        title: { ro: 'Soluție în Așteptare', de: 'Lösung Ausstehend', en: 'Solution Pending' },
+        description: { ro: 'Expeditorul trimite EUR.1 în 24h. Ce faci cu camionul?', de: 'Absender sendet EUR.1 in 24h. Was machen Sie mit dem LKW?', en: 'Shipper sends EUR.1 in 24h. What do you do with the truck?' },
+        context: { ro: 'Șoferul are 5h de odihnă rămasă. Costul staționării: 150€/zi. Clientul așteaptă livrarea.', de: 'Fahrer hat noch 5h Ruhezeit. Standkosten: 150€/Tag. Kunde wartet auf Lieferung.', en: 'Driver has 5h rest left. Standby cost: 150€/day. Client is waiting for delivery.' },
+        difficulty: 'medium',
+        category: 'documentation',
+        choices: [
+          {
+            id: 'driver-rest',
+            text: { ro: 'Șoferul face pauza obligatorie, așteptăm EUR.1', de: 'Fahrer macht obligatorische Pause, wir warten auf EUR.1', en: 'Driver takes mandatory break, we wait for EUR.1' },
+            points: 20,
+            feedback: {
+              ro: '✅ Eficient! Pauza obligatorie + așteptare document = zero timp pierdut suplimentar. Informează clientul despre noua ETA.',
+              de: '✅ Effizient! Obligatorische Pause + Dokumentwartung = kein zusätzlicher Zeitverlust. Kunden über neue ETA informieren.',
+              en: '✅ Efficient! Mandatory break + document wait = zero extra time lost. Inform client about new ETA.'
+            },
+            nextScenarioId: 'client-communication'
+          },
+          {
+            id: 'park-nearby',
+            text: { ro: 'Parcează la parcare TIR și schimbă șoferul', de: 'Auf LKW-Parkplatz parken und Fahrer wechseln', en: 'Park at truck stop and change driver' },
+            points: 10,
+            feedback: {
+              ro: '⚠️ Costuri suplimentare! Schimbul de șofer costă 200-300€+ și e complicat logistic. Pentru 24h întârziere, nu merită.',
+              de: '⚠️ Zusätzliche Kosten! Fahrerwechsel kostet 200-300€+ und ist logistisch kompliziert. Für 24h Verzögerung lohnt es sich nicht.',
+              en: '⚠️ Extra costs! Driver change costs 200-300€+ and is logistically complicated. For 24h delay, not worth it.'
+            },
+            nextScenarioId: 'client-communication'
+          }
+        ]
+      },
+      {
+        id: 'client-communication',
+        title: { ro: 'Comunicare cu Clientul', de: 'Kundenkommunikation', en: 'Client Communication' },
+        description: { ro: 'Cum informezi clientul despre întârziere?', de: 'Wie informieren Sie den Kunden über die Verzögerung?', en: 'How do you inform the client about the delay?' },
+        context: { ro: 'Clientul German e un client important, comenzi regulate de 100.000€/lună.', de: 'Der deutsche Kunde ist ein wichtiger Kunde mit regelmäßigen Bestellungen von 100.000€/Monat.', en: 'The German client is an important customer with regular orders of 100,000€/month.' },
+        difficulty: 'medium',
+        category: 'documentation',
+        choices: [
+          {
+            id: 'proactive-call',
+            text: { ro: 'Apel telefonic imediat + email confirmare cu noua ETA', de: 'Sofortiger Telefonanruf + Bestätigungs-E-Mail mit neuer ETA', en: 'Immediate phone call + confirmation email with new ETA' },
+            points: 25,
+            feedback: {
+              ro: '✅ Profesionist! Apelul arată urgență și respect. Email-ul documentează. Oferă discount 5% ca gest de bună-credință.',
+              de: '✅ Professionell! Der Anruf zeigt Dringlichkeit und Respekt. E-Mail dokumentiert. Bieten Sie 5% Rabatt als Geste des guten Willens.',
+              en: '✅ Professional! The call shows urgency and respect. Email documents. Offer 5% discount as a gesture of goodwill.'
+            },
+            isEndpoint: true
+          },
+          {
+            id: 'email-only',
+            text: { ro: 'Email formal cu explicație și scuze', de: 'Formelle E-Mail mit Erklärung und Entschuldigung', en: 'Formal email with explanation and apology' },
+            points: 10,
+            feedback: {
+              ro: '⚠️ Acceptabil dar impersonal. Pentru clienți VIP, apelul telefonic e esențial. Email-ul singur poate părea rece.',
+              de: '⚠️ Akzeptabel aber unpersönlich. Für VIP-Kunden ist der Telefonanruf wesentlich. Nur E-Mail kann kalt wirken.',
+              en: '⚠️ Acceptable but impersonal. For VIP clients, phone call is essential. Email alone may seem cold.'
+            },
+            isEndpoint: true
+          },
+          {
+            id: 'wait-resolution',
+            text: { ro: 'Așteaptă rezolvarea, apoi informează', de: 'Auf Lösung warten, dann informieren', en: 'Wait for resolution, then inform' },
+            points: -10,
+            feedback: {
+              ro: '❌ Greșeală mare! Clientul află de întârziere când marfa nu ajunge. Pierdere încredere = pierdere cont.',
+              de: '❌ Großer Fehler! Der Kunde erfährt von der Verzögerung, wenn die Ware nicht ankommt. Vertrauensverlust = Kontoverlust.',
+              en: '❌ Big mistake! Client finds out about delay when cargo doesn\'t arrive. Loss of trust = account loss.'
+            },
+            isEndpoint: true
+          }
+        ]
+      }
+    ]
+  },
+  // ============ NEW SIMULATION: PAYMENT DISPUTE ============
+  {
+    id: 'payment-dispute',
+    title: {
+      ro: 'Dispută de Plată cu Clientul',
+      de: 'Zahlungsstreit mit dem Kunden',
+      en: 'Payment Dispute with Client'
+    },
+    description: {
+      ro: 'Un client refuză să plătească invocând probleme la livrare.',
+      de: 'Ein Kunde verweigert die Zahlung unter Berufung auf Lieferprobleme.',
+      en: 'A client refuses to pay citing delivery issues.'
+    },
+    category: 'commercial',
+    difficulty: 'medium',
+    estimatedTime: 10,
+    maxScore: 100,
+    icon: '💶',
+    scenarios: [
+      {
+        id: 'start',
+        title: { ro: 'Factură Neplătită', de: 'Unbezahlte Rechnung', en: 'Unpaid Invoice' },
+        description: { ro: 'Clientul refuză plata facturii de 8.500€.', de: 'Der Kunde verweigert die Zahlung der Rechnung über 8.500€.', en: 'Client refuses to pay the 8,500€ invoice.' },
+        context: {
+          ro: 'Motivul invocat: "Marfa a ajuns cu 6 ore întârziere și avem penalități de la clientul nostru." POD semnat fără rezerve. Factura e la 45 zile scadență.',
+          de: 'Angegebener Grund: "Ware kam 6 Stunden verspätet und wir haben Strafen von unserem Kunden." POD ohne Vorbehalte unterschrieben. Rechnung hat 45 Tage Fälligkeit.',
+          en: 'Stated reason: "Cargo arrived 6 hours late and we have penalties from our client." POD signed without reservations. Invoice is at 45 days due.'
+        },
+        difficulty: 'medium',
+        category: 'commercial',
+        choices: [
+          {
+            id: 'review-documentation',
+            text: { ro: 'Revizuiește documentația: CMR, tracking, comunicări', de: 'Dokumentation prüfen: CMR, Tracking, Kommunikation', en: 'Review documentation: CMR, tracking, communications' },
+            points: 20,
+            feedback: {
+              ro: '✅ Prima acțiune corectă! Verifică: a fost notificată întârzierea? POD fără rezerve = acceptare condiție. Tracking-ul confirmă ora reală.',
+              de: '✅ Erste richtige Aktion! Prüfen: Wurde Verspätung gemeldet? POD ohne Vorbehalte = Zustandsakzeptanz. Tracking bestätigt tatsächliche Zeit.',
+              en: '✅ First correct action! Check: was delay notified? POD without reservations = condition acceptance. Tracking confirms actual time.'
+            },
+            nextScenarioId: 'negotiation'
+          },
+          {
+            id: 'accept-reduction',
+            text: { ro: 'Acceptă reducere pentru a păstra clientul', de: 'Rabatt akzeptieren, um Kunden zu behalten', en: 'Accept reduction to keep the client' },
+            points: 0,
+            feedback: {
+              ro: '⚠️ Prematur! Fără analiză, nu știi dacă claim-ul e valid. Acceptarea fără verificare = precedent periculos.',
+              de: '⚠️ Voreilig! Ohne Analyse wissen Sie nicht, ob der Anspruch gültig ist. Akzeptanz ohne Prüfung = gefährlicher Präzedenzfall.',
+              en: '⚠️ Premature! Without analysis, you don\'t know if claim is valid. Acceptance without verification = dangerous precedent.'
+            },
+            nextScenarioId: 'negotiation'
+          },
+          {
+            id: 'threaten-legal',
+            text: { ro: 'Amenință cu acțiune legală imediat', de: 'Sofort mit rechtlichen Schritten drohen', en: 'Threaten legal action immediately' },
+            points: -5,
+            feedback: {
+              ro: '❌ Agresiv și contraproductiv! Pierzi relația comercială definitiv. Negocierea e întotdeauna primul pas.',
+              de: '❌ Aggressiv und kontraproduktiv! Sie verlieren die Geschäftsbeziehung endgültig. Verhandlung ist immer der erste Schritt.',
+              en: '❌ Aggressive and counterproductive! You lose the business relationship permanently. Negotiation is always the first step.'
+            },
+            nextScenarioId: 'negotiation'
+          }
+        ]
+      },
+      {
+        id: 'negotiation',
+        title: { ro: 'Negocierea Soluției', de: 'Lösungsverhandlung', en: 'Solution Negotiation' },
+        description: { ro: 'Documentația arată că ai notificat întârzierea cu 2h înainte.', de: 'Dokumentation zeigt, dass Sie die Verspätung 2h vorher gemeldet haben.', en: 'Documentation shows you notified the delay 2h before.' },
+        context: { ro: 'Email-ul de notificare există, clientul l-a confirmat. POD semnat la 23:00 în loc de 17:00. Juridic, ai dovada bunei-credințe.', de: 'Benachrichtigungs-E-Mail existiert, Kunde hat sie bestätigt. POD um 23:00 statt 17:00 unterschrieben. Rechtlich haben Sie Nachweis des guten Glaubens.', en: 'Notification email exists, client confirmed it. POD signed at 23:00 instead of 17:00. Legally, you have proof of good faith.' },
+        difficulty: 'medium',
+        category: 'commercial',
+        choices: [
+          {
+            id: 'propose-compromise',
+            text: { ro: 'Propune compromis: 5% reducere + prioritate viitoare', de: 'Kompromiss vorschlagen: 5% Rabatt + zukünftige Priorität', en: 'Propose compromise: 5% discount + future priority' },
+            points: 25,
+            feedback: {
+              ro: '✅ Diplomație comercială! Reducerea de 425€ e mai mică decât costul unui client pierdut. Prioritatea viitoare fidelizează.',
+              de: '✅ Geschäftsdiplomatie! Der Rabatt von 425€ ist weniger als die Kosten eines verlorenen Kunden. Zukünftige Priorität bindet.',
+              en: '✅ Business diplomacy! The 425€ discount is less than the cost of a lost client. Future priority builds loyalty.'
+            },
+            nextScenarioId: 'resolution'
+          },
+          {
+            id: 'stand-firm',
+            text: { ro: 'Menține poziția: plată integrală sau somație', de: 'Position halten: Vollzahlung oder Mahnung', en: 'Stand firm: full payment or notice' },
+            points: 10,
+            feedback: {
+              ro: '⚠️ Riscant comercial! Ai dreptate juridic, dar pierzi un client de 100.000€/an pentru 8.500€. Calculează costul oportunității.',
+              de: '⚠️ Geschäftlich riskant! Sie haben rechtlich Recht, aber verlieren einen Kunden mit 100.000€/Jahr für 8.500€. Berechnen Sie Opportunitätskosten.',
+              en: '⚠️ Commercially risky! You\'re legally right, but losing a 100,000€/year client for 8,500€. Calculate opportunity cost.'
+            },
+            nextScenarioId: 'resolution'
+          }
+        ]
+      },
+      {
+        id: 'resolution',
+        title: { ro: 'Închiderea Disputei', de: 'Streitbeilegung', en: 'Dispute Resolution' },
+        description: { ro: 'Clientul a acceptat compromisul. Cum finalizezi?', de: 'Der Kunde hat den Kompromiss akzeptiert. Wie schließen Sie ab?', en: 'Client accepted the compromise. How do you finalize?' },
+        context: { ro: 'Plata va veni în 15 zile. Trebuie să documentezi acordul.', de: 'Zahlung kommt in 15 Tagen. Sie müssen die Vereinbarung dokumentieren.', en: 'Payment will come in 15 days. You need to document the agreement.' },
+        difficulty: 'easy',
+        category: 'commercial',
+        choices: [
+          {
+            id: 'formal-agreement',
+            text: { ro: 'Email formal cu termenii + confirmare scrisă de la client', de: 'Formelle E-Mail mit Bedingungen + schriftliche Kundenbestätigung', en: 'Formal email with terms + written confirmation from client' },
+            points: 20,
+            feedback: {
+              ro: '✅ Documentație completă! Email = dovadă juridică. Include: suma finală, data plății, condițiile viitoare.',
+              de: '✅ Vollständige Dokumentation! E-Mail = rechtlicher Nachweis. Enthält: Endsumme, Zahlungsdatum, zukünftige Bedingungen.',
+              en: '✅ Complete documentation! Email = legal proof. Include: final amount, payment date, future conditions.'
+            },
+            isEndpoint: true
+          },
+          {
+            id: 'verbal-agreement',
+            text: { ro: 'Acord verbal la telefon e suficient', de: 'Mündliche Vereinbarung am Telefon reicht', en: 'Verbal agreement on phone is enough' },
+            points: 0,
+            feedback: {
+              ro: '⚠️ Riscant! Fără dovadă scrisă, clientul poate contesta. "Verba volant, scripta manent."',
+              de: '⚠️ Riskant! Ohne schriftlichen Nachweis kann der Kunde anfechten. "Verba volant, scripta manent."',
+              en: '⚠️ Risky! Without written proof, client can dispute. "Verba volant, scripta manent."'
+            },
+            isEndpoint: true
+          }
+        ]
+      }
+    ]
+  },
+  // ============ NEW SIMULATION: DRIVER EMERGENCY ============
+  {
+    id: 'driver-emergency',
+    title: {
+      ro: 'Urgență Medicală Șofer',
+      de: 'Medizinischer Notfall Fahrer',
+      en: 'Driver Medical Emergency'
+    },
+    description: {
+      ro: 'Șoferul are o urgență medicală în timpul transportului.',
+      de: 'Der Fahrer hat einen medizinischen Notfall während des Transports.',
+      en: 'Driver has a medical emergency during transport.'
+    },
+    category: 'safety',
+    difficulty: 'hard',
+    estimatedTime: 8,
+    maxScore: 100,
+    icon: '🚑',
+    scenarios: [
+      {
+        id: 'start',
+        title: { ro: 'Apel de Urgență', de: 'Notruf', en: 'Emergency Call' },
+        description: { ro: 'Primești un apel confuz de la șofer.', de: 'Sie erhalten einen verwirrten Anruf vom Fahrer.', en: 'You receive a confused call from the driver.' },
+        context: {
+          ro: 'Șoferul Mihai, 52 ani, raportează dureri în piept și amețeli. E pe A3 Ungaria, 100km de Budapesta. Marfă: piese auto pentru Audi, valoare 65.000€.',
+          de: 'Fahrer Mihai, 52 Jahre, meldet Brustschmerzen und Schwindel. Er ist auf der A3 Ungarn, 100km von Budapest. Fracht: Autoteile für Audi, Wert 65.000€.',
+          en: 'Driver Mihai, 52, reports chest pain and dizziness. He\'s on A3 Hungary, 100km from Budapest. Cargo: auto parts for Audi, value 65,000€.'
+        },
+        difficulty: 'hard',
+        category: 'safety',
+        timeLimit: 30,
+        choices: [
+          {
+            id: 'call-emergency',
+            text: { ro: 'Sună 112 imediat și cere ambulanță', de: 'Sofort 112 anrufen und Krankenwagen anfordern', en: 'Call 112 immediately and request ambulance' },
+            points: 30,
+            feedback: {
+              ro: '✅ CORECT! Viața omului e prioritatea #1. Marfa poate aștepta, Mihai nu. 112 în Ungaria: +36 112.',
+              de: '✅ RICHTIG! Das Leben des Menschen hat Priorität #1. Die Fracht kann warten, Mihai nicht. 112 in Ungarn: +36 112.',
+              en: '✅ CORRECT! Human life is priority #1. Cargo can wait, Mihai cannot. 112 in Hungary: +36 112.'
+            },
+            nextScenarioId: 'coordinate-rescue'
+          },
+          {
+            id: 'ask-symptoms',
+            text: { ro: 'Întreabă mai multe detalii despre simptome', de: 'Nach mehr Details zu Symptomen fragen', en: 'Ask for more details about symptoms' },
+            points: 5,
+            feedback: {
+              ro: '⚠️ Pierdere timp critic! Dureri în piept + amețeli = posibil infarct. Nu ești medic, lasă profesioniștii să evalueze.',
+              de: '⚠️ Kritischer Zeitverlust! Brustschmerzen + Schwindel = möglicher Herzinfarkt. Sie sind kein Arzt, lassen Sie Profis beurteilen.',
+              en: '⚠️ Critical time loss! Chest pain + dizziness = possible heart attack. You\'re not a doctor, let professionals evaluate.'
+            },
+            nextScenarioId: 'coordinate-rescue'
+          },
+          {
+            id: 'continue-driving',
+            text: { ro: 'Cere-i să oprească și să se odihnească', de: 'Bitten Sie ihn anzuhalten und sich auszuruhen', en: 'Ask him to stop and rest' },
+            points: -15,
+            feedback: {
+              ro: '❌ PERICULOS! Dacă e infarct, odihna nu ajută. Fără asistență medicală, risc vital. Responsabilitate civilă și penală.',
+              de: '❌ GEFÄHRLICH! Bei Herzinfarkt hilft Ruhe nicht. Ohne medizinische Hilfe lebensbedrohlich. Zivil- und strafrechtliche Haftung.',
+              en: '❌ DANGEROUS! If it\'s a heart attack, rest won\'t help. Without medical assistance, life-threatening. Civil and criminal liability.'
+            },
+            nextScenarioId: 'coordinate-rescue'
+          }
+        ]
+      },
+      {
+        id: 'coordinate-rescue',
+        title: { ro: 'Coordonare Salvare', de: 'Rettungskoordination', en: 'Rescue Coordination' },
+        description: { ro: 'Ambulanța e pe drum. Ce faci pentru marfă?', de: 'Krankenwagen ist unterwegs. Was machen Sie für die Fracht?', en: 'Ambulance is on the way. What do you do for the cargo?' },
+        context: {
+          ro: 'Mihai e conștient. Camionul e parcat pe banda de urgență. Cheia e la Mihai. Livrarea era programată mâine 08:00.',
+          de: 'Mihai ist bei Bewusstsein. LKW ist auf dem Standstreifen geparkt. Schlüssel ist bei Mihai. Lieferung war morgen 08:00 geplant.',
+          en: 'Mihai is conscious. Truck is parked on emergency lane. Key is with Mihai. Delivery was scheduled tomorrow 08:00.'
+        },
+        difficulty: 'hard',
+        category: 'safety',
+        choices: [
+          {
+            id: 'arrange-replacement',
+            text: { ro: 'Organizează șofer de schimb din rețea + informează clientul', de: 'Ersatzfahrer aus Netzwerk organisieren + Kunden informieren', en: 'Arrange replacement driver from network + inform client' },
+            points: 25,
+            feedback: {
+              ro: '✅ Gândire completă! Prioritizezi: 1) Sănătatea lui Mihai, 2) Securitatea mărfii, 3) Comunicarea cu clientul.',
+              de: '✅ Vollständiges Denken! Priorisieren: 1) Mihais Gesundheit, 2) Frachtsicherheit, 3) Kundenkommunikation.',
+              en: '✅ Complete thinking! Prioritize: 1) Mihai\'s health, 2) Cargo security, 3) Client communication.'
+            },
+            nextScenarioId: 'follow-up'
+          },
+          {
+            id: 'wait-diagnosis',
+            text: { ro: 'Așteaptă diagnosticul înainte de orice decizie', de: 'Auf Diagnose warten vor jeder Entscheidung', en: 'Wait for diagnosis before any decision' },
+            points: 10,
+            feedback: {
+              ro: '⚠️ Pasiv! Diagnosticul poate dura ore. Între timp, camionul e nesecurizat pe autostradă și clientul nu știe nimic.',
+              de: '⚠️ Passiv! Diagnose kann Stunden dauern. Inzwischen ist der LKW ungesichert auf der Autobahn und der Kunde weiß nichts.',
+              en: '⚠️ Passive! Diagnosis can take hours. Meanwhile, truck is unsecured on highway and client knows nothing.'
+            },
+            nextScenarioId: 'follow-up'
+          }
+        ]
+      },
+      {
+        id: 'follow-up',
+        title: { ro: 'Urmărire și Documentare', de: 'Nachverfolgung und Dokumentation', en: 'Follow-up and Documentation' },
+        description: { ro: 'Mihai e stabil. Ce acțiuni post-incident?', de: 'Mihai ist stabil. Welche Maßnahmen nach dem Vorfall?', en: 'Mihai is stable. What post-incident actions?' },
+        context: { ro: 'Diagnostic: criză de hipertensiune, nu infarct. Mihai va fi ok dar nu poate conduce 48h.', de: 'Diagnose: Bluthochdruckkrise, kein Herzinfarkt. Mihai wird ok sein, kann aber 48h nicht fahren.', en: 'Diagnosis: hypertension crisis, not heart attack. Mihai will be ok but cannot drive for 48h.' },
+        difficulty: 'medium',
+        category: 'safety',
+        choices: [
+          {
+            id: 'complete-protocol',
+            text: { ro: 'Raport incident + Contact familie + Asigură cazare Mihai + Informare HR', de: 'Vorfallbericht + Familienkontakt + Unterkunft für Mihai sichern + HR informieren', en: 'Incident report + Contact family + Secure accommodation for Mihai + Inform HR' },
+            points: 25,
+            feedback: {
+              ro: '✅ Protocol complet! Grija pentru șofer = loialitate pe termen lung. Documentarea protejează compania legal.',
+              de: '✅ Vollständiges Protokoll! Fürsorge für Fahrer = langfristige Loyalität. Dokumentation schützt Unternehmen rechtlich.',
+              en: '✅ Complete protocol! Care for driver = long-term loyalty. Documentation protects company legally.'
+            },
+            isEndpoint: true
+          },
+          {
+            id: 'focus-cargo',
+            text: { ro: 'Concentrează-te pe livrarea mărfii', de: 'Konzentrieren Sie sich auf die Warenlieferung', en: 'Focus on cargo delivery' },
+            points: 5,
+            feedback: {
+              ro: '⚠️ Incomplet! Marfa e importantă, dar abandonarea șoferului afectează moralul echipei și reputația companiei.',
+              de: '⚠️ Unvollständig! Fracht ist wichtig, aber Fahrer im Stich zu lassen beeinflusst Teammoral und Unternehmensruf.',
+              en: '⚠️ Incomplete! Cargo is important, but abandoning driver affects team morale and company reputation.'
+            },
+            isEndpoint: true
+          }
+        ]
+      }
+    ]
+  }
 ];
 
 export const getSimulationById = (id: string): Simulation | undefined => {
@@ -946,4 +1720,8 @@ export const getSimulationById = (id: string): Simulation | undefined => {
 
 export const getScenarioById = (simulation: Simulation, scenarioId: string): SimulationScenario | undefined => {
   return simulation.scenarios.find(s => s.id === scenarioId);
+};
+
+export const getSimulationCategories = (): string[] => {
+  return [...new Set(simulations.map(s => s.category))];
 };

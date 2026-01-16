@@ -1791,6 +1791,42 @@ export type Database = {
           },
         ]
       }
+      simulation_attempts: {
+        Row: {
+          completed_at: string
+          created_at: string
+          decisions_made: Json | null
+          id: string
+          max_score: number
+          score: number
+          simulation_id: string
+          time_spent_seconds: number | null
+          user_id: string
+        }
+        Insert: {
+          completed_at?: string
+          created_at?: string
+          decisions_made?: Json | null
+          id?: string
+          max_score?: number
+          score?: number
+          simulation_id: string
+          time_spent_seconds?: number | null
+          user_id: string
+        }
+        Update: {
+          completed_at?: string
+          created_at?: string
+          decisions_made?: Json | null
+          id?: string
+          max_score?: number
+          score?: number
+          simulation_id?: string
+          time_spent_seconds?: number | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       sla_configuration: {
         Row: {
           created_at: string
@@ -2145,6 +2181,69 @@ export type Database = {
           previous_version?: number | null
           severity?: string | null
           source_url?: string | null
+        }
+        Relationships: []
+      }
+      user_achievements: {
+        Row: {
+          achievement_id: string
+          earned_at: string
+          id: string
+          metadata: Json | null
+          user_id: string
+        }
+        Insert: {
+          achievement_id: string
+          earned_at?: string
+          id?: string
+          metadata?: Json | null
+          user_id: string
+        }
+        Update: {
+          achievement_id?: string
+          earned_at?: string
+          id?: string
+          metadata?: Json | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_gamification: {
+        Row: {
+          created_at: string
+          id: string
+          last_activity_date: string | null
+          level: number
+          perfect_simulations: number
+          simulations_completed: number
+          streak_days: number
+          total_xp: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          last_activity_date?: string | null
+          level?: number
+          perfect_simulations?: number
+          simulations_completed?: number
+          streak_days?: number
+          total_xp?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          last_activity_date?: string | null
+          level?: number
+          perfect_simulations?: number
+          simulations_completed?: number
+          streak_days?: number
+          total_xp?: number
+          updated_at?: string
+          user_id?: string
         }
         Relationships: []
       }
