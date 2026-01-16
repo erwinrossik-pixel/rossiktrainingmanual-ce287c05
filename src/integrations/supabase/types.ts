@@ -760,37 +760,52 @@ export type Database = {
       company_subscriptions: {
         Row: {
           billing_cycle: string | null
+          cancel_at_period_end: boolean | null
+          cancelled_at: string | null
           company_id: string
           created_at: string | null
           expires_at: string | null
           id: string
+          payment_status: string | null
           plan_id: string
           started_at: string | null
           status: string | null
+          stripe_customer_id: string | null
+          stripe_subscription_id: string | null
           trial_ends_at: string | null
           updated_at: string | null
         }
         Insert: {
           billing_cycle?: string | null
+          cancel_at_period_end?: boolean | null
+          cancelled_at?: string | null
           company_id: string
           created_at?: string | null
           expires_at?: string | null
           id?: string
+          payment_status?: string | null
           plan_id: string
           started_at?: string | null
           status?: string | null
+          stripe_customer_id?: string | null
+          stripe_subscription_id?: string | null
           trial_ends_at?: string | null
           updated_at?: string | null
         }
         Update: {
           billing_cycle?: string | null
+          cancel_at_period_end?: boolean | null
+          cancelled_at?: string | null
           company_id?: string
           created_at?: string | null
           expires_at?: string | null
           id?: string
+          payment_status?: string | null
           plan_id?: string
           started_at?: string | null
           status?: string | null
+          stripe_customer_id?: string | null
+          stripe_subscription_id?: string | null
           trial_ends_at?: string | null
           updated_at?: string | null
         }
@@ -1442,6 +1457,42 @@ export type Database = {
         }
         Relationships: []
       }
+      premium_chapters: {
+        Row: {
+          chapter_id: string
+          created_at: string
+          id: string
+          min_plan_type: string
+        }
+        Insert: {
+          chapter_id: string
+          created_at?: string
+          id?: string
+          min_plan_type: string
+        }
+        Update: {
+          chapter_id?: string
+          created_at?: string
+          id?: string
+          min_plan_type?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "premium_chapters_chapter_id_fkey"
+            columns: ["chapter_id"]
+            isOneToOne: true
+            referencedRelation: "chapters"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "premium_chapters_chapter_id_fkey"
+            columns: ["chapter_id"]
+            isOneToOne: true
+            referencedRelation: "content_quality_summary"
+            referencedColumns: ["chapter_id"]
+          },
+        ]
+      }
       production_checklist: {
         Row: {
           category: string
@@ -1865,6 +1916,64 @@ export type Database = {
           },
         ]
       }
+      subscription_history: {
+        Row: {
+          change_reason: string | null
+          change_type: string
+          changed_by: string | null
+          company_id: string
+          created_at: string
+          effective_date: string
+          id: string
+          new_plan_id: string
+          old_plan_id: string | null
+        }
+        Insert: {
+          change_reason?: string | null
+          change_type: string
+          changed_by?: string | null
+          company_id: string
+          created_at?: string
+          effective_date?: string
+          id?: string
+          new_plan_id: string
+          old_plan_id?: string | null
+        }
+        Update: {
+          change_reason?: string | null
+          change_type?: string
+          changed_by?: string | null
+          company_id?: string
+          created_at?: string
+          effective_date?: string
+          id?: string
+          new_plan_id?: string
+          old_plan_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "subscription_history_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "subscription_history_new_plan_id_fkey"
+            columns: ["new_plan_id"]
+            isOneToOne: false
+            referencedRelation: "subscription_plans"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "subscription_history_old_plan_id_fkey"
+            columns: ["old_plan_id"]
+            isOneToOne: false
+            referencedRelation: "subscription_plans"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       subscription_plans: {
         Row: {
           created_at: string | null
@@ -1880,6 +1989,9 @@ export type Database = {
           plan_type: Database["public"]["Enums"]["plan_type"]
           price_monthly: number | null
           price_yearly: number | null
+          stripe_price_monthly_id: string | null
+          stripe_price_yearly_id: string | null
+          trial_days: number | null
         }
         Insert: {
           created_at?: string | null
@@ -1895,6 +2007,9 @@ export type Database = {
           plan_type: Database["public"]["Enums"]["plan_type"]
           price_monthly?: number | null
           price_yearly?: number | null
+          stripe_price_monthly_id?: string | null
+          stripe_price_yearly_id?: string | null
+          trial_days?: number | null
         }
         Update: {
           created_at?: string | null
@@ -1910,6 +2025,9 @@ export type Database = {
           plan_type?: Database["public"]["Enums"]["plan_type"]
           price_monthly?: number | null
           price_yearly?: number | null
+          stripe_price_monthly_id?: string | null
+          stripe_price_yearly_id?: string | null
+          trial_days?: number | null
         }
         Relationships: []
       }
