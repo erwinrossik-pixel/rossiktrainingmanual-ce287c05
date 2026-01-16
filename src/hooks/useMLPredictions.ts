@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from './useAuth';
+import { Json } from '@/integrations/supabase/types';
 
 interface CompletionPrediction {
   estimated_date: string;
@@ -165,17 +166,17 @@ export function useMLPredictions() {
         }
       ];
 
-      // Store predictions
+      // Store predictions one by one
       for (const pred of predictions) {
         await supabase
           .from('ml_predictions')
-          .insert({
+          .insert([{
             user_id: user.id,
             prediction_type: pred.prediction_type,
-            prediction_data: pred.prediction_data,
+            prediction_data: pred.prediction_data as Json,
             confidence: pred.confidence,
             valid_until: pred.valid_until
-          });
+          }]);
       }
 
       await fetchPredictions();

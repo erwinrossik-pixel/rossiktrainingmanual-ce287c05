@@ -15,8 +15,8 @@ interface VideoPlayerProps {
 
 export function VideoPlayer({ chapterId }: VideoPlayerProps) {
   const { videos, progress, loading, updateProgress, getVideoEmbedUrl } = useVideoLessons(chapterId);
-  const { planType } = useSubscription();
-  const canAccessPremium = planType === 'pro' || planType === 'enterprise';
+  const { currentPlan } = useSubscription();
+  const canAccessPremium = currentPlan === 'professional' || currentPlan === 'enterprise';
   const [selectedVideo, setSelectedVideo] = useState<VideoLesson | null>(null);
 
   useEffect(() => {
