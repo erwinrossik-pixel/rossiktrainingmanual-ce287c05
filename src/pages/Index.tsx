@@ -9,6 +9,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { useCompany } from "@/contexts/CompanyContext";
 import { useAnalytics } from "@/hooks/useAnalytics";
 import { PendingApproval } from "@/components/PendingApproval";
+import { TrialBanner } from "@/components/subscription";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -127,6 +128,11 @@ function ManualApp() {
 
   return (
     <div className="min-h-screen bg-background">
+      {/* Trial Banner */}
+      <div className="lg:ml-72 px-4 pt-4">
+        <TrialBanner />
+      </div>
+      
       {/* Fixed User Menu in top-right */}
       <div className="fixed top-4 right-4 z-50">
         <UserMenu />
