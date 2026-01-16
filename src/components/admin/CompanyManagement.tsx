@@ -165,59 +165,67 @@ export function CompanyManagement() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white rounded-2xl p-6 shadow-xl">
         <div>
-          <h2 className="text-2xl font-bold">Gestionare Companii</h2>
-          <p className="text-muted-foreground">Administrează toate companiile din platformă</p>
+          <h2 className="text-2xl font-black flex items-center gap-3">
+            <div className="p-2 bg-white/20 rounded-lg">
+              <Building2 className="h-6 w-6" />
+            </div>
+            Gestionare Companii
+          </h2>
+          <p className="text-white/80 font-medium mt-1">Administrează toate companiile din platformă</p>
         </div>
         <Dialog open={isCreateOpen} onOpenChange={setIsCreateOpen}>
           <DialogTrigger asChild>
-            <Button>
+            <Button className="bg-white text-indigo-700 hover:bg-white/90 font-bold shadow-lg">
               <Plus className="h-4 w-4 mr-2" />
               Companie Nouă
             </Button>
           </DialogTrigger>
-          <DialogContent>
+          <DialogContent className="border-2 shadow-2xl">
             <DialogHeader>
-              <DialogTitle>Creează Companie Nouă</DialogTitle>
+              <DialogTitle className="text-xl font-bold">Creează Companie Nouă</DialogTitle>
               <DialogDescription>Adaugă o nouă companie în platformă</DialogDescription>
             </DialogHeader>
             <div className="space-y-4 py-4">
               <div className="space-y-2">
-                <Label>Nume Companie</Label>
+                <Label className="font-semibold">Nume Companie</Label>
                 <Input
                   value={newCompany.name}
                   onChange={(e) => setNewCompany({ ...newCompany, name: e.target.value })}
                   placeholder="Ex: Transport SRL"
+                  className="border-2"
                 />
               </div>
               <div className="space-y-2">
-                <Label>Slug (URL)</Label>
+                <Label className="font-semibold">Slug (URL)</Label>
                 <Input
                   value={newCompany.slug}
                   onChange={(e) => setNewCompany({ ...newCompany, slug: e.target.value })}
                   placeholder="transport-srl"
+                  className="border-2"
                 />
                 <p className="text-xs text-muted-foreground">Va fi folosit în URL: {newCompany.slug || 'slug'}.rossiktraining.com</p>
               </div>
               <div className="space-y-2">
-                <Label>Domeniu Custom (opțional)</Label>
+                <Label className="font-semibold">Domeniu Custom (opțional)</Label>
                 <Input
                   value={newCompany.custom_domain}
                   onChange={(e) => setNewCompany({ ...newCompany, custom_domain: e.target.value })}
                   placeholder="training.company.com"
+                  className="border-2"
                 />
               </div>
               <div className="space-y-2">
-                <Label>Plan</Label>
+                <Label className="font-semibold">Plan</Label>
                 <Select
                   value={newCompany.plan_type}
                   onValueChange={(value) => setNewCompany({ ...newCompany, plan_type: value })}
                 >
-                  <SelectTrigger>
+                  <SelectTrigger className="border-2">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="bg-white border-2 shadow-xl">
                     {plans.map((plan) => (
                       <SelectItem key={plan.id} value={plan.plan_type}>
                         {plan.name} - €{plan.price_monthly}/lună
@@ -229,35 +237,37 @@ export function CompanyManagement() {
             </div>
             <DialogFooter>
               <Button variant="outline" onClick={() => setIsCreateOpen(false)}>Anulează</Button>
-              <Button onClick={createCompany} disabled={!newCompany.name || !newCompany.slug}>Creează</Button>
+              <Button onClick={createCompany} disabled={!newCompany.name || !newCompany.slug} className="bg-indigo-600 hover:bg-indigo-700">Creează</Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>
       </div>
 
       {/* Companies Table */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Building2 className="h-5 w-5" />
-            Companii ({companies.length})
+      <Card className="admin-section-card border-indigo-200">
+        <CardHeader className="admin-section-header bg-gradient-to-r from-indigo-50 to-blue-50">
+          <CardTitle className="flex items-center gap-3 text-xl">
+            <div className="p-2 bg-indigo-500 rounded-lg shadow-md">
+              <Building2 className="h-5 w-5 text-white" />
+            </div>
+            <span className="text-indigo-800">Companii ({companies.length})</span>
           </CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-0">
           {loading ? (
             <div className="flex justify-center py-8">
-              <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+              <div className="w-8 h-8 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin" />
             </div>
           ) : (
             <Table>
               <TableHeader>
-                <TableRow>
-                  <TableHead>Companie</TableHead>
-                  <TableHead>Domeniu</TableHead>
-                  <TableHead>Plan</TableHead>
-                  <TableHead>Utilizatori</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead className="text-right">Acțiuni</TableHead>
+                <TableRow className="bg-slate-100 hover:bg-slate-100">
+                  <TableHead className="font-bold text-slate-800">Companie</TableHead>
+                  <TableHead className="font-bold text-slate-800">Domeniu</TableHead>
+                  <TableHead className="font-bold text-slate-800">Plan</TableHead>
+                  <TableHead className="font-bold text-slate-800">Utilizatori</TableHead>
+                  <TableHead className="font-bold text-slate-800">Status</TableHead>
+                  <TableHead className="font-bold text-slate-800 text-right">Acțiuni</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>

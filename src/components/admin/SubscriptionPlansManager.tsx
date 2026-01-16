@@ -97,83 +97,100 @@ export function SubscriptionPlansManager() {
 
   const getPlanColor = (planType: string) => {
     switch (planType) {
-      case 'free': return 'bg-gray-100 border-gray-300';
-      case 'starter': return 'bg-blue-50 border-blue-300';
-      case 'professional': return 'bg-purple-50 border-purple-300';
-      case 'enterprise': return 'bg-amber-50 border-amber-300';
+      case 'free': return 'bg-gradient-to-br from-slate-50 to-slate-100 border-slate-300';
+      case 'starter': return 'bg-gradient-to-br from-blue-50 to-blue-100 border-blue-300';
+      case 'professional': return 'bg-gradient-to-br from-purple-50 to-purple-100 border-purple-300';
+      case 'enterprise': return 'bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 border-amber-300';
       default: return 'bg-gray-50';
     }
   };
 
   const getPlanBadge = (planType: string) => {
     switch (planType) {
-      case 'free': return <Badge variant="secondary">Free</Badge>;
-      case 'starter': return <Badge className="bg-blue-500">Starter</Badge>;
-      case 'professional': return <Badge className="bg-purple-500">Professional</Badge>;
-      case 'enterprise': return <Badge className="bg-amber-500">Enterprise</Badge>;
+      case 'free': return <Badge variant="secondary" className="bg-slate-600 text-white font-bold px-3 py-1 shadow-sm">Free</Badge>;
+      case 'starter': return <Badge className="bg-blue-500 text-white font-bold px-3 py-1 shadow-md">Starter</Badge>;
+      case 'professional': return <Badge className="bg-purple-500 text-white font-bold px-3 py-1 shadow-md">Professional</Badge>;
+      case 'enterprise': return <Badge className="bg-gradient-to-r from-amber-500 to-orange-500 text-white font-bold px-3 py-1 shadow-md">Enterprise</Badge>;
       default: return <Badge>{planType}</Badge>;
     }
   };
 
   return (
     <div className="space-y-6">
-      <div>
-        <h2 className="text-2xl font-bold">Planuri de Abonament</h2>
-        <p className="text-muted-foreground">Configurează planurile disponibile pentru companii</p>
+      <div className="bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 text-white rounded-2xl p-6 shadow-xl">
+        <h2 className="text-2xl font-black flex items-center gap-3">
+          <div className="p-2 bg-white/20 rounded-lg">
+            <CreditCard className="h-6 w-6" />
+          </div>
+          Planuri de Abonament
+        </h2>
+        <p className="text-white/80 font-medium mt-1">Configurează planurile disponibile pentru companii</p>
       </div>
 
       {loading ? (
         <div className="flex justify-center py-8">
-          <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+          <div className="w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin" />
         </div>
       ) : (
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
           {plans.map((plan) => (
-            <Card key={plan.id} className={`${getPlanColor(plan.plan_type)} border-2 ${!plan.is_active ? 'opacity-50' : ''}`}>
-              <CardHeader className="pb-2">
+            <Card key={plan.id} className={`${getPlanColor(plan.plan_type)} border-2 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.02] ${!plan.is_active ? 'opacity-50' : ''}`}>
+              <CardHeader className="pb-3">
                 <div className="flex items-center justify-between">
                   {getPlanBadge(plan.plan_type)}
-                  <Button variant="ghost" size="sm" onClick={() => setEditingPlan(plan)}>
+                  <Button variant="ghost" size="sm" onClick={() => setEditingPlan(plan)} className="hover:bg-white/50">
                     <Edit className="h-4 w-4" />
                   </Button>
                 </div>
-                <CardTitle className="text-xl">{plan.name}</CardTitle>
+                <CardTitle className="text-2xl font-black text-slate-800">{plan.name}</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="mb-4">
-                  <span className="text-3xl font-bold">€{plan.price_monthly}</span>
-                  <span className="text-muted-foreground">/lună</span>
-                  <p className="text-sm text-muted-foreground">sau €{plan.price_yearly}/an</p>
+                <div className="mb-5 p-4 bg-white/60 rounded-xl border shadow-inner">
+                  <span className="text-4xl font-black text-slate-800">€{plan.price_monthly}</span>
+                  <span className="text-slate-600 font-medium">/lună</span>
+                  <p className="text-sm text-slate-500 mt-1 font-medium">sau €{plan.price_yearly}/an (-17%)</p>
                 </div>
 
-                <div className="space-y-2 text-sm">
-                  <div className="flex items-center gap-2">
-                    <Users className="h-4 w-4 text-muted-foreground" />
-                    <span>{plan.max_users ?? '∞'} utilizatori</span>
+                <div className="space-y-3 text-sm">
+                  <div className="flex items-center gap-3 p-2 bg-white/40 rounded-lg">
+                    <div className="p-1.5 bg-blue-500 rounded-md">
+                      <Users className="h-4 w-4 text-white" />
+                    </div>
+                    <span className="font-semibold text-slate-700">{plan.max_users ?? '∞'} utilizatori</span>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <BookOpen className="h-4 w-4 text-muted-foreground" />
-                    <span>{plan.max_chapters ?? 'Toate'} capitole</span>
+                  <div className="flex items-center gap-3 p-2 bg-white/40 rounded-lg">
+                    <div className="p-1.5 bg-purple-500 rounded-md">
+                      <BookOpen className="h-4 w-4 text-white" />
+                    </div>
+                    <span className="font-semibold text-slate-700">{plan.max_chapters ?? 'Toate'} capitole</span>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <CreditCard className={`h-4 w-4 ${plan.has_certificates ? 'text-green-600' : 'text-gray-400'}`} />
-                    <span className={!plan.has_certificates ? 'text-gray-400' : ''}>Certificate</span>
-                    {plan.has_certificates && <Check className="h-3 w-3 text-green-600" />}
+                  <div className={`flex items-center gap-3 p-2 rounded-lg ${plan.has_certificates ? 'bg-emerald-100/80' : 'bg-slate-100/80'}`}>
+                    <div className={`p-1.5 rounded-md ${plan.has_certificates ? 'bg-emerald-500' : 'bg-slate-300'}`}>
+                      <CreditCard className="h-4 w-4 text-white" />
+                    </div>
+                    <span className={`font-semibold ${plan.has_certificates ? 'text-emerald-700' : 'text-slate-400'}`}>Certificate</span>
+                    {plan.has_certificates && <Check className="h-4 w-4 text-emerald-600 ml-auto" />}
                   </div>
-                  <div className="flex items-center gap-2">
-                    <Bot className={`h-4 w-4 ${plan.has_ai_tutor ? 'text-green-600' : 'text-gray-400'}`} />
-                    <span className={!plan.has_ai_tutor ? 'text-gray-400' : ''}>AI Tutor</span>
-                    {plan.has_ai_tutor && <Check className="h-3 w-3 text-green-600" />}
+                  <div className={`flex items-center gap-3 p-2 rounded-lg ${plan.has_ai_tutor ? 'bg-emerald-100/80' : 'bg-slate-100/80'}`}>
+                    <div className={`p-1.5 rounded-md ${plan.has_ai_tutor ? 'bg-emerald-500' : 'bg-slate-300'}`}>
+                      <Bot className="h-4 w-4 text-white" />
+                    </div>
+                    <span className={`font-semibold ${plan.has_ai_tutor ? 'text-emerald-700' : 'text-slate-400'}`}>AI Tutor</span>
+                    {plan.has_ai_tutor && <Check className="h-4 w-4 text-emerald-600 ml-auto" />}
                   </div>
-                  <div className="flex items-center gap-2">
-                    <BarChart3 className={`h-4 w-4 ${plan.has_analytics ? 'text-green-600' : 'text-gray-400'}`} />
-                    <span className={!plan.has_analytics ? 'text-gray-400' : ''}>Analytics</span>
-                    {plan.has_analytics && <Check className="h-3 w-3 text-green-600" />}
+                  <div className={`flex items-center gap-3 p-2 rounded-lg ${plan.has_analytics ? 'bg-emerald-100/80' : 'bg-slate-100/80'}`}>
+                    <div className={`p-1.5 rounded-md ${plan.has_analytics ? 'bg-emerald-500' : 'bg-slate-300'}`}>
+                      <BarChart3 className="h-4 w-4 text-white" />
+                    </div>
+                    <span className={`font-semibold ${plan.has_analytics ? 'text-emerald-700' : 'text-slate-400'}`}>Analytics</span>
+                    {plan.has_analytics && <Check className="h-4 w-4 text-emerald-600 ml-auto" />}
                   </div>
-                  <div className="flex items-center gap-2">
-                    <Palette className={`h-4 w-4 ${plan.has_custom_branding ? 'text-green-600' : 'text-gray-400'}`} />
-                    <span className={!plan.has_custom_branding ? 'text-gray-400' : ''}>Branding Custom</span>
-                    {plan.has_custom_branding && <Check className="h-3 w-3 text-green-600" />}
+                  <div className={`flex items-center gap-3 p-2 rounded-lg ${plan.has_custom_branding ? 'bg-emerald-100/80' : 'bg-slate-100/80'}`}>
+                    <div className={`p-1.5 rounded-md ${plan.has_custom_branding ? 'bg-emerald-500' : 'bg-slate-300'}`}>
+                      <Palette className="h-4 w-4 text-white" />
+                    </div>
+                    <span className={`font-semibold ${plan.has_custom_branding ? 'text-emerald-700' : 'text-slate-400'}`}>Branding Custom</span>
+                    {plan.has_custom_branding && <Check className="h-4 w-4 text-emerald-600 ml-auto" />}
                   </div>
                 </div>
               </CardContent>

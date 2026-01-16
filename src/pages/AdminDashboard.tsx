@@ -446,93 +446,117 @@ export default function AdminDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-background p-6">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50/20 p-6">
       <div className="max-w-7xl mx-auto space-y-6">
-        {/* Header */}
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <Button variant="outline" size="icon" onClick={() => navigate('/')}>
-              <ArrowLeft className="h-4 w-4" />
-            </Button>
-            <div>
-              <h1 className="text-3xl font-bold">Admin Dashboard</h1>
-              <p className="text-muted-foreground">Gestionare utilizatori și progres</p>
+        {/* Header - Dark gradient with high visibility */}
+        <div className="admin-header text-white">
+          <div className="flex items-center justify-between flex-wrap gap-4">
+            <div className="flex items-center gap-4">
+              <Button 
+                variant="outline" 
+                size="icon" 
+                onClick={() => navigate('/')}
+                className="bg-white/10 border-white/30 text-white hover:bg-white/20 hover:text-white"
+              >
+                <ArrowLeft className="h-4 w-4" />
+              </Button>
+              <div>
+                <h1 className="text-3xl font-black tracking-tight">Admin Dashboard</h1>
+                <p className="text-white/80 font-medium">Gestionare utilizatori și progres training</p>
+              </div>
             </div>
-          </div>
-          <div className="flex items-center gap-2">
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button 
-                    variant="outline" 
-                    size="icon"
-                    onClick={handleToggleNotifications}
-                    className={notificationsEnabled ? 'text-green-600 border-green-300' : ''}
-                  >
-                    {notificationsEnabled ? (
-                      <Bell className="h-4 w-4" />
-                    ) : (
-                      <BellOff className="h-4 w-4" />
-                    )}
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  {notificationsEnabled 
-                    ? 'Notificări active pentru certificate noi' 
-                    : 'Activează notificările pentru certificate noi'}
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-            <Button onClick={exportToCSV}>
-              <Download className="h-4 w-4 mr-2" />
-              Export CSV
-            </Button>
+            <div className="flex items-center gap-3">
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button 
+                      variant="outline" 
+                      size="icon"
+                      onClick={handleToggleNotifications}
+                      className={`${notificationsEnabled 
+                        ? 'bg-emerald-500 border-emerald-400 text-white hover:bg-emerald-600' 
+                        : 'bg-white/10 border-white/30 text-white hover:bg-white/20'
+                      }`}
+                    >
+                      {notificationsEnabled ? (
+                        <Bell className="h-4 w-4" />
+                      ) : (
+                        <BellOff className="h-4 w-4" />
+                      )}
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    {notificationsEnabled 
+                      ? 'Notificări active pentru certificate noi' 
+                      : 'Activează notificările pentru certificate noi'}
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+              <Button 
+                onClick={exportToCSV}
+                className="bg-white text-slate-800 hover:bg-white/90 font-bold shadow-lg"
+              >
+                <Download className="h-4 w-4 mr-2" />
+                Export CSV
+              </Button>
+            </div>
           </div>
         </div>
 
-        {/* Stats Cards */}
+        {/* Stats Cards - Vibrant colors with shadows */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <Card>
+          <Card className="admin-stat-card-blue">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium">Total Utilizatori</CardTitle>
-              <Users className="h-4 w-4 text-muted-foreground" />
+              <CardTitle className="text-sm font-bold text-blue-800">Total Utilizatori</CardTitle>
+              <div className="p-2 bg-blue-500 rounded-lg shadow-md">
+                <Users className="h-5 w-5 text-white" />
+              </div>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{users.length}</div>
+              <div className="admin-stat-value text-blue-700">{users.length}</div>
+              <p className="text-xs text-blue-600 font-medium mt-1">utilizatori înregistrați</p>
             </CardContent>
           </Card>
           
-          <Card>
+          <Card className="admin-stat-card-purple">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium">Capitole Total</CardTitle>
-              <BookOpen className="h-4 w-4 text-muted-foreground" />
+              <CardTitle className="text-sm font-bold text-purple-800">Capitole Total</CardTitle>
+              <div className="p-2 bg-purple-500 rounded-lg shadow-md">
+                <BookOpen className="h-5 w-5 text-white" />
+              </div>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{users[0]?.totalChapters || 40}</div>
+              <div className="admin-stat-value text-purple-700">{users[0]?.totalChapters || 40}</div>
+              <p className="text-xs text-purple-600 font-medium mt-1">capitole disponibile</p>
             </CardContent>
           </Card>
           
-          <Card>
+          <Card className="admin-stat-card-amber">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium">Scor Mediu Global</CardTitle>
-              <Trophy className="h-4 w-4 text-muted-foreground" />
+              <CardTitle className="text-sm font-bold text-amber-800">Scor Mediu Global</CardTitle>
+              <div className="p-2 bg-amber-500 rounded-lg shadow-md">
+                <Trophy className="h-5 w-5 text-white" />
+              </div>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">
+              <div className="admin-stat-value text-amber-700">
                 {users.length > 0 
                   ? Math.round(users.reduce((a, b) => a + b.averageScore, 0) / users.length)
                   : 0}%
               </div>
+              <p className="text-xs text-amber-600 font-medium mt-1">medie toate scorurile</p>
             </CardContent>
           </Card>
           
-          <Card>
+          <Card className="admin-stat-card-green">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium">Utilizatori Activi (7 zile)</CardTitle>
-              <Clock className="h-4 w-4 text-muted-foreground" />
+              <CardTitle className="text-sm font-bold text-emerald-800">Utilizatori Activi (7 zile)</CardTitle>
+              <div className="p-2 bg-emerald-500 rounded-lg shadow-md">
+                <Clock className="h-5 w-5 text-white" />
+              </div>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">
+              <div className="admin-stat-value text-emerald-700">
                 {users.filter(u => {
                   if (!u.lastActivity) return false;
                   const lastActive = new Date(u.lastActivity);
@@ -541,25 +565,26 @@ export default function AdminDashboard() {
                   return lastActive > weekAgo;
                 }).length}
               </div>
+              <p className="text-xs text-emerald-600 font-medium mt-1">activi recent</p>
             </CardContent>
           </Card>
         </div>
 
         {/* Tabs for different sections */}
         <Tabs defaultValue="users" className="w-full">
-          <TabsList className="flex-wrap">
+          <TabsList className="admin-tabs-list flex-wrap h-auto">
             {/* Multi-tenant Management - Super Admin only */}
             {isSuperAdmin && (
               <>
-                <TabsTrigger value="companies" className="flex items-center gap-2">
+                <TabsTrigger value="companies" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-blue-700 data-[state=active]:border-b-2 data-[state=active]:border-blue-500">
                   <Building2 className="h-4 w-4" />
                   Companii
                 </TabsTrigger>
-                <TabsTrigger value="plans" className="flex items-center gap-2">
+                <TabsTrigger value="plans" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-emerald-700 data-[state=active]:border-b-2 data-[state=active]:border-emerald-500">
                   <CreditCard className="h-4 w-4" />
                   Planuri
                 </TabsTrigger>
-                <TabsTrigger value="premium-chapters" className="flex items-center gap-2">
+                <TabsTrigger value="premium-chapters" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-amber-700 data-[state=active]:border-b-2 data-[state=active]:border-amber-500">
                   <Lock className="h-4 w-4" />
                   Premium Chapters
                 </TabsTrigger>
@@ -568,80 +593,80 @@ export default function AdminDashboard() {
             {/* Company Admin and above */}
             {(isCompanyAdmin || isSuperAdmin) && (
               <>
-                <TabsTrigger value="company-users" className="flex items-center gap-2">
+                <TabsTrigger value="company-users" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-purple-700 data-[state=active]:border-b-2 data-[state=active]:border-purple-500">
                   <Users className="h-4 w-4" />
                   Utilizatori Companie
                 </TabsTrigger>
-                <TabsTrigger value="chapters" className="flex items-center gap-2">
+                <TabsTrigger value="chapters" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-indigo-700 data-[state=active]:border-b-2 data-[state=active]:border-indigo-500">
                   <BookOpen className="h-4 w-4" />
                   Capitole
                 </TabsTrigger>
               </>
             )}
-            <TabsTrigger value="users" className="flex items-center gap-2">
+            <TabsTrigger value="users" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-blue-700 data-[state=active]:border-b-2 data-[state=active]:border-blue-500">
               <Users className="h-4 w-4" />
               Toate Profilurile
             </TabsTrigger>
-            <TabsTrigger value="analytics" className="flex items-center gap-2">
+            <TabsTrigger value="analytics" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-orange-700 data-[state=active]:border-b-2 data-[state=active]:border-orange-500">
               <BarChart3 className="h-4 w-4" />
               Analiză Quiz
             </TabsTrigger>
-            <TabsTrigger value="usage" className="flex items-center gap-2">
+            <TabsTrigger value="usage" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-cyan-700 data-[state=active]:border-b-2 data-[state=active]:border-cyan-500">
               <Activity className="h-4 w-4" />
               Utilizare
             </TabsTrigger>
-            <TabsTrigger value="training-time" className="flex items-center gap-2">
+            <TabsTrigger value="training-time" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-rose-700 data-[state=active]:border-b-2 data-[state=active]:border-rose-500">
               <Timer className="h-4 w-4" />
               Timp Training
             </TabsTrigger>
-            <TabsTrigger value="governance" className="flex items-center gap-2">
+            <TabsTrigger value="governance" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-slate-700 data-[state=active]:border-b-2 data-[state=active]:border-slate-500">
               <Shield className="h-4 w-4" />
               Guvernanță
             </TabsTrigger>
-            <TabsTrigger value="auto-updates" className="flex items-center gap-2">
+            <TabsTrigger value="auto-updates" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-teal-700 data-[state=active]:border-b-2 data-[state=active]:border-teal-500">
               <RefreshCw className="h-4 w-4" />
-              Auto-Update Engine
+              Auto-Update
             </TabsTrigger>
-            <TabsTrigger value="learning-kpi" className="flex items-center gap-2">
+            <TabsTrigger value="learning-kpi" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-violet-700 data-[state=active]:border-b-2 data-[state=active]:border-violet-500">
               <TrendingUp className="h-4 w-4" />
               Learning KPI
             </TabsTrigger>
-            <TabsTrigger value="competency-gap" className="flex items-center gap-2">
+            <TabsTrigger value="competency-gap" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-pink-700 data-[state=active]:border-b-2 data-[state=active]:border-pink-500">
               <Target className="h-4 w-4" />
               Lipsuri Competențe
             </TabsTrigger>
-            <TabsTrigger value="cron-jobs" className="flex items-center gap-2">
+            <TabsTrigger value="cron-jobs" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-lime-700 data-[state=active]:border-b-2 data-[state=active]:border-lime-500">
               <Calendar className="h-4 w-4" />
               Cron Jobs
             </TabsTrigger>
-            <TabsTrigger value="quality" className="flex items-center gap-2">
+            <TabsTrigger value="quality" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-fuchsia-700 data-[state=active]:border-b-2 data-[state=active]:border-fuchsia-500">
               <FileSearch className="h-4 w-4" />
               Calitate Conținut
             </TabsTrigger>
-            <TabsTrigger value="certificates" className="flex items-center gap-2">
+            <TabsTrigger value="certificates" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-yellow-700 data-[state=active]:border-b-2 data-[state=active]:border-yellow-500">
               <Award className="h-4 w-4" />
               Certificate
             </TabsTrigger>
-            <TabsTrigger value="realtime" className="flex items-center gap-2">
+            <TabsTrigger value="realtime" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-red-700 data-[state=active]:border-b-2 data-[state=active]:border-red-500">
               <Radio className="h-4 w-4" />
               Timp Real
             </TabsTrigger>
             {/* Enterprise Deployment - Super Admin only */}
             {isSuperAdmin && (
               <>
-                <TabsTrigger value="monitoring" className="flex items-center gap-2">
+                <TabsTrigger value="monitoring" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-emerald-700 data-[state=active]:border-b-2 data-[state=active]:border-emerald-500">
                   <Server className="h-4 w-4" />
                   Monitorizare
                 </TabsTrigger>
-                <TabsTrigger value="backup" className="flex items-center gap-2">
+                <TabsTrigger value="backup" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-sky-700 data-[state=active]:border-b-2 data-[state=active]:border-sky-500">
                   <Database className="h-4 w-4" />
                   Backup
                 </TabsTrigger>
-                <TabsTrigger value="incidents" className="flex items-center gap-2">
+                <TabsTrigger value="incidents" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-orange-700 data-[state=active]:border-b-2 data-[state=active]:border-orange-500">
                   <AlertTriangle className="h-4 w-4" />
                   Incidente
                 </TabsTrigger>
-                <TabsTrigger value="production" className="flex items-center gap-2">
+                <TabsTrigger value="production" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-green-700 data-[state=active]:border-b-2 data-[state=active]:border-green-500">
                   <CheckCircle className="h-4 w-4" />
                   Production
                 </TabsTrigger>

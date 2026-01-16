@@ -93,13 +93,13 @@ export function PremiumChaptersManager() {
   const getPlanBadge = (plan: PlanType | undefined) => {
     switch (plan) {
       case 'starter':
-        return <Badge className="bg-blue-500"><Star className="h-3 w-3 mr-1" />Starter+</Badge>;
+        return <Badge className="bg-blue-500 text-white font-bold px-3 py-1 shadow-md"><Star className="h-3 w-3 mr-1" />Starter+</Badge>;
       case 'professional':
-        return <Badge className="bg-purple-500"><Sparkles className="h-3 w-3 mr-1" />Pro+</Badge>;
+        return <Badge className="bg-purple-500 text-white font-bold px-3 py-1 shadow-md"><Sparkles className="h-3 w-3 mr-1" />Pro+</Badge>;
       case 'enterprise':
-        return <Badge className="bg-amber-500"><Crown className="h-3 w-3 mr-1" />Enterprise</Badge>;
+        return <Badge className="bg-gradient-to-r from-amber-500 to-orange-500 text-white font-bold px-3 py-1 shadow-md"><Crown className="h-3 w-3 mr-1" />Enterprise</Badge>;
       default:
-        return <Badge variant="secondary"><Unlock className="h-3 w-3 mr-1" />Free</Badge>;
+        return <Badge variant="secondary" className="bg-slate-200 text-slate-700 font-bold px-3 py-1"><Unlock className="h-3 w-3 mr-1" />Free</Badge>;
     }
   };
 
@@ -123,47 +123,52 @@ export function PremiumChaptersManager() {
   }, {} as Record<string, Chapter[]>);
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2">
-          <Lock className="h-5 w-5" />
-          Capitole Premium
+    <Card className="admin-section-card border-amber-200">
+      <CardHeader className="admin-section-header bg-gradient-to-r from-amber-50 via-orange-50 to-yellow-50">
+        <CardTitle className="flex items-center gap-3 text-2xl">
+          <div className="p-2 bg-amber-500 rounded-lg shadow-md">
+            <Lock className="h-6 w-6 text-white" />
+          </div>
+          <span className="text-amber-800">Capitole Premium</span>
         </CardTitle>
-        <CardDescription>
+        <CardDescription className="text-amber-700 font-medium">
           Configurează ce plan minim este necesar pentru a accesa fiecare capitol
         </CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="p-6">
         {loading ? (
           <div className="flex justify-center py-8">
-            <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+            <div className="w-8 h-8 border-4 border-amber-500 border-t-transparent rounded-full animate-spin" />
           </div>
         ) : (
-          <div className="space-y-6">
+          <div className="space-y-8">
             {Object.entries(groupedChapters).map(([module, moduleChapters]) => (
-              <div key={module}>
-                <h3 className="font-semibold text-lg mb-3 flex items-center gap-2">
-                  <BookOpen className="h-4 w-4" />
-                  {module}
+              <div key={module} className="bg-white rounded-xl border-2 border-slate-100 overflow-hidden shadow-sm">
+                <h3 className="font-bold text-lg p-4 flex items-center gap-2 bg-gradient-to-r from-slate-100 to-slate-50 border-b">
+                  <div className="p-1.5 bg-indigo-500 rounded-lg">
+                    <BookOpen className="h-4 w-4 text-white" />
+                  </div>
+                  <span className="text-slate-800">{module}</span>
+                  <Badge className="ml-2 bg-slate-600">{moduleChapters.length} capitole</Badge>
                 </h3>
                 <Table>
                   <TableHeader>
-                    <TableRow>
-                      <TableHead className="w-12">#</TableHead>
-                      <TableHead>Capitol</TableHead>
-                      <TableHead>Restricție Curentă</TableHead>
-                      <TableHead className="w-48">Plan Minim</TableHead>
+                    <TableRow className="bg-slate-50 hover:bg-slate-50">
+                      <TableHead className="w-12 font-bold text-slate-700">#</TableHead>
+                      <TableHead className="font-bold text-slate-700">Capitol</TableHead>
+                      <TableHead className="font-bold text-slate-700">Restricție Curentă</TableHead>
+                      <TableHead className="w-48 font-bold text-slate-700">Plan Minim</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
                     {moduleChapters.map((chapter) => {
                       const currentPlan = premiumChapters.get(chapter.id);
                       return (
-                        <TableRow key={chapter.id}>
-                          <TableCell className="font-mono text-muted-foreground">
+                        <TableRow key={chapter.id} className="hover:bg-amber-50/50 border-b">
+                          <TableCell className="font-mono text-slate-500 font-bold">
                             {chapter.order_index}
                           </TableCell>
-                          <TableCell className="font-medium">
+                          <TableCell className="font-semibold text-slate-800">
                             {chapter.slug.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}
                           </TableCell>
                           <TableCell>
@@ -175,28 +180,28 @@ export function PremiumChaptersManager() {
                               onValueChange={(value) => updateChapterPlan(chapter.id, value)}
                               disabled={saving === chapter.id}
                             >
-                              <SelectTrigger className="w-40">
+                              <SelectTrigger className="w-44 border-2 font-medium">
                                 <SelectValue />
                               </SelectTrigger>
-                              <SelectContent>
+                              <SelectContent className="bg-white border-2 shadow-xl">
                                 <SelectItem value="free">
-                                  <span className="flex items-center gap-2">
-                                    <Unlock className="h-3 w-3" /> Free
+                                  <span className="flex items-center gap-2 font-medium">
+                                    <Unlock className="h-4 w-4 text-slate-500" /> Free
                                   </span>
                                 </SelectItem>
                                 <SelectItem value="starter">
-                                  <span className="flex items-center gap-2">
-                                    <Star className="h-3 w-3 text-blue-500" /> Starter+
+                                  <span className="flex items-center gap-2 font-medium">
+                                    <Star className="h-4 w-4 text-blue-500" /> Starter+
                                   </span>
                                 </SelectItem>
                                 <SelectItem value="professional">
-                                  <span className="flex items-center gap-2">
-                                    <Sparkles className="h-3 w-3 text-purple-500" /> Professional+
+                                  <span className="flex items-center gap-2 font-medium">
+                                    <Sparkles className="h-4 w-4 text-purple-500" /> Professional+
                                   </span>
                                 </SelectItem>
                                 <SelectItem value="enterprise">
-                                  <span className="flex items-center gap-2">
-                                    <Crown className="h-3 w-3 text-amber-500" /> Enterprise
+                                  <span className="flex items-center gap-2 font-medium">
+                                    <Crown className="h-4 w-4 text-amber-500" /> Enterprise
                                   </span>
                                 </SelectItem>
                               </SelectContent>
