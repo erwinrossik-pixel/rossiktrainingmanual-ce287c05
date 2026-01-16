@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Award, Download, CheckCircle2, ExternalLink, Copy, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -16,6 +16,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
 import { toast } from "sonner";
 import { addYears, format } from "date-fns";
+import QRCode from "qrcode";
 
 interface CertificateProps {
   isEligible: boolean;
@@ -46,11 +47,35 @@ export function Certificate({
     expiresAt: Date;
   } | null>(null);
   const [codeCopied, setCodeCopied] = useState(false);
+  const [qrCodeDataUrl, setQrCodeDataUrl] = useState<string>("");
   const certificateRef = useRef<HTMLDivElement>(null);
 
   const verificationUrl = typeof window !== "undefined" 
     ? `${window.location.origin}/verify/` 
     : "https://rossiktrainingmanual.lovable.app/verify/";
+
+  // Generate QR code when certificate is generated
+  useEffect(() => {
+    const generateQRCode = async () => {
+      if (generatedCertificate) {
+        try {
+          const url = `${verificationUrl}${generatedCertificate.code}`;
+          const dataUrl = await QRCode.toDataURL(url, {
+            width: 100,
+            margin: 1,
+            color: {
+              dark: '#1a1a1a',
+              light: '#ffffff',
+            },
+          });
+          setQrCodeDataUrl(dataUrl);
+        } catch (err) {
+          console.error('Error generating QR code:', err);
+        }
+      }
+    };
+    generateQRCode();
+  }, [generatedCertificate, verificationUrl]);
 
   const handleGenerateCertificate = async () => {
     if (!certificateRef.current || !traineeName.trim() || !user) return;
@@ -340,18 +365,31 @@ export function Certificate({
                   )}
                 </div>
 
-                {/* Footer */}
-                <div className="absolute bottom-8 left-0 right-0 flex justify-between px-16">
+                {/* Footer with QR Code */}
+                <div className="absolute bottom-8 left-0 right-0 flex justify-between items-end px-12">
                   <div className="text-center">
-                    <div className="w-32 border-t border-gray-400 mb-2" />
+                    <div className="w-28 border-t border-gray-400 mb-2" />
                     <p className="text-xs text-gray-500">Training Director</p>
                   </div>
-                  <div className="text-center">
-                    <p className="text-xs text-gray-400 mb-1">Verify at:</p>
-                    <p className="text-xs font-mono text-primary">rossiktrainingmanual.lovable.app/verify</p>
+                  
+                  {/* QR Code in center */}
+                  <div className="text-center flex flex-col items-center">
+                    {qrCodeDataUrl && generatedCertificate ? (
+                      <img 
+                        src={qrCodeDataUrl} 
+                        alt="Verification QR Code" 
+                        className="w-16 h-16 mb-1"
+                      />
+                    ) : (
+                      <div className="w-16 h-16 border-2 border-dashed border-gray-300 flex items-center justify-center mb-1">
+                        <span className="text-[8px] text-gray-400">QR Code</span>
+                      </div>
+                    )}
+                    <p className="text-[8px] text-gray-400">Scan to verify</p>
                   </div>
+                  
                   <div className="text-center">
-                    <div className="w-32 border-t border-gray-400 mb-2" />
+                    <div className="w-28 border-t border-gray-400 mb-2" />
                     <p className="text-xs text-gray-500">Date of Issue</p>
                   </div>
                 </div>
