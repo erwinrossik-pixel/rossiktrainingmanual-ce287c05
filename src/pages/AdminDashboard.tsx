@@ -27,6 +27,7 @@ import RealTimeActivityPanel from '@/components/admin/RealTimeActivityPanel';
 import { CompanyManagement } from '@/components/admin/CompanyManagement';
 import { UserManagement } from '@/components/admin/UserManagement';
 import { SubscriptionPlansManager } from '@/components/admin/SubscriptionPlansManager';
+import { ChapterManagement } from '@/components/admin/ChapterManagement';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
@@ -555,10 +556,16 @@ export default function AdminDashboard() {
             )}
             {/* Company Admin and above */}
             {(isCompanyAdmin || isSuperAdmin) && (
-              <TabsTrigger value="company-users" className="flex items-center gap-2">
-                <Users className="h-4 w-4" />
-                Utilizatori Companie
-              </TabsTrigger>
+              <>
+                <TabsTrigger value="company-users" className="flex items-center gap-2">
+                  <Users className="h-4 w-4" />
+                  Utilizatori Companie
+                </TabsTrigger>
+                <TabsTrigger value="chapters" className="flex items-center gap-2">
+                  <BookOpen className="h-4 w-4" />
+                  Capitole
+                </TabsTrigger>
+              </>
             )}
             <TabsTrigger value="users" className="flex items-center gap-2">
               <Users className="h-4 w-4" />
@@ -620,9 +627,14 @@ export default function AdminDashboard() {
 
           {/* User Management for Company */}
           {(isCompanyAdmin || isSuperAdmin) && (
-            <TabsContent value="company-users" className="mt-6">
-              <UserManagement />
-            </TabsContent>
+            <>
+              <TabsContent value="company-users" className="mt-6">
+                <UserManagement />
+              </TabsContent>
+              <TabsContent value="chapters" className="mt-6">
+                <ChapterManagement />
+              </TabsContent>
+            </>
           )}
 
           <TabsContent value="users" className="mt-6">
