@@ -23,3 +23,12 @@ verify_jwt = false
 
 [functions.send-certificate-email]
 verify_jwt = false
+
+[functions.health-check]
+verify_jwt = false
+
+[functions.backup-manager]
+verify_jwt = false
+
+[functions.error-tracker]
+verify_jwt = false
