@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, lazy, Suspense } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { Skeleton } from '@/components/ui/skeleton';
 import { 
   Users, 
   Activity, 
@@ -13,11 +14,14 @@ import {
   Globe,
   TrendingUp,
   UserCheck,
-  BookOpen
+  BookOpen,
+  MapPin
 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { format, formatDistanceToNow, subMinutes } from 'date-fns';
 import { ro } from 'date-fns/locale';
+
+const ActiveUsersMap = lazy(() => import('./ActiveUsersMap'));
 
 interface UserSession {
   id: string;
@@ -477,6 +481,23 @@ const RealTimeActivityPanel: React.FC = () => {
           </div>
         </CardContent>
       </Card>
+
+      {/* Active Users Map */}
+      <Suspense fallback={
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <MapPin className="h-5 w-5 text-primary" />
+              Hartă Utilizatori Activi
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Skeleton className="h-[500px] w-full" />
+          </CardContent>
+        </Card>
+      }>
+        <ActiveUsersMap />
+      </Suspense>
     </div>
   );
 };
