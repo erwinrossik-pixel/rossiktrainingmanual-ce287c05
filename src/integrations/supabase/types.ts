@@ -1310,9 +1310,13 @@ export type Database = {
       user_sessions: {
         Row: {
           browser: string | null
+          city: string | null
+          country: string | null
           device_type: string | null
           id: string
           last_activity_at: string
+          latitude: number | null
+          longitude: number | null
           pages_visited: number | null
           session_id: string
           started_at: string
@@ -1321,9 +1325,13 @@ export type Database = {
         }
         Insert: {
           browser?: string | null
+          city?: string | null
+          country?: string | null
           device_type?: string | null
           id?: string
           last_activity_at?: string
+          latitude?: number | null
+          longitude?: number | null
           pages_visited?: number | null
           session_id: string
           started_at?: string
@@ -1332,9 +1340,13 @@ export type Database = {
         }
         Update: {
           browser?: string | null
+          city?: string | null
+          country?: string | null
           device_type?: string | null
           id?: string
           last_activity_at?: string
+          latitude?: number | null
+          longitude?: number | null
           pages_visited?: number | null
           session_id?: string
           started_at?: string

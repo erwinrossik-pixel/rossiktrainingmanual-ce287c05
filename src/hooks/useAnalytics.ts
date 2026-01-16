@@ -57,11 +57,26 @@ export function useAnalytics() {
         .maybeSingle();
 
       if (!existing) {
+        // Try to get location from edge function
+        let locationData = { latitude: null, longitude: null, country: null, city: null };
+        try {
+          const { data, error } = await supabase.functions.invoke('get-location');
+          if (!error && data) {
+            locationData = data;
+          }
+        } catch (locError) {
+          console.log('Could not get location:', locError);
+        }
+
         await supabase.from('user_sessions').insert({
           user_id: user.id,
           session_id: sessionId.current,
           device_type: getDeviceType(),
           browser: getBrowser(),
+          latitude: locationData.latitude,
+          longitude: locationData.longitude,
+          country: locationData.country,
+          city: locationData.city,
         });
       }
       sessionInitialized.current = true;
