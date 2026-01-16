@@ -707,6 +707,50 @@ export type Database = {
           },
         ]
       }
+      company_reports: {
+        Row: {
+          company_id: string
+          created_at: string
+          generated_by: string
+          id: string
+          pdf_url: string | null
+          report_data: Json | null
+          report_period_end: string
+          report_period_start: string
+          report_type: string
+        }
+        Insert: {
+          company_id: string
+          created_at?: string
+          generated_by: string
+          id?: string
+          pdf_url?: string | null
+          report_data?: Json | null
+          report_period_end: string
+          report_period_start: string
+          report_type: string
+        }
+        Update: {
+          company_id?: string
+          created_at?: string
+          generated_by?: string
+          id?: string
+          pdf_url?: string | null
+          report_data?: Json | null
+          report_period_end?: string
+          report_period_start?: string
+          report_type?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "company_reports_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       company_settings: {
         Row: {
           active_languages: string[] | null
@@ -1367,6 +1411,51 @@ export type Database = {
         }
         Relationships: []
       }
+      learning_goals: {
+        Row: {
+          completed_at: string | null
+          created_at: string
+          current_value: number | null
+          description: string | null
+          goal_type: string
+          id: string
+          status: string | null
+          target_date: string | null
+          target_value: number
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          completed_at?: string | null
+          created_at?: string
+          current_value?: number | null
+          description?: string | null
+          goal_type: string
+          id?: string
+          status?: string | null
+          target_date?: string | null
+          target_value: number
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          completed_at?: string | null
+          created_at?: string
+          current_value?: number | null
+          description?: string | null
+          goal_type?: string
+          id?: string
+          status?: string | null
+          target_date?: string | null
+          target_value?: number
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       learning_kpi_cache: {
         Row: {
           computed_at: string
@@ -1568,6 +1657,39 @@ export type Database = {
           last_name?: string | null
           role?: Database["public"]["Enums"]["app_role"]
           updated_at?: string
+        }
+        Relationships: []
+      }
+      push_subscriptions: {
+        Row: {
+          auth_key: string
+          created_at: string
+          endpoint: string
+          id: string
+          is_active: boolean | null
+          p256dh_key: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          auth_key: string
+          created_at?: string
+          endpoint: string
+          id?: string
+          is_active?: boolean | null
+          p256dh_key: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          auth_key?: string
+          created_at?: string
+          endpoint?: string
+          id?: string
+          is_active?: boolean | null
+          p256dh_key?: string
+          updated_at?: string
+          user_id?: string
         }
         Relationships: []
       }
