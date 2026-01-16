@@ -468,7 +468,7 @@ export function SoftSkillsChapter() {
           title={ct("quizTitle")}
           questions={quizzes["soft-skills"]}
           chapterId="soft-skills"
-          questionsPerRound={5}
+          questionsPerRound={10}
         />
       )}
     </div>
