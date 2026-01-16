@@ -59,10 +59,24 @@ const getNextRunTime = (schedule: string): Date | null => {
   if (parts.length !== 5) return null;
   
   const [minute, hour] = parts;
+  
+  // Can't calculate next run for wildcard schedules
+  if (minute.includes('*') || hour.includes('*')) {
+    return null;
+  }
+  
+  const parsedHour = parseInt(hour, 10);
+  const parsedMinute = parseInt(minute, 10);
+  
+  // Validate parsed values
+  if (isNaN(parsedHour) || isNaN(parsedMinute)) {
+    return null;
+  }
+  
   const now = new Date();
   const nextRun = new Date();
   
-  nextRun.setUTCHours(parseInt(hour), parseInt(minute), 0, 0);
+  nextRun.setUTCHours(parsedHour, parsedMinute, 0, 0);
   
   if (nextRun <= now) {
     nextRun.setDate(nextRun.getDate() + 1);
