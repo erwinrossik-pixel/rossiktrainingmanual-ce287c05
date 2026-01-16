@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, memo } from "react";
+import { useState, useEffect, useCallback, memo, lazy, Suspense } from "react";
 import { useNavigate } from "react-router-dom";
 import { Sidebar } from "@/components/manual/Sidebar";
 import { ManualContent } from "@/components/manual/ManualContent";
@@ -10,6 +10,9 @@ import { useCompany } from "@/contexts/CompanyContext";
 import { useAnalytics } from "@/hooks/useAnalytics";
 import { PendingApproval } from "@/components/PendingApproval";
 import { TrialBanner } from "@/components/subscription";
+
+// Lazy load OperationalSimulation for better performance
+const OperationalSimulation = lazy(() => import("@/components/manual/OperationalSimulation"));
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
@@ -93,6 +96,7 @@ function ManualApp() {
   const { isPendingApproval, company, branding } = useCompany();
   const [activeChapter, setActiveChapter] = useState("intro");
   const [showDashboard, setShowDashboard] = useState(false);
+  const [showSimulations, setShowSimulations] = useState(false);
   const { visitChapter } = useProgressContext();
   const { trackChapterVisit } = useAnalytics();
   const lastTrackedChapter = useState<string>("");
@@ -101,25 +105,36 @@ function ManualApp() {
   const handleChapterChange = useCallback((chapter: string) => {
     setActiveChapter(chapter);
     setShowDashboard(false);
+    setShowSimulations(false);
   }, []);
 
   // Memoized dashboard handlers
-  const handleShowDashboard = useCallback(() => setShowDashboard(true), []);
+  const handleShowDashboard = useCallback(() => {
+    setShowDashboard(true);
+    setShowSimulations(false);
+  }, []);
   const handleCloseDashboard = useCallback(() => setShowDashboard(false), []);
+
+  // Memoized simulations handlers
+  const handleShowSimulations = useCallback(() => {
+    setShowSimulations(true);
+    setShowDashboard(false);
+  }, []);
 
   const handleNavigateFromDashboard = useCallback((chapterId: string) => {
     setActiveChapter(chapterId);
     setShowDashboard(false);
+    setShowSimulations(false);
   }, []);
 
   // Track chapter visits - only when chapter actually changes
   useEffect(() => {
-    if (!showDashboard && activeChapter !== lastTrackedChapter[0]) {
+    if (!showDashboard && !showSimulations && activeChapter !== lastTrackedChapter[0]) {
       visitChapter(activeChapter);
       trackChapterVisit(activeChapter);
       lastTrackedChapter[0] = activeChapter;
     }
-  }, [activeChapter, showDashboard]);
+  }, [activeChapter, showDashboard, showSimulations]);
 
   // Show pending approval screen if user is waiting for approval
   if (isPendingApproval) {
@@ -142,8 +157,17 @@ function ManualApp() {
         activeChapter={activeChapter} 
         onChapterChange={handleChapterChange}
         onShowDashboard={handleShowDashboard}
+        onShowSimulations={handleShowSimulations}
       />
-      {showDashboard ? (
+      {showSimulations ? (
+        <main className="lg:ml-72 min-h-screen p-6 lg:p-10">
+          <Suspense fallback={<div className="flex items-center justify-center h-64">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+          </div>}>
+            <OperationalSimulation />
+          </Suspense>
+        </main>
+      ) : showDashboard ? (
         <main className="lg:ml-72 min-h-screen p-6 lg:p-10">
           <ProgressDashboard 
             onNavigate={handleNavigateFromDashboard}
