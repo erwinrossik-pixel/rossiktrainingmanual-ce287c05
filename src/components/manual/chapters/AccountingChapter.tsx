@@ -321,7 +321,7 @@ export function AccountingChapter() {
           title={ct("quizTitle")}
           questions={quizzes["accounting"]}
           chapterId="accounting"
-          questionsPerRound={5}
+          questionsPerRound={10}
         />
       )}
     </div>

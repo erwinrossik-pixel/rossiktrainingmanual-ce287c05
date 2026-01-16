@@ -320,7 +320,7 @@ export function WarehouseChapter() {
           title={ct("quizTitle")}
           questions={quizzes["warehouse"]}
           chapterId="warehouse"
-          questionsPerRound={5}
+          questionsPerRound={10}
         />
       )}
     </div>

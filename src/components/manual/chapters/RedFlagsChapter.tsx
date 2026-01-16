@@ -408,7 +408,7 @@ export function RedFlagsChapter() {
           title={ct("knowledgeCheck")}
           questions={quizzes["red-flags"]}
           chapterId="red-flags"
-          questionsPerRound={5}
+          questionsPerRound={10}
         />
       )}
     </div>

@@ -650,7 +650,7 @@ export function TechnologyChapter() {
           title={ct("quizTitle")}
           questions={quizzes["technology"]}
           chapterId="technology"
-          questionsPerRound={5}
+          questionsPerRound={10}
         />
       )}
     </div>
