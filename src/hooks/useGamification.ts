@@ -2,6 +2,27 @@ import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from './useAuth';
 
+// Helper to create notification in DB
+const createNotificationInDB = async (
+  userId: string,
+  title: string,
+  message: string,
+  type: string,
+  icon?: string
+) => {
+  try {
+    await supabase.from('user_notifications').insert({
+      user_id: userId,
+      title,
+      message,
+      type,
+      icon
+    });
+  } catch (error) {
+    console.error('[Gamification] Error creating notification:', error);
+  }
+};
+
 export interface Achievement {
   id: string;
   name: { ro: string; de: string; en: string };
@@ -295,6 +316,17 @@ export function useGamification() {
       console.error('[Gamification] Error updating gamification:', updateError);
     } else {
       console.log('[Gamification] Updated gamification: +' + xpEarned + ' XP, Level ' + newLevel + ', Streak ' + newStreak);
+      
+      // Create level-up notification
+      if (levelUp) {
+        await createNotificationInDB(
+          user.id,
+          `🎉 Nivel ${newLevel} atins!`,
+          `Felicitări! Ai avansat la nivelul ${newLevel}. Continuă să înveți pentru a progresa!`,
+          'success',
+          '🚀'
+        );
+      }
     }
 
     // Check for new achievements
@@ -361,6 +393,15 @@ export function useGamification() {
         } else {
           console.log('[Gamification] Achievement unlocked:', achievement.id);
           newAchievements.push(achievement);
+          
+          // Create achievement notification
+          await createNotificationInDB(
+            user.id,
+            `${achievement.icon} ${achievement.name.ro}`,
+            `${achievement.description.ro}${achievement.xpReward > 0 ? ` (+${achievement.xpReward} XP)` : ''}`,
+            'achievement',
+            achievement.icon
+          );
           
           // Add achievement XP bonus if any
           if (achievement.xpReward > 0) {

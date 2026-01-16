@@ -10,6 +10,7 @@ import { useCompany } from "@/contexts/CompanyContext";
 import { useAnalytics } from "@/hooks/useAnalytics";
 import { PendingApproval } from "@/components/PendingApproval";
 import { TrialBanner } from "@/components/subscription";
+import NotificationCenter from "@/components/NotificationCenter";
 
 // Lazy load OperationalSimulation for better performance
 const OperationalSimulation = lazy(() => import("@/components/manual/OperationalSimulation"));
@@ -149,7 +150,8 @@ function ManualApp() {
       </div>
       
       {/* Fixed User Menu in top-right */}
-      <div className="fixed top-4 right-4 z-50">
+      <div className="fixed top-4 right-4 z-50 flex items-center gap-2">
+        <NotificationCenter />
         <UserMenu />
       </div>
       
