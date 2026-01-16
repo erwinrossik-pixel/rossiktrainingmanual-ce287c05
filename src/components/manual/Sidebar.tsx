@@ -3,7 +3,7 @@ import {
   Building2, Route, Clock, Laptop, GraduationCap, AlertTriangle, 
   ClipboardList, Target, Menu, X, Phone, MessageSquare, Scale,
   FileText, Flame, Book, Lightbulb, CheckCircle2, BarChart3, Award, Lock,
-  Brain, Leaf, BadgeCheck, Cpu, Globe, Zap, Gem, Train, Network, TrendingUp
+  Brain, Leaf, BadgeCheck, Cpu, Globe, Zap, Gem, Train, Network, TrendingUp, Crown
 } from "lucide-react";
 import rossikLogo from "@/assets/rossik-logo.jpg";
 import { cn } from "@/lib/utils";
@@ -12,6 +12,7 @@ import { useProgressContext } from "@/contexts/ProgressContext";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useAuth } from "@/hooks/useAuth";
 import { useChapterProgress } from "@/hooks/useChapterProgress";
+import { usePremiumChapters } from "@/hooks/usePremiumChapters";
 import { GlobalSearch } from "./GlobalSearch";
 import { LanguageSelector } from "./LanguageSelector";
 import { CompactDailyTracker } from "./CompactDailyTracker";
@@ -127,6 +128,7 @@ export function Sidebar({ activeChapter, onChapterChange, onShowDashboard }: Sid
     getBestScore,
     initializeUserProgress 
   } = useChapterProgress();
+  const { isChapterLocked: isPremiumLocked, getChapterMinPlan } = usePremiumChapters();
 
   const overallProgress = getOverallProgress();
   const sections = getSections(t);
@@ -315,7 +317,12 @@ export function Sidebar({ activeChapter, onChapterChange, onShowDashboard }: Sid
                   
                   // Check if chapter is accessible (for logged in users)
                   const isAccessible = isChapterAccessible(chapter.id, globalIndex, chapter.isIntro);
-                  const isLocked = user && !isAccessible;
+                  const isProgressLocked = user && !isAccessible;
+                  
+                  // Check if chapter is premium locked
+                  const isPremium = isPremiumLocked(chapter.id);
+                  const minPlan = getChapterMinPlan(chapter.id);
+                  const isLocked = isProgressLocked || isPremium;
                   
                   // Get status from DB for logged in users
                   const dbStatus = user ? getChapterStatus(chapter.id) : null;
@@ -335,11 +342,14 @@ export function Sidebar({ activeChapter, onChapterChange, onShowDashboard }: Sid
                       className={cn(
                         "nav-item w-full text-left group",
                         isActive && "nav-item-active",
-                        isLocked && "opacity-50 cursor-not-allowed"
+                        isLocked && "opacity-50 cursor-not-allowed",
+                        isPremium && "border-l-2 border-amber-400/50"
                       )}
                     >
                       <div className="relative flex-shrink-0">
-                        {isLocked ? (
+                        {isPremium ? (
+                          <Crown className="w-4 h-4 text-amber-500" />
+                        ) : isProgressLocked ? (
                           <Lock className="w-4 h-4 text-muted-foreground" />
                         ) : (
                           <Icon className={cn(
@@ -359,8 +369,12 @@ export function Sidebar({ activeChapter, onChapterChange, onShowDashboard }: Sid
                         <span className="font-medium text-muted-foreground mr-1.5">{chapterNumber}.</span>
                         {t(chapter.labelKey)}
                       </span>
-                      {/* Show quiz score for non-intro chapters, or "Intro" badge for intro */}
-                      {chapter.isIntro ? (
+                      {/* Show premium badge for premium chapters */}
+                      {isPremium && minPlan ? (
+                        <span className="text-[9px] px-1.5 py-0.5 rounded font-semibold bg-gradient-to-r from-amber-100 to-orange-100 text-amber-700 dark:from-amber-900/30 dark:to-orange-900/30 dark:text-amber-400 whitespace-nowrap border border-amber-200 dark:border-amber-800">
+                          {minPlan.charAt(0).toUpperCase() + minPlan.slice(1)}
+                        </span>
+                      ) : chapter.isIntro ? (
                         !isCompleted && (
                           <span className="text-[10px] px-1.5 py-0.5 rounded font-semibold bg-blue-600/15 text-blue-700 dark:text-blue-300 whitespace-nowrap">
                             Intro
