@@ -1,0 +1,565 @@
+import React, { useState, useEffect } from 'react';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Switch } from '@/components/ui/switch';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
+import { Textarea } from '@/components/ui/textarea';
+import { 
+  Shield, Lock, AlertTriangle, CheckCircle, XCircle, 
+  RotateCcw, FileText, Languages, BookOpen, Clock,
+  Eye, Edit, Trash2, Plus, RefreshCw
+} from 'lucide-react';
+import { supabase } from '@/integrations/supabase/client';
+import { toast } from 'sonner';
+import { useLanguage } from '@/contexts/LanguageContext';
+import {
+  LOCKED_TERMINOLOGY,
+  LOCKED_CONCEPTS,
+  CONTENT_RULES,
+  getGovernanceStats,
+  validateContentUpdate,
+  type TerminologyRule,
+  type LockedConcept,
+  type ContentRule,
+  type ContentIncident
+} from '@/data/contentGovernance';
+
+interface IncidentLog {
+  id: string;
+  created_at: string;
+  incident_type: string;
+  severity: string;
+  description: string;
+  affected_content: string;
+  action_taken: string;
+  resolved_by: string | null;
+  resolved_at: string | null;
+}
+
+export function ContentGovernorDashboard() {
+  const { language } = useLanguage();
+  const [incidents, setIncidents] = useState<IncidentLog[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedIncident, setSelectedIncident] = useState<IncidentLog | null>(null);
+  const [showResolveDialog, setShowResolveDialog] = useState(false);
+  const [resolutionNote, setResolutionNote] = useState('');
+  const [showTestDialog, setShowTestDialog] = useState(false);
+  const [testOriginal, setTestOriginal] = useState('');
+  const [testNew, setTestNew] = useState('');
+  const [testResult, setTestResult] = useState<{ isValid: boolean; violations: ContentIncident[]; warnings: string[] } | null>(null);
+
+  const stats = getGovernanceStats();
+
+  useEffect(() => {
+    fetchIncidents();
+  }, []);
+
+  const fetchIncidents = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('update_audit_log')
+        .select('*')
+        .order('created_at', { ascending: false })
+        .limit(50);
+
+      if (error) throw error;
+
+      // Transform to incident format
+      const transformedIncidents: IncidentLog[] = (data || []).map(log => ({
+        id: log.id,
+        created_at: log.created_at,
+        incident_type: log.action.includes('reject') ? 'rule-violation' : 
+                       log.action.includes('rollback') ? 'rollback' : 'consistency-failure',
+        severity: log.action.includes('reject') || log.action.includes('rollback') ? 'high' : 'medium',
+        description: log.action,
+        affected_content: log.chapter_id || log.entity_type,
+        action_taken: log.action,
+        resolved_by: log.performed_by,
+        resolved_at: log.created_at
+      }));
+
+      setIncidents(transformedIncidents);
+    } catch (error) {
+      console.error('Error fetching incidents:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleResolveIncident = async () => {
+    if (!selectedIncident) return;
+
+    try {
+      await supabase.from('update_audit_log').insert({
+        action: 'incident_resolved',
+        entity_type: 'governance',
+        entity_id: selectedIncident.id,
+        details: { resolution_note: resolutionNote },
+        performed_by: 'admin'
+      });
+
+      toast.success('Incident rezolvat');
+      setShowResolveDialog(false);
+      setSelectedIncident(null);
+      setResolutionNote('');
+      fetchIncidents();
+    } catch (error) {
+      toast.error('Eroare la rezolvarea incidentului');
+    }
+  };
+
+  const runValidationTest = () => {
+    const result = validateContentUpdate(testOriginal, testNew, 'test-chapter', language as 'ro' | 'de' | 'en');
+    setTestResult(result);
+  };
+
+  const getSeverityBadge = (severity: string) => {
+    switch (severity) {
+      case 'critical':
+        return <Badge variant="destructive">Critic</Badge>;
+      case 'high':
+        return <Badge className="bg-orange-500">Ridicat</Badge>;
+      case 'medium':
+        return <Badge className="bg-yellow-500">Mediu</Badge>;
+      default:
+        return <Badge variant="secondary">Scăzut</Badge>;
+    }
+  };
+
+  const getCategoryBadge = (category: string) => {
+    switch (category) {
+      case 'legal':
+        return <Badge className="bg-purple-500">Legal</Badge>;
+      case 'operational':
+        return <Badge className="bg-blue-500">Operațional</Badge>;
+      case 'technical':
+        return <Badge className="bg-cyan-500">Tehnic</Badge>;
+      case 'compliance':
+        return <Badge className="bg-green-500">Conformitate</Badge>;
+      default:
+        return <Badge variant="outline">{category}</Badge>;
+    }
+  };
+
+  return (
+    <div className="space-y-6">
+      {/* Header Stats */}
+      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <Card className="bg-gradient-to-br from-purple-500/10 to-purple-600/5 border-purple-500/20">
+          <CardContent className="pt-6">
+            <div className="flex items-center gap-3">
+              <div className="p-2 bg-purple-500/20 rounded-lg">
+                <Lock className="h-5 w-5 text-purple-500" />
+              </div>
+              <div>
+                <p className="text-2xl font-bold">{stats.lockedTerms}</p>
+                <p className="text-sm text-muted-foreground">Termeni Blocați</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="bg-gradient-to-br from-blue-500/10 to-blue-600/5 border-blue-500/20">
+          <CardContent className="pt-6">
+            <div className="flex items-center gap-3">
+              <div className="p-2 bg-blue-500/20 rounded-lg">
+                <BookOpen className="h-5 w-5 text-blue-500" />
+              </div>
+              <div>
+                <p className="text-2xl font-bold">{stats.lockedConcepts}</p>
+                <p className="text-sm text-muted-foreground">Concepte Protejate</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="bg-gradient-to-br from-amber-500/10 to-amber-600/5 border-amber-500/20">
+          <CardContent className="pt-6">
+            <div className="flex items-center gap-3">
+              <div className="p-2 bg-amber-500/20 rounded-lg">
+                <Shield className="h-5 w-5 text-amber-500" />
+              </div>
+              <div>
+                <p className="text-2xl font-bold">{stats.activeRules}</p>
+                <p className="text-sm text-muted-foreground">Reguli Active</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="bg-gradient-to-br from-red-500/10 to-red-600/5 border-red-500/20">
+          <CardContent className="pt-6">
+            <div className="flex items-center gap-3">
+              <div className="p-2 bg-red-500/20 rounded-lg">
+                <AlertTriangle className="h-5 w-5 text-red-500" />
+              </div>
+              <div>
+                <p className="text-2xl font-bold">{stats.criticalRules}</p>
+                <p className="text-sm text-muted-foreground">Reguli Critice</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Main Content Tabs */}
+      <Tabs defaultValue="terminology" className="space-y-4">
+        <TabsList className="grid grid-cols-5 w-full">
+          <TabsTrigger value="terminology" className="flex items-center gap-2">
+            <FileText className="h-4 w-4" />
+            <span className="hidden sm:inline">Terminologie</span>
+          </TabsTrigger>
+          <TabsTrigger value="concepts" className="flex items-center gap-2">
+            <BookOpen className="h-4 w-4" />
+            <span className="hidden sm:inline">Concepte</span>
+          </TabsTrigger>
+          <TabsTrigger value="rules" className="flex items-center gap-2">
+            <Shield className="h-4 w-4" />
+            <span className="hidden sm:inline">Reguli</span>
+          </TabsTrigger>
+          <TabsTrigger value="incidents" className="flex items-center gap-2">
+            <AlertTriangle className="h-4 w-4" />
+            <span className="hidden sm:inline">Incidente</span>
+          </TabsTrigger>
+          <TabsTrigger value="test" className="flex items-center gap-2">
+            <RefreshCw className="h-4 w-4" />
+            <span className="hidden sm:inline">Testare</span>
+          </TabsTrigger>
+        </TabsList>
+
+        {/* Locked Terminology Tab */}
+        <TabsContent value="terminology">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Lock className="h-5 w-5" />
+                Terminologie Oficială Blocată
+              </CardTitle>
+              <CardDescription>
+                Acești termeni nu pot fi modificați automat de sistemul AI
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <ScrollArea className="h-[500px]">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Termen</TableHead>
+                      <TableHead>Definiție ({language.toUpperCase()})</TableHead>
+                      <TableHead>Categorie</TableHead>
+                      <TableHead>Sursă</TableHead>
+                      <TableHead>Status</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {LOCKED_TERMINOLOGY.map((term) => (
+                      <TableRow key={term.id}>
+                        <TableCell className="font-medium">{term.term}</TableCell>
+                        <TableCell className="max-w-md">
+                          <p className="text-sm truncate">{term.definition[language as keyof typeof term.definition]}</p>
+                        </TableCell>
+                        <TableCell>{getCategoryBadge(term.category)}</TableCell>
+                        <TableCell>
+                          <span className="text-sm text-muted-foreground">{term.source}</span>
+                        </TableCell>
+                        <TableCell>
+                          {term.isLocked ? (
+                            <Badge className="bg-red-500/20 text-red-500 border-red-500/30">
+                              <Lock className="h-3 w-3 mr-1" />
+                              Blocat
+                            </Badge>
+                          ) : (
+                            <Badge variant="outline">Deblocat</Badge>
+                          )}
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </ScrollArea>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* Locked Concepts Tab */}
+        <TabsContent value="concepts">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <BookOpen className="h-5 w-5" />
+                Concepte Protejate
+              </CardTitle>
+              <CardDescription>
+                Concepte critice care necesită aprobare pentru modificare
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <ScrollArea className="h-[500px]">
+                <div className="space-y-4">
+                  {LOCKED_CONCEPTS.map((concept) => (
+                    <Card key={concept.id} className="border-l-4 border-l-amber-500">
+                      <CardContent className="pt-4">
+                        <div className="flex justify-between items-start">
+                          <div className="space-y-2">
+                            <h4 className="font-semibold">
+                              {concept.conceptName[language as keyof typeof concept.conceptName]}
+                            </h4>
+                            <p className="text-sm text-muted-foreground">{concept.description}</p>
+                            <div className="flex flex-wrap gap-2">
+                              {concept.chapters.map(ch => (
+                                <Badge key={ch} variant="outline" className="text-xs">
+                                  {ch}
+                                </Badge>
+                              ))}
+                            </div>
+                          </div>
+                          <div className="text-right space-y-1">
+                            <Badge className="bg-amber-500/20 text-amber-500 border-amber-500/30">
+                              <Lock className="h-3 w-3 mr-1" />
+                              Protejat
+                            </Badge>
+                            <p className="text-xs text-muted-foreground">{concept.lockReason}</p>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </ScrollArea>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* Content Rules Tab */}
+        <TabsContent value="rules">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Shield className="h-5 w-5" />
+                Reguli de Guvernanță
+              </CardTitle>
+              <CardDescription>
+                Reguli pentru validarea și controlul conținutului
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <ScrollArea className="h-[500px]">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Regulă</TableHead>
+                      <TableHead>Tip</TableHead>
+                      <TableHead>Descriere</TableHead>
+                      <TableHead>Severitate</TableHead>
+                      <TableHead>Auto-Respingere</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {CONTENT_RULES.map((rule) => (
+                      <TableRow key={rule.id}>
+                        <TableCell className="font-medium">{rule.ruleName}</TableCell>
+                        <TableCell>
+                          <Badge variant="outline">{rule.ruleType}</Badge>
+                        </TableCell>
+                        <TableCell className="max-w-xs">
+                          <p className="text-sm truncate">{rule.description}</p>
+                        </TableCell>
+                        <TableCell>{getSeverityBadge(rule.severity)}</TableCell>
+                        <TableCell>
+                          {rule.autoReject ? (
+                            <Badge className="bg-red-500">
+                              <XCircle className="h-3 w-3 mr-1" />
+                              Da
+                            </Badge>
+                          ) : (
+                            <Badge variant="outline">
+                              <AlertTriangle className="h-3 w-3 mr-1" />
+                              Avertizare
+                            </Badge>
+                          )}
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </ScrollArea>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* Incidents Tab */}
+        <TabsContent value="incidents">
+          <Card>
+            <CardHeader>
+              <div className="flex justify-between items-center">
+                <div>
+                  <CardTitle className="flex items-center gap-2">
+                    <AlertTriangle className="h-5 w-5" />
+                    Jurnal Incidente
+                  </CardTitle>
+                  <CardDescription>
+                    Istoric respingeri, rollback-uri și încălcări de reguli
+                  </CardDescription>
+                </div>
+                <Button variant="outline" onClick={fetchIncidents}>
+                  <RefreshCw className="h-4 w-4 mr-2" />
+                  Actualizează
+                </Button>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <ScrollArea className="h-[500px]">
+                {loading ? (
+                  <div className="flex justify-center py-8">
+                    <RefreshCw className="h-6 w-6 animate-spin" />
+                  </div>
+                ) : incidents.length === 0 ? (
+                  <div className="text-center py-8 text-muted-foreground">
+                    <CheckCircle className="h-12 w-12 mx-auto mb-4 text-green-500" />
+                    <p>Niciun incident înregistrat</p>
+                  </div>
+                ) : (
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>Data</TableHead>
+                        <TableHead>Tip</TableHead>
+                        <TableHead>Descriere</TableHead>
+                        <TableHead>Conținut Afectat</TableHead>
+                        <TableHead>Acțiune</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {incidents.map((incident) => (
+                        <TableRow key={incident.id}>
+                          <TableCell>
+                            <div className="flex items-center gap-2">
+                              <Clock className="h-4 w-4 text-muted-foreground" />
+                              <span className="text-sm">
+                                {new Date(incident.created_at).toLocaleDateString('ro-RO')}
+                              </span>
+                            </div>
+                          </TableCell>
+                          <TableCell>{getSeverityBadge(incident.severity)}</TableCell>
+                          <TableCell className="max-w-xs">
+                            <p className="text-sm truncate">{incident.description}</p>
+                          </TableCell>
+                          <TableCell>
+                            <Badge variant="outline">{incident.affected_content}</Badge>
+                          </TableCell>
+                          <TableCell>
+                            <Badge className={
+                              incident.action_taken.includes('reject') ? 'bg-red-500' :
+                              incident.action_taken.includes('rollback') ? 'bg-amber-500' :
+                              'bg-blue-500'
+                            }>
+                              {incident.action_taken.includes('reject') ? (
+                                <><XCircle className="h-3 w-3 mr-1" />Respins</>
+                              ) : incident.action_taken.includes('rollback') ? (
+                                <><RotateCcw className="h-3 w-3 mr-1" />Rollback</>
+                              ) : (
+                                <><Eye className="h-3 w-3 mr-1" />Semnalat</>
+                              )}
+                            </Badge>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                )}
+              </ScrollArea>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* Test Validation Tab */}
+        <TabsContent value="test">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <RefreshCw className="h-5 w-5" />
+                Testare Validare Conținut
+              </CardTitle>
+              <CardDescription>
+                Testează regulile de validare înainte de aplicarea lor
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <label className="text-sm font-medium">Conținut Original</label>
+                  <Textarea 
+                    placeholder="Introdu conținutul original..."
+                    value={testOriginal}
+                    onChange={(e) => setTestOriginal(e.target.value)}
+                    className="h-40"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-sm font-medium">Conținut Nou (propus)</label>
+                  <Textarea 
+                    placeholder="Introdu conținutul nou propus..."
+                    value={testNew}
+                    onChange={(e) => setTestNew(e.target.value)}
+                    className="h-40"
+                  />
+                </div>
+              </div>
+              
+              <Button onClick={runValidationTest} className="w-full">
+                <Shield className="h-4 w-4 mr-2" />
+                Rulează Validare
+              </Button>
+
+              {testResult && (
+                <Card className={testResult.isValid ? 'border-green-500' : 'border-red-500'}>
+                  <CardContent className="pt-4">
+                    <div className="flex items-center gap-2 mb-4">
+                      {testResult.isValid ? (
+                        <>
+                          <CheckCircle className="h-5 w-5 text-green-500" />
+                          <span className="font-medium text-green-500">Validare reușită</span>
+                        </>
+                      ) : (
+                        <>
+                          <XCircle className="h-5 w-5 text-red-500" />
+                          <span className="font-medium text-red-500">Validare eșuată</span>
+                        </>
+                      )}
+                    </div>
+
+                    {testResult.violations.length > 0 && (
+                      <div className="space-y-2 mb-4">
+                        <h4 className="text-sm font-medium text-red-500">Încălcări:</h4>
+                        {testResult.violations.map((v, i) => (
+                          <div key={i} className="text-sm p-2 bg-red-500/10 rounded">
+                            {v.description}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+
+                    {testResult.warnings.length > 0 && (
+                      <div className="space-y-2">
+                        <h4 className="text-sm font-medium text-amber-500">Avertizări:</h4>
+                        {testResult.warnings.map((w, i) => (
+                          <div key={i} className="text-sm p-2 bg-amber-500/10 rounded">
+                            {w}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
+              )}
+            </CardContent>
+          </Card>
+        </TabsContent>
+      </Tabs>
+    </div>
+  );
+}
