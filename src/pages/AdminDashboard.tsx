@@ -41,6 +41,7 @@ import { CompetencyMatrix } from '@/components/admin/CompetencyMatrix';
 import { RetentionDashboard } from '@/components/admin/RetentionDashboard';
 import { SubscriptionCard } from '@/components/subscription';
 import { StandardsComplianceDashboard } from '@/components/admin/StandardsComplianceDashboard';
+import { ContentGovernorDashboard } from '@/components/admin/ContentGovernorDashboard';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import NotificationCenter from '@/components/NotificationCenter';
@@ -679,6 +680,10 @@ export default function AdminDashboard() {
               <Globe className="h-4 w-4" />
               Standarde Int.
             </TabsTrigger>
+            <TabsTrigger value="content-governor" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-rose-700 data-[state=active]:border-b-2 data-[state=active]:border-rose-500">
+              <Shield className="h-4 w-4" />
+              AI Governor
+            </TabsTrigger>
             {(isCompanyAdmin || isSuperAdmin) && (
               <TabsTrigger value="reports" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-cyan-700 data-[state=active]:border-b-2 data-[state=active]:border-cyan-500">
                 <FileBarChart className="h-4 w-4" />
@@ -901,6 +906,10 @@ export default function AdminDashboard() {
 
           <TabsContent value="standards" className="mt-6">
             <StandardsComplianceDashboard />
+          </TabsContent>
+
+          <TabsContent value="content-governor" className="mt-6">
+            <ContentGovernorDashboard />
           </TabsContent>
 
           {/* Enterprise Deployment Tabs - Super Admin only */}
