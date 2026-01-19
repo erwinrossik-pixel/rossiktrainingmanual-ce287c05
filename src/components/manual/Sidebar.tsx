@@ -4,7 +4,7 @@ import {
   ClipboardList, Target, Menu, X, Phone, MessageSquare, Scale,
   FileText, Flame, Book, Lightbulb, CheckCircle2, BarChart3, Award, Lock,
   Brain, Leaf, BadgeCheck, Cpu, Globe, Zap, Gem, Train, Network, TrendingUp, Crown,
-  Gamepad2, Trophy, Star
+  Gamepad2, Trophy, Star, Calendar
 } from "lucide-react";
 import rossikLogo from "@/assets/rossik-logo.jpg";
 import { cn } from "@/lib/utils";
@@ -15,6 +15,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { useChapterProgress } from "@/hooks/useChapterProgress";
 import { usePremiumChapters } from "@/hooks/usePremiumChapters";
 import { useGamification } from "@/hooks/useGamification";
+import { useAppMetadata } from "@/hooks/useAppMetadata";
 import { GlobalSearch } from "./GlobalSearch";
 import { LanguageSelector } from "./LanguageSelector";
 import { CompactDailyTracker } from "./CompactDailyTracker";
@@ -134,6 +135,7 @@ export function Sidebar({ activeChapter, onChapterChange, onShowDashboard, onSho
   } = useChapterProgress();
   const { isChapterLocked: isPremiumLocked, getChapterMinPlan } = usePremiumChapters();
   const { gamification, calculateLevel } = useGamification();
+  const { publishDate, version } = useAppMetadata();
 
   const overallProgress = getOverallProgress();
   const sections = getSections(t);
@@ -483,9 +485,12 @@ export function Sidebar({ activeChapter, onChapterChange, onShowDashboard, onSho
         {/* Footer */}
         <div className="p-4 border-t border-border">
           <div className="flex items-center justify-center gap-2 text-muted-foreground">
-            <span className="text-[11px] font-medium">{t('sidebar.version')}</span>
+            <Calendar className="w-3 h-3" />
+            <span className="text-[11px] font-medium">
+              {publishDate ? `Publicat: ${publishDate}` : t('sidebar.version')}
+            </span>
             <span className="w-1 h-1 rounded-full bg-current" aria-hidden="true" />
-            <span className="text-[11px] font-medium">{t('sidebar.edition')}</span>
+            <span className="text-[11px] font-medium">v{version}</span>
           </div>
         </div>
       </aside>
