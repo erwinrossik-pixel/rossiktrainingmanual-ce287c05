@@ -8,11 +8,17 @@ import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { useToast } from '@/hooks/use-toast';
-import { Users, Check, X, Clock, User as UserIcon, Mail, AlertCircle, Search, Building2 } from 'lucide-react';
+import { Users, Check, X, Clock, User as UserIcon, Mail, AlertCircle, Search, Building2, UserPlus } from 'lucide-react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { format } from 'date-fns';
 import { ro } from 'date-fns/locale';
+
+interface Company {
+  id: string;
+  name: string;
+}
 
 interface UserProfile {
   id: string;
@@ -52,13 +58,27 @@ export function UserManagement() {
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('all-users');
   const [searchTerm, setSearchTerm] = useState('');
+  const [companies, setCompanies] = useState<Company[]>([]);
+  const [assignDialogOpen, setAssignDialogOpen] = useState(false);
+  const [selectedUserForAssign, setSelectedUserForAssign] = useState<UserProfile | null>(null);
+  const [selectedCompanyId, setSelectedCompanyId] = useState<string>('');
 
   useEffect(() => {
     if (isCompanyAdmin || isSuperAdmin) {
       fetchAllUsers();
       fetchPendingRequests();
+      fetchCompanies();
     }
   }, [company, isCompanyAdmin, isSuperAdmin]);
+
+  const fetchCompanies = async () => {
+    const { data } = await supabase
+      .from('companies')
+      .select('id, name')
+      .eq('is_active', true)
+      .order('name');
+    setCompanies(data || []);
+  };
 
   const fetchAllUsers = async () => {
     setLoading(true);
@@ -201,6 +221,49 @@ export function UserManagement() {
       fetchAllUsers();
     } catch (error) {
       toast({ title: 'Eroare', variant: 'destructive' });
+    }
+  };
+
+  const openAssignDialog = (userProfile: UserProfile) => {
+    setSelectedUserForAssign(userProfile);
+    setSelectedCompanyId(isSuperAdmin ? '' : (company?.id || ''));
+    setAssignDialogOpen(true);
+  };
+
+  const assignUserToCompany = async () => {
+    if (!selectedUserForAssign || !selectedCompanyId) {
+      toast({ title: 'Eroare', description: 'Selectează o companie', variant: 'destructive' });
+      return;
+    }
+
+    try {
+      const { error } = await supabase.from('company_users').insert({
+        user_id: selectedUserForAssign.id,
+        company_id: selectedCompanyId,
+        role: 'user',
+        status: 'approved',
+        approved_by: user?.id,
+        approved_at: new Date().toISOString()
+      });
+
+      if (error) throw error;
+
+      toast({ 
+        title: 'Utilizator asignat', 
+        description: `${selectedUserForAssign.first_name} ${selectedUserForAssign.last_name} a fost adăugat în companie` 
+      });
+      
+      setAssignDialogOpen(false);
+      setSelectedUserForAssign(null);
+      setSelectedCompanyId('');
+      fetchAllUsers();
+    } catch (error: any) {
+      console.error('Error assigning user:', error);
+      toast({ 
+        title: 'Eroare', 
+        description: error.message || 'Nu s-a putut asigna utilizatorul', 
+        variant: 'destructive' 
+      });
     }
   };
 
@@ -586,6 +649,7 @@ export function UserManagement() {
                       <TableHead>Email</TableHead>
                       <TableHead>Rol Profil</TableHead>
                       <TableHead>Înregistrat</TableHead>
+                      <TableHead className="text-right">Acțiuni</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -610,6 +674,16 @@ export function UserManagement() {
                         <TableCell>
                           {format(new Date(userProfile.created_at), 'dd MMM yyyy HH:mm', { locale: ro })}
                         </TableCell>
+                        <TableCell className="text-right">
+                          <Button
+                            size="sm"
+                            onClick={() => openAssignDialog(userProfile)}
+                            className="gap-1"
+                          >
+                            <UserPlus className="h-4 w-4" />
+                            Asignează la Companie
+                          </Button>
+                        </TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
@@ -619,6 +693,67 @@ export function UserManagement() {
           </Card>
         </TabsContent>
       </Tabs>
+
+      {/* Dialog pentru asignare utilizator la companie */}
+      <Dialog open={assignDialogOpen} onOpenChange={setAssignDialogOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Asignează Utilizator la Companie</DialogTitle>
+            <DialogDescription>
+              Selectează compania în care dorești să adaugi utilizatorul{' '}
+              <strong>{selectedUserForAssign?.first_name} {selectedUserForAssign?.last_name}</strong>
+            </DialogDescription>
+          </DialogHeader>
+          
+          <div className="space-y-4 py-4">
+            <div className="flex items-center gap-3 p-3 bg-muted rounded-lg">
+              <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center">
+                <UserIcon className="h-5 w-5 text-primary" />
+              </div>
+              <div>
+                <p className="font-medium">{selectedUserForAssign?.first_name} {selectedUserForAssign?.last_name}</p>
+                <p className="text-sm text-muted-foreground">{selectedUserForAssign?.email}</p>
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Selectează Compania</label>
+              {isSuperAdmin ? (
+                <Select value={selectedCompanyId} onValueChange={setSelectedCompanyId}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Alege o companie..." />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {companies.map((c) => (
+                      <SelectItem key={c.id} value={c.id}>
+                        <div className="flex items-center gap-2">
+                          <Building2 className="h-4 w-4" />
+                          {c.name}
+                        </div>
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              ) : (
+                <div className="p-3 bg-muted rounded-lg flex items-center gap-2">
+                  <Building2 className="h-4 w-4 text-muted-foreground" />
+                  <span>{company?.name}</span>
+                </div>
+              )}
+            </div>
+          </div>
+
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setAssignDialogOpen(false)}>
+              Anulează
+            </Button>
+            <Button onClick={assignUserToCompany} disabled={!selectedCompanyId}>
+              <UserPlus className="h-4 w-4 mr-2" />
+              Asignează
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
