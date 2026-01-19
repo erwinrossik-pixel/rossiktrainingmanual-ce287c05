@@ -51,22 +51,26 @@ export function UserManagement() {
   const [activeTab, setActiveTab] = useState('users');
 
   useEffect(() => {
-    if (company && isCompanyAdmin) {
+    if (isCompanyAdmin || isSuperAdmin) {
       fetchUsers();
       fetchPendingRequests();
     }
-  }, [company, isCompanyAdmin]);
+  }, [company, isCompanyAdmin, isSuperAdmin]);
 
   const fetchUsers = async () => {
-    if (!company) return;
-    
     setLoading(true);
     try {
-      const { data, error } = await supabase
+      let query = supabase
         .from('company_users')
         .select('*')
-        .eq('company_id', company.id)
         .order('created_at', { ascending: false });
+
+      // Super admin sees all users, company admin sees only their company
+      if (!isSuperAdmin && company) {
+        query = query.eq('company_id', company.id);
+      }
+
+      const { data, error } = await query;
 
       if (error) throw error;
 
@@ -92,15 +96,18 @@ export function UserManagement() {
   };
 
   const fetchPendingRequests = async () => {
-    if (!company) return;
-    
-    const { data } = await supabase
+    let query = supabase
       .from('user_registration_requests')
       .select('*')
-      .eq('company_id', company.id)
       .eq('status', 'pending')
       .order('created_at', { ascending: false });
 
+    // Super admin sees all requests, company admin sees only their company
+    if (!isSuperAdmin && company) {
+      query = query.eq('company_id', company.id);
+    }
+
+    const { data } = await query;
     setPendingRequests(data || []);
   };
 
@@ -214,7 +221,7 @@ export function UserManagement() {
     }
   };
 
-  if (!isCompanyAdmin) {
+  if (!isCompanyAdmin && !isSuperAdmin) {
     return (
       <Card>
         <CardHeader>
