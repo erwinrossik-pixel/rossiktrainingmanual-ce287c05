@@ -28,31 +28,39 @@ import {
   type ContentIncident
 } from '@/data/contentGovernance';
 
-interface IncidentLog {
+interface GovernanceIncident {
   id: string;
   created_at: string;
+  updated_at: string;
   incident_type: string;
   severity: string;
-  description: string;
-  affected_content: string;
-  action_taken: string;
-  resolved_by: string | null;
+  chapter_id: string | null;
+  update_id: string | null;
+  violated_rule: string | null;
+  content_preview: string | null;
+  details: Record<string, unknown> | null;
+  status: string;
   resolved_at: string | null;
+  resolved_by: string | null;
+  resolution_notes: string | null;
 }
 
 export function ContentGovernorDashboard() {
   const { language } = useLanguage();
-  const [incidents, setIncidents] = useState<IncidentLog[]>([]);
+  const [incidents, setIncidents] = useState<GovernanceIncident[]>([]);
   const [loading, setLoading] = useState(true);
-  const [selectedIncident, setSelectedIncident] = useState<IncidentLog | null>(null);
+  const [selectedIncident, setSelectedIncident] = useState<GovernanceIncident | null>(null);
   const [showResolveDialog, setShowResolveDialog] = useState(false);
   const [resolutionNote, setResolutionNote] = useState('');
-  const [showTestDialog, setShowTestDialog] = useState(false);
   const [testOriginal, setTestOriginal] = useState('');
   const [testNew, setTestNew] = useState('');
   const [testResult, setTestResult] = useState<{ isValid: boolean; violations: ContentIncident[]; warnings: string[] } | null>(null);
 
   const stats = getGovernanceStats();
+
+  // Calculate incident stats
+  const openIncidents = incidents.filter(i => i.status === 'open').length;
+  const criticalIncidents = incidents.filter(i => i.severity === 'critical' && i.status === 'open').length;
 
   useEffect(() => {
     fetchIncidents();
@@ -61,30 +69,16 @@ export function ContentGovernorDashboard() {
   const fetchIncidents = async () => {
     try {
       const { data, error } = await supabase
-        .from('update_audit_log')
+        .from('governance_incidents')
         .select('*')
         .order('created_at', { ascending: false })
-        .limit(50);
+        .limit(100);
 
       if (error) throw error;
-
-      // Transform to incident format
-      const transformedIncidents: IncidentLog[] = (data || []).map(log => ({
-        id: log.id,
-        created_at: log.created_at,
-        incident_type: log.action.includes('reject') ? 'rule-violation' : 
-                       log.action.includes('rollback') ? 'rollback' : 'consistency-failure',
-        severity: log.action.includes('reject') || log.action.includes('rollback') ? 'high' : 'medium',
-        description: log.action,
-        affected_content: log.chapter_id || log.entity_type,
-        action_taken: log.action,
-        resolved_by: log.performed_by,
-        resolved_at: log.created_at
-      }));
-
-      setIncidents(transformedIncidents);
+      setIncidents((data as GovernanceIncident[]) || []);
     } catch (error) {
-      console.error('Error fetching incidents:', error);
+      console.error('Error fetching governance incidents:', error);
+      toast.error('Eroare la încărcarea incidentelor');
     } finally {
       setLoading(false);
     }
@@ -94,21 +88,55 @@ export function ContentGovernorDashboard() {
     if (!selectedIncident) return;
 
     try {
-      await supabase.from('update_audit_log').insert({
-        action: 'incident_resolved',
-        entity_type: 'governance',
-        entity_id: selectedIncident.id,
-        details: { resolution_note: resolutionNote },
-        performed_by: 'admin'
-      });
+      const { error } = await supabase
+        .from('governance_incidents')
+        .update({
+          status: 'resolved',
+          resolved_at: new Date().toISOString(),
+          resolution_notes: resolutionNote
+        })
+        .eq('id', selectedIncident.id);
 
-      toast.success('Incident rezolvat');
+      if (error) throw error;
+
+      toast.success('Incident rezolvat cu succes');
       setShowResolveDialog(false);
       setSelectedIncident(null);
       setResolutionNote('');
       fetchIncidents();
     } catch (error) {
+      console.error('Error resolving incident:', error);
       toast.error('Eroare la rezolvarea incidentului');
+    }
+  };
+
+  const handleIgnoreIncident = async (incident: GovernanceIncident) => {
+    try {
+      const { error } = await supabase
+        .from('governance_incidents')
+        .update({ status: 'ignored' })
+        .eq('id', incident.id);
+
+      if (error) throw error;
+      toast.success('Incident ignorat');
+      fetchIncidents();
+    } catch (error) {
+      toast.error('Eroare la actualizarea incidentului');
+    }
+  };
+
+  const getStatusBadge = (status: string) => {
+    switch (status) {
+      case 'open':
+        return <Badge className="bg-red-500">Deschis</Badge>;
+      case 'reviewed':
+        return <Badge className="bg-yellow-500">În Revizuire</Badge>;
+      case 'resolved':
+        return <Badge className="bg-green-500">Rezolvat</Badge>;
+      case 'ignored':
+        return <Badge variant="secondary">Ignorat</Badge>;
+      default:
+        return <Badge variant="outline">{status}</Badge>;
     }
   };
 
@@ -148,7 +176,7 @@ export function ContentGovernorDashboard() {
   return (
     <div className="space-y-6">
       {/* Header Stats */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4">
         <Card className="bg-gradient-to-br from-purple-500/10 to-purple-600/5 border-purple-500/20">
           <CardContent className="pt-6">
             <div className="flex items-center gap-3">
@@ -191,15 +219,43 @@ export function ContentGovernorDashboard() {
           </CardContent>
         </Card>
 
-        <Card className="bg-gradient-to-br from-red-500/10 to-red-600/5 border-red-500/20">
+        <Card className="bg-gradient-to-br from-cyan-500/10 to-cyan-600/5 border-cyan-500/20">
           <CardContent className="pt-6">
             <div className="flex items-center gap-3">
-              <div className="p-2 bg-red-500/20 rounded-lg">
-                <AlertTriangle className="h-5 w-5 text-red-500" />
+              <div className="p-2 bg-cyan-500/20 rounded-lg">
+                <AlertTriangle className="h-5 w-5 text-cyan-500" />
               </div>
               <div>
                 <p className="text-2xl font-bold">{stats.criticalRules}</p>
                 <p className="text-sm text-muted-foreground">Reguli Critice</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="bg-gradient-to-br from-orange-500/10 to-orange-600/5 border-orange-500/20">
+          <CardContent className="pt-6">
+            <div className="flex items-center gap-3">
+              <div className="p-2 bg-orange-500/20 rounded-lg">
+                <AlertTriangle className="h-5 w-5 text-orange-500" />
+              </div>
+              <div>
+                <p className="text-2xl font-bold">{openIncidents}</p>
+                <p className="text-sm text-muted-foreground">Incidente Deschise</p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="bg-gradient-to-br from-red-500/10 to-red-600/5 border-red-500/20">
+          <CardContent className="pt-6">
+            <div className="flex items-center gap-3">
+              <div className="p-2 bg-red-500/20 rounded-lg">
+                <XCircle className="h-5 w-5 text-red-500" />
+              </div>
+              <div>
+                <p className="text-2xl font-bold">{criticalIncidents}</p>
+                <p className="text-sm text-muted-foreground">Incidente Critice</p>
               </div>
             </div>
           </CardContent>
@@ -427,10 +483,12 @@ export function ContentGovernorDashboard() {
                     <TableHeader>
                       <TableRow>
                         <TableHead>Data</TableHead>
+                        <TableHead>Severitate</TableHead>
                         <TableHead>Tip</TableHead>
-                        <TableHead>Descriere</TableHead>
-                        <TableHead>Conținut Afectat</TableHead>
-                        <TableHead>Acțiune</TableHead>
+                        <TableHead>Regulă Încălcată</TableHead>
+                        <TableHead>Capitol</TableHead>
+                        <TableHead>Status</TableHead>
+                        <TableHead>Acțiuni</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -445,26 +503,49 @@ export function ContentGovernorDashboard() {
                             </div>
                           </TableCell>
                           <TableCell>{getSeverityBadge(incident.severity)}</TableCell>
-                          <TableCell className="max-w-xs">
-                            <p className="text-sm truncate">{incident.description}</p>
-                          </TableCell>
                           <TableCell>
-                            <Badge variant="outline">{incident.affected_content}</Badge>
-                          </TableCell>
-                          <TableCell>
-                            <Badge className={
-                              incident.action_taken.includes('reject') ? 'bg-red-500' :
-                              incident.action_taken.includes('rollback') ? 'bg-amber-500' :
-                              'bg-blue-500'
-                            }>
-                              {incident.action_taken.includes('reject') ? (
-                                <><XCircle className="h-3 w-3 mr-1" />Respins</>
-                              ) : incident.action_taken.includes('rollback') ? (
-                                <><RotateCcw className="h-3 w-3 mr-1" />Rollback</>
-                              ) : (
-                                <><Eye className="h-3 w-3 mr-1" />Semnalat</>
-                              )}
+                            <Badge variant="outline">
+                              {incident.incident_type === 'terminology_violation' ? 'Terminologie' :
+                               incident.incident_type === 'concept_violation' ? 'Concept' :
+                               incident.incident_type === 'consistency_failure' ? 'Consistență' :
+                               incident.incident_type === 'auto_rejection' ? 'Auto-Respins' :
+                               incident.incident_type}
                             </Badge>
+                          </TableCell>
+                          <TableCell className="max-w-xs">
+                            <p className="text-sm truncate">{incident.violated_rule || '-'}</p>
+                          </TableCell>
+                          <TableCell>
+                            <Badge variant="secondary">{incident.chapter_id || 'N/A'}</Badge>
+                          </TableCell>
+                          <TableCell>{getStatusBadge(incident.status)}</TableCell>
+                          <TableCell>
+                            {incident.status === 'open' && (
+                              <div className="flex gap-1">
+                                <Button
+                                  variant="ghost"
+                                  size="sm"
+                                  onClick={() => {
+                                    setSelectedIncident(incident);
+                                    setShowResolveDialog(true);
+                                  }}
+                                >
+                                  <CheckCircle className="h-4 w-4 text-green-500" />
+                                </Button>
+                                <Button
+                                  variant="ghost"
+                                  size="sm"
+                                  onClick={() => handleIgnoreIncident(incident)}
+                                >
+                                  <XCircle className="h-4 w-4 text-muted-foreground" />
+                                </Button>
+                              </div>
+                            )}
+                            {incident.status === 'resolved' && incident.resolution_notes && (
+                              <span className="text-xs text-muted-foreground truncate max-w-[100px] block">
+                                {incident.resolution_notes}
+                              </span>
+                            )}
                           </TableCell>
                         </TableRow>
                       ))}
@@ -560,6 +641,53 @@ export function ContentGovernorDashboard() {
           </Card>
         </TabsContent>
       </Tabs>
+
+      {/* Resolve Incident Dialog */}
+      <Dialog open={showResolveDialog} onOpenChange={setShowResolveDialog}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Rezolvare Incident</DialogTitle>
+            <DialogDescription>
+              Adaugă o notă despre cum a fost rezolvat acest incident de guvernanță.
+            </DialogDescription>
+          </DialogHeader>
+          
+          {selectedIncident && (
+            <div className="space-y-4">
+              <div className="p-3 bg-muted rounded-lg">
+                <div className="flex items-center gap-2 mb-2">
+                  {getSeverityBadge(selectedIncident.severity)}
+                  <Badge variant="outline">{selectedIncident.incident_type}</Badge>
+                </div>
+                <p className="text-sm">{selectedIncident.violated_rule}</p>
+                <p className="text-xs text-muted-foreground mt-1">
+                  Capitol: {selectedIncident.chapter_id || 'N/A'}
+                </p>
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-sm font-medium">Note de Rezolvare</label>
+                <Textarea
+                  placeholder="Descrie cum a fost rezolvat incidentul..."
+                  value={resolutionNote}
+                  onChange={(e) => setResolutionNote(e.target.value)}
+                  className="h-24"
+                />
+              </div>
+            </div>
+          )}
+
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setShowResolveDialog(false)}>
+              Anulează
+            </Button>
+            <Button onClick={handleResolveIncident}>
+              <CheckCircle className="h-4 w-4 mr-2" />
+              Marchează Rezolvat
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

@@ -136,6 +136,31 @@ async function logGovernanceIncident(
   validation: GovernanceValidation,
   userId: string | null
 ) {
+  // Log to governance_incidents table
+  for (const violation of validation.violations) {
+    const incidentType = violation.includes('CRITICAL') ? 'terminology_violation' : 
+                         violation.includes('pattern') ? 'concept_violation' : 
+                         'consistency_failure';
+    
+    await supabase.from('governance_incidents').insert({
+      incident_type: incidentType,
+      severity: validation.severity,
+      chapter_id: chapterId,
+      update_id: updateId,
+      violated_rule: violation,
+      content_preview: null,
+      details: {
+        all_violations: validation.violations,
+        auto_rejected: validation.autoReject,
+        validated_at: new Date().toISOString()
+      },
+      status: validation.autoReject ? 'resolved' : 'open',
+      resolved_by: validation.autoReject ? userId : null,
+      resolution_notes: validation.autoReject ? 'Auto-rejected by AI Content Governor' : null
+    });
+  }
+
+  // Also log to audit log for historical tracking
   await supabase.from('update_audit_log').insert({
     action: 'governance_violation',
     entity_type: 'update',
