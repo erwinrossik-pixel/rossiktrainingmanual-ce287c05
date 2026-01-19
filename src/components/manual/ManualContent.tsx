@@ -183,11 +183,11 @@ export function ManualContent({ activeChapter, onChapterChange }: ManualContentP
           <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-muted rounded-full blur-3xl -translate-x-1/3 translate-y-1/3" />
         </div>
         
-        <div className="p-6 lg:p-12">
-          <div className="max-w-4xl mx-auto">
+        <div className="px-4 py-4 sm:px-6 sm:py-6 lg:px-8 lg:py-8 xl:px-12 xl:py-10">
+          <div className="max-w-4xl mx-auto w-full">
             <div 
               key={activeChapter}
-              className="animate-chapter-enter"
+              className="animate-chapter-enter space-y-6 sm:space-y-8"
             >
               {isLocked && requiredPlan ? (
                 <PaywallOverlay 
@@ -202,7 +202,7 @@ export function ManualContent({ activeChapter, onChapterChange }: ManualContentP
                   {chapters[activeChapter] || <IntroChapter />}
                   
                   {/* Multi-Modal Content: Audio, Video Scripts, Diagrams */}
-                  <div className="mt-8">
+                  <div className="mt-6 sm:mt-8">
                     <MultiModalContent chapterId={activeChapter} />
                   </div>
                   
