@@ -88,51 +88,43 @@ export function CompactDailyTracker() {
   const currentPhase = getCurrentPhase();
 
   return (
-    <div className="space-y-2">
-      {/* Timer Controls */}
-      <div className="flex justify-center">
-        <TrainingTimer currentPhase={currentPhase} variant="compact" />
-      </div>
+    <div className="flex items-center gap-1">
+      {TRAINING_PHASES.map((phaseInfo) => {
+        const status = getPhaseStatus(phaseInfo);
+        const completed = getCompletedChaptersInPhase(phaseInfo);
+        const total = phaseInfo.chapters.length;
+        const isCurrent = phaseInfo.phase === currentPhase;
+        const phaseTitle = t[phaseInfo.titleKey as keyof typeof t];
 
-      {/* Phase Indicators */}
-      <div className="flex items-center justify-center gap-1">
-        {TRAINING_PHASES.map((phaseInfo) => {
-          const status = getPhaseStatus(phaseInfo);
-          const completed = getCompletedChaptersInPhase(phaseInfo);
-          const total = phaseInfo.chapters.length;
-          const isCurrent = phaseInfo.phase === currentPhase;
-          const phaseTitle = t[phaseInfo.titleKey as keyof typeof t];
-
-          return (
-            <Tooltip key={phaseInfo.phase}>
-              <TooltipTrigger asChild>
-                <div
-                  className={cn(
-                    "w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold cursor-default transition-all",
-                    isCurrent && "ring-2 ring-primary ring-offset-1 ring-offset-background scale-110",
-                    status === 'completed' && "bg-success text-success-foreground",
-                    status === 'in-progress' && !isCurrent && "bg-primary/20 text-primary",
-                    status === 'in-progress' && isCurrent && "bg-primary text-primary-foreground",
-                    status === 'locked' && "bg-muted text-muted-foreground"
-                  )}
-                >
-                  {status === 'completed' ? (
-                    <CheckCircle2 className="w-4 h-4" />
-                  ) : status === 'in-progress' && isCurrent ? (
-                    <Clock className="w-3.5 h-3.5" />
-                  ) : (
-                    phaseInfo.phase
-                  )}
-                </div>
-              </TooltipTrigger>
-              <TooltipContent side="bottom" className="text-center">
-                <p className="font-semibold">{t.phaseLabel} {phaseInfo.phase}: {phaseTitle}</p>
-                <p className="text-xs text-muted-foreground">{completed}/{total} {t.chapters}</p>
-              </TooltipContent>
-            </Tooltip>
-          );
-        })}
-      </div>
+        return (
+          <Tooltip key={phaseInfo.phase}>
+            <TooltipTrigger asChild>
+              <div
+                className={cn(
+                  "w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold cursor-default transition-all",
+                  isCurrent && "ring-1 ring-primary ring-offset-1 ring-offset-background",
+                  status === 'completed' && "bg-success text-success-foreground",
+                  status === 'in-progress' && !isCurrent && "bg-primary/20 text-primary",
+                  status === 'in-progress' && isCurrent && "bg-primary text-primary-foreground",
+                  status === 'locked' && "bg-muted text-muted-foreground"
+                )}
+              >
+                {status === 'completed' ? (
+                  <CheckCircle2 className="w-3 h-3" />
+                ) : status === 'in-progress' && isCurrent ? (
+                  <Clock className="w-3 h-3" />
+                ) : (
+                  phaseInfo.phase
+                )}
+              </div>
+            </TooltipTrigger>
+            <TooltipContent side="top" className="text-center">
+              <p className="font-semibold text-xs">{t.phaseLabel} {phaseInfo.phase}</p>
+              <p className="text-[10px] text-muted-foreground">{completed}/{total} {t.chapters}</p>
+            </TooltipContent>
+          </Tooltip>
+        );
+      })}
     </div>
   );
 }
