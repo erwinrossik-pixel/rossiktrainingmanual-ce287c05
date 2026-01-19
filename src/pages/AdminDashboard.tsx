@@ -899,6 +899,10 @@ export default function AdminDashboard() {
             <CompetencyMatrix />
           </TabsContent>
 
+          <TabsContent value="standards" className="mt-6">
+            <StandardsComplianceDashboard />
+          </TabsContent>
+
           {/* Enterprise Deployment Tabs - Super Admin only */}
           {isSuperAdmin && (
             <>
