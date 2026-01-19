@@ -2,7 +2,7 @@ import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { FlowDiagram, ProcessMap } from "../FlowDiagram";
 import { quizzes } from "@/data/quizData";
-import { Truck, Ruler, Weight, Package, Shield, CheckCircle2, AlertTriangle, Settings, Globe, Gauge } from "lucide-react";
+import { Truck, Ruler, Weight, Package, Shield, CheckCircle2, AlertTriangle, Settings, Globe, Gauge, Book, Wrench, List } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
 
@@ -396,6 +396,47 @@ export function VehicleChapter() {
                 <p className="font-medium">{item.title}</p>
                 <p className="text-sm text-muted-foreground">{item.desc}</p>
               </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Case Study */}
+      <section>
+        <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
+          <AlertTriangle className="w-6 h-6 text-warning" />
+          {ct('caseStudyTitle')}
+        </h2>
+        <div className="bg-warning/10 border border-warning/30 rounded-xl p-6 space-y-4">
+          <p className="text-muted-foreground">{ct('caseStudyScenario')}</p>
+          <div className="grid md:grid-cols-2 gap-4">
+            <div className="bg-card/50 rounded-lg p-4">
+              <h4 className="font-semibold text-destructive mb-2">{ct('caseStudyProblem')}</h4>
+              <p className="text-sm text-muted-foreground">{ct('caseStudySolution')}</p>
+            </div>
+            <div className="bg-card/50 rounded-lg p-4">
+              <h4 className="font-semibold text-success mb-2">{ct('caseStudyLesson')}</h4>
+              <p className="text-sm text-muted-foreground">{ct('caseStudyPrevention')}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Glossary */}
+      <section>
+        <h2 className="section-title flex items-center gap-3">
+          <Book className="w-6 h-6 text-primary" />
+          {ct('glossaryTitle')}
+        </h2>
+        <div className="grid md:grid-cols-2 gap-3">
+          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
+            <div key={num} className="bg-card border border-border rounded-lg p-4 hover:border-primary/50 transition-colors">
+              <dt className="font-semibold text-primary mb-1">
+                {ct(`glossaryTerm${num}`)}
+              </dt>
+              <dd className="text-sm text-muted-foreground">
+                {ct(`glossaryDef${num}`)}
+              </dd>
             </div>
           ))}
         </div>
