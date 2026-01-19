@@ -100,6 +100,79 @@ export const vehicleTranslations = {
     ppe: "PPE",
     firstAid: "First aid",
     loadingCheckpoints: "Loading Checkpoints",
+    
+    // Enhanced Content - Special Vehicle Categories
+    specialVehiclesTitle: "Specialized Vehicle Categories",
+    specialVehiclesIntro: "Beyond standard trailers, freight forwarding requires knowledge of specialized equipment for specific cargo types.",
+    
+    lowLoaderTitle: "Low Loader / Step Deck",
+    lowLoaderContent: "For machinery and oversized cargo. Deck height 0.6-0.9m allows taller loads within height limits. Requires special permits for overweight/oversized. Common for construction equipment, industrial machinery.",
+    
+    jumboTrailerTitle: "Jumbo / Mega Trailer",
+    jumboTrailerContent: "Internal height 3.0m vs standard 2.7m. Achieved through smaller wheels and lowered chassis. 33 EUR pallets (3 rows). Ideal for automotive, lightweight voluminous goods. Weight limit typically 24t due to lighter construction.",
+    
+    swapBodyTitle: "Swap Body (Wechselbrücke)",
+    swapBodyContent: "Intermodal container that fits road trailers and rail wagons. Standard lengths: C745 (7.45m), C782 (7.82m), C1360 (13.6m). Stackable for empty transport. Essential for combined road-rail operations.",
+    
+    sideLoaderTitle: "Side Loader Container",
+    sideLoaderContent: "Self-loading trailer with crane for 20ft/40ft containers. No crane needed at pickup/delivery. Ideal for remote locations, construction sites. Higher operating cost but maximum flexibility.",
+    
+    // Vehicle Selection Decision Matrix
+    vehicleSelectionTitle: "Vehicle Selection Decision Matrix",
+    vehicleSelectionIntro: "Choose the right vehicle based on cargo characteristics:",
+    
+    selectionCriteria1: "Standard Goods (palletized, <2.7m): Curtainsider",
+    selectionCriteria2: "High Volume, Low Weight: Mega/Jumbo Trailer",
+    selectionCriteria3: "Weather Sensitive: Box Trailer or Curtainsider with cover",
+    selectionCriteria4: "Temperature Controlled: Reefer (verify temperature range)",
+    selectionCriteria5: "Heavy Machinery: Low Loader + Special Permits",
+    selectionCriteria6: "Hazardous (ADR): Certified vehicle + trained driver",
+    selectionCriteria7: "Containers: Container chassis or Side Loader",
+    selectionCriteria8: "Bulk Materials: Walking Floor or Tipper",
+    
+    // Trailer Maintenance Essentials
+    maintenanceTitle: "Trailer Maintenance Essentials",
+    maintenanceIntro: "Regular maintenance prevents roadside breakdowns and ensures cargo safety.",
+    
+    maintenanceDaily: "Daily Checks",
+    maintenanceDailyItems: "Tire pressure and condition, Lights and reflectors, Brake connections, Curtain integrity, Floor condition",
+    
+    maintenanceWeekly: "Weekly Inspections",
+    maintenanceWeeklyItems: "Wheel nuts torque, Suspension, Fifth wheel lubrication, Door seals, Load securing equipment",
+    
+    maintenanceMonthly: "Monthly Service",
+    maintenanceMonthlyItems: "Full brake system check, Axle alignment, ABS sensor function, Documentation validity, Safety equipment expiry",
+    
+    // Case Study
+    caseStudyTitle: "Case Study: Wrong Vehicle Selection",
+    caseStudyScenario: "A dispatcher booked a standard curtainsider for 22 pallets of automotive parts weighing 28 tons. At loading, the truck was overweight by 3 tons.",
+    caseStudyProblem: "The Problem: Parts were denser than expected. Standard trailer tare weight + 28t cargo exceeded 40t GVW.",
+    caseStudySolution: "The Solution: Required second truck for 6 pallets, costing €800 extra. Client charged €600, company absorbed €200 loss.",
+    caseStudyLesson: "The Lesson: Always confirm actual weight per pallet, not just pallet count. 22 pallets × average 800kg = 17.6t, but these were 1.27t each.",
+    caseStudyPrevention: "Prevention: Ask for weight declarations. Calculate: Truck tare (~7t) + Trailer tare (~7t) + Payload = must be ≤40t.",
+    
+    // Glossary
+    glossaryTitle: "Vehicle Terminology Glossary",
+    glossaryTerm1: "Tare Weight",
+    glossaryDef1: "Empty weight of truck and trailer combined, typically 13-15 tons for a standard 40t combination.",
+    glossaryTerm2: "Payload",
+    glossaryDef2: "Maximum cargo weight = GVW minus Tare Weight. For 40t truck with 14t tare = 26t payload.",
+    glossaryTerm3: "GVW (Gross Vehicle Weight)",
+    glossaryDef3: "Maximum permitted total weight including truck, trailer, cargo, fuel, and driver.",
+    glossaryTerm4: "Axle Load",
+    glossaryDef4: "Weight distributed on each axle. Exceeding limits causes road damage and heavy fines.",
+    glossaryTerm5: "Loading Meter",
+    glossaryDef5: "1 LDM = 1 meter of trailer length × full width. Standard trailer = 13.6 LDM.",
+    glossaryTerm6: "Code XL",
+    glossaryDef6: "EN 12642 certification for trailer structure strength, allowing cargo securing against walls.",
+    glossaryTerm7: "Tautliner",
+    glossaryDef7: "Curtainsider trailer with sliding curtains for side loading access.",
+    glossaryTerm8: "Fifth Wheel",
+    glossaryDef8: "Coupling device connecting tractor unit to semi-trailer.",
+    glossaryTerm9: "Kingpin",
+    glossaryDef9: "Pin on trailer that locks into fifth wheel. Height adjustment affects loading height.",
+    glossaryTerm10: "Coil Well",
+    glossaryDef10: "Reinforced depression in trailer floor for transporting steel coils safely.",
   },
   de: {
     chapterNumber: "Kapitel 5",
@@ -202,6 +275,79 @@ export const vehicleTranslations = {
     ppe: "PSA",
     firstAid: "Erste Hilfe",
     loadingCheckpoints: "Beladungs-Checkpunkte",
+    
+    // Enhanced Content - Special Vehicle Categories
+    specialVehiclesTitle: "Spezialisierte Fahrzeugkategorien",
+    specialVehiclesIntro: "Neben Standardaufliegern erfordert Spedition Kenntnisse über Spezialausrüstung für bestimmte Frachttypen.",
+    
+    lowLoaderTitle: "Tieflader / Stufendeck",
+    lowLoaderContent: "Für Maschinen und Übermaßfracht. Deckhöhe 0,6-0,9m ermöglicht höhere Ladungen innerhalb der Höhengrenzen. Erfordert Sondergenehmigungen für Übergewicht/Übermaß. Häufig für Baumaschinen, Industriemaschinen.",
+    
+    jumboTrailerTitle: "Jumbo / Mega-Auflieger",
+    jumboTrailerContent: "Innenhöhe 3,0m vs Standard 2,7m. Erreicht durch kleinere Räder und abgesenktes Fahrgestell. 33 EUR-Paletten (3 Reihen). Ideal für Automotive, leichte voluminöse Güter. Gewichtslimit typisch 24t wegen leichterer Bauweise.",
+    
+    swapBodyTitle: "Wechselbrücke",
+    swapBodyContent: "Intermodaler Container für Straßenauflieger und Bahnwaggons. Standardlängen: C745 (7,45m), C782 (7,82m), C1360 (13,6m). Stapelbar für Leertransport. Unverzichtbar für kombinierten Straßen-Schienen-Verkehr.",
+    
+    sideLoaderTitle: "Seitenlader-Container",
+    sideLoaderContent: "Selbstbeladender Auflieger mit Kran für 20ft/40ft Container. Kein Kran bei Abholung/Lieferung nötig. Ideal für abgelegene Orte, Baustellen. Höhere Betriebskosten aber maximale Flexibilität.",
+    
+    // Vehicle Selection Decision Matrix
+    vehicleSelectionTitle: "Fahrzeugauswahl-Entscheidungsmatrix",
+    vehicleSelectionIntro: "Wählen Sie das richtige Fahrzeug basierend auf Frachteigenschaften:",
+    
+    selectionCriteria1: "Standardgüter (palettiert, <2,7m): Planenauflieger",
+    selectionCriteria2: "Hohes Volumen, Niedriges Gewicht: Mega/Jumbo-Auflieger",
+    selectionCriteria3: "Wetterempfindlich: Kofferauflieger oder Planenauflieger mit Abdeckung",
+    selectionCriteria4: "Temperaturgeführt: Kühlauflieger (Temperaturbereich prüfen)",
+    selectionCriteria5: "Schwere Maschinen: Tieflader + Sondergenehmigungen",
+    selectionCriteria6: "Gefahrgut (ADR): Zertifiziertes Fahrzeug + geschulter Fahrer",
+    selectionCriteria7: "Container: Containerchassis oder Seitenlader",
+    selectionCriteria8: "Schüttgut: Schubboden oder Kipper",
+    
+    // Trailer Maintenance Essentials
+    maintenanceTitle: "Wartungsgrundlagen Auflieger",
+    maintenanceIntro: "Regelmäßige Wartung verhindert Pannen und gewährleistet Ladungssicherheit.",
+    
+    maintenanceDaily: "Tägliche Prüfungen",
+    maintenanceDailyItems: "Reifendruck und -zustand, Beleuchtung und Reflektoren, Bremsanschlüsse, Planenintegrität, Bodenzustand",
+    
+    maintenanceWeekly: "Wöchentliche Inspektionen",
+    maintenanceWeeklyItems: "Radmuttern-Drehmoment, Federung, Sattelkupplungsschmierung, Türdichtungen, Ladungssicherungsausrüstung",
+    
+    maintenanceMonthly: "Monatlicher Service",
+    maintenanceMonthlyItems: "Vollständige Bremssystemprüfung, Achsausrichtung, ABS-Sensorfunktion, Dokumentengültigkeit, Ablauf Sicherheitsausrüstung",
+    
+    // Case Study
+    caseStudyTitle: "Fallstudie: Falsche Fahrzeugauswahl",
+    caseStudyScenario: "Ein Disponent buchte einen Standard-Planenauflieger für 22 Paletten Autoteile mit 28 Tonnen Gewicht. Bei der Beladung war der LKW 3 Tonnen zu schwer.",
+    caseStudyProblem: "Das Problem: Teile waren dichter als erwartet. Standard-Auflieger-Eigengewicht + 28t Fracht überschritt 40t zGG.",
+    caseStudySolution: "Die Lösung: Zweiter LKW für 6 Paletten erforderlich, €800 Mehrkosten. Kunde mit €600 belastet, Firma absorbierte €200 Verlust.",
+    caseStudyLesson: "Die Lektion: Immer tatsächliches Gewicht pro Palette bestätigen, nicht nur Palettenanzahl. 22 Paletten × durchschnittlich 800kg = 17,6t, aber diese waren jeweils 1,27t.",
+    caseStudyPrevention: "Prävention: Nach Gewichtsangaben fragen. Berechnen: LKW-Eigengewicht (~7t) + Auflieger-Eigengewicht (~7t) + Nutzlast = muss ≤40t sein.",
+    
+    // Glossary
+    glossaryTitle: "Fahrzeug-Terminologie-Glossar",
+    glossaryTerm1: "Eigengewicht",
+    glossaryDef1: "Leergewicht von LKW und Auflieger zusammen, typisch 13-15 Tonnen für eine Standard-40t-Kombination.",
+    glossaryTerm2: "Nutzlast",
+    glossaryDef2: "Maximales Frachtgewicht = zGG minus Eigengewicht. Für 40t LKW mit 14t Eigengewicht = 26t Nutzlast.",
+    glossaryTerm3: "zGG (Zulässiges Gesamtgewicht)",
+    glossaryDef3: "Maximal zulässiges Gesamtgewicht inklusive LKW, Auflieger, Fracht, Kraftstoff und Fahrer.",
+    glossaryTerm4: "Achslast",
+    glossaryDef4: "Gewichtsverteilung auf jeder Achse. Überschreitung verursacht Straßenschäden und hohe Bußgelder.",
+    glossaryTerm5: "Lademeter",
+    glossaryDef5: "1 LDM = 1 Meter Aufliegerlänge × volle Breite. Standardauflieger = 13,6 LDM.",
+    glossaryTerm6: "Code XL",
+    glossaryDef6: "EN 12642 Zertifizierung für Auflieger-Strukturfestigkeit, ermöglicht Ladungssicherung gegen Wände.",
+    glossaryTerm7: "Tautliner",
+    glossaryDef7: "Planenauflieger mit Schiebeplanen für seitlichen Beladezugang.",
+    glossaryTerm8: "Sattelkupplung",
+    glossaryDef8: "Kupplungsvorrichtung zur Verbindung von Zugmaschine und Sattelauflieger.",
+    glossaryTerm9: "Königszapfen",
+    glossaryDef9: "Zapfen am Auflieger, der in die Sattelkupplung einrastet. Höheneinstellung beeinflusst Ladehöhe.",
+    glossaryTerm10: "Coilmulde",
+    glossaryDef10: "Verstärkte Vertiefung im Aufliegerboden für sicheren Transport von Stahlcoils.",
   },
   ro: {
     chapterNumber: "Capitolul 5",
@@ -304,5 +450,78 @@ export const vehicleTranslations = {
     ppe: "EIP",
     firstAid: "Prim ajutor",
     loadingCheckpoints: "Puncte Control Încărcare",
+    
+    // Enhanced Content - Special Vehicle Categories
+    specialVehiclesTitle: "Categorii Specializate de Vehicule",
+    specialVehiclesIntro: "Dincolo de remorcile standard, expediția de marfă necesită cunoștințe despre echipamente specializate pentru tipuri specifice de marfă.",
+    
+    lowLoaderTitle: "Platformă Joasă / Step Deck",
+    lowLoaderContent: "Pentru utilaje și marfă supradimensionată. Înălțime platformă 0.6-0.9m permite încărcături mai înalte în limitele de înălțime. Necesită permise speciale pentru supragreutate/supradimensionat. Comun pentru echipamente de construcții, utilaje industriale.",
+    
+    jumboTrailerTitle: "Trailer Jumbo / Mega",
+    jumboTrailerContent: "Înălțime interioară 3.0m vs standard 2.7m. Realizată prin roți mai mici și șasiu coborât. 33 paleți EUR (3 rânduri). Ideal pentru automotive, mărfuri voluminoase ușoare. Limita de greutate tipic 24t din cauza construcției mai ușoare.",
+    
+    swapBodyTitle: "Swap Body (Wechselbrücke)",
+    swapBodyContent: "Container intermodal care se potrivește pe remorci rutiere și vagoane feroviare. Lungimi standard: C745 (7.45m), C782 (7.82m), C1360 (13.6m). Stivuibil pentru transport gol. Esențial pentru operațiuni combinate rutier-feroviar.",
+    
+    sideLoaderTitle: "Side Loader Container",
+    sideLoaderContent: "Remorcă auto-încărcătoare cu macara pentru containere 20ft/40ft. Nu e nevoie de macara la pickup/livrare. Ideal pentru locații remote, șantiere. Cost operațional mai mare dar flexibilitate maximă.",
+    
+    // Vehicle Selection Decision Matrix
+    vehicleSelectionTitle: "Matricea Decizională Selecție Vehicul",
+    vehicleSelectionIntro: "Alege vehiculul potrivit pe baza caracteristicilor mărfii:",
+    
+    selectionCriteria1: "Mărfuri Standard (paletizate, <2.7m): Prelată",
+    selectionCriteria2: "Volum Mare, Greutate Mică: Trailer Mega/Jumbo",
+    selectionCriteria3: "Sensibil la Vreme: Box Trailer sau Prelată cu acoperire",
+    selectionCriteria4: "Temperatură Controlată: Frigorific (verifică intervalul de temperatură)",
+    selectionCriteria5: "Utilaje Grele: Platformă Joasă + Permise Speciale",
+    selectionCriteria6: "Periculos (ADR): Vehicul certificat + șofer instruit",
+    selectionCriteria7: "Containere: Șasiu container sau Side Loader",
+    selectionCriteria8: "Materiale Vrac: Podea Mobilă sau Basculantă",
+    
+    // Trailer Maintenance Essentials
+    maintenanceTitle: "Elemente Esențiale Întreținere Trailer",
+    maintenanceIntro: "Întreținerea regulată previne defecțiunile și asigură siguranța mărfii.",
+    
+    maintenanceDaily: "Verificări Zilnice",
+    maintenanceDailyItems: "Presiune și stare anvelope, Lumini și reflectorizante, Conexiuni frâne, Integritate prelată, Stare podea",
+    
+    maintenanceWeekly: "Inspecții Săptămânale",
+    maintenanceWeeklyItems: "Cuplu piulițe roți, Suspensie, Lubrifiere a cincea roată, Garnituri uși, Echipament securizare marfă",
+    
+    maintenanceMonthly: "Service Lunar",
+    maintenanceMonthlyItems: "Verificare completă sistem frâne, Aliniere axe, Funcție senzor ABS, Valabilitate documente, Expirare echipament siguranță",
+    
+    // Case Study
+    caseStudyTitle: "Studiu de Caz: Selecție Greșită Vehicul",
+    caseStudyScenario: "Un dispecer a rezervat o prelată standard pentru 22 paleți de piese auto cu greutate de 28 tone. La încărcare, camionul era supragreutate cu 3 tone.",
+    caseStudyProblem: "Problema: Piesele erau mai dense decât se aștepta. Tara trailerului standard + 28t marfă a depășit MMA de 40t.",
+    caseStudySolution: "Soluția: Necesar al doilea camion pentru 6 paleți, costând €800 extra. Clientul facturat €600, compania a absorbit €200 pierdere.",
+    caseStudyLesson: "Lecția: Confirmă întotdeauna greutatea reală per palet, nu doar numărul de paleți. 22 paleți × medie 800kg = 17.6t, dar aceștia erau 1.27t fiecare.",
+    caseStudyPrevention: "Prevenție: Cere declarații de greutate. Calculează: Tara camion (~7t) + Tara trailer (~7t) + Marfă = trebuie să fie ≤40t.",
+    
+    // Glossary
+    glossaryTitle: "Glosar Terminologie Vehicule",
+    glossaryTerm1: "Tara",
+    glossaryDef1: "Greutatea goală a camionului și trailerului combinate, tipic 13-15 tone pentru o combinație standard de 40t.",
+    glossaryTerm2: "Sarcină Utilă",
+    glossaryDef2: "Greutatea maximă a mărfii = MMA minus Tara. Pentru camion 40t cu tara 14t = 26t sarcină utilă.",
+    glossaryTerm3: "MMA (Masa Maximă Autorizată)",
+    glossaryDef3: "Greutatea totală maximă permisă incluzând camion, trailer, marfă, combustibil și șofer.",
+    glossaryTerm4: "Sarcină pe Axă",
+    glossaryDef4: "Greutatea distribuită pe fiecare axă. Depășirea limitelor cauzează deteriorarea drumului și amenzi mari.",
+    glossaryTerm5: "Metru Liniar de Încărcare",
+    glossaryDef5: "1 LDM = 1 metru lungime trailer × lățime completă. Trailer standard = 13.6 LDM.",
+    glossaryTerm6: "Code XL",
+    glossaryDef6: "Certificare EN 12642 pentru rezistența structurii trailerului, permițând securizarea mărfii împotriva pereților.",
+    glossaryTerm7: "Tautliner",
+    glossaryDef7: "Trailer prelată cu perdele glisante pentru acces lateral la încărcare.",
+    glossaryTerm8: "A Cincea Roată",
+    glossaryDef8: "Dispozitiv de cuplare care conectează tractorul de semiremorcă.",
+    glossaryTerm9: "Kingpin",
+    glossaryDef9: "Pin pe trailer care se blochează în a cincea roată. Ajustarea înălțimii afectează înălțimea de încărcare.",
+    glossaryTerm10: "Coil Well",
+    glossaryDef10: "Adâncitură întărită în podeaua trailerului pentru transportul sigur al bobinelor de oțel.",
   }
 };
