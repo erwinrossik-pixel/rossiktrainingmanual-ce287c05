@@ -1,7 +1,6 @@
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { FlowDiagram, ProcessMap } from "../FlowDiagram";
-import { quizzes } from "@/data/quizData";
 import { Truck, Ruler, Weight, Package, Shield, CheckCircle2, AlertTriangle, Settings, Globe, Gauge } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
@@ -402,9 +401,7 @@ export function VehicleChapter() {
       </section>
 
       {/* Quiz */}
-      {quizzes.vehicle && (
-        <Quiz title={ct('quizTitle')} questions={quizzes.vehicle} chapterId="vehicle" />
-      )}
+      <Quiz title={ct('quizTitle')} chapterId="vehicle" questionsPerRound={10} />
     </div>
   );
 }

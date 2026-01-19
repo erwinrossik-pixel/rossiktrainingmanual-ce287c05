@@ -1,7 +1,6 @@
 import { DataTable } from "../DataTable";
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
-import { quizzes } from "@/data/quizData";
 import { Map, Building2, Truck, Euro, Clock, AlertTriangle, CheckCircle2, Route, Factory, Ship, Calendar } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
@@ -560,14 +559,7 @@ export function EuropeZonesChapter() {
       </div>
 
       {/* Quiz */}
-      {quizzes["europe-zones"] && (
-        <Quiz
-          title={ct("quizTitle")}
-          questions={quizzes["europe-zones"]}
-          chapterId="europe-zones"
-          questionsPerRound={10}
-        />
-      )}
+      <Quiz title={ct("quizTitle")} chapterId="europe-zones" questionsPerRound={10} />
     </div>
   );
 }

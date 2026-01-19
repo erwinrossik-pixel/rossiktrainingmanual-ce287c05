@@ -1,6 +1,5 @@
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
-import { quizzes } from "@/data/quizData";
 import { Shield, FileText, Euro, AlertTriangle, CheckCircle, Truck, Package, Scale } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
@@ -268,9 +267,7 @@ export function InsuranceChapter() {
       </section>
 
       {/* Quiz */}
-      {quizzes.insurance && (
-        <Quiz title={ct("quizTitle")} questions={quizzes.insurance} chapterId="insurance" />
-      )}
+      <Quiz title={ct("quizTitle")} chapterId="insurance" questionsPerRound={10} />
     </div>
   );
 }

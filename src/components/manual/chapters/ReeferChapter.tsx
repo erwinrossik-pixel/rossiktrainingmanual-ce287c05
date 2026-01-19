@@ -2,7 +2,6 @@ import { Checklist } from "../Checklist";
 import { DataTable } from "../DataTable";
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
-import { quizzes } from "@/data/quizData";
 import { 
   Thermometer, Snowflake, AlertTriangle, CheckCircle, FileText, Clock, Truck,
   Shield, Zap, Eye, AlertCircle, Info, Target, Package, Euro, Phone,
@@ -539,9 +538,7 @@ export function ReeferChapter() {
       </div>
 
       {/* Quiz */}
-      {quizzes.reefer && (
-        <Quiz title={ct('knowledgeCheck')} questions={quizzes.reefer} chapterId="reefer" />
-      )}
+      <Quiz title={ct('knowledgeCheck')} chapterId="reefer" questionsPerRound={10} />
     </div>
   );
 }
