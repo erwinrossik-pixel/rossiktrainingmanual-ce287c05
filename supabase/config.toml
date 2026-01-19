@@ -32,3 +32,18 @@ verify_jwt = false
 
 [functions.error-tracker]
 verify_jwt = false
+
+[functions.retention-analyzer]
+verify_jwt = false
+
+[functions.verify-certificate]
+verify_jwt = false
+
+[functions.send-reminder-emails]
+verify_jwt = false
+
+[functions.get-location]
+verify_jwt = false
+
+[functions.generate-audio-summary]
+verify_jwt = false
