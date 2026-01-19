@@ -12,7 +12,7 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
-import { Building2, Palette, Settings, Users, CreditCard, Plus, Globe, Edit, Trash2, Upload, Image, X } from 'lucide-react';
+import { Building2, Palette, Settings, Users, CreditCard, Plus, Globe, Edit, Trash2, Upload, Image, X, Key, Copy, RefreshCw } from 'lucide-react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 
 interface ExtendedCompany extends Company {
@@ -263,7 +263,7 @@ export function CompanyManagement() {
               <TableHeader>
                 <TableRow className="bg-slate-100 hover:bg-slate-100">
                   <TableHead className="font-bold text-slate-800">Companie</TableHead>
-                  <TableHead className="font-bold text-slate-800">Domeniu</TableHead>
+                  <TableHead className="font-bold text-slate-800">Cod Înregistrare</TableHead>
                   <TableHead className="font-bold text-slate-800">Plan</TableHead>
                   <TableHead className="font-bold text-slate-800">Utilizatori</TableHead>
                   <TableHead className="font-bold text-slate-800">Status</TableHead>
@@ -290,9 +290,23 @@ export function CompanyManagement() {
                       </div>
                     </TableCell>
                     <TableCell>
-                      <div className="flex items-center gap-1 text-sm">
-                        <Globe className="h-3 w-3" />
-                        {company.custom_domain || `${company.slug}.rossiktraining.com`}
+                      <div className="flex items-center gap-2">
+                        <code className="px-2 py-1 bg-primary/10 text-primary font-mono text-sm rounded border">
+                          {company.settings?.registration_code || 'N/A'}
+                        </code>
+                        {company.settings?.registration_code && (
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            className="h-7 w-7 p-0"
+                            onClick={() => {
+                              navigator.clipboard.writeText(company.settings?.registration_code || '');
+                              toast({ title: 'Copiat!', description: 'Codul a fost copiat în clipboard' });
+                            }}
+                          >
+                            <Copy className="h-3.5 w-3.5" />
+                          </Button>
+                        )}
                       </div>
                     </TableCell>
                     <TableCell>
@@ -361,6 +375,7 @@ function CompanyDetailDialog({
 }) {
   const { toast } = useToast();
   const [activeTab, setActiveTab] = useState('general');
+  const [isGeneratingCode, setIsGeneratingCode] = useState(false);
   const [formData, setFormData] = useState({
     name: company.name,
     slug: company.slug,
@@ -377,6 +392,34 @@ function CompanyDetailDialog({
     registration_code: company.settings?.registration_code || '',
     plan_id: company.subscription?.plan_id || ''
   });
+
+  const generateNewCode = async () => {
+    setIsGeneratingCode(true);
+    try {
+      const newCode = `${company.slug.toUpperCase()}-${Math.random().toString(36).substring(2, 8).toUpperCase()}`;
+      
+      const { error } = await supabase
+        .from('company_settings')
+        .update({ registration_code: newCode })
+        .eq('company_id', company.id);
+      
+      if (error) throw error;
+      
+      setFormData({ ...formData, registration_code: newCode });
+      toast({ title: 'Cod generat!', description: `Noul cod: ${newCode}` });
+    } catch (error: any) {
+      toast({ title: 'Eroare', description: error.message, variant: 'destructive' });
+    } finally {
+      setIsGeneratingCode(false);
+    }
+  };
+
+  const copyCode = () => {
+    if (formData.registration_code) {
+      navigator.clipboard.writeText(formData.registration_code);
+      toast({ title: 'Copiat!', description: 'Codul a fost copiat în clipboard' });
+    }
+  };
 
   const saveChanges = async () => {
     try {
@@ -524,10 +567,40 @@ function CompanyDetailDialog({
           </TabsContent>
 
           <TabsContent value="settings" className="space-y-4">
-            <div className="space-y-2">
-              <Label>Cod de Înregistrare</Label>
-              <Input value={formData.registration_code} disabled />
-              <p className="text-xs text-muted-foreground">Utilizatorii pot folosi acest cod la înregistrare</p>
+            {/* Registration Code Section - Prominent */}
+            <div className="p-4 bg-gradient-to-r from-primary/10 to-primary/5 rounded-lg border-2 border-primary/20 space-y-3">
+              <div className="flex items-center gap-2">
+                <Key className="h-5 w-5 text-primary" />
+                <Label className="text-base font-semibold text-primary">Cod de Înregistrare</Label>
+              </div>
+              <div className="flex items-center gap-2">
+                <Input 
+                  value={formData.registration_code || 'Nu există cod'} 
+                  disabled 
+                  className="font-mono text-lg font-bold bg-white border-2"
+                />
+                <Button 
+                  variant="outline" 
+                  size="icon"
+                  onClick={copyCode}
+                  disabled={!formData.registration_code}
+                  title="Copiază codul"
+                >
+                  <Copy className="h-4 w-4" />
+                </Button>
+                <Button 
+                  variant="default"
+                  onClick={generateNewCode}
+                  disabled={isGeneratingCode}
+                  className="gap-2"
+                >
+                  <RefreshCw className={`h-4 w-4 ${isGeneratingCode ? 'animate-spin' : ''}`} />
+                  {formData.registration_code ? 'Regenerează' : 'Generează'}
+                </Button>
+              </div>
+              <p className="text-sm text-muted-foreground">
+                Utilizatorii noi pot folosi acest cod la înregistrare pentru a se alătura companiei.
+              </p>
             </div>
             <div className="flex items-center justify-between">
               <div>
