@@ -231,26 +231,26 @@ export function ChapterHero({
   };
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-3 sm:space-y-4">
       <div className={cn("hero-section text-primary-foreground", variantClasses[variant])}>
         <div className="relative z-10">
-          <div className="flex items-center gap-4 mb-6">
-            <div className="w-20 h-20 rounded-2xl bg-white/25 backdrop-blur-sm flex items-center justify-center shadow-lg">
-              <Icon className="w-10 h-10" />
+          <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
+            <div className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-xl sm:rounded-2xl bg-white/25 backdrop-blur-sm flex items-center justify-center shadow-lg flex-shrink-0">
+              <Icon className="w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10" />
             </div>
-            <div>
-              <div className="flex items-center gap-3 mb-2">
-                <p className="text-white/80 text-sm font-semibold uppercase tracking-widest">
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2 sm:gap-3 mb-1 sm:mb-2">
+                <p className="text-white/80 text-xs sm:text-sm font-semibold uppercase tracking-widest">
                   {chapterLabel}
                 </p>
                 <ContentLevelBadge level={contentLevel} size="sm" showLabel={false} className="bg-white/20 border-white/30 text-white" />
               </div>
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold leading-none">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold leading-tight break-words">
                 {title}
               </h1>
             </div>
           </div>
-          <p className="text-xl md:text-2xl text-white/90 max-w-4xl leading-relaxed font-medium mt-6">
+          <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/90 max-w-4xl leading-relaxed font-medium mt-3 sm:mt-4 md:mt-6">
             {description}
           </p>
         </div>
