@@ -88,7 +88,7 @@ export function CompactDailyTracker() {
   const currentPhase = getCurrentPhase();
 
   return (
-    <div className="flex items-center gap-1">
+    <div className="flex items-center gap-1.5">
       {TRAINING_PHASES.map((phaseInfo) => {
         const status = getPhaseStatus(phaseInfo);
         const completed = getCompletedChaptersInPhase(phaseInfo);
@@ -101,8 +101,8 @@ export function CompactDailyTracker() {
             <TooltipTrigger asChild>
               <div
                 className={cn(
-                  "w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold cursor-default transition-all",
-                  isCurrent && "ring-1 ring-primary ring-offset-1 ring-offset-background",
+                  "w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold cursor-default transition-all",
+                  isCurrent && "ring-2 ring-primary ring-offset-1 ring-offset-background",
                   status === 'completed' && "bg-success text-success-foreground",
                   status === 'in-progress' && !isCurrent && "bg-primary/20 text-primary",
                   status === 'in-progress' && isCurrent && "bg-primary text-primary-foreground",
@@ -110,7 +110,7 @@ export function CompactDailyTracker() {
                 )}
               >
                 {status === 'completed' ? (
-                  <CheckCircle2 className="w-3 h-3" />
+                  <CheckCircle2 className="w-3.5 h-3.5" />
                 ) : status === 'in-progress' && isCurrent ? (
                   <Clock className="w-3 h-3" />
                 ) : (
@@ -119,7 +119,7 @@ export function CompactDailyTracker() {
               </div>
             </TooltipTrigger>
             <TooltipContent side="top" className="text-center">
-              <p className="font-semibold text-xs">{t.phaseLabel} {phaseInfo.phase}</p>
+              <p className="font-semibold text-xs">{t.phaseLabel} {phaseInfo.phase}: {phaseTitle}</p>
               <p className="text-[10px] text-muted-foreground">{completed}/{total} {t.chapters}</p>
             </TooltipContent>
           </Tooltip>
