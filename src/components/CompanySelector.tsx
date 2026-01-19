@@ -25,13 +25,21 @@ export function CompanySelector({ onCompanyFound }: CompanySelectorProps) {
 
     setLoading(true);
     try {
-      const { data: settings, error } = await supabase
-        .from('company_settings')
-        .select('company_id, companies(*)')
-        .eq('registration_code', registrationCode.toUpperCase().trim())
-        .single();
+      // Folosim funcția securizată pentru verificarea codului
+      const { data, error } = await supabase
+        .rpc('verify_registration_code', { p_code: registrationCode.trim() });
 
-      if (error || !settings) {
+      if (error) {
+        console.error('Error verifying code:', error);
+        toast({ 
+          title: 'Eroare', 
+          description: 'A apărut o eroare la verificare. Încearcă din nou.', 
+          variant: 'destructive' 
+        });
+        return;
+      }
+
+      if (!data || data.length === 0) {
         toast({ 
           title: 'Cod invalid', 
           description: 'Nu am găsit nicio companie cu acest cod de înregistrare', 
@@ -40,8 +48,8 @@ export function CompanySelector({ onCompanyFound }: CompanySelectorProps) {
         return;
       }
 
-      const company = (settings as any).companies;
-      if (!company.is_active) {
+      const companyResult = data[0];
+      if (!companyResult.is_active) {
         toast({ 
           title: 'Companie inactivă', 
           description: 'Această companie nu mai acceptă înregistrări', 
@@ -50,7 +58,12 @@ export function CompanySelector({ onCompanyFound }: CompanySelectorProps) {
         return;
       }
 
-      onCompanyFound(company);
+      // Returnăm datele companiei în formatul așteptat
+      onCompanyFound({
+        id: companyResult.company_id,
+        name: companyResult.company_name,
+        is_active: companyResult.is_active
+      });
     } catch (error) {
       console.error('Error finding company:', error);
       toast({ title: 'Eroare', description: 'A apărut o eroare. Încearcă din nou.', variant: 'destructive' });

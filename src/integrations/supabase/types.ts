@@ -3456,6 +3456,29 @@ export type Database = {
         Args: { _company_id: string; _user_id: string }
         Returns: boolean
       }
+      verify_certificate_by_code: {
+        Args: { p_code: string }
+        Returns: {
+          average_score: number
+          certificate_code: string
+          chapters_completed: number
+          expires_at: string
+          is_revoked: boolean
+          issued_at: string
+          quizzes_passed: number
+          revoke_reason: string
+          total_training_hours: number
+          trainee_name: string
+        }[]
+      }
+      verify_registration_code: {
+        Args: { p_code: string }
+        Returns: {
+          company_id: string
+          company_name: string
+          is_active: boolean
+        }[]
+      }
     }
     Enums: {
       app_role: "admin" | "user"
