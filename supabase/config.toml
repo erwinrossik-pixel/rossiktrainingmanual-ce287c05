@@ -47,3 +47,6 @@ verify_jwt = false
 
 [functions.generate-audio-summary]
 verify_jwt = false
+
+[functions.send-user-notification]
+verify_jwt = false

@@ -164,8 +164,30 @@ export function UserManagement() {
     setPendingRequests(requestsWithCompany);
   };
 
-  const approveUser = async (companyUserId: string) => {
+  const sendNotificationEmail = async (
+    type: string, 
+    userId: string, 
+    additionalData: Record<string, any> = {}
+  ) => {
     try {
+      await supabase.functions.invoke('send-user-notification', {
+        body: { type, userId, data: additionalData }
+      });
+      console.log(`Email notification sent: ${type}`);
+    } catch (error) {
+      console.error('Failed to send notification email:', error);
+    }
+  };
+
+  const approveUser = async (companyUserId: string, userProfile?: UserProfile) => {
+    try {
+      // Get user_id from company_users
+      const { data: companyUser } = await supabase
+        .from('company_users')
+        .select('user_id, company_id')
+        .eq('id', companyUserId)
+        .single();
+
       await supabase
         .from('company_users')
         .update({
@@ -174,6 +196,12 @@ export function UserManagement() {
           approved_at: new Date().toISOString()
         })
         .eq('id', companyUserId);
+
+      // Send approval email
+      if (companyUser?.user_id) {
+        const companyName = companies.find(c => c.id === companyUser.company_id)?.name;
+        sendNotificationEmail('account_approved', companyUser.user_id, { companyName });
+      }
 
       toast({ title: 'Utilizator aprobat', description: 'Utilizatorul poate accesa acum platforma' });
       fetchAllUsers();
@@ -184,10 +212,22 @@ export function UserManagement() {
 
   const rejectUser = async (companyUserId: string) => {
     try {
+      // Get user_id first
+      const { data: companyUser } = await supabase
+        .from('company_users')
+        .select('user_id')
+        .eq('id', companyUserId)
+        .single();
+
       await supabase
         .from('company_users')
         .update({ status: 'rejected' })
         .eq('id', companyUserId);
+
+      // Send rejection email
+      if (companyUser?.user_id) {
+        sendNotificationEmail('account_rejected', companyUser.user_id);
+      }
 
       toast({ title: 'Utilizator respins' });
       fetchAllUsers();
@@ -198,12 +238,54 @@ export function UserManagement() {
 
   const suspendUser = async (companyUserId: string) => {
     try {
+      // Get user_id first
+      const { data: companyUser } = await supabase
+        .from('company_users')
+        .select('user_id')
+        .eq('id', companyUserId)
+        .single();
+
       await supabase
         .from('company_users')
         .update({ status: 'suspended' })
         .eq('id', companyUserId);
 
+      // Send suspension email
+      if (companyUser?.user_id) {
+        sendNotificationEmail('account_suspended', companyUser.user_id);
+      }
+
       toast({ title: 'Utilizator suspendat' });
+      fetchAllUsers();
+    } catch (error) {
+      toast({ title: 'Eroare', variant: 'destructive' });
+    }
+  };
+
+  const reactivateUser = async (companyUserId: string) => {
+    try {
+      // Get user_id first
+      const { data: companyUser } = await supabase
+        .from('company_users')
+        .select('user_id')
+        .eq('id', companyUserId)
+        .single();
+
+      await supabase
+        .from('company_users')
+        .update({
+          status: 'approved',
+          approved_by: user?.id,
+          approved_at: new Date().toISOString()
+        })
+        .eq('id', companyUserId);
+
+      // Send reactivation email
+      if (companyUser?.user_id) {
+        sendNotificationEmail('account_reactivated', companyUser.user_id);
+      }
+
+      toast({ title: 'Utilizator reactivat' });
       fetchAllUsers();
     } catch (error) {
       toast({ title: 'Eroare', variant: 'destructive' });
@@ -247,6 +329,10 @@ export function UserManagement() {
       });
 
       if (error) throw error;
+
+      // Send company assigned email
+      const companyName = companies.find(c => c.id === selectedCompanyId)?.name;
+      sendNotificationEmail('company_assigned', selectedUserForAssign.id, { companyName });
 
       toast({ 
         title: 'Utilizator asignat', 
@@ -502,7 +588,7 @@ export function UserManagement() {
                                 <Button
                                   variant="outline"
                                   size="sm"
-                                  onClick={() => approveUser(userProfile.company_user!.id)}
+                                  onClick={() => reactivateUser(userProfile.company_user!.id)}
                                 >
                                   Reactivează
                                 </Button>
