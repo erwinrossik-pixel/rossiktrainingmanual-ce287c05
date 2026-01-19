@@ -13,6 +13,142 @@ interface RegeneratedContent {
   word_counts: { ro: number; de: number; en: number };
 }
 
+// ============================================================
+// AI CONTENT GOVERNOR - RULES OF TRUTH
+// ============================================================
+
+const LOCKED_TERMINOLOGY = [
+  'CMR', 'ADR', 'AETR', 'Incoterms', 'TIR', 'GDP', 'IATA DGR', 
+  'FIATA', 'ISO 9001', 'ISO 28000', 'TAPA', 'AEO'
+];
+
+const CRITICAL_PATTERNS = [
+  /CMR.*8\.33.*SDR/i,
+  /ADR.*class\s*[1-9]/i,
+  /Incoterms.*202[0-9]/i,
+  /GDP.*[+-]?\d+.*°C/i,
+  /AETR.*9.*hours?.*driving/i,
+  /TIR.*carnet/i
+];
+
+interface GovernanceValidation {
+  isValid: boolean;
+  violations: string[];
+  severity: 'none' | 'warning' | 'critical';
+  autoReject: boolean;
+}
+
+function validateContentWithGovernor(
+  originalContent: unknown,
+  updatedContent: unknown,
+  chapterId: string
+): GovernanceValidation {
+  const violations: string[] = [];
+  let severity: 'none' | 'warning' | 'critical' = 'none';
+  let autoReject = false;
+
+  if (!originalContent || !updatedContent) {
+    return { isValid: true, violations: [], severity: 'none', autoReject: false };
+  }
+
+  const originalStr = JSON.stringify(originalContent).toLowerCase();
+  const updatedStr = JSON.stringify(updatedContent).toLowerCase();
+
+  // Check locked terminology modifications
+  for (const term of LOCKED_TERMINOLOGY) {
+    const termLower = term.toLowerCase();
+    const originalCount = (originalStr.match(new RegExp(termLower, 'g')) || []).length;
+    const updatedCount = (updatedStr.match(new RegExp(termLower, 'g')) || []).length;
+    
+    if (originalCount > 0 && updatedCount === 0) {
+      violations.push(`CRITICAL: Removed locked term "${term}"`);
+      severity = 'critical';
+      autoReject = true;
+    }
+  }
+
+  // Check critical patterns
+  for (const pattern of CRITICAL_PATTERNS) {
+    const originalMatch = pattern.test(originalStr);
+    const updatedMatch = pattern.test(updatedStr);
+    
+    if (originalMatch && !updatedMatch) {
+      violations.push(`CRITICAL: Modified critical compliance pattern`);
+      severity = 'critical';
+      autoReject = true;
+    }
+  }
+
+  // Check for excessive content reduction (more than 50% reduction)
+  const originalLen = originalStr.length;
+  const updatedLen = updatedStr.length;
+  if (originalLen > 0 && updatedLen < originalLen * 0.5) {
+    violations.push(`WARNING: Content reduced by more than 50% (${((1 - updatedLen/originalLen) * 100).toFixed(1)}%)`);
+    if (severity !== 'critical') severity = 'warning';
+  }
+
+  // Cross-language consistency check
+  if (typeof updatedContent === 'object' && updatedContent !== null) {
+    const content = updatedContent as Record<string, unknown>;
+    const languages = ['en', 'de', 'ro'];
+    const langContents: Record<string, string> = {};
+    
+    for (const lang of languages) {
+      const langContent = content.content as Record<string, unknown> | undefined;
+      if (langContent && langContent[lang]) {
+        langContents[lang] = String(langContent[lang]);
+      }
+    }
+
+    const langLengths = Object.values(langContents).map(c => c.length);
+    if (langLengths.length > 1) {
+      const avgLen = langLengths.reduce((a, b) => a + b, 0) / langLengths.length;
+      for (const len of langLengths) {
+        if (Math.abs(len - avgLen) / avgLen > 0.5) {
+          violations.push('WARNING: Significant language content length mismatch');
+          if (severity !== 'critical') severity = 'warning';
+          break;
+        }
+      }
+    }
+  }
+
+  return {
+    isValid: violations.length === 0,
+    violations,
+    severity,
+    autoReject
+  };
+}
+
+async function logGovernanceIncident(
+  supabase: SupabaseClient,
+  chapterId: string,
+  validation: GovernanceValidation,
+  jobId: string
+) {
+  for (const violation of validation.violations) {
+    const incidentType = violation.includes('CRITICAL') ? 'terminology_violation' : 
+                         violation.includes('pattern') ? 'concept_violation' : 
+                         'consistency_failure';
+    
+    await supabase.from('governance_incidents').insert({
+      incident_type: incidentType,
+      severity: validation.severity,
+      chapter_id: chapterId,
+      violated_rule: violation,
+      details: {
+        all_violations: validation.violations,
+        auto_rejected: validation.autoReject,
+        job_id: jobId,
+        validated_at: new Date().toISOString()
+      },
+      status: validation.autoReject ? 'resolved' : 'open',
+      resolution_notes: validation.autoReject ? 'Auto-rejected by AI Content Governor during regeneration' : null
+    });
+  }
+}
+
 // Background task for processing a single chapter
 async function processChapter(
   supabase: SupabaseClient,
@@ -131,6 +267,46 @@ Generate a brief content update in JSON:
         },
         performed_by: 'system'
       } as Record<string, unknown>);
+    }
+
+    // ============================================================
+    // AI CONTENT GOVERNOR - VALIDATE BEFORE SAVING
+    // ============================================================
+    const governanceValidation = validateContentWithGovernor(
+      currentVersion?.content_snapshot,
+      regeneratedContent,
+      chId
+    );
+
+    if (governanceValidation.autoReject) {
+      console.log(`[BG-REGEN] AI Content Governor REJECTED update for ${chId}`);
+      
+      // Log governance incident
+      await logGovernanceIncident(supabase, chId, governanceValidation, jobId);
+      
+      // Log the rejection
+      await supabase.from('update_audit_log').insert({
+        action: 'governance_auto_rejection',
+        entity_type: 'chapter',
+        chapter_id: chId,
+        details: { 
+          reason: 'AI Content Governor auto-rejected the generated content',
+          violations: governanceValidation.violations,
+          job_id: jobId
+        },
+        performed_by: 'ai_governor'
+      } as Record<string, unknown>);
+      
+      return { 
+        success: false, 
+        error: `Governance rejection: ${governanceValidation.violations.join('; ')}` 
+      };
+    }
+
+    // Log warnings if any
+    if (governanceValidation.severity === 'warning') {
+      console.log(`[BG-REGEN] AI Content Governor WARNING for ${chId}:`, governanceValidation.violations);
+      await logGovernanceIncident(supabase, chId, governanceValidation, jobId);
     }
 
     // Create new version
