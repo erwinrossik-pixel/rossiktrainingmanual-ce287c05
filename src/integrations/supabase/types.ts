@@ -1553,6 +1553,57 @@ export type Database = {
         }
         Relationships: []
       }
+      governance_incidents: {
+        Row: {
+          chapter_id: string | null
+          content_preview: string | null
+          created_at: string
+          details: Json | null
+          id: string
+          incident_type: string
+          resolution_notes: string | null
+          resolved_at: string | null
+          resolved_by: string | null
+          severity: string
+          status: string
+          update_id: string | null
+          updated_at: string
+          violated_rule: string | null
+        }
+        Insert: {
+          chapter_id?: string | null
+          content_preview?: string | null
+          created_at?: string
+          details?: Json | null
+          id?: string
+          incident_type: string
+          resolution_notes?: string | null
+          resolved_at?: string | null
+          resolved_by?: string | null
+          severity?: string
+          status?: string
+          update_id?: string | null
+          updated_at?: string
+          violated_rule?: string | null
+        }
+        Update: {
+          chapter_id?: string | null
+          content_preview?: string | null
+          created_at?: string
+          details?: Json | null
+          id?: string
+          incident_type?: string
+          resolution_notes?: string | null
+          resolved_at?: string | null
+          resolved_by?: string | null
+          severity?: string
+          status?: string
+          update_id?: string | null
+          updated_at?: string
+          violated_rule?: string | null
+        }
+        Relationships: []
+      }
       governance_settings: {
         Row: {
           description: string | null
