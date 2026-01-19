@@ -3431,6 +3431,34 @@ export type Database = {
     }
     Functions: {
       generate_certificate_code: { Args: never; Returns: string }
+      get_company_branding_by_domain: {
+        Args: { p_domain: string }
+        Returns: {
+          accent_color: string
+          background_color: string
+          company_id: string
+          company_name: string
+          company_slug: string
+          custom_css: string
+          favicon_url: string
+          font_family: string
+          logo_url: string
+          platform_name: string
+          primary_color: string
+          secondary_color: string
+          text_color: string
+        }[]
+      }
+      get_company_settings_by_domain: {
+        Args: { p_domain: string }
+        Returns: {
+          active_languages: string[]
+          company_id: string
+          default_language: string
+          timezone: string
+          welcome_message: string
+        }[]
+      }
       get_user_company_id: { Args: { _user_id: string }; Returns: string }
       get_user_company_role: {
         Args: { _company_id: string; _user_id: string }
@@ -3452,6 +3480,13 @@ export type Database = {
         Returns: boolean
       }
       is_super_admin: { Args: { _user_id: string }; Returns: boolean }
+      lookup_company_for_registration: {
+        Args: { p_code: string }
+        Returns: {
+          company_id: string
+          company_name: string
+        }[]
+      }
       user_belongs_to_company: {
         Args: { _company_id: string; _user_id: string }
         Returns: boolean

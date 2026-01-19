@@ -105,55 +105,76 @@ export function CompanyProvider({ children }: { children: ReactNode }) {
   const detectCompanyFromDomain = async (): Promise<Company | null> => {
     const hostname = window.location.hostname;
     
-    // Check for custom domain first
-    const { data: companyByDomain } = await supabase
-      .from('companies')
-      .select('*')
-      .eq('custom_domain', hostname)
-      .eq('is_active', true)
-      .single();
+    // Use RPC function to get company branding by domain (works for unauthenticated users too)
+    const { data: brandingData } = await supabase.rpc('get_company_branding_by_domain', {
+      p_domain: hostname
+    });
     
-    if (companyByDomain) return companyByDomain as Company;
-    
-    // Check for subdomain pattern (company.domain.com)
-    const parts = hostname.split('.');
-    if (parts.length >= 3) {
-      const slug = parts[0];
-      const { data: companyBySlug } = await supabase
-        .from('companies')
-        .select('*')
-        .eq('slug', slug)
-        .eq('is_active', true)
-        .single();
+    if (brandingData && brandingData.length > 0) {
+      const bd = brandingData[0];
+      // Set branding immediately from RPC response
+      setBranding({
+        id: '',
+        company_id: bd.company_id,
+        platform_name: bd.platform_name || 'Training Platform',
+        logo_url: bd.logo_url,
+        favicon_url: bd.favicon_url,
+        primary_color: bd.primary_color || '#1e40af',
+        secondary_color: bd.secondary_color || '#3b82f6',
+        accent_color: bd.accent_color || '#f59e0b',
+        background_color: bd.background_color || '#ffffff',
+        text_color: bd.text_color || '#1f2937',
+        font_family: bd.font_family || 'Inter',
+        custom_css: bd.custom_css
+      });
       
-      if (companyBySlug) return companyBySlug as Company;
+      return {
+        id: bd.company_id,
+        name: bd.company_name,
+        slug: bd.company_slug,
+        custom_domain: null,
+        is_active: true,
+        is_master: false,
+        created_at: '',
+        updated_at: ''
+      };
     }
     
-    // Default to Rossik (master tenant)
-    const { data: masterCompany } = await supabase
-      .from('companies')
-      .select('*')
-      .eq('is_master', true)
-      .eq('is_active', true)
-      .single();
-    
-    return masterCompany as Company | null;
+    return null;
   };
 
   const fetchCompanyData = async (companyId: string) => {
-    const [brandingRes, settingsRes, subscriptionRes] = await Promise.all([
-      supabase.from('company_branding').select('*').eq('company_id', companyId).single(),
-      supabase.from('company_settings').select('*').eq('company_id', companyId).single(),
-      supabase.from('company_subscriptions').select(`
-        *,
-        plan:subscription_plans(*)
-      `).eq('company_id', companyId).single()
-    ]);
+    const hostname = window.location.hostname;
+    
+    // Use RPC to get settings (works for unauthenticated users)
+    const { data: settingsData } = await supabase.rpc('get_company_settings_by_domain', {
+      p_domain: hostname
+    });
+    
+    if (settingsData && settingsData.length > 0) {
+      const sd = settingsData[0];
+      setSettings({
+        id: '',
+        company_id: companyId,
+        active_languages: sd.active_languages || ['ro'],
+        default_language: sd.default_language || 'ro',
+        registration_code: null, // Not exposed for security
+        require_approval: false,
+        welcome_message: sd.welcome_message,
+        support_email: null,
+        timezone: sd.timezone || 'Europe/Bucharest'
+      });
+    }
+    
+    // Subscription can be fetched directly as subscription_plans is public
+    const { data: subscriptionRes } = await supabase
+      .from('company_subscriptions')
+      .select(`*, plan:subscription_plans(*)`)
+      .eq('company_id', companyId)
+      .single();
 
-    if (brandingRes.data) setBranding(brandingRes.data as CompanyBranding);
-    if (settingsRes.data) setSettings(settingsRes.data as CompanySettings);
-    if (subscriptionRes.data) {
-      const sub = subscriptionRes.data as any;
+    if (subscriptionRes) {
+      const sub = subscriptionRes as any;
       setSubscription({
         ...sub,
         plan: sub.plan
