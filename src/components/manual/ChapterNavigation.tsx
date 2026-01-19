@@ -6,29 +6,37 @@ import { useAuth } from "@/hooks/useAuth";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 
-// Ordered chapter list matching sidebar sections
+// Ordered chapter list matching sidebar sections (must match Sidebar.tsx exactly)
 const chapterOrder = [
-  // Foundation
+  // Foundation (5 chapters)
   { id: "intro", label: "Introduction" },
   { id: "mindset", label: "Role & Mindset" },
   { id: "soft-skills", label: "Soft Skills" },
+  { id: "stress-management", label: "Stress Management" },
   { id: "workflow", label: "Operational Workflow" },
-  // Equipment & Handling
+  // Equipment & Handling (7 chapters)
   { id: "vehicle", label: "Vehicle Reference" },
   { id: "loading", label: "Loading & Securing" },
   { id: "reefer", label: "Temperature Transport" },
+  { id: "express-transport", label: "Express Transport" },
+  { id: "intermodal", label: "Intermodal Transport" },
   { id: "warehouse", label: "Warehouse & Cross-Dock" },
   { id: "adr", label: "ADR Dangerous Goods" },
+  // Documents & Compliance (7 chapters)
   { id: "documents", label: "Transport Documents" },
-  // Trade & Regulations
   { id: "incoterms", label: "Incoterms & Trade" },
+  { id: "customs", label: "Customs & Borders" },
+  { id: "authorities", label: "Authorities" },
   { id: "compliance", label: "Drivers' Hours" },
   { id: "driving-time", label: "Shift vs Driving Time" },
-  { id: "customs", label: "Customs & Borders" },
+  { id: "licenses-oversize", label: "Licenses & Oversize" },
+  // Geography & Environment (5 chapters)
   { id: "europe-zones", label: "European Zones" },
+  { id: "european-countries", label: "European Countries" },
   { id: "environment", label: "Environmental" },
+  { id: "sustainability", label: "Sustainability" },
   { id: "supply-chain", label: "Supply Chain" },
-  // Commercial Skills
+  // Commercial Skills (9 chapters)
   { id: "pricing", label: "Pricing & Tolls" },
   { id: "commercial", label: "Commercial Skills" },
   { id: "negotiation", label: "Negotiation" },
@@ -36,24 +44,28 @@ const chapterOrder = [
   { id: "carrier-management", label: "Carrier Management" },
   { id: "exchanges", label: "Freight Exchanges" },
   { id: "communication", label: "Communication" },
+  { id: "networking", label: "Networking" },
   { id: "kpi", label: "KPIs & Performance" },
-  // Systems & Technology
+  // Systems & Technology (4 chapters)
   { id: "translogica", label: "Translogica TMS" },
   { id: "fleet", label: "Fleet & GPS" },
   { id: "technology", label: "Technology & Digital" },
-  // Risk & Finance
+  { id: "digitalization", label: "Digitalization" },
+  // Risk & Finance (6 chapters)
   { id: "risk-management", label: "Risk Management" },
   { id: "insurance", label: "Transport Insurance" },
+  { id: "high-value-goods", label: "High Value Goods" },
   { id: "claims", label: "Claims & Disputes" },
   { id: "payment", label: "Payment & Invoicing" },
   { id: "accounting", label: "Accounting & Finance" },
-  // Practical Application
-  { id: "emergency", label: "Emergency Procedures" },
-  { id: "case-studies", label: "Case Studies" },
+  // Practical Application (7 chapters)
   { id: "training", label: "Training Exercises" },
+  { id: "professional-development", label: "Professional Development" },
+  { id: "case-studies", label: "Case Studies" },
+  { id: "emergency", label: "Emergency Procedures" },
   { id: "red-flags", label: "Red Flags & Tips" },
-  { id: "glossary", label: "Glossary" },
   { id: "checklists", label: "Checklists" },
+  { id: "glossary", label: "Glossary" },
 ];
 
 interface ChapterNavigationProps {
