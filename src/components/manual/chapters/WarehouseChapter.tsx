@@ -2,7 +2,7 @@ import { DataTable } from "../DataTable";
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { quizzes } from "@/data/quizData";
-import { Warehouse, Package, ArrowRight, Clock, Truck, CheckCircle2, AlertTriangle, Zap, BarChart3, MapPin, Users, RefreshCw } from "lucide-react";
+import { Warehouse, Package, ArrowRight, Clock, Truck, CheckCircle2, AlertTriangle, Zap, BarChart3, MapPin, Users, RefreshCw, Book, FileText } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
 
@@ -313,6 +313,81 @@ export function WarehouseChapter() {
           </ul>
         </div>
       </div>
+
+      {/* Best Practices & Common Mistakes */}
+      <section>
+        <div className="grid md:grid-cols-2 gap-4">
+          <div className="bg-success/10 border border-success/30 rounded-xl p-6">
+            <h3 className="font-semibold mb-3 flex items-center gap-2 text-success">
+              <CheckCircle2 className="w-5 h-5" />
+              Best Practices
+            </h3>
+            <ul className="space-y-2 text-sm text-muted-foreground">
+              <li>• {ct('bestPractice1')}</li>
+              <li>• {ct('bestPractice2')}</li>
+              <li>• {ct('bestPractice3')}</li>
+            </ul>
+          </div>
+          <div className="bg-destructive/10 border border-destructive/30 rounded-xl p-6">
+            <h3 className="font-semibold mb-3 flex items-center gap-2 text-destructive">
+              <AlertTriangle className="w-5 h-5" />
+              Common Mistakes
+            </h3>
+            <ul className="space-y-2 text-sm text-muted-foreground">
+              <li>• {ct('commonMistake1')}</li>
+              <li>• {ct('commonMistake2')}</li>
+              <li>• {ct('commonMistake3')}</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* Case Study */}
+      <section>
+        <h2 className="section-title flex items-center gap-3">
+          <FileText className="w-6 h-6 text-primary" />
+          {ct('caseStudyTitle')}
+        </h2>
+        <div className="bg-gradient-to-br from-primary/5 to-primary/10 border border-primary/20 rounded-xl p-6 space-y-4">
+          <p className="text-muted-foreground">{ct('caseStudyIntro')}</p>
+          <div className="bg-destructive/10 border border-destructive/30 rounded-lg p-4">
+            <h4 className="font-semibold text-destructive mb-2">Problem</h4>
+            <p className="text-sm text-muted-foreground">{ct('caseStudyProblem')}</p>
+          </div>
+          <div className="bg-primary/10 border border-primary/30 rounded-lg p-4">
+            <h4 className="font-semibold text-primary mb-2">Solution</h4>
+            <p className="text-sm text-muted-foreground">{ct('caseStudySolution')}</p>
+          </div>
+          <div className="bg-success/10 border border-success/30 rounded-lg p-4">
+            <h4 className="font-semibold text-success mb-2">Result</h4>
+            <p className="text-sm text-muted-foreground">{ct('caseStudyResult')}</p>
+          </div>
+          <div className="bg-warning/10 border border-warning/30 rounded-lg p-4">
+            <h4 className="font-semibold text-warning mb-2">Key Lesson</h4>
+            <p className="text-sm text-muted-foreground">{ct('caseStudyLesson')}</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Glossary */}
+      <section>
+        <h2 className="section-title flex items-center gap-3">
+          <Book className="w-6 h-6 text-primary" />
+          {ct('glossaryTitle')}
+        </h2>
+        <div className="grid md:grid-cols-2 gap-3">
+          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((num) => (
+            <div key={num} className="bg-card border border-border rounded-lg p-4 hover:border-primary/50 transition-colors">
+              <dt className="font-semibold text-primary mb-1">
+                {ct(`glossaryTerm${num}`)}
+              </dt>
+              <dd className="text-sm text-muted-foreground">
+                {ct(`glossaryDef${num}`)}
+              </dd>
+            </div>
+          ))}
+        </div>
+      </section>
 
       {/* Quiz */}
       {quizzes["warehouse"] && (
