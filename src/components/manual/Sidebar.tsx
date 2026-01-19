@@ -229,7 +229,9 @@ export function Sidebar({ activeChapter, onChapterChange, onShowDashboard, onSho
       )}
 
       {/* Sidebar */}
-      <aside className={cn(
+      <aside 
+        data-tour="sidebar"
+        className={cn(
         "fixed left-0 top-0 h-full w-72 bg-card border-r border-border z-40 flex flex-col transition-transform duration-300 ease-out",
         "lg:translate-x-0",
         mobileOpen ? "translate-x-0" : "-translate-x-full"
@@ -281,6 +283,7 @@ export function Sidebar({ activeChapter, onChapterChange, onShowDashboard, onSho
               {user ? completedCount : progress.totalCompleted} / {totalChapters} {t('sidebar.chapters')}
             </span>
             <button
+              data-tour="progress-button"
               onClick={() => {
                 onShowDashboard();
                 setMobileOpen(false);
@@ -324,6 +327,7 @@ export function Sidebar({ activeChapter, onChapterChange, onShowDashboard, onSho
         {onShowSimulations && (
           <div className="px-4 py-3 border-b border-border">
             <button
+              data-tour="simulation-button"
               onClick={() => {
                 onShowSimulations();
                 setMobileOpen(false);
