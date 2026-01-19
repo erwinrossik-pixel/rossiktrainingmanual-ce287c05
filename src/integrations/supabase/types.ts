@@ -2340,6 +2340,100 @@ export type Database = {
           },
         ]
       }
+      retention_campaigns: {
+        Row: {
+          created_at: string | null
+          id: string
+          is_active: boolean | null
+          message_template_de: string | null
+          message_template_en: string | null
+          message_template_ro: string
+          name: string
+          notification_type: string | null
+          target_company_id: string | null
+          trigger_type: string
+          trigger_value: number | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          is_active?: boolean | null
+          message_template_de?: string | null
+          message_template_en?: string | null
+          message_template_ro: string
+          name: string
+          notification_type?: string | null
+          target_company_id?: string | null
+          trigger_type: string
+          trigger_value?: number | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          is_active?: boolean | null
+          message_template_de?: string | null
+          message_template_en?: string | null
+          message_template_ro?: string
+          name?: string
+          notification_type?: string | null
+          target_company_id?: string | null
+          trigger_type?: string
+          trigger_value?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "retention_campaigns_target_company_id_fkey"
+            columns: ["target_company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      retention_logs: {
+        Row: {
+          campaign_id: string | null
+          channel: string | null
+          clicked_at: string | null
+          id: string
+          message_sent: string
+          returned_at: string | null
+          sent_at: string | null
+          trigger_reason: string
+          user_id: string
+        }
+        Insert: {
+          campaign_id?: string | null
+          channel?: string | null
+          clicked_at?: string | null
+          id?: string
+          message_sent: string
+          returned_at?: string | null
+          sent_at?: string | null
+          trigger_reason: string
+          user_id: string
+        }
+        Update: {
+          campaign_id?: string | null
+          channel?: string | null
+          clicked_at?: string | null
+          id?: string
+          message_sent?: string
+          returned_at?: string | null
+          sent_at?: string | null
+          trigger_reason?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "retention_logs_campaign_id_fkey"
+            columns: ["campaign_id"]
+            isOneToOne: false
+            referencedRelation: "retention_campaigns"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       simulation_attempts: {
         Row: {
           completed_at: string
@@ -3092,6 +3186,74 @@ export type Database = {
           },
         ]
       }
+      user_retention: {
+        Row: {
+          chapters_viewed: number | null
+          company_id: string | null
+          created_at: string | null
+          days_inactive: number | null
+          engagement_score: number | null
+          id: string
+          last_active_at: string | null
+          last_notification_sent_at: string | null
+          notifications_sent: number | null
+          quizzes_attempted: number | null
+          re_engaged_count: number | null
+          risk_level: string | null
+          status: string | null
+          total_sessions: number | null
+          total_time_spent_minutes: number | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          chapters_viewed?: number | null
+          company_id?: string | null
+          created_at?: string | null
+          days_inactive?: number | null
+          engagement_score?: number | null
+          id?: string
+          last_active_at?: string | null
+          last_notification_sent_at?: string | null
+          notifications_sent?: number | null
+          quizzes_attempted?: number | null
+          re_engaged_count?: number | null
+          risk_level?: string | null
+          status?: string | null
+          total_sessions?: number | null
+          total_time_spent_minutes?: number | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          chapters_viewed?: number | null
+          company_id?: string | null
+          created_at?: string | null
+          days_inactive?: number | null
+          engagement_score?: number | null
+          id?: string
+          last_active_at?: string | null
+          last_notification_sent_at?: string | null
+          notifications_sent?: number | null
+          quizzes_attempted?: number | null
+          re_engaged_count?: number | null
+          risk_level?: string | null
+          status?: string | null
+          total_sessions?: number | null
+          total_time_spent_minutes?: number | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "user_retention_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       user_roles: {
         Row: {
           created_at: string
@@ -3430,6 +3592,20 @@ export type Database = {
       }
     }
     Functions: {
+      calculate_engagement_score: {
+        Args: {
+          p_chapters: number
+          p_days_inactive: number
+          p_quizzes: number
+          p_total_sessions: number
+          p_total_time: number
+        }
+        Returns: number
+      }
+      determine_risk_level: {
+        Args: { p_days_inactive: number; p_engagement_score: number }
+        Returns: string
+      }
       generate_certificate_code: { Args: never; Returns: string }
       get_company_branding_by_domain: {
         Args: { p_domain: string }

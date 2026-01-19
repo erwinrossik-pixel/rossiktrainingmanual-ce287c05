@@ -38,6 +38,7 @@ import { KnowledgeGraph } from '@/components/admin/KnowledgeGraph';
 import { GamificationLeaderboard } from '@/components/admin/GamificationLeaderboard';
 import { CompanyReportGenerator } from '@/components/admin/CompanyReportGenerator';
 import { CompetencyMatrix } from '@/components/admin/CompetencyMatrix';
+import { RetentionDashboard } from '@/components/admin/RetentionDashboard';
 import { SubscriptionCard } from '@/components/subscription';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';

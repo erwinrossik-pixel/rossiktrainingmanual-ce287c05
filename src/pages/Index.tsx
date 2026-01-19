@@ -8,6 +8,7 @@ import { LanguageProvider } from "@/contexts/LanguageContext";
 import { useAuth } from "@/hooks/useAuth";
 import { useCompany } from "@/contexts/CompanyContext";
 import { useAnalytics } from "@/hooks/useAnalytics";
+import { useRetentionTracking } from "@/hooks/useRetentionTracking";
 import { PendingApproval } from "@/components/PendingApproval";
 import { TrialBanner } from "@/components/subscription";
 import NotificationCenter from "@/components/NotificationCenter";
