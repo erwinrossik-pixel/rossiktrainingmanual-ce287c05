@@ -238,17 +238,17 @@ export function Sidebar({ activeChapter, onChapterChange, onShowDashboard, onSho
       )}>
         {/* Header with Logo */}
         <div className="p-4 border-b border-border">
-          <div className="flex items-center gap-3">
+          <div className="flex flex-col items-center gap-2">
             <img 
               src={rossikLogo} 
               alt="Rossik" 
-              width={56}
-              height={56}
-              className="w-14 h-14 object-contain rounded-lg flex-shrink-0"
+              width={255}
+              height={51}
+              className="w-full max-w-[255px] h-auto object-contain"
               loading="eager"
               decoding="async"
             />
-            <div className="flex-1 min-w-0">
+            <div className="text-center">
               <p className="text-sm font-bold text-foreground">Training Manual</p>
               <p className="text-xs text-muted-foreground">{t('sidebar.edition')}</p>
             </div>
