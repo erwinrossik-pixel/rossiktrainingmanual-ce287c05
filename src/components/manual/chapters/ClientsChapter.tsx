@@ -1,7 +1,6 @@
 import { InfoCard } from "../InfoCard";
 import { DataTable } from "../DataTable";
 import { Quiz } from "../Quiz";
-import { quizzes } from "@/data/quizData";
 import { Building2, Search, FileText, BarChart3, Target, Handshake, Phone, Mail, Users, TrendingUp, AlertTriangle, CheckCircle } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
@@ -349,9 +348,7 @@ export function ClientsChapter() {
       </section>
 
       {/* Quiz */}
-      {quizzes.clients && (
-        <Quiz title={ct("quizTitle")} questions={quizzes.clients} chapterId="clients" />
-      )}
+      <Quiz title={ct("quizTitle")} chapterId="clients" questionsPerRound={10} />
     </div>
   );
 }

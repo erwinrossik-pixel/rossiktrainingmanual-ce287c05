@@ -2,7 +2,6 @@ import { DataTable } from "../DataTable";
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { ChapterHero } from "../ChapterHero";
-import { quizzes } from "@/data/quizData";
 import { Brain, MessageSquare, Clock, Users, Target, Lightbulb, Heart, Shield, Zap, CheckCircle2, AlertTriangle, Volume2, Ear, PenTool } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 
@@ -463,14 +462,7 @@ export function SoftSkillsChapter() {
       </div>
 
       {/* Quiz */}
-      {quizzes["soft-skills"] && (
-        <Quiz
-          title={ct("quizTitle")}
-          questions={quizzes["soft-skills"]}
-          chapterId="soft-skills"
-          questionsPerRound={10}
-        />
-      )}
+      <Quiz title={ct("quizTitle")} chapterId="soft-skills" questionsPerRound={10} />
     </div>
   );
 }
