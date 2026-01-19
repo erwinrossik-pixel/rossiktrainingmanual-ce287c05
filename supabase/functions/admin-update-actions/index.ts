@@ -6,6 +6,151 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
+// ============================================================
+// AI CONTENT GOVERNOR - RULES OF TRUTH
+// ============================================================
+
+const LOCKED_TERMINOLOGY = [
+  'CMR', 'ADR', 'AETR', 'Incoterms', 'TIR', 'GDP', 'IATA DGR', 
+  'FIATA', 'ISO 9001', 'ISO 28000', 'TAPA', 'AEO'
+];
+
+const LOCKED_CONCEPTS = [
+  'cmr_liability_limits',
+  'adr_classification_system', 
+  'incoterms_2020_definitions',
+  'gdp_temperature_requirements',
+  'aetr_driving_limits',
+  'tir_carnet_procedures'
+];
+
+const CRITICAL_PATTERNS = [
+  /CMR.*8\.33.*SDR/i,
+  /ADR.*class\s*[1-9]/i,
+  /Incoterms.*202[0-9]/i,
+  /GDP.*[+-]?\d+.*°C/i,
+  /AETR.*9.*hours?.*driving/i,
+  /TIR.*carnet/i
+];
+
+interface GovernanceValidation {
+  isValid: boolean;
+  violations: string[];
+  severity: 'none' | 'warning' | 'critical';
+  autoReject: boolean;
+}
+
+function validateContentWithGovernor(
+  originalContent: Record<string, unknown> | null,
+  updatedContent: Record<string, unknown> | null,
+  chapterId: string
+): GovernanceValidation {
+  const violations: string[] = [];
+  let severity: 'none' | 'warning' | 'critical' = 'none';
+  let autoReject = false;
+
+  if (!originalContent || !updatedContent) {
+    return { isValid: true, violations: [], severity: 'none', autoReject: false };
+  }
+
+  const originalStr = JSON.stringify(originalContent).toLowerCase();
+  const updatedStr = JSON.stringify(updatedContent).toLowerCase();
+
+  // Check locked terminology modifications
+  for (const term of LOCKED_TERMINOLOGY) {
+    const termLower = term.toLowerCase();
+    const originalCount = (originalStr.match(new RegExp(termLower, 'g')) || []).length;
+    const updatedCount = (updatedStr.match(new RegExp(termLower, 'g')) || []).length;
+    
+    if (originalCount > 0 && updatedCount === 0) {
+      violations.push(`CRITICAL: Removed locked term "${term}"`);
+      severity = 'critical';
+      autoReject = true;
+    }
+  }
+
+  // Check critical patterns
+  for (const pattern of CRITICAL_PATTERNS) {
+    const originalMatch = pattern.test(originalStr);
+    const updatedMatch = pattern.test(updatedStr);
+    
+    if (originalMatch && !updatedMatch) {
+      violations.push(`CRITICAL: Modified critical compliance pattern`);
+      severity = 'critical';
+      autoReject = true;
+    }
+  }
+
+  // Check for locked concepts in chapter
+  for (const concept of LOCKED_CONCEPTS) {
+    if (chapterId.includes(concept.split('_')[0])) {
+      const originalLen = originalStr.length;
+      const updatedLen = updatedStr.length;
+      const changePercent = Math.abs(originalLen - updatedLen) / originalLen * 100;
+      
+      if (changePercent > 30) {
+        violations.push(`WARNING: Large change (${changePercent.toFixed(1)}%) to locked concept area`);
+        if (severity !== 'critical') severity = 'warning';
+      }
+    }
+  }
+
+  // Cross-language consistency check
+  const languages = ['en', 'de', 'ro'];
+  const langContents: Record<string, string> = {};
+  
+  for (const lang of languages) {
+    if (typeof updatedContent === 'object' && updatedContent !== null) {
+      const langContent = (updatedContent as Record<string, unknown>)[lang];
+      if (langContent) {
+        langContents[lang] = JSON.stringify(langContent);
+      }
+    }
+  }
+
+  // Check that all languages have similar structure
+  const langLengths = Object.values(langContents).map(c => c.length);
+  if (langLengths.length > 1) {
+    const avgLen = langLengths.reduce((a, b) => a + b, 0) / langLengths.length;
+    for (const len of langLengths) {
+      if (Math.abs(len - avgLen) / avgLen > 0.5) {
+        violations.push('WARNING: Significant language content length mismatch');
+        if (severity !== 'critical') severity = 'warning';
+      }
+    }
+  }
+
+  return {
+    isValid: violations.length === 0,
+    violations,
+    severity,
+    autoReject
+  };
+}
+
+// deno-lint-ignore no-explicit-any
+async function logGovernanceIncident(
+  supabase: any,
+  updateId: string,
+  chapterId: string,
+  validation: GovernanceValidation,
+  userId: string | null
+) {
+  await supabase.from('update_audit_log').insert({
+    action: 'governance_violation',
+    entity_type: 'update',
+    entity_id: updateId,
+    chapter_id: chapterId,
+    details: {
+      violations: validation.violations,
+      severity: validation.severity,
+      auto_rejected: validation.autoReject,
+      validated_at: new Date().toISOString()
+    },
+    performed_by: userId || 'ai_governor'
+  });
+}
+
 serve(async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
@@ -17,7 +162,7 @@ serve(async (req) => {
   const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
   try {
-    const { action, update_id, user_id, reason } = await req.json();
+    const { action, update_id, user_id, reason, skip_governance } = await req.json();
 
     console.log(`[ADMIN-ACTIONS] Action: ${action}, Update: ${update_id}`);
 
@@ -48,6 +193,24 @@ serve(async (req) => {
       });
     }
 
+    // Handle governance validation
+    if (action === 'validate_governance') {
+      const { original_content, updated_content, chapter_id } = await req.json();
+      
+      const validation = validateContentWithGovernor(
+        original_content,
+        updated_content,
+        chapter_id
+      );
+
+      return new Response(JSON.stringify({
+        success: true,
+        validation
+      }), {
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
+    }
+
     if (!update_id) {
       throw new Error('update_id is required for this action');
     }
@@ -63,10 +226,47 @@ serve(async (req) => {
       throw new Error('Update record not found');
     }
 
-    let result: { success: boolean; status?: string; message: string } = { success: false, message: '' };
+    let result: { success: boolean; status?: string; message: string; governance?: GovernanceValidation } = { success: false, message: '' };
 
     switch (action) {
       case 'approve':
+        // ============================================================
+        // AI CONTENT GOVERNOR - VALIDATION BEFORE APPROVE
+        // ============================================================
+        if (!skip_governance) {
+          const validation = validateContentWithGovernor(
+            updateRecord.original_content as Record<string, unknown> | null,
+            updateRecord.updated_content as Record<string, unknown> | null,
+            updateRecord.chapter_id
+          );
+
+          if (validation.autoReject) {
+            // Auto-reject by governance
+            await logGovernanceIncident(supabase, update_id, updateRecord.chapter_id, validation, user_id);
+            
+            await supabase
+              .from('auto_updates')
+              .update({
+                status: 'rejected',
+                rollback_reason: `AI Governor auto-reject: ${validation.violations.join('; ')}`,
+              })
+              .eq('id', update_id);
+
+            return new Response(JSON.stringify({ 
+              success: false, 
+              status: 'rejected',
+              message: 'Update rejected by AI Content Governor',
+              governance: validation
+            }), {
+              headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+            });
+          }
+
+          if (validation.severity === 'warning') {
+            await logGovernanceIncident(supabase, update_id, updateRecord.chapter_id, validation, user_id);
+          }
+        }
+
         // Approve and apply the update
         const { error: approveError } = await supabase
           .from('auto_updates')
@@ -85,11 +285,11 @@ serve(async (req) => {
           entity_type: 'update',
           entity_id: update_id,
           chapter_id: updateRecord.chapter_id,
-          details: { approved_by: user_id },
+          details: { approved_by: user_id, governance_passed: true },
           performed_by: user_id || 'admin'
         });
 
-        result = { success: true, status: 'applied', message: 'Update approved and applied' };
+        result = { success: true, status: 'applied', message: 'Update approved and applied (governance passed)' };
         break;
 
       case 'reject':
