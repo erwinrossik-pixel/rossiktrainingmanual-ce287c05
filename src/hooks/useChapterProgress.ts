@@ -1,7 +1,8 @@
-import { useState, useEffect, useCallback, useMemo } from 'react';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useCallback } from 'react';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from './useAuth';
+import { ALL_CHAPTER_IDS } from '@/data/chaptersConfig';
 
 interface ChapterProgress {
   chapter_id: string;
@@ -142,32 +143,27 @@ export function useChapterProgress() {
       return false;
     }
 
-    // If passed, unlock the next chapter
+    // If passed, unlock the next chapter using the frontend chapter order
     if (passed) {
-      // Get all chapters to find the next one
-      const { data: chapters } = await supabase
-        .from('chapters')
-        .select('id, order_index')
-        .order('order_index');
-
-      if (chapters) {
-        const currentIndex = chapters.findIndex(c => c.id === chapterId);
-        if (currentIndex >= 0 && currentIndex < chapters.length - 1) {
-          const nextChapter = chapters[currentIndex + 1];
+      // Use the centralized chapter configuration for correct order
+      const currentIndex = ALL_CHAPTER_IDS.indexOf(chapterId);
+      if (currentIndex >= 0 && currentIndex < ALL_CHAPTER_IDS.length - 1) {
+        const nextChapterId = ALL_CHAPTER_IDS[currentIndex + 1];
+        
+        // Unlock next chapter if not already unlocked
+        await supabase
+          .from('chapter_progress')
+          .upsert({
+            user_id: user.id,
+            chapter_id: nextChapterId,
+            status: 'unlocked',
+            best_score: 0,
+            attempts_count: 0,
+          }, {
+            onConflict: 'user_id,chapter_id',
+          });
           
-          // Unlock next chapter if not already unlocked
-          await supabase
-            .from('chapter_progress')
-            .upsert({
-              user_id: user.id,
-              chapter_id: nextChapter.id,
-              status: 'unlocked',
-              best_score: 0,
-              attempts_count: 0,
-            }, {
-              onConflict: 'user_id,chapter_id',
-            });
-        }
+        console.log(`Chapter unlocked: ${nextChapterId} (after completing ${chapterId})`);
       }
     }
 
@@ -235,30 +231,25 @@ export function useChapterProgress() {
       return false;
     }
 
-    // Get all chapters to find the next one (mindset)
-    const { data: chapters } = await supabase
-      .from('chapters')
-      .select('id, order_index')
-      .order('order_index');
-
-    if (chapters) {
-      const introIndex = chapters.findIndex(c => c.id === 'intro');
-      if (introIndex >= 0 && introIndex < chapters.length - 1) {
-        const nextChapter = chapters[introIndex + 1];
+    // Unlock next chapter using frontend chapter order
+    const introIndex = ALL_CHAPTER_IDS.indexOf('intro');
+    if (introIndex >= 0 && introIndex < ALL_CHAPTER_IDS.length - 1) {
+      const nextChapterId = ALL_CHAPTER_IDS[introIndex + 1];
+      
+      // Unlock next chapter
+      await supabase
+        .from('chapter_progress')
+        .upsert({
+          user_id: user.id,
+          chapter_id: nextChapterId,
+          status: 'unlocked',
+          best_score: 0,
+          attempts_count: 0,
+        }, {
+          onConflict: 'user_id,chapter_id',
+        });
         
-        // Unlock next chapter
-        await supabase
-          .from('chapter_progress')
-          .upsert({
-            user_id: user.id,
-            chapter_id: nextChapter.id,
-            status: 'unlocked',
-            best_score: 0,
-            attempts_count: 0,
-          }, {
-            onConflict: 'user_id,chapter_id',
-          });
-      }
+      console.log(`Chapter unlocked: ${nextChapterId} (after completing intro)`);
     }
 
     // Invalidate cache to refresh progress
