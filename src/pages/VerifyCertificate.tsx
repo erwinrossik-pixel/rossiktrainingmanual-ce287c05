@@ -44,24 +44,31 @@ export default function VerifyCertificate() {
     setStatus("LOADING");
 
     try {
+      // Folosim funcția securizată pentru verificarea certificatului
       const { data, error } = await supabase
-        .from("certificates")
-        .select("*")
-        .eq("certificate_code", certCode.toUpperCase().trim())
-        .single();
+        .rpc('verify_certificate_by_code', { p_code: certCode.trim() });
 
-      if (error || !data) {
+      if (error) {
+        console.error("Error verifying certificate:", error);
         setStatus("NOT_FOUND");
         setCertificate(null);
         setIsSearching(false);
         return;
       }
 
-      setCertificate(data as CertificateData);
+      if (!data || data.length === 0) {
+        setStatus("NOT_FOUND");
+        setCertificate(null);
+        setIsSearching(false);
+        return;
+      }
 
-      if (data.is_revoked) {
+      const certData = data[0];
+      setCertificate(certData as CertificateData);
+
+      if (certData.is_revoked) {
         setStatus("REVOKED");
-      } else if (new Date(data.expires_at) < new Date()) {
+      } else if (new Date(certData.expires_at) < new Date()) {
         setStatus("EXPIRED");
       } else {
         setStatus("VALID");
