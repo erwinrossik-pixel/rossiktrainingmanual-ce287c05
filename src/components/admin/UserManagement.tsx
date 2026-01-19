@@ -6,28 +6,29 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
-import { Users, UserPlus, Check, X, Clock, Shield, User as UserIcon, Mail, AlertCircle } from 'lucide-react';
+import { Users, Check, X, Clock, User as UserIcon, Mail, AlertCircle, Search, Building2 } from 'lucide-react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { format } from 'date-fns';
 import { ro } from 'date-fns/locale';
 
-interface CompanyUserWithProfile {
+interface UserProfile {
   id: string;
-  user_id: string;
-  company_id: string;
-  role: 'super_admin' | 'company_admin' | 'user';
-  status: 'pending' | 'approved' | 'rejected' | 'suspended';
+  email: string;
+  first_name: string | null;
+  last_name: string | null;
+  role: string;
   created_at: string;
-  approved_at: string | null;
-  profile?: {
-    email: string;
-    first_name: string | null;
-    last_name: string | null;
-  };
+  updated_at: string;
+  company_user?: {
+    id: string;
+    company_id: string;
+    role: 'super_admin' | 'company_admin' | 'user';
+    status: 'pending' | 'approved' | 'rejected' | 'suspended';
+    company_name?: string;
+  } | null;
 }
 
 interface RegistrationRequest {
@@ -39,55 +40,75 @@ interface RegistrationRequest {
   last_name: string | null;
   status: 'pending' | 'approved' | 'rejected' | 'suspended';
   created_at: string;
+  company_name?: string;
 }
 
 export function UserManagement() {
   const { company, isCompanyAdmin, isSuperAdmin, subscription } = useCompany();
   const { user } = useAuth();
   const { toast } = useToast();
-  const [users, setUsers] = useState<CompanyUserWithProfile[]>([]);
+  const [allUsers, setAllUsers] = useState<UserProfile[]>([]);
   const [pendingRequests, setPendingRequests] = useState<RegistrationRequest[]>([]);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState('users');
+  const [activeTab, setActiveTab] = useState('all-users');
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     if (isCompanyAdmin || isSuperAdmin) {
-      fetchUsers();
+      fetchAllUsers();
       fetchPendingRequests();
     }
   }, [company, isCompanyAdmin, isSuperAdmin]);
 
-  const fetchUsers = async () => {
+  const fetchAllUsers = async () => {
     setLoading(true);
     try {
-      let query = supabase
-        .from('company_users')
+      // Fetch ALL profiles
+      const { data: profiles, error: profilesError } = await supabase
+        .from('profiles')
         .select('*')
         .order('created_at', { ascending: false });
 
-      // Super admin sees all users, company admin sees only their company
+      if (profilesError) throw profilesError;
+
+      // Fetch all company_users with company names
+      const { data: companyUsers } = await supabase
+        .from('company_users')
+        .select('*');
+
+      // Fetch all companies for names
+      const { data: companies } = await supabase
+        .from('companies')
+        .select('id, name');
+
+      const companiesMap = new Map(companies?.map(c => [c.id, c.name]) || []);
+
+      // Merge profiles with company_users
+      const usersWithCompanyInfo: UserProfile[] = (profiles || []).map(profile => {
+        const companyUser = companyUsers?.find(cu => cu.user_id === profile.id);
+        
+        return {
+          ...profile,
+          company_user: companyUser ? {
+            id: companyUser.id,
+            company_id: companyUser.company_id,
+            role: companyUser.role,
+            status: companyUser.status,
+            company_name: companiesMap.get(companyUser.company_id)
+          } : null
+        };
+      });
+
+      // Filter based on admin type
       if (!isSuperAdmin && company) {
-        query = query.eq('company_id', company.id);
+        // Company admin sees only their company users
+        setAllUsers(usersWithCompanyInfo.filter(u => 
+          u.company_user?.company_id === company.id
+        ));
+      } else {
+        // Super admin sees ALL users
+        setAllUsers(usersWithCompanyInfo);
       }
-
-      const { data, error } = await query;
-
-      if (error) throw error;
-
-      // Fetch profiles for each user
-      const usersWithProfiles = await Promise.all(
-        (data || []).map(async (cu) => {
-          const { data: profile } = await supabase
-            .from('profiles')
-            .select('email, first_name, last_name')
-            .eq('id', cu.user_id)
-            .single();
-          
-          return { ...cu, profile } as CompanyUserWithProfile;
-        })
-      );
-
-      setUsers(usersWithProfiles);
     } catch (error) {
       console.error('Error fetching users:', error);
     } finally {
@@ -102,13 +123,25 @@ export function UserManagement() {
       .eq('status', 'pending')
       .order('created_at', { ascending: false });
 
-    // Super admin sees all requests, company admin sees only their company
     if (!isSuperAdmin && company) {
       query = query.eq('company_id', company.id);
     }
 
     const { data } = await query;
-    setPendingRequests(data || []);
+    
+    // Fetch company names
+    const { data: companies } = await supabase
+      .from('companies')
+      .select('id, name');
+    
+    const companiesMap = new Map(companies?.map(c => [c.id, c.name]) || []);
+    
+    const requestsWithCompany = (data || []).map(req => ({
+      ...req,
+      company_name: companiesMap.get(req.company_id)
+    }));
+    
+    setPendingRequests(requestsWithCompany);
   };
 
   const approveUser = async (companyUserId: string) => {
@@ -123,7 +156,7 @@ export function UserManagement() {
         .eq('id', companyUserId);
 
       toast({ title: 'Utilizator aprobat', description: 'Utilizatorul poate accesa acum platforma' });
-      fetchUsers();
+      fetchAllUsers();
     } catch (error) {
       toast({ title: 'Eroare', description: 'Nu s-a putut aproba utilizatorul', variant: 'destructive' });
     }
@@ -137,7 +170,7 @@ export function UserManagement() {
         .eq('id', companyUserId);
 
       toast({ title: 'Utilizator respins' });
-      fetchUsers();
+      fetchAllUsers();
     } catch (error) {
       toast({ title: 'Eroare', description: 'Nu s-a putut respinge utilizatorul', variant: 'destructive' });
     }
@@ -151,7 +184,7 @@ export function UserManagement() {
         .eq('id', companyUserId);
 
       toast({ title: 'Utilizator suspendat' });
-      fetchUsers();
+      fetchAllUsers();
     } catch (error) {
       toast({ title: 'Eroare', variant: 'destructive' });
     }
@@ -165,7 +198,7 @@ export function UserManagement() {
         .eq('id', companyUserId);
 
       toast({ title: 'Rol actualizat' });
-      fetchUsers();
+      fetchAllUsers();
     } catch (error) {
       toast({ title: 'Eroare', variant: 'destructive' });
     }
@@ -173,7 +206,6 @@ export function UserManagement() {
 
   const approveRequest = async (request: RegistrationRequest) => {
     try {
-      // Create company_users entry
       if (request.user_id) {
         await supabase.from('company_users').insert({
           user_id: request.user_id,
@@ -185,7 +217,6 @@ export function UserManagement() {
         });
       }
 
-      // Update request status
       await supabase
         .from('user_registration_requests')
         .update({
@@ -196,7 +227,7 @@ export function UserManagement() {
         .eq('id', request.id);
 
       toast({ title: 'Cerere aprobată' });
-      fetchUsers();
+      fetchAllUsers();
       fetchPendingRequests();
     } catch (error) {
       toast({ title: 'Eroare', variant: 'destructive' });
@@ -232,23 +263,40 @@ export function UserManagement() {
     );
   }
 
-  const approvedUsers = users.filter(u => u.status === 'approved');
-  const pendingUsers = users.filter(u => u.status === 'pending');
   const maxUsers = subscription?.plan?.max_users;
-  const isAtUserLimit = maxUsers && approvedUsers.length >= maxUsers;
+  const activeUsers = allUsers.filter(u => u.company_user?.status === 'approved');
+  const pendingUsers = allUsers.filter(u => u.company_user?.status === 'pending');
+  const usersWithoutCompany = allUsers.filter(u => !u.company_user);
+  const isAtUserLimit = maxUsers && activeUsers.length >= maxUsers;
 
-  const getRoleBadge = (role: string) => {
-    switch (role) {
-      case 'super_admin':
-        return <Badge className="bg-purple-500">Super Admin</Badge>;
-      case 'company_admin':
-        return <Badge className="bg-blue-500">Admin</Badge>;
-      default:
-        return <Badge variant="secondary">Utilizator</Badge>;
+  // Filter users by search term
+  const filteredUsers = allUsers.filter(u => {
+    const searchLower = searchTerm.toLowerCase();
+    return (
+      u.email?.toLowerCase().includes(searchLower) ||
+      u.first_name?.toLowerCase().includes(searchLower) ||
+      u.last_name?.toLowerCase().includes(searchLower) ||
+      u.company_user?.company_name?.toLowerCase().includes(searchLower)
+    );
+  });
+
+  const getRoleBadge = (role: string | undefined, profileRole?: string) => {
+    if (role === 'super_admin') {
+      return <Badge className="bg-purple-500">Super Admin</Badge>;
     }
+    if (role === 'company_admin') {
+      return <Badge className="bg-blue-500">Admin</Badge>;
+    }
+    if (profileRole === 'admin') {
+      return <Badge className="bg-indigo-500">Admin (Legacy)</Badge>;
+    }
+    return <Badge variant="secondary">Utilizator</Badge>;
   };
 
-  const getStatusBadge = (status: string) => {
+  const getStatusBadge = (status: string | undefined, hasCompany: boolean) => {
+    if (!hasCompany) {
+      return <Badge variant="outline" className="text-orange-600 border-orange-600"><AlertCircle className="h-3 w-3 mr-1" />Fără companie</Badge>;
+    }
     switch (status) {
       case 'approved':
         return <Badge variant="outline" className="text-green-600 border-green-600"><Check className="h-3 w-3 mr-1" />Activ</Badge>;
@@ -259,17 +307,17 @@ export function UserManagement() {
       case 'suspended':
         return <Badge variant="outline" className="text-gray-600 border-gray-600"><AlertCircle className="h-3 w-3 mr-1" />Suspendat</Badge>;
       default:
-        return <Badge variant="secondary">{status}</Badge>;
+        return <Badge variant="secondary">Necunoscut</Badge>;
     }
   };
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between flex-wrap gap-4">
         <div>
           <h2 className="text-2xl font-bold">Gestionare Utilizatori</h2>
           <p className="text-muted-foreground">
-            {approvedUsers.length}{maxUsers ? `/${maxUsers}` : ''} utilizatori activi
+            {allUsers.length} utilizatori înregistrați • {activeUsers.length} activi • {usersWithoutCompany.length} fără companie
           </p>
         </div>
         {isAtUserLimit && (
@@ -280,30 +328,48 @@ export function UserManagement() {
         )}
       </div>
 
+      {/* Search */}
+      <div className="relative">
+        <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+        <Input
+          placeholder="Caută după nume, email sau companie..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="pl-10"
+        />
+      </div>
+
       <Tabs value={activeTab} onValueChange={setActiveTab}>
         <TabsList>
-          <TabsTrigger value="users" className="flex items-center gap-2">
+          <TabsTrigger value="all-users" className="flex items-center gap-2">
             <Users className="h-4 w-4" />
-            Utilizatori ({approvedUsers.length})
+            Toți Utilizatorii ({allUsers.length})
           </TabsTrigger>
           <TabsTrigger value="pending" className="flex items-center gap-2">
             <Clock className="h-4 w-4" />
             În Așteptare ({pendingUsers.length + pendingRequests.length})
           </TabsTrigger>
+          <TabsTrigger value="no-company" className="flex items-center gap-2">
+            <AlertCircle className="h-4 w-4" />
+            Fără Companie ({usersWithoutCompany.length})
+          </TabsTrigger>
         </TabsList>
 
-        <TabsContent value="users">
+        <TabsContent value="all-users">
           <Card>
             <CardContent className="pt-6">
               {loading ? (
                 <div className="flex justify-center py-8">
                   <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
                 </div>
+              ) : filteredUsers.length === 0 ? (
+                <p className="text-center py-8 text-muted-foreground">Nu există utilizatori</p>
               ) : (
                 <Table>
                   <TableHeader>
                     <TableRow>
                       <TableHead>Utilizator</TableHead>
+                      <TableHead>Companie</TableHead>
                       <TableHead>Rol</TableHead>
                       <TableHead>Status</TableHead>
                       <TableHead>Înregistrat</TableHead>
@@ -311,8 +377,8 @@ export function UserManagement() {
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {users.filter(u => u.status !== 'pending').map((companyUser) => (
-                      <TableRow key={companyUser.id}>
+                    {filteredUsers.map((userProfile) => (
+                      <TableRow key={userProfile.id}>
                         <TableCell>
                           <div className="flex items-center gap-3">
                             <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
@@ -320,27 +386,37 @@ export function UserManagement() {
                             </div>
                             <div>
                               <p className="font-medium">
-                                {companyUser.profile?.first_name} {companyUser.profile?.last_name}
+                                {userProfile.first_name} {userProfile.last_name}
                               </p>
                               <p className="text-xs text-muted-foreground flex items-center gap-1">
                                 <Mail className="h-3 w-3" />
-                                {companyUser.profile?.email}
+                                {userProfile.email}
                               </p>
                             </div>
                           </div>
                         </TableCell>
-                        <TableCell>{getRoleBadge(companyUser.role)}</TableCell>
-                        <TableCell>{getStatusBadge(companyUser.status)}</TableCell>
                         <TableCell>
-                          {format(new Date(companyUser.created_at), 'dd MMM yyyy', { locale: ro })}
+                          {userProfile.company_user?.company_name ? (
+                            <div className="flex items-center gap-1">
+                              <Building2 className="h-3 w-3 text-muted-foreground" />
+                              <span className="text-sm">{userProfile.company_user.company_name}</span>
+                            </div>
+                          ) : (
+                            <span className="text-muted-foreground text-sm">-</span>
+                          )}
+                        </TableCell>
+                        <TableCell>{getRoleBadge(userProfile.company_user?.role, userProfile.role)}</TableCell>
+                        <TableCell>{getStatusBadge(userProfile.company_user?.status, !!userProfile.company_user)}</TableCell>
+                        <TableCell>
+                          {format(new Date(userProfile.created_at), 'dd MMM yyyy', { locale: ro })}
                         </TableCell>
                         <TableCell className="text-right">
-                          {companyUser.user_id !== user?.id && companyUser.role !== 'super_admin' && (
+                          {userProfile.company_user && userProfile.id !== user?.id && userProfile.company_user.role !== 'super_admin' && (
                             <div className="flex justify-end gap-2">
                               <Select
-                                value={companyUser.role}
-                                onValueChange={(value: 'user' | 'company_admin') => updateUserRole(companyUser.id, value)}
-                                disabled={!isSuperAdmin && companyUser.role === 'company_admin'}
+                                value={userProfile.company_user.role}
+                                onValueChange={(value: 'user' | 'company_admin') => updateUserRole(userProfile.company_user!.id, value)}
+                                disabled={!isSuperAdmin && userProfile.company_user.role === 'company_admin'}
                               >
                                 <SelectTrigger className="w-32">
                                   <SelectValue />
@@ -350,23 +426,33 @@ export function UserManagement() {
                                   <SelectItem value="company_admin">Admin</SelectItem>
                                 </SelectContent>
                               </Select>
-                              {companyUser.status === 'approved' && (
+                              {userProfile.company_user.status === 'approved' && (
                                 <Button
                                   variant="outline"
                                   size="sm"
-                                  onClick={() => suspendUser(companyUser.id)}
+                                  onClick={() => suspendUser(userProfile.company_user!.id)}
                                 >
                                   Suspendă
                                 </Button>
                               )}
-                              {companyUser.status === 'suspended' && (
+                              {userProfile.company_user.status === 'suspended' && (
                                 <Button
                                   variant="outline"
                                   size="sm"
-                                  onClick={() => approveUser(companyUser.id)}
+                                  onClick={() => approveUser(userProfile.company_user!.id)}
                                 >
                                   Reactivează
                                 </Button>
+                              )}
+                              {userProfile.company_user.status === 'pending' && (
+                                <>
+                                  <Button size="sm" onClick={() => approveUser(userProfile.company_user!.id)}>
+                                    <Check className="h-4 w-4" />
+                                  </Button>
+                                  <Button size="sm" variant="outline" onClick={() => rejectUser(userProfile.company_user!.id)}>
+                                    <X className="h-4 w-4" />
+                                  </Button>
+                                </>
                               )}
                             </div>
                           )}
@@ -394,29 +480,33 @@ export function UserManagement() {
                   <TableHeader>
                     <TableRow>
                       <TableHead>Utilizator</TableHead>
+                      <TableHead>Companie</TableHead>
                       <TableHead>Data Cererii</TableHead>
                       <TableHead className="text-right">Acțiuni</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {pendingUsers.map((companyUser) => (
-                      <TableRow key={companyUser.id}>
+                    {pendingUsers.map((userProfile) => (
+                      <TableRow key={userProfile.id}>
                         <TableCell>
                           <div>
                             <p className="font-medium">
-                              {companyUser.profile?.first_name} {companyUser.profile?.last_name}
+                              {userProfile.first_name} {userProfile.last_name}
                             </p>
-                            <p className="text-xs text-muted-foreground">{companyUser.profile?.email}</p>
+                            <p className="text-xs text-muted-foreground">{userProfile.email}</p>
                           </div>
                         </TableCell>
                         <TableCell>
-                          {format(new Date(companyUser.created_at), 'dd MMM yyyy HH:mm', { locale: ro })}
+                          <span className="text-sm">{userProfile.company_user?.company_name || '-'}</span>
+                        </TableCell>
+                        <TableCell>
+                          {format(new Date(userProfile.created_at), 'dd MMM yyyy HH:mm', { locale: ro })}
                         </TableCell>
                         <TableCell className="text-right">
                           <div className="flex justify-end gap-2">
                             <Button
                               size="sm"
-                              onClick={() => approveUser(companyUser.id)}
+                              onClick={() => approveUser(userProfile.company_user!.id)}
                               disabled={isAtUserLimit}
                             >
                               <Check className="h-4 w-4 mr-1" />
@@ -425,7 +515,7 @@ export function UserManagement() {
                             <Button
                               size="sm"
                               variant="outline"
-                              onClick={() => rejectUser(companyUser.id)}
+                              onClick={() => rejectUser(userProfile.company_user!.id)}
                             >
                               <X className="h-4 w-4 mr-1" />
                               Respinge
@@ -443,6 +533,9 @@ export function UserManagement() {
                             </p>
                             <p className="text-xs text-muted-foreground">{request.email}</p>
                           </div>
+                        </TableCell>
+                        <TableCell>
+                          <span className="text-sm">{request.company_name || '-'}</span>
                         </TableCell>
                         <TableCell>
                           {format(new Date(request.created_at), 'dd MMM yyyy HH:mm', { locale: ro })}
@@ -466,6 +559,56 @@ export function UserManagement() {
                               Respinge
                             </Button>
                           </div>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              )}
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="no-company">
+          <Card>
+            <CardHeader>
+              <CardTitle>Utilizatori Fără Companie</CardTitle>
+              <CardDescription>Utilizatori înregistrați care nu sunt asociați cu nicio companie</CardDescription>
+            </CardHeader>
+            <CardContent>
+              {usersWithoutCompany.length === 0 ? (
+                <p className="text-center py-8 text-muted-foreground">Toți utilizatorii sunt asociați cu o companie</p>
+              ) : (
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Utilizator</TableHead>
+                      <TableHead>Email</TableHead>
+                      <TableHead>Rol Profil</TableHead>
+                      <TableHead>Înregistrat</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {usersWithoutCompany.map((userProfile) => (
+                      <TableRow key={userProfile.id}>
+                        <TableCell>
+                          <div className="flex items-center gap-3">
+                            <div className="h-8 w-8 rounded-full bg-orange-100 flex items-center justify-center">
+                              <UserIcon className="h-4 w-4 text-orange-600" />
+                            </div>
+                            <p className="font-medium">
+                              {userProfile.first_name} {userProfile.last_name}
+                            </p>
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          <p className="text-sm">{userProfile.email}</p>
+                        </TableCell>
+                        <TableCell>
+                          {getRoleBadge(undefined, userProfile.role)}
+                        </TableCell>
+                        <TableCell>
+                          {format(new Date(userProfile.created_at), 'dd MMM yyyy HH:mm', { locale: ro })}
                         </TableCell>
                       </TableRow>
                     ))}
