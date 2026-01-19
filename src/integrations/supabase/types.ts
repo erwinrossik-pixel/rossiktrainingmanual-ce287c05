@@ -68,27 +68,6 @@ export type Database = {
         }
         Relationships: []
       }
-      app_metadata: {
-        Row: {
-          id: string
-          last_published_at: string | null
-          updated_at: string | null
-          version: string | null
-        }
-        Insert: {
-          id?: string
-          last_published_at?: string | null
-          updated_at?: string | null
-          version?: string | null
-        }
-        Update: {
-          id?: string
-          last_published_at?: string | null
-          updated_at?: string | null
-          version?: string | null
-        }
-        Relationships: []
-      }
       audio_cache: {
         Row: {
           audio_url: string | null

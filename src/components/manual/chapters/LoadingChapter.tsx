@@ -3,6 +3,7 @@ import { DataTable } from "../DataTable";
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { FlowDiagram, DecisionDiagram } from "../FlowDiagram";
+import { quizzes } from "@/data/quizData";
 import { 
   Package, Camera, FileText, AlertTriangle, Shield, Truck, 
   CheckCircle2, Scale, Ruler, Target, Info, Clock, Users,
@@ -464,7 +465,9 @@ export function LoadingChapter() {
       />
 
       {/* Quiz */}
-      <Quiz title={ct('quizTitle')} chapterId="loading" questionsPerRound={10} />
+      {quizzes.loading && (
+        <Quiz title={ct('quizTitle')} questions={quizzes.loading} chapterId="loading" />
+      )}
     </div>
   );
 }

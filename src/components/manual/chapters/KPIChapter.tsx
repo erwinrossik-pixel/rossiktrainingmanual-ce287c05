@@ -1,6 +1,7 @@
 import { DataTable } from "../DataTable";
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
+import { quizzes } from "@/data/quizData";
 import { BarChart3, Target, TrendingUp, TrendingDown, Clock, Euro, Users, Truck, CheckCircle2, AlertTriangle, Award, Activity } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
@@ -339,7 +340,14 @@ export function KPIChapter() {
       </div>
 
       {/* Quiz */}
-      <Quiz title={ct("knowledgeCheck")} chapterId="kpi" questionsPerRound={10} />
+      {quizzes["kpi"] && (
+        <Quiz
+          title={ct("knowledgeCheck")}
+          questions={quizzes["kpi"]}
+          chapterId="kpi"
+          questionsPerRound={10}
+        />
+      )}
     </div>
   );
 }

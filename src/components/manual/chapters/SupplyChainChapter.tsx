@@ -1,6 +1,7 @@
 import { DataTable } from "../DataTable";
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
+import { quizzes } from "@/data/quizData";
 import { Link, Factory, Truck, Package, BarChart3, Users, Globe, TrendingUp, CheckCircle2, AlertTriangle, ArrowRight, Zap, Target } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
@@ -305,7 +306,14 @@ export function SupplyChainChapter() {
       </div>
 
       {/* Quiz */}
-      <Quiz title={ct("quizTitle")} chapterId="supply-chain" questionsPerRound={10} />
+      {quizzes["supply-chain"] && (
+        <Quiz
+          title={ct("quizTitle")}
+          questions={quizzes["supply-chain"]}
+          chapterId="supply-chain"
+          questionsPerRound={10}
+        />
+      )}
     </div>
   );
 }

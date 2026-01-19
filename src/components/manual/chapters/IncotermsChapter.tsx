@@ -1,6 +1,7 @@
 import { DataTable } from "../DataTable";
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
+import { quizzes } from "@/data/quizData";
 import { FileText, Ship, Truck, Plane, Package, AlertTriangle, CheckCircle2, ArrowRight, Scale, Euro, MapPin } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
@@ -367,11 +368,14 @@ export function IncotermsChapter() {
       </div>
 
       {/* Quiz */}
-      <Quiz
-        title={ct("quizTitle")}
-        chapterId="incoterms"
-        questionsPerRound={10}
-      />
+      {quizzes["incoterms"] && (
+        <Quiz
+          title={ct("quizTitle")}
+          questions={quizzes["incoterms"]}
+          chapterId="incoterms"
+          questionsPerRound={10}
+        />
+      )}
     </div>
   );
 }
