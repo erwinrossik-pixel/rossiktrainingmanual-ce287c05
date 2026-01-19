@@ -439,12 +439,13 @@ function CompanyDetailDialog({
         accent_color: formData.accent_color
       }).eq('company_id', company.id);
 
-      // Update settings
+      // Update settings (include registration_code to persist any generated code)
       await supabase.from('company_settings').update({
         active_languages: formData.active_languages,
         default_language: formData.default_language,
         require_approval: formData.require_approval,
-        welcome_message: formData.welcome_message || null
+        welcome_message: formData.welcome_message || null,
+        registration_code: formData.registration_code || null
       }).eq('company_id', company.id);
 
       // Update subscription if plan changed
