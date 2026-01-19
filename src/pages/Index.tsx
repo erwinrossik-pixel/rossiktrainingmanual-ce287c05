@@ -15,6 +15,8 @@ import NotificationCenter from "@/components/NotificationCenter";
 import { LearningPathAI } from "@/components/manual/LearningPathAI";
 import { LearningGoals } from "@/components/manual/LearningGoals";
 import { CelebrationOverlay } from "@/components/manual/CelebrationOverlay";
+import { GamificationWidget } from "@/components/manual/GamificationWidget";
+import { useOnboardingTour } from "@/hooks/useOnboardingTour";
 
 // Lazy load OperationalSimulation for better performance
 const OperationalSimulation = lazy(() => import("@/components/manual/OperationalSimulation"));
@@ -28,7 +30,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { LogIn, LogOut, Settings, User, Shield } from "lucide-react";
+import { LogIn, LogOut, Settings, User, Shield, HelpCircle } from "lucide-react";
 
 // Memoized UserMenu to prevent unnecessary re-renders
 const UserMenu = memo(function UserMenu() {
@@ -58,7 +60,7 @@ const UserMenu = memo(function UserMenu() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+        <Button variant="ghost" className="relative h-8 w-8 rounded-full" data-tour="user-menu">
           <Avatar className="h-8 w-8">
             <AvatarImage src={profile?.avatar_url || undefined} alt={profile?.first_name || 'User'} />
             <AvatarFallback>{initials}</AvatarFallback>
@@ -105,6 +107,15 @@ function ManualApp() {
   const { visitChapter } = useProgressContext();
   const { trackChapterVisit } = useAnalytics();
   const lastTrackedChapter = useState<string>("");
+  const { markReady, startTour, hasSeenTour } = useOnboardingTour();
+
+  // Mark tour as ready after initial render
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      markReady();
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, [markReady]);
 
   // Memoized chapter change handler
   const handleChapterChange = useCallback((chapter: string) => {
@@ -154,9 +165,23 @@ function ManualApp() {
       </div>
       
       {/* Fixed User Menu in top-right */}
-      <div className="fixed top-4 right-4 z-50 flex items-center gap-2">
-        <NotificationCenter />
+      <div className="fixed top-4 right-4 z-50 flex items-center gap-3">
+        <GamificationWidget variant="compact" />
+        <div data-tour="notifications">
+          <NotificationCenter />
+        </div>
         <UserMenu />
+        {hasSeenTour && (
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            className="h-8 w-8" 
+            onClick={startTour}
+            title="Restart tour"
+          >
+            <HelpCircle className="h-4 w-4" />
+          </Button>
+        )}
       </div>
       
       <Sidebar 
