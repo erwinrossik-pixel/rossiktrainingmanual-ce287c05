@@ -1,12 +1,13 @@
 {
-  "name": "Training Manual",
-  "short_name": "Training",
-  "description": "Complete freight forwarding training platform with quizzes, simulations, and certifications",
+  "name": "Rossik Training Manual",
+  "short_name": "Rossik Training",
+  "description": "Platformă profesională de training pentru freight forwarding. 50+ capitole interactive cu quizuri și certificare.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#8B5CF6",
+  "theme_color": "#B91C1C",
   "orientation": "portrait-primary",
+  "scope": "/",
   "icons": [
     {
       "src": "/favicon.ico",
@@ -26,7 +27,18 @@
       "purpose": "any maskable"
     }
   ],
-  "categories": ["education", "business"],
-  "lang": "en",
-  "prefer_related_applications": false
+  "categories": ["education", "business", "productivity"],
+  "lang": "ro",
+  "dir": "ltr",
+  "prefer_related_applications": false,
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Progres Training",
+      "short_name": "Progres",
+      "description": "Vezi progresul tău de training",
+      "url": "/?dashboard=true",
+      "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
 }
