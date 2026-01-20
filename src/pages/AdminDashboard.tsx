@@ -172,8 +172,9 @@ export default function AdminDashboard() {
       const userProgress = progress?.filter(p => p.user_id === profile.id) || [];
       const completedChapters = userProgress.filter(p => p.status === 'completed').length;
       const scores = userProgress.filter(p => p.best_score > 0).map(p => p.best_score);
+      // Calculate average score out of 10, with one decimal precision
       const averageScore = scores.length > 0 
-        ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) 
+        ? Math.round((scores.reduce((a, b) => a + b, 0) / scores.length) * 10) / 10
         : 0;
       
       const userAttempts = attempts?.filter(a => a.user_id === profile.id) || [];
@@ -372,7 +373,7 @@ export default function AdminDashboard() {
       u.role,
       u.chaptersCompleted,
       u.totalChapters,
-      `${u.averageScore}%`,
+      `${u.averageScore}/10`,
       u.lastActivity ? format(new Date(u.lastActivity), 'dd.MM.yyyy HH:mm') : 'N/A',
       format(new Date(u.created_at), 'dd.MM.yyyy'),
     ]);
@@ -768,9 +769,10 @@ export default function AdminDashboard() {
                   <TableBody>
                     {users.map((userItem) => {
                       const progressPercent = (userItem.chaptersCompleted / userItem.totalChapters) * 100;
-                      const scoreColor = userItem.averageScore >= 80 
+                      // Score is out of 10, so adjust thresholds
+                      const scoreColor = userItem.averageScore >= 9 
                         ? 'text-green-700 bg-green-100 border-green-300' 
-                        : userItem.averageScore >= 60 
+                        : userItem.averageScore >= 7 
                           ? 'text-amber-700 bg-amber-100 border-amber-300' 
                           : 'text-red-700 bg-red-100 border-red-300';
                       const progressBarColor = progressPercent >= 80 
@@ -815,7 +817,7 @@ export default function AdminDashboard() {
                           </TableCell>
                           <TableCell>
                             <span className={`font-bold text-base px-3 py-1 rounded-lg border-2 ${scoreColor}`}>
-                              {userItem.averageScore}%
+                              {userItem.averageScore}/10
                             </span>
                           </TableCell>
                           <TableCell className="text-slate-600 font-medium">
