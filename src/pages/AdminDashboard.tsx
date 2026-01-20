@@ -587,8 +587,11 @@ export default function AdminDashboard() {
 
         {/* Tabs for different sections */}
         <Tabs defaultValue="users" className="w-full">
-          <TabsList className="admin-tabs-list flex-wrap h-auto">
-            {/* Multi-tenant Management - Super Admin only */}
+          <TabsList className="admin-tabs-list flex-wrap h-auto gap-1">
+            
+            {/* ═══════════════════════════════════════════════════════════════════
+                CATEGORIA 1: SUPER ADMIN - Gestiune Platformă
+            ═══════════════════════════════════════════════════════════════════ */}
             {isSuperAdmin && (
               <>
                 <TabsTrigger value="companies" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-blue-700 data-[state=active]:border-b-2 data-[state=active]:border-blue-500">
@@ -601,11 +604,14 @@ export default function AdminDashboard() {
                 </TabsTrigger>
                 <TabsTrigger value="premium-chapters" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-amber-700 data-[state=active]:border-b-2 data-[state=active]:border-amber-500">
                   <Lock className="h-4 w-4" />
-                  Premium Chapters
+                  Premium
                 </TabsTrigger>
               </>
             )}
-            {/* Company Admin and above */}
+            
+            {/* ═══════════════════════════════════════════════════════════════════
+                CATEGORIA 2: GESTIUNE UTILIZATORI & COMPANIE
+            ═══════════════════════════════════════════════════════════════════ */}
             {(isCompanyAdmin || isSuperAdmin) && (
               <>
                 <TabsTrigger value="company-users" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-purple-700 data-[state=active]:border-b-2 data-[state=active]:border-purple-500">
@@ -616,87 +622,120 @@ export default function AdminDashboard() {
                   <BookOpen className="h-4 w-4" />
                   Capitole
                 </TabsTrigger>
+                <TabsTrigger value="reports" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-cyan-700 data-[state=active]:border-b-2 data-[state=active]:border-cyan-500">
+                  <FileBarChart className="h-4 w-4" />
+                  Rapoarte
+                </TabsTrigger>
               </>
             )}
+            
             <TabsTrigger value="users" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-blue-700 data-[state=active]:border-b-2 data-[state=active]:border-blue-500">
               <Users className="h-4 w-4" />
               Toate Profilurile
             </TabsTrigger>
-            <TabsTrigger value="analytics" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-orange-700 data-[state=active]:border-b-2 data-[state=active]:border-orange-500">
-              <BarChart3 className="h-4 w-4" />
-              Analiză Quiz
-            </TabsTrigger>
-            <TabsTrigger value="usage" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-cyan-700 data-[state=active]:border-b-2 data-[state=active]:border-cyan-500">
-              <Activity className="h-4 w-4" />
-              Utilizare
-            </TabsTrigger>
-            <TabsTrigger value="training-time" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-rose-700 data-[state=active]:border-b-2 data-[state=active]:border-rose-500">
-              <Timer className="h-4 w-4" />
-              Timp Training
-            </TabsTrigger>
-            <TabsTrigger value="governance" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-slate-700 data-[state=active]:border-b-2 data-[state=active]:border-slate-500">
-              <Shield className="h-4 w-4" />
-              Guvernanță
-            </TabsTrigger>
-            <TabsTrigger value="auto-updates" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-teal-700 data-[state=active]:border-b-2 data-[state=active]:border-teal-500">
-              <RefreshCw className="h-4 w-4" />
-              Auto-Update
-            </TabsTrigger>
-            <TabsTrigger value="learning-kpi" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-violet-700 data-[state=active]:border-b-2 data-[state=active]:border-violet-500">
+            
+            <TabsTrigger value="retention" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-rose-700 data-[state=active]:border-b-2 data-[state=active]:border-rose-500">
               <TrendingUp className="h-4 w-4" />
-              Learning KPI
+              Retenție
             </TabsTrigger>
-            <TabsTrigger value="competency-gap" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-pink-700 data-[state=active]:border-b-2 data-[state=active]:border-pink-500">
-              <Target className="h-4 w-4" />
-              Lipsuri Competențe
-            </TabsTrigger>
-            <TabsTrigger value="cron-jobs" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-lime-700 data-[state=active]:border-b-2 data-[state=active]:border-lime-500">
-              <Calendar className="h-4 w-4" />
-              Cron Jobs
-            </TabsTrigger>
-            <TabsTrigger value="quality" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-fuchsia-700 data-[state=active]:border-b-2 data-[state=active]:border-fuchsia-500">
-              <FileSearch className="h-4 w-4" />
-              Calitate Conținut
-            </TabsTrigger>
-            <TabsTrigger value="certificates" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-yellow-700 data-[state=active]:border-b-2 data-[state=active]:border-yellow-500">
-              <Award className="h-4 w-4" />
-              Certificate
-            </TabsTrigger>
-            <TabsTrigger value="realtime" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-red-700 data-[state=active]:border-b-2 data-[state=active]:border-red-500">
-              <Radio className="h-4 w-4" />
-              Timp Real
-            </TabsTrigger>
-            <TabsTrigger value="knowledge-graph" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-violet-700 data-[state=active]:border-b-2 data-[state=active]:border-violet-500">
-              <Network className="h-4 w-4" />
-              Knowledge Graph
-            </TabsTrigger>
-            <TabsTrigger value="gamification" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-pink-700 data-[state=active]:border-b-2 data-[state=active]:border-pink-500">
-              <Gamepad2 className="h-4 w-4" />
-              Gamificare
-            </TabsTrigger>
+            
+            {/* ═══════════════════════════════════════════════════════════════════
+                CATEGORIA 3: ANALIZE & KPI
+            ═══════════════════════════════════════════════════════════════════ */}
             <TabsTrigger value="quiz-analytics" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-orange-700 data-[state=active]:border-b-2 data-[state=active]:border-orange-500">
               <HelpCircle className="h-4 w-4" />
               Analiză Quiz
             </TabsTrigger>
-            <TabsTrigger value="competency-matrix" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-teal-700 data-[state=active]:border-b-2 data-[state=active]:border-teal-500">
+            
+            <TabsTrigger value="analytics" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-violet-700 data-[state=active]:border-b-2 data-[state=active]:border-violet-500">
+              <BarChart3 className="h-4 w-4" />
+              Grafice
+            </TabsTrigger>
+            
+            <TabsTrigger value="learning-kpi" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-teal-700 data-[state=active]:border-b-2 data-[state=active]:border-teal-500">
+              <TrendingUp className="h-4 w-4" />
+              Learning KPI
+            </TabsTrigger>
+            
+            <TabsTrigger value="usage" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-cyan-700 data-[state=active]:border-b-2 data-[state=active]:border-cyan-500">
+              <Activity className="h-4 w-4" />
+              Utilizare
+            </TabsTrigger>
+            
+            <TabsTrigger value="training-time" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-pink-700 data-[state=active]:border-b-2 data-[state=active]:border-pink-500">
+              <Timer className="h-4 w-4" />
+              Timp Training
+            </TabsTrigger>
+            
+            <TabsTrigger value="realtime" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-red-700 data-[state=active]:border-b-2 data-[state=active]:border-red-500">
+              <Radio className="h-4 w-4" />
+              Timp Real
+            </TabsTrigger>
+            
+            {/* ═══════════════════════════════════════════════════════════════════
+                CATEGORIA 4: COMPETENȚE & GAMIFICARE
+            ═══════════════════════════════════════════════════════════════════ */}
+            <TabsTrigger value="competency-matrix" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-emerald-700 data-[state=active]:border-b-2 data-[state=active]:border-emerald-500">
               <BarChart3 className="h-4 w-4" />
               Competențe Echipă
             </TabsTrigger>
+            
+            <TabsTrigger value="competency-gap" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-amber-700 data-[state=active]:border-b-2 data-[state=active]:border-amber-500">
+              <Target className="h-4 w-4" />
+              Lipsuri Competențe
+            </TabsTrigger>
+            
+            <TabsTrigger value="gamification" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-fuchsia-700 data-[state=active]:border-b-2 data-[state=active]:border-fuchsia-500">
+              <Gamepad2 className="h-4 w-4" />
+              Gamificare
+            </TabsTrigger>
+            
+            <TabsTrigger value="certificates" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-yellow-700 data-[state=active]:border-b-2 data-[state=active]:border-yellow-500">
+              <Award className="h-4 w-4" />
+              Certificate
+            </TabsTrigger>
+            
+            {/* ═══════════════════════════════════════════════════════════════════
+                CATEGORIA 5: CONȚINUT & GUVERNANȚĂ
+            ═══════════════════════════════════════════════════════════════════ */}
+            <TabsTrigger value="quality" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-sky-700 data-[state=active]:border-b-2 data-[state=active]:border-sky-500">
+              <FileSearch className="h-4 w-4" />
+              Calitate Conținut
+            </TabsTrigger>
+            
+            <TabsTrigger value="governance" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-slate-700 data-[state=active]:border-b-2 data-[state=active]:border-slate-500">
+              <Shield className="h-4 w-4" />
+              Guvernanță
+            </TabsTrigger>
+            
+            <TabsTrigger value="content-governor" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-purple-700 data-[state=active]:border-b-2 data-[state=active]:border-purple-500">
+              <Shield className="h-4 w-4" />
+              AI Governor
+            </TabsTrigger>
+            
+            <TabsTrigger value="auto-updates" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-lime-700 data-[state=active]:border-b-2 data-[state=active]:border-lime-500">
+              <RefreshCw className="h-4 w-4" />
+              Auto-Update
+            </TabsTrigger>
+            
             <TabsTrigger value="standards" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-indigo-700 data-[state=active]:border-b-2 data-[state=active]:border-indigo-500">
               <Globe className="h-4 w-4" />
               Standarde Int.
             </TabsTrigger>
-            <TabsTrigger value="content-governor" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-rose-700 data-[state=active]:border-b-2 data-[state=active]:border-rose-500">
-              <Shield className="h-4 w-4" />
-              AI Governor
+            
+            <TabsTrigger value="knowledge-graph" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-violet-700 data-[state=active]:border-b-2 data-[state=active]:border-violet-500">
+              <Network className="h-4 w-4" />
+              Knowledge Graph
             </TabsTrigger>
-            {(isCompanyAdmin || isSuperAdmin) && (
-              <TabsTrigger value="reports" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-cyan-700 data-[state=active]:border-b-2 data-[state=active]:border-cyan-500">
-                <FileBarChart className="h-4 w-4" />
-                Rapoarte
-              </TabsTrigger>
-            )}
-            {/* Enterprise Deployment - Super Admin only */}
+            
+            {/* ═══════════════════════════════════════════════════════════════════
+                CATEGORIA 6: SISTEM & ENTERPRISE (Super Admin Only)
+            ═══════════════════════════════════════════════════════════════════ */}
+            <TabsTrigger value="cron-jobs" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-gray-700 data-[state=active]:border-b-2 data-[state=active]:border-gray-500">
+              <Calendar className="h-4 w-4" />
+              Cron Jobs
+            </TabsTrigger>
+            
             {isSuperAdmin && (
               <>
                 <TabsTrigger value="monitoring" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-emerald-700 data-[state=active]:border-b-2 data-[state=active]:border-emerald-500">
@@ -848,6 +887,10 @@ export default function AdminDashboard() {
                 </Table>
               </CardContent>
             </Card>
+          </TabsContent>
+
+          <TabsContent value="retention" className="mt-6">
+            <RetentionDashboard />
           </TabsContent>
 
           <TabsContent value="analytics" className="mt-6">
