@@ -587,13 +587,19 @@ export default function AdminDashboard() {
 
         {/* Tabs for different sections */}
         <Tabs defaultValue="users" className="w-full">
-          <TabsList className="admin-tabs-list flex-wrap h-auto gap-1">
+          <TabsList className="admin-tabs-list flex-wrap h-auto gap-1 p-2">
             
             {/* ═══════════════════════════════════════════════════════════════════
                 CATEGORIA 1: SUPER ADMIN - Gestiune Platformă
             ═══════════════════════════════════════════════════════════════════ */}
             {isSuperAdmin && (
               <>
+                <div className="w-full flex items-center gap-2 py-1 px-2 mb-1">
+                  <Badge variant="outline" className="bg-blue-100 text-blue-800 border-blue-300 text-xs font-bold">
+                    🏢 SUPER ADMIN
+                  </Badge>
+                  <div className="flex-1 h-px bg-blue-200"></div>
+                </div>
                 <TabsTrigger value="companies" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-blue-700 data-[state=active]:border-b-2 data-[state=active]:border-blue-500">
                   <Building2 className="h-4 w-4" />
                   Companii
@@ -612,6 +618,12 @@ export default function AdminDashboard() {
             {/* ═══════════════════════════════════════════════════════════════════
                 CATEGORIA 2: GESTIUNE UTILIZATORI & COMPANIE
             ═══════════════════════════════════════════════════════════════════ */}
+            <div className="w-full flex items-center gap-2 py-1 px-2 mb-1 mt-2">
+              <Badge variant="outline" className="bg-purple-100 text-purple-800 border-purple-300 text-xs font-bold">
+                👥 UTILIZATORI
+              </Badge>
+              <div className="flex-1 h-px bg-purple-200"></div>
+            </div>
             {(isCompanyAdmin || isSuperAdmin) && (
               <>
                 <TabsTrigger value="company-users" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-purple-700 data-[state=active]:border-b-2 data-[state=active]:border-purple-500">
@@ -642,6 +654,12 @@ export default function AdminDashboard() {
             {/* ═══════════════════════════════════════════════════════════════════
                 CATEGORIA 3: ANALIZE & KPI
             ═══════════════════════════════════════════════════════════════════ */}
+            <div className="w-full flex items-center gap-2 py-1 px-2 mb-1 mt-2">
+              <Badge variant="outline" className="bg-orange-100 text-orange-800 border-orange-300 text-xs font-bold">
+                📊 ANALIZE & KPI
+              </Badge>
+              <div className="flex-1 h-px bg-orange-200"></div>
+            </div>
             <TabsTrigger value="quiz-analytics" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-orange-700 data-[state=active]:border-b-2 data-[state=active]:border-orange-500">
               <HelpCircle className="h-4 w-4" />
               Analiză Quiz
@@ -675,6 +693,12 @@ export default function AdminDashboard() {
             {/* ═══════════════════════════════════════════════════════════════════
                 CATEGORIA 4: COMPETENȚE & GAMIFICARE
             ═══════════════════════════════════════════════════════════════════ */}
+            <div className="w-full flex items-center gap-2 py-1 px-2 mb-1 mt-2">
+              <Badge variant="outline" className="bg-emerald-100 text-emerald-800 border-emerald-300 text-xs font-bold">
+                🎯 COMPETENȚE
+              </Badge>
+              <div className="flex-1 h-px bg-emerald-200"></div>
+            </div>
             <TabsTrigger value="competency-matrix" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-emerald-700 data-[state=active]:border-b-2 data-[state=active]:border-emerald-500">
               <BarChart3 className="h-4 w-4" />
               Competențe Echipă
@@ -698,6 +722,12 @@ export default function AdminDashboard() {
             {/* ═══════════════════════════════════════════════════════════════════
                 CATEGORIA 5: CONȚINUT & GUVERNANȚĂ
             ═══════════════════════════════════════════════════════════════════ */}
+            <div className="w-full flex items-center gap-2 py-1 px-2 mb-1 mt-2">
+              <Badge variant="outline" className="bg-sky-100 text-sky-800 border-sky-300 text-xs font-bold">
+                📝 CONȚINUT
+              </Badge>
+              <div className="flex-1 h-px bg-sky-200"></div>
+            </div>
             <TabsTrigger value="quality" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-sky-700 data-[state=active]:border-b-2 data-[state=active]:border-sky-500">
               <FileSearch className="h-4 w-4" />
               Calitate Conținut
@@ -729,8 +759,14 @@ export default function AdminDashboard() {
             </TabsTrigger>
             
             {/* ═══════════════════════════════════════════════════════════════════
-                CATEGORIA 6: SISTEM & ENTERPRISE (Super Admin Only)
+                CATEGORIA 6: SISTEM & ENTERPRISE
             ═══════════════════════════════════════════════════════════════════ */}
+            <div className="w-full flex items-center gap-2 py-1 px-2 mb-1 mt-2">
+              <Badge variant="outline" className="bg-gray-100 text-gray-800 border-gray-300 text-xs font-bold">
+                ⚙️ SISTEM
+              </Badge>
+              <div className="flex-1 h-px bg-gray-200"></div>
+            </div>
             <TabsTrigger value="cron-jobs" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-gray-700 data-[state=active]:border-b-2 data-[state=active]:border-gray-500">
               <Calendar className="h-4 w-4" />
               Cron Jobs
