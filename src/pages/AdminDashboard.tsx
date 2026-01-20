@@ -42,10 +42,11 @@ import { RetentionDashboard } from '@/components/admin/RetentionDashboard';
 import { SubscriptionCard } from '@/components/subscription';
 import { StandardsComplianceDashboard } from '@/components/admin/StandardsComplianceDashboard';
 import { ContentGovernorDashboard } from '@/components/admin/ContentGovernorDashboard';
+import { QuizAnalyticsDashboard } from '@/components/admin/QuizAnalyticsDashboard';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import NotificationCenter from '@/components/NotificationCenter';
-import { FileBarChart } from 'lucide-react';
+import { FileBarChart, HelpCircle } from 'lucide-react';
 
 interface UserWithProgress {
   id: string;
@@ -673,6 +674,10 @@ export default function AdminDashboard() {
               <Gamepad2 className="h-4 w-4" />
               Gamificare
             </TabsTrigger>
+            <TabsTrigger value="quiz-analytics" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-orange-700 data-[state=active]:border-b-2 data-[state=active]:border-orange-500">
+              <HelpCircle className="h-4 w-4" />
+              Analiză Quiz
+            </TabsTrigger>
             <TabsTrigger value="competency-matrix" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-teal-700 data-[state=active]:border-b-2 data-[state=active]:border-teal-500">
               <BarChart3 className="h-4 w-4" />
               Competențe Echipă
@@ -900,6 +905,10 @@ export default function AdminDashboard() {
 
           <TabsContent value="gamification" className="mt-6">
             <GamificationLeaderboard />
+          </TabsContent>
+
+          <TabsContent value="quiz-analytics" className="mt-6">
+            <QuizAnalyticsDashboard />
           </TabsContent>
 
           <TabsContent value="competency-matrix" className="mt-6">

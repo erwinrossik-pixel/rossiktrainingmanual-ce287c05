@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useRef } from "react";
 import { CheckCircle2, XCircle, RotateCcw, Trophy, ChevronRight, Shuffle, Lock, Unlock, AlertTriangle, ChevronDown, ChevronUp, BookOpen, Bookmark, BookmarkCheck } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useProgressContext } from "@/contexts/ProgressContext";
@@ -6,6 +6,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { useAuth } from "@/hooks/useAuth";
 import { useChapterProgress } from "@/hooks/useChapterProgress";
 import { useBookmarks } from "@/hooks/useBookmarks";
+import { useQuizTracking } from "@/hooks/useQuizTracking";
 import { quizTranslations, TranslatedQuizQuestion } from "@/data/quizTranslations";
 import { Button } from "@/components/ui/button";
 
@@ -41,6 +42,16 @@ export function Quiz({ title, questions, chapterId, questionsPerRound = QUESTION
   const { user } = useAuth();
   const { recordQuizAttempt, getBestScore, getChapterStatus, PASSING_SCORE: dbPassingScore } = useChapterProgress();
   const { isBookmarked, toggleBookmark } = useBookmarks();
+  const { startQuizSession, completeQuizSession, recordQuestionPerformance } = useQuizTracking();
+  
+  // Track session and answered questions for analytics
+  const sessionIdRef = useRef<string | null>(null);
+  const questionsAnsweredRef = useRef<Array<{
+    questionText: string;
+    wasCorrect: boolean;
+    userAnswerIndex: number | null;
+    correctAnswerIndex: number;
+  }>>([]);
   
   // Get translated questions if available, otherwise use passed questions
   const translatedQuestions = useMemo(() => {
@@ -62,10 +73,22 @@ export function Quiz({ title, questions, chapterId, questionsPerRound = QUESTION
   const [shuffledQuestions, setShuffledQuestions] = useState<QuizQuestion[]>([]);
   const [quizRound, setQuizRound] = useState(0);
   
+  // Start a quiz session when questions are shuffled
   useEffect(() => {
     const shuffled = shuffleArray(translatedQuestions).slice(0, actualQuestionsPerRound);
     setShuffledQuestions(shuffled);
-  }, [translatedQuestions, actualQuestionsPerRound, quizRound]);
+    
+    // Reset tracking for new round
+    questionsAnsweredRef.current = [];
+    
+    // Start session tracking for logged-in users
+    if (user && chapterId && shuffled.length > 0) {
+      const questionTexts = shuffled.map(q => q.question);
+      startQuizSession(chapterId, language, questionTexts).then(id => {
+        sessionIdRef.current = id;
+      });
+    }
+  }, [translatedQuestions, actualQuestionsPerRound, quizRound, user, chapterId, language, startQuizSession]);
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
@@ -109,10 +132,20 @@ export function Quiz({ title, questions, chapterId, questionsPerRound = QUESTION
     newAnswered[currentQuestion] = true;
     setAnsweredQuestions(newAnswered);
     
-    if (index === question.correctIndex) {
+    const isCorrect = index === question.correctIndex;
+    
+    // Track answer for analytics
+    questionsAnsweredRef.current.push({
+      questionText: question.question,
+      wasCorrect: isCorrect,
+      userAnswerIndex: index,
+      correctAnswerIndex: question.correctIndex,
+    });
+    
+    if (isCorrect) {
       setScore(score + 1);
     } else {
-      // Track wrong answer
+      // Track wrong answer for UI display
       setWrongAnswers(prev => [...prev, {
         question: question.question,
         userAnswer: question.options[index],
@@ -140,7 +173,19 @@ export function Quiz({ title, questions, chapterId, questionsPerRound = QUESTION
       // Save to database (for logged in users)
       if (user && chapterId) {
         setIsRecording(true);
-        await recordQuizAttempt(chapterId, finalScore, language);
+        
+        // Record the attempt
+        const attemptResult = await recordQuizAttempt(chapterId, finalScore, language);
+        
+        // Complete the session and record question performance
+        await completeQuizSession(sessionIdRef.current || undefined);
+        await recordQuestionPerformance(
+          chapterId,
+          language,
+          null, // We don't have attempt ID from recordQuizAttempt
+          questionsAnsweredRef.current
+        );
+        
         setIsRecording(false);
       }
     }

@@ -2234,6 +2234,56 @@ export type Database = {
           },
         ]
       }
+      question_performance: {
+        Row: {
+          attempt_id: string | null
+          chapter_id: string
+          correct_answer_index: number
+          created_at: string
+          id: string
+          language: string
+          question_hash: string
+          question_text: string
+          user_answer_index: number | null
+          user_id: string
+          was_correct: boolean
+        }
+        Insert: {
+          attempt_id?: string | null
+          chapter_id: string
+          correct_answer_index: number
+          created_at?: string
+          id?: string
+          language?: string
+          question_hash: string
+          question_text: string
+          user_answer_index?: number | null
+          user_id: string
+          was_correct: boolean
+        }
+        Update: {
+          attempt_id?: string | null
+          chapter_id?: string
+          correct_answer_index?: number
+          created_at?: string
+          id?: string
+          language?: string
+          question_hash?: string
+          question_text?: string
+          user_answer_index?: number | null
+          user_id?: string
+          was_correct?: boolean
+        }
+        Relationships: [
+          {
+            foreignKeyName: "question_performance_attempt_id_fkey"
+            columns: ["attempt_id"]
+            isOneToOne: false
+            referencedRelation: "quiz_attempts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       quiz_attempts: {
         Row: {
           chapter_id: string
@@ -2284,6 +2334,42 @@ export type Database = {
             referencedColumns: ["chapter_id"]
           },
         ]
+      }
+      quiz_sessions: {
+        Row: {
+          chapter_id: string
+          completed_at: string | null
+          created_at: string
+          id: string
+          language: string
+          questions_shown: Json | null
+          started_at: string
+          user_id: string
+          was_completed: boolean | null
+        }
+        Insert: {
+          chapter_id: string
+          completed_at?: string | null
+          created_at?: string
+          id?: string
+          language?: string
+          questions_shown?: Json | null
+          started_at?: string
+          user_id: string
+          was_completed?: boolean | null
+        }
+        Update: {
+          chapter_id?: string
+          completed_at?: string | null
+          created_at?: string
+          id?: string
+          language?: string
+          questions_shown?: Json | null
+          started_at?: string
+          user_id?: string
+          was_completed?: boolean | null
+        }
+        Relationships: []
       }
       recovery_tests: {
         Row: {
