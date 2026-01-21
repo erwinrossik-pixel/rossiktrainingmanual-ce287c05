@@ -6,6 +6,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { supabase } from '@/integrations/supabase/client';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { 
   Trophy, 
   Medal, 
@@ -45,6 +46,7 @@ interface SimulationStats {
 }
 
 export function GamificationLeaderboard() {
+  const { t } = useLanguage();
   const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>([]);
   const [simulationStats, setSimulationStats] = useState<SimulationStats | null>(null);
   const [loading, setLoading] = useState(true);
@@ -189,12 +191,12 @@ export function GamificationLeaderboard() {
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-white/80 flex items-center gap-2">
               <Users className="h-4 w-4" />
-              Utilizatori Activi
+              {t('admin.gamification.activeUsers')}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold">{leaderboard.length}</div>
-            <p className="text-xs text-white/70">în sistem gamificare</p>
+            <p className="text-xs text-white/70">{t('admin.gamification.inGamification')}</p>
           </CardContent>
         </Card>
 
@@ -202,12 +204,12 @@ export function GamificationLeaderboard() {
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-white/80 flex items-center gap-2">
               <Gamepad2 className="h-4 w-4" />
-              Simulări Complete
+              {t('admin.gamification.simCompleted')}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold">{simulationStats?.total_attempts || 0}</div>
-            <p className="text-xs text-white/70">total încercări</p>
+            <p className="text-xs text-white/70">{t('admin.gamification.totalAttempts')}</p>
           </CardContent>
         </Card>
 
@@ -215,12 +217,12 @@ export function GamificationLeaderboard() {
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-white/80 flex items-center gap-2">
               <TrendingUp className="h-4 w-4" />
-              Scor Mediu
+              {t('admin.gamification.avgScore')}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold">{simulationStats?.avg_score.toFixed(0) || 0}%</div>
-            <p className="text-xs text-white/70">pe simulări</p>
+            <p className="text-xs text-white/70">{t('admin.gamification.onSimulations')}</p>
           </CardContent>
         </Card>
 
@@ -228,14 +230,14 @@ export function GamificationLeaderboard() {
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-white/80 flex items-center gap-2">
               <Zap className="h-4 w-4" />
-              Total XP Acordat
+              {t('admin.gamification.totalXP')}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold">
               {leaderboard.reduce((sum, l) => sum + l.total_xp, 0).toLocaleString()}
             </div>
-            <p className="text-xs text-white/70">XP total</p>
+            <p className="text-xs text-white/70">{t('admin.gamification.xpTotal')}</p>
           </CardContent>
         </Card>
       </div>
@@ -245,15 +247,15 @@ export function GamificationLeaderboard() {
         <TabsList className="bg-slate-100 p-1">
           <TabsTrigger value="leaderboard" className="data-[state=active]:bg-white">
             <Trophy className="h-4 w-4 mr-2" />
-            Leaderboard
+            {t('admin.gamification.leaderboard')}
           </TabsTrigger>
           <TabsTrigger value="achievements" className="data-[state=active]:bg-white">
             <Award className="h-4 w-4 mr-2" />
-            Achievements
+            {t('admin.gamification.achievements')}
           </TabsTrigger>
           <TabsTrigger value="simulations" className="data-[state=active]:bg-white">
             <BarChart3 className="h-4 w-4 mr-2" />
-            Statistici Simulări
+            {t('admin.gamification.simStats')}
           </TabsTrigger>
         </TabsList>
 
@@ -263,10 +265,10 @@ export function GamificationLeaderboard() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Trophy className="h-5 w-5 text-amber-500" />
-                Top Performeri
+                {t('admin.kpi.topPerformers')}
               </CardTitle>
               <CardDescription>
-                Clasament bazat pe XP total acumulat
+                {t('admin.gamification.rankedBy')}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -316,12 +318,12 @@ export function GamificationLeaderboard() {
                             </span>
                             <span className="flex items-center gap-1">
                               <Target className="h-3 w-3 text-blue-500" />
-                              {entry.simulations_completed} simulări
+                              {entry.simulations_completed} {t('admin.gamification.simulations').toLowerCase()}
                             </span>
                             {entry.streak_days > 0 && (
                               <span className="flex items-center gap-1">
                                 <Flame className="h-3 w-3 text-orange-500" />
-                                {entry.streak_days} zile
+                                {entry.streak_days} {t('admin.gamification.days')}
                               </span>
                             )}
                           </div>
@@ -333,7 +335,7 @@ export function GamificationLeaderboard() {
                             <Star className="h-4 w-4 fill-amber-500 text-amber-500" />
                             <span className="font-bold">{entry.perfect_simulations}</span>
                           </div>
-                          <span className="text-xs text-muted-foreground">perfecte</span>
+                          <span className="text-xs text-muted-foreground">{t('admin.gamification.perfect')}</span>
                         </div>
                       </div>
                     );
@@ -350,10 +352,10 @@ export function GamificationLeaderboard() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Award className="h-5 w-5 text-purple-500" />
-                Sistem de Achievements
+                {t('admin.gamification.systemAchievements')}
               </CardTitle>
               <CardDescription>
-                Toate achievements disponibile și recompensele lor
+                {t('admin.gamification.achievementsDesc')}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -393,7 +395,7 @@ export function GamificationLeaderboard() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Target className="h-5 w-5 text-blue-500" />
-                  Top Performeri Simulări
+                  {t('admin.gamification.topPerformers')}
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -403,7 +405,7 @@ export function GamificationLeaderboard() {
                       <span className="font-bold text-muted-foreground">#{index + 1}</span>
                       <div>
                         <p className="font-medium">{performer.user_id.slice(0, 8)}...</p>
-                        <p className="text-sm text-muted-foreground">{performer.attempts} încercări</p>
+                        <p className="text-sm text-muted-foreground">{performer.attempts} {t('admin.gamification.attempts')}</p>
                       </div>
                     </div>
                     <Badge className={`${
@@ -422,7 +424,7 @@ export function GamificationLeaderboard() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Gamepad2 className="h-5 w-5 text-purple-500" />
-                  Popularitate Simulări
+                  {t('admin.gamification.simPopularity')}
                 </CardTitle>
               </CardHeader>
               <CardContent>
