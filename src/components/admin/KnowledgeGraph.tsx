@@ -58,14 +58,14 @@ const CATEGORY_ICONS: Record<ConceptCategory, React.ReactNode> = {
 };
 
 const getCategoryLabels = (t: (key: string) => string): Record<ConceptCategory, string> => ({
-  legal: t('admin.graph.category.legal'),
-  operational: t('admin.graph.category.operational'),
-  commercial: t('admin.graph.category.commercial'),
-  technical: t('admin.graph.category.technical'),
-  geographic: t('admin.graph.category.geographic'),
-  financial: t('admin.graph.category.financial'),
-  safety: t('admin.graph.category.safety'),
-  documentation: t('admin.graph.category.documentation')
+  legal: t('admin.graph.categoryLegal'),
+  operational: t('admin.graph.categoryOperational'),
+  commercial: t('admin.graph.categoryCommercial'),
+  technical: t('admin.graph.categoryTechnical'),
+  geographic: t('admin.graph.categoryGeographic'),
+  financial: t('admin.graph.categoryFinancial'),
+  safety: t('admin.graph.categorySafety'),
+  documentation: t('admin.graph.categoryDocumentation')
 });
 
 export function KnowledgeGraph() {

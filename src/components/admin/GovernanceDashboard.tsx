@@ -26,6 +26,7 @@ import {
   Eye
 } from 'lucide-react';
 import { ContentLevelBadge, ContentLevel } from '@/components/manual/ContentLevelBadge';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface Chapter {
   id: string;
@@ -80,6 +81,7 @@ interface GovernanceSetting {
 }
 
 export function GovernanceDashboard() {
+  const { t } = useLanguage();
   const [chapters, setChapters] = useState<Chapter[]>([]);
   const [pendingUpdates, setPendingUpdates] = useState<PendingUpdate[]>([]);
   const [auditLog, setAuditLog] = useState<AuditEntry[]>([]);
@@ -162,11 +164,14 @@ export function GovernanceDashboard() {
       .eq('id', chapterId);
 
     if (error) {
-      toast.error('Eroare la actualizare');
+      toast.error(t('admin.governance.errorUpdate'));
       return;
     }
 
-    toast.success(`Auto-update ${!currentBlocked ? 'blocat' : 'deblocat'} pentru ${chapterId}`);
+    const message = !currentBlocked 
+      ? `${t('admin.governance.updateBlocked')} ${chapterId}`
+      : `${t('admin.governance.updateUnblocked')} ${chapterId}`;
+    toast.success(message);
     fetchChapters();
 
     // Log the action
@@ -209,11 +214,11 @@ export function GovernanceDashboard() {
       } as never);
 
     if (error) {
-      toast.error('Eroare la rollback');
+      toast.error(t('admin.governance.errorRollback'));
       return;
     }
 
-    toast.success(`Rollback la versiunea ${version.version_number} efectuat`);
+    toast.success(t('admin.governance.rollbackSuccess').replace('{version}', String(version.version_number)));
     setHistoryDialogOpen(false);
 
     // Log the action
@@ -251,11 +256,11 @@ export function GovernanceDashboard() {
       .eq('id', selectedUpdate.id);
 
     if (error) {
-      toast.error('Eroare la procesare');
+      toast.error(t('admin.governance.errorProcess'));
       return;
     }
 
-    toast.success(`Update ${approved ? 'aprobat' : 'respins'}`);
+    toast.success(approved ? t('admin.governance.updateApproved') : t('admin.governance.updateRejected'));
     setApprovalDialogOpen(false);
     fetchPendingUpdates();
 
@@ -283,11 +288,11 @@ export function GovernanceDashboard() {
       .eq('setting_key', settingKey);
 
     if (error) {
-      toast.error('Eroare la salvare');
+      toast.error(t('admin.governance.errorUpdate'));
       return;
     }
 
-    toast.success('Setare actualizată');
+    toast.success(t('admin.governance.settingEnabled'));
     fetchSettings();
   };
 
@@ -329,12 +334,12 @@ export function GovernanceDashboard() {
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium flex items-center gap-2">
               <AlertTriangle className="h-4 w-4 text-red-500" />
-              Critical
+              {t('admin.governance.critical')}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{criticalChapters.length}</div>
-            <p className="text-xs text-muted-foreground">capitole Level 3</p>
+            <p className="text-xs text-muted-foreground">{t('admin.governance.level3Chapters')}</p>
           </CardContent>
         </Card>
 
@@ -342,12 +347,12 @@ export function GovernanceDashboard() {
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium flex items-center gap-2">
               <Shield className="h-4 w-4 text-amber-500" />
-              Operational
+              {t('admin.governance.operational')}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{operationalChapters.length}</div>
-            <p className="text-xs text-muted-foreground">capitole Level 2</p>
+            <p className="text-xs text-muted-foreground">{t('admin.governance.level2Chapters')}</p>
           </CardContent>
         </Card>
 
@@ -355,12 +360,12 @@ export function GovernanceDashboard() {
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium flex items-center gap-2">
               <Lock className="h-4 w-4 text-blue-500" />
-              Blocate
+              {t('admin.governance.blocked')}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{blockedChapters.length}</div>
-            <p className="text-xs text-muted-foreground">auto-update oprit</p>
+            <p className="text-xs text-muted-foreground">{t('admin.governance.autoUpdateStopped')}</p>
           </CardContent>
         </Card>
 
@@ -368,12 +373,12 @@ export function GovernanceDashboard() {
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium flex items-center gap-2">
               <FileText className="h-4 w-4 text-yellow-500" />
-              În Așteptare
+              {t('admin.governance.pending')}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{pendingUpdates.length}</div>
-            <p className="text-xs text-muted-foreground">aprobări necesare</p>
+            <p className="text-xs text-muted-foreground">{t('admin.governance.approvalsNeeded')}</p>
           </CardContent>
         </Card>
 
@@ -381,12 +386,12 @@ export function GovernanceDashboard() {
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium flex items-center gap-2">
               <History className="h-4 w-4 text-gray-500" />
-              Audit Log
+              {t('admin.governance.auditLog')}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{auditLog.length}</div>
-            <p className="text-xs text-muted-foreground">intrări recente</p>
+            <p className="text-xs text-muted-foreground">{t('admin.governance.recentEntries')}</p>
           </CardContent>
         </Card>
       </div>
@@ -395,19 +400,19 @@ export function GovernanceDashboard() {
         <TabsList>
           <TabsTrigger value="pending" className="gap-2">
             <FileText className="h-4 w-4" />
-            Aprobări ({pendingUpdates.length})
+            {t('admin.governance.tabApprovals')} ({pendingUpdates.length})
           </TabsTrigger>
           <TabsTrigger value="chapters" className="gap-2">
             <BookOpen className="h-4 w-4" />
-            Capitole
+            {t('admin.governance.tabChapters')}
           </TabsTrigger>
           <TabsTrigger value="audit" className="gap-2">
             <History className="h-4 w-4" />
-            Audit Log
+            {t('admin.governance.tabAudit')}
           </TabsTrigger>
           <TabsTrigger value="settings" className="gap-2">
             <Settings className="h-4 w-4" />
-            Setări
+            {t('admin.governance.tabSettings')}
           </TabsTrigger>
         </TabsList>
 
@@ -415,27 +420,27 @@ export function GovernanceDashboard() {
         <TabsContent value="pending" className="mt-4">
           <Card>
             <CardHeader>
-              <CardTitle>Update-uri în Așteptare (Human-in-the-Loop)</CardTitle>
+              <CardTitle>{t('admin.governance.pendingTitle')}</CardTitle>
               <CardDescription>
-                Acestea sunt modificările MAJOR și CRITICAL care necesită aprobare manuală înainte de activare
+                {t('admin.governance.pendingDesc')}
               </CardDescription>
             </CardHeader>
             <CardContent>
               {pendingUpdates.length === 0 ? (
                 <div className="text-center py-8 text-muted-foreground">
                   <CheckCircle2 className="h-12 w-12 mx-auto mb-4 text-green-500" />
-                  <p>Nicio aprobare în așteptare</p>
+                  <p>{t('admin.governance.noPending')}</p>
                 </div>
               ) : (
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Capitol</TableHead>
-                      <TableHead>Titlu</TableHead>
-                      <TableHead>Severitate</TableHead>
-                      <TableHead>Level</TableHead>
-                      <TableHead>Data</TableHead>
-                      <TableHead>Acțiuni</TableHead>
+                      <TableHead>{t('admin.governance.chapter')}</TableHead>
+                      <TableHead>{t('admin.governance.updateTitle')}</TableHead>
+                      <TableHead>{t('admin.governance.severity')}</TableHead>
+                      <TableHead>{t('admin.governance.level')}</TableHead>
+                      <TableHead>{t('admin.governance.date')}</TableHead>
+                      <TableHead>{t('admin.governance.actions')}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -450,7 +455,7 @@ export function GovernanceDashboard() {
                           <div className="flex gap-2">
                             <Button size="sm" variant="outline" onClick={() => openApprovalDialog(update)}>
                               <Eye className="h-4 w-4 mr-1" />
-                              Revizuire
+                              {t('admin.governance.review')}
                             </Button>
                           </div>
                         </TableCell>
@@ -467,9 +472,9 @@ export function GovernanceDashboard() {
         <TabsContent value="chapters" className="mt-4">
           <Card>
             <CardHeader>
-              <CardTitle>Controlul Capitolelor</CardTitle>
+              <CardTitle>{t('admin.governance.chapterControl')}</CardTitle>
               <CardDescription>
-                Gestionează nivelurile de conținut și blocarea auto-update per capitol
+                {t('admin.governance.chapterControlDesc')}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -478,10 +483,10 @@ export function GovernanceDashboard() {
                   <TableHeader>
                     <TableRow>
                       <TableHead>#</TableHead>
-                      <TableHead>Capitol</TableHead>
-                      <TableHead>Level</TableHead>
-                      <TableHead>Auto-Update</TableHead>
-                      <TableHead>Acțiuni</TableHead>
+                      <TableHead>{t('admin.governance.chapter')}</TableHead>
+                      <TableHead>{t('admin.governance.level')}</TableHead>
+                      <TableHead>{t('admin.governance.autoUpdate')}</TableHead>
+                      <TableHead>{t('admin.governance.actions')}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -500,9 +505,9 @@ export function GovernanceDashboard() {
                             />
                             <span className={chapter.auto_update_blocked ? 'text-red-600' : 'text-green-600'}>
                               {chapter.auto_update_blocked ? (
-                                <><Lock className="h-4 w-4 inline mr-1" />Blocat</>
+                                <><Lock className="h-4 w-4 inline mr-1" />{t('admin.governance.disabled')}</>
                               ) : (
-                                <><Unlock className="h-4 w-4 inline mr-1" />Activ</>
+                                <><Unlock className="h-4 w-4 inline mr-1" />{t('admin.governance.enabled')}</>
                               )}
                             </span>
                           </div>
@@ -514,7 +519,7 @@ export function GovernanceDashboard() {
                             onClick={() => openVersionHistory(chapter.id)}
                           >
                             <History className="h-4 w-4 mr-1" />
-                            Istoric
+                            {t('admin.governance.history')}
                           </Button>
                         </TableCell>
                       </TableRow>
@@ -530,9 +535,9 @@ export function GovernanceDashboard() {
         <TabsContent value="audit" className="mt-4">
           <Card>
             <CardHeader>
-              <CardTitle>Audit Log (Imutabil)</CardTitle>
+              <CardTitle>{t('admin.governance.tabAudit')}</CardTitle>
               <CardDescription>
-                Istoric complet al tuturor acțiunilor - datele NU pot fi șterse
+                {t('admin.governance.pendingDesc')}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -540,12 +545,12 @@ export function GovernanceDashboard() {
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Data</TableHead>
-                      <TableHead>Acțiune</TableHead>
-                      <TableHead>Tip</TableHead>
-                      <TableHead>Capitol</TableHead>
-                      <TableHead>Severitate</TableHead>
-                      <TableHead>Detalii</TableHead>
+                      <TableHead>{t('admin.governance.date')}</TableHead>
+                      <TableHead>{t('admin.governance.actions')}</TableHead>
+                      <TableHead>{t('admin.table.status')}</TableHead>
+                      <TableHead>{t('admin.governance.chapter')}</TableHead>
+                      <TableHead>{t('admin.governance.severity')}</TableHead>
+                      <TableHead>{t('admin.table.details')}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -578,9 +583,9 @@ export function GovernanceDashboard() {
         <TabsContent value="settings" className="mt-4">
           <Card>
             <CardHeader>
-              <CardTitle>Setări Guvernanță</CardTitle>
+              <CardTitle>{t('admin.governance.tabSettings')}</CardTitle>
               <CardDescription>
-                Configurează comportamentul sistemului de actualizare automată
+                {t('admin.governance.chapterControlDesc')}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -609,9 +614,9 @@ export function GovernanceDashboard() {
       <Dialog open={historyDialogOpen} onOpenChange={setHistoryDialogOpen}>
         <DialogContent className="max-w-2xl">
           <DialogHeader>
-            <DialogTitle>Istoric Versiuni</DialogTitle>
+            <DialogTitle>{t('admin.governance.versionHistory')}</DialogTitle>
             <DialogDescription>
-              Selectează o versiune anterioară pentru rollback
+              {t('admin.governance.selectConceptForImpact') || 'Select a previous version for rollback'}
             </DialogDescription>
           </DialogHeader>
           <ScrollArea className="h-[400px]">
@@ -627,12 +632,12 @@ export function GovernanceDashboard() {
                         <Badge variant={index === 0 ? 'default' : 'outline'}>
                           v{version.version_number}
                         </Badge>
-                        {index === 0 && <span className="text-xs text-primary">(curent)</span>}
+                        {index === 0 && <span className="text-xs text-primary">({t('admin.governance.status')})</span>}
                         <Badge variant={version.is_approved ? 'outline' : 'secondary'} className={version.is_approved ? 'bg-green-100' : ''}>
-                          {version.is_approved ? 'Aprobat' : 'Pending'}
+                          {version.is_approved ? t('admin.governance.approved') : t('admin.governance.pending')}
                         </Badge>
                       </div>
-                      <p className="text-sm text-muted-foreground mt-1">{version.change_summary || 'Fără descriere'}</p>
+                      <p className="text-sm text-muted-foreground mt-1">{version.change_summary || t('admin.governance.noVersions')}</p>
                       <p className="text-xs text-muted-foreground">{format(new Date(version.created_at), 'dd.MM.yyyy HH:mm')}</p>
                     </div>
                     {index > 0 && (
@@ -642,7 +647,7 @@ export function GovernanceDashboard() {
                         onClick={() => rollbackToVersion(version)}
                       >
                         <RotateCcw className="h-4 w-4 mr-1" />
-                        Rollback
+                        {t('admin.governance.rollback')}
                       </Button>
                     )}
                   </div>
@@ -657,7 +662,7 @@ export function GovernanceDashboard() {
       <Dialog open={approvalDialogOpen} onOpenChange={setApprovalDialogOpen}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Revizuire Update</DialogTitle>
+            <DialogTitle>{t('admin.governance.approveUpdate')}</DialogTitle>
             <DialogDescription>
               {selectedUpdate?.title}
             </DialogDescription>
@@ -671,11 +676,11 @@ export function GovernanceDashboard() {
               </div>
             </div>
             <div>
-              <label className="text-sm font-medium">Motiv (opțional pentru aprobare, obligatoriu pentru respingere)</label>
+              <label className="text-sm font-medium">{t('admin.governance.reason')}</label>
               <Textarea
                 value={approvalReason}
                 onChange={(e) => setApprovalReason(e.target.value)}
-                placeholder="Motivul deciziei..."
+                placeholder={t('admin.governance.reason')}
                 className="mt-1"
               />
             </div>
@@ -683,11 +688,11 @@ export function GovernanceDashboard() {
           <DialogFooter className="gap-2">
             <Button variant="destructive" onClick={() => handleApproval(false)}>
               <XCircle className="h-4 w-4 mr-1" />
-              Respinge
+              {t('admin.governance.reject')}
             </Button>
             <Button onClick={() => handleApproval(true)}>
               <CheckCircle2 className="h-4 w-4 mr-1" />
-              Aprobă
+              {t('admin.governance.approve')}
             </Button>
           </DialogFooter>
         </DialogContent>
