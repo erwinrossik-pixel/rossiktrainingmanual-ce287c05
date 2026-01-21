@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { 
   Users, AlertTriangle, TrendingUp, Bell, RefreshCw,
   UserCheck, UserX, Clock, Send, Target, ArrowUpRight
@@ -58,6 +59,7 @@ interface RetentionLog {
 }
 
 export function RetentionDashboard() {
+  const { t } = useLanguage();
   const [stats, setStats] = useState<RetentionStats | null>(null);
   const [users, setUsers] = useState<RetentionUser[]>([]);
   const [logs, setLogs] = useState<RetentionLog[]>([]);
@@ -161,15 +163,15 @@ export function RetentionDashboard() {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'active':
-        return <Badge className="bg-green-500/20 text-green-700">Activ</Badge>;
+        return <Badge className="bg-green-500/20 text-green-700">{t('admin.company.active')}</Badge>;
       case 'at_risk':
-        return <Badge className="bg-yellow-500/20 text-yellow-700">În Risc</Badge>;
+        return <Badge className="bg-yellow-500/20 text-yellow-700">{t('admin.retention.atRisk')}</Badge>;
       case 'inactive':
-        return <Badge className="bg-orange-500/20 text-orange-700">Inactiv</Badge>;
+        return <Badge className="bg-orange-500/20 text-orange-700">{t('admin.retention.inactive')}</Badge>;
       case 'churned':
-        return <Badge className="bg-red-500/20 text-red-700">Pierdut</Badge>;
+        return <Badge className="bg-red-500/20 text-red-700">{t('admin.status.locked')}</Badge>;
       case 're_engaged':
-        return <Badge className="bg-blue-500/20 text-blue-700">Reactivat</Badge>;
+        return <Badge className="bg-blue-500/20 text-blue-700">{t('admin.retention.returned')}</Badge>;
       default:
         return <Badge variant="secondary">{status}</Badge>;
     }
@@ -196,9 +198,9 @@ export function RetentionDashboard() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold">Sistem Retenție</h2>
+          <h2 className="text-2xl font-bold">{t('admin.retention.system')}</h2>
           <p className="text-muted-foreground">
-            Detectare useri inactivi și mesaje proactive
+            {t('admin.retention.detection')}
           </p>
         </div>
         <Button onClick={runAnalysis} disabled={analyzing}>
@@ -207,7 +209,7 @@ export function RetentionDashboard() {
           ) : (
             <Send className="h-4 w-4 mr-2" />
           )}
-          {analyzing ? 'Analizez...' : 'Rulează Analiză'}
+          {analyzing ? t('admin.retention.analyzing') : t('admin.retention.runAnalysis')}
         </Button>
       </div>
 
@@ -221,7 +223,7 @@ export function RetentionDashboard() {
               </div>
               <div>
                 <p className="text-2xl font-bold">{stats?.active || 0}</p>
-                <p className="text-sm text-muted-foreground">Useri Activi</p>
+                <p className="text-sm text-muted-foreground">{t('admin.retention.activeUsers')}</p>
               </div>
             </div>
           </CardContent>
@@ -235,7 +237,7 @@ export function RetentionDashboard() {
               </div>
               <div>
                 <p className="text-2xl font-bold">{stats?.atRisk || 0}</p>
-                <p className="text-sm text-muted-foreground">În Risc</p>
+                <p className="text-sm text-muted-foreground">{t('admin.retention.atRisk')}</p>
               </div>
             </div>
           </CardContent>
@@ -249,7 +251,7 @@ export function RetentionDashboard() {
               </div>
               <div>
                 <p className="text-2xl font-bold">{(stats?.inactive || 0) + (stats?.churned || 0)}</p>
-                <p className="text-sm text-muted-foreground">Inactivi/Pierduți</p>
+                <p className="text-sm text-muted-foreground">{t('admin.retention.inactive')}</p>
               </div>
             </div>
           </CardContent>
@@ -263,7 +265,7 @@ export function RetentionDashboard() {
               </div>
               <div>
                 <p className="text-2xl font-bold">{reEngagementRate}%</p>
-                <p className="text-sm text-muted-foreground">Rata Revenire</p>
+                <p className="text-sm text-muted-foreground">{t('admin.retention.reEngagement')}</p>
               </div>
             </div>
           </CardContent>
@@ -275,18 +277,24 @@ export function RetentionDashboard() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Target className="h-5 w-5" />
-            Distribuție Nivel Risc
+            {t('admin.retention.riskDist')}
           </CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
             {stats?.riskDistribution && Object.entries(stats.riskDistribution).map(([level, count]) => {
               const percent = stats.total > 0 ? (count / stats.total) * 100 : 0;
+              const levelLabels: Record<string, string> = {
+                low: t('admin.retention.low'),
+                medium: t('admin.retention.medium'),
+                high: t('admin.retention.high'),
+                critical: t('admin.retention.critical'),
+              };
               return (
                 <div key={level} className="space-y-1">
                   <div className="flex justify-between text-sm">
-                    <span className="capitalize font-medium">{level}</span>
-                    <span className="text-muted-foreground">{count} useri ({percent.toFixed(1)}%)</span>
+                    <span className="font-medium">{levelLabels[level] || level}</span>
+                    <span className="text-muted-foreground">{count} ({percent.toFixed(1)}%)</span>
                   </div>
                   <div className="h-2 bg-muted rounded-full overflow-hidden">
                     <div 
@@ -306,11 +314,11 @@ export function RetentionDashboard() {
         <TabsList>
           <TabsTrigger value="users" className="flex items-center gap-1">
             <Users className="h-4 w-4" />
-            Useri la Risc
+            {t('admin.retention.usersAtRisk')}
           </TabsTrigger>
           <TabsTrigger value="logs" className="flex items-center gap-1">
             <Bell className="h-4 w-4" />
-            Log Mesaje
+            {t('admin.retention.messageLogs')}
           </TabsTrigger>
         </TabsList>
 
@@ -320,7 +328,7 @@ export function RetentionDashboard() {
               <div className="space-y-3">
                 {users.filter(u => u.risk_level !== 'low').length === 0 ? (
                   <p className="text-muted-foreground text-center py-8">
-                    🎉 Toți userii sunt activi! Nu există useri la risc.
+                    {t('admin.retention.allActive')}
                   </p>
                 ) : (
                   users.filter(u => u.risk_level !== 'low').map(user => (
@@ -344,10 +352,10 @@ export function RetentionDashboard() {
                         <div className="text-right">
                           <p className="text-sm font-medium flex items-center gap-1">
                             <Clock className="h-3 w-3" />
-                            {user.days_inactive} zile inactiv
+                            {user.days_inactive} {t('admin.retention.daysInactive')}
                           </p>
                           <p className="text-xs text-muted-foreground">
-                            Scor: {user.engagement_score?.toFixed(0) || 0}/100
+                            {t('admin.retention.score')}: {user.engagement_score?.toFixed(0) || 0}/100
                           </p>
                         </div>
                         {getStatusBadge(user.status)}
@@ -369,7 +377,7 @@ export function RetentionDashboard() {
               <div className="space-y-3">
                 {logs.length === 0 ? (
                   <p className="text-muted-foreground text-center py-8">
-                    Nu există mesaje de retenție încă.
+                    {t('admin.retention.noMessages')}
                   </p>
                 ) : (
                   logs.map(log => (
@@ -399,7 +407,7 @@ export function RetentionDashboard() {
                         {log.returned_at && (
                           <Badge className="bg-green-500/20 text-green-700 text-xs mt-1">
                             <ArrowUpRight className="h-3 w-3 mr-1" />
-                            Revenit
+                            {t('admin.retention.returned')}
                           </Badge>
                         )}
                       </div>
