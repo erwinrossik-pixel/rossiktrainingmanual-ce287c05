@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { useCompany } from '@/contexts/CompanyContext';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { useCertificateNotifications } from '@/hooks/useCertificateNotifications';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
@@ -84,6 +85,7 @@ export default function AdminDashboard() {
   const navigate = useNavigate();
   const { user, profile, loading, isAdmin } = useAuth();
   const { isSuperAdmin, isCompanyAdmin, company, branding } = useCompany();
+  const { t } = useLanguage();
   const { requestNotificationPermission, areNotificationsEnabled } = useCertificateNotifications(isAdmin || isCompanyAdmin);
   const [users, setUsers] = useState<UserWithProgress[]>([]);
   const [loadingUsers, setLoadingUsers] = useState(true);
@@ -472,8 +474,8 @@ export default function AdminDashboard() {
                 <ArrowLeft className="h-4 w-4" />
               </Button>
               <div>
-                <h1 className="text-3xl font-black tracking-tight">Admin Dashboard</h1>
-                <p className="text-white/80 font-medium">Gestionare utilizatori și progres training</p>
+                <h1 className="text-3xl font-black tracking-tight">{t('admin.title')}</h1>
+                <p className="text-white/80 font-medium">{t('admin.subtitle')}</p>
               </div>
             </div>
             <div className="flex items-center gap-3">
@@ -502,8 +504,8 @@ export default function AdminDashboard() {
                   </TooltipTrigger>
                   <TooltipContent>
                     {notificationsEnabled 
-                      ? 'Notificări active pentru certificate noi' 
-                      : 'Activează notificările pentru certificate noi'}
+                      ? t('admin.notificationsActive')
+                      : t('admin.enableNotifications')}
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
@@ -512,7 +514,7 @@ export default function AdminDashboard() {
                 className="bg-white text-slate-800 hover:bg-white/90 font-bold shadow-lg"
               >
                 <Download className="h-4 w-4 mr-2" />
-                Export CSV
+                {t('admin.exportCSV')}
               </Button>
             </div>
           </div>
@@ -522,33 +524,33 @@ export default function AdminDashboard() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <Card className="admin-stat-card-blue">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-bold text-blue-800">Total Utilizatori</CardTitle>
+              <CardTitle className="text-sm font-bold text-blue-800">{t('admin.totalUsers')}</CardTitle>
               <div className="p-2 bg-blue-500 rounded-lg shadow-md">
                 <Users className="h-5 w-5 text-white" />
               </div>
             </CardHeader>
             <CardContent>
               <div className="admin-stat-value text-blue-700">{users.length}</div>
-              <p className="text-xs text-blue-600 font-medium mt-1">utilizatori înregistrați</p>
+              <p className="text-xs text-blue-600 font-medium mt-1">{t('admin.registeredUsers')}</p>
             </CardContent>
           </Card>
           
           <Card className="admin-stat-card-purple">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-bold text-purple-800">Capitole Total</CardTitle>
+              <CardTitle className="text-sm font-bold text-purple-800">{t('admin.totalChapters')}</CardTitle>
               <div className="p-2 bg-purple-500 rounded-lg shadow-md">
                 <BookOpen className="h-5 w-5 text-white" />
               </div>
             </CardHeader>
             <CardContent>
               <div className="admin-stat-value text-purple-700">{users[0]?.totalChapters || 40}</div>
-              <p className="text-xs text-purple-600 font-medium mt-1">capitole disponibile</p>
+              <p className="text-xs text-purple-600 font-medium mt-1">{t('admin.availableChapters')}</p>
             </CardContent>
           </Card>
           
           <Card className="admin-stat-card-amber">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-bold text-amber-800">Scor Mediu Global</CardTitle>
+              <CardTitle className="text-sm font-bold text-amber-800">{t('admin.globalAvgScore')}</CardTitle>
               <div className="p-2 bg-amber-500 rounded-lg shadow-md">
                 <Trophy className="h-5 w-5 text-white" />
               </div>
@@ -559,13 +561,13 @@ export default function AdminDashboard() {
                   ? Math.round(users.reduce((a, b) => a + b.averageScore, 0) / users.length)
                   : 0}%
               </div>
-              <p className="text-xs text-amber-600 font-medium mt-1">medie toate scorurile</p>
+              <p className="text-xs text-amber-600 font-medium mt-1">{t('admin.allScoresAvg')}</p>
             </CardContent>
           </Card>
           
           <Card className="admin-stat-card-green">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-bold text-emerald-800">Utilizatori Activi (7 zile)</CardTitle>
+              <CardTitle className="text-sm font-bold text-emerald-800">{t('admin.activeUsers7d')}</CardTitle>
               <div className="p-2 bg-emerald-500 rounded-lg shadow-md">
                 <Clock className="h-5 w-5 text-white" />
               </div>
@@ -580,7 +582,7 @@ export default function AdminDashboard() {
                   return lastActive > weekAgo;
                 }).length}
               </div>
-              <p className="text-xs text-emerald-600 font-medium mt-1">activi recent</p>
+              <p className="text-xs text-emerald-600 font-medium mt-1">{t('admin.recentlyActive')}</p>
             </CardContent>
           </Card>
         </div>
@@ -596,21 +598,21 @@ export default function AdminDashboard() {
               <>
                 <div className="w-full flex items-center gap-2 py-1 px-2 mb-1">
                   <Badge variant="outline" className="bg-blue-100 text-blue-800 border-blue-300 text-xs font-bold">
-                    🏢 SUPER ADMIN
+                    {t('admin.category.superAdmin')}
                   </Badge>
                   <div className="flex-1 h-px bg-blue-200"></div>
                 </div>
                 <TabsTrigger value="companies" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-blue-700 data-[state=active]:border-b-2 data-[state=active]:border-blue-500">
                   <Building2 className="h-4 w-4" />
-                  Companii
+                  {t('admin.tab.companies')}
                 </TabsTrigger>
                 <TabsTrigger value="plans" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-emerald-700 data-[state=active]:border-b-2 data-[state=active]:border-emerald-500">
                   <CreditCard className="h-4 w-4" />
-                  Planuri
+                  {t('admin.tab.plans')}
                 </TabsTrigger>
                 <TabsTrigger value="premium-chapters" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-amber-700 data-[state=active]:border-b-2 data-[state=active]:border-amber-500">
                   <Lock className="h-4 w-4" />
-                  Premium
+                  {t('admin.tab.premium')}
                 </TabsTrigger>
               </>
             )}
@@ -620,7 +622,7 @@ export default function AdminDashboard() {
             ═══════════════════════════════════════════════════════════════════ */}
             <div className="w-full flex items-center gap-2 py-1 px-2 mb-1 mt-2">
               <Badge variant="outline" className="bg-purple-100 text-purple-800 border-purple-300 text-xs font-bold">
-                👥 UTILIZATORI
+                {t('admin.category.users')}
               </Badge>
               <div className="flex-1 h-px bg-purple-200"></div>
             </div>
@@ -628,27 +630,27 @@ export default function AdminDashboard() {
               <>
                 <TabsTrigger value="company-users" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-purple-700 data-[state=active]:border-b-2 data-[state=active]:border-purple-500">
                   <Users className="h-4 w-4" />
-                  Utilizatori Companie
+                  {t('admin.tab.companyUsers')}
                 </TabsTrigger>
                 <TabsTrigger value="chapters" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-indigo-700 data-[state=active]:border-b-2 data-[state=active]:border-indigo-500">
                   <BookOpen className="h-4 w-4" />
-                  Capitole
+                  {t('admin.tab.chapters')}
                 </TabsTrigger>
                 <TabsTrigger value="reports" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-cyan-700 data-[state=active]:border-b-2 data-[state=active]:border-cyan-500">
                   <FileBarChart className="h-4 w-4" />
-                  Rapoarte
+                  {t('admin.tab.reports')}
                 </TabsTrigger>
               </>
             )}
             
             <TabsTrigger value="users" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-blue-700 data-[state=active]:border-b-2 data-[state=active]:border-blue-500">
               <Users className="h-4 w-4" />
-              Toate Profilurile
+              {t('admin.tab.allProfiles')}
             </TabsTrigger>
             
             <TabsTrigger value="retention" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-rose-700 data-[state=active]:border-b-2 data-[state=active]:border-rose-500">
               <TrendingUp className="h-4 w-4" />
-              Retenție
+              {t('admin.tab.retention')}
             </TabsTrigger>
             
             {/* ═══════════════════════════════════════════════════════════════════
@@ -656,38 +658,38 @@ export default function AdminDashboard() {
             ═══════════════════════════════════════════════════════════════════ */}
             <div className="w-full flex items-center gap-2 py-1 px-2 mb-1 mt-2">
               <Badge variant="outline" className="bg-orange-100 text-orange-800 border-orange-300 text-xs font-bold">
-                📊 ANALIZE & KPI
+                {t('admin.category.analytics')}
               </Badge>
               <div className="flex-1 h-px bg-orange-200"></div>
             </div>
             <TabsTrigger value="quiz-analytics" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-orange-700 data-[state=active]:border-b-2 data-[state=active]:border-orange-500">
               <HelpCircle className="h-4 w-4" />
-              Analiză Quiz
+              {t('admin.tab.quizAnalytics')}
             </TabsTrigger>
             
             <TabsTrigger value="analytics" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-violet-700 data-[state=active]:border-b-2 data-[state=active]:border-violet-500">
               <BarChart3 className="h-4 w-4" />
-              Grafice
+              {t('admin.tab.charts')}
             </TabsTrigger>
             
             <TabsTrigger value="learning-kpi" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-teal-700 data-[state=active]:border-b-2 data-[state=active]:border-teal-500">
               <TrendingUp className="h-4 w-4" />
-              Learning KPI
+              {t('admin.tab.learningKPI')}
             </TabsTrigger>
             
             <TabsTrigger value="usage" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-cyan-700 data-[state=active]:border-b-2 data-[state=active]:border-cyan-500">
               <Activity className="h-4 w-4" />
-              Utilizare
+              {t('admin.tab.usage')}
             </TabsTrigger>
             
             <TabsTrigger value="training-time" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-pink-700 data-[state=active]:border-b-2 data-[state=active]:border-pink-500">
               <Timer className="h-4 w-4" />
-              Timp Training
+              {t('admin.tab.trainingTime')}
             </TabsTrigger>
             
             <TabsTrigger value="realtime" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-red-700 data-[state=active]:border-b-2 data-[state=active]:border-red-500">
               <Radio className="h-4 w-4" />
-              Timp Real
+              {t('admin.tab.realtime')}
             </TabsTrigger>
             
             {/* ═══════════════════════════════════════════════════════════════════
@@ -695,28 +697,28 @@ export default function AdminDashboard() {
             ═══════════════════════════════════════════════════════════════════ */}
             <div className="w-full flex items-center gap-2 py-1 px-2 mb-1 mt-2">
               <Badge variant="outline" className="bg-emerald-100 text-emerald-800 border-emerald-300 text-xs font-bold">
-                🎯 COMPETENȚE
+                {t('admin.category.competencies')}
               </Badge>
               <div className="flex-1 h-px bg-emerald-200"></div>
             </div>
             <TabsTrigger value="competency-matrix" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-emerald-700 data-[state=active]:border-b-2 data-[state=active]:border-emerald-500">
               <BarChart3 className="h-4 w-4" />
-              Competențe Echipă
+              {t('admin.tab.teamCompetencies')}
             </TabsTrigger>
             
             <TabsTrigger value="competency-gap" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-amber-700 data-[state=active]:border-b-2 data-[state=active]:border-amber-500">
               <Target className="h-4 w-4" />
-              Lipsuri Competențe
+              {t('admin.tab.competencyGaps')}
             </TabsTrigger>
             
             <TabsTrigger value="gamification" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-fuchsia-700 data-[state=active]:border-b-2 data-[state=active]:border-fuchsia-500">
               <Gamepad2 className="h-4 w-4" />
-              Gamificare
+              {t('admin.tab.gamification')}
             </TabsTrigger>
             
             <TabsTrigger value="certificates" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-yellow-700 data-[state=active]:border-b-2 data-[state=active]:border-yellow-500">
               <Award className="h-4 w-4" />
-              Certificate
+              {t('admin.tab.certificates')}
             </TabsTrigger>
             
             {/* ═══════════════════════════════════════════════════════════════════
@@ -724,38 +726,38 @@ export default function AdminDashboard() {
             ═══════════════════════════════════════════════════════════════════ */}
             <div className="w-full flex items-center gap-2 py-1 px-2 mb-1 mt-2">
               <Badge variant="outline" className="bg-sky-100 text-sky-800 border-sky-300 text-xs font-bold">
-                📝 CONȚINUT
+                {t('admin.category.content')}
               </Badge>
               <div className="flex-1 h-px bg-sky-200"></div>
             </div>
             <TabsTrigger value="quality" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-sky-700 data-[state=active]:border-b-2 data-[state=active]:border-sky-500">
               <FileSearch className="h-4 w-4" />
-              Calitate Conținut
+              {t('admin.tab.contentQuality')}
             </TabsTrigger>
             
             <TabsTrigger value="governance" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-slate-700 data-[state=active]:border-b-2 data-[state=active]:border-slate-500">
               <Shield className="h-4 w-4" />
-              Guvernanță
+              {t('admin.tab.governance')}
             </TabsTrigger>
             
             <TabsTrigger value="content-governor" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-purple-700 data-[state=active]:border-b-2 data-[state=active]:border-purple-500">
               <Shield className="h-4 w-4" />
-              AI Governor
+              {t('admin.tab.aiGovernor')}
             </TabsTrigger>
             
             <TabsTrigger value="auto-updates" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-lime-700 data-[state=active]:border-b-2 data-[state=active]:border-lime-500">
               <RefreshCw className="h-4 w-4" />
-              Auto-Update
+              {t('admin.tab.autoUpdate')}
             </TabsTrigger>
             
             <TabsTrigger value="standards" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-indigo-700 data-[state=active]:border-b-2 data-[state=active]:border-indigo-500">
               <Globe className="h-4 w-4" />
-              Standarde Int.
+              {t('admin.tab.intStandards')}
             </TabsTrigger>
             
             <TabsTrigger value="knowledge-graph" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-violet-700 data-[state=active]:border-b-2 data-[state=active]:border-violet-500">
               <Network className="h-4 w-4" />
-              Knowledge Graph
+              {t('admin.tab.knowledgeGraph')}
             </TabsTrigger>
             
             {/* ═══════════════════════════════════════════════════════════════════
