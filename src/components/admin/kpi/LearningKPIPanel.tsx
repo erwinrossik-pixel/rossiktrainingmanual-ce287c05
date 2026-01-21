@@ -155,8 +155,8 @@ export const LearningKPIPanel = memo(function LearningKPIPanel({
         {/* Pass Rate by Chapter */}
         <Card>
           <CardHeader>
-            <CardTitle className="text-lg">Rata de Promovare per Capitol</CardTitle>
-            <CardDescription>Procentul de încercări reușite</CardDescription>
+            <CardTitle className="text-lg">{t('admin.kpi.passRateByChapter')}</CardTitle>
+            <CardDescription>{t('admin.kpi.successfulAttempts')}</CardDescription>
           </CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={300}>
@@ -165,10 +165,10 @@ export const LearningKPIPanel = memo(function LearningKPIPanel({
                 <XAxis type="number" domain={[0, 100]} />
                 <YAxis dataKey="name" type="category" width={100} tick={{ fontSize: 11 }} />
                 <Tooltip 
-                  formatter={(value: number, name: string) => [`${value}%`, name === 'passRate' ? 'Promovat' : 'Picat']}
+                  formatter={(value: number, name: string) => [`${value}%`, name === 'passRate' ? t('admin.kpi.passed') : t('admin.kpi.failed')]}
                   labelFormatter={(label, payload) => payload?.[0]?.payload?.fullName || label}
                 />
-                <Bar dataKey="passRate" name="Rata promovare">
+                <Bar dataKey="passRate" name={t('admin.kpi.passRate')}>
                   {passRateData.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={getPassRateColor(entry.passRate)} />
                   ))}
@@ -181,8 +181,8 @@ export const LearningKPIPanel = memo(function LearningKPIPanel({
         {/* Attempts Distribution */}
         <Card>
           <CardHeader>
-            <CardTitle className="text-lg">Distribuția Încercărilor</CardTitle>
-            <CardDescription>Câte capitole necesită X încercări în medie</CardDescription>
+            <CardTitle className="text-lg">{t('admin.kpi.attemptsDistribution')}</CardTitle>
+            <CardDescription>{t('admin.kpi.chaptersNeedX')}</CardDescription>
           </CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={300}>
@@ -215,14 +215,14 @@ export const LearningKPIPanel = memo(function LearningKPIPanel({
           <CardHeader>
             <CardTitle className="text-lg flex items-center gap-2">
               <AlertTriangle className="h-5 w-5 text-destructive" />
-              Capitole cu Cea Mai Mare Rată de Eșec
+              {t('admin.kpi.highestFailRate')}
             </CardTitle>
-            <CardDescription>Necesită atenție prioritară</CardDescription>
+            <CardDescription>{t('admin.kpi.priorityAttention')}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-3">
               {worstChapters.length === 0 ? (
-                <p className="text-muted-foreground text-sm">Nu există date suficiente</p>
+                <p className="text-muted-foreground text-sm">{t('admin.kpi.noSufficientData')}</p>
               ) : (
                 worstChapters.map((chapter, idx) => (
                   <div key={chapter.chapterId} className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
@@ -231,13 +231,13 @@ export const LearningKPIPanel = memo(function LearningKPIPanel({
                       <div>
                         <p className="font-medium text-sm">{chapter.chapterName}</p>
                         <p className="text-xs text-muted-foreground">
-                          {chapter.totalAttempts} încercări, {chapter.avgAttempts.toFixed(1)} medie
+                          {chapter.totalAttempts} {t('admin.kpi.attempts')}, {chapter.avgAttempts.toFixed(1)} {t('admin.kpi.average')}
                         </p>
                       </div>
                     </div>
                     <div className="text-right">
                       <p className="font-bold text-destructive">{chapter.failureRate.toFixed(1)}%</p>
-                      <p className="text-xs text-muted-foreground">rată eșec</p>
+                      <p className="text-xs text-muted-foreground">{t('admin.kpi.failRate')}</p>
                     </div>
                   </div>
                 ))
@@ -251,14 +251,14 @@ export const LearningKPIPanel = memo(function LearningKPIPanel({
           <CardHeader>
             <CardTitle className="text-lg flex items-center gap-2">
               <TrendingDown className="h-5 w-5 text-orange-500" />
-              Întrebări cu Cel Mai Mare Eșec
+              {t('admin.kpi.mostFailedQuestions')}
             </CardTitle>
-            <CardDescription>Întrebări care pică cel mai des</CardDescription>
+            <CardDescription>{t('admin.kpi.questionsFail')}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-2">
               {allFailedQuestions.length === 0 ? (
-                <p className="text-muted-foreground text-sm">Nu există date despre întrebări</p>
+                <p className="text-muted-foreground text-sm">{t('admin.kpi.noQuestionData')}</p>
               ) : (
                 allFailedQuestions.map((q, idx) => (
                   <div key={`${q.chapter}-${q.questionIndex}`} className="flex items-center justify-between p-2 bg-muted/30 rounded">
@@ -266,14 +266,14 @@ export const LearningKPIPanel = memo(function LearningKPIPanel({
                       <Badge variant="outline" className="shrink-0">{idx + 1}</Badge>
                       <div className="min-w-0">
                         <p className="text-sm truncate">{q.chapter}</p>
-                        <p className="text-xs text-muted-foreground">Întrebarea #{q.questionIndex + 1}</p>
+                        <p className="text-xs text-muted-foreground">{t('admin.kpi.question')} #{q.questionIndex + 1}</p>
                       </div>
                     </div>
                     <Badge 
                       variant={q.failureRate > 60 ? 'destructive' : 'secondary'}
                       className="shrink-0 ml-2"
                     >
-                      {q.failureRate.toFixed(0)}% eșec
+                      {q.failureRate.toFixed(0)}% {t('admin.kpi.fail')}
                     </Badge>
                   </div>
                 ))

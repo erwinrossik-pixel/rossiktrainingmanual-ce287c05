@@ -9,6 +9,7 @@ import { Clock, Timer, TrendingUp, TrendingDown, Users, Download, RefreshCw, Zap
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell, PieChart, Pie } from 'recharts';
 import { format } from 'date-fns';
 import { toast } from 'sonner';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface UserTrainingTime {
   userId: string;
@@ -35,6 +36,7 @@ const PHASE_NAMES = {
 };
 
 export function TrainingTimeAnalytics() {
+  const { t } = useLanguage();
   const [usersTime, setUsersTime] = useState<UserTrainingTime[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -178,10 +180,10 @@ export function TrainingTimeAnalytics() {
   };
 
   const getEfficiencyLabel = (efficiency: number): string => {
-    if (efficiency >= 120) return 'Excelent';
-    if (efficiency >= 100) return 'Bun';
-    if (efficiency >= 80) return 'Mediu';
-    return 'Lent';
+    if (efficiency >= 120) return t('admin.training.efficiencyExcellent');
+    if (efficiency >= 100) return t('admin.training.efficiencyGood');
+    if (efficiency >= 80) return t('admin.training.efficiencyMedium');
+    return t('admin.training.efficiencySlow');
   };
 
   // Chart data: time distribution by phase across all users
@@ -269,7 +271,7 @@ export function TrainingTimeAnalytics() {
     link.download = `training-time-${format(new Date(), 'yyyy-MM-dd')}.csv`;
     link.click();
 
-    toast.success('Export CSV descărcat!');
+    toast.success(t('admin.training.csvExported'));
   };
 
   const CustomTooltip = ({ active, payload }: any) => {
@@ -300,29 +302,29 @@ export function TrainingTimeAnalytics() {
       <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Timp Total Platform</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('admin.training.totalPlatformTime')}</CardTitle>
             <Timer className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{formatTime(totalTimeAllUsers)}</div>
-            <p className="text-xs text-muted-foreground">{usersWithAnyTime.length} utilizatori activi</p>
+            <p className="text-xs text-muted-foreground">{usersWithAnyTime.length} {t('admin.training.activeUsersCount')}</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Timp Mediu</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('admin.training.avgTime')}</CardTitle>
             <TrendingUp className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{formatTime(Math.round(averageTime))}</div>
-            <p className="text-xs text-muted-foreground">per utilizator activ</p>
+            <p className="text-xs text-muted-foreground">{t('admin.training.perActiveUser')}</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Eficiență Medie</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('admin.training.avgEfficiency')}</CardTitle>
             <Zap className="h-4 w-4 text-primary" />
           </CardHeader>
           <CardContent>
@@ -330,32 +332,32 @@ export function TrainingTimeAnalytics() {
               {averageEfficiency}%
             </div>
             <div className="flex items-center gap-2 mt-1">
-              <span className="text-xs text-success">{efficiencyDistribution.fast} rapizi</span>
+              <span className="text-xs text-success">{efficiencyDistribution.fast} {t('admin.training.fastLearners')}</span>
               <span className="text-xs text-muted-foreground">·</span>
-              <span className="text-xs text-warning">{efficiencyDistribution.slow} lenți</span>
+              <span className="text-xs text-warning">{efficiencyDistribution.slow} {t('admin.training.slowLearners')}</span>
             </div>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">În Training Acum</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('admin.training.currentlyTraining')}</CardTitle>
             <Clock className="h-4 w-4 text-green-500 animate-pulse" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-green-600">{usersCurrentlyTraining}</div>
-            <p className="text-xs text-muted-foreground">utilizatori activi</p>
+            <p className="text-xs text-muted-foreground">{t('admin.training.usersActive')}</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Obiectiv Atins (40h)</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('admin.training.targetReached')}</CardTitle>
             <Users className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-primary">{usersCompletedTarget}</div>
-            <p className="text-xs text-muted-foreground">din {usersTime.length} utilizatori</p>
+            <p className="text-xs text-muted-foreground">{t('admin.training.ofTotalUsers').replace('{count}', String(usersTime.length))}</p>
           </CardContent>
         </Card>
       </div>
@@ -364,8 +366,8 @@ export function TrainingTimeAnalytics() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card>
           <CardHeader>
-            <CardTitle className="text-base">Distribuție Timp pe Faze</CardTitle>
-            <CardDescription>Ore totale petrecute de toți utilizatorii pe fiecare fază</CardDescription>
+            <CardTitle className="text-base">{t('admin.training.phaseDistribution')}</CardTitle>
+            <CardDescription>{t('admin.training.phaseDistributionDesc')}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="h-64">
@@ -397,8 +399,8 @@ export function TrainingTimeAnalytics() {
 
         <Card>
           <CardHeader>
-            <CardTitle className="text-base">Distribuție Progres Training</CardTitle>
-            <CardDescription>Utilizatori grupați după procentul din obiectivul de 40h</CardDescription>
+            <CardTitle className="text-base">{t('admin.training.progressDistribution')}</CardTitle>
+            <CardDescription>{t('admin.training.progressDistributionDesc')}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="h-64">
@@ -434,9 +436,9 @@ export function TrainingTimeAnalytics() {
           <CardHeader>
             <CardTitle className="text-base flex items-center gap-2">
               <Zap className="h-4 w-4 text-primary" />
-              Top Eficiență
+              {t('admin.training.topEfficiency')}
             </CardTitle>
-            <CardDescription>Utilizatorii cu cea mai mare eficiență (timp real vs recomandat)</CardDescription>
+            <CardDescription>{t('admin.training.topEfficiencyDesc')}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-3">

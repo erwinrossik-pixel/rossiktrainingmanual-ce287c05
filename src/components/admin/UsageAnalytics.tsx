@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, PieChart, Pie, Cell, Legend, AreaChart, Area } from 'recharts';
 import { format, subDays, startOfDay, endOfDay } from 'date-fns';
 import { Activity, Monitor, Smartphone, Tablet, Globe, Clock, Eye, Users } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface PageViewData {
   page_path: string;
@@ -25,6 +26,7 @@ interface SessionData {
 const COLORS = ['#3b82f6', '#22c55e', '#eab308', '#ef4444', '#8b5cf6', '#ec4899'];
 
 export function UsageAnalytics() {
+  const { t } = useLanguage();
   const [pageViews, setPageViews] = useState<PageViewData[]>([]);
   const [sessions, setSessions] = useState<SessionData[]>([]);
   const [loading, setLoading] = useState(true);
@@ -141,40 +143,40 @@ export function UsageAnalytics() {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Total Vizualizări</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('admin.usage.totalViews')}</CardTitle>
             <Eye className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{pageViews.length}</div>
-            <p className="text-xs text-muted-foreground">ultimele 30 zile</p>
+            <p className="text-xs text-muted-foreground">{t('admin.usage.last30Days')}</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Sesiuni Active</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('admin.usage.activeSessions')}</CardTitle>
             <Activity className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{sessions.length}</div>
-            <p className="text-xs text-muted-foreground">ultimele 30 zile</p>
+            <p className="text-xs text-muted-foreground">{t('admin.usage.last30Days')}</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Durată Medie Sesiune</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('admin.usage.avgSessionDuration')}</CardTitle>
             <Clock className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{formatDuration(avgDuration)}</div>
-            <p className="text-xs text-muted-foreground">per sesiune</p>
+            <p className="text-xs text-muted-foreground">{t('admin.usage.perSession')}</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Pagini/Sesiune</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('admin.usage.pagesPerSession')}</CardTitle>
             <Globe className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -183,7 +185,7 @@ export function UsageAnalytics() {
                 ? (sessions.reduce((sum, s) => sum + (s.pages_visited || 0), 0) / sessions.length).toFixed(1)
                 : 0}
             </div>
-            <p className="text-xs text-muted-foreground">medie per sesiune</p>
+            <p className="text-xs text-muted-foreground">{t('admin.usage.avgPerSession')}</p>
           </CardContent>
         </Card>
       </div>
@@ -193,8 +195,8 @@ export function UsageAnalytics() {
         {/* Daily Page Views */}
         <Card className="col-span-1 lg:col-span-2">
           <CardHeader>
-            <CardTitle>Vizualizări Zilnice</CardTitle>
-            <CardDescription>Numărul de vizualizări de pagini în ultimele 30 zile</CardDescription>
+            <CardTitle>{t('admin.usage.dailyViews')}</CardTitle>
+            <CardDescription>{t('admin.usage.dailyViewsDesc')}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="h-[300px]">
@@ -207,8 +209,8 @@ export function UsageAnalytics() {
                   <Area 
                     type="monotone" 
                     dataKey="views" 
-                    name="Vizualizări"
-                    stroke="hsl(var(--primary))" 
+                    name={t('admin.usage.views')}
+                    stroke="hsl(var(--primary))"
                     fill="hsl(var(--primary))"
                     fillOpacity={0.3}
                   />
@@ -221,8 +223,8 @@ export function UsageAnalytics() {
         {/* Sessions per Day */}
         <Card>
           <CardHeader>
-            <CardTitle>Sesiuni Zilnice</CardTitle>
-            <CardDescription>Numărul de sesiuni pe zi</CardDescription>
+            <CardTitle>{t('admin.usage.dailySessions')}</CardTitle>
+            <CardDescription>{t('admin.usage.dailySessionsDesc')}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="h-[300px]">
@@ -235,8 +237,8 @@ export function UsageAnalytics() {
                   <Line 
                     type="monotone" 
                     dataKey="sessions" 
-                    name="Sesiuni"
-                    stroke="#22c55e" 
+                    name={t('admin.usage.sessions')}
+                    stroke="#22c55e"
                     strokeWidth={2}
                     dot={{ fill: '#22c55e' }}
                   />
@@ -249,8 +251,8 @@ export function UsageAnalytics() {
         {/* Device Distribution */}
         <Card>
           <CardHeader>
-            <CardTitle>Dispozitive</CardTitle>
-            <CardDescription>Distribuție după tipul dispozitivului</CardDescription>
+            <CardTitle>{t('admin.usage.devices')}</CardTitle>
+            <CardDescription>{t('admin.usage.devicesDesc')}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="h-[300px]">
@@ -269,7 +271,7 @@ export function UsageAnalytics() {
                       <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                     ))}
                   </Pie>
-                  <Tooltip formatter={(value: number) => [value, 'Sesiuni']} />
+                  <Tooltip formatter={(value: number) => [value, t('admin.usage.sessions')]} />
                   <Legend />
                 </PieChart>
               </ResponsiveContainer>
@@ -280,8 +282,8 @@ export function UsageAnalytics() {
         {/* Browser Distribution */}
         <Card>
           <CardHeader>
-            <CardTitle>Browsere</CardTitle>
-            <CardDescription>Distribuție după browser</CardDescription>
+            <CardTitle>{t('admin.usage.browsers')}</CardTitle>
+            <CardDescription>{t('admin.usage.browsersDesc')}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="h-[300px]">
@@ -290,7 +292,7 @@ export function UsageAnalytics() {
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis type="number" />
                   <YAxis type="category" dataKey="name" width={80} />
-                  <Tooltip formatter={(value: number) => [value, 'Sesiuni']} />
+                  <Tooltip formatter={(value: number) => [value, t('admin.usage.sessions')]} />
                   <Bar dataKey="value" fill="hsl(var(--primary))" radius={[0, 4, 4, 0]} />
                 </BarChart>
               </ResponsiveContainer>
@@ -301,8 +303,8 @@ export function UsageAnalytics() {
         {/* Top Chapters */}
         <Card>
           <CardHeader>
-            <CardTitle>Cele Mai Vizitate Capitole</CardTitle>
-            <CardDescription>Top 10 capitole după vizualizări</CardDescription>
+            <CardTitle>{t('admin.usage.topChapters')}</CardTitle>
+            <CardDescription>{t('admin.usage.topChaptersDesc')}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="h-[300px]">
@@ -316,7 +318,7 @@ export function UsageAnalytics() {
                     width={100}
                     tick={{ fontSize: 10 }}
                   />
-                  <Tooltip formatter={(value: number) => [value, 'Vizualizări']} />
+                  <Tooltip formatter={(value: number) => [value, t('admin.usage.views')]} />
                   <Bar dataKey="count" fill="#8b5cf6" radius={[0, 4, 4, 0]} />
                 </BarChart>
               </ResponsiveContainer>
