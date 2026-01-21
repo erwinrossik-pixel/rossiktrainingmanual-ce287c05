@@ -7,6 +7,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { supabase } from '@/integrations/supabase/client';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { 
   BarChart3, 
   Users, 
@@ -36,14 +37,15 @@ const getScoreColor = (score: number) => {
   return 'bg-red-500';
 };
 
-const getScoreBadge = (score: number) => {
-  if (score >= 80) return { label: 'Excelent', color: 'bg-green-100 text-green-700' };
-  if (score >= 60) return { label: 'Bine', color: 'bg-amber-100 text-amber-700' };
-  if (score >= 40) return { label: 'Mediu', color: 'bg-orange-100 text-orange-700' };
-  return { label: 'Necesită îmbunătățire', color: 'bg-red-100 text-red-700' };
+const getScoreBadge = (score: number, t: (key: string) => string) => {
+  if (score >= 80) return { label: t('admin.matrix.excellent'), color: 'bg-green-100 text-green-700' };
+  if (score >= 60) return { label: t('admin.matrix.good'), color: 'bg-amber-100 text-amber-700' };
+  if (score >= 40) return { label: t('admin.matrix.medium'), color: 'bg-orange-100 text-orange-700' };
+  return { label: t('admin.matrix.needsImprovement'), color: 'bg-red-100 text-red-700' };
 };
 
 export const CompetencyMatrix = memo(() => {
+  const { t } = useLanguage();
   const [teamData, setTeamData] = useState<TeamMember[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedArea, setSelectedArea] = useState<string>('all');
@@ -165,12 +167,12 @@ export const CompetencyMatrix = memo(() => {
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-white/80 flex items-center gap-2">
               <Users className="h-4 w-4" />
-              Membri Echipă
+              {t('admin.matrix.teamMembers')}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold">{teamData.length}</div>
-            <p className="text-xs text-white/70">cu competențe evaluate</p>
+            <p className="text-xs text-white/70">{t('admin.matrix.withEvaluated')}</p>
           </CardContent>
         </Card>
 
@@ -178,12 +180,12 @@ export const CompetencyMatrix = memo(() => {
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-white/80 flex items-center gap-2">
               <Target className="h-4 w-4" />
-              Scor Mediu Echipă
+              {t('admin.matrix.teamAvg')}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold">{stats.avgScore}%</div>
-            <p className="text-xs text-white/70">competență generală</p>
+            <p className="text-xs text-white/70">{t('admin.matrix.generalComp')}</p>
           </CardContent>
         </Card>
 
@@ -191,12 +193,12 @@ export const CompetencyMatrix = memo(() => {
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-white/80 flex items-center gap-2">
               <TrendingUp className="h-4 w-4" />
-              Punct Forte
+              {t('admin.matrix.strongPoint')}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-lg font-bold truncate">{stats.topAreas[0]?.label || '-'}</div>
-            <p className="text-xs text-white/70">{stats.topAreas[0]?.avgScore || 0}% medie</p>
+            <p className="text-xs text-white/70">{stats.topAreas[0]?.avgScore || 0}% {t('admin.matrix.average')}</p>
           </CardContent>
         </Card>
 
@@ -204,12 +206,12 @@ export const CompetencyMatrix = memo(() => {
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium text-white/80 flex items-center gap-2">
               <AlertTriangle className="h-4 w-4" />
-              De Îmbunătățit
+              {t('admin.matrix.toImprove')}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-lg font-bold truncate">{stats.weakAreas[0]?.label || '-'}</div>
-            <p className="text-xs text-white/70">{stats.weakAreas[0]?.avgScore || 0}% medie</p>
+            <p className="text-xs text-white/70">{stats.weakAreas[0]?.avgScore || 0}% {t('admin.matrix.average')}</p>
           </CardContent>
         </Card>
       </div>
@@ -218,11 +220,11 @@ export const CompetencyMatrix = memo(() => {
         <TabsList>
           <TabsTrigger value="matrix">
             <BarChart3 className="h-4 w-4 mr-2" />
-            Matricea Competențelor
+            {t('admin.matrix.matrix')}
           </TabsTrigger>
           <TabsTrigger value="individual">
             <Users className="h-4 w-4 mr-2" />
-            Profil Individual
+            {t('admin.matrix.individual')}
           </TabsTrigger>
         </TabsList>
 
@@ -231,15 +233,15 @@ export const CompetencyMatrix = memo(() => {
             <CardHeader>
               <div className="flex items-center justify-between">
                 <div>
-                  <CardTitle>Matricea Competențelor Echipei</CardTitle>
-                  <CardDescription>Vizualizare comparativă a competențelor</CardDescription>
+                  <CardTitle>{t('admin.matrix.title')}</CardTitle>
+                  <CardDescription>{t('admin.matrix.subtitle')}</CardDescription>
                 </div>
                 <Select value={selectedArea} onValueChange={setSelectedArea}>
                   <SelectTrigger className="w-[200px]">
-                    <SelectValue placeholder="Toate ariile" />
+                    <SelectValue placeholder={t('admin.matrix.allAreas')} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">Toate ariile</SelectItem>
+                    <SelectItem value="all">{t('admin.matrix.allAreas')}</SelectItem>
                     {Object.entries(COMPETENCY_AREAS).map(([key, { label }]) => (
                       <SelectItem key={key} value={key}>{label}</SelectItem>
                     ))}
@@ -264,7 +266,7 @@ export const CompetencyMatrix = memo(() => {
                             <span className="font-medium">
                               {member.first_name || 'User'} {member.last_name || ''}
                             </span>
-                            <Badge {...getScoreBadge(member.avg_score)} className={getScoreBadge(member.avg_score).color}>
+                            <Badge {...getScoreBadge(member.avg_score, t)} className={getScoreBadge(member.avg_score, t).color}>
                               {member.avg_score}%
                             </Badge>
                           </div>
@@ -316,43 +318,21 @@ export const CompetencyMatrix = memo(() => {
                     </div>
                   </div>
                 </CardHeader>
-                <CardContent className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="text-sm text-muted-foreground">Scor General</span>
-                    <Badge className={getScoreBadge(member.avg_score).color}>
-                      {member.avg_score}%
-                    </Badge>
-                  </div>
+                  <CardContent className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-muted-foreground">{t('admin.matrix.overallScore')}</span>
+                      <Badge className={getScoreBadge(member.avg_score, t).color}>
+                        {member.avg_score}%
+                      </Badge>
+                    </div>
                   
-                  {/* Top 3 skills */}
-                  <div className="space-y-2">
-                    <span className="text-xs font-medium text-muted-foreground flex items-center gap-1">
-                      <Sparkles className="h-3 w-3" /> Puncte forte
-                    </span>
-                    {Object.entries(member.competencies)
-                      .sort(([,a], [,b]) => b - a)
-                      .slice(0, 3)
-                      .map(([area, score]) => (
-                        <div key={area} className="flex items-center gap-2">
-                          <div className={`h-2 w-2 rounded-full ${getScoreColor(score)}`} />
-                          <span className="text-xs flex-1 truncate">
-                            {COMPETENCY_AREAS[area as keyof typeof COMPETENCY_AREAS]?.label || area}
-                          </span>
-                          <span className="text-xs font-medium">{score}%</span>
-                        </div>
-                      ))}
-                  </div>
-
-                  {/* Areas to improve */}
-                  {Object.entries(member.competencies).some(([,score]) => score < 60) && (
                     <div className="space-y-2">
                       <span className="text-xs font-medium text-muted-foreground flex items-center gap-1">
-                        <TrendingDown className="h-3 w-3" /> De îmbunătățit
+                        <Sparkles className="h-3 w-3" /> {t('admin.matrix.strengths')}
                       </span>
                       {Object.entries(member.competencies)
-                        .filter(([,score]) => score < 60)
-                        .sort(([,a], [,b]) => a - b)
-                        .slice(0, 2)
+                        .sort(([,a], [,b]) => b - a)
+                        .slice(0, 3)
                         .map(([area, score]) => (
                           <div key={area} className="flex items-center gap-2">
                             <div className={`h-2 w-2 rounded-full ${getScoreColor(score)}`} />
@@ -363,7 +343,27 @@ export const CompetencyMatrix = memo(() => {
                           </div>
                         ))}
                     </div>
-                  )}
+
+                    {Object.entries(member.competencies).some(([,score]) => score < 60) && (
+                      <div className="space-y-2">
+                        <span className="text-xs font-medium text-muted-foreground flex items-center gap-1">
+                          <TrendingDown className="h-3 w-3" /> {t('admin.matrix.toImprove')}
+                        </span>
+                        {Object.entries(member.competencies)
+                          .filter(([,score]) => score < 60)
+                          .sort(([,a], [,b]) => a - b)
+                          .slice(0, 2)
+                          .map(([area, score]) => (
+                            <div key={area} className="flex items-center gap-2">
+                              <div className={`h-2 w-2 rounded-full ${getScoreColor(score)}`} />
+                              <span className="text-xs flex-1 truncate">
+                                {COMPETENCY_AREAS[area as keyof typeof COMPETENCY_AREAS]?.label || area}
+                              </span>
+                              <span className="text-xs font-medium">{score}%</span>
+                            </div>
+                          ))}
+                      </div>
+                    )}
                 </CardContent>
               </Card>
             ))}
