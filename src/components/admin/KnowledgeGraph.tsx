@@ -44,6 +44,7 @@ import {
   type ConceptRelation
 } from "@/data/knowledgeGraph";
 import { ALL_CHAPTERS } from "@/data/chaptersConfig";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const CATEGORY_ICONS: Record<ConceptCategory, React.ReactNode> = {
   legal: <Shield className="h-4 w-4" />,
@@ -56,18 +57,19 @@ const CATEGORY_ICONS: Record<ConceptCategory, React.ReactNode> = {
   documentation: <FileText className="h-4 w-4" />
 };
 
-const CATEGORY_LABELS: Record<ConceptCategory, string> = {
-  legal: 'Legal',
-  operational: 'Operational',
-  commercial: 'Commercial',
-  technical: 'Technical',
-  geographic: 'Geographic',
-  financial: 'Financial',
-  safety: 'Safety',
-  documentation: 'Documentation'
-};
+const getCategoryLabels = (t: (key: string) => string): Record<ConceptCategory, string> => ({
+  legal: t('admin.graph.category.legal'),
+  operational: t('admin.graph.category.operational'),
+  commercial: t('admin.graph.category.commercial'),
+  technical: t('admin.graph.category.technical'),
+  geographic: t('admin.graph.category.geographic'),
+  financial: t('admin.graph.category.financial'),
+  safety: t('admin.graph.category.safety'),
+  documentation: t('admin.graph.category.documentation')
+});
 
 export function KnowledgeGraph() {
+  const { t, language } = useLanguage();
   const [selectedConcept, setSelectedConcept] = useState<Concept | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<ConceptCategory | "all">("all");
@@ -128,6 +130,8 @@ export function KnowledgeGraph() {
     return colors[type];
   };
 
+  const categoryLabels = getCategoryLabels(t);
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -136,10 +140,10 @@ export function KnowledgeGraph() {
           <div className="p-2 bg-white/20 rounded-lg">
             <Network className="h-6 w-6 text-white" />
           </div>
-          <h2 className="text-2xl font-bold text-white">Knowledge Graph</h2>
+          <h2 className="text-2xl font-bold text-white">{t('admin.graph.title')}</h2>
         </div>
         <p className="text-white/80">
-          Vizualizează dependențele între concepte și analizează impactul actualizărilor
+          {t('admin.graph.subtitle')}
         </p>
       </div>
 
@@ -151,21 +155,21 @@ export function KnowledgeGraph() {
             className="data-[state=active]:bg-violet-600 data-[state=active]:text-white"
           >
             <Layers className="h-4 w-4 mr-2" />
-            Graf Concepte
+            {t('admin.graph.conceptGraph')}
           </TabsTrigger>
           <TabsTrigger 
             value="impact" 
             className="data-[state=active]:bg-orange-600 data-[state=active]:text-white"
           >
             <Target className="h-4 w-4 mr-2" />
-            Analiză Impact
+            {t('admin.graph.impactAnalysis')}
           </TabsTrigger>
           <TabsTrigger 
             value="chapters" 
             className="data-[state=active]:bg-emerald-600 data-[state=active]:text-white"
           >
             <BookOpen className="h-4 w-4 mr-2" />
-            Capitole Afectate
+            {t('admin.graph.affectedChapters')}
           </TabsTrigger>
         </TabsList>
 
@@ -174,7 +178,7 @@ export function KnowledgeGraph() {
           <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input
-              placeholder="Caută concept..."
+              placeholder={t('admin.graph.searchConcept')}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="pl-10 bg-slate-800/50 border-slate-700"
@@ -182,11 +186,11 @@ export function KnowledgeGraph() {
           </div>
           <Select value={selectedCategory} onValueChange={(v) => setSelectedCategory(v as ConceptCategory | "all")}>
             <SelectTrigger className="w-full sm:w-48 bg-slate-800/50 border-slate-700">
-              <SelectValue placeholder="Categorie" />
+              <SelectValue placeholder={t('admin.graph.category')} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">Toate categoriile</SelectItem>
-              {Object.entries(CATEGORY_LABELS).map(([key, label]) => (
+              <SelectItem value="all">{t('admin.graph.allCategories')}</SelectItem>
+              {Object.entries(categoryLabels).map(([key, label]) => (
                 <SelectItem key={key} value={key}>
                   <div className="flex items-center gap-2">
                     <div 
@@ -209,7 +213,7 @@ export function KnowledgeGraph() {
               <CardHeader className="pb-2">
                 <CardTitle className="text-lg flex items-center gap-2">
                   <Layers className="h-5 w-5 text-violet-400" />
-                  Concepte ({filteredConcepts.length})
+                  {t('admin.graph.concepts')} ({filteredConcepts.length})
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -242,10 +246,10 @@ export function KnowledgeGraph() {
                                 variant="outline" 
                                 className={`text-xs ${getImportanceBadge(concept.importance)}`}
                               >
-                                {concept.importance}
+                                {t(`admin.graph.importance.${concept.importance}`)}
                               </Badge>
                               <Badge variant="outline" className="text-xs">
-                                {concept.chapterIds.length} capitole
+                                {concept.chapterIds.length} {t('admin.graph.chaptersCount')}
                               </Badge>
                             </div>
                           </div>
@@ -263,7 +267,7 @@ export function KnowledgeGraph() {
               <CardHeader className="pb-2">
                 <CardTitle className="text-lg flex items-center gap-2">
                   <Network className="h-5 w-5 text-purple-400" />
-                  {selectedConcept ? selectedConcept.name : 'Selectează un concept'}
+                  {selectedConcept ? selectedConcept.name : t('admin.graph.selectConcept')}
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -291,7 +295,7 @@ export function KnowledgeGraph() {
                     <div>
                       <h4 className="font-medium text-white mb-3 flex items-center gap-2">
                         <ArrowRight className="h-4 w-4 text-blue-400" />
-                        Relații ({relatedConcepts.length})
+                        {t('admin.graph.relations')} ({relatedConcepts.length})
                       </h4>
                       <div className="space-y-2 max-h-[300px] overflow-y-auto pr-2">
                         {relatedConcepts.map(({ concept, relation }) => {
@@ -312,12 +316,12 @@ export function KnowledgeGraph() {
                               </div>
                               <div className="flex-1">
                                 <div className="text-sm text-white">{concept.name}</div>
-                                <div className="flex items-center gap-2 mt-1">
+                                  <div className="flex items-center gap-2 mt-1">
                                   <span className={`text-xs ${getRelationColor(relation.type)}`}>
-                                    {isOutgoing ? '→' : '←'} {RELATION_TYPE_LABELS[relation.type].ro}
+                                    {isOutgoing ? '→' : '←'} {language === 'de' ? RELATION_TYPE_LABELS[relation.type].de : language === 'en' ? RELATION_TYPE_LABELS[relation.type].en : RELATION_TYPE_LABELS[relation.type].ro}
                                   </span>
                                   <div className="flex items-center gap-1">
-                                    <div className="text-xs text-slate-500">Putere:</div>
+                                    <div className="text-xs text-slate-500">{t('admin.graph.strength')}:</div>
                                     <div className="flex gap-0.5">
                                       {Array.from({ length: 10 }).map((_, i) => (
                                         <div
@@ -339,7 +343,7 @@ export function KnowledgeGraph() {
                         })}
                         {relatedConcepts.length === 0 && (
                           <div className="text-center py-8 text-slate-500">
-                            Nu există relații pentru acest concept
+                            {t('admin.graph.noRelations')}
                           </div>
                         )}
                       </div>
@@ -349,8 +353,8 @@ export function KnowledgeGraph() {
                   <div className="h-[400px] flex items-center justify-center text-slate-500">
                     <div className="text-center">
                       <Network className="h-16 w-16 mx-auto mb-4 opacity-20" />
-                      <p>Selectează un concept din lista din stânga</p>
-                      <p className="text-sm mt-1">pentru a vedea detalii și relații</p>
+                      <p>{t('admin.graph.selectFromList')}</p>
+                      <p className="text-sm mt-1">{t('admin.graph.toSeeDetails')}</p>
                     </div>
                   </div>
                 )}
@@ -367,7 +371,7 @@ export function KnowledgeGraph() {
               <CardHeader>
                 <CardTitle className="text-lg flex items-center gap-2">
                   <AlertTriangle className="h-5 w-5 text-orange-400" />
-                  Analiză Impact
+                  {t('admin.graph.impactAnalysis')}
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -379,7 +383,7 @@ export function KnowledgeGraph() {
                         <div className="text-4xl font-bold text-orange-400">
                           {impactAnalysis.totalScore.toFixed(1)}
                         </div>
-                        <div className="text-sm text-slate-400 mt-1">Scor Impact Total</div>
+                        <div className="text-sm text-slate-400 mt-1">{t('admin.graph.totalImpactScore')}</div>
                       </div>
                     </div>
 
@@ -387,7 +391,7 @@ export function KnowledgeGraph() {
                     <div>
                       <h4 className="font-medium text-white mb-3 flex items-center gap-2">
                         <Target className="h-4 w-4 text-red-400" />
-                        Impact Direct ({impactAnalysis.directImpact.length})
+                        {t('admin.graph.directImpact')} ({impactAnalysis.directImpact.length})
                       </h4>
                       <div className="space-y-2">
                         {impactAnalysis.directImpact.map(concept => (
@@ -404,13 +408,13 @@ export function KnowledgeGraph() {
                               variant="outline" 
                               className={`ml-auto text-xs ${getImportanceBadge(concept.importance)}`}
                             >
-                              {concept.importance}
+                              {t(`admin.graph.importance.${concept.importance}`)}
                             </Badge>
                           </div>
                         ))}
                         {impactAnalysis.directImpact.length === 0 && (
                           <div className="text-sm text-slate-500 text-center py-4">
-                            Fără impact direct
+                            {t('admin.graph.noDirectImpact')}
                           </div>
                         )}
                       </div>
@@ -420,7 +424,7 @@ export function KnowledgeGraph() {
                     <div>
                       <h4 className="font-medium text-white mb-3 flex items-center gap-2">
                         <Layers className="h-4 w-4 text-yellow-400" />
-                        Impact Indirect ({impactAnalysis.indirectImpact.length})
+                        {t('admin.graph.indirectImpact')} ({impactAnalysis.indirectImpact.length})
                       </h4>
                       <div className="space-y-2">
                         {impactAnalysis.indirectImpact.slice(0, 8).map(concept => (
@@ -437,12 +441,12 @@ export function KnowledgeGraph() {
                         ))}
                         {impactAnalysis.indirectImpact.length > 8 && (
                           <div className="text-xs text-slate-500 text-center">
-                            +{impactAnalysis.indirectImpact.length - 8} alte concepte
+                            +{impactAnalysis.indirectImpact.length - 8} {t('admin.graph.otherConcepts')}
                           </div>
                         )}
                         {impactAnalysis.indirectImpact.length === 0 && (
                           <div className="text-sm text-slate-500 text-center py-4">
-                            Fără impact indirect
+                            {t('admin.graph.noIndirectImpact')}
                           </div>
                         )}
                       </div>
@@ -452,7 +456,7 @@ export function KnowledgeGraph() {
                   <div className="h-[300px] flex items-center justify-center text-slate-500">
                     <div className="text-center">
                       <Target className="h-12 w-12 mx-auto mb-3 opacity-20" />
-                      <p>Selectează un concept pentru analiză</p>
+                      <p>{t('admin.graph.selectForAnalysis')}</p>
                     </div>
                   </div>
                 )}
@@ -462,11 +466,11 @@ export function KnowledgeGraph() {
             {/* Category Distribution */}
             <Card className="bg-slate-900/50 border-slate-700">
               <CardHeader>
-                <CardTitle className="text-lg">Distribuție pe Categorii</CardTitle>
+                <CardTitle className="text-lg">{t('admin.graph.categoryDistribution')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
-                  {Object.entries(CATEGORY_LABELS).map(([key, label]) => {
+                  {Object.entries(categoryLabels).map(([key, label]) => {
                     const concepts = getConceptsByCategory(key as ConceptCategory);
                     const percentage = (concepts.length / CONCEPTS.length) * 100;
                     return (
@@ -500,17 +504,17 @@ export function KnowledgeGraph() {
                   <div className="grid grid-cols-3 gap-4 text-center">
                     <div>
                       <div className="text-2xl font-bold text-violet-400">{CONCEPTS.length}</div>
-                      <div className="text-xs text-slate-500">Concepte</div>
+                      <div className="text-xs text-slate-500">{t('admin.graph.concepts')}</div>
                     </div>
                     <div>
                       <div className="text-2xl font-bold text-blue-400">{CONCEPT_RELATIONS.length}</div>
-                      <div className="text-xs text-slate-500">Relații</div>
+                      <div className="text-xs text-slate-500">{t('admin.graph.relations')}</div>
                     </div>
                     <div>
                       <div className="text-2xl font-bold text-emerald-400">
                         {CONCEPTS.filter(c => c.importance === 'critical').length}
                       </div>
-                      <div className="text-xs text-slate-500">Critice</div>
+                      <div className="text-xs text-slate-500">{t('admin.graph.criticalCount')}</div>
                     </div>
                   </div>
                 </div>
@@ -525,10 +529,10 @@ export function KnowledgeGraph() {
             <CardHeader>
               <CardTitle className="text-lg flex items-center gap-2">
                 <BookOpen className="h-5 w-5 text-emerald-400" />
-                Capitole Afectate la Update
+                {t('admin.graph.affectedOnUpdate')}
                 {selectedConcept && (
                   <Badge className="ml-2 bg-emerald-600">
-                    {affectedChapters.length} capitole
+                    {affectedChapters.length} {t('admin.graph.chaptersCount')}
                   </Badge>
                 )}
               </CardTitle>
@@ -540,11 +544,11 @@ export function KnowledgeGraph() {
                     <div className="flex items-center gap-2 mb-2">
                       <AlertTriangle className="h-5 w-5 text-emerald-400" />
                       <span className="font-medium text-white">
-                        Update la "{selectedConcept.name}"
+                        {t('admin.graph.updateTo')} "{selectedConcept.name}"
                       </span>
                     </div>
                     <p className="text-sm text-slate-400">
-                      Modificarea acestui concept va necesita revizuirea următoarelor capitole:
+                      {t('admin.graph.modifyingRequires')}
                     </p>
                   </div>
 
@@ -571,7 +575,7 @@ export function KnowledgeGraph() {
                                 {getChapterName(chapterId)}
                               </div>
                               <div className="text-xs text-slate-500">
-                                {isDirectChapter ? 'Capitol direct' : 'Impact indirect'}
+                                {isDirectChapter ? t('admin.graph.directChapter') : t('admin.graph.indirectImpactChapter')}
                               </div>
                             </div>
                           </div>
@@ -582,7 +586,7 @@ export function KnowledgeGraph() {
 
                   {affectedChapters.length === 0 && (
                     <div className="text-center py-8 text-slate-500">
-                      Nu există capitole afectate
+                      {t('admin.graph.noAffectedChapters')}
                     </div>
                   )}
                 </div>
@@ -590,7 +594,7 @@ export function KnowledgeGraph() {
                 <div className="h-[200px] flex items-center justify-center text-slate-500">
                   <div className="text-center">
                     <BookOpen className="h-12 w-12 mx-auto mb-3 opacity-20" />
-                    <p>Selectează un concept pentru a vedea capitolele afectate</p>
+                    <p>{t('admin.graph.selectToSeeChapters')}</p>
                   </div>
                 </div>
               )}
