@@ -9,7 +9,72 @@ import {
   Play, Pause, Volume2, VolumeX, RotateCcw,
   Video, Headphones, GitBranch, Clock, CheckCircle
 } from 'lucide-react';
-import { useLanguage } from '@/contexts/LanguageContext';
+import { useLanguage, Language } from '@/contexts/LanguageContext';
+
+// Language mapping for Web Speech API
+const SPEECH_LANG_MAP: Record<Language, string> = {
+  ro: 'ro-RO',
+  de: 'de-DE',
+  en: 'en-US'
+};
+
+// Translations for MultiModal content
+const multiModalTranslations = {
+  ro: {
+    title: 'Conținut Multi-Modal',
+    completed: 'parcurse',
+    audio: 'Audio',
+    diagrams: 'Diagrame',
+    videoScript: 'Video Script',
+    listened: 'Parcurs',
+    seen: 'Văzut',
+    hideDiagram: 'Ascunde',
+    showDiagram: 'Vezi Diagrama',
+    clickToView: 'Click pentru a vizualiza diagrama interactivă',
+    mermaidTip: 'Diagrama Mermaid - pentru vizualizare completă, copiază codul în',
+    narration: 'Narațiune:',
+    visual: 'Visual:',
+    previous: '← Anterior',
+    next: 'Următorul →',
+    minutes: 'min'
+  },
+  de: {
+    title: 'Multi-Modal Inhalt',
+    completed: 'abgeschlossen',
+    audio: 'Audio',
+    diagrams: 'Diagramme',
+    videoScript: 'Video-Skript',
+    listened: 'Gehört',
+    seen: 'Gesehen',
+    hideDiagram: 'Ausblenden',
+    showDiagram: 'Diagramm anzeigen',
+    clickToView: 'Klicken Sie, um das interaktive Diagramm anzuzeigen',
+    mermaidTip: 'Mermaid-Diagramm - für vollständige Ansicht, kopieren Sie den Code in',
+    narration: 'Erzählung:',
+    visual: 'Visuell:',
+    previous: '← Vorherige',
+    next: 'Nächste →',
+    minutes: 'Min'
+  },
+  en: {
+    title: 'Multi-Modal Content',
+    completed: 'completed',
+    audio: 'Audio',
+    diagrams: 'Diagrams',
+    videoScript: 'Video Script',
+    listened: 'Listened',
+    seen: 'Seen',
+    hideDiagram: 'Hide',
+    showDiagram: 'View Diagram',
+    clickToView: 'Click to view the interactive diagram',
+    mermaidTip: 'Mermaid diagram - for full view, copy the code to',
+    narration: 'Narration:',
+    visual: 'Visual:',
+    previous: '← Previous',
+    next: 'Next →',
+    minutes: 'min'
+  }
+};
 
 interface MultiModalContentProps {
   chapterId: string;
@@ -17,7 +82,8 @@ interface MultiModalContentProps {
 
 export function MultiModalContent({ chapterId }: MultiModalContentProps) {
   const { audioSummaries, diagrams, videoScripts, progress, loading, updateProgress } = useChapterMedia(chapterId);
-  const { t } = useLanguage();
+  const { language } = useLanguage();
+  const t = multiModalTranslations[language];
 
   if (loading) {
     return (
@@ -43,10 +109,10 @@ export function MultiModalContent({ chapterId }: MultiModalContentProps) {
       <CardHeader>
         <div className="flex items-center justify-between">
           <CardTitle className="text-lg flex items-center gap-2">
-            📚 Conținut Multi-Modal
+            📚 {t.title}
           </CardTitle>
           <Badge variant="secondary">
-            {completedCount}/{totalCount} parcurse
+            {completedCount}/{totalCount} {t.completed}
           </Badge>
         </div>
       </CardHeader>
@@ -56,19 +122,19 @@ export function MultiModalContent({ chapterId }: MultiModalContentProps) {
             {audioSummaries.length > 0 && (
               <TabsTrigger value="audio" className="flex items-center gap-1">
                 <Headphones className="h-4 w-4" />
-                Audio
+                {t.audio}
               </TabsTrigger>
             )}
             {diagrams.length > 0 && (
               <TabsTrigger value="diagrams" className="flex items-center gap-1">
                 <GitBranch className="h-4 w-4" />
-                Diagrame
+                {t.diagrams}
               </TabsTrigger>
             )}
             {videoScripts.length > 0 && (
               <TabsTrigger value="video" className="flex items-center gap-1">
                 <Video className="h-4 w-4" />
-                Video Script
+                {t.videoScript}
               </TabsTrigger>
             )}
           </TabsList>
@@ -84,6 +150,8 @@ export function MultiModalContent({ chapterId }: MultiModalContentProps) {
                   duration={audio.duration_estimate}
                   progress={progress[audio.id]}
                   onProgress={(percent, position) => updateProgress(audio.id, percent, position)}
+                  language={language}
+                  translations={t}
                 />
               ))}
             </TabsContent>
@@ -99,6 +167,7 @@ export function MultiModalContent({ chapterId }: MultiModalContentProps) {
                   content={diagram.content as DiagramContent}
                   isCompleted={progress[diagram.id]?.completed}
                   onView={() => updateProgress(diagram.id, 100)}
+                  translations={t}
                 />
               ))}
             </TabsContent>
@@ -115,6 +184,7 @@ export function MultiModalContent({ chapterId }: MultiModalContentProps) {
                   duration={script.duration_estimate}
                   progress={progress[script.id]}
                   onProgress={(percent) => updateProgress(script.id, percent)}
+                  translations={t}
                 />
               ))}
             </TabsContent>
@@ -133,9 +203,11 @@ interface AudioPlayerProps {
   duration: number | null;
   progress?: { progress_percent: number; completed: boolean; last_position: number };
   onProgress: (percent: number, position: number) => void;
+  language: Language;
+  translations: typeof multiModalTranslations.ro;
 }
 
-function AudioPlayer({ title, content, duration, progress, onProgress }: AudioPlayerProps) {
+function AudioPlayer({ title, content, duration, progress, onProgress, language, translations }: AudioPlayerProps) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [isMuted, setIsMuted] = useState(false);
@@ -159,7 +231,8 @@ function AudioPlayer({ title, content, duration, progress, onProgress }: AudioPl
         speechSynthesis.resume();
       } else {
         const utterance = new SpeechSynthesisUtterance(content.text);
-        utterance.lang = 'ro-RO';
+        // Use the correct language for TTS based on selected language
+        utterance.lang = SPEECH_LANG_MAP[language];
         utterance.rate = 1.0;
         utterance.pitch = 1.0;
 
@@ -207,7 +280,7 @@ function AudioPlayer({ title, content, duration, progress, onProgress }: AudioPl
         {progress?.completed && (
           <Badge variant="secondary" className="bg-green-500/20 text-green-700">
             <CheckCircle className="h-3 w-3 mr-1" />
-            Parcurs
+            {translations.listened}
           </Badge>
         )}
       </div>
@@ -261,27 +334,27 @@ interface DiagramViewerProps {
   content: DiagramContent;
   isCompleted?: boolean;
   onView: () => void;
+  translations: typeof multiModalTranslations.ro;
 }
 
-function DiagramViewer({ title, content, isCompleted, onView }: DiagramViewerProps) {
+function DiagramViewer({ title, content, isCompleted, onView, translations }: DiagramViewerProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (isExpanded && containerRef.current) {
       // Render mermaid diagram using simple pre-formatted display
-      // For full mermaid support, add mermaid package
       const diagramCode = content.mermaid.replace(/\\n/g, '\n');
       containerRef.current.innerHTML = `
         <pre class="text-xs font-mono p-4 bg-muted rounded overflow-x-auto whitespace-pre-wrap">${diagramCode}</pre>
         <p class="text-xs text-muted-foreground mt-2">
-          💡 Diagrama Mermaid - pentru vizualizare completă, copiază codul în 
+          💡 ${translations.mermaidTip}
           <a href="https://mermaid.live" target="_blank" rel="noopener" class="text-primary underline">mermaid.live</a>
         </p>
       `;
       onView();
     }
-  }, [isExpanded, content.mermaid, onView]);
+  }, [isExpanded, content.mermaid, onView, translations.mermaidTip]);
 
   return (
     <div className="p-4 rounded-lg bg-muted/50 space-y-3">
@@ -294,7 +367,7 @@ function DiagramViewer({ title, content, isCompleted, onView }: DiagramViewerPro
           {isCompleted && (
             <Badge variant="secondary" className="bg-green-500/20 text-green-700">
               <CheckCircle className="h-3 w-3 mr-1" />
-              Văzut
+              {translations.seen}
             </Badge>
           )}
           <Button
@@ -302,7 +375,7 @@ function DiagramViewer({ title, content, isCompleted, onView }: DiagramViewerPro
             variant={isExpanded ? "secondary" : "default"}
             onClick={() => setIsExpanded(!isExpanded)}
           >
-            {isExpanded ? 'Ascunde' : 'Vezi Diagrama'}
+            {isExpanded ? translations.hideDiagram : translations.showDiagram}
           </Button>
         </div>
       </div>
@@ -316,7 +389,7 @@ function DiagramViewer({ title, content, isCompleted, onView }: DiagramViewerPro
 
       {!isExpanded && (
         <p className="text-sm text-muted-foreground">
-          Click pentru a vizualiza diagrama interactivă
+          {translations.clickToView}
         </p>
       )}
     </div>
@@ -331,9 +404,10 @@ interface VideoScriptViewerProps {
   duration: number | null;
   progress?: { progress_percent: number; completed: boolean };
   onProgress: (percent: number) => void;
+  translations: typeof multiModalTranslations.ro;
 }
 
-function VideoScriptViewer({ title, content, duration, progress, onProgress }: VideoScriptViewerProps) {
+function VideoScriptViewer({ title, content, duration, progress, onProgress, translations }: VideoScriptViewerProps) {
   const [currentScene, setCurrentScene] = useState(0);
   const scenes = content.scenes || [];
 
@@ -355,12 +429,12 @@ function VideoScriptViewer({ title, content, duration, progress, onProgress }: V
         <div className="flex items-center gap-2">
           <Badge variant="outline" className="flex items-center gap-1">
             <Clock className="h-3 w-3" />
-            {Math.ceil(totalDuration / 60)} min
+            {Math.ceil(totalDuration / 60)} {translations.minutes}
           </Badge>
           {progress?.completed && (
             <Badge variant="secondary" className="bg-green-500/20 text-green-700">
               <CheckCircle className="h-3 w-3 mr-1" />
-              Parcurs
+              {translations.listened}
             </Badge>
           )}
         </div>
@@ -391,11 +465,11 @@ function VideoScriptViewer({ title, content, duration, progress, onProgress }: V
           
           <div className="space-y-2">
             <div>
-              <p className="text-xs text-muted-foreground uppercase tracking-wide">Narațiune:</p>
+              <p className="text-xs text-muted-foreground uppercase tracking-wide">{translations.narration}</p>
               <p className="text-sm">{scenes[currentScene].narration}</p>
             </div>
             <div>
-              <p className="text-xs text-muted-foreground uppercase tracking-wide">Visual:</p>
+              <p className="text-xs text-muted-foreground uppercase tracking-wide">{translations.visual}</p>
               <p className="text-sm italic text-muted-foreground">{scenes[currentScene].visuals}</p>
             </div>
           </div>
@@ -408,7 +482,7 @@ function VideoScriptViewer({ title, content, duration, progress, onProgress }: V
               onClick={() => goToScene(Math.max(0, currentScene - 1))}
               disabled={currentScene === 0}
             >
-              ← Anterior
+              {translations.previous}
             </Button>
             <span className="text-sm text-muted-foreground self-center">
               {currentScene + 1} / {scenes.length}
@@ -419,7 +493,7 @@ function VideoScriptViewer({ title, content, duration, progress, onProgress }: V
               onClick={() => goToScene(Math.min(scenes.length - 1, currentScene + 1))}
               disabled={currentScene === scenes.length - 1}
             >
-              Următorul →
+              {translations.next}
             </Button>
           </div>
         </div>
