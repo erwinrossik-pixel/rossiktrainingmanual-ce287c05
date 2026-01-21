@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useCompany } from '@/contexts/CompanyContext';
 import { useAuth } from '@/hooks/useAuth';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -13,7 +14,7 @@ import { useToast } from '@/hooks/use-toast';
 import { Users, Check, X, Clock, User as UserIcon, Mail, AlertCircle, Search, Building2, UserPlus } from 'lucide-react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { format } from 'date-fns';
-import { ro } from 'date-fns/locale';
+import { ro, de, enUS } from 'date-fns/locale';
 
 interface Company {
   id: string;
@@ -52,6 +53,7 @@ interface RegistrationRequest {
 export function UserManagement() {
   const { company, isCompanyAdmin, isSuperAdmin, subscription } = useCompany();
   const { user } = useAuth();
+  const { t, language } = useLanguage();
   const { toast } = useToast();
   const [allUsers, setAllUsers] = useState<UserProfile[]>([]);
   const [pendingRequests, setPendingRequests] = useState<RegistrationRequest[]>([]);
@@ -62,6 +64,8 @@ export function UserManagement() {
   const [assignDialogOpen, setAssignDialogOpen] = useState(false);
   const [selectedUserForAssign, setSelectedUserForAssign] = useState<UserProfile | null>(null);
   const [selectedCompanyId, setSelectedCompanyId] = useState<string>('');
+
+  const dateLocale = language === 'de' ? de : language === 'en' ? enUS : ro;
 
   useEffect(() => {
     if (isCompanyAdmin || isSuperAdmin) {
@@ -97,11 +101,11 @@ export function UserManagement() {
         .select('*');
 
       // Fetch all companies for names
-      const { data: companies } = await supabase
+      const { data: companiesData } = await supabase
         .from('companies')
         .select('id, name');
 
-      const companiesMap = new Map(companies?.map(c => [c.id, c.name]) || []);
+      const companiesMap = new Map(companiesData?.map(c => [c.id, c.name]) || []);
 
       // Merge profiles with company_users
       const usersWithCompanyInfo: UserProfile[] = (profiles || []).map(profile => {
@@ -150,11 +154,11 @@ export function UserManagement() {
     const { data } = await query;
     
     // Fetch company names
-    const { data: companies } = await supabase
+    const { data: companiesData } = await supabase
       .from('companies')
       .select('id, name');
     
-    const companiesMap = new Map(companies?.map(c => [c.id, c.name]) || []);
+    const companiesMap = new Map(companiesData?.map(c => [c.id, c.name]) || []);
     
     const requestsWithCompany = (data || []).map(req => ({
       ...req,
@@ -203,10 +207,10 @@ export function UserManagement() {
         sendNotificationEmail('account_approved', companyUser.user_id, { companyName });
       }
 
-      toast({ title: 'Utilizator aprobat', description: 'Utilizatorul poate accesa acum platforma' });
+      toast({ title: t('admin.users.approved'), description: t('admin.users.approvedDesc') });
       fetchAllUsers();
     } catch (error) {
-      toast({ title: 'Eroare', description: 'Nu s-a putut aproba utilizatorul', variant: 'destructive' });
+      toast({ title: t('admin.general.error'), description: t('admin.users.approveError'), variant: 'destructive' });
     }
   };
 
@@ -229,10 +233,10 @@ export function UserManagement() {
         sendNotificationEmail('account_rejected', companyUser.user_id);
       }
 
-      toast({ title: 'Utilizator respins' });
+      toast({ title: t('admin.users.rejected') });
       fetchAllUsers();
     } catch (error) {
-      toast({ title: 'Eroare', description: 'Nu s-a putut respinge utilizatorul', variant: 'destructive' });
+      toast({ title: t('admin.general.error'), description: t('admin.users.rejectError'), variant: 'destructive' });
     }
   };
 
@@ -255,10 +259,10 @@ export function UserManagement() {
         sendNotificationEmail('account_suspended', companyUser.user_id);
       }
 
-      toast({ title: 'Utilizator suspendat' });
+      toast({ title: t('admin.users.suspended') });
       fetchAllUsers();
     } catch (error) {
-      toast({ title: 'Eroare', variant: 'destructive' });
+      toast({ title: t('admin.general.error'), variant: 'destructive' });
     }
   };
 
@@ -285,10 +289,10 @@ export function UserManagement() {
         sendNotificationEmail('account_reactivated', companyUser.user_id);
       }
 
-      toast({ title: 'Utilizator reactivat' });
+      toast({ title: t('admin.users.reactivated') });
       fetchAllUsers();
     } catch (error) {
-      toast({ title: 'Eroare', variant: 'destructive' });
+      toast({ title: t('admin.general.error'), variant: 'destructive' });
     }
   };
 
@@ -299,10 +303,10 @@ export function UserManagement() {
         .update({ role: newRole })
         .eq('id', companyUserId);
 
-      toast({ title: 'Rol actualizat' });
+      toast({ title: t('admin.users.roleUpdated') });
       fetchAllUsers();
     } catch (error) {
-      toast({ title: 'Eroare', variant: 'destructive' });
+      toast({ title: t('admin.general.error'), variant: 'destructive' });
     }
   };
 
@@ -314,7 +318,7 @@ export function UserManagement() {
 
   const assignUserToCompany = async () => {
     if (!selectedUserForAssign || !selectedCompanyId) {
-      toast({ title: 'Eroare', description: 'Selectează o companie', variant: 'destructive' });
+      toast({ title: t('admin.general.error'), description: t('admin.users.selectCompanyError'), variant: 'destructive' });
       return;
     }
 
@@ -335,8 +339,8 @@ export function UserManagement() {
       sendNotificationEmail('company_assigned', selectedUserForAssign.id, { companyName });
 
       toast({ 
-        title: 'Utilizator asignat', 
-        description: `${selectedUserForAssign.first_name} ${selectedUserForAssign.last_name} a fost adăugat în companie` 
+        title: t('admin.users.assigned'), 
+        description: `${selectedUserForAssign.first_name} ${selectedUserForAssign.last_name} ${t('admin.users.assignedDesc')}` 
       });
       
       setAssignDialogOpen(false);
@@ -346,8 +350,8 @@ export function UserManagement() {
     } catch (error: any) {
       console.error('Error assigning user:', error);
       toast({ 
-        title: 'Eroare', 
-        description: error.message || 'Nu s-a putut asigna utilizatorul', 
+        title: t('admin.general.error'), 
+        description: error.message || t('admin.users.assignError'), 
         variant: 'destructive' 
       });
     }
@@ -375,11 +379,11 @@ export function UserManagement() {
         })
         .eq('id', request.id);
 
-      toast({ title: 'Cerere aprobată' });
+      toast({ title: t('admin.users.requestApproved') });
       fetchAllUsers();
       fetchPendingRequests();
     } catch (error) {
-      toast({ title: 'Eroare', variant: 'destructive' });
+      toast({ title: t('admin.general.error'), variant: 'destructive' });
     }
   };
 
@@ -394,10 +398,10 @@ export function UserManagement() {
         })
         .eq('id', requestId);
 
-      toast({ title: 'Cerere respinsă' });
+      toast({ title: t('admin.users.requestRejected') });
       fetchPendingRequests();
     } catch (error) {
-      toast({ title: 'Eroare', variant: 'destructive' });
+      toast({ title: t('admin.general.error'), variant: 'destructive' });
     }
   };
 
@@ -405,8 +409,8 @@ export function UserManagement() {
     return (
       <Card>
         <CardHeader>
-          <CardTitle>Acces restricționat</CardTitle>
-          <CardDescription>Doar administratorii pot gestiona utilizatorii.</CardDescription>
+          <CardTitle>{t('admin.users.restricted')}</CardTitle>
+          <CardDescription>{t('admin.users.restrictedDesc')}</CardDescription>
         </CardHeader>
       </Card>
     );
@@ -431,32 +435,32 @@ export function UserManagement() {
 
   const getRoleBadge = (role: string | undefined, profileRole?: string) => {
     if (role === 'super_admin') {
-      return <Badge className="bg-purple-500">Super Admin</Badge>;
+      return <Badge className="bg-purple-500">{t('admin.users.superAdmin')}</Badge>;
     }
     if (role === 'company_admin') {
-      return <Badge className="bg-blue-500">Admin</Badge>;
+      return <Badge className="bg-blue-500">{t('admin.users.admin')}</Badge>;
     }
     if (profileRole === 'admin') {
-      return <Badge className="bg-indigo-500">Admin (Legacy)</Badge>;
+      return <Badge className="bg-indigo-500">{t('admin.users.legacyAdmin')}</Badge>;
     }
-    return <Badge variant="secondary">Utilizator</Badge>;
+    return <Badge variant="secondary">{t('admin.users.user')}</Badge>;
   };
 
   const getStatusBadge = (status: string | undefined, hasCompany: boolean) => {
     if (!hasCompany) {
-      return <Badge variant="outline" className="text-orange-600 border-orange-600"><AlertCircle className="h-3 w-3 mr-1" />Fără companie</Badge>;
+      return <Badge variant="outline" className="text-orange-600 border-orange-600"><AlertCircle className="h-3 w-3 mr-1" />{t('admin.users.noCompanyStatus')}</Badge>;
     }
     switch (status) {
       case 'approved':
-        return <Badge variant="outline" className="text-green-600 border-green-600"><Check className="h-3 w-3 mr-1" />Activ</Badge>;
+        return <Badge variant="outline" className="text-green-600 border-green-600"><Check className="h-3 w-3 mr-1" />{t('admin.users.activeStatus')}</Badge>;
       case 'pending':
-        return <Badge variant="outline" className="text-yellow-600 border-yellow-600"><Clock className="h-3 w-3 mr-1" />În așteptare</Badge>;
+        return <Badge variant="outline" className="text-yellow-600 border-yellow-600"><Clock className="h-3 w-3 mr-1" />{t('admin.users.pendingStatus')}</Badge>;
       case 'rejected':
-        return <Badge variant="outline" className="text-red-600 border-red-600"><X className="h-3 w-3 mr-1" />Respins</Badge>;
+        return <Badge variant="outline" className="text-red-600 border-red-600"><X className="h-3 w-3 mr-1" />{t('admin.users.rejectedStatus')}</Badge>;
       case 'suspended':
-        return <Badge variant="outline" className="text-gray-600 border-gray-600"><AlertCircle className="h-3 w-3 mr-1" />Suspendat</Badge>;
+        return <Badge variant="outline" className="text-gray-600 border-gray-600"><AlertCircle className="h-3 w-3 mr-1" />{t('admin.users.suspendedStatus')}</Badge>;
       default:
-        return <Badge variant="secondary">Necunoscut</Badge>;
+        return <Badge variant="secondary">{t('admin.users.unknown')}</Badge>;
     }
   };
 
@@ -464,15 +468,15 @@ export function UserManagement() {
     <div className="space-y-6">
       <div className="flex items-center justify-between flex-wrap gap-4">
         <div>
-          <h2 className="text-2xl font-bold">Gestionare Utilizatori</h2>
+          <h2 className="text-2xl font-bold">{t('admin.users.title')}</h2>
           <p className="text-muted-foreground">
-            {allUsers.length} utilizatori înregistrați • {activeUsers.length} activi • {usersWithoutCompany.length} fără companie
+            {allUsers.length} {t('admin.users.registered')} • {activeUsers.length} {t('admin.users.activeCount')} • {usersWithoutCompany.length} {t('admin.users.noCompanyCount')}
           </p>
         </div>
         {isAtUserLimit && (
           <div className="flex items-center gap-2 text-amber-600">
             <AlertCircle className="h-5 w-5" />
-            <span className="text-sm">Limita de utilizatori a fost atinsă</span>
+            <span className="text-sm">{t('admin.users.limitReached')}</span>
           </div>
         )}
       </div>
@@ -481,7 +485,7 @@ export function UserManagement() {
       <div className="relative">
         <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
         <Input
-          placeholder="Caută după nume, email sau companie..."
+          placeholder={t('admin.users.searchPlaceholder')}
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           className="pl-10"
@@ -492,15 +496,15 @@ export function UserManagement() {
         <TabsList>
           <TabsTrigger value="all-users" className="flex items-center gap-2">
             <Users className="h-4 w-4" />
-            Toți Utilizatorii ({allUsers.length})
+            {t('admin.users.allUsers')} ({allUsers.length})
           </TabsTrigger>
           <TabsTrigger value="pending" className="flex items-center gap-2">
             <Clock className="h-4 w-4" />
-            În Așteptare ({pendingUsers.length + pendingRequests.length})
+            {t('admin.users.pending')} ({pendingUsers.length + pendingRequests.length})
           </TabsTrigger>
           <TabsTrigger value="no-company" className="flex items-center gap-2">
             <AlertCircle className="h-4 w-4" />
-            Fără Companie ({usersWithoutCompany.length})
+            {t('admin.users.noCompany')} ({usersWithoutCompany.length})
           </TabsTrigger>
         </TabsList>
 
@@ -512,17 +516,17 @@ export function UserManagement() {
                   <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
                 </div>
               ) : filteredUsers.length === 0 ? (
-                <p className="text-center py-8 text-muted-foreground">Nu există utilizatori</p>
+                <p className="text-center py-8 text-muted-foreground">{t('admin.users.noUsers')}</p>
               ) : (
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Utilizator</TableHead>
-                      <TableHead>Companie</TableHead>
-                      <TableHead>Rol</TableHead>
-                      <TableHead>Status</TableHead>
-                      <TableHead>Înregistrat</TableHead>
-                      <TableHead className="text-right">Acțiuni</TableHead>
+                      <TableHead>{t('admin.users.user')}</TableHead>
+                      <TableHead>{t('admin.users.company')}</TableHead>
+                      <TableHead>{t('admin.users.role')}</TableHead>
+                      <TableHead>{t('admin.users.status')}</TableHead>
+                      <TableHead>{t('admin.users.registeredAt')}</TableHead>
+                      <TableHead className="text-right">{t('admin.users.actions')}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -557,7 +561,7 @@ export function UserManagement() {
                         <TableCell>{getRoleBadge(userProfile.company_user?.role, userProfile.role)}</TableCell>
                         <TableCell>{getStatusBadge(userProfile.company_user?.status, !!userProfile.company_user)}</TableCell>
                         <TableCell>
-                          {format(new Date(userProfile.created_at), 'dd MMM yyyy', { locale: ro })}
+                          {format(new Date(userProfile.created_at), 'dd MMM yyyy', { locale: dateLocale })}
                         </TableCell>
                         <TableCell className="text-right">
                           {userProfile.company_user && userProfile.id !== user?.id && userProfile.company_user.role !== 'super_admin' && (
@@ -571,8 +575,8 @@ export function UserManagement() {
                                   <SelectValue />
                                 </SelectTrigger>
                                 <SelectContent>
-                                  <SelectItem value="user">Utilizator</SelectItem>
-                                  <SelectItem value="company_admin">Admin</SelectItem>
+                                  <SelectItem value="user">{t('admin.users.user')}</SelectItem>
+                                  <SelectItem value="company_admin">{t('admin.users.admin')}</SelectItem>
                                 </SelectContent>
                               </Select>
                               {userProfile.company_user.status === 'approved' && (
@@ -581,7 +585,7 @@ export function UserManagement() {
                                   size="sm"
                                   onClick={() => suspendUser(userProfile.company_user!.id)}
                                 >
-                                  Suspendă
+                                  {t('admin.users.suspend')}
                                 </Button>
                               )}
                               {userProfile.company_user.status === 'suspended' && (
@@ -590,7 +594,7 @@ export function UserManagement() {
                                   size="sm"
                                   onClick={() => reactivateUser(userProfile.company_user!.id)}
                                 >
-                                  Reactivează
+                                  {t('admin.users.reactivate')}
                                 </Button>
                               )}
                               {userProfile.company_user.status === 'pending' && (
@@ -618,20 +622,20 @@ export function UserManagement() {
         <TabsContent value="pending">
           <Card>
             <CardHeader>
-              <CardTitle>Cereri în Așteptare</CardTitle>
-              <CardDescription>Utilizatori care așteaptă aprobare pentru a accesa platforma</CardDescription>
+              <CardTitle>{t('admin.users.pendingRequests')}</CardTitle>
+              <CardDescription>{t('admin.users.pendingDesc')}</CardDescription>
             </CardHeader>
             <CardContent>
               {pendingUsers.length === 0 && pendingRequests.length === 0 ? (
-                <p className="text-center py-8 text-muted-foreground">Nu există cereri în așteptare</p>
+                <p className="text-center py-8 text-muted-foreground">{t('admin.users.noPending')}</p>
               ) : (
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Utilizator</TableHead>
-                      <TableHead>Companie</TableHead>
-                      <TableHead>Data Cererii</TableHead>
-                      <TableHead className="text-right">Acțiuni</TableHead>
+                      <TableHead>{t('admin.users.user')}</TableHead>
+                      <TableHead>{t('admin.users.company')}</TableHead>
+                      <TableHead>{t('admin.users.requestDate')}</TableHead>
+                      <TableHead className="text-right">{t('admin.users.actions')}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -649,7 +653,7 @@ export function UserManagement() {
                           <span className="text-sm">{userProfile.company_user?.company_name || '-'}</span>
                         </TableCell>
                         <TableCell>
-                          {format(new Date(userProfile.created_at), 'dd MMM yyyy HH:mm', { locale: ro })}
+                          {format(new Date(userProfile.created_at), 'dd MMM yyyy HH:mm', { locale: dateLocale })}
                         </TableCell>
                         <TableCell className="text-right">
                           <div className="flex justify-end gap-2">
@@ -659,7 +663,7 @@ export function UserManagement() {
                               disabled={isAtUserLimit}
                             >
                               <Check className="h-4 w-4 mr-1" />
-                              Aprobă
+                              {t('admin.users.approve')}
                             </Button>
                             <Button
                               size="sm"
@@ -667,7 +671,7 @@ export function UserManagement() {
                               onClick={() => rejectUser(userProfile.company_user!.id)}
                             >
                               <X className="h-4 w-4 mr-1" />
-                              Respinge
+                              {t('admin.users.reject')}
                             </Button>
                           </div>
                         </TableCell>
@@ -687,7 +691,7 @@ export function UserManagement() {
                           <span className="text-sm">{request.company_name || '-'}</span>
                         </TableCell>
                         <TableCell>
-                          {format(new Date(request.created_at), 'dd MMM yyyy HH:mm', { locale: ro })}
+                          {format(new Date(request.created_at), 'dd MMM yyyy HH:mm', { locale: dateLocale })}
                         </TableCell>
                         <TableCell className="text-right">
                           <div className="flex justify-end gap-2">
@@ -697,7 +701,7 @@ export function UserManagement() {
                               disabled={isAtUserLimit}
                             >
                               <Check className="h-4 w-4 mr-1" />
-                              Aprobă
+                              {t('admin.users.approve')}
                             </Button>
                             <Button
                               size="sm"
@@ -705,7 +709,7 @@ export function UserManagement() {
                               onClick={() => rejectRequest(request.id)}
                             >
                               <X className="h-4 w-4 mr-1" />
-                              Respinge
+                              {t('admin.users.reject')}
                             </Button>
                           </div>
                         </TableCell>
@@ -721,21 +725,21 @@ export function UserManagement() {
         <TabsContent value="no-company">
           <Card>
             <CardHeader>
-              <CardTitle>Utilizatori Fără Companie</CardTitle>
-              <CardDescription>Utilizatori înregistrați care nu sunt asociați cu nicio companie</CardDescription>
+              <CardTitle>{t('admin.users.usersNoCompany')}</CardTitle>
+              <CardDescription>{t('admin.users.usersNoCompanyDesc')}</CardDescription>
             </CardHeader>
             <CardContent>
               {usersWithoutCompany.length === 0 ? (
-                <p className="text-center py-8 text-muted-foreground">Toți utilizatorii sunt asociați cu o companie</p>
+                <p className="text-center py-8 text-muted-foreground">{t('admin.users.allAssigned')}</p>
               ) : (
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Utilizator</TableHead>
+                      <TableHead>{t('admin.users.user')}</TableHead>
                       <TableHead>Email</TableHead>
-                      <TableHead>Rol Profil</TableHead>
-                      <TableHead>Înregistrat</TableHead>
-                      <TableHead className="text-right">Acțiuni</TableHead>
+                      <TableHead>{t('admin.users.profileRole')}</TableHead>
+                      <TableHead>{t('admin.users.registeredAt')}</TableHead>
+                      <TableHead className="text-right">{t('admin.users.actions')}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -758,7 +762,7 @@ export function UserManagement() {
                           {getRoleBadge(undefined, userProfile.role)}
                         </TableCell>
                         <TableCell>
-                          {format(new Date(userProfile.created_at), 'dd MMM yyyy HH:mm', { locale: ro })}
+                          {format(new Date(userProfile.created_at), 'dd MMM yyyy HH:mm', { locale: dateLocale })}
                         </TableCell>
                         <TableCell className="text-right">
                           <Button
@@ -767,7 +771,7 @@ export function UserManagement() {
                             className="gap-1"
                           >
                             <UserPlus className="h-4 w-4" />
-                            Asignează la Companie
+                            {t('admin.users.assignToCompany')}
                           </Button>
                         </TableCell>
                       </TableRow>
@@ -784,9 +788,9 @@ export function UserManagement() {
       <Dialog open={assignDialogOpen} onOpenChange={setAssignDialogOpen}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Asignează Utilizator la Companie</DialogTitle>
+            <DialogTitle>{t('admin.users.assignDialog')}</DialogTitle>
             <DialogDescription>
-              Selectează compania în care dorești să adaugi utilizatorul{' '}
+              {t('admin.users.assignDialogDesc')}{' '}
               <strong>{selectedUserForAssign?.first_name} {selectedUserForAssign?.last_name}</strong>
             </DialogDescription>
           </DialogHeader>
@@ -803,11 +807,11 @@ export function UserManagement() {
             </div>
 
             <div className="space-y-2">
-              <label className="text-sm font-medium">Selectează Compania</label>
+              <label className="text-sm font-medium">{t('admin.users.selectCompanyLabel')}</label>
               {isSuperAdmin ? (
                 <Select value={selectedCompanyId} onValueChange={setSelectedCompanyId}>
                   <SelectTrigger>
-                    <SelectValue placeholder="Alege o companie..." />
+                    <SelectValue placeholder={t('admin.users.chooseCompany')} />
                   </SelectTrigger>
                   <SelectContent>
                     {companies.map((c) => (
@@ -831,11 +835,11 @@ export function UserManagement() {
 
           <DialogFooter>
             <Button variant="outline" onClick={() => setAssignDialogOpen(false)}>
-              Anulează
+              {t('admin.users.cancel')}
             </Button>
             <Button onClick={assignUserToCompany} disabled={!selectedCompanyId}>
               <UserPlus className="h-4 w-4 mr-2" />
-              Asignează
+              {t('admin.users.assign')}
             </Button>
           </DialogFooter>
         </DialogContent>

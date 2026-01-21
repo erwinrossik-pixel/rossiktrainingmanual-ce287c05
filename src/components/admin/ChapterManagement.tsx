@@ -73,7 +73,7 @@ export function ChapterManagement() {
       setChapterStatuses(statusMap);
     } catch (error) {
       console.error('Error fetching chapter statuses:', error);
-      toast({ title: 'Eroare', description: 'Nu s-au putut încărca capitolele', variant: 'destructive' });
+      toast({ title: t('admin.general.error'), description: t('admin.chapters.loadError'), variant: 'destructive' });
     } finally {
       setLoading(false);
     }
@@ -88,8 +88,8 @@ export function ChapterManagement() {
     // Check max chapters limit when activating
     if (!current.is_active && activeCount >= maxChapters) {
       toast({
-        title: 'Limită atinsă',
-        description: `Planul actual permite maxim ${maxChapters} capitole active`,
+        title: t('admin.chapters.limitReached'),
+        description: `${t('admin.chapters.limitDesc')} ${maxChapters} ${t('admin.chapters.activeChapters')}`,
         variant: 'destructive'
       });
       return;
@@ -143,10 +143,10 @@ export function ChapterManagement() {
 
       if (error) throw error;
 
-      toast({ title: 'Salvat', description: 'Configurația capitolelor a fost salvată' });
+      toast({ title: t('admin.chapters.saved'), description: t('admin.chapters.savedDesc') });
       setHasChanges(false);
     } catch (error: any) {
-      toast({ title: 'Eroare', description: error.message, variant: 'destructive' });
+      toast({ title: t('admin.general.error'), description: error.message, variant: 'destructive' });
     } finally {
       setSaving(false);
     }
@@ -173,8 +173,8 @@ export function ChapterManagement() {
     return (
       <Card>
         <CardHeader>
-          <CardTitle>Acces restricționat</CardTitle>
-          <CardDescription>Doar administratorii pot gestiona capitolele.</CardDescription>
+          <CardTitle>{t('admin.chapters.restricted')}</CardTitle>
+          <CardDescription>{t('admin.chapters.restrictedDesc')}</CardDescription>
         </CardHeader>
       </Card>
     );
@@ -186,20 +186,20 @@ export function ChapterManagement() {
         <div>
           <h2 className="text-2xl font-bold flex items-center gap-2">
             <BookOpen className="h-6 w-6 text-primary" />
-            Gestionare Capitole
+            {t('admin.chapters.title')}
           </h2>
           <p className="text-muted-foreground">
-            Activează sau dezactivează capitole pentru angajații companiei {company?.name}
+            {t('admin.chapters.subtitle')} {company?.name}
           </p>
         </div>
         <div className="flex items-center gap-2">
           <Button variant="outline" onClick={resetToDefault} disabled={saving}>
             <RotateCcw className="h-4 w-4 mr-2" />
-            Resetează
+            {t('admin.chapters.reset')}
           </Button>
           <Button onClick={saveChanges} disabled={saving || !hasChanges}>
             <Save className="h-4 w-4 mr-2" />
-            {saving ? 'Se salvează...' : 'Salvează'}
+            {saving ? t('admin.chapters.saving') : t('admin.chapters.save')}
           </Button>
         </div>
       </div>
@@ -209,16 +209,16 @@ export function ChapterManagement() {
         <Card>
           <CardContent className="pt-6">
             <div className="text-2xl font-bold text-primary">{activeCount}</div>
-            <p className="text-sm text-muted-foreground">Capitole Active</p>
+            <p className="text-sm text-muted-foreground">{t('admin.chapters.active')}</p>
             {maxChapters < ALL_CHAPTERS.length && (
-              <p className="text-xs text-muted-foreground">din max. {maxChapters}</p>
+              <p className="text-xs text-muted-foreground">{t('admin.chapters.maxOf')} {maxChapters}</p>
             )}
           </CardContent>
         </Card>
         <Card>
           <CardContent className="pt-6">
             <div className="text-2xl font-bold text-warning">{premiumCount}</div>
-            <p className="text-sm text-muted-foreground">Capitole Premium</p>
+            <p className="text-sm text-muted-foreground">{t('admin.chapters.premium')}</p>
           </CardContent>
         </Card>
         <Card>
@@ -226,7 +226,7 @@ export function ChapterManagement() {
             <div className="text-2xl font-bold text-muted-foreground">
               {ALL_CHAPTERS.length - activeCount}
             </div>
-            <p className="text-sm text-muted-foreground">Capitole Dezactivate</p>
+            <p className="text-sm text-muted-foreground">{t('admin.chapters.disabled')}</p>
           </CardContent>
         </Card>
       </div>
@@ -239,9 +239,9 @@ export function ChapterManagement() {
       ) : (
         <Card>
           <CardHeader>
-            <CardTitle>Configurare Capitole</CardTitle>
+            <CardTitle>{t('admin.chapters.config')}</CardTitle>
             <CardDescription>
-              Activează capitolele pe care dorești să le facă disponibile angajaților
+              {t('admin.chapters.configDesc')}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -329,9 +329,9 @@ export function ChapterManagement() {
 
       {hasChanges && (
         <div className="fixed bottom-4 right-4 bg-primary text-primary-foreground px-4 py-2 rounded-lg shadow-lg flex items-center gap-2">
-          <span className="text-sm">Modificări nesalvate</span>
+          <span className="text-sm">{t('admin.chapters.unsaved')}</span>
           <Button size="sm" variant="secondary" onClick={saveChanges} disabled={saving}>
-            Salvează
+            {t('admin.chapters.save')}
           </Button>
         </div>
       )}

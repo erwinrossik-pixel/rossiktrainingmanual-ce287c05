@@ -1,5 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, PieChart, Pie, Cell, Legend, AreaChart, Area } from 'recharts';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface ChapterStats {
   chapterId: string;
@@ -30,13 +31,15 @@ export function AdminCharts({
   completionDistribution,
   scoreDistribution 
 }: AdminChartsProps) {
+  const { t } = useLanguage();
+
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
       {/* Pass Rate by Chapter */}
       <Card className="col-span-1 lg:col-span-2">
         <CardHeader>
-          <CardTitle>Rata de Trecere per Capitol</CardTitle>
-          <CardDescription>Procentul utilizatorilor care au trecut fiecare capitol (≥9/10)</CardDescription>
+          <CardTitle>{t('admin.charts.passRateTitle')}</CardTitle>
+          <CardDescription>{t('admin.charts.passRateDesc')}</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="h-[400px]">
@@ -51,7 +54,7 @@ export function AdminCharts({
                   tick={{ fontSize: 11 }}
                 />
                 <Tooltip 
-                  formatter={(value: number) => [`${value.toFixed(1)}%`, 'Rata de trecere']}
+                  formatter={(value: number) => [`${value.toFixed(1)}%`, t('admin.charts.passRateLabel')]}
                 />
                 <Bar 
                   dataKey="passRate" 
@@ -67,8 +70,8 @@ export function AdminCharts({
       {/* Daily Activity Chart */}
       <Card>
         <CardHeader>
-          <CardTitle>Activitate Zilnică</CardTitle>
-          <CardDescription>Încercări quiz în ultimele 30 zile</CardDescription>
+          <CardTitle>{t('admin.charts.dailyActivity')}</CardTitle>
+          <CardDescription>{t('admin.charts.dailyActivityDesc')}</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="h-[300px]">
@@ -86,7 +89,7 @@ export function AdminCharts({
                 <Area 
                   type="monotone" 
                   dataKey="attempts" 
-                  name="Total încercări"
+                  name={t('admin.charts.totalAttempts')}
                   stroke="hsl(var(--primary))" 
                   fill="hsl(var(--primary))"
                   fillOpacity={0.3}
@@ -94,7 +97,7 @@ export function AdminCharts({
                 <Area 
                   type="monotone" 
                   dataKey="passed" 
-                  name="Trecute"
+                  name={t('admin.charts.passed')}
                   stroke="#22c55e" 
                   fill="#22c55e"
                   fillOpacity={0.3}
@@ -108,8 +111,8 @@ export function AdminCharts({
       {/* Completion Distribution */}
       <Card>
         <CardHeader>
-          <CardTitle>Distribuție Completare</CardTitle>
-          <CardDescription>Câte capitole au completat utilizatorii</CardDescription>
+          <CardTitle>{t('admin.charts.completionDist')}</CardTitle>
+          <CardDescription>{t('admin.charts.completionDistDesc')}</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="h-[300px]">
@@ -128,7 +131,7 @@ export function AdminCharts({
                     <Cell key={`cell-${index}`} fill={entry.color} />
                   ))}
                 </Pie>
-                <Tooltip formatter={(value: number) => [value, 'Utilizatori']} />
+                <Tooltip formatter={(value: number) => [value, t('admin.charts.users')]} />
                 <Legend />
               </PieChart>
             </ResponsiveContainer>
@@ -139,8 +142,8 @@ export function AdminCharts({
       {/* Score Distribution */}
       <Card>
         <CardHeader>
-          <CardTitle>Distribuție Scoruri</CardTitle>
-          <CardDescription>Numărul de încercări per interval de scor</CardDescription>
+          <CardTitle>{t('admin.charts.scoreDist')}</CardTitle>
+          <CardDescription>{t('admin.charts.scoreDistDesc')}</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="h-[300px]">
@@ -149,7 +152,7 @@ export function AdminCharts({
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="range" />
                 <YAxis />
-                <Tooltip formatter={(value: number) => [value, 'Încercări']} />
+                <Tooltip formatter={(value: number) => [value, t('admin.charts.attempts')]} />
                 <Bar 
                   dataKey="count" 
                   fill="hsl(var(--primary))"
@@ -177,8 +180,8 @@ export function AdminCharts({
       {/* Average Score by Chapter */}
       <Card>
         <CardHeader>
-          <CardTitle>Scor Mediu per Capitol</CardTitle>
-          <CardDescription>Media scorurilor pentru fiecare capitol</CardDescription>
+          <CardTitle>{t('admin.charts.avgScoreTitle')}</CardTitle>
+          <CardDescription>{t('admin.charts.avgScoreDesc')}</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="h-[300px]">
@@ -194,7 +197,7 @@ export function AdminCharts({
                   height={80}
                 />
                 <YAxis domain={[0, 10]} />
-                <Tooltip formatter={(value: number) => [`${value.toFixed(1)}/10`, 'Scor mediu']} />
+                <Tooltip formatter={(value: number) => [`${value.toFixed(1)}/10`, t('admin.charts.avgScore')]} />
                 <Line 
                   type="monotone" 
                   dataKey="avgScore" 
@@ -211,8 +214,8 @@ export function AdminCharts({
       {/* Most Attempted Chapters */}
       <Card>
         <CardHeader>
-          <CardTitle>Capitole cu Cele Mai Multe Încercări</CardTitle>
-          <CardDescription>Top 10 capitole după numărul de încercări</CardDescription>
+          <CardTitle>{t('admin.charts.mostAttempted')}</CardTitle>
+          <CardDescription>{t('admin.charts.mostAttemptedDesc')}</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="h-[300px]">
@@ -229,7 +232,7 @@ export function AdminCharts({
                   width={100}
                   tick={{ fontSize: 10 }}
                 />
-                <Tooltip formatter={(value: number) => [value, 'Încercări']} />
+                <Tooltip formatter={(value: number) => [value, t('admin.charts.attempts')]} />
                 <Bar 
                   dataKey="attempts" 
                   fill="#8b5cf6"
