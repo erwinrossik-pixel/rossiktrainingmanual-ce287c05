@@ -21,6 +21,7 @@ import {
   type GapItem
 } from '@/data/internationalStandards';
 import { ALL_CHAPTER_IDS } from '@/data/chaptersConfig';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface StandardInfo {
   name: string;
@@ -67,6 +68,7 @@ const STANDARDS_INFO: Record<string, StandardInfo> = {
 };
 
 export function StandardsComplianceDashboard() {
+  const { t, language } = useLanguage();
   const [selectedStandard, setSelectedStandard] = useState<string | null>(null);
   const [selectedChapter, setSelectedChapter] = useState<string | null>(null);
 
@@ -106,22 +108,28 @@ export function StandardsComplianceDashboard() {
     const info = STANDARDS_INFO[standard];
     const compliance = complianceData.overall.byStandard[standard];
     
+    const complianceLevelText = compliance >= 90 
+      ? t('admin.standards.level.excellent')
+      : compliance >= 70 
+        ? t('admin.standards.level.good')
+        : t('admin.standards.level.needsImprovement');
+    
     const reportContent = `
-RAPORT DE CONFORMITATE - ${info.fullName}
+${t('admin.standards.complianceReport')} - ${info.fullName}
 ═══════════════════════════════════════════════════════════
 
-Data generării: ${new Date().toLocaleDateString('ro-RO')}
-Standard: ${info.fullName}
-Procent conformitate: ${compliance.toFixed(1)}%
+${t('admin.quality.generatedAt')}: ${new Date().toLocaleDateString(language === 'ro' ? 'ro-RO' : language === 'de' ? 'de-DE' : 'en-US')}
+${t('admin.standards.standard')}: ${info.fullName}
+${t('admin.standards.compliancePercent')}: ${compliance.toFixed(1)}%
 
-SUMAR EXECUTIV
+${t('admin.standards.executiveSummary')}
 ──────────────────────────────────────────────────────────
-• Total cerințe standard: ${info.requirements}
-• Cerințe acoperite: ${Math.floor(info.requirements * compliance / 100)}
-• Cerințe lipsă: ${info.requirements - Math.floor(info.requirements * compliance / 100)}
-• Nivel conformitate: ${compliance >= 90 ? 'EXCELENT' : compliance >= 70 ? 'BUN' : 'NECESITĂ ÎMBUNĂTĂȚIRI'}
+• ${t('admin.standards.totalRequirements')}: ${info.requirements}
+• ${t('admin.standards.coveredRequirements')}: ${Math.floor(info.requirements * compliance / 100)}
+• ${t('admin.standards.missingRequirements')}: ${info.requirements - Math.floor(info.requirements * compliance / 100)}
+• ${t('admin.standards.complianceLevel')}: ${complianceLevelText}
 
-CAPITOLE ANALIZATE
+${t('admin.standards.analyzedChapters')}
 ──────────────────────────────────────────────────────────
 ${complianceData.chapters
   .filter(ch => ch.mappedStandards.some(s => s.standard === standard))
@@ -131,22 +139,22 @@ ${complianceData.chapters
   })
   .join('\n')}
 
-GAP-URI IDENTIFICATE
+${t('admin.standards.identifiedGaps')}
 ──────────────────────────────────────────────────────────
 ${complianceData.chapters
   .flatMap(ch => ch.gaps.filter(g => g.standard === standard || g.standard === info.name))
   .map(gap => `[${gap.severity.toUpperCase()}] ${gap.requirement}: ${gap.description}`)
-  .join('\n') || 'Nu există gap-uri identificate.'}
+  .join('\n') || t('admin.standards.noGaps')}
 
-RECOMANDĂRI
+${t('admin.standards.recommendations')}
 ──────────────────────────────────────────────────────────
-1. Extinderea conținutului pentru cerințele lipsă
-2. Actualizarea quiz-urilor cu întrebări specifice standardului
-3. Adăugarea studiilor de caz relevante
-4. Implementarea unui sistem de verificare periodică
+1. ${t('admin.standards.rec1')}
+2. ${t('admin.standards.rec2')}
+3. ${t('admin.standards.rec3')}
+4. ${t('admin.standards.rec4')}
 
 ═══════════════════════════════════════════════════════════
-Generat automat de Rossik Training Manual Compliance System
+${t('admin.standards.generatedBy')}
     `;
 
     // Create and download the report
@@ -154,7 +162,7 @@ Generat automat de Rossik Training Manual Compliance System
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.download = `Raport_Conformitate_${standard}_${new Date().toISOString().split('T')[0]}.txt`;
+    link.download = `${t('admin.standards.complianceReport')}_${standard}_${new Date().toISOString().split('T')[0]}.txt`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -168,9 +176,9 @@ Generat automat de Rossik Training Manual Compliance System
   };
 
   const getComplianceBadge = (percentage: number) => {
-    if (percentage >= 90) return <Badge className="bg-green-500">Conform</Badge>;
-    if (percentage >= 70) return <Badge className="bg-yellow-500">Parțial</Badge>;
-    return <Badge className="bg-red-500">Necesită atenție</Badge>;
+    if (percentage >= 90) return <Badge className="bg-green-500">{t('admin.standards.compliant')}</Badge>;
+    if (percentage >= 70) return <Badge className="bg-yellow-500">{t('admin.standards.partial')}</Badge>;
+    return <Badge className="bg-red-500">{t('admin.standards.needsAttention')}</Badge>;
   };
 
   return (
@@ -180,17 +188,17 @@ Generat automat de Rossik Training Manual Compliance System
         <div>
           <h2 className="text-2xl font-bold flex items-center gap-2">
             <Shield className="w-6 h-6 text-primary" />
-            Conformitate Standarde Internaționale
+            {t('admin.standards.title')}
           </h2>
           <p className="text-muted-foreground">
-            Analiza alinierii la FIATA, IATA, ISO 9001 și ISO 28000
+            {t('admin.standards.subtitle')}
           </p>
         </div>
         <Button onClick={() => {
           Object.keys(STANDARDS_INFO).forEach(std => generatePDFReport(std));
         }}>
           <Download className="w-4 h-4 mr-2" />
-          Export Toate Rapoartele
+          {t('admin.standards.exportAll')}
         </Button>
       </div>
 
@@ -217,14 +225,14 @@ Generat automat de Rossik Training Manual Compliance System
             <CardContent>
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-muted-foreground">Conformitate</span>
+                  <span className="text-sm text-muted-foreground">{t('admin.standards.compliance')}</span>
                   <span className={`text-2xl font-bold ${getComplianceColor(complianceData.overall.byStandard[key])}`}>
                     {complianceData.overall.byStandard[key].toFixed(1)}%
                   </span>
                 </div>
                 <Progress value={complianceData.overall.byStandard[key]} className="h-2" />
                 <p className="text-xs text-muted-foreground">
-                  {info.requirements} cerințe totale
+                  {info.requirements} {t('admin.standards.totalReqs')}
                 </p>
               </div>
             </CardContent>
@@ -237,7 +245,7 @@ Generat automat de Rossik Training Manual Compliance System
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <TrendingUp className="w-5 h-5" />
-            Sumar General
+            {t('admin.standards.summary')}
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -246,25 +254,25 @@ Generat automat de Rossik Training Manual Compliance System
               <div className="text-3xl font-bold text-primary">
                 {complianceData.overall.overall.toFixed(1)}%
               </div>
-              <div className="text-sm text-muted-foreground">Conformitate Globală</div>
+              <div className="text-sm text-muted-foreground">{t('admin.standards.globalCompliance')}</div>
             </div>
             <div className="text-center p-4 bg-muted rounded-lg">
               <div className="text-3xl font-bold text-blue-600">
                 {ALL_CHAPTER_IDS.length}
               </div>
-              <div className="text-sm text-muted-foreground">Capitole Analizate</div>
+              <div className="text-sm text-muted-foreground">{t('admin.standards.analyzedChaptersCount')}</div>
             </div>
             <div className="text-center p-4 bg-muted rounded-lg">
               <div className="text-3xl font-bold text-orange-600">
                 {complianceData.overall.totalGaps}
               </div>
-              <div className="text-sm text-muted-foreground">Gap-uri Totale</div>
+              <div className="text-sm text-muted-foreground">{t('admin.standards.totalGaps')}</div>
             </div>
             <div className="text-center p-4 bg-muted rounded-lg">
               <div className="text-3xl font-bold text-red-600">
                 {complianceData.overall.criticalGaps}
               </div>
-              <div className="text-sm text-muted-foreground">Gap-uri Critice</div>
+              <div className="text-sm text-muted-foreground">{t('admin.standards.criticalGaps')}</div>
             </div>
           </div>
         </CardContent>
@@ -274,15 +282,15 @@ Generat automat de Rossik Training Manual Compliance System
         <TabsList>
           <TabsTrigger value="chapters">
             <BookOpen className="w-4 h-4 mr-2" />
-            Per Capitol
+            {t('admin.standards.perChapter')}
           </TabsTrigger>
           <TabsTrigger value="gaps">
             <AlertTriangle className="w-4 h-4 mr-2" />
-            Gap Analysis
+            {t('admin.standards.gapAnalysis')}
           </TabsTrigger>
           <TabsTrigger value="requirements">
             <FileCheck className="w-4 h-4 mr-2" />
-            Cerințe Standard
+            {t('admin.standards.requirements')}
           </TabsTrigger>
         </TabsList>
 
@@ -290,9 +298,9 @@ Generat automat de Rossik Training Manual Compliance System
         <TabsContent value="chapters">
           <Card>
             <CardHeader>
-              <CardTitle>Conformitate per Capitol</CardTitle>
+              <CardTitle>{t('admin.standards.compliancePerChapter')}</CardTitle>
               <CardDescription>
-                Click pe un capitol pentru detalii
+                {t('admin.standards.clickForDetails')}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -300,13 +308,13 @@ Generat automat de Rossik Training Manual Compliance System
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Capitol</TableHead>
+                      <TableHead>{t('admin.standards.chapter')}</TableHead>
                       <TableHead className="text-center">FIATA</TableHead>
                       <TableHead className="text-center">IATA</TableHead>
                       <TableHead className="text-center">ISO 9001</TableHead>
                       <TableHead className="text-center">ISO 28000</TableHead>
-                      <TableHead className="text-center">Total</TableHead>
-                      <TableHead className="text-center">Gap-uri</TableHead>
+                      <TableHead className="text-center">{t('admin.standards.total')}</TableHead>
+                      <TableHead className="text-center">{t('admin.standards.gaps')}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -371,7 +379,7 @@ Generat automat de Rossik Training Manual Compliance System
               <CardHeader className="pb-2">
                 <CardTitle className="text-red-600 flex items-center gap-2">
                   <AlertTriangle className="w-5 h-5" />
-                  Gap-uri Critice ({allGaps.critical.length})
+                  {t('admin.standards.criticalGapsTitle')} ({allGaps.critical.length})
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -384,7 +392,7 @@ Generat automat de Rossik Training Manual Compliance System
                           <p className="font-medium">{gap.requirement}</p>
                           <p className="text-sm text-muted-foreground">{gap.description}</p>
                           <Badge variant="outline" className="mt-1">
-                            Acțiune: {gap.action === 'add' ? 'Adaugă conținut' : gap.action === 'extend' ? 'Extinde' : 'Rescrie'}
+                            {t('admin.standards.action')}: {gap.action === 'add' ? t('admin.standards.addContent') : gap.action === 'extend' ? t('admin.standards.extend') : t('admin.standards.rewrite')}
                           </Badge>
                         </div>
                       </div>
@@ -393,7 +401,7 @@ Generat automat de Rossik Training Manual Compliance System
                 ) : (
                   <p className="text-muted-foreground text-center py-4">
                     <CheckCircle className="w-8 h-8 text-green-500 mx-auto mb-2" />
-                    Nu există gap-uri critice
+                    {t('admin.standards.noCriticalGaps')}
                   </p>
                 )}
               </CardContent>
@@ -404,7 +412,7 @@ Generat automat de Rossik Training Manual Compliance System
               <CardHeader className="pb-2">
                 <CardTitle className="text-orange-600 flex items-center gap-2">
                   <AlertTriangle className="w-5 h-5" />
-                  Gap-uri Prioritate Înaltă ({allGaps.high.length})
+                  {t('admin.standards.highPriorityGaps')} ({allGaps.high.length})
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -421,13 +429,13 @@ Generat automat de Rossik Training Manual Compliance System
                     ))}
                     {allGaps.high.length > 5 && (
                       <p className="text-sm text-muted-foreground text-center">
-                        + {allGaps.high.length - 5} gap-uri adiționale
+                        + {allGaps.high.length - 5} {t('admin.standards.additionalGaps')}
                       </p>
                     )}
                   </div>
                 ) : (
                   <p className="text-muted-foreground text-center py-4">
-                    Nu există gap-uri de prioritate înaltă
+                    {t('admin.standards.noHighPriorityGaps')}
                   </p>
                 )}
               </CardContent>
@@ -438,23 +446,23 @@ Generat automat de Rossik Training Manual Compliance System
               <Card>
                 <CardHeader className="pb-2">
                   <CardTitle className="text-yellow-600 flex items-center gap-2 text-lg">
-                    Gap-uri Prioritate Medie
+                    {t('admin.standards.mediumPriorityGaps')}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="text-3xl font-bold">{allGaps.medium.length}</div>
-                  <p className="text-sm text-muted-foreground">necesită atenție moderată</p>
+                  <p className="text-sm text-muted-foreground">{t('admin.standards.moderateAttention')}</p>
                 </CardContent>
               </Card>
               <Card>
                 <CardHeader className="pb-2">
                   <CardTitle className="text-blue-600 flex items-center gap-2 text-lg">
-                    Gap-uri Prioritate Scăzută
+                    {t('admin.standards.lowPriorityGaps')}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="text-3xl font-bold">{allGaps.low.length}</div>
-                  <p className="text-sm text-muted-foreground">îmbunătățiri opționale</p>
+                  <p className="text-sm text-muted-foreground">{t('admin.standards.optionalImprovements')}</p>
                 </CardContent>
               </Card>
             </div>
@@ -479,7 +487,7 @@ Generat automat de Rossik Training Manual Compliance System
                     </div>
                     <Button variant="outline" onClick={() => generatePDFReport(key)}>
                       <Download className="w-4 h-4 mr-2" />
-                      Raport PDF
+                      {t('admin.standards.pdfReport')}
                     </Button>
                   </div>
                 </CardHeader>
@@ -502,7 +510,7 @@ Generat automat de Rossik Training Manual Compliance System
                     ))}
                   </div>
                   <p className="text-sm text-muted-foreground mt-3 text-center">
-                    Total: {info.requirements} cerințe în acest standard
+                    {t('admin.standards.total')}: {info.requirements} {t('admin.standards.requirementsInStandard')}
                   </p>
                 </CardContent>
               </Card>
