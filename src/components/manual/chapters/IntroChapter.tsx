@@ -1,4 +1,4 @@
-import { Truck, Globe, BookOpen, Target, Award, Users, MapPin, Building2, CheckCircle2, Star, Shield, FileText, TrendingUp, Lightbulb, Heart, Zap, Route, Phone, Mail } from "lucide-react";
+import { Truck, Globe, BookOpen, Target, Award, Users, MapPin, Building2, CheckCircle2, Star, Shield, FileText, TrendingUp, Lightbulb, Heart, Zap, Route, Phone, Mail, Clock, AlertTriangle, Wrench, Calendar, MessageCircle } from "lucide-react";
 import rossikLogo from "@/assets/rossik-logo.jpg";
 import { InfoCard } from "../InfoCard";
 import { ChapterHero } from "../ChapterHero";
@@ -90,49 +90,6 @@ export function IntroChapter() {
         </div>
       </div>
 
-      {/* Industry Overview */}
-      <section>
-        <h2 className="section-title flex items-center gap-3">
-          <Globe className="w-6 h-6 text-primary" />
-          {ct("industryTitle")}
-        </h2>
-        <div className="info-card">
-          <div className="grid md:grid-cols-2 gap-6">
-            <div>
-              <h3 className="font-semibold mb-3">{ct("industryOverview")}</h3>
-              <p className="text-muted-foreground text-sm mb-4">{ct("industryText")}</p>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li>• {ct("industryValue")}</li>
-                <li>• {ct("industryVehicles")}</li>
-                <li>• {ct("industryCompanies")}</li>
-                <li>• {ct("industryGrowth")}</li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="font-semibold mb-3">{ct("trendsTitle")}</h3>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li className="flex items-start gap-2">
-                  <TrendingUp className="w-4 h-4 text-success mt-0.5 flex-shrink-0" />
-                  <span>{ct("trendDigital")}</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <TrendingUp className="w-4 h-4 text-success mt-0.5 flex-shrink-0" />
-                  <span>{ct("trendSustain")}</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <TrendingUp className="w-4 h-4 text-success mt-0.5 flex-shrink-0" />
-                  <span>{ct("trendDriver")}</span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <TrendingUp className="w-4 h-4 text-success mt-0.5 flex-shrink-0" />
-                  <span>{ct("trendRegulatory")}</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Industry Statistics */}
       <section>
         <h2 className="section-title flex items-center gap-3">
@@ -159,51 +116,137 @@ export function IntroChapter() {
         </div>
       </section>
 
-      {/* What You Will Learn */}
-      <div className="info-card">
+      {/* Typical Day */}
+      <section>
         <h2 className="section-title flex items-center gap-3">
-          <Award className="w-6 h-6 text-primary" />
-          {ct("learnTitle")}
+          <Clock className="w-6 h-6 text-primary" />
+          {ct("typicalDayTitle")}
         </h2>
-        <div className="grid md:grid-cols-3 gap-4 mt-6">
-          <div className="p-4 bg-muted/50 rounded-lg">
-            <h3 className="font-semibold text-foreground mb-1">{ct("learnOperations")}</h3>
-            <p className="text-sm text-muted-foreground">{ct("learnOperationsDesc")}</p>
+        <p className="text-muted-foreground mb-4">{ct("typicalDaySubtitle")}</p>
+        <div className="grid md:grid-cols-2 gap-4">
+          <div className="info-card border-l-4 border-l-blue-500">
+            <h3 className="font-semibold text-blue-600 mb-2">{ct("dayMorning")}</h3>
+            <p className="text-sm text-muted-foreground">{ct("dayMorningTasks")}</p>
           </div>
-          <div className="p-4 bg-muted/50 rounded-lg">
-            <h3 className="font-semibold text-foreground mb-1">{ct("learnCompliance")}</h3>
-            <p className="text-sm text-muted-foreground">{ct("learnComplianceDesc")}</p>
+          <div className="info-card border-l-4 border-l-yellow-500">
+            <h3 className="font-semibold text-yellow-600 mb-2">{ct("dayMidday")}</h3>
+            <p className="text-sm text-muted-foreground">{ct("dayMiddayTasks")}</p>
           </div>
-          <div className="p-4 bg-muted/50 rounded-lg">
-            <h3 className="font-semibold text-foreground mb-1">{ct("learnVehicle")}</h3>
-            <p className="text-sm text-muted-foreground">{ct("learnVehicleDesc")}</p>
+          <div className="info-card border-l-4 border-l-orange-500">
+            <h3 className="font-semibold text-orange-600 mb-2">{ct("dayAfternoon")}</h3>
+            <p className="text-sm text-muted-foreground">{ct("dayAfternoonTasks")}</p>
           </div>
-          <div className="p-4 bg-muted/50 rounded-lg">
-            <h3 className="font-semibold text-foreground mb-1">{ct("learnPricing")}</h3>
-            <p className="text-sm text-muted-foreground">{ct("learnPricingDesc")}</p>
-          </div>
-          <div className="p-4 bg-muted/50 rounded-lg">
-            <h3 className="font-semibold text-foreground mb-1">{ct("learnTMS")}</h3>
-            <p className="text-sm text-muted-foreground">{ct("learnTMSDesc")}</p>
-          </div>
-          <div className="p-4 bg-muted/50 rounded-lg">
-            <h3 className="font-semibold text-foreground mb-1">{ct("learnExchanges")}</h3>
-            <p className="text-sm text-muted-foreground">{ct("learnExchangesDesc")}</p>
-          </div>
-          <div className="p-4 bg-muted/50 rounded-lg">
-            <h3 className="font-semibold text-foreground mb-1">{ct("learnDocs")}</h3>
-            <p className="text-sm text-muted-foreground">{ct("learnDocsDesc")}</p>
-          </div>
-          <div className="p-4 bg-muted/50 rounded-lg">
-            <h3 className="font-semibold text-foreground mb-1">{ct("learnClient")}</h3>
-            <p className="text-sm text-muted-foreground">{ct("learnClientDesc")}</p>
-          </div>
-          <div className="p-4 bg-muted/50 rounded-lg">
-            <h3 className="font-semibold text-foreground mb-1">{ct("learnEmergency")}</h3>
-            <p className="text-sm text-muted-foreground">{ct("learnEmergencyDesc")}</p>
+          <div className="info-card border-l-4 border-l-purple-500">
+            <h3 className="font-semibold text-purple-600 mb-2">{ct("dayEvening")}</h3>
+            <p className="text-sm text-muted-foreground">{ct("dayEveningTasks")}</p>
           </div>
         </div>
-      </div>
+      </section>
+
+      {/* Essential Glossary */}
+      <section>
+        <h2 className="section-title flex items-center gap-3">
+          <BookOpen className="w-6 h-6 text-primary" />
+          {ct("glossaryTitle")}
+        </h2>
+        <p className="text-muted-foreground mb-4">{ct("glossarySubtitle")}</p>
+        <div className="grid md:grid-cols-2 gap-3">
+          {[
+            { term: "glossaryFTL", desc: "glossaryFTLDesc" },
+            { term: "glossaryLTL", desc: "glossaryLTLDesc" },
+            { term: "glossaryCMR", desc: "glossaryCMRDesc" },
+            { term: "glossaryPOD", desc: "glossaryPODDesc" },
+            { term: "glossaryETA", desc: "glossaryETADesc" },
+            { term: "glossarySpot", desc: "glossarySpotDesc" },
+            { term: "glossaryDedicated", desc: "glossaryDedicatedDesc" },
+            { term: "glossaryGroupage", desc: "glossaryGroupageDesc" },
+            { term: "glossaryLDM", desc: "glossaryLDMDesc" },
+            { term: "glossaryADR", desc: "glossaryADRDesc" },
+          ].map((item, i) => (
+            <div key={i} className="p-3 bg-muted/50 rounded-lg">
+              <p className="font-semibold text-primary text-sm">{ct(item.term)}</p>
+              <p className="text-xs text-muted-foreground mt-1">{ct(item.desc)}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Common Mistakes */}
+      <section>
+        <h2 className="section-title flex items-center gap-3">
+          <AlertTriangle className="w-6 h-6 text-destructive" />
+          {ct("mistakesTitle")}
+        </h2>
+        <p className="text-muted-foreground mb-4">{ct("mistakesSubtitle")}</p>
+        <div className="space-y-3">
+          {[1, 2, 3, 4, 5, 6].map((n) => (
+            <div key={n} className="info-card border-l-4 border-l-destructive/50">
+              <h4 className="font-semibold text-sm text-destructive">{ct(`mistake${n}Title`)}</h4>
+              <p className="text-sm text-muted-foreground mt-1">{ct(`mistake${n}Desc`)}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* First 90 Days */}
+      <section>
+        <h2 className="section-title flex items-center gap-3">
+          <Calendar className="w-6 h-6 text-primary" />
+          {ct("first90Title")}
+        </h2>
+        <p className="text-muted-foreground mb-4">{ct("first90Subtitle")}</p>
+        <div className="space-y-4">
+          <div className="info-card bg-blue-50 dark:bg-blue-950/20 border-blue-200 dark:border-blue-800">
+            <h3 className="font-semibold text-blue-700 dark:text-blue-400">{ct("first30Title")}</h3>
+            <p className="text-sm text-muted-foreground mt-2">{ct("first30Tasks")}</p>
+            <p className="text-sm font-medium text-blue-600 dark:text-blue-400 mt-2">{ct("first30Goal")}</p>
+          </div>
+          <div className="info-card bg-yellow-50 dark:bg-yellow-950/20 border-yellow-200 dark:border-yellow-800">
+            <h3 className="font-semibold text-yellow-700 dark:text-yellow-400">{ct("first60Title")}</h3>
+            <p className="text-sm text-muted-foreground mt-2">{ct("first60Tasks")}</p>
+            <p className="text-sm font-medium text-yellow-600 dark:text-yellow-400 mt-2">{ct("first60Goal")}</p>
+          </div>
+          <div className="info-card bg-green-50 dark:bg-green-950/20 border-green-200 dark:border-green-800">
+            <h3 className="font-semibold text-green-700 dark:text-green-400">{ct("first90Title2")}</h3>
+            <p className="text-sm text-muted-foreground mt-2">{ct("first90Tasks")}</p>
+            <p className="text-sm font-medium text-green-600 dark:text-green-400 mt-2">{ct("first90Goal")}</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Tools */}
+      <section>
+        <h2 className="section-title flex items-center gap-3">
+          <Wrench className="w-6 h-6 text-primary" />
+          {ct("toolsTitle")}
+        </h2>
+        <p className="text-muted-foreground mb-4">{ct("toolsSubtitle")}</p>
+        <div className="grid md:grid-cols-3 gap-4">
+          {["TMS", "Exchanges", "Telematics", "Email", "Maps", "Docs"].map((tool) => (
+            <div key={tool} className="p-4 bg-muted/50 rounded-lg">
+              <h3 className="font-semibold text-foreground mb-1">{ct(`tool${tool}`)}</h3>
+              <p className="text-sm text-muted-foreground">{ct(`tool${tool}Desc`)}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Success Tips */}
+      <section>
+        <h2 className="section-title flex items-center gap-3">
+          <Star className="w-6 h-6 text-primary" />
+          {ct("successTitle")}
+        </h2>
+        <p className="text-muted-foreground mb-4">{ct("successSubtitle")}</p>
+        <div className="grid md:grid-cols-2 gap-3">
+          {[1, 2, 3, 4, 5, 6].map((n) => (
+            <div key={n} className="flex items-start gap-3 p-3 bg-success/5 rounded-lg border border-success/20">
+              <CheckCircle2 className="w-5 h-5 text-success flex-shrink-0 mt-0.5" />
+              <p className="text-sm text-foreground">{ct(`success${n}`)}</p>
+            </div>
+          ))}
+        </div>
+      </section>
 
       {/* Learning Path */}
       <section>
@@ -346,7 +389,6 @@ export function IntroChapter() {
           <p className="text-sm text-muted-foreground">{ct("tipText")}</p>
         </div>
       </div>
-
     </div>
   );
 }
