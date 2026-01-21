@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useCompany } from '@/contexts/CompanyContext';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -25,6 +25,7 @@ interface PremiumChapter {
 
 export function PremiumChaptersManager() {
   const { isSuperAdmin } = useCompany();
+  const { t } = useLanguage();
   const { toast } = useToast();
   const [chapters, setChapters] = useState<Chapter[]>([]);
   const [premiumChapters, setPremiumChapters] = useState<Map<string, PlanType>>(new Map());
@@ -61,14 +62,12 @@ export function PremiumChaptersManager() {
     
     try {
       if (minPlan === 'free') {
-        // Remove from premium chapters
         await supabase.from('premium_chapters').delete().eq('chapter_id', chapterId);
         
         const newMap = new Map(premiumChapters);
         newMap.delete(chapterId);
         setPremiumChapters(newMap);
       } else {
-        // Upsert premium chapter
         await supabase.from('premium_chapters').upsert({
           chapter_id: chapterId,
           min_plan_type: minPlan
@@ -81,10 +80,10 @@ export function PremiumChaptersManager() {
         setPremiumChapters(newMap);
       }
       
-      toast({ title: 'Restricție actualizată' });
+      toast({ title: t('admin.premium.updated') });
     } catch (error) {
       console.error('Error updating premium chapter:', error);
-      toast({ title: 'Eroare', variant: 'destructive' });
+      toast({ title: t('admin.premium.error'), variant: 'destructive' });
     } finally {
       setSaving(null);
     }
@@ -107,8 +106,8 @@ export function PremiumChaptersManager() {
     return (
       <Card>
         <CardHeader>
-          <CardTitle>Acces restricționat</CardTitle>
-          <CardDescription>Doar Super Admin poate gestiona capitolele premium.</CardDescription>
+          <CardTitle>{t('admin.premium.restricted')}</CardTitle>
+          <CardDescription>{t('admin.premium.restrictedDesc')}</CardDescription>
         </CardHeader>
       </Card>
     );
@@ -116,7 +115,7 @@ export function PremiumChaptersManager() {
 
   // Group chapters by module
   const groupedChapters = chapters.reduce((acc, chapter) => {
-    const module = chapter.module || 'Alte';
+    const module = chapter.module || 'Other';
     if (!acc[module]) acc[module] = [];
     acc[module].push(chapter);
     return acc;
@@ -129,10 +128,10 @@ export function PremiumChaptersManager() {
           <div className="p-2 bg-amber-500 rounded-lg shadow-md">
             <Lock className="h-6 w-6 text-white" />
           </div>
-          <span className="text-amber-800">Capitole Premium</span>
+          <span className="text-amber-800">{t('admin.premium.title')}</span>
         </CardTitle>
         <CardDescription className="text-amber-700 font-medium">
-          Configurează ce plan minim este necesar pentru a accesa fiecare capitol
+          {t('admin.premium.subtitle')}
         </CardDescription>
       </CardHeader>
       <CardContent className="p-6">
@@ -149,15 +148,15 @@ export function PremiumChaptersManager() {
                     <BookOpen className="h-4 w-4 text-white" />
                   </div>
                   <span className="text-slate-800">{module}</span>
-                  <Badge className="ml-2 bg-slate-600">{moduleChapters.length} capitole</Badge>
+                  <Badge className="ml-2 bg-slate-600">{moduleChapters.length} {t('admin.premium.chapters')}</Badge>
                 </h3>
                 <Table>
                   <TableHeader>
                     <TableRow className="bg-slate-50 hover:bg-slate-50">
                       <TableHead className="w-12 font-bold text-slate-700">#</TableHead>
-                      <TableHead className="font-bold text-slate-700">Capitol</TableHead>
-                      <TableHead className="font-bold text-slate-700">Restricție Curentă</TableHead>
-                      <TableHead className="w-48 font-bold text-slate-700">Plan Minim</TableHead>
+                      <TableHead className="font-bold text-slate-700">{t('admin.premium.chapter')}</TableHead>
+                      <TableHead className="font-bold text-slate-700">{t('admin.premium.currentRestriction')}</TableHead>
+                      <TableHead className="w-48 font-bold text-slate-700">{t('admin.premium.minPlan')}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>

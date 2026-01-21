@@ -376,6 +376,7 @@ function CompanyDetailDialog({
   onSave: () => void;
 }) {
   const { toast } = useToast();
+  const { t } = useLanguage();
   const [activeTab, setActiveTab] = useState('general');
   const [isGeneratingCode, setIsGeneratingCode] = useState(false);
   const [formData, setFormData] = useState({
@@ -408,9 +409,9 @@ function CompanyDetailDialog({
       if (error) throw error;
       
       setFormData({ ...formData, registration_code: newCode });
-      toast({ title: 'Cod generat!', description: `Noul cod: ${newCode}` });
+      toast({ title: t('admin.company.codeGenerated'), description: `${t('admin.company.newCode')}: ${newCode}` });
     } catch (error: any) {
-      toast({ title: 'Eroare', description: error.message, variant: 'destructive' });
+      toast({ title: t('admin.general.error'), description: error.message, variant: 'destructive' });
     } finally {
       setIsGeneratingCode(false);
     }
@@ -419,7 +420,7 @@ function CompanyDetailDialog({
   const copyCode = () => {
     if (formData.registration_code) {
       navigator.clipboard.writeText(formData.registration_code);
-      toast({ title: 'Copiat!', description: 'Codul a fost copiat în clipboard' });
+      toast({ title: t('admin.company.copied'), description: t('admin.company.copiedDesc') });
     }
   };
 
@@ -457,10 +458,10 @@ function CompanyDetailDialog({
         }).eq('company_id', company.id);
       }
 
-      toast({ title: 'Salvat', description: 'Modificările au fost salvate' });
+      toast({ title: t('admin.company.saved'), description: t('admin.company.savedDesc') });
       onSave();
     } catch (error: any) {
-      toast({ title: 'Eroare', description: error.message, variant: 'destructive' });
+      toast({ title: t('admin.general.error'), description: error.message, variant: 'destructive' });
     }
   };
 
@@ -468,27 +469,27 @@ function CompanyDetailDialog({
     <Dialog open onOpenChange={() => onClose()}>
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>Editează {company.name}</DialogTitle>
+          <DialogTitle>{t('admin.company.edit')} {company.name}</DialogTitle>
         </DialogHeader>
 
         <Tabs value={activeTab} onValueChange={setActiveTab}>
           <TabsList className="grid w-full grid-cols-4">
-            <TabsTrigger value="general">General</TabsTrigger>
-            <TabsTrigger value="branding">Branding</TabsTrigger>
-            <TabsTrigger value="settings">Setări</TabsTrigger>
-            <TabsTrigger value="subscription">Plan</TabsTrigger>
+            <TabsTrigger value="general">{t('admin.company.general')}</TabsTrigger>
+            <TabsTrigger value="branding">{t('admin.company.branding')}</TabsTrigger>
+            <TabsTrigger value="settings">{t('admin.company.settings')}</TabsTrigger>
+            <TabsTrigger value="subscription">{t('admin.company.planTab')}</TabsTrigger>
           </TabsList>
 
           <TabsContent value="general" className="space-y-4">
             <div className="space-y-2">
-              <Label>Nume Companie</Label>
+              <Label>{t('admin.company.name')}</Label>
               <Input
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
               />
             </div>
             <div className="space-y-2">
-              <Label>Slug</Label>
+              <Label>{t('admin.company.slug')}</Label>
               <Input
                 value={formData.slug}
                 onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
@@ -496,7 +497,7 @@ function CompanyDetailDialog({
               />
             </div>
             <div className="space-y-2">
-              <Label>Domeniu Custom</Label>
+              <Label>{t('admin.company.domain')}</Label>
               <Input
                 value={formData.custom_domain}
                 onChange={(e) => setFormData({ ...formData, custom_domain: e.target.value })}
@@ -507,7 +508,7 @@ function CompanyDetailDialog({
 
           <TabsContent value="branding" className="space-y-4">
             <div className="space-y-2">
-              <Label>Nume Platformă</Label>
+              <Label>{t('admin.company.platformName')}</Label>
               <Input
                 value={formData.platform_name}
                 onChange={(e) => setFormData({ ...formData, platform_name: e.target.value })}
@@ -522,7 +523,7 @@ function CompanyDetailDialog({
             />
             <div className="grid grid-cols-3 gap-4">
               <div className="space-y-2">
-                <Label>Culoare Primară</Label>
+                <Label>{t('admin.company.primaryColor')}</Label>
                 <div className="flex gap-2">
                   <Input
                     type="color"
@@ -537,7 +538,7 @@ function CompanyDetailDialog({
                 </div>
               </div>
               <div className="space-y-2">
-                <Label>Culoare Secundară</Label>
+                <Label>{t('admin.company.secondaryColor')}</Label>
                 <div className="flex gap-2">
                   <Input
                     type="color"
@@ -552,7 +553,7 @@ function CompanyDetailDialog({
                 </div>
               </div>
               <div className="space-y-2">
-                <Label>Culoare Accent</Label>
+                <Label>{t('admin.company.accentColor')}</Label>
                 <div className="flex gap-2">
                   <Input
                     type="color"
@@ -574,11 +575,11 @@ function CompanyDetailDialog({
             <div className="p-4 bg-gradient-to-r from-primary/10 to-primary/5 rounded-lg border-2 border-primary/20 space-y-3">
               <div className="flex items-center gap-2">
                 <Key className="h-5 w-5 text-primary" />
-                <Label className="text-base font-semibold text-primary">Cod de Înregistrare</Label>
+                <Label className="text-base font-semibold text-primary">{t('admin.company.registrationCode')}</Label>
               </div>
               <div className="flex items-center gap-2">
                 <Input 
-                  value={formData.registration_code || 'Nu există cod'} 
+                  value={formData.registration_code || 'N/A'} 
                   disabled 
                   className="font-mono text-lg font-bold bg-white border-2"
                 />
@@ -587,7 +588,7 @@ function CompanyDetailDialog({
                   size="icon"
                   onClick={copyCode}
                   disabled={!formData.registration_code}
-                  title="Copiază codul"
+                  title={t('admin.company.copied')}
                 >
                   <Copy className="h-4 w-4" />
                 </Button>
@@ -598,12 +599,9 @@ function CompanyDetailDialog({
                   className="gap-2"
                 >
                   <RefreshCw className={`h-4 w-4 ${isGeneratingCode ? 'animate-spin' : ''}`} />
-                  {formData.registration_code ? 'Regenerează' : 'Generează'}
+                  {t('admin.company.generateCode')}
                 </Button>
               </div>
-              <p className="text-sm text-muted-foreground">
-                Utilizatorii noi pot folosi acest cod la înregistrare pentru a se alătura companiei.
-              </p>
             </div>
             <div className="flex items-center justify-between">
               <div>
@@ -673,8 +671,8 @@ function CompanyDetailDialog({
         </Tabs>
 
         <DialogFooter>
-          <Button variant="outline" onClick={onClose}>Anulează</Button>
-          <Button onClick={saveChanges}>Salvează</Button>
+          <Button variant="outline" onClick={onClose}>{t('admin.company.cancel')}</Button>
+          <Button onClick={saveChanges}>{t('admin.general.save')}</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
