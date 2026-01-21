@@ -2,18 +2,16 @@ import { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Progress } from '@/components/ui/progress';
 import { Textarea } from '@/components/ui/textarea';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { toast } from 'sonner';
 import { 
   CheckCircle, 
-  XCircle, 
   Shield, 
   Zap, 
   Activity, 
@@ -39,6 +37,7 @@ const categoryColors: Record<string, string> = {
 };
 
 export function ProductionChecklist() {
+  const { t } = useLanguage();
   const { user } = useAuth();
   const queryClient = useQueryClient();
   const [notes, setNotes] = useState<Record<string, string>>({});
@@ -102,6 +101,17 @@ export function ProductionChecklist() {
     return items.length > 0 ? (completed / items.length) * 100 : 0;
   };
 
+  const getCategoryLabel = (category: string) => {
+    switch (category) {
+      case 'security': return t('admin.production.categorySecurity');
+      case 'performance': return t('admin.production.categoryPerformance');
+      case 'monitoring': return t('admin.production.categoryMonitoring');
+      case 'backup': return t('admin.production.categoryBackup');
+      case 'documentation': return t('admin.production.categoryDocumentation');
+      default: return category;
+    }
+  };
+
   return (
     <div className="space-y-6">
       {/* Status Overview */}
@@ -110,9 +120,9 @@ export function ProductionChecklist() {
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-muted-foreground">Production Status</p>
+                <p className="text-sm text-muted-foreground">{t('admin.production.status')}</p>
                 <p className={`text-xl font-bold ${isProductionReady ? 'text-green-400' : 'text-yellow-400'}`}>
-                  {isProductionReady ? 'READY' : 'NOT READY'}
+                  {isProductionReady ? t('admin.production.ready') : t('admin.production.notReady')}
                 </p>
               </div>
               {isProductionReady ? (
@@ -126,20 +136,20 @@ export function ProductionChecklist() {
 
         <Card className="bg-card/50 border-border/50">
           <CardContent className="pt-6">
-            <p className="text-sm text-muted-foreground mb-2">Overall Progress</p>
+            <p className="text-sm text-muted-foreground mb-2">{t('admin.production.overallProgress')}</p>
             <div className="flex items-center gap-3">
               <Progress value={overallProgress} className="flex-1 h-3" />
               <span className="font-bold">{Math.round(overallProgress)}%</span>
             </div>
             <p className="text-xs text-muted-foreground mt-1">
-              {completedItems} of {totalItems} items completed
+              {completedItems} / {totalItems} {t('admin.production.itemsCompleted')}
             </p>
           </CardContent>
         </Card>
 
         <Card className="bg-card/50 border-border/50">
           <CardContent className="pt-6">
-            <p className="text-sm text-muted-foreground mb-2">Required Items</p>
+            <p className="text-sm text-muted-foreground mb-2">{t('admin.production.requiredItems')}</p>
             <div className="flex items-center gap-3">
               <Progress 
                 value={requiredProgress} 
@@ -148,7 +158,7 @@ export function ProductionChecklist() {
               <span className="font-bold">{Math.round(requiredProgress)}%</span>
             </div>
             <p className="text-xs text-muted-foreground mt-1">
-              {completedRequired} of {requiredItems} required items
+              {completedRequired} / {requiredItems} {t('admin.production.requiredItemsCount')}
             </p>
           </CardContent>
         </Card>
@@ -163,7 +173,7 @@ export function ProductionChecklist() {
             <Card key={category} className="bg-card/50 border-border/50">
               <CardContent className="pt-4 text-center">
                 <Icon className={`h-6 w-6 mx-auto mb-2 ${categoryColors[category]}`} />
-                <p className="text-xs font-medium capitalize mb-2">{category}</p>
+                <p className="text-xs font-medium mb-2">{getCategoryLabel(category)}</p>
                 <Progress value={progress} className="h-1" />
                 <p className="text-xs text-muted-foreground mt-1">{Math.round(progress)}%</p>
               </CardContent>
@@ -175,8 +185,8 @@ export function ProductionChecklist() {
       {/* Checklist */}
       <Card className="bg-card/50 border-border/50">
         <CardHeader>
-          <CardTitle>Production Readiness Checklist</CardTitle>
-          <CardDescription>Complete all required items before deploying to production</CardDescription>
+          <CardTitle>{t('admin.production.checklist')}</CardTitle>
+          <CardDescription>{t('admin.production.checklistDesc')}</CardDescription>
         </CardHeader>
         <CardContent>
           <Accordion type="multiple" className="space-y-2">
@@ -190,7 +200,7 @@ export function ProductionChecklist() {
                   <AccordionTrigger className="hover:no-underline">
                     <div className="flex items-center gap-3 flex-1">
                       <Icon className={`h-5 w-5 ${categoryColors[category]}`} />
-                      <span className="capitalize font-medium">{category}</span>
+                      <span className="font-medium">{getCategoryLabel(category)}</span>
                       <Badge variant="outline" className="ml-auto mr-4">
                         {completedCount}/{items?.length}
                       </Badge>
@@ -228,7 +238,7 @@ export function ProductionChecklist() {
                                     {item.item_name}
                                   </span>
                                   {item.is_required && (
-                                    <Badge variant="destructive" className="text-xs">Required</Badge>
+                                    <Badge variant="destructive" className="text-xs">{t('admin.production.required')}</Badge>
                                   )}
                                   {item.is_completed && (
                                     <CheckCircle className="h-4 w-4 text-green-400" />
@@ -239,7 +249,7 @@ export function ProductionChecklist() {
                                 {!item.is_completed && (
                                   <div className="mt-2">
                                     <Textarea
-                                      placeholder="Add notes or evidence..."
+                                      placeholder={t('admin.production.notesPlaceholder')}
                                       value={notes[item.id] || ''}
                                       onChange={(e) => setNotes({ ...notes, [item.id]: e.target.value })}
                                       className="h-20 text-sm"
@@ -249,7 +259,7 @@ export function ProductionChecklist() {
                                 
                                 {item.is_completed && item.completed_at && (
                                   <p className="text-xs text-muted-foreground mt-2">
-                                    Completed: {new Date(item.completed_at).toLocaleString()}
+                                    {t('admin.production.completedAt')}: {new Date(item.completed_at).toLocaleString()}
                                   </p>
                                 )}
                                 
@@ -284,18 +294,18 @@ export function ProductionChecklist() {
               )}
               <div>
                 <h3 className={`text-xl font-bold ${isProductionReady ? 'text-green-400' : 'text-yellow-400'}`}>
-                  {isProductionReady ? 'System is Production Ready!' : 'Complete Required Items'}
+                  {isProductionReady ? t('admin.production.systemReady') : t('admin.production.completeRequired')}
                 </h3>
                 <p className="text-muted-foreground">
                   {isProductionReady 
-                    ? 'All required checks have passed. The system is ready for enterprise deployment.'
-                    : `${requiredItems - completedRequired} required items remaining before production deployment.`}
+                    ? t('admin.production.systemReadyDesc')
+                    : t('admin.production.remainingItems').replace('{count}', String(requiredItems - completedRequired))}
                 </p>
               </div>
             </div>
             {isProductionReady && (
               <Badge className="bg-green-500 text-white text-lg px-4 py-2">
-                ✓ VALIDATED
+                {t('admin.production.validated')}
               </Badge>
             )}
           </div>

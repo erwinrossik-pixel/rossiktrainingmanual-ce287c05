@@ -73,11 +73,11 @@ export function BackupRecovery() {
       
       if (error) throw error;
       
-      toast.success(`Backup completed! ${data.totalRecords} records from ${data.tablesBackedUp} tables`);
+      toast.success(t('admin.backup.backupSuccess').replace('{records}', data.totalRecords).replace('{tables}', data.tablesBackedUp));
       queryClient.invalidateQueries({ queryKey: ['backup-logs'] });
       queryClient.invalidateQueries({ queryKey: ['backup-status'] });
     } catch (error: any) {
-      toast.error('Backup failed: ' + error.message);
+      toast.error(t('admin.backup.backupFailed').replace('{error}', error.message));
     } finally {
       setIsBackupRunning(false);
     }
@@ -91,23 +91,23 @@ export function BackupRecovery() {
       
       if (error) throw error;
       
-      toast.success(`Verification complete! ${data.recordsVerified} records verified`);
+      toast.success(t('admin.backup.verifySuccess').replace('{records}', data.recordsVerified));
       queryClient.invalidateQueries({ queryKey: ['recovery-tests'] });
     } catch (error: any) {
-      toast.error('Verification failed: ' + error.message);
+      toast.error(t('admin.backup.verifyFailed').replace('{error}', error.message));
     }
   };
 
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'completed':
-        return <Badge className="bg-green-500/20 text-green-400 border-green-500/30">Completed</Badge>;
+        return <Badge className="bg-green-500/20 text-green-400 border-green-500/30">{t('admin.backup.completed')}</Badge>;
       case 'running':
-        return <Badge className="bg-blue-500/20 text-blue-400 border-blue-500/30">Running</Badge>;
+        return <Badge className="bg-blue-500/20 text-blue-400 border-blue-500/30">{t('admin.backup.statusRunning')}</Badge>;
       case 'failed':
-        return <Badge className="bg-red-500/20 text-red-400 border-red-500/30">Failed</Badge>;
+        return <Badge className="bg-red-500/20 text-red-400 border-red-500/30">{t('admin.backup.statusFailed')}</Badge>;
       case 'pending':
-        return <Badge className="bg-yellow-500/20 text-yellow-400 border-yellow-500/30">Pending</Badge>;
+        return <Badge className="bg-yellow-500/20 text-yellow-400 border-yellow-500/30">{t('admin.backup.statusPending')}</Badge>;
       default:
         return <Badge variant="secondary">{status}</Badge>;
     }
@@ -135,11 +135,11 @@ export function BackupRecovery() {
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-muted-foreground">Last Backup</p>
+                <p className="text-sm text-muted-foreground">{t('admin.backup.lastBackup')}</p>
                 <p className="text-lg font-medium">
                   {backupStatus?.latestBackup 
                     ? new Date(backupStatus.latestBackup.started_at).toLocaleDateString()
-                    : 'Never'}
+                    : t('admin.backup.never')}
                 </p>
               </div>
               <div className="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center">
@@ -153,7 +153,7 @@ export function BackupRecovery() {
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-muted-foreground">Backups (30d)</p>
+                <p className="text-sm text-muted-foreground">{t('admin.backup.backups30d')}</p>
                 <p className="text-2xl font-bold">{backupStatus?.last30Days?.total || 0}</p>
               </div>
               <div className="w-12 h-12 rounded-full bg-green-500/20 flex items-center justify-center">
@@ -167,7 +167,7 @@ export function BackupRecovery() {
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-muted-foreground">Success Rate</p>
+                <p className="text-sm text-muted-foreground">{t('admin.backup.successRate')}</p>
                 <p className="text-2xl font-bold text-green-400">
                   {backupStatus?.last30Days?.total 
                     ? Math.round((backupStatus.last30Days.completed / backupStatus.last30Days.total) * 100)
@@ -185,7 +185,7 @@ export function BackupRecovery() {
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-muted-foreground">Next Scheduled</p>
+                <p className="text-sm text-muted-foreground">{t('admin.backup.nextScheduled')}</p>
                 <p className="text-sm font-medium">{backupStatus?.nextScheduled || 'Daily 02:00 UTC'}</p>
               </div>
               <div className="w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center">
@@ -202,9 +202,9 @@ export function BackupRecovery() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Database className="h-5 w-5" />
-              Backup Management
+              {t('admin.backup.management')}
             </CardTitle>
-            <CardDescription>Create and manage database backups</CardDescription>
+            <CardDescription>{t('admin.backup.managementDesc')}</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="flex gap-3">
@@ -212,35 +212,35 @@ export function BackupRecovery() {
                 {isBackupRunning ? (
                   <>
                     <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
-                    Running Backup...
+                    {t('admin.backup.runningBackup')}
                   </>
                 ) : (
                   <>
                     <Download className="h-4 w-4 mr-2" />
-                    Run Manual Backup
+                    {t('admin.backup.runManual')}
                   </>
                 )}
               </Button>
             </div>
 
             <div className="bg-muted/50 p-4 rounded-lg">
-              <h4 className="font-medium mb-2">Backup Configuration</h4>
+              <h4 className="font-medium mb-2">{t('admin.backup.config')}</h4>
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Schedule</span>
-                  <span>Daily at 02:00 UTC</span>
+                  <span className="text-muted-foreground">{t('admin.backup.configSchedule')}</span>
+                  <span>Daily 02:00 UTC</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Type</span>
-                  <span>Full Database</span>
+                  <span className="text-muted-foreground">{t('admin.backup.configType')}</span>
+                  <span>{t('admin.backup.fullDatabase')}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Retention</span>
-                  <span>30 days</span>
+                  <span className="text-muted-foreground">{t('admin.backup.configRetention')}</span>
+                  <span>30 {t('admin.common.days') || 'days'}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">Tables</span>
-                  <span>8 critical tables</span>
+                  <span className="text-muted-foreground">{t('admin.backup.configTables')}</span>
+                  <span>8 {t('admin.backup.criticalTables')}</span>
                 </div>
               </div>
             </div>
@@ -252,9 +252,9 @@ export function BackupRecovery() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Shield className="h-5 w-5" />
-              Recovery Testing
+              {t('admin.backup.recoveryTesting')}
             </CardTitle>
-            <CardDescription>Verify backup integrity and test recovery</CardDescription>
+            <CardDescription>{t('admin.backup.recoveryTestingDesc')}</CardDescription>
           </CardHeader>
           <CardContent>
             <ScrollArea className="h-[250px]">
@@ -266,14 +266,14 @@ export function BackupRecovery() {
                       {getStatusBadge(test.status)}
                     </div>
                     <div className="text-xs text-muted-foreground space-y-1">
-                      <p>Records verified: {test.records_verified || '-'}</p>
-                      <p>Discrepancies: {test.discrepancies_found || 0}</p>
+                      <p>{t('admin.backup.recordsVerified')}: {test.records_verified || '-'}</p>
+                      <p>{t('admin.backup.discrepancies')}: {test.discrepancies_found || 0}</p>
                       <p>{new Date(test.started_at).toLocaleString()}</p>
                     </div>
                   </div>
                 ))}
                 {(!recoveryTests || recoveryTests.length === 0) && (
-                  <p className="text-center text-muted-foreground py-4">No recovery tests performed</p>
+                  <p className="text-center text-muted-foreground py-4">{t('admin.backup.noRecoveryTests')}</p>
                 )}
               </div>
             </ScrollArea>
@@ -284,8 +284,8 @@ export function BackupRecovery() {
       {/* Backup History */}
       <Card className="bg-card/50 border-border/50">
         <CardHeader>
-          <CardTitle>Backup History</CardTitle>
-          <CardDescription>Recent backup operations and their status</CardDescription>
+          <CardTitle>{t('admin.backup.history')}</CardTitle>
+          <CardDescription>{t('admin.backup.historyDesc')}</CardDescription>
         </CardHeader>
         <CardContent>
           <ScrollArea className="h-[400px]">
@@ -324,14 +324,14 @@ export function BackupRecovery() {
                         size="sm"
                         onClick={() => verifyBackup(backup.id)}
                       >
-                        Verify
+                        {t('admin.backup.verify')}
                       </Button>
                     )}
                   </div>
                 </div>
               ))}
               {(!backupLogs || backupLogs.length === 0) && (
-                <p className="text-center text-muted-foreground py-8">No backups yet</p>
+                <p className="text-center text-muted-foreground py-8">{t('admin.backup.noBackups')}</p>
               )}
             </div>
           </ScrollArea>
@@ -343,64 +343,64 @@ export function BackupRecovery() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <AlertTriangle className="h-5 w-5 text-yellow-400" />
-            Disaster Recovery Plan
+            {t('admin.backup.disasterRecovery')}
           </CardTitle>
-          <CardDescription>Procedures for data recovery in case of emergency</CardDescription>
+          <CardDescription>{t('admin.backup.disasterRecoveryDesc')}</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-4">
-              <h4 className="font-medium">Recovery Procedure</h4>
+              <h4 className="font-medium">{t('admin.backup.recoveryProcedure')}</h4>
               <ol className="space-y-3 text-sm">
                 <li className="flex gap-2">
                   <span className="w-6 h-6 rounded-full bg-primary/20 text-primary flex items-center justify-center text-xs font-bold">1</span>
-                  <span>Identify the scope of data loss and affected tables</span>
+                  <span>{t('admin.backup.step1')}</span>
                 </li>
                 <li className="flex gap-2">
                   <span className="w-6 h-6 rounded-full bg-primary/20 text-primary flex items-center justify-center text-xs font-bold">2</span>
-                  <span>Select the most recent valid backup</span>
+                  <span>{t('admin.backup.step2')}</span>
                 </li>
                 <li className="flex gap-2">
                   <span className="w-6 h-6 rounded-full bg-primary/20 text-primary flex items-center justify-center text-xs font-bold">3</span>
-                  <span>Verify backup integrity before restoration</span>
+                  <span>{t('admin.backup.step3')}</span>
                 </li>
                 <li className="flex gap-2">
                   <span className="w-6 h-6 rounded-full bg-primary/20 text-primary flex items-center justify-center text-xs font-bold">4</span>
-                  <span>Restore data to a staging environment first</span>
+                  <span>{t('admin.backup.step4')}</span>
                 </li>
                 <li className="flex gap-2">
                   <span className="w-6 h-6 rounded-full bg-primary/20 text-primary flex items-center justify-center text-xs font-bold">5</span>
-                  <span>Validate restored data for completeness</span>
+                  <span>{t('admin.backup.step5')}</span>
                 </li>
                 <li className="flex gap-2">
                   <span className="w-6 h-6 rounded-full bg-primary/20 text-primary flex items-center justify-center text-xs font-bold">6</span>
-                  <span>Apply restored data to production</span>
+                  <span>{t('admin.backup.step6')}</span>
                 </li>
               </ol>
             </div>
             <div className="space-y-4">
-              <h4 className="font-medium">Recovery Targets</h4>
+              <h4 className="font-medium">{t('admin.backup.recoveryTargets')}</h4>
               <div className="space-y-3">
                 <div className="p-3 bg-background/50 rounded-lg">
                   <div className="flex justify-between mb-1">
-                    <span className="text-sm font-medium">RPO (Recovery Point Objective)</span>
-                    <span className="text-green-400 font-medium">24 hours</span>
+                    <span className="text-sm font-medium">{t('admin.backup.rpo')}</span>
+                    <span className="text-green-400 font-medium">24 {t('admin.common.hours') || 'hours'}</span>
                   </div>
-                  <p className="text-xs text-muted-foreground">Maximum acceptable data loss period</p>
+                  <p className="text-xs text-muted-foreground">{t('admin.backup.rpoDesc')}</p>
                 </div>
                 <div className="p-3 bg-background/50 rounded-lg">
                   <div className="flex justify-between mb-1">
-                    <span className="text-sm font-medium">RTO (Recovery Time Objective)</span>
-                    <span className="text-green-400 font-medium">4 hours</span>
+                    <span className="text-sm font-medium">{t('admin.backup.rto')}</span>
+                    <span className="text-green-400 font-medium">4 {t('admin.common.hours') || 'hours'}</span>
                   </div>
-                  <p className="text-xs text-muted-foreground">Maximum acceptable downtime</p>
+                  <p className="text-xs text-muted-foreground">{t('admin.backup.rtoDesc')}</p>
                 </div>
                 <div className="p-3 bg-background/50 rounded-lg">
                   <div className="flex justify-between mb-1">
-                    <span className="text-sm font-medium">Backup Frequency</span>
+                    <span className="text-sm font-medium">{t('admin.backup.backupFrequency')}</span>
                     <span className="text-green-400 font-medium">Daily</span>
                   </div>
-                  <p className="text-xs text-muted-foreground">Automated backups at 02:00 UTC</p>
+                  <p className="text-xs text-muted-foreground">{t('admin.backup.backupFrequencyDesc')}</p>
                 </div>
               </div>
             </div>
