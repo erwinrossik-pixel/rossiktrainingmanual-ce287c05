@@ -20,9 +20,18 @@ import {
 } from 'lucide-react';
 
 export function BackupRecovery() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const queryClient = useQueryClient();
   const [isBackupRunning, setIsBackupRunning] = useState(false);
+
+  const daysLabel = language === 'ro' ? 'zile' : language === 'de' ? 'Tage' : 'days';
+  const hoursLabel = language === 'ro' ? 'ore' : language === 'de' ? 'Stunden' : 'hours';
+  const dailyLabel = language === 'ro' ? 'Zilnic' : language === 'de' ? 'Täglich' : 'Daily';
+  const dailyAtLabel = language === 'ro'
+    ? 'Zilnic la 02:00 UTC'
+    : language === 'de'
+      ? 'Täglich um 02:00 UTC'
+      : 'Daily at 02:00 UTC';
 
   // Fetch backup status
   const { data: backupStatus, isLoading } = useQuery({
@@ -186,7 +195,7 @@ export function BackupRecovery() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">{t('admin.backup.nextScheduled')}</p>
-                <p className="text-sm font-medium">{backupStatus?.nextScheduled || 'Daily 02:00 UTC'}</p>
+                <p className="text-sm font-medium">{backupStatus?.nextScheduled || dailyAtLabel}</p>
               </div>
               <div className="w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center">
                 <Clock className="h-6 w-6 text-purple-400" />
@@ -228,7 +237,7 @@ export function BackupRecovery() {
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">{t('admin.backup.configSchedule')}</span>
-                  <span>Daily 02:00 UTC</span>
+                  <span>{dailyAtLabel}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">{t('admin.backup.configType')}</span>
@@ -236,7 +245,7 @@ export function BackupRecovery() {
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">{t('admin.backup.configRetention')}</span>
-                  <span>30 {t('admin.common.days') || 'days'}</span>
+                  <span>30 {daysLabel}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">{t('admin.backup.configTables')}</span>
@@ -384,21 +393,21 @@ export function BackupRecovery() {
                 <div className="p-3 bg-background/50 rounded-lg">
                   <div className="flex justify-between mb-1">
                     <span className="text-sm font-medium">{t('admin.backup.rpo')}</span>
-                    <span className="text-green-400 font-medium">24 {t('admin.common.hours') || 'hours'}</span>
+                    <span className="text-green-400 font-medium">24 {hoursLabel}</span>
                   </div>
                   <p className="text-xs text-muted-foreground">{t('admin.backup.rpoDesc')}</p>
                 </div>
                 <div className="p-3 bg-background/50 rounded-lg">
                   <div className="flex justify-between mb-1">
                     <span className="text-sm font-medium">{t('admin.backup.rto')}</span>
-                    <span className="text-green-400 font-medium">4 {t('admin.common.hours') || 'hours'}</span>
+                    <span className="text-green-400 font-medium">4 {hoursLabel}</span>
                   </div>
                   <p className="text-xs text-muted-foreground">{t('admin.backup.rtoDesc')}</p>
                 </div>
                 <div className="p-3 bg-background/50 rounded-lg">
                   <div className="flex justify-between mb-1">
                     <span className="text-sm font-medium">{t('admin.backup.backupFrequency')}</span>
-                    <span className="text-green-400 font-medium">Daily</span>
+                    <span className="text-green-400 font-medium">{dailyLabel}</span>
                   </div>
                   <p className="text-xs text-muted-foreground">{t('admin.backup.backupFrequencyDesc')}</p>
                 </div>
