@@ -2,13 +2,13 @@ import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useCompany } from '@/contexts/CompanyContext';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { Badge } from '@/components/ui/badge';
-import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { useToast } from '@/hooks/use-toast';
 import { CreditCard, Check, Edit, Users, BookOpen, Bot, BarChart3, Palette } from 'lucide-react';
 
@@ -29,7 +29,7 @@ interface SubscriptionPlan {
 
 export function SubscriptionPlansManager() {
   const { isSuperAdmin } = useCompany();
-  const { t, language } = useLanguage();
+  const { t } = useLanguage();
   const { toast } = useToast();
   const [plans, setPlans] = useState<SubscriptionPlan[]>([]);
   const [loading, setLoading] = useState(true);
@@ -78,7 +78,7 @@ export function SubscriptionPlansManager() {
         })
         .eq('id', editingPlan.id);
 
-      toast({ title: language === 'de' ? 'Plan aktualisiert' : language === 'en' ? 'Plan updated' : 'Plan actualizat' });
+      toast({ title: t('admin.plans.updated') });
       setEditingPlan(null);
       fetchPlans();
     } catch (error) {
@@ -90,8 +90,8 @@ export function SubscriptionPlansManager() {
     return (
       <Card>
         <CardHeader>
-          <CardTitle>{language === 'de' ? 'Zugang eingeschränkt' : language === 'en' ? 'Restricted access' : 'Acces restricționat'}</CardTitle>
-          <CardDescription>{language === 'de' ? 'Nur Super Admin kann Pläne verwalten.' : language === 'en' ? 'Only Super Admin can manage plans.' : 'Doar Super Admin poate gestiona planurile.'}</CardDescription>
+          <CardTitle>{t('admin.plans.restricted')}</CardTitle>
+          <CardDescription>{t('admin.plans.restrictedDesc')}</CardDescription>
         </CardHeader>
       </Card>
     );
@@ -124,9 +124,9 @@ export function SubscriptionPlansManager() {
           <div className="p-2 bg-white/20 rounded-lg">
             <CreditCard className="h-6 w-6" />
           </div>
-          {language === 'de' ? 'Abonnementpläne' : language === 'en' ? 'Subscription Plans' : 'Planuri de Abonament'}
+          {t('admin.plans.title')}
         </h2>
-        <p className="text-white/80 font-medium mt-1">{language === 'de' ? 'Konfigurieren Sie verfügbare Pläne für Unternehmen' : language === 'en' ? 'Configure available plans for companies' : 'Configurează planurile disponibile pentru companii'}</p>
+        <p className="text-white/80 font-medium mt-1">{t('admin.plans.subtitle')}</p>
       </div>
 
       {loading ? (
@@ -149,8 +149,8 @@ export function SubscriptionPlansManager() {
               <CardContent>
                 <div className="mb-5 p-4 bg-white/60 rounded-xl border shadow-inner">
                   <span className="text-4xl font-black text-slate-800">€{plan.price_monthly}</span>
-                  <span className="text-slate-600 font-medium">/lună</span>
-                  <p className="text-sm text-slate-500 mt-1 font-medium">sau €{plan.price_yearly}/an (-17%)</p>
+                  <span className="text-slate-600 font-medium">{t('admin.plans.perMonth')}</span>
+                  <p className="text-sm text-slate-500 mt-1 font-medium">€{plan.price_yearly}{t('admin.plans.perYear')} (-17%)</p>
                 </div>
 
                 <div className="space-y-3 text-sm">
@@ -158,19 +158,19 @@ export function SubscriptionPlansManager() {
                     <div className="p-1.5 bg-blue-500 rounded-md">
                       <Users className="h-4 w-4 text-white" />
                     </div>
-                    <span className="font-semibold text-slate-700">{plan.max_users ?? '∞'} {language === 'de' ? 'Benutzer' : language === 'en' ? 'users' : 'utilizatori'}</span>
+                    <span className="font-semibold text-slate-700">{plan.max_users ?? '∞'} {t('admin.plans.users')}</span>
                   </div>
                   <div className="flex items-center gap-3 p-2 bg-white/40 rounded-lg">
                     <div className="p-1.5 bg-purple-500 rounded-md">
                       <BookOpen className="h-4 w-4 text-white" />
                     </div>
-                    <span className="font-semibold text-slate-700">{plan.max_chapters ?? (language === 'de' ? 'Alle' : language === 'en' ? 'All' : 'Toate')} {language === 'de' ? 'Kapitel' : language === 'en' ? 'chapters' : 'capitole'}</span>
+                    <span className="font-semibold text-slate-700">{plan.max_chapters ?? t('admin.plans.all')} {t('admin.plans.chapters')}</span>
                   </div>
                   <div className={`flex items-center gap-3 p-2 rounded-lg ${plan.has_certificates ? 'bg-emerald-100/80' : 'bg-slate-100/80'}`}>
                     <div className={`p-1.5 rounded-md ${plan.has_certificates ? 'bg-emerald-500' : 'bg-slate-300'}`}>
                       <CreditCard className="h-4 w-4 text-white" />
                     </div>
-                    <span className={`font-semibold ${plan.has_certificates ? 'text-emerald-700' : 'text-slate-400'}`}>{language === 'de' ? 'Zertifikate' : language === 'en' ? 'Certificates' : 'Certificate'}</span>
+                    <span className={`font-semibold ${plan.has_certificates ? 'text-emerald-700' : 'text-slate-400'}`}>{t('admin.plans.certificates')}</span>
                     {plan.has_certificates && <Check className="h-4 w-4 text-emerald-600 ml-auto" />}
                   </div>
                   <div className={`flex items-center gap-3 p-2 rounded-lg ${plan.has_ai_tutor ? 'bg-emerald-100/80' : 'bg-slate-100/80'}`}>
@@ -191,7 +191,7 @@ export function SubscriptionPlansManager() {
                     <div className={`p-1.5 rounded-md ${plan.has_custom_branding ? 'bg-emerald-500' : 'bg-slate-300'}`}>
                       <Palette className="h-4 w-4 text-white" />
                     </div>
-                    <span className={`font-semibold ${plan.has_custom_branding ? 'text-emerald-700' : 'text-slate-400'}`}>{language === 'de' ? 'Benutzerdefiniertes Branding' : language === 'en' ? 'Custom Branding' : 'Branding Custom'}</span>
+                    <span className={`font-semibold ${plan.has_custom_branding ? 'text-emerald-700' : 'text-slate-400'}`}>{t('admin.plans.customBranding')}</span>
                     {plan.has_custom_branding && <Check className="h-4 w-4 text-emerald-600 ml-auto" />}
                   </div>
                 </div>
@@ -206,12 +206,12 @@ export function SubscriptionPlansManager() {
         <Dialog open onOpenChange={() => setEditingPlan(null)}>
           <DialogContent className="max-w-md">
             <DialogHeader>
-              <DialogTitle>{language === 'de' ? 'Plan bearbeiten' : language === 'en' ? 'Edit Plan' : 'Editează Plan'}: {editingPlan.name}</DialogTitle>
+              <DialogTitle>{t('admin.plans.editPlan')}: {editingPlan.name}</DialogTitle>
             </DialogHeader>
 
             <div className="space-y-4 py-4">
               <div className="space-y-2">
-                <Label>{language === 'de' ? 'Planname' : language === 'en' ? 'Plan Name' : 'Nume Plan'}</Label>
+                <Label>{t('admin.plans.planName')}</Label>
                 <Input
                   value={editingPlan.name}
                   onChange={(e) => setEditingPlan({ ...editingPlan, name: e.target.value })}
@@ -220,7 +220,7 @@ export function SubscriptionPlansManager() {
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label>{language === 'de' ? 'Monatspreis (€)' : language === 'en' ? 'Monthly Price (€)' : 'Preț Lunar (€)'}</Label>
+                  <Label>{t('admin.plans.monthlyPrice')}</Label>
                   <Input
                     type="number"
                     value={editingPlan.price_monthly}
@@ -228,7 +228,7 @@ export function SubscriptionPlansManager() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label>{language === 'de' ? 'Jahrespreis (€)' : language === 'en' ? 'Yearly Price (€)' : 'Preț Anual (€)'}</Label>
+                  <Label>{t('admin.plans.yearlyPrice')}</Label>
                   <Input
                     type="number"
                     value={editingPlan.price_yearly}
@@ -239,29 +239,29 @@ export function SubscriptionPlansManager() {
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label>{language === 'de' ? 'Max Benutzer (leer = unbegrenzt)' : language === 'en' ? 'Max Users (empty = unlimited)' : 'Max Utilizatori (gol = nelimitat)'}</Label>
+                  <Label>{t('admin.plans.maxUsers')}</Label>
                   <Input
                     type="number"
                     value={editingPlan.max_users ?? ''}
                     onChange={(e) => setEditingPlan({ ...editingPlan, max_users: e.target.value ? parseInt(e.target.value) : null })}
-                    placeholder={language === 'de' ? 'Unbegrenzt' : language === 'en' ? 'Unlimited' : 'Nelimitat'}
+                    placeholder={t('admin.plans.unlimited')}
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label>{language === 'de' ? 'Max Kapitel (leer = alle)' : language === 'en' ? 'Max Chapters (empty = all)' : 'Max Capitole (gol = toate)'}</Label>
+                  <Label>{t('admin.plans.maxChapters')}</Label>
                   <Input
                     type="number"
                     value={editingPlan.max_chapters ?? ''}
                     onChange={(e) => setEditingPlan({ ...editingPlan, max_chapters: e.target.value ? parseInt(e.target.value) : null })}
-                    placeholder={language === 'de' ? 'Alle' : language === 'en' ? 'All' : 'Toate'}
+                    placeholder={t('admin.plans.all')}
                   />
                 </div>
               </div>
 
               <div className="space-y-3">
-                <Label>{language === 'de' ? 'Funktionen' : language === 'en' ? 'Features' : 'Funcționalități'}</Label>
+                <Label>{t('admin.plans.features')}</Label>
                 <div className="flex items-center justify-between">
-                  <span>{language === 'de' ? 'Zertifikate' : language === 'en' ? 'Certificates' : 'Certificate'}</span>
+                  <span>{t('admin.plans.certificates')}</span>
                   <Switch
                     checked={editingPlan.has_certificates}
                     onCheckedChange={(checked) => setEditingPlan({ ...editingPlan, has_certificates: checked })}
@@ -282,7 +282,7 @@ export function SubscriptionPlansManager() {
                   />
                 </div>
                 <div className="flex items-center justify-between">
-                  <span>{language === 'de' ? 'Benutzerdefiniertes Branding' : language === 'en' ? 'Custom Branding' : 'Branding Custom'}</span>
+                  <span>{t('admin.plans.customBranding')}</span>
                   <Switch
                     checked={editingPlan.has_custom_branding}
                     onCheckedChange={(checked) => setEditingPlan({ ...editingPlan, has_custom_branding: checked })}
@@ -291,7 +291,7 @@ export function SubscriptionPlansManager() {
               </div>
 
               <div className="flex items-center justify-between pt-2 border-t">
-                <span className="font-medium">{language === 'de' ? 'Plan Aktiv' : language === 'en' ? 'Plan Active' : 'Plan Activ'}</span>
+                <span className="font-medium">{t('admin.plans.planActive')}</span>
                 <Switch
                   checked={editingPlan.is_active}
                   onCheckedChange={(checked) => setEditingPlan({ ...editingPlan, is_active: checked })}
@@ -300,7 +300,7 @@ export function SubscriptionPlansManager() {
             </div>
 
             <DialogFooter>
-              <Button variant="outline" onClick={() => setEditingPlan(null)}>{language === 'de' ? 'Abbrechen' : language === 'en' ? 'Cancel' : 'Anulează'}</Button>
+              <Button variant="outline" onClick={() => setEditingPlan(null)}>{t('admin.plans.cancel')}</Button>
               <Button onClick={savePlan}>{t('admin.general.save')}</Button>
             </DialogFooter>
           </DialogContent>
