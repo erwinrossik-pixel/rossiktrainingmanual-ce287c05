@@ -6,6 +6,7 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { 
   FileText, 
   Download, 
@@ -21,7 +22,7 @@ import { useCompany } from '@/contexts/CompanyContext';
 import { useAuth } from '@/hooks/useAuth';
 import { toast } from 'sonner';
 import { format, subMonths, startOfMonth, endOfMonth } from 'date-fns';
-import { ro } from 'date-fns/locale';
+import { ro, de, enUS } from 'date-fns/locale';
 import jsPDF from 'jspdf';
 
 interface ReportData {
@@ -37,6 +38,9 @@ interface ReportData {
 export const CompanyReportGenerator = memo(function CompanyReportGenerator() {
   const { company } = useCompany();
   const { user } = useAuth();
+  const { t, language } = useLanguage();
+  const dateLocale = language === 'ro' ? ro : language === 'de' ? de : enUS;
+  
   const [loading, setLoading] = useState(false);
   const [reportType, setReportType] = useState<'progress' | 'performance' | 'compliance'>('progress');
   const [startDate, setStartDate] = useState(format(startOfMonth(subMonths(new Date(), 1)), 'yyyy-MM-dd'));
@@ -170,10 +174,10 @@ export const CompanyReportGenerator = memo(function CompanyReportGenerator() {
         report_data: JSON.parse(JSON.stringify(data)),
       }]);
 
-      toast.success('Raport generat cu succes!');
+      toast.success(t('admin.reports.success'));
     } catch (error) {
       console.error('Error generating report:', error);
-      toast.error('Eroare la generarea raportului');
+      toast.error(t('admin.reports.error'));
     } finally {
       setLoading(false);
     }
@@ -182,6 +186,12 @@ export const CompanyReportGenerator = memo(function CompanyReportGenerator() {
   const handleExportPDF = async () => {
     if (!reportData || !company) return;
 
+    const reportTypeLabels = {
+      progress: t('admin.reports.progress'),
+      performance: t('admin.reports.performance'),
+      compliance: t('admin.reports.compliance'),
+    };
+
     try {
       const doc = new jsPDF();
       const pageWidth = doc.internal.pageSize.getWidth();
@@ -189,25 +199,25 @@ export const CompanyReportGenerator = memo(function CompanyReportGenerator() {
       // Header
       doc.setFontSize(20);
       doc.setTextColor(0, 0, 0);
-      doc.text(`Raport ${reportType === 'progress' ? 'Progres' : reportType === 'performance' ? 'Performanță' : 'Conformitate'}`, pageWidth / 2, 20, { align: 'center' });
+      doc.text(`${t('admin.tab.reports')} ${reportTypeLabels[reportType]}`, pageWidth / 2, 20, { align: 'center' });
       
       doc.setFontSize(12);
       doc.setTextColor(100, 100, 100);
       doc.text(company.name, pageWidth / 2, 28, { align: 'center' });
-      doc.text(`${format(new Date(startDate), 'd MMM yyyy', { locale: ro })} - ${format(new Date(endDate), 'd MMM yyyy', { locale: ro })}`, pageWidth / 2, 35, { align: 'center' });
+      doc.text(`${format(new Date(startDate), 'd MMM yyyy', { locale: dateLocale })} - ${format(new Date(endDate), 'd MMM yyyy', { locale: dateLocale })}`, pageWidth / 2, 35, { align: 'center' });
       
       // Summary stats
       doc.setFontSize(14);
       doc.setTextColor(0, 0, 0);
-      doc.text('Sumar', 20, 50);
+      doc.text(t('admin.reports.summary'), 20, 50);
       
       doc.setFontSize(11);
       const stats = [
-        `Utilizatori totali: ${reportData.totalUsers}`,
-        `Utilizatori activi: ${reportData.activeUsers}`,
-        `Capitole completate: ${reportData.completedChapters}`,
-        `Scor mediu: ${reportData.averageScore}%`,
-        `Certificate emise: ${reportData.certificatesIssued}`,
+        `${t('admin.reports.totalUsers')}: ${reportData.totalUsers}`,
+        `${t('admin.reports.activeUsers')}: ${reportData.activeUsers}`,
+        `${t('admin.reports.completedChapters')}: ${reportData.completedChapters}`,
+        `${t('admin.reports.avgScore')}: ${reportData.averageScore}%`,
+        `${t('admin.reports.certificatesIssued')}: ${reportData.certificatesIssued}`,
       ];
       
       stats.forEach((stat, i) => {
@@ -217,7 +227,7 @@ export const CompanyReportGenerator = memo(function CompanyReportGenerator() {
       // Top performers
       if (reportData.topPerformers.length > 0) {
         doc.setFontSize(14);
-        doc.text('Top Performeri', 20, 110);
+        doc.text(t('admin.reports.topPerformers'), 20, 110);
         
         doc.setFontSize(11);
         reportData.topPerformers.forEach((performer, i) => {
@@ -228,14 +238,14 @@ export const CompanyReportGenerator = memo(function CompanyReportGenerator() {
       // Footer
       doc.setFontSize(9);
       doc.setTextColor(150, 150, 150);
-      doc.text(`Generat la ${format(new Date(), 'd MMMM yyyy, HH:mm', { locale: ro })}`, pageWidth / 2, 280, { align: 'center' });
+      doc.text(`${t('admin.reports.generatedAt')} ${format(new Date(), 'd MMMM yyyy, HH:mm', { locale: dateLocale })}`, pageWidth / 2, 280, { align: 'center' });
       
       // Save
-      doc.save(`raport-${reportType}-${format(new Date(), 'yyyy-MM-dd')}.pdf`);
-      toast.success('PDF exportat cu succes!');
+      doc.save(`${t('admin.tab.reports').toLowerCase()}-${reportType}-${format(new Date(), 'yyyy-MM-dd')}.pdf`);
+      toast.success(t('admin.reports.pdfSuccess'));
     } catch (error) {
       console.error('Error exporting PDF:', error);
-      toast.error('Eroare la exportul PDF');
+      toast.error(t('admin.reports.pdfError'));
     }
   };
 
@@ -244,17 +254,17 @@ export const CompanyReportGenerator = memo(function CompanyReportGenerator() {
       <CardHeader>
         <div className="flex items-center gap-2">
           <FileBarChart className="h-5 w-5 text-primary" />
-          <CardTitle>Generator Rapoarte Companie</CardTitle>
+          <CardTitle>{t('admin.reports.title')}</CardTitle>
         </div>
         <CardDescription>
-          Generează rapoarte detaliate pentru performanța echipei
+          {t('admin.reports.subtitle')}
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
         {/* Report Configuration */}
         <div className="grid md:grid-cols-3 gap-4">
           <div className="space-y-2">
-            <Label>Tip raport</Label>
+            <Label>{t('admin.reports.reportType')}</Label>
             <Select value={reportType} onValueChange={(v) => setReportType(v as typeof reportType)}>
               <SelectTrigger>
                 <SelectValue />
@@ -263,26 +273,26 @@ export const CompanyReportGenerator = memo(function CompanyReportGenerator() {
                 <SelectItem value="progress">
                   <div className="flex items-center gap-2">
                     <TrendingUp className="h-4 w-4" />
-                    Progres
+                    {t('admin.reports.progress')}
                   </div>
                 </SelectItem>
                 <SelectItem value="performance">
                   <div className="flex items-center gap-2">
                     <Award className="h-4 w-4" />
-                    Performanță
+                    {t('admin.reports.performance')}
                   </div>
                 </SelectItem>
                 <SelectItem value="compliance">
                   <div className="flex items-center gap-2">
                     <FileText className="h-4 w-4" />
-                    Conformitate
+                    {t('admin.reports.compliance')}
                   </div>
                 </SelectItem>
               </SelectContent>
             </Select>
           </div>
           <div className="space-y-2">
-            <Label>Data început</Label>
+            <Label>{t('admin.reports.startDate')}</Label>
             <Input
               type="date"
               value={startDate}
@@ -290,7 +300,7 @@ export const CompanyReportGenerator = memo(function CompanyReportGenerator() {
             />
           </div>
           <div className="space-y-2">
-            <Label>Data sfârșit</Label>
+            <Label>{t('admin.reports.endDate')}</Label>
             <Input
               type="date"
               value={endDate}
@@ -303,12 +313,12 @@ export const CompanyReportGenerator = memo(function CompanyReportGenerator() {
           {loading ? (
             <>
               <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
-              Se generează...
+              {t('admin.reports.generating')}
             </>
           ) : (
             <>
               <FileText className="h-4 w-4 mr-2" />
-              Generează Raport
+              {t('admin.reports.generate')}
             </>
           )}
         </Button>
@@ -317,10 +327,10 @@ export const CompanyReportGenerator = memo(function CompanyReportGenerator() {
         {reportData && (
           <div className="space-y-6 pt-4 border-t">
             <div className="flex items-center justify-between">
-              <h3 className="font-semibold">Rezultate Raport</h3>
+              <h3 className="font-semibold">{t('admin.reports.results')}</h3>
               <Button variant="outline" size="sm" onClick={handleExportPDF}>
                 <Download className="h-4 w-4 mr-2" />
-                Export PDF
+                {t('admin.reports.exportPDF')}
               </Button>
             </div>
 
@@ -329,34 +339,34 @@ export const CompanyReportGenerator = memo(function CompanyReportGenerator() {
               <div className="bg-muted/50 rounded-lg p-3 text-center">
                 <Users className="h-4 w-4 mx-auto mb-1 text-blue-500" />
                 <p className="text-2xl font-bold">{reportData.totalUsers}</p>
-                <p className="text-xs text-muted-foreground">Utilizatori</p>
+                <p className="text-xs text-muted-foreground">{t('admin.reports.users')}</p>
               </div>
               <div className="bg-muted/50 rounded-lg p-3 text-center">
                 <TrendingUp className="h-4 w-4 mx-auto mb-1 text-green-500" />
                 <p className="text-2xl font-bold">{reportData.activeUsers}</p>
-                <p className="text-xs text-muted-foreground">Activi</p>
+                <p className="text-xs text-muted-foreground">{t('admin.reports.activeLabel')}</p>
               </div>
               <div className="bg-muted/50 rounded-lg p-3 text-center">
                 <FileText className="h-4 w-4 mx-auto mb-1 text-purple-500" />
                 <p className="text-2xl font-bold">{reportData.completedChapters}</p>
-                <p className="text-xs text-muted-foreground">Capitole</p>
+                <p className="text-xs text-muted-foreground">{t('admin.reports.chapters')}</p>
               </div>
               <div className="bg-muted/50 rounded-lg p-3 text-center">
                 <Award className="h-4 w-4 mx-auto mb-1 text-orange-500" />
                 <p className="text-2xl font-bold">{reportData.averageScore}%</p>
-                <p className="text-xs text-muted-foreground">Scor mediu</p>
+                <p className="text-xs text-muted-foreground">{t('admin.reports.avgScore')}</p>
               </div>
               <div className="bg-muted/50 rounded-lg p-3 text-center">
                 <Calendar className="h-4 w-4 mx-auto mb-1 text-primary" />
                 <p className="text-2xl font-bold">{reportData.certificatesIssued}</p>
-                <p className="text-xs text-muted-foreground">Certificate</p>
+                <p className="text-xs text-muted-foreground">{t('admin.reports.certificates')}</p>
               </div>
             </div>
 
             {/* Top Performers */}
             {reportData.topPerformers.length > 0 && (
               <div>
-                <h4 className="font-medium mb-3">Top Performeri</h4>
+                <h4 className="font-medium mb-3">{t('admin.reports.topPerformers')}</h4>
                 <div className="space-y-2">
                   {reportData.topPerformers.map((performer, i) => (
                     <div key={i} className="flex items-center justify-between bg-muted/30 rounded-lg p-3">
