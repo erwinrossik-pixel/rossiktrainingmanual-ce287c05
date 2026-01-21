@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { MapPin, Users, Globe, RefreshCw, Key } from 'lucide-react';
 import { subMinutes } from 'date-fns';
 import { toast } from 'sonner';
@@ -23,6 +24,7 @@ interface ActiveUser {
 }
 
 const ActiveUsersMap: React.FC = () => {
+  const { t } = useLanguage();
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<mapboxgl.Map | null>(null);
   const markersRef = useRef<mapboxgl.Marker[]>([]);
@@ -118,7 +120,7 @@ const ActiveUsersMap: React.FC = () => {
       setIsMapInitialized(true);
     } catch (error) {
       console.error('Error initializing map:', error);
-      toast.error('Eroare la inițializarea hărții. Verifică token-ul Mapbox.');
+      toast.error(t('admin.map.mapError'));
     }
 
     return () => {
@@ -173,7 +175,7 @@ const ActiveUsersMap: React.FC = () => {
     if (tokenInput.trim()) {
       localStorage.setItem('mapbox_token', tokenInput.trim());
       setMapboxToken(tokenInput.trim());
-      toast.success('Token Mapbox salvat!');
+      toast.success(t('admin.map.tokenSaved'));
     }
   };
 
@@ -190,14 +192,14 @@ const ActiveUsersMap: React.FC = () => {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Key className="h-5 w-5" />
-            Configurare Mapbox
+            {t('admin.map.configTitle')}
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <p className="text-sm text-muted-foreground">
-            Pentru a afișa harta cu utilizatorii activi, introdu token-ul tău public Mapbox.
+            {t('admin.map.configDesc')}
             <br />
-            Poți obține un token gratuit de la{' '}
+            {t('admin.map.getToken')}{' '}
             <a 
               href="https://mapbox.com/" 
               target="_blank" 
@@ -216,7 +218,7 @@ const ActiveUsersMap: React.FC = () => {
               className="flex-1"
             />
             <Button onClick={handleSaveToken}>
-              Salvează
+              {t('admin.map.save')}
             </Button>
           </div>
         </CardContent>
@@ -232,7 +234,7 @@ const ActiveUsersMap: React.FC = () => {
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-muted-foreground">Utilizatori pe Hartă</p>
+                <p className="text-sm text-muted-foreground">{t('admin.map.usersOnMap')}</p>
                 <p className="text-3xl font-bold text-green-600">{activeUsers.length}</p>
               </div>
               <div className="h-12 w-12 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
@@ -246,7 +248,7 @@ const ActiveUsersMap: React.FC = () => {
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-muted-foreground">Țări Active</p>
+                <p className="text-sm text-muted-foreground">{t('admin.map.activeCountries')}</p>
                 <p className="text-3xl font-bold text-blue-600">{Object.keys(usersByCountry).length}</p>
               </div>
               <div className="h-12 w-12 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
@@ -278,14 +280,14 @@ const ActiveUsersMap: React.FC = () => {
           <div className="flex items-center justify-between">
             <CardTitle className="flex items-center gap-2">
               <Users className="h-5 w-5 text-primary" />
-              Hartă Utilizatori Activi
+              {t('admin.map.mapTitle')}
               <Badge variant="outline" className="ml-2 animate-pulse bg-green-50 text-green-700 border-green-200">
                 LIVE
               </Badge>
             </CardTitle>
             <Button variant="outline" size="sm" onClick={fetchActiveUsers}>
               <RefreshCw className="h-4 w-4 mr-2" />
-              Refresh
+              {t('admin.map.refresh')}
             </Button>
           </div>
         </CardHeader>
@@ -296,9 +298,9 @@ const ActiveUsersMap: React.FC = () => {
               <div className="absolute inset-0 flex items-center justify-center bg-background/80 z-10">
                 <div className="text-center">
                   <MapPin className="h-12 w-12 mx-auto text-muted-foreground mb-2" />
-                  <p className="text-muted-foreground">Niciun utilizator activ cu locație</p>
+                  <p className="text-muted-foreground">{t('admin.map.noActiveUsers')}</p>
                   <p className="text-xs text-muted-foreground mt-1">
-                    Locațiile sunt colectate automat la vizitarea site-ului
+                    {t('admin.map.locationsCollected')}
                   </p>
                 </div>
               </div>

@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Skeleton } from '@/components/ui/skeleton';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { 
   Users, 
   Activity, 
@@ -19,7 +20,7 @@ import {
 } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { format, formatDistanceToNow, subMinutes } from 'date-fns';
-import { ro } from 'date-fns/locale';
+import { ro, de, enUS } from 'date-fns/locale';
 
 const ActiveUsersMap = lazy(() => import('./ActiveUsersMap'));
 
@@ -55,6 +56,9 @@ interface ActivityEvent {
 }
 
 const RealTimeActivityPanel: React.FC = () => {
+  const { t, language } = useLanguage();
+  const dateLocale = language === 'ro' ? ro : language === 'de' ? de : enUS;
+  
   const [activeSessions, setActiveSessions] = useState<UserSession[]>([]);
   const [recentPageViews, setRecentPageViews] = useState<PageView[]>([]);
   const [activityFeed, setActivityFeed] = useState<ActivityEvent[]>([]);
@@ -289,9 +293,9 @@ const RealTimeActivityPanel: React.FC = () => {
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-muted-foreground">Utilizatori Activi</p>
+                <p className="text-sm text-muted-foreground">{t('admin.realtime.activeUsers')}</p>
                 <p className="text-3xl font-bold text-green-600">{stats.activeUsers}</p>
-                <p className="text-xs text-muted-foreground">în ultimele 5 minute</p>
+                <p className="text-xs text-muted-foreground">{t('admin.realtime.inLast5Min')}</p>
               </div>
               <div className="h-12 w-12 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
                 <Users className="h-6 w-6 text-green-600" />
@@ -304,9 +308,9 @@ const RealTimeActivityPanel: React.FC = () => {
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-muted-foreground">Vizualizări Azi</p>
+                <p className="text-sm text-muted-foreground">{t('admin.realtime.viewsToday')}</p>
                 <p className="text-3xl font-bold text-blue-600">{stats.totalPageViews}</p>
-                <p className="text-xs text-muted-foreground">pagini vizitate</p>
+                <p className="text-xs text-muted-foreground">{t('admin.realtime.pagesVisited')}</p>
               </div>
               <div className="h-12 w-12 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
                 <Eye className="h-6 w-6 text-blue-600" />
@@ -319,9 +323,9 @@ const RealTimeActivityPanel: React.FC = () => {
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-muted-foreground">Durată Medie Sesiune</p>
+                <p className="text-sm text-muted-foreground">{t('admin.realtime.avgSessionDuration')}</p>
                 <p className="text-3xl font-bold text-purple-600">{stats.avgSessionDuration}m</p>
-                <p className="text-xs text-muted-foreground">minute pe sesiune</p>
+                <p className="text-xs text-muted-foreground">{t('admin.realtime.minutesPerSession')}</p>
               </div>
               <div className="h-12 w-12 rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center">
                 <Clock className="h-6 w-6 text-purple-600" />
@@ -334,9 +338,9 @@ const RealTimeActivityPanel: React.FC = () => {
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-muted-foreground">Oră de Vârf</p>
+                <p className="text-sm text-muted-foreground">{t('admin.realtime.peakHour')}</p>
                 <p className="text-3xl font-bold text-orange-600">{stats.peakHour}</p>
-                <p className="text-xs text-muted-foreground">cel mai activ moment</p>
+                <p className="text-xs text-muted-foreground">{t('admin.realtime.mostActiveTime')}</p>
               </div>
               <div className="h-12 w-12 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center">
                 <TrendingUp className="h-6 w-6 text-orange-600" />
@@ -352,7 +356,7 @@ const RealTimeActivityPanel: React.FC = () => {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Activity className="h-5 w-5 text-primary" />
-              Activitate în Timp Real
+              {t('admin.realtime.liveActivity')}
               <Badge variant="outline" className="ml-auto animate-pulse bg-green-50 text-green-700 border-green-200">
                 LIVE
               </Badge>
@@ -363,8 +367,8 @@ const RealTimeActivityPanel: React.FC = () => {
               {activityFeed.length === 0 ? (
                 <div className="flex flex-col items-center justify-center h-full text-muted-foreground">
                   <Activity className="h-12 w-12 mb-2 opacity-50" />
-                  <p>În așteptarea activității...</p>
-                  <p className="text-xs">Evenimentele vor apărea aici în timp real</p>
+                  <p>{t('admin.realtime.waitingForActivity')}</p>
+                  <p className="text-xs">{t('admin.realtime.eventsWillAppear')}</p>
                 </div>
               ) : (
                 <div className="space-y-3">
@@ -381,7 +385,7 @@ const RealTimeActivityPanel: React.FC = () => {
                         <p className="text-xs text-muted-foreground">
                           {formatDistanceToNow(new Date(event.timestamp), { 
                             addSuffix: true, 
-                            locale: ro 
+                            locale: dateLocale 
                           })}
                         </p>
                       </div>
@@ -398,7 +402,7 @@ const RealTimeActivityPanel: React.FC = () => {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Globe className="h-5 w-5 text-primary" />
-              Sesiuni Active
+              {t('admin.realtime.activeSessions')}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -406,7 +410,7 @@ const RealTimeActivityPanel: React.FC = () => {
               {activeSessions.length === 0 ? (
                 <div className="flex flex-col items-center justify-center h-full text-muted-foreground">
                   <Users className="h-12 w-12 mb-2 opacity-50" />
-                  <p>Nicio sesiune activă</p>
+                  <p>{t('admin.realtime.noActiveSessions')}</p>
                 </div>
               ) : (
                 <div className="space-y-3">
@@ -427,7 +431,7 @@ const RealTimeActivityPanel: React.FC = () => {
                       <div className="grid grid-cols-2 gap-2 text-xs text-muted-foreground">
                         <div className="flex items-center gap-1">
                           <Eye className="h-3 w-3" />
-                          {session.pages_visited || 0} pagini
+                          {session.pages_visited || 0} {t('admin.realtime.pages')}
                         </div>
                         <div className="flex items-center gap-1">
                           <Clock className="h-3 w-3" />
@@ -435,9 +439,9 @@ const RealTimeActivityPanel: React.FC = () => {
                         </div>
                       </div>
                       <p className="text-xs text-muted-foreground mt-2">
-                        Activ {formatDistanceToNow(new Date(session.last_activity_at), { 
+                        {t('admin.realtime.active')} {formatDistanceToNow(new Date(session.last_activity_at), { 
                           addSuffix: true, 
-                          locale: ro 
+                          locale: dateLocale 
                         })}
                       </p>
                     </div>
@@ -454,7 +458,7 @@ const RealTimeActivityPanel: React.FC = () => {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <TrendingUp className="h-5 w-5 text-primary" />
-            Pagini Populare (ultima oră)
+            {t('admin.realtime.popularPages')}
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -469,13 +473,13 @@ const RealTimeActivityPanel: React.FC = () => {
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-medium truncate">{page}</p>
-                  <p className="text-xs text-muted-foreground">{count} vizualizări</p>
+                  <p className="text-xs text-muted-foreground">{count} {t('admin.realtime.views')}</p>
                 </div>
               </div>
             ))}
             {popularPages.length === 0 && (
               <p className="text-muted-foreground col-span-5 text-center py-4">
-                Nicio activitate în ultima oră
+                {t('admin.realtime.noActivityLastHour')}
               </p>
             )}
           </div>
