@@ -46,7 +46,7 @@ interface GovernanceIncident {
 }
 
 export function ContentGovernorDashboard() {
-  const { language } = useLanguage();
+  const { t, language } = useLanguage();
   const [incidents, setIncidents] = useState<GovernanceIncident[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedIncident, setSelectedIncident] = useState<GovernanceIncident | null>(null);
@@ -78,7 +78,7 @@ export function ContentGovernorDashboard() {
       setIncidents((data as GovernanceIncident[]) || []);
     } catch (error) {
       console.error('Error fetching governance incidents:', error);
-      toast.error('Eroare la încărcarea incidentelor');
+      toast.error(t('admin.governor.errorLoad'));
     } finally {
       setLoading(false);
     }
@@ -99,14 +99,14 @@ export function ContentGovernorDashboard() {
 
       if (error) throw error;
 
-      toast.success('Incident rezolvat cu succes');
+      toast.success(t('admin.governor.incidentResolved'));
       setShowResolveDialog(false);
       setSelectedIncident(null);
       setResolutionNote('');
       fetchIncidents();
     } catch (error) {
       console.error('Error resolving incident:', error);
-      toast.error('Eroare la rezolvarea incidentului');
+      toast.error(t('admin.governor.errorResolve'));
     }
   };
 
@@ -118,23 +118,23 @@ export function ContentGovernorDashboard() {
         .eq('id', incident.id);
 
       if (error) throw error;
-      toast.success('Incident ignorat');
+      toast.success(t('admin.governor.incidentIgnored'));
       fetchIncidents();
     } catch (error) {
-      toast.error('Eroare la actualizarea incidentului');
+      toast.error(t('admin.governor.errorResolve'));
     }
   };
 
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'open':
-        return <Badge className="bg-red-500">Deschis</Badge>;
+        return <Badge className="bg-red-500">{t('admin.governor.statusOpen')}</Badge>;
       case 'reviewed':
-        return <Badge className="bg-yellow-500">În Revizuire</Badge>;
+        return <Badge className="bg-yellow-500">{t('admin.governor.statusReviewed')}</Badge>;
       case 'resolved':
-        return <Badge className="bg-green-500">Rezolvat</Badge>;
+        return <Badge className="bg-green-500">{t('admin.governor.statusResolved')}</Badge>;
       case 'ignored':
-        return <Badge variant="secondary">Ignorat</Badge>;
+        return <Badge variant="secondary">{t('admin.governor.statusIgnored')}</Badge>;
       default:
         return <Badge variant="outline">{status}</Badge>;
     }
@@ -148,26 +148,26 @@ export function ContentGovernorDashboard() {
   const getSeverityBadge = (severity: string) => {
     switch (severity) {
       case 'critical':
-        return <Badge variant="destructive">Critic</Badge>;
+        return <Badge variant="destructive">{t('admin.governor.severityCritical')}</Badge>;
       case 'high':
-        return <Badge className="bg-orange-500">Ridicat</Badge>;
+        return <Badge className="bg-orange-500">{t('admin.governor.severityHigh')}</Badge>;
       case 'medium':
-        return <Badge className="bg-yellow-500">Mediu</Badge>;
+        return <Badge className="bg-yellow-500">{t('admin.governor.severityMedium')}</Badge>;
       default:
-        return <Badge variant="secondary">Scăzut</Badge>;
+        return <Badge variant="secondary">{t('admin.governor.severityLow')}</Badge>;
     }
   };
 
   const getCategoryBadge = (category: string) => {
     switch (category) {
       case 'legal':
-        return <Badge className="bg-purple-500">Legal</Badge>;
+        return <Badge className="bg-purple-500">{t('admin.governor.categoryLegal')}</Badge>;
       case 'operational':
-        return <Badge className="bg-blue-500">Operațional</Badge>;
+        return <Badge className="bg-blue-500">{t('admin.governor.categoryOperational')}</Badge>;
       case 'technical':
-        return <Badge className="bg-cyan-500">Tehnic</Badge>;
+        return <Badge className="bg-cyan-500">{t('admin.governor.categoryTechnical')}</Badge>;
       case 'compliance':
-        return <Badge className="bg-green-500">Conformitate</Badge>;
+        return <Badge className="bg-green-500">{t('admin.governor.categoryCompliance')}</Badge>;
       default:
         return <Badge variant="outline">{category}</Badge>;
     }
@@ -185,7 +185,7 @@ export function ContentGovernorDashboard() {
               </div>
               <div>
                 <p className="text-2xl font-bold">{stats.lockedTerms}</p>
-                <p className="text-sm text-muted-foreground">Termeni Blocați</p>
+                <p className="text-sm text-muted-foreground">{t('admin.governor.lockedTerms')}</p>
               </div>
             </div>
           </CardContent>
@@ -199,7 +199,7 @@ export function ContentGovernorDashboard() {
               </div>
               <div>
                 <p className="text-2xl font-bold">{stats.lockedConcepts}</p>
-                <p className="text-sm text-muted-foreground">Concepte Protejate</p>
+                <p className="text-sm text-muted-foreground">{t('admin.governor.protectedConcepts')}</p>
               </div>
             </div>
           </CardContent>
@@ -213,7 +213,7 @@ export function ContentGovernorDashboard() {
               </div>
               <div>
                 <p className="text-2xl font-bold">{stats.activeRules}</p>
-                <p className="text-sm text-muted-foreground">Reguli Active</p>
+                <p className="text-sm text-muted-foreground">{t('admin.governor.activeRules')}</p>
               </div>
             </div>
           </CardContent>
@@ -227,7 +227,7 @@ export function ContentGovernorDashboard() {
               </div>
               <div>
                 <p className="text-2xl font-bold">{stats.criticalRules}</p>
-                <p className="text-sm text-muted-foreground">Reguli Critice</p>
+                <p className="text-sm text-muted-foreground">{t('admin.governor.criticalRules')}</p>
               </div>
             </div>
           </CardContent>
@@ -241,7 +241,7 @@ export function ContentGovernorDashboard() {
               </div>
               <div>
                 <p className="text-2xl font-bold">{openIncidents}</p>
-                <p className="text-sm text-muted-foreground">Incidente Deschise</p>
+                <p className="text-sm text-muted-foreground">{t('admin.governor.openIncidents')}</p>
               </div>
             </div>
           </CardContent>
@@ -255,7 +255,7 @@ export function ContentGovernorDashboard() {
               </div>
               <div>
                 <p className="text-2xl font-bold">{criticalIncidents}</p>
-                <p className="text-sm text-muted-foreground">Incidente Critice</p>
+                <p className="text-sm text-muted-foreground">{t('admin.governor.criticalIncidents')}</p>
               </div>
             </div>
           </CardContent>
@@ -267,23 +267,23 @@ export function ContentGovernorDashboard() {
         <TabsList className="grid grid-cols-5 w-full">
           <TabsTrigger value="terminology" className="flex items-center gap-2">
             <FileText className="h-4 w-4" />
-            <span className="hidden sm:inline">Terminologie</span>
+            <span className="hidden sm:inline">{t('admin.governor.tabTerminology')}</span>
           </TabsTrigger>
           <TabsTrigger value="concepts" className="flex items-center gap-2">
             <BookOpen className="h-4 w-4" />
-            <span className="hidden sm:inline">Concepte</span>
+            <span className="hidden sm:inline">{t('admin.governor.tabConcepts')}</span>
           </TabsTrigger>
           <TabsTrigger value="rules" className="flex items-center gap-2">
             <Shield className="h-4 w-4" />
-            <span className="hidden sm:inline">Reguli</span>
+            <span className="hidden sm:inline">{t('admin.governor.tabRules')}</span>
           </TabsTrigger>
           <TabsTrigger value="incidents" className="flex items-center gap-2">
             <AlertTriangle className="h-4 w-4" />
-            <span className="hidden sm:inline">Incidente</span>
+            <span className="hidden sm:inline">{t('admin.governor.tabIncidents')}</span>
           </TabsTrigger>
           <TabsTrigger value="test" className="flex items-center gap-2">
             <RefreshCw className="h-4 w-4" />
-            <span className="hidden sm:inline">Testare</span>
+            <span className="hidden sm:inline">{t('admin.governor.tabTest')}</span>
           </TabsTrigger>
         </TabsList>
 
@@ -293,10 +293,10 @@ export function ContentGovernorDashboard() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Lock className="h-5 w-5" />
-                Terminologie Oficială Blocată
+                {t('admin.governor.lockedTerminology')}
               </CardTitle>
               <CardDescription>
-                Acești termeni nu pot fi modificați automat de sistemul AI
+                {t('admin.governor.lockedTerminologyDesc')}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -304,11 +304,11 @@ export function ContentGovernorDashboard() {
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Termen</TableHead>
-                      <TableHead>Definiție ({language.toUpperCase()})</TableHead>
-                      <TableHead>Categorie</TableHead>
-                      <TableHead>Sursă</TableHead>
-                      <TableHead>Status</TableHead>
+                      <TableHead>{t('admin.governor.term')}</TableHead>
+                      <TableHead>{t('admin.governor.definition')} ({language.toUpperCase()})</TableHead>
+                      <TableHead>{t('admin.governor.category')}</TableHead>
+                      <TableHead>{t('admin.governor.source')}</TableHead>
+                      <TableHead>{t('admin.governor.status')}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -326,10 +326,10 @@ export function ContentGovernorDashboard() {
                           {term.isLocked ? (
                             <Badge className="bg-red-500/20 text-red-500 border-red-500/30">
                               <Lock className="h-3 w-3 mr-1" />
-                              Blocat
+                              {t('admin.governor.locked')}
                             </Badge>
                           ) : (
-                            <Badge variant="outline">Deblocat</Badge>
+                            <Badge variant="outline">{t('admin.governor.unlocked')}</Badge>
                           )}
                         </TableCell>
                       </TableRow>
@@ -347,10 +347,10 @@ export function ContentGovernorDashboard() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <BookOpen className="h-5 w-5" />
-                Concepte Protejate
+                {t('admin.governor.protectedConceptsTitle')}
               </CardTitle>
               <CardDescription>
-                Concepte critice care necesită aprobare pentru modificare
+                {t('admin.governor.protectedConceptsDesc')}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -376,7 +376,7 @@ export function ContentGovernorDashboard() {
                           <div className="text-right space-y-1">
                             <Badge className="bg-amber-500/20 text-amber-500 border-amber-500/30">
                               <Lock className="h-3 w-3 mr-1" />
-                              Protejat
+                              {t('admin.governor.protected')}
                             </Badge>
                             <p className="text-xs text-muted-foreground">{concept.lockReason}</p>
                           </div>
@@ -396,10 +396,10 @@ export function ContentGovernorDashboard() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Shield className="h-5 w-5" />
-                Reguli de Guvernanță
+                {t('admin.governor.governanceRules')}
               </CardTitle>
               <CardDescription>
-                Reguli pentru validarea și controlul conținutului
+                {t('admin.governor.governanceRulesDesc')}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -407,11 +407,11 @@ export function ContentGovernorDashboard() {
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Regulă</TableHead>
-                      <TableHead>Tip</TableHead>
-                      <TableHead>Descriere</TableHead>
-                      <TableHead>Severitate</TableHead>
-                      <TableHead>Auto-Respingere</TableHead>
+                      <TableHead>{t('admin.governor.rule')}</TableHead>
+                      <TableHead>{t('admin.governor.type')}</TableHead>
+                      <TableHead>{t('admin.governor.description')}</TableHead>
+                      <TableHead>{t('admin.governor.severity')}</TableHead>
+                      <TableHead>{t('admin.governor.autoReject')}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -429,12 +429,12 @@ export function ContentGovernorDashboard() {
                           {rule.autoReject ? (
                             <Badge className="bg-red-500">
                               <XCircle className="h-3 w-3 mr-1" />
-                              Da
+                              {t('admin.governor.yes')}
                             </Badge>
                           ) : (
                             <Badge variant="outline">
                               <AlertTriangle className="h-3 w-3 mr-1" />
-                              Avertizare
+                              {t('admin.governor.warning')}
                             </Badge>
                           )}
                         </TableCell>

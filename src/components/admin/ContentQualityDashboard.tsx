@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 import { format } from "date-fns";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface QualityIssue {
   type: string;
@@ -61,6 +62,7 @@ interface ChapterQualitySummary {
 
 export function ContentQualityDashboard() {
   const queryClient = useQueryClient();
+  const { t } = useLanguage();
   const [selectedChapter, setSelectedChapter] = useState<string | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [analyzingChapter, setAnalyzingChapter] = useState<string | null>(null);
@@ -163,12 +165,12 @@ export function ContentQualityDashboard() {
       return response.data;
     },
     onSuccess: (data) => {
-      toast.success(data.message || "Analiză completată cu succes!");
+      toast.success(data.message || t('admin.quality.analysisComplete'));
       queryClient.invalidateQueries({ queryKey: ["content-quality-summary"] });
       queryClient.invalidateQueries({ queryKey: ["content-quality-analysis"] });
     },
     onError: (error: Error) => {
-      toast.error(`Eroare la analiză: ${error.message}`);
+      toast.error(`${t('admin.quality.errorAnalysis')}: ${error.message}`);
     },
   });
 
@@ -191,7 +193,7 @@ export function ContentQualityDashboard() {
           await new Promise(resolve => setTimeout(resolve, 1000));
         }
       }
-      toast.success("Analiză completă pentru toate capitolele!");
+      toast.success(t('admin.quality.allComplete'));
     } catch (error) {
       console.error("Error analyzing all chapters:", error);
     } finally {
@@ -242,10 +244,10 @@ export function ContentQualityDashboard() {
         <div>
           <h2 className="text-2xl font-bold flex items-center gap-2">
             <FileSearch className="w-6 h-6 text-primary" />
-            Sistem de Asigurare a Calității
+            {t('admin.quality.title')}
           </h2>
           <p className="text-muted-foreground">
-            Analiză AI pentru consistență, terminologie și calitate conținut
+            {t('admin.quality.subtitle')}
           </p>
         </div>
         <div className="flex gap-2">
@@ -255,7 +257,7 @@ export function ContentQualityDashboard() {
             disabled={summaryLoading}
           >
             <RefreshCw className={`w-4 h-4 mr-2 ${summaryLoading ? "animate-spin" : ""}`} />
-            Reîmprospătare
+            {t('admin.quality.refresh')}
           </Button>
           <Button 
             onClick={handleAnalyzeAll}
@@ -264,12 +266,12 @@ export function ContentQualityDashboard() {
             {isAnalyzing ? (
               <>
                 <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
-                Analiză {analyzingChapter}...
+                {t('admin.quality.analyzing')} {analyzingChapter}...
               </>
             ) : (
               <>
                 <Target className="w-4 h-4 mr-2" />
-                Analizează Tot
+                {t('admin.quality.analyzeAll')}
               </>
             )}
           </Button>
@@ -282,13 +284,13 @@ export function ContentQualityDashboard() {
           <Card>
             <CardContent className="pt-4">
               <div className="text-2xl font-bold">{stats.totalChapters}</div>
-              <div className="text-sm text-muted-foreground">Total Capitole</div>
+              <div className="text-sm text-muted-foreground">{t('admin.quality.totalChapters')}</div>
             </CardContent>
           </Card>
           <Card>
             <CardContent className="pt-4">
               <div className="text-2xl font-bold">{stats.analyzedChapters}</div>
-              <div className="text-sm text-muted-foreground">Analizate</div>
+              <div className="text-sm text-muted-foreground">{t('admin.quality.analyzed')}</div>
             </CardContent>
           </Card>
           <Card>
@@ -297,19 +299,19 @@ export function ContentQualityDashboard() {
                 {stats.avgScore}
                 <TrendingUp className="w-4 h-4 text-success" />
               </div>
-              <div className="text-sm text-muted-foreground">Scor Mediu</div>
+              <div className="text-sm text-muted-foreground">{t('admin.quality.avgScore')}</div>
             </CardContent>
           </Card>
           <Card className={stats.belowThreshold > 0 ? "border-amber-500" : ""}>
             <CardContent className="pt-4">
               <div className="text-2xl font-bold text-amber-600">{stats.belowThreshold}</div>
-              <div className="text-sm text-muted-foreground">Sub 85 (necesită atenție)</div>
+              <div className="text-sm text-muted-foreground">{t('admin.quality.belowThreshold')}</div>
             </CardContent>
           </Card>
           <Card className="border-success">
             <CardContent className="pt-4">
               <div className="text-2xl font-bold text-success">{stats.excellent}</div>
-              <div className="text-sm text-muted-foreground">Excelente (≥90)</div>
+              <div className="text-sm text-muted-foreground">{t('admin.quality.excellent')}</div>
             </CardContent>
           </Card>
         </div>
@@ -320,15 +322,15 @@ export function ContentQualityDashboard() {
         <Card>
           <CardContent className="pt-4">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-sm font-medium">Progres Calitate Globală</span>
+              <span className="text-sm font-medium">{t('admin.quality.globalProgress')}</span>
               <span className="text-sm text-muted-foreground">{stats.avgScore}/100</span>
             </div>
             <Progress value={stats.avgScore} className="h-3" />
             <div className="flex justify-between mt-2 text-xs text-muted-foreground">
-              <span>0 - Slab</span>
-              <span className="text-amber-500">70 - Acceptabil</span>
-              <span className="text-blue-500">85 - Bun</span>
-              <span className="text-success">90+ - Excelent</span>
+              <span>0 - {t('admin.quality.poor')}</span>
+              <span className="text-amber-500">70 - {t('admin.quality.acceptable')}</span>
+              <span className="text-blue-500">85 - {t('admin.quality.good')}</span>
+              <span className="text-success">90+ - {t('admin.quality.excellent')}</span>
             </div>
           </CardContent>
         </Card>
@@ -339,10 +341,10 @@ export function ContentQualityDashboard() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Languages className="w-5 h-5" />
-            Scoruri pe Capitole și Limbi
+            {t('admin.quality.scoresTitle')}
           </CardTitle>
           <CardDescription>
-            Click pe un capitol pentru detalii complete ale analizei
+            {t('admin.quality.scoresDesc')}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -351,13 +353,13 @@ export function ContentQualityDashboard() {
               <TableHeader>
                 <TableRow>
                   <TableHead className="w-12">#</TableHead>
-                  <TableHead>Capitol</TableHead>
+                  <TableHead>{t('admin.quality.chapter')}</TableHead>
                   <TableHead className="text-center">🇷🇴 RO</TableHead>
                   <TableHead className="text-center">🇩🇪 DE</TableHead>
                   <TableHead className="text-center">🇬🇧 EN</TableHead>
-                  <TableHead className="text-center">Media</TableHead>
-                  <TableHead>Ultima Analiză</TableHead>
-                  <TableHead className="text-right">Acțiuni</TableHead>
+                  <TableHead className="text-center">{t('admin.quality.average')}</TableHead>
+                  <TableHead>{t('admin.quality.lastAnalysis')}</TableHead>
+                  <TableHead className="text-right">{t('admin.quality.analysisActions')}</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -382,7 +384,7 @@ export function ContentQualityDashboard() {
                           {format(new Date(chapter.last_analyzed), "dd.MM.yyyy HH:mm")}
                         </span>
                       ) : (
-                        <span className="text-xs text-muted-foreground">Neanalizat</span>
+                        <span className="text-xs text-muted-foreground">{t('admin.quality.notAnalyzed')}</span>
                       )}
                     </TableCell>
                     <TableCell className="text-right">
@@ -412,10 +414,10 @@ export function ContentQualityDashboard() {
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <FileSearch className="w-5 h-5" />
-              Analiză Detaliată: {selectedChapter}
+              {t('admin.quality.detailedAnalysis')}: {selectedChapter}
             </DialogTitle>
             <DialogDescription>
-              Probleme identificate și sugestii de corectare
+              {t('admin.quality.issuesFound')}
             </DialogDescription>
           </DialogHeader>
           
