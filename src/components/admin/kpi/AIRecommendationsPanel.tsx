@@ -6,6 +6,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
+import { useLanguage } from '@/contexts/LanguageContext';
 import {
   Brain,
   RefreshCw,
@@ -58,6 +59,7 @@ const typeIcons: Record<string, React.ReactNode> = {
 };
 
 export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
+  const { t } = useLanguage();
   const [recommendations, setRecommendations] = useState<AIRecommendation[]>([]);
   const [loading, setLoading] = useState(true);
   const [analyzing, setAnalyzing] = useState(false);
@@ -82,7 +84,7 @@ export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
       setRecommendations((data as AIRecommendation[]) || []);
     } catch (error) {
       console.error('Error fetching recommendations:', error);
-      toast.error('Eroare la încărcarea recomandărilor');
+      toast.error(t('admin.general.error'));
     } finally {
       setLoading(false);
     }
@@ -94,7 +96,7 @@ export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
 
   const runAnalysis = async () => {
     setAnalyzing(true);
-    toast.info('Se analizează KPI-urile cu AI...');
+    toast.info(t('admin.ai.analyzing'));
 
     try {
       const { data, error } = await supabase.functions.invoke('ai-kpi-analyzer', {
@@ -115,11 +117,11 @@ export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
       }
 
       setStats(data.stats);
-      toast.success(`Analiză completă! ${data.recommendations?.length || 0} recomandări generate.`);
+      toast.success(`${t('admin.ai.totalRecommendations')}: ${data.recommendations?.length || 0}`);
       await fetchRecommendations();
     } catch (error) {
       console.error('Error running analysis:', error);
-      toast.error('Eroare la rularea analizei AI');
+      toast.error(t('admin.general.error'));
     } finally {
       setAnalyzing(false);
     }
@@ -150,11 +152,11 @@ export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
 
       if (error) throw error;
 
-      toast.success(status === 'applied' ? 'Recomandare aplicată!' : 'Recomandare respinsă');
+      toast.success(status === 'applied' ? t('admin.ai.appliedLabel') : t('admin.ai.dismiss'));
       await fetchRecommendations();
     } catch (error) {
       console.error('Error updating recommendation:', error);
-      toast.error('Eroare la actualizarea recomandării');
+      toast.error(t('admin.general.error'));
     }
   };
 
@@ -168,10 +170,10 @@ export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
         <div>
           <h3 className="text-xl font-bold flex items-center gap-2">
             <Brain className="h-6 w-6 text-purple-500" />
-            AI Feedback Loop
+            {t('admin.ai.title')}
           </h3>
           <p className="text-muted-foreground text-sm">
-            Recomandări automate pentru îmbunătățirea conținutului
+            {t('admin.ai.subtitle')}
           </p>
         </div>
         <Button 
@@ -184,7 +186,7 @@ export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
           ) : (
             <Sparkles className="h-4 w-4 mr-2" />
           )}
-          {analyzing ? 'Se analizează...' : 'Rulează Analiză AI'}
+          {analyzing ? t('admin.ai.analyzing') : t('admin.ai.runAnalysis')}
         </Button>
       </div>
 
@@ -193,25 +195,25 @@ export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
           <Card className="bg-purple-500/5 border-purple-500/20">
             <CardContent className="pt-4">
-              <p className="text-sm text-muted-foreground">Capitole Analizate</p>
+              <p className="text-sm text-muted-foreground">{t('admin.ai.chaptersAnalyzed')}</p>
               <p className="text-2xl font-bold">{stats.totalChapters}</p>
             </CardContent>
           </Card>
           <Card className="bg-orange-500/5 border-orange-500/20">
             <CardContent className="pt-4">
-              <p className="text-sm text-muted-foreground">Problematice</p>
+              <p className="text-sm text-muted-foreground">{t('admin.ai.problematic')}</p>
               <p className="text-2xl font-bold text-orange-600">{stats.problematicCount}</p>
             </CardContent>
           </Card>
           <Card className="bg-green-500/5 border-green-500/20">
             <CardContent className="pt-4">
-              <p className="text-sm text-muted-foreground">Prea Ușoare</p>
+              <p className="text-sm text-muted-foreground">{t('admin.ai.tooEasy')}</p>
               <p className="text-2xl font-bold text-green-600">{stats.tooEasyCount}</p>
             </CardContent>
           </Card>
           <Card className="bg-blue-500/5 border-blue-500/20">
             <CardContent className="pt-4">
-              <p className="text-sm text-muted-foreground">Ultima Analiză</p>
+              <p className="text-sm text-muted-foreground">{t('admin.ai.lastAnalysis')}</p>
               <p className="text-sm font-medium">
                 {new Date(stats.analyzedAt).toLocaleString('ro-RO')}
               </p>
@@ -219,23 +221,22 @@ export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
           </Card>
           <Card className="bg-primary/5 border-primary/20">
             <CardContent className="pt-4">
-              <p className="text-sm text-muted-foreground">Cron Job</p>
+              <p className="text-sm text-muted-foreground">{t('admin.ai.cronJob')}</p>
               <div className="flex items-center gap-1">
                 <Clock className="h-4 w-4 text-green-500" />
-                <p className="text-sm font-medium text-green-600">Zilnic 09:00</p>
+                <p className="text-sm font-medium text-green-600">{t('admin.ai.daily')} 09:00</p>
               </div>
             </CardContent>
           </Card>
         </div>
       )}
 
-      {/* Summary Stats */}
       <div className="grid grid-cols-3 gap-4">
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-sm flex items-center gap-2">
               <Clock className="h-4 w-4 text-yellow-500" />
-              În Așteptare
+              {t('admin.ai.pending')}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -246,7 +247,7 @@ export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
           <CardHeader className="pb-2">
             <CardTitle className="text-sm flex items-center gap-2">
               <CheckCircle2 className="h-4 w-4 text-green-500" />
-              Aplicate
+              {t('admin.ai.applied')}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -257,7 +258,7 @@ export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
           <CardHeader className="pb-2">
             <CardTitle className="text-sm flex items-center gap-2">
               <TrendingUp className="h-4 w-4 text-primary" />
-              Total Recomandări
+              {t('admin.ai.totalRecommendations')}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -269,19 +270,19 @@ export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
       {/* Filter Tabs */}
       <Tabs value={filter} onValueChange={(v) => setFilter(v as typeof filter)}>
         <TabsList>
-          <TabsTrigger value="all">Toate</TabsTrigger>
-          <TabsTrigger value="pending">În Așteptare</TabsTrigger>
-          <TabsTrigger value="applied">Aplicate</TabsTrigger>
-          <TabsTrigger value="dismissed">Respinse</TabsTrigger>
+          <TabsTrigger value="all">{t('admin.ai.allRec')}</TabsTrigger>
+          <TabsTrigger value="pending">{t('admin.ai.pendingRec')}</TabsTrigger>
+          <TabsTrigger value="applied">{t('admin.ai.appliedRec')}</TabsTrigger>
+          <TabsTrigger value="dismissed">{t('admin.ai.dismissedRec')}</TabsTrigger>
         </TabsList>
       </Tabs>
 
       {/* Recommendations List */}
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg">Recomandări</CardTitle>
+          <CardTitle className="text-lg">{t('admin.ai.recommendations')}</CardTitle>
           <CardDescription>
-            Click pe o recomandare pentru a o aplica sau respinge
+            {t('admin.ai.clickToApply')}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -294,8 +295,8 @@ export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
               <Lightbulb className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
               <p className="text-muted-foreground">
                 {filter === 'pending' 
-                  ? 'Nu există recomandări în așteptare. Rulează analiza AI pentru a genera recomandări.'
-                  : 'Nu există recomandări în această categorie.'}
+                  ? t('admin.ai.noPending')
+                  : t('admin.ai.noInCategory')}
               </p>
             </div>
           ) : (
@@ -323,7 +324,7 @@ export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
                             {rec.severity}
                           </Badge>
                           <Badge variant="outline">
-                            {Math.round(rec.ai_confidence * 100)}% confidence
+                            {Math.round(rec.ai_confidence * 100)}% {t('admin.ai.confidence')}
                           </Badge>
                         </div>
                         
@@ -333,21 +334,20 @@ export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
                         
                         {rec.suggested_action && (
                           <div className="p-2 bg-primary/5 rounded text-sm mb-2">
-                            <strong>Acțiune sugerată:</strong> {rec.suggested_action}
+                            <strong>{t('admin.ai.suggestedAction')}</strong> {rec.suggested_action}
                           </div>
                         )}
                         
                         <div className="flex items-center gap-4 text-xs text-muted-foreground">
-                          <span>Target: {rec.target_entity}</span>
+                          <span>{t('admin.ai.target')}: {rec.target_entity}</span>
                           <span>
                             {new Date(rec.created_at).toLocaleDateString('ro-RO')}
                           </span>
                         </div>
 
-                        {rec.dismissed_reason && (
                           <p className="text-sm text-orange-600 mt-2">
                             <AlertTriangle className="h-3 w-3 inline mr-1" />
-                            Motiv respingere: {rec.dismissed_reason}
+                            {t('admin.ai.dismissReason')} {rec.dismissed_reason}
                           </p>
                         )}
                       </div>
@@ -360,20 +360,20 @@ export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
                             className="bg-green-500 hover:bg-green-600"
                           >
                             <CheckCircle2 className="h-4 w-4 mr-1" />
-                            Aplică
+                            {t('admin.ai.apply')}
                           </Button>
                           <Button 
                             size="sm" 
                             variant="outline"
                             onClick={() => {
-                              const reason = prompt('Motiv pentru respingere:');
+                              const reason = prompt(t('admin.ai.dismissReason'));
                               if (reason) {
                                 updateRecommendationStatus(rec.id, 'dismissed', reason);
                               }
                             }}
                           >
                             <XCircle className="h-4 w-4 mr-1" />
-                            Respinge
+                            {t('admin.ai.dismiss')}
                           </Button>
                         </div>
                       )}
@@ -381,7 +381,7 @@ export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
                       {rec.status === 'applied' && (
                         <Badge className="bg-green-500 shrink-0">
                           <CheckCircle2 className="h-3 w-3 mr-1" />
-                          Aplicată
+                          {t('admin.ai.appliedLabel')}
                         </Badge>
                       )}
                     </div>
