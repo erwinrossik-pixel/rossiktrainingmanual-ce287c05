@@ -765,32 +765,32 @@ export default function AdminDashboard() {
             ═══════════════════════════════════════════════════════════════════ */}
             <div className="w-full flex items-center gap-2 py-1 px-2 mb-1 mt-2">
               <Badge variant="outline" className="bg-gray-100 text-gray-800 border-gray-300 text-xs font-bold">
-                ⚙️ SISTEM
+                {t('admin.category.system')}
               </Badge>
               <div className="flex-1 h-px bg-gray-200"></div>
             </div>
             <TabsTrigger value="cron-jobs" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-gray-700 data-[state=active]:border-b-2 data-[state=active]:border-gray-500">
               <Calendar className="h-4 w-4" />
-              Cron Jobs
+              {t('admin.tab.cronJobs')}
             </TabsTrigger>
             
             {isSuperAdmin && (
               <>
                 <TabsTrigger value="monitoring" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-emerald-700 data-[state=active]:border-b-2 data-[state=active]:border-emerald-500">
                   <Server className="h-4 w-4" />
-                  Monitorizare
+                  {t('admin.tab.monitoring')}
                 </TabsTrigger>
                 <TabsTrigger value="backup" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-sky-700 data-[state=active]:border-b-2 data-[state=active]:border-sky-500">
                   <Database className="h-4 w-4" />
-                  Backup
+                  {t('admin.tab.backup')}
                 </TabsTrigger>
                 <TabsTrigger value="incidents" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-orange-700 data-[state=active]:border-b-2 data-[state=active]:border-orange-500">
                   <AlertTriangle className="h-4 w-4" />
-                  Incidente
+                  {t('admin.tab.incidents')}
                 </TabsTrigger>
                 <TabsTrigger value="production" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-green-700 data-[state=active]:border-b-2 data-[state=active]:border-green-500">
                   <CheckCircle className="h-4 w-4" />
-                  Production
+                  {t('admin.tab.production')}
                 </TabsTrigger>
               </>
             )}
