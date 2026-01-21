@@ -239,11 +239,11 @@ export default function AdminDashboard() {
 
     if (error) {
       console.error('Error resetting score:', error);
-      toast.error('Eroare la resetarea scorului');
+      toast.error(t('admin.profiles.errorResetScore'));
       return;
     }
 
-    toast.success(`Scorul pentru ${chapterId} a fost resetat`);
+    toast.success(t('admin.profiles.scoreReset').replace('{chapter}', chapterId));
     
     // Refresh user progress
     if (selectedUser) {
@@ -272,7 +272,7 @@ export default function AdminDashboard() {
 
     if (error) {
       console.error('Error resetting all scores:', error);
-      toast.error('Eroare la resetarea scorurilor');
+      toast.error(t('admin.profiles.errorResetAll'));
       return;
     }
 
@@ -283,7 +283,7 @@ export default function AdminDashboard() {
       .eq('user_id', userId)
       .eq('chapter_id', 'intro');
 
-    toast.success('Toate scorurile au fost resetate');
+    toast.success(t('admin.profiles.allScoresReset'));
     
     // Refresh user progress
     if (selectedUser) {
@@ -318,7 +318,7 @@ export default function AdminDashboard() {
 
       if (error) {
         console.error('Error unlocking chapter:', error);
-        toast.error('Eroare la deblocarea capitolului');
+        toast.error(t('admin.profiles.errorUnlock'));
         return;
       }
     } else {
@@ -335,12 +335,12 @@ export default function AdminDashboard() {
 
       if (error) {
         console.error('Error unlocking chapter:', error);
-        toast.error('Eroare la deblocarea capitolului');
+        toast.error(t('admin.profiles.errorUnlock'));
         return;
       }
     }
 
-    toast.success(`Capitolul ${chapterId} a fost deblocat`);
+    toast.success(t('admin.profiles.chapterUnlocked').replace('{chapter}', chapterId));
     
     // Refresh user progress
     if (selectedUser) {
@@ -361,11 +361,11 @@ export default function AdminDashboard() {
 
     if (error) {
       console.error('Error resetting training time:', error);
-      toast.error('Eroare la resetarea timpului de training');
+      toast.error(t('admin.profiles.errorTrainingTime'));
       return;
     }
 
-    toast.success('Timpul de training a fost resetat cu succes');
+    toast.success(t('admin.profiles.trainingTimeReset'));
   };
 
   const exportToCSV = () => {
@@ -395,13 +395,13 @@ export default function AdminDashboard() {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'completed':
-        return <Badge className="bg-green-500">Completat</Badge>;
+        return <Badge className="bg-green-500">{t('admin.status.completed')}</Badge>;
       case 'in_progress':
-        return <Badge className="bg-yellow-500">În Progres</Badge>;
+        return <Badge className="bg-yellow-500">{t('admin.status.inProgress')}</Badge>;
       case 'unlocked':
-        return <Badge className="bg-blue-500">Deblocat</Badge>;
+        return <Badge className="bg-blue-500">{t('admin.status.unlocked')}</Badge>;
       default:
-        return <Badge variant="secondary">Blocat</Badge>;
+        return <Badge variant="secondary">{t('admin.status.locked')}</Badge>;
     }
   };
 
@@ -831,21 +831,21 @@ export default function AdminDashboard() {
               <CardHeader className="bg-gradient-to-r from-blue-50 to-indigo-50 border-b">
                 <CardTitle className="text-2xl font-bold flex items-center gap-2">
                   <Users className="h-6 w-6 text-blue-600" />
-                  Progres Utilizatori
+                  {t('admin.profiles.title')}
                 </CardTitle>
-                <CardDescription className="text-base">Lista tuturor utilizatorilor și progresul lor în training</CardDescription>
+                <CardDescription className="text-base">{t('admin.profiles.subtitle')}</CardDescription>
               </CardHeader>
               <CardContent className="p-0">
                 <Table>
                   <TableHeader>
                     <TableRow className="bg-slate-100 hover:bg-slate-100">
-                      <TableHead className="font-bold text-slate-800 text-base py-4">Nume</TableHead>
-                      <TableHead className="font-bold text-slate-800 text-base">Email</TableHead>
-                      <TableHead className="font-bold text-slate-800 text-base">Rol</TableHead>
-                      <TableHead className="font-bold text-slate-800 text-base">Progres Capitole</TableHead>
-                      <TableHead className="font-bold text-slate-800 text-base">Scor Mediu</TableHead>
-                      <TableHead className="font-bold text-slate-800 text-base">Ultima Activitate</TableHead>
-                      <TableHead className="font-bold text-slate-800 text-base">Acțiuni</TableHead>
+                      <TableHead className="font-bold text-slate-800 text-base py-4">{t('admin.table.name')}</TableHead>
+                      <TableHead className="font-bold text-slate-800 text-base">{t('admin.table.email')}</TableHead>
+                      <TableHead className="font-bold text-slate-800 text-base">{t('admin.table.role')}</TableHead>
+                      <TableHead className="font-bold text-slate-800 text-base">{t('admin.table.chapterProgress')}</TableHead>
+                      <TableHead className="font-bold text-slate-800 text-base">{t('admin.table.avgScore')}</TableHead>
+                      <TableHead className="font-bold text-slate-800 text-base">{t('admin.table.lastActivity')}</TableHead>
+                      <TableHead className="font-bold text-slate-800 text-base">{t('admin.table.actions')}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -877,7 +877,7 @@ export default function AdminDashboard() {
                                 ? 'bg-red-600 text-white font-bold px-3 py-1 text-sm shadow-md' 
                                 : 'bg-blue-600 text-white font-bold px-3 py-1 text-sm shadow-md'}
                             >
-                              {userItem.role === 'admin' ? 'Admin' : 'Utilizator'}
+                              {userItem.role === 'admin' ? t('admin.profiles.roleAdmin') : t('admin.profiles.roleUser')}
                             </Badge>
                           </TableCell>
                           <TableCell>
@@ -915,7 +915,7 @@ export default function AdminDashboard() {
                               className="bg-blue-600 text-white hover:bg-blue-700 border-blue-600 font-semibold shadow-md"
                             >
                               <Eye className="h-4 w-4 mr-1" />
-                              Detalii
+                              {t('admin.table.details')}
                             </Button>
                           </TableCell>
                         </TableRow>
@@ -1029,7 +1029,7 @@ export default function AdminDashboard() {
         <DialogContent className="max-w-4xl max-h-[80vh]">
           <DialogHeader>
             <DialogTitle>
-              Detalii Utilizator: {selectedUser?.first_name} {selectedUser?.last_name}
+              {t('admin.profiles.userDetails')}: {selectedUser?.first_name} {selectedUser?.last_name}
             </DialogTitle>
             <DialogDescription>{selectedUser?.email}</DialogDescription>
           </DialogHeader>
@@ -1039,7 +1039,7 @@ export default function AdminDashboard() {
               {/* Chapter Progress */}
               <div>
                 <div className="flex items-center justify-between mb-3 flex-wrap gap-2">
-                  <h3 className="text-lg font-semibold">Progres pe Capitole</h3>
+                  <h3 className="text-lg font-semibold">{t('admin.profiles.chapterProgress')}</h3>
                   <div className="flex gap-2">
                     <Button 
                       variant="outline" 
@@ -1048,7 +1048,7 @@ export default function AdminDashboard() {
                       className="text-amber-600 hover:text-amber-800 border-amber-300"
                     >
                       <TimerReset className="h-4 w-4 mr-2" />
-                      Reset Timer
+                      {t('admin.profiles.resetTimer')}
                     </Button>
                     <Button 
                       variant="destructive" 
@@ -1056,19 +1056,19 @@ export default function AdminDashboard() {
                       onClick={() => selectedUser && resetAllScores(selectedUser.id)}
                     >
                       <RotateCcw className="h-4 w-4 mr-2" />
-                      Resetează Tot
+                      {t('admin.profiles.resetAll')}
                     </Button>
                   </div>
                 </div>
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Capitol</TableHead>
-                      <TableHead>Status</TableHead>
-                      <TableHead>Cel Mai Bun Scor</TableHead>
-                      <TableHead>Încercări</TableHead>
-                      <TableHead>Completat La</TableHead>
-                      <TableHead>Acțiuni</TableHead>
+                      <TableHead>{t('admin.table.chapter')}</TableHead>
+                      <TableHead>{t('admin.table.status')}</TableHead>
+                      <TableHead>{t('admin.table.bestScore')}</TableHead>
+                      <TableHead>{t('admin.table.attempts')}</TableHead>
+                      <TableHead>{t('admin.table.completedAt')}</TableHead>
+                      <TableHead>{t('admin.table.actions')}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -1090,7 +1090,7 @@ export default function AdminDashboard() {
                                 variant="ghost" 
                                 size="sm"
                                 onClick={() => selectedUser && unlockChapter(progress.chapter_id, selectedUser.id)}
-                                title="Deblochează capitol"
+                                title={t('admin.profiles.unlockChapter')}
                                 className="text-blue-600 hover:text-blue-800"
                               >
                                 <Unlock className="h-4 w-4" />
@@ -1100,7 +1100,7 @@ export default function AdminDashboard() {
                               variant="ghost" 
                               size="sm"
                               onClick={() => selectedUser && resetBestScore(progress.chapter_id, selectedUser.id)}
-                              title="Resetează scorul"
+                              title={t('admin.profiles.resetScore')}
                               className="text-destructive hover:text-destructive"
                             >
                               <RotateCcw className="h-4 w-4" />
@@ -1115,15 +1115,15 @@ export default function AdminDashboard() {
 
               {/* Quiz Attempts */}
               <div>
-                <h3 className="text-lg font-semibold mb-3">Istoric Încercări Quiz (ultimele 50)</h3>
+                <h3 className="text-lg font-semibold mb-3">{t('admin.profiles.quizHistory')}</h3>
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Capitol</TableHead>
-                      <TableHead>Scor</TableHead>
-                      <TableHead>Trecut</TableHead>
-                      <TableHead>Limbă</TableHead>
-                      <TableHead>Data</TableHead>
+                      <TableHead>{t('admin.table.chapter')}</TableHead>
+                      <TableHead>{t('admin.table.score')}</TableHead>
+                      <TableHead>{t('admin.table.passed')}</TableHead>
+                      <TableHead>{t('admin.table.language')}</TableHead>
+                      <TableHead>{t('admin.table.date')}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -1133,8 +1133,8 @@ export default function AdminDashboard() {
                         <TableCell>{attempt.score}/{attempt.total_questions}</TableCell>
                         <TableCell>
                           {attempt.passed 
-                            ? <Badge className="bg-green-500">Da</Badge>
-                            : <Badge variant="destructive">Nu</Badge>}
+                            ? <Badge className="bg-green-500">{t('admin.table.yes')}</Badge>
+                            : <Badge variant="destructive">{t('admin.table.no')}</Badge>}
                         </TableCell>
                         <TableCell>{attempt.language.toUpperCase()}</TableCell>
                         <TableCell>
