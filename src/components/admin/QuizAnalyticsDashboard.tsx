@@ -19,6 +19,7 @@ import {
 import { supabase } from '@/integrations/supabase/client';
 import { format } from 'date-fns';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell, PieChart, Pie, Legend } from 'recharts';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface ChapterStat {
   chapterId: string;
@@ -44,6 +45,7 @@ interface UserStat {
 }
 
 export function QuizAnalyticsDashboard() {
+  const { t } = useLanguage();
   const [loading, setLoading] = useState(true);
   const [chapterStats, setChapterStats] = useState<ChapterStat[]>([]);
   const [failedQuestions, setFailedQuestions] = useState<FailedQuestion[]>([]);
@@ -196,8 +198,8 @@ export function QuizAnalyticsDashboard() {
   }
 
   const refreshDistribution = [
-    { name: 'Finalizate', value: totals.totalCompletions, color: '#22c55e' },
-    { name: 'Refresh/Abandon', value: totals.totalRefreshes, color: '#ef4444' },
+    { name: t('admin.quiz.completed'), value: totals.totalCompletions, color: '#22c55e' },
+    { name: t('admin.quiz.abandoned'), value: totals.totalRefreshes, color: '#ef4444' },
   ];
 
   return (
@@ -207,10 +209,10 @@ export function QuizAnalyticsDashboard() {
         <Card>
           <CardContent className="pt-6">
             <div className="flex items-center gap-2">
-              <Clock className="w-5 h-5 text-blue-500" />
+              <Clock className="w-5 h-5 text-primary" />
               <div>
                 <p className="text-2xl font-bold">{totals.totalStarts}</p>
-                <p className="text-xs text-muted-foreground">Începeri Quiz</p>
+                <p className="text-xs text-muted-foreground">{t('admin.quiz.starts')}</p>
               </div>
             </div>
           </CardContent>
@@ -219,10 +221,10 @@ export function QuizAnalyticsDashboard() {
         <Card>
           <CardContent className="pt-6">
             <div className="flex items-center gap-2">
-              <CheckCircle className="w-5 h-5 text-green-500" />
+              <CheckCircle className="w-5 h-5 text-emerald-500" />
               <div>
                 <p className="text-2xl font-bold">{totals.totalCompletions}</p>
-                <p className="text-xs text-muted-foreground">Finalizări</p>
+                <p className="text-xs text-muted-foreground">{t('admin.quiz.completions')}</p>
               </div>
             </div>
           </CardContent>
@@ -234,7 +236,7 @@ export function QuizAnalyticsDashboard() {
               <RefreshCw className="w-5 h-5 text-amber-500" />
               <div>
                 <p className="text-2xl font-bold">{totals.totalRefreshes}</p>
-                <p className="text-xs text-muted-foreground">Refresh-uri</p>
+                <p className="text-xs text-muted-foreground">{t('admin.quiz.refreshes')}</p>
               </div>
             </div>
           </CardContent>
@@ -243,10 +245,10 @@ export function QuizAnalyticsDashboard() {
         <Card>
           <CardContent className="pt-6">
             <div className="flex items-center gap-2">
-              <TrendingDown className="w-5 h-5 text-red-500" />
+              <TrendingDown className="w-5 h-5 text-destructive" />
               <div>
                 <p className="text-2xl font-bold">{totals.avgRefreshRate.toFixed(1)}%</p>
-                <p className="text-xs text-muted-foreground">Rată Abandon</p>
+                <p className="text-xs text-muted-foreground">{t('admin.quiz.abandonRate')}</p>
               </div>
             </div>
           </CardContent>
@@ -258,7 +260,7 @@ export function QuizAnalyticsDashboard() {
               <XCircle className="w-5 h-5 text-destructive" />
               <div>
                 <p className="text-2xl font-bold">{totals.totalWrongAnswers}</p>
-                <p className="text-xs text-muted-foreground">Răspunsuri Greșite</p>
+                <p className="text-xs text-muted-foreground">{t('admin.quiz.wrongAnswers')}</p>
               </div>
             </div>
           </CardContent>
@@ -268,18 +270,18 @@ export function QuizAnalyticsDashboard() {
       <Tabs defaultValue="chapters" className="space-y-4">
         <div className="flex items-center justify-between">
           <TabsList>
-            <TabsTrigger value="chapters">Per Capitol</TabsTrigger>
-            <TabsTrigger value="questions">Întrebări Greșite</TabsTrigger>
-            <TabsTrigger value="users">Per Utilizator</TabsTrigger>
+            <TabsTrigger value="chapters">{t('admin.quiz.perChapter')}</TabsTrigger>
+            <TabsTrigger value="questions">{t('admin.quiz.failedQuestions')}</TabsTrigger>
+            <TabsTrigger value="users">{t('admin.quiz.perUser')}</TabsTrigger>
           </TabsList>
           <div className="flex gap-2">
             <Button variant="outline" size="sm" onClick={fetchData}>
               <RefreshCw className="w-4 h-4 mr-2" />
-              Actualizează
+              {t('admin.quiz.refresh')}
             </Button>
             <Button variant="outline" size="sm" onClick={exportToCSV}>
               <Download className="w-4 h-4 mr-2" />
-              Export CSV
+              {t('admin.quiz.export')}
             </Button>
           </div>
         </div>
@@ -290,8 +292,8 @@ export function QuizAnalyticsDashboard() {
             {/* Refresh Rate Chart */}
             <Card>
               <CardHeader>
-                <CardTitle className="text-base">Rată Refresh per Capitol</CardTitle>
-                <CardDescription>Procentul de quiz-uri începute dar nefinalizate</CardDescription>
+                <CardTitle className="text-base">{t('admin.quiz.refreshRate')}</CardTitle>
+                <CardDescription>{t('admin.quiz.refreshRateDesc')}</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="h-[300px]">
@@ -305,13 +307,13 @@ export function QuizAnalyticsDashboard() {
                         tick={{ fontSize: 10 }}
                       />
                       <Tooltip 
-                        formatter={(value: number) => [`${value.toFixed(1)}%`, 'Rată Refresh']}
+                        formatter={(value: number) => [`${value.toFixed(1)}%`, t('admin.quiz.refreshRate')]}
                       />
                       <Bar dataKey="refreshRate" radius={[0, 4, 4, 0]}>
                         {chapterStats.slice(0, 15).map((entry, index) => (
                           <Cell 
                             key={`cell-${index}`} 
-                            fill={entry.refreshRate > 50 ? '#ef4444' : entry.refreshRate > 25 ? '#eab308' : '#22c55e'} 
+                            fill={entry.refreshRate > 50 ? 'hsl(var(--destructive))' : entry.refreshRate > 25 ? 'hsl(var(--warning))' : 'hsl(var(--primary))'} 
                           />
                         ))}
                       </Bar>
@@ -324,8 +326,8 @@ export function QuizAnalyticsDashboard() {
             {/* Distribution Pie */}
             <Card>
               <CardHeader>
-                <CardTitle className="text-base">Distribuție Completări</CardTitle>
-                <CardDescription>Finalizate vs Abandonate</CardDescription>
+                <CardTitle className="text-base">{t('admin.quiz.completionDist')}</CardTitle>
+                <CardDescription>{t('admin.quiz.completedVsAbandoned')}</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="h-[300px]">
@@ -356,18 +358,18 @@ export function QuizAnalyticsDashboard() {
           {/* Chapter Table */}
           <Card>
             <CardHeader>
-              <CardTitle className="text-base">Detalii per Capitol</CardTitle>
+              <CardTitle className="text-base">{t('admin.quiz.chapterDetails')}</CardTitle>
             </CardHeader>
             <CardContent>
               <ScrollArea className="h-[400px]">
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Capitol</TableHead>
-                      <TableHead className="text-center">Începeri</TableHead>
-                      <TableHead className="text-center">Finalizări</TableHead>
-                      <TableHead className="text-center">Refresh-uri</TableHead>
-                      <TableHead className="text-center">Rată Refresh</TableHead>
+                      <TableHead>{t('admin.quiz.chapter')}</TableHead>
+                      <TableHead className="text-center">{t('admin.quiz.starts')}</TableHead>
+                      <TableHead className="text-center">{t('admin.quiz.completions')}</TableHead>
+                      <TableHead className="text-center">{t('admin.quiz.refreshes')}</TableHead>
+                      <TableHead className="text-center">{t('admin.quiz.abandonRate')}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -384,7 +386,6 @@ export function QuizAnalyticsDashboard() {
                         <TableCell className="text-center">
                           <Badge 
                             variant={stat.refreshRate > 50 ? "destructive" : stat.refreshRate > 25 ? "outline" : "default"}
-                            className={stat.refreshRate <= 25 ? "bg-green-500" : ""}
                           >
                             {stat.refreshRate.toFixed(1)}%
                           </Badge>
@@ -404,10 +405,10 @@ export function QuizAnalyticsDashboard() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <AlertTriangle className="w-5 h-5 text-amber-500" />
-                Top 30 Întrebări Greșite
+                {t('admin.quiz.top30Failed')}
               </CardTitle>
               <CardDescription>
-                Întrebările la care utilizatorii greșesc cel mai des
+                {t('admin.quiz.mostFailed')}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -415,7 +416,7 @@ export function QuizAnalyticsDashboard() {
                 <div className="space-y-3">
                   {failedQuestions.length === 0 ? (
                     <p className="text-center text-muted-foreground py-8">
-                      Nu există date încă. Răspunsurile greșite vor apărea aici.
+                      {t('admin.quiz.noData')}
                     </p>
                   ) : (
                     failedQuestions.map((q, index) => (
@@ -430,7 +431,7 @@ export function QuizAnalyticsDashboard() {
                                 {q.chapterId}
                               </Badge>
                               <Badge variant="destructive" className="text-xs">
-                                {q.count} greșeli
+                                {q.count} {t('admin.quiz.errors')}
                               </Badge>
                             </div>
                             <p className="text-sm">{q.text}</p>
@@ -455,10 +456,10 @@ export function QuizAnalyticsDashboard() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Users className="w-5 h-5" />
-                Statistici per Utilizator
+                {t('admin.quiz.userStats')}
               </CardTitle>
               <CardDescription>
-                Câte quiz-uri a început/finalizat fiecare utilizator
+                {t('admin.quiz.userStatsDesc')}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -466,12 +467,12 @@ export function QuizAnalyticsDashboard() {
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Utilizator</TableHead>
-                      <TableHead>Email</TableHead>
-                      <TableHead className="text-center">Începeri</TableHead>
-                      <TableHead className="text-center">Finalizări</TableHead>
-                      <TableHead className="text-center">Refresh-uri</TableHead>
-                      <TableHead className="text-center">Rată Finalizare</TableHead>
+                      <TableHead>{t('admin.table.user')}</TableHead>
+                      <TableHead>{t('admin.table.email')}</TableHead>
+                      <TableHead className="text-center">{t('admin.quiz.starts')}</TableHead>
+                      <TableHead className="text-center">{t('admin.quiz.completions')}</TableHead>
+                      <TableHead className="text-center">{t('admin.quiz.refreshes')}</TableHead>
+                      <TableHead className="text-center">{t('admin.quiz.abandonRate')}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -493,7 +494,6 @@ export function QuizAnalyticsDashboard() {
                           <TableCell className="text-center">
                             <Badge 
                               variant={completionRate >= 80 ? "default" : completionRate >= 50 ? "outline" : "destructive"}
-                              className={completionRate >= 80 ? "bg-green-500" : ""}
                             >
                               {completionRate.toFixed(0)}%
                             </Badge>
