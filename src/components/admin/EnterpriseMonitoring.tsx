@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -25,6 +26,7 @@ import {
 } from 'lucide-react';
 
 export function EnterpriseMonitoring() {
+  const { t } = useLanguage();
   const queryClient = useQueryClient();
   const [isHealthCheckRunning, setIsHealthCheckRunning] = useState(false);
 
@@ -36,7 +38,7 @@ export function EnterpriseMonitoring() {
       if (error) throw error;
       return data;
     },
-    refetchInterval: 60000 // Every minute
+    refetchInterval: 60000
   });
 
   // Fetch error stats
@@ -97,9 +99,9 @@ export function EnterpriseMonitoring() {
     setIsHealthCheckRunning(true);
     try {
       await refetchHealth();
-      toast.success('Health check completed');
+      toast.success(t('admin.monitor.healthCheckComplete'));
     } catch (error) {
-      toast.error('Health check failed');
+      toast.error(t('admin.monitor.healthCheckFailed'));
     } finally {
       setIsHealthCheckRunning(false);
     }
@@ -116,30 +118,28 @@ export function EnterpriseMonitoring() {
 
   const getStatusBadge = (status: string) => {
     switch (status) {
-      case 'healthy': return <Badge className="bg-green-500/20 text-green-400 border-green-500/30">Healthy</Badge>;
-      case 'degraded': return <Badge className="bg-yellow-500/20 text-yellow-400 border-yellow-500/30">Degraded</Badge>;
-      case 'down': return <Badge className="bg-red-500/20 text-red-400 border-red-500/30">Down</Badge>;
+      case 'healthy': return <Badge className="bg-green-500/20 text-green-400 border-green-500/30">{t('admin.monitor.statusHealthy')}</Badge>;
+      case 'degraded': return <Badge className="bg-yellow-500/20 text-yellow-400 border-yellow-500/30">{t('admin.monitor.statusDegraded')}</Badge>;
+      case 'down': return <Badge className="bg-red-500/20 text-red-400 border-red-500/30">{t('admin.monitor.statusDown')}</Badge>;
       default: return <Badge variant="secondary">Unknown</Badge>;
     }
   };
 
   const getSeverityBadge = (severity: string) => {
     switch (severity) {
-      case 'critical': return <Badge className="bg-red-500/20 text-red-400 border-red-500/30">Critical</Badge>;
+      case 'critical': return <Badge className="bg-red-500/20 text-red-400 border-red-500/30">{t('admin.incident.severityCritical')}</Badge>;
       case 'error': return <Badge className="bg-orange-500/20 text-orange-400 border-orange-500/30">Error</Badge>;
-      case 'warning': return <Badge className="bg-yellow-500/20 text-yellow-400 border-yellow-500/30">Warning</Badge>;
+      case 'warning': return <Badge className="bg-yellow-500/20 text-yellow-400 border-yellow-500/30">{t('admin.monitor.warning')}</Badge>;
       default: return <Badge variant="secondary">{severity}</Badge>;
     }
   };
 
-  // Calculate uptime from recent health checks
   const calculateUptime = () => {
     if (!recentHealthChecks || recentHealthChecks.length === 0) return 100;
     const healthyCount = recentHealthChecks.filter(c => c.status === 'healthy').length;
     return ((healthyCount / recentHealthChecks.length) * 100).toFixed(2);
   };
 
-  // Calculate average response time
   const calculateAvgResponseTime = () => {
     if (!recentHealthChecks || recentHealthChecks.length === 0) return 0;
     const totalTime = recentHealthChecks.reduce((sum, c) => sum + (c.response_time_ms || 0), 0);
@@ -154,9 +154,9 @@ export function EnterpriseMonitoring() {
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-muted-foreground">System Status</p>
+                <p className="text-sm text-muted-foreground">{t('admin.monitor.systemStatus')}</p>
                 <div className="mt-1">
-                  {healthData ? getStatusBadge(healthData.status) : <Badge variant="secondary">Loading...</Badge>}
+                  {healthData ? getStatusBadge(healthData.status) : <Badge variant="secondary">{t('admin.monitor.loading')}</Badge>}
                 </div>
               </div>
               <div className={`w-12 h-12 rounded-full flex items-center justify-center ${healthData?.status === 'healthy' ? 'bg-green-500/20' : healthData?.status === 'degraded' ? 'bg-yellow-500/20' : 'bg-red-500/20'}`}>
@@ -176,7 +176,7 @@ export function EnterpriseMonitoring() {
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-muted-foreground">Uptime (24h)</p>
+                <p className="text-sm text-muted-foreground">{t('admin.monitor.uptime24h')}</p>
                 <p className="text-2xl font-bold text-foreground">{calculateUptime()}%</p>
               </div>
               <div className="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center">
@@ -191,7 +191,7 @@ export function EnterpriseMonitoring() {
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-muted-foreground">Avg Response</p>
+                <p className="text-sm text-muted-foreground">{t('admin.monitor.avgResponse')}</p>
                 <p className="text-2xl font-bold text-foreground">{calculateAvgResponseTime()}ms</p>
               </div>
               <div className="w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center">
@@ -205,7 +205,7 @@ export function EnterpriseMonitoring() {
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-muted-foreground">Errors (24h)</p>
+                <p className="text-sm text-muted-foreground">{t('admin.monitor.errors24h')}</p>
                 <p className="text-2xl font-bold text-foreground">{errorStats?.total || 0}</p>
               </div>
               <div className="w-12 h-12 rounded-full bg-red-500/20 flex items-center justify-center">
@@ -213,7 +213,7 @@ export function EnterpriseMonitoring() {
               </div>
             </div>
             {errorStats?.bySeverity?.critical > 0 && (
-              <p className="text-xs text-red-400 mt-2">{errorStats.bySeverity.critical} critical</p>
+              <p className="text-xs text-red-400 mt-2">{errorStats.bySeverity.critical} {t('admin.monitor.critical')}</p>
             )}
           </CardContent>
         </Card>
@@ -221,22 +221,22 @@ export function EnterpriseMonitoring() {
 
       <Tabs defaultValue="health" className="space-y-4">
         <TabsList className="bg-muted/50">
-          <TabsTrigger value="health">Health Checks</TabsTrigger>
-          <TabsTrigger value="errors">Error Tracking</TabsTrigger>
-          <TabsTrigger value="sla">SLA Status</TabsTrigger>
-          <TabsTrigger value="services">Services</TabsTrigger>
+          <TabsTrigger value="health">{t('admin.monitor.tabHealth')}</TabsTrigger>
+          <TabsTrigger value="errors">{t('admin.monitor.tabErrors')}</TabsTrigger>
+          <TabsTrigger value="sla">{t('admin.monitor.tabSLA')}</TabsTrigger>
+          <TabsTrigger value="services">{t('admin.monitor.tabServices')}</TabsTrigger>
         </TabsList>
 
         <TabsContent value="health" className="space-y-4">
           <Card className="bg-card/50 border-border/50">
             <CardHeader className="flex flex-row items-center justify-between">
               <div>
-                <CardTitle>System Health</CardTitle>
-                <CardDescription>Real-time health monitoring of all services</CardDescription>
+                <CardTitle>{t('admin.monitor.systemHealth')}</CardTitle>
+                <CardDescription>{t('admin.monitor.systemHealthDesc')}</CardDescription>
               </div>
               <Button onClick={runHealthCheck} disabled={isHealthCheckRunning} size="sm">
                 <RefreshCw className={`h-4 w-4 mr-2 ${isHealthCheckRunning ? 'animate-spin' : ''}`} />
-                Run Check
+                {t('admin.monitor.runCheck')}
               </Button>
             </CardHeader>
             <CardContent>
@@ -255,7 +255,7 @@ export function EnterpriseMonitoring() {
                           {getStatusBadge(service.status)}
                         </div>
                         <p className="text-sm text-muted-foreground">
-                          Response: {service.responseTime}ms
+                          {t('admin.monitor.responseTime')}: {service.responseTime}ms
                         </p>
                       </CardContent>
                     </Card>
@@ -263,7 +263,7 @@ export function EnterpriseMonitoring() {
                 </div>
               )}
 
-              <h4 className="font-medium mb-3">Recent Health Checks</h4>
+              <h4 className="font-medium mb-3">{t('admin.monitor.recentHealthChecks')}</h4>
               <ScrollArea className="h-[300px]">
                 <div className="space-y-2">
                   {recentHealthChecks?.map((check: any) => (
@@ -288,7 +288,7 @@ export function EnterpriseMonitoring() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Card className="bg-red-500/10 border-red-500/30">
               <CardContent className="pt-6">
-                <p className="text-sm text-red-400">Critical</p>
+                <p className="text-sm text-red-400">{t('admin.incident.severityCritical')}</p>
                 <p className="text-3xl font-bold text-red-400">{errorStats?.bySeverity?.critical || 0}</p>
               </CardContent>
             </Card>
@@ -300,7 +300,7 @@ export function EnterpriseMonitoring() {
             </Card>
             <Card className="bg-yellow-500/10 border-yellow-500/30">
               <CardContent className="pt-6">
-                <p className="text-sm text-yellow-400">Warnings</p>
+                <p className="text-sm text-yellow-400">{t('admin.monitor.warning')}</p>
                 <p className="text-3xl font-bold text-yellow-400">{errorStats?.bySeverity?.warning || 0}</p>
               </CardContent>
             </Card>
@@ -308,8 +308,8 @@ export function EnterpriseMonitoring() {
 
           <Card className="bg-card/50 border-border/50">
             <CardHeader>
-              <CardTitle>Recent Errors</CardTitle>
-              <CardDescription>Last 10 errors logged in the system</CardDescription>
+              <CardTitle>{t('admin.monitor.recentErrors')}</CardTitle>
+              <CardDescription>{t('admin.monitor.recentErrorsDesc')}</CardDescription>
             </CardHeader>
             <CardContent>
               <ScrollArea className="h-[400px]">
@@ -333,13 +333,13 @@ export function EnterpriseMonitoring() {
                           </div>
                         </div>
                         {error.resolved_at && (
-                          <Badge className="mt-2 bg-green-500/20 text-green-400">Resolved</Badge>
+                          <Badge className="mt-2 bg-green-500/20 text-green-400">{t('admin.monitor.resolved')}</Badge>
                         )}
                       </CardContent>
                     </Card>
                   ))}
                   {(!recentErrors || recentErrors.length === 0) && (
-                    <p className="text-center text-muted-foreground py-8">No errors logged</p>
+                    <p className="text-center text-muted-foreground py-8">{t('admin.monitor.noErrors')}</p>
                   )}
                 </div>
               </ScrollArea>
@@ -350,8 +350,8 @@ export function EnterpriseMonitoring() {
         <TabsContent value="sla" className="space-y-4">
           <Card className="bg-card/50 border-border/50">
             <CardHeader>
-              <CardTitle>SLA Configuration</CardTitle>
-              <CardDescription>Service Level Agreement targets and thresholds</CardDescription>
+              <CardTitle>{t('admin.monitor.slaConfig')}</CardTitle>
+              <CardDescription>{t('admin.monitor.slaConfigDesc')}</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
@@ -363,11 +363,11 @@ export function EnterpriseMonitoring() {
                     </div>
                     <div className="text-right">
                       <p className="text-lg font-bold text-green-400">
-                        Target: {sla.target_value}{sla.unit === 'percent' ? '%' : sla.unit}
+                        {t('admin.monitor.target')}: {sla.target_value}{sla.unit === 'percent' ? '%' : sla.unit}
                       </p>
                       <div className="flex gap-2 text-xs text-muted-foreground">
-                        <span className="text-yellow-400">Warn: {sla.warning_threshold}</span>
-                        <span className="text-red-400">Crit: {sla.critical_threshold}</span>
+                        <span className="text-yellow-400">{t('admin.monitor.warning')}: {sla.warning_threshold}</span>
+                        <span className="text-red-400">{t('admin.monitor.critical')}: {sla.critical_threshold}</span>
                       </div>
                     </div>
                   </div>
@@ -383,21 +383,21 @@ export function EnterpriseMonitoring() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Database className="h-5 w-5" />
-                  Database
+                  {t('admin.monitor.database')}
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Status</span>
+                    <span className="text-muted-foreground">{t('admin.cron.status')}</span>
                     {getStatusBadge(healthData?.services?.find((s: any) => s.service === 'database')?.status || 'unknown')}
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Response Time</span>
+                    <span className="text-muted-foreground">{t('admin.monitor.responseTime')}</span>
                     <span>{healthData?.services?.find((s: any) => s.service === 'database')?.responseTime || '-'}ms</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Provider</span>
+                    <span className="text-muted-foreground">{t('admin.monitor.provider')}</span>
                     <span>Lovable Cloud</span>
                   </div>
                 </div>
@@ -408,21 +408,21 @@ export function EnterpriseMonitoring() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Shield className="h-5 w-5" />
-                  Authentication
+                  {t('admin.monitor.authentication')}
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Status</span>
+                    <span className="text-muted-foreground">{t('admin.cron.status')}</span>
                     {getStatusBadge(healthData?.services?.find((s: any) => s.service === 'auth')?.status || 'unknown')}
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Response Time</span>
+                    <span className="text-muted-foreground">{t('admin.monitor.responseTime')}</span>
                     <span>{healthData?.services?.find((s: any) => s.service === 'auth')?.responseTime || '-'}ms</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Method</span>
+                    <span className="text-muted-foreground">{t('admin.monitor.method')}</span>
                     <span>Email/Password</span>
                   </div>
                 </div>
@@ -433,21 +433,21 @@ export function EnterpriseMonitoring() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <HardDrive className="h-5 w-5" />
-                  Storage
+                  {t('admin.monitor.storage')}
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Status</span>
+                    <span className="text-muted-foreground">{t('admin.cron.status')}</span>
                     {getStatusBadge(healthData?.services?.find((s: any) => s.service === 'storage')?.status || 'unknown')}
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Response Time</span>
+                    <span className="text-muted-foreground">{t('admin.monitor.responseTime')}</span>
                     <span>{healthData?.services?.find((s: any) => s.service === 'storage')?.responseTime || '-'}ms</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Buckets</span>
+                    <span className="text-muted-foreground">{t('admin.monitor.buckets')}</span>
                     <span>{healthData?.services?.find((s: any) => s.service === 'storage')?.details?.buckets || '-'}</span>
                   </div>
                 </div>
@@ -458,21 +458,21 @@ export function EnterpriseMonitoring() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Server className="h-5 w-5" />
-                  Edge Functions
+                  {t('admin.monitor.edgeFunctions')}
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Status</span>
-                    <Badge className="bg-green-500/20 text-green-400 border-green-500/30">Active</Badge>
+                    <span className="text-muted-foreground">{t('admin.cron.status')}</span>
+                    <Badge className="bg-green-500/20 text-green-400 border-green-500/30">{t('admin.backup.active')}</Badge>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Functions</span>
-                    <span>12 deployed</span>
+                    <span className="text-muted-foreground">{t('admin.monitor.functions')}</span>
+                    <span>12 {t('admin.monitor.deployed')}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Runtime</span>
+                    <span className="text-muted-foreground">{t('admin.monitor.runtime')}</span>
                     <span>Deno</span>
                   </div>
                 </div>
