@@ -18,7 +18,6 @@ import {
   Clock, 
   Plus,
   AlertCircle,
-  Search,
   Activity
 } from 'lucide-react';
 
@@ -87,7 +86,7 @@ export function IncidentManagement() {
       await supabase.from('incident_timeline').insert([{
         incident_id: data.id,
         event_type: 'created',
-        description: 'Incident created',
+        description: t('admin.incident.incidentCreated'),
         new_status: 'open',
         created_by: user?.id
       }]);
@@ -95,13 +94,13 @@ export function IncidentManagement() {
       return data;
     },
     onSuccess: () => {
-      toast.success('Incident created');
+      toast.success(t('admin.incident.incidentCreated'));
       setIsCreateOpen(false);
       setNewIncident({ title: '', description: '', severity: 'medium', affected_services: [], impact: '' });
       queryClient.invalidateQueries({ queryKey: ['incidents'] });
     },
     onError: (error: any) => {
-      toast.error('Failed to create incident: ' + error.message);
+      toast.error(t('admin.incident.incidentCreateFailed').replace('{error}', error.message));
     }
   });
 
@@ -136,7 +135,7 @@ export function IncidentManagement() {
       });
     },
     onSuccess: () => {
-      toast.success('Status updated');
+      toast.success(t('admin.incident.statusUpdated'));
       queryClient.invalidateQueries({ queryKey: ['incidents'] });
       queryClient.invalidateQueries({ queryKey: ['incident-timeline'] });
     }
@@ -145,13 +144,13 @@ export function IncidentManagement() {
   const getSeverityBadge = (severity: string) => {
     switch (severity) {
       case 'critical':
-        return <Badge className="bg-red-500/20 text-red-400 border-red-500/30">Critical</Badge>;
+        return <Badge className="bg-red-500/20 text-red-400 border-red-500/30">{t('admin.incident.severityCritical')}</Badge>;
       case 'high':
-        return <Badge className="bg-orange-500/20 text-orange-400 border-orange-500/30">High</Badge>;
+        return <Badge className="bg-orange-500/20 text-orange-400 border-orange-500/30">{t('admin.incident.severityHigh')}</Badge>;
       case 'medium':
-        return <Badge className="bg-yellow-500/20 text-yellow-400 border-yellow-500/30">Medium</Badge>;
+        return <Badge className="bg-yellow-500/20 text-yellow-400 border-yellow-500/30">{t('admin.incident.severityMedium')}</Badge>;
       case 'low':
-        return <Badge className="bg-blue-500/20 text-blue-400 border-blue-500/30">Low</Badge>;
+        return <Badge className="bg-blue-500/20 text-blue-400 border-blue-500/30">{t('admin.incident.severityLow')}</Badge>;
       default:
         return <Badge variant="secondary">{severity}</Badge>;
     }
@@ -160,15 +159,15 @@ export function IncidentManagement() {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'open':
-        return <Badge className="bg-red-500/20 text-red-400 border-red-500/30">Open</Badge>;
+        return <Badge className="bg-red-500/20 text-red-400 border-red-500/30">{t('admin.incident.statusOpen')}</Badge>;
       case 'investigating':
-        return <Badge className="bg-yellow-500/20 text-yellow-400 border-yellow-500/30">Investigating</Badge>;
+        return <Badge className="bg-yellow-500/20 text-yellow-400 border-yellow-500/30">{t('admin.incident.statusInvestigating')}</Badge>;
       case 'identified':
-        return <Badge className="bg-blue-500/20 text-blue-400 border-blue-500/30">Identified</Badge>;
+        return <Badge className="bg-blue-500/20 text-blue-400 border-blue-500/30">{t('admin.incident.statusIdentified')}</Badge>;
       case 'monitoring':
-        return <Badge className="bg-purple-500/20 text-purple-400 border-purple-500/30">Monitoring</Badge>;
+        return <Badge className="bg-purple-500/20 text-purple-400 border-purple-500/30">{t('admin.incident.statusMonitoring')}</Badge>;
       case 'resolved':
-        return <Badge className="bg-green-500/20 text-green-400 border-green-500/30">Resolved</Badge>;
+        return <Badge className="bg-green-500/20 text-green-400 border-green-500/30">{t('admin.incident.statusResolved')}</Badge>;
       default:
         return <Badge variant="secondary">{status}</Badge>;
     }
@@ -199,7 +198,7 @@ export function IncidentManagement() {
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-red-400">Open Incidents</p>
+                <p className="text-sm text-red-400">{t('admin.incident.openIncidents')}</p>
                 <p className="text-3xl font-bold text-red-400">{openIncidents.length}</p>
               </div>
               <AlertCircle className="h-8 w-8 text-red-400" />
@@ -211,7 +210,7 @@ export function IncidentManagement() {
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-green-400">Resolved (30d)</p>
+                <p className="text-sm text-green-400">{t('admin.incident.resolved30d')}</p>
                 <p className="text-3xl font-bold text-green-400">{resolvedIncidents.length}</p>
               </div>
               <CheckCircle className="h-8 w-8 text-green-400" />
@@ -223,7 +222,7 @@ export function IncidentManagement() {
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-yellow-400">MTTR</p>
+                <p className="text-sm text-yellow-400">{t('admin.incident.mttr')}</p>
                 <p className="text-3xl font-bold text-yellow-400">{calculateMTTR()}</p>
               </div>
               <Clock className="h-8 w-8 text-yellow-400" />
@@ -235,7 +234,7 @@ export function IncidentManagement() {
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-purple-400">Critical (Active)</p>
+                <p className="text-sm text-purple-400">{t('admin.incident.criticalActive')}</p>
                 <p className="text-3xl font-bold text-purple-400">
                   {openIncidents.filter(i => i.severity === 'critical').length}
                 </p>
@@ -247,37 +246,37 @@ export function IncidentManagement() {
       </div>
 
       <div className="flex justify-between items-center">
-        <h3 className="text-lg font-semibold">Incident Management</h3>
+        <h3 className="text-lg font-semibold">{t('admin.incident.management')}</h3>
         <Dialog open={isCreateOpen} onOpenChange={setIsCreateOpen}>
           <DialogTrigger asChild>
             <Button>
               <Plus className="h-4 w-4 mr-2" />
-              Create Incident
+              {t('admin.incident.createIncident')}
             </Button>
           </DialogTrigger>
           <DialogContent className="max-w-lg">
             <DialogHeader>
-              <DialogTitle>Create New Incident</DialogTitle>
+              <DialogTitle>{t('admin.incident.createNew')}</DialogTitle>
             </DialogHeader>
             <div className="space-y-4 mt-4">
               <div>
-                <label className="text-sm font-medium">Title</label>
+                <label className="text-sm font-medium">{t('admin.incident.title')}</label>
                 <Input
                   value={newIncident.title}
                   onChange={(e) => setNewIncident({ ...newIncident, title: e.target.value })}
-                  placeholder="Brief description of the incident"
+                  placeholder={t('admin.incident.titlePlaceholder')}
                 />
               </div>
               <div>
-                <label className="text-sm font-medium">Description</label>
+                <label className="text-sm font-medium">{t('admin.incident.description')}</label>
                 <Textarea
                   value={newIncident.description}
                   onChange={(e) => setNewIncident({ ...newIncident, description: e.target.value })}
-                  placeholder="Detailed description..."
+                  placeholder={t('admin.incident.descriptionPlaceholder')}
                 />
               </div>
               <div>
-                <label className="text-sm font-medium">Severity</label>
+                <label className="text-sm font-medium">{t('admin.incident.severity')}</label>
                 <Select
                   value={newIncident.severity}
                   onValueChange={(value) => setNewIncident({ ...newIncident, severity: value })}
@@ -286,19 +285,19 @@ export function IncidentManagement() {
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="low">Low</SelectItem>
-                    <SelectItem value="medium">Medium</SelectItem>
-                    <SelectItem value="high">High</SelectItem>
-                    <SelectItem value="critical">Critical</SelectItem>
+                    <SelectItem value="low">{t('admin.incident.severityLow')}</SelectItem>
+                    <SelectItem value="medium">{t('admin.incident.severityMedium')}</SelectItem>
+                    <SelectItem value="high">{t('admin.incident.severityHigh')}</SelectItem>
+                    <SelectItem value="critical">{t('admin.incident.severityCritical')}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
               <div>
-                <label className="text-sm font-medium">Impact</label>
+                <label className="text-sm font-medium">{t('admin.incident.impact')}</label>
                 <Input
                   value={newIncident.impact}
                   onChange={(e) => setNewIncident({ ...newIncident, impact: e.target.value })}
-                  placeholder="User impact description"
+                  placeholder={t('admin.incident.impactPlaceholder')}
                 />
               </div>
               <Button 
@@ -306,7 +305,7 @@ export function IncidentManagement() {
                 disabled={!newIncident.title || createIncident.isPending}
                 className="w-full"
               >
-                Create Incident
+                {t('admin.incident.createIncident')}
               </Button>
             </div>
           </DialogContent>
@@ -319,9 +318,9 @@ export function IncidentManagement() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <AlertCircle className="h-5 w-5 text-red-400" />
-              Active Incidents
+              {t('admin.incident.activeIncidents')}
             </CardTitle>
-            <CardDescription>Incidents requiring attention</CardDescription>
+            <CardDescription>{t('admin.incident.activeIncidentsDesc')}</CardDescription>
           </CardHeader>
           <CardContent>
             <ScrollArea className="h-[400px]">
@@ -344,7 +343,7 @@ export function IncidentManagement() {
                         </div>
                       </div>
                       <p className="text-xs text-muted-foreground mb-3">
-                        Detected: {new Date(incident.detected_at).toLocaleString()}
+                        {t('admin.incident.detected')}: {new Date(incident.detected_at).toLocaleString()}
                       </p>
                       <div className="flex gap-2">
                         {incident.status === 'open' && (
@@ -356,7 +355,7 @@ export function IncidentManagement() {
                               updateStatus.mutate({ incidentId: incident.id, newStatus: 'investigating' });
                             }}
                           >
-                            Investigate
+                            {t('admin.incident.investigate')}
                           </Button>
                         )}
                         {incident.status === 'investigating' && (
@@ -368,7 +367,7 @@ export function IncidentManagement() {
                               updateStatus.mutate({ incidentId: incident.id, newStatus: 'identified' });
                             }}
                           >
-                            Mark Identified
+                            {t('admin.incident.markIdentified')}
                           </Button>
                         )}
                         {(incident.status === 'identified' || incident.status === 'monitoring') && (
@@ -380,7 +379,7 @@ export function IncidentManagement() {
                               updateStatus.mutate({ incidentId: incident.id, newStatus: 'resolved' });
                             }}
                           >
-                            Resolve
+                            {t('admin.incident.resolve')}
                           </Button>
                         )}
                       </div>
@@ -390,7 +389,7 @@ export function IncidentManagement() {
                 {openIncidents.length === 0 && (
                   <div className="text-center py-8 text-muted-foreground">
                     <CheckCircle className="h-12 w-12 mx-auto mb-2 text-green-400" />
-                    <p>No active incidents</p>
+                    <p>{t('admin.incident.noActiveIncidents')}</p>
                   </div>
                 )}
               </div>
@@ -403,12 +402,12 @@ export function IncidentManagement() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Activity className="h-5 w-5" />
-              Incident Timeline
+              {t('admin.incident.timeline')}
             </CardTitle>
             <CardDescription>
               {selectedIncident 
-                ? `Timeline for ${incidents?.find(i => i.id === selectedIncident)?.incident_number}`
-                : 'Select an incident to view timeline'}
+                ? `${t('admin.incident.timelineFor')} ${incidents?.find(i => i.id === selectedIncident)?.incident_number}`
+                : t('admin.incident.selectIncident')}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -438,8 +437,8 @@ export function IncidentManagement() {
                 </div>
               ) : (
                 <div className="text-center py-8 text-muted-foreground">
-                  <Search className="h-12 w-12 mx-auto mb-2" />
-                  <p>Select an incident to view its timeline</p>
+                  <Activity className="h-12 w-12 mx-auto mb-2 opacity-50" />
+                  <p>{t('admin.incident.selectIncident')}</p>
                 </div>
               )}
             </ScrollArea>
@@ -447,33 +446,34 @@ export function IncidentManagement() {
         </Card>
       </div>
 
-      {/* Resolved Incidents */}
+      {/* Recently Resolved */}
       <Card className="bg-card/50 border-border/50">
         <CardHeader>
-          <CardTitle>Recently Resolved</CardTitle>
-          <CardDescription>Incidents resolved in the last 30 days</CardDescription>
+          <CardTitle className="flex items-center gap-2">
+            <CheckCircle className="h-5 w-5 text-green-400" />
+            {t('admin.incident.recentlyResolved')}
+          </CardTitle>
+          <CardDescription>{t('admin.incident.recentlyResolvedDesc')}</CardDescription>
         </CardHeader>
         <CardContent>
-          <ScrollArea className="h-[200px]">
-            <div className="space-y-2">
+          <ScrollArea className="h-[300px]">
+            <div className="space-y-3">
               {resolvedIncidents.slice(0, 10).map((incident) => (
-                <div key={incident.id} className="flex items-center justify-between p-3 bg-background/50 rounded-lg">
-                  <div className="flex items-center gap-3">
-                    <CheckCircle className="h-4 w-4 text-green-400" />
+                <div key={incident.id} className="flex items-center justify-between p-4 bg-background/50 rounded-lg">
+                  <div className="flex items-center gap-4">
+                    <CheckCircle className="h-5 w-5 text-green-400" />
                     <div>
-                      <p className="text-sm font-medium">{incident.incident_number}</p>
-                      <p className="text-xs text-muted-foreground">{incident.title}</p>
+                      <p className="font-medium">{incident.incident_number}: {incident.title}</p>
+                      <p className="text-sm text-muted-foreground">
+                        {t('admin.incident.resolvedAt')}: {incident.resolved_at ? new Date(incident.resolved_at).toLocaleString() : '-'}
+                      </p>
                     </div>
                   </div>
-                  <div className="text-right text-sm">
-                    <p className="text-muted-foreground">
-                      Resolved: {incident.resolved_at ? new Date(incident.resolved_at).toLocaleDateString() : '-'}
-                    </p>
-                  </div>
+                  {getSeverityBadge(incident.severity)}
                 </div>
               ))}
               {resolvedIncidents.length === 0 && (
-                <p className="text-center text-muted-foreground py-4">No resolved incidents</p>
+                <p className="text-center text-muted-foreground py-8">{t('admin.incident.noResolvedIncidents')}</p>
               )}
             </div>
           </ScrollArea>
