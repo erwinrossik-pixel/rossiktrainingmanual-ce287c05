@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { 
   useCompanyCompetencyInsights, 
   useCompetencyAnalysis,
@@ -20,6 +21,7 @@ import {
 } from 'lucide-react';
 
 export function CompetencyGapAnalysis() {
+  const { t } = useLanguage();
   const { loading, insights, userProfiles, refetch } = useCompanyCompetencyInsights();
   const [selectedUser, setSelectedUser] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
@@ -46,11 +48,11 @@ export function CompetencyGapAnalysis() {
 
   const getStatusLabel = (status: ChapterCompetency['status']) => {
     switch (status) {
-      case 'mastered': return 'Stăpânit';
-      case 'proficient': return 'Competent';
-      case 'developing': return 'În Dezvoltare';
-      case 'needs_work': return 'Necesită Atenție';
-      default: return 'Neînceput';
+      case 'mastered': return t('admin.competency.status.mastered');
+      case 'proficient': return t('admin.competency.status.proficient');
+      case 'developing': return t('admin.competency.status.developing');
+      case 'needs_work': return t('admin.competency.status.needsWork');
+      default: return t('admin.competency.status.notStarted');
     }
   };
 
@@ -85,15 +87,15 @@ export function CompetencyGapAnalysis() {
         <div>
           <h2 className="text-2xl font-bold flex items-center gap-2">
             <Target className="h-6 w-6 text-primary" />
-            Analiză Lipsuri Competențe
+            {t('admin.competency.title')}
           </h2>
           <p className="text-muted-foreground">
-            Identifică ce lipsește fiecărui utilizator pentru succes
+            {t('admin.competency.subtitle')}
           </p>
         </div>
         <Button onClick={refetch} variant="outline">
           <RefreshCw className="h-4 w-4 mr-2" />
-          Actualizează
+          {t('admin.competency.refresh')}
         </Button>
       </div>
 
@@ -107,7 +109,7 @@ export function CompetencyGapAnalysis() {
                   <BarChart3 className="h-6 w-6 text-white" />
                 </div>
                 <div>
-                  <p className="text-sm text-blue-600 font-medium">Scor Mediu Companie</p>
+                  <p className="text-sm text-blue-600 font-medium">{t('admin.competency.avgScore')}</p>
                   <p className="text-3xl font-bold text-blue-700">{insights.averageScore}%</p>
                 </div>
               </div>
@@ -121,7 +123,7 @@ export function CompetencyGapAnalysis() {
                   <AlertTriangle className="h-6 w-6 text-white" />
                 </div>
                 <div>
-                  <p className="text-sm text-red-600 font-medium">Necesită Suport</p>
+                  <p className="text-sm text-red-600 font-medium">{t('admin.competency.needsSupport')}</p>
                   <p className="text-3xl font-bold text-red-700">{insights.usersNeedingSupport}</p>
                 </div>
               </div>
@@ -135,7 +137,7 @@ export function CompetencyGapAnalysis() {
                   <CheckCircle2 className="h-6 w-6 text-white" />
                 </div>
                 <div>
-                  <p className="text-sm text-green-600 font-medium">Capitole Stăpânite</p>
+                  <p className="text-sm text-green-600 font-medium">{t('admin.competency.masteredChapters')}</p>
                   <p className="text-3xl font-bold text-green-700">{insights.topStrongChapters.length}</p>
                 </div>
               </div>
@@ -149,7 +151,7 @@ export function CompetencyGapAnalysis() {
                   <BookOpen className="h-6 w-6 text-white" />
                 </div>
                 <div>
-                  <p className="text-sm text-amber-600 font-medium">Capitole Problematice</p>
+                  <p className="text-sm text-amber-600 font-medium">{t('admin.competency.problematicChapters')}</p>
                   <p className="text-3xl font-bold text-amber-700">{insights.topWeakChapters.length}</p>
                 </div>
               </div>
@@ -162,15 +164,15 @@ export function CompetencyGapAnalysis() {
         <TabsList>
           <TabsTrigger value="users" className="flex items-center gap-2">
             <Users className="h-4 w-4" />
-            Analiză per Utilizator
+            {t('admin.competency.userAnalysis')}
           </TabsTrigger>
           <TabsTrigger value="chapters" className="flex items-center gap-2">
             <BookOpen className="h-4 w-4" />
-            Analiză per Capitol
+            {t('admin.competency.chapterAnalysis')}
           </TabsTrigger>
           <TabsTrigger value="distribution" className="flex items-center gap-2">
             <BarChart3 className="h-4 w-4" />
-            Distribuție Competențe
+            {t('admin.competency.distribution')}
           </TabsTrigger>
         </TabsList>
 
@@ -180,13 +182,13 @@ export function CompetencyGapAnalysis() {
             <CardHeader>
               <div className="flex items-center justify-between">
                 <div>
-                  <CardTitle>Profil Competențe Utilizatori</CardTitle>
-                  <CardDescription>Click pe un utilizator pentru detalii complete</CardDescription>
+                  <CardTitle>{t('admin.competency.userProfiles')}</CardTitle>
+                  <CardDescription>{t('admin.competency.clickForDetails')}</CardDescription>
                 </div>
                 <div className="relative w-64">
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                   <Input
-                    placeholder="Caută utilizator..."
+                    placeholder={t('admin.competency.searchUser')}
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     className="pl-10"
@@ -223,15 +225,15 @@ export function CompetencyGapAnalysis() {
                     <div className="flex items-center gap-6">
                       <div className="text-center">
                         <p className="text-2xl font-bold text-green-600">{user.strongAreas.length}</p>
-                        <p className="text-xs text-muted-foreground">Puncte Forte</p>
+                        <p className="text-xs text-muted-foreground">{t('admin.competency.strongPoints')}</p>
                       </div>
                       <div className="text-center">
                         <p className="text-2xl font-bold text-red-600">{user.weakAreas.length}</p>
-                        <p className="text-xs text-muted-foreground">De Îmbunătățit</p>
+                        <p className="text-xs text-muted-foreground">{t('admin.competency.toImprove')}</p>
                       </div>
                       <div className="text-center">
                         <p className="text-2xl font-bold">{user.completedChapters}/{user.totalChapters}</p>
-                        <p className="text-xs text-muted-foreground">Capitole</p>
+                        <p className="text-xs text-muted-foreground">{t('admin.competency.chapters')}</p>
                       </div>
                       <Button variant="ghost" size="sm">
                         <Eye className="h-4 w-4" />
@@ -251,9 +253,9 @@ export function CompetencyGapAnalysis() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-red-600">
                   <AlertTriangle className="h-5 w-5" />
-                  Capitole Problematice
+                  {t('admin.competency.problematic')}
                 </CardTitle>
-                <CardDescription>Capitole cu cele mai slabe rezultate</CardDescription>
+                <CardDescription>{t('admin.competency.problematicDesc')}</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
@@ -268,14 +270,14 @@ export function CompetencyGapAnalysis() {
                       <div className="flex items-center gap-3">
                         <Badge variant="destructive">{chapter.avgScore}%</Badge>
                         <span className="text-xs text-muted-foreground">
-                          {chapter.usersStruggling} utilizatori în dificultate
+                          {chapter.usersStruggling} {t('admin.competency.usersStruggling')}
                         </span>
                       </div>
                     </div>
                   ))}
                   {insights?.topWeakChapters.length === 0 && (
                     <p className="text-center text-muted-foreground py-4">
-                      Nu există capitole problematice
+                      {t('admin.competency.noProblematic')}
                     </p>
                   )}
                 </div>
@@ -286,9 +288,9 @@ export function CompetencyGapAnalysis() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-green-600">
                   <Star className="h-5 w-5" />
-                  Capitole Bine Stăpânite
+                  {t('admin.competency.wellMastered')}
                 </CardTitle>
-                <CardDescription>Capitole cu cele mai bune rezultate</CardDescription>
+                <CardDescription>{t('admin.competency.wellMasteredDesc')}</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
@@ -305,7 +307,7 @@ export function CompetencyGapAnalysis() {
                   ))}
                   {insights?.topStrongChapters.length === 0 && (
                     <p className="text-center text-muted-foreground py-4">
-                      Nu există capitole cu scor peste 80%
+                      {t('admin.competency.noMastered')}
                     </p>
                   )}
                 </div>
@@ -314,12 +316,11 @@ export function CompetencyGapAnalysis() {
           </div>
         </TabsContent>
 
-        {/* Distribution Tab */}
         <TabsContent value="distribution">
           <Card>
             <CardHeader>
-              <CardTitle>Distribuție Niveluri de Competență</CardTitle>
-              <CardDescription>Clasificarea utilizatorilor pe niveluri</CardDescription>
+              <CardTitle>{t('admin.competency.levelDist')}</CardTitle>
+              <CardDescription>{t('admin.competency.levelDistDesc')}</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
@@ -327,7 +328,7 @@ export function CompetencyGapAnalysis() {
                   <div key={level.level} className="space-y-2">
                     <div className="flex justify-between text-sm">
                       <span className="font-medium">{level.level}</span>
-                      <span>{level.count} utilizatori ({level.percentage}%)</span>
+                      <span>{level.count} {t('admin.competency.users')} ({level.percentage}%)</span>
                     </div>
                     <Progress 
                       value={level.percentage} 
@@ -374,6 +375,7 @@ function UserDetailModal({
   getTrendIcon: (trend: ChapterCompetency['trend']) => React.ReactNode;
   getScoreColor: (score: number) => string;
 }) {
+  const { t } = useLanguage();
   const { loading, userProfile } = useCompetencyAnalysis(userId || undefined);
 
   if (!userId) return null;
@@ -384,7 +386,7 @@ function UserDetailModal({
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <Target className="h-5 w-5" />
-            Profil Competențe: {userProfile?.firstName} {userProfile?.lastName}
+            {t('admin.competency.profileTitle')}: {userProfile?.firstName} {userProfile?.lastName}
           </DialogTitle>
         </DialogHeader>
 
@@ -400,19 +402,19 @@ function UserDetailModal({
                 <Card className="bg-gradient-to-br from-blue-50 to-blue-100">
                   <CardContent className="pt-4 text-center">
                     <p className="text-3xl font-bold text-blue-600">{userProfile.overallScore}%</p>
-                    <p className="text-sm text-blue-600">Scor General</p>
+                    <p className="text-sm text-blue-600">{t('admin.competency.overallScore')}</p>
                   </CardContent>
                 </Card>
                 <Card className="bg-gradient-to-br from-green-50 to-green-100">
                   <CardContent className="pt-4 text-center">
                     <p className="text-3xl font-bold text-green-600">{userProfile.strongAreas.length}</p>
-                    <p className="text-sm text-green-600">Puncte Forte</p>
+                    <p className="text-sm text-green-600">{t('admin.competency.strongPoints')}</p>
                   </CardContent>
                 </Card>
                 <Card className="bg-gradient-to-br from-red-50 to-red-100">
                   <CardContent className="pt-4 text-center">
                     <p className="text-3xl font-bold text-red-600">{userProfile.weakAreas.length}</p>
-                    <p className="text-sm text-red-600">De Îmbunătățit</p>
+                    <p className="text-sm text-red-600">{t('admin.competency.toImprove')}</p>
                   </CardContent>
                 </Card>
                 <Card className="bg-gradient-to-br from-purple-50 to-purple-100">
@@ -420,18 +422,17 @@ function UserDetailModal({
                     <p className="text-3xl font-bold text-purple-600">
                       {userProfile.completedChapters}/{userProfile.totalChapters}
                     </p>
-                    <p className="text-sm text-purple-600">Capitole Complete</p>
+                    <p className="text-sm text-purple-600">{t('admin.competency.completedChapters')}</p>
                   </CardContent>
                 </Card>
               </div>
 
-              {/* Recommendations */}
               {userProfile.recommendations.length > 0 && (
                 <Card className="border-amber-200 bg-amber-50">
                   <CardHeader className="pb-2">
                     <CardTitle className="flex items-center gap-2 text-amber-700">
                       <Lightbulb className="h-5 w-5" />
-                      Recomandări Personalizate
+                      {t('admin.competency.recommendations')}
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
@@ -469,10 +470,9 @@ function UserDetailModal({
                 </Card>
               )}
 
-              {/* Chapter by Chapter */}
               <Card>
                 <CardHeader>
-                  <CardTitle>Analiză Detaliată per Capitol</CardTitle>
+                  <CardTitle>{t('admin.competency.detailedAnalysis')}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="grid grid-cols-2 gap-2">
@@ -501,7 +501,7 @@ function UserDetailModal({
             </div>
           </ScrollArea>
         ) : (
-          <p className="text-center py-8 text-muted-foreground">Nu s-au găsit date</p>
+          <p className="text-center py-8 text-muted-foreground">{t('admin.competency.noData')}</p>
         )}
       </DialogContent>
     </Dialog>
