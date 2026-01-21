@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useCompany, Company, CompanyBranding, CompanySettings, CompanySubscription } from '@/contexts/CompanyContext';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -24,6 +25,7 @@ interface ExtendedCompany extends Company {
 
 export function CompanyManagement() {
   const { isSuperAdmin } = useCompany();
+  const { t } = useLanguage();
   const { toast } = useToast();
   const [companies, setCompanies] = useState<ExtendedCompany[]>([]);
   const [loading, setLoading] = useState(true);
@@ -156,8 +158,8 @@ export function CompanyManagement() {
     return (
       <Card>
         <CardHeader>
-          <CardTitle>Acces restricționat</CardTitle>
-          <CardDescription>Doar Super Admin poate gestiona companiile.</CardDescription>
+          <CardTitle>{t('admin.company.restricted')}</CardTitle>
+          <CardDescription>{t('admin.company.restrictedDesc')}</CardDescription>
         </CardHeader>
       </Card>
     );
@@ -165,31 +167,31 @@ export function CompanyManagement() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white rounded-2xl p-6 shadow-xl">
+      <div className="flex items-center justify-between bg-gradient-to-r from-primary via-primary/80 to-primary/60 text-primary-foreground rounded-2xl p-6 shadow-xl">
         <div>
           <h2 className="text-2xl font-black flex items-center gap-3">
-            <div className="p-2 bg-white/20 rounded-lg">
+            <div className="p-2 bg-primary-foreground/20 rounded-lg">
               <Building2 className="h-6 w-6" />
             </div>
-            Gestionare Companii
+            {t('admin.company.title')}
           </h2>
-          <p className="text-white/80 font-medium mt-1">Administrează toate companiile din platformă</p>
+          <p className="text-primary-foreground/80 font-medium mt-1">{t('admin.company.subtitle')}</p>
         </div>
         <Dialog open={isCreateOpen} onOpenChange={setIsCreateOpen}>
           <DialogTrigger asChild>
-            <Button className="bg-white text-indigo-700 hover:bg-white/90 font-bold shadow-lg">
+            <Button className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 font-bold shadow-lg">
               <Plus className="h-4 w-4 mr-2" />
-              Companie Nouă
+              {t('admin.company.new')}
             </Button>
           </DialogTrigger>
           <DialogContent className="border-2 shadow-2xl">
             <DialogHeader>
-              <DialogTitle className="text-xl font-bold">Creează Companie Nouă</DialogTitle>
-              <DialogDescription>Adaugă o nouă companie în platformă</DialogDescription>
+              <DialogTitle className="text-xl font-bold">{t('admin.company.create')}</DialogTitle>
+              <DialogDescription>{t('admin.company.add')}</DialogDescription>
             </DialogHeader>
             <div className="space-y-4 py-4">
               <div className="space-y-2">
-                <Label className="font-semibold">Nume Companie</Label>
+                <Label className="font-semibold">{t('admin.company.name')}</Label>
                 <Input
                   value={newCompany.name}
                   onChange={(e) => setNewCompany({ ...newCompany, name: e.target.value })}
@@ -198,17 +200,17 @@ export function CompanyManagement() {
                 />
               </div>
               <div className="space-y-2">
-                <Label className="font-semibold">Slug (URL)</Label>
+                <Label className="font-semibold">{t('admin.company.slug')}</Label>
                 <Input
                   value={newCompany.slug}
                   onChange={(e) => setNewCompany({ ...newCompany, slug: e.target.value })}
                   placeholder="transport-srl"
                   className="border-2"
                 />
-                <p className="text-xs text-muted-foreground">Va fi folosit în URL: {newCompany.slug || 'slug'}.rossiktraining.com</p>
+                <p className="text-xs text-muted-foreground">URL: {newCompany.slug || 'slug'}.rossiktraining.com</p>
               </div>
               <div className="space-y-2">
-                <Label className="font-semibold">Domeniu Custom (opțional)</Label>
+                <Label className="font-semibold">{t('admin.company.domain')}</Label>
                 <Input
                   value={newCompany.custom_domain}
                   onChange={(e) => setNewCompany({ ...newCompany, custom_domain: e.target.value })}
@@ -217,7 +219,7 @@ export function CompanyManagement() {
                 />
               </div>
               <div className="space-y-2">
-                <Label className="font-semibold">Plan</Label>
+                <Label className="font-semibold">{t('admin.company.plan')}</Label>
                 <Select
                   value={newCompany.plan_type}
                   onValueChange={(value) => setNewCompany({ ...newCompany, plan_type: value })}
@@ -225,10 +227,10 @@ export function CompanyManagement() {
                   <SelectTrigger className="border-2">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent className="bg-white border-2 shadow-xl">
+                  <SelectContent className="bg-background border-2 shadow-xl">
                     {plans.map((plan) => (
                       <SelectItem key={plan.id} value={plan.plan_type}>
-                        {plan.name} - €{plan.price_monthly}/lună
+                        {plan.name} - €{plan.price_monthly}{t('admin.general.perMonth')}
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -236,38 +238,38 @@ export function CompanyManagement() {
               </div>
             </div>
             <DialogFooter>
-              <Button variant="outline" onClick={() => setIsCreateOpen(false)}>Anulează</Button>
-              <Button onClick={createCompany} disabled={!newCompany.name || !newCompany.slug} className="bg-indigo-600 hover:bg-indigo-700">Creează</Button>
+              <Button variant="outline" onClick={() => setIsCreateOpen(false)}>{t('admin.company.cancel')}</Button>
+              <Button onClick={createCompany} disabled={!newCompany.name || !newCompany.slug}>{t('admin.company.createBtn')}</Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>
       </div>
 
       {/* Companies Table */}
-      <Card className="admin-section-card border-indigo-200">
-        <CardHeader className="admin-section-header bg-gradient-to-r from-indigo-50 to-blue-50">
+      <Card className="admin-section-card border-primary/20">
+        <CardHeader className="admin-section-header bg-gradient-to-r from-muted to-muted/50">
           <CardTitle className="flex items-center gap-3 text-xl">
-            <div className="p-2 bg-indigo-500 rounded-lg shadow-md">
-              <Building2 className="h-5 w-5 text-white" />
+            <div className="p-2 bg-primary rounded-lg shadow-md">
+              <Building2 className="h-5 w-5 text-primary-foreground" />
             </div>
-            <span className="text-indigo-800">Companii ({companies.length})</span>
+            <span className="text-foreground">{t('admin.tab.companies')} ({companies.length})</span>
           </CardTitle>
         </CardHeader>
         <CardContent className="p-0">
           {loading ? (
             <div className="flex justify-center py-8">
-              <div className="w-8 h-8 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin" />
+              <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
             </div>
           ) : (
             <Table>
               <TableHeader>
-                <TableRow className="bg-slate-100 hover:bg-slate-100">
-                  <TableHead className="font-bold text-slate-800">Companie</TableHead>
-                  <TableHead className="font-bold text-slate-800">Cod Înregistrare</TableHead>
-                  <TableHead className="font-bold text-slate-800">Plan</TableHead>
-                  <TableHead className="font-bold text-slate-800">Utilizatori</TableHead>
-                  <TableHead className="font-bold text-slate-800">Status</TableHead>
-                  <TableHead className="font-bold text-slate-800 text-right">Acțiuni</TableHead>
+                <TableRow className="bg-muted hover:bg-muted">
+                  <TableHead className="font-bold text-foreground">{t('admin.company.name')}</TableHead>
+                  <TableHead className="font-bold text-foreground">{t('admin.company.regCode')}</TableHead>
+                  <TableHead className="font-bold text-foreground">{t('admin.company.plan')}</TableHead>
+                  <TableHead className="font-bold text-foreground">{t('admin.company.users')}</TableHead>
+                  <TableHead className="font-bold text-foreground">{t('admin.company.status')}</TableHead>
+                  <TableHead className="font-bold text-foreground text-right">{t('admin.table.actions')}</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
