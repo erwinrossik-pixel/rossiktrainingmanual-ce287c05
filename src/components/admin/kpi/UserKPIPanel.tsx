@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { UserKPI } from '@/hooks/useLearningKPI';
+import { useLanguage } from '@/contexts/LanguageContext';
 import {
   LineChart,
   Line,
@@ -56,17 +57,18 @@ const getProgressColor = (progress: number) => {
   return 'bg-red-500';
 };
 
-const getEfficiencyBadge = (efficiency: number) => {
-  if (efficiency >= 5) return { label: 'Excelent', variant: 'default' as const, color: 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/30' };
-  if (efficiency >= 3) return { label: 'Bun', variant: 'secondary' as const, color: 'bg-blue-500 text-white shadow-lg shadow-blue-500/30' };
-  if (efficiency >= 1) return { label: 'Mediu', variant: 'outline' as const, color: 'bg-amber-500 text-white shadow-lg shadow-amber-500/30' };
-  return { label: 'Lent', variant: 'destructive' as const, color: 'bg-red-500 text-white shadow-lg shadow-red-500/30' };
+const getEfficiencyBadge = (efficiency: number, t: (key: string) => string) => {
+  if (efficiency >= 5) return { label: t('admin.kpi.efficiencyExcellent'), variant: 'default' as const, color: 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/30' };
+  if (efficiency >= 3) return { label: t('admin.kpi.efficiencyGood'), variant: 'secondary' as const, color: 'bg-blue-500 text-white shadow-lg shadow-blue-500/30' };
+  if (efficiency >= 1) return { label: t('admin.kpi.efficiencyMedium'), variant: 'outline' as const, color: 'bg-amber-500 text-white shadow-lg shadow-amber-500/30' };
+  return { label: t('admin.kpi.efficiencySlow'), variant: 'destructive' as const, color: 'bg-red-500 text-white shadow-lg shadow-red-500/30' };
 };
 
 export const UserKPIPanel = memo(function UserKPIPanel({ 
   userKPIs, 
   loading 
 }: UserKPIPanelProps) {
+  const { t } = useLanguage();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedUser, setSelectedUser] = useState<UserKPI | null>(null);
 
@@ -121,7 +123,7 @@ export const UserKPIPanel = memo(function UserKPIPanel({
               <div className="p-2 bg-blue-500 rounded-lg shadow-lg shadow-blue-500/30">
                 <Target className="h-4 w-4 text-white" />
               </div>
-              Progres Mediu
+              {t('admin.kpi.avgProgress')}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -141,12 +143,12 @@ export const UserKPIPanel = memo(function UserKPIPanel({
               <div className="p-2 bg-amber-500 rounded-lg shadow-lg shadow-amber-500/30">
                 <Zap className="h-4 w-4 text-white" />
               </div>
-              Viteză Învățare
+              {t('admin.kpi.learningSpeed')}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-extrabold text-amber-700 dark:text-amber-300">{avgVelocity.toFixed(1)}</div>
-            <p className="text-sm font-medium text-amber-600 dark:text-amber-400">capitole/săptămână</p>
+            <p className="text-sm font-medium text-amber-600 dark:text-amber-400">{t('admin.kpi.chaptersPerWeek')}</p>
           </CardContent>
         </Card>
 
@@ -156,12 +158,12 @@ export const UserKPIPanel = memo(function UserKPIPanel({
               <div className="p-2 bg-orange-500 rounded-lg shadow-lg shadow-orange-500/30">
                 <AlertCircle className="h-4 w-4 text-white" />
               </div>
-              Utilizatori cu Probleme
+              {t('admin.kpi.usersWithProblems')}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-extrabold text-orange-600 dark:text-orange-400">{usersWithProblems}</div>
-            <p className="text-sm font-medium text-orange-600 dark:text-orange-400">au capitole problematice</p>
+            <p className="text-sm font-medium text-orange-600 dark:text-orange-400">{t('admin.kpi.haveProblematicChapters')}</p>
           </CardContent>
         </Card>
 
@@ -171,12 +173,12 @@ export const UserKPIPanel = memo(function UserKPIPanel({
               <div className="p-2 bg-purple-500 rounded-lg shadow-lg shadow-purple-500/30">
                 <Clock className="h-4 w-4 text-white" />
               </div>
-              Timp Studiu Mediu
+              {t('admin.kpi.avgStudyTime')}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-extrabold text-purple-700 dark:text-purple-300">{avgStudyTime.toFixed(1)}h</div>
-            <p className="text-sm font-medium text-purple-600 dark:text-purple-400">per utilizator</p>
+            <p className="text-sm font-medium text-purple-600 dark:text-purple-400">{t('admin.kpi.perUser')}</p>
           </CardContent>
         </Card>
       </div>
@@ -190,15 +192,15 @@ export const UserKPIPanel = memo(function UserKPIPanel({
               <div className="p-2 bg-gradient-to-br from-yellow-400 to-amber-500 rounded-lg shadow-lg shadow-amber-500/40">
                 <Award className="h-6 w-6 text-white" />
               </div>
-              Top Performeri
+              {t('admin.kpi.topPerformers')}
             </CardTitle>
-            <CardDescription className="text-emerald-700 dark:text-emerald-300 font-medium">Cei mai eficienți cursanți</CardDescription>
+            <CardDescription className="text-emerald-700 dark:text-emerald-300 font-medium">{t('admin.kpi.mostEfficient')}</CardDescription>
           </CardHeader>
           <CardContent className="pt-4">
             <div className="space-y-3">
-              {topPerformers.map((user, idx) => {
-                const effBadge = getEfficiencyBadge(user.efficiency);
-                const medalColors = [
+                  {topPerformers.map((user, idx) => {
+                    const effBadge = getEfficiencyBadge(user.efficiency, t);
+                    const medalColors = [
                   'bg-gradient-to-br from-yellow-400 to-amber-500 text-white shadow-lg shadow-amber-500/40',
                   'bg-gradient-to-br from-gray-300 to-gray-400 text-white shadow-lg shadow-gray-400/40',
                   'bg-gradient-to-br from-amber-600 to-amber-700 text-white shadow-lg shadow-amber-600/40',
@@ -238,9 +240,9 @@ export const UserKPIPanel = memo(function UserKPIPanel({
               <div className="p-2 bg-gradient-to-br from-orange-500 to-red-500 rounded-lg shadow-lg shadow-orange-500/40 animate-pulse">
                 <AlertCircle className="h-6 w-6 text-white" />
               </div>
-              Necesită Suport
+              {t('admin.kpi.needsSupport')}
             </CardTitle>
-            <CardDescription className="text-orange-700 dark:text-orange-300 font-medium">Utilizatori cu dificultăți de învățare</CardDescription>
+            <CardDescription className="text-orange-700 dark:text-orange-300 font-medium">{t('admin.kpi.learningDifficulties')}</CardDescription>
           </CardHeader>
           <CardContent className="pt-4">
             <ScrollArea className="h-[300px]">
@@ -250,8 +252,8 @@ export const UserKPIPanel = memo(function UserKPIPanel({
                     <div className="p-4 bg-emerald-100 dark:bg-emerald-900/50 rounded-full mb-4">
                       <Award className="h-8 w-8 text-emerald-600 dark:text-emerald-400" />
                     </div>
-                    <p className="text-emerald-700 dark:text-emerald-300 font-semibold text-lg">Excelent!</p>
-                    <p className="text-muted-foreground">Nu există utilizatori care necesită suport urgent</p>
+                    <p className="text-emerald-700 dark:text-emerald-300 font-semibold text-lg">{t('admin.kpi.excellent')}</p>
+                    <p className="text-muted-foreground">{t('admin.kpi.noUsersNeedSupport')}</p>
                   </div>
                 ) : (
                   needingSupport.map((user) => (
@@ -282,7 +284,7 @@ export const UserKPIPanel = memo(function UserKPIPanel({
                         <div className={`text-2xl font-extrabold ${getScoreColor(user.avgScore)} px-3 py-1 rounded-lg border ${getScoreBg(user.avgScore)}`}>
                           {user.avgScore.toFixed(0)}%
                         </div>
-                        <p className="text-xs text-muted-foreground mt-1 font-medium">scor mediu</p>
+                        <p className="text-xs text-muted-foreground mt-1 font-medium">{t('admin.kpi.avgScore')}</p>
                       </div>
                     </div>
                   ))
@@ -300,12 +302,12 @@ export const UserKPIPanel = memo(function UserKPIPanel({
             <div className="p-2 bg-gradient-to-br from-slate-500 to-slate-700 rounded-lg shadow-lg">
               <BookOpen className="h-5 w-5 text-white" />
             </div>
-            Toți Utilizatorii ({filteredUsers.length})
+            {t('admin.kpi.allUsers')} ({filteredUsers.length})
           </CardTitle>
           <div className="relative mt-4">
             <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
             <Input
-              placeholder="Caută după nume sau email..."
+              placeholder={t('admin.kpi.searchByNameEmail')}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="pl-12 h-12 text-base border-2 focus:border-primary"
@@ -316,8 +318,8 @@ export const UserKPIPanel = memo(function UserKPIPanel({
           <ScrollArea className="h-[450px]">
             <div className="space-y-3 pr-4">
               {filteredUsers.map((user) => {
-                const effBadge = getEfficiencyBadge(user.efficiency);
-                const progressPercent = (user.chaptersCompleted / user.totalChapters) * 100;
+                    const effBadge = getEfficiencyBadge(user.efficiency, t);
+                    const progressPercent = (user.chaptersCompleted / user.totalChapters) * 100;
                 return (
                   <div 
                     key={user.userId}

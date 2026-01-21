@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { ContentKPI } from '@/hooks/useLearningKPI';
+import { useLanguage } from '@/contexts/LanguageContext';
 import {
   BarChart,
   Bar,
@@ -45,18 +46,20 @@ const difficultyColors: Record<ContentKPI['difficulty'], string> = {
   very_hard: '#ef4444',
 };
 
-const difficultyLabels: Record<ContentKPI['difficulty'], string> = {
-  very_easy: 'Foarte Ușor',
-  easy: 'Ușor',
-  medium: 'Mediu',
-  hard: 'Greu',
-  very_hard: 'Foarte Greu',
-};
+const getDifficultyLabels = (t: (key: string) => string): Record<ContentKPI['difficulty'], string> => ({
+  very_easy: t('admin.kpi.veryEasy'),
+  easy: t('admin.kpi.easy'),
+  medium: t('admin.kpi.medium'),
+  hard: t('admin.kpi.hard'),
+  very_hard: t('admin.kpi.veryHard'),
+});
 
 export const ContentKPIPanel = memo(function ContentKPIPanel({ 
   contentKPIs, 
   loading 
 }: ContentKPIPanelProps) {
+  const { t } = useLanguage();
+  const difficultyLabels = getDifficultyLabels(t);
   const [sortBy, setSortBy] = useState<'passRate' | 'difficulty' | 'bounceRate'>('passRate');
   const [filterDifficulty, setFilterDifficulty] = useState<string>('all');
 
@@ -94,11 +97,11 @@ export const ContentKPIPanel = memo(function ContentKPIPanel({
 
   // Difficulty distribution for chart
   const difficultyDistribution = [
-    { name: 'Foarte Ușor', value: contentKPIs.filter(c => c.difficulty === 'very_easy').length, color: difficultyColors.very_easy },
-    { name: 'Ușor', value: contentKPIs.filter(c => c.difficulty === 'easy').length, color: difficultyColors.easy },
-    { name: 'Mediu', value: contentKPIs.filter(c => c.difficulty === 'medium').length, color: difficultyColors.medium },
-    { name: 'Greu', value: contentKPIs.filter(c => c.difficulty === 'hard').length, color: difficultyColors.hard },
-    { name: 'Foarte Greu', value: contentKPIs.filter(c => c.difficulty === 'very_hard').length, color: difficultyColors.very_hard },
+    { name: t('admin.kpi.veryEasy'), value: contentKPIs.filter(c => c.difficulty === 'very_easy').length, color: difficultyColors.very_easy },
+    { name: t('admin.kpi.easy'), value: contentKPIs.filter(c => c.difficulty === 'easy').length, color: difficultyColors.easy },
+    { name: t('admin.kpi.medium'), value: contentKPIs.filter(c => c.difficulty === 'medium').length, color: difficultyColors.medium },
+    { name: t('admin.kpi.hard'), value: contentKPIs.filter(c => c.difficulty === 'hard').length, color: difficultyColors.hard },
+    { name: t('admin.kpi.veryHard'), value: contentKPIs.filter(c => c.difficulty === 'very_hard').length, color: difficultyColors.very_hard },
   ];
 
   // Scatter data for pass rate vs attempts
@@ -126,12 +129,12 @@ export const ContentKPIPanel = memo(function ContentKPIPanel({
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium flex items-center gap-2">
               <TrendingDown className="h-4 w-4 text-destructive" />
-              Capitole Grele
+              {t('admin.kpi.hardChapters')}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-destructive">{veryHardChapters.length}</div>
-            <p className="text-xs text-muted-foreground">necesită simplificare</p>
+            <p className="text-xs text-muted-foreground">{t('admin.kpi.needsSimplification')}</p>
           </CardContent>
         </Card>
 
@@ -139,12 +142,12 @@ export const ContentKPIPanel = memo(function ContentKPIPanel({
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium flex items-center gap-2">
               <TrendingUp className="h-4 w-4 text-green-600" />
-              Capitole Ușoare
+              {t('admin.kpi.easyChapters')}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-green-600">{veryEasyChapters.length}</div>
-            <p className="text-xs text-muted-foreground">pot fi extinse</p>
+            <p className="text-xs text-muted-foreground">{t('admin.kpi.canBeExpanded')}</p>
           </CardContent>
         </Card>
 
@@ -152,12 +155,12 @@ export const ContentKPIPanel = memo(function ContentKPIPanel({
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium flex items-center gap-2">
               <AlertTriangle className="h-4 w-4 text-orange-500" />
-              Necesită Review
+              {t('admin.kpi.needsReview')}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-orange-600">{chaptersNeedingReview.length}</div>
-            <p className="text-xs text-muted-foreground">atenție prioritară</p>
+            <p className="text-xs text-muted-foreground">{t('admin.kpi.priorityRequired')}</p>
           </CardContent>
         </Card>
 
@@ -165,12 +168,12 @@ export const ContentKPIPanel = memo(function ContentKPIPanel({
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium flex items-center gap-2">
               <BookX className="h-4 w-4 text-muted-foreground" />
-              Bounce Rate Mediu
+              {t('admin.kpi.avgBounceRate')}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{avgBounceRate.toFixed(1)}%</div>
-            <p className="text-xs text-muted-foreground">abandon capitol</p>
+            <p className="text-xs text-muted-foreground">{t('admin.kpi.chapterAbandonment')}</p>
           </CardContent>
         </Card>
       </div>
@@ -180,8 +183,8 @@ export const ContentKPIPanel = memo(function ContentKPIPanel({
         {/* Difficulty Distribution */}
         <Card>
           <CardHeader>
-            <CardTitle className="text-lg">Distribuția Dificultății</CardTitle>
-            <CardDescription>Câte capitole per nivel de dificultate</CardDescription>
+            <CardTitle className="text-lg">{t('admin.kpi.difficultyDistribution')}</CardTitle>
+            <CardDescription>{t('admin.kpi.chaptersPerDifficulty')}</CardDescription>
           </CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={250}>
@@ -203,8 +206,8 @@ export const ContentKPIPanel = memo(function ContentKPIPanel({
         {/* Pass Rate vs Attempts Scatter */}
         <Card>
           <CardHeader>
-            <CardTitle className="text-lg">Analiză Corelație</CardTitle>
-            <CardDescription>Rata promovare vs. încercări medii (dimensiune = bounce rate)</CardDescription>
+            <CardTitle className="text-lg">{t('admin.kpi.correlationAnalysis')}</CardTitle>
+            <CardDescription>{t('admin.kpi.passRateVsAttempts')}</CardDescription>
           </CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={250}>
@@ -212,15 +215,15 @@ export const ContentKPIPanel = memo(function ContentKPIPanel({
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis 
                   dataKey="x" 
-                  name="Rata Promovare" 
+                  name={t('admin.kpi.passRate')} 
                   unit="%" 
                   domain={[0, 100]}
-                  label={{ value: 'Rata Promovare (%)', position: 'bottom', offset: -5 }}
+                  label={{ value: t('admin.kpi.passRate') + ' (%)', position: 'bottom', offset: -5 }}
                 />
                 <YAxis 
                   dataKey="y" 
-                  name="Încercări" 
-                  label={{ value: 'Încercări', angle: -90, position: 'insideLeft' }}
+                  name={t('admin.kpi.avgAttemptsToPass')} 
+                  label={{ value: t('admin.kpi.avgAttemptsToPass'), angle: -90, position: 'insideLeft' }}
                 />
                 <ZAxis dataKey="z" range={[50, 400]} />
                 <Tooltip 
@@ -261,33 +264,33 @@ export const ContentKPIPanel = memo(function ContentKPIPanel({
             <div>
               <CardTitle className="text-lg flex items-center gap-2">
                 <Lightbulb className="h-5 w-5 text-yellow-500" />
-                Analiza Detaliată & Recomandări
+                {t('admin.kpi.detailedAnalysis')}
               </CardTitle>
-              <CardDescription>Capitole ordonate după {sortBy}</CardDescription>
+              <CardDescription>{t('admin.kpi.orderedBy')} {sortBy === 'passRate' ? t('admin.kpi.passRate') : sortBy === 'bounceRate' ? t('admin.kpi.bounceRate') : t('admin.kpi.difficulty')}</CardDescription>
             </div>
             <div className="flex gap-2">
               <Select value={filterDifficulty} onValueChange={setFilterDifficulty}>
                 <SelectTrigger className="w-[140px]">
-                  <SelectValue placeholder="Dificultate" />
+                  <SelectValue placeholder={t('admin.kpi.difficulty')} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">Toate</SelectItem>
-                  <SelectItem value="very_easy">Foarte Ușor</SelectItem>
-                  <SelectItem value="easy">Ușor</SelectItem>
-                  <SelectItem value="medium">Mediu</SelectItem>
-                  <SelectItem value="hard">Greu</SelectItem>
-                  <SelectItem value="very_hard">Foarte Greu</SelectItem>
+                  <SelectItem value="all">{t('admin.kpi.all')}</SelectItem>
+                  <SelectItem value="very_easy">{t('admin.kpi.veryEasy')}</SelectItem>
+                  <SelectItem value="easy">{t('admin.kpi.easy')}</SelectItem>
+                  <SelectItem value="medium">{t('admin.kpi.medium')}</SelectItem>
+                  <SelectItem value="hard">{t('admin.kpi.hard')}</SelectItem>
+                  <SelectItem value="very_hard">{t('admin.kpi.veryHard')}</SelectItem>
                 </SelectContent>
               </Select>
               <Select value={sortBy} onValueChange={(v) => setSortBy(v as any)}>
                 <SelectTrigger className="w-[140px]">
                   <ArrowUpDown className="h-4 w-4 mr-2" />
-                  <SelectValue placeholder="Sortare" />
+                  <SelectValue placeholder={t('admin.kpi.sort')} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="passRate">Rata Promovare</SelectItem>
-                  <SelectItem value="bounceRate">Bounce Rate</SelectItem>
-                  <SelectItem value="difficulty">Dificultate</SelectItem>
+                  <SelectItem value="passRate">{t('admin.kpi.passRate')}</SelectItem>
+                  <SelectItem value="bounceRate">{t('admin.kpi.bounceRate')}</SelectItem>
+                  <SelectItem value="difficulty">{t('admin.kpi.difficulty')}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -318,32 +321,32 @@ export const ContentKPIPanel = memo(function ContentKPIPanel({
                         {chapter.needsReview && (
                           <Badge variant="outline" className="border-orange-500 text-orange-600">
                             <AlertTriangle className="h-3 w-3 mr-1" />
-                            Review
+                            {t('admin.kpi.review')}
                           </Badge>
                         )}
                         {chapter.correlationWithUpdates > 0 && (
                           <Badge variant="secondary">
-                            {chapter.correlationWithUpdates} update-uri
+                            {chapter.correlationWithUpdates} {t('admin.kpi.updates')}
                           </Badge>
                         )}
                       </div>
                       
                       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-sm">
                         <div>
-                          <p className="text-muted-foreground">Rata Promovare</p>
+                          <p className="text-muted-foreground">{t('admin.kpi.passRate')}</p>
                           <p className="font-medium">{chapter.avgPassRate.toFixed(1)}%</p>
                           <Progress value={chapter.avgPassRate} className="h-1 mt-1" />
                         </div>
                         <div>
-                          <p className="text-muted-foreground">Încercări Medii</p>
+                          <p className="text-muted-foreground">{t('admin.kpi.avgAttemptsToPass')}</p>
                           <p className="font-medium">{chapter.avgAttemptsToPass.toFixed(1)}</p>
                         </div>
                         <div>
-                          <p className="text-muted-foreground">Skip Rate</p>
+                          <p className="text-muted-foreground">{t('admin.kpi.skipRate')}</p>
                           <p className="font-medium">{chapter.skipRate.toFixed(1)}%</p>
                         </div>
                         <div>
-                          <p className="text-muted-foreground">Bounce Rate</p>
+                          <p className="text-muted-foreground">{t('admin.kpi.bounceRate')}</p>
                           <p className="font-medium text-orange-600">{chapter.bounceRate.toFixed(1)}%</p>
                         </div>
                       </div>
