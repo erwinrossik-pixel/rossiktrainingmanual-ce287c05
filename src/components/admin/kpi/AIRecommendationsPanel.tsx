@@ -345,6 +345,7 @@ export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
                           </span>
                         </div>
 
+                        {rec.dismissed_reason && (
                           <p className="text-sm text-orange-600 mt-2">
                             <AlertTriangle className="h-3 w-3 inline mr-1" />
                             {t('admin.ai.dismissReason')} {rec.dismissed_reason}
