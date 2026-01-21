@@ -28,6 +28,7 @@ import {
   Cpu
 } from 'lucide-react';
 import { JobsMonitor } from './JobsMonitor';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface ContentSource {
   id: string;
@@ -80,6 +81,7 @@ interface AuditLogEntry {
 }
 
 export function AutoUpdateDashboard() {
+  const { t } = useLanguage();
   const [sources, setSources] = useState<ContentSource[]>([]);
   const [changes, setChanges] = useState<DetectedChange[]>([]);
   const [updates, setUpdates] = useState<AutoUpdate[]>([]);
@@ -172,9 +174,9 @@ export function AutoUpdateDashboard() {
       .eq('id', sourceId);
     
     if (error) {
-      toast.error('Eroare la actualizarea sursei');
+      toast.error(t('admin.autoUpdate.errorSource'));
     } else {
-      toast.success(isActive ? 'Sursa activată' : 'Sursa dezactivată');
+      toast.success(isActive ? t('admin.autoUpdate.sourceActivated') : t('admin.autoUpdate.sourceDeactivated'));
       fetchSources();
     }
   };
@@ -188,11 +190,11 @@ export function AutoUpdateDashboard() {
       
       if (error) throw error;
       
-      toast.success(`Verificare forțată lansată pentru ${data?.sources_checked || 0} surse`);
+      toast.success(`${t('admin.autoUpdate.forceCheckLaunched').replace('{count}', String(data?.sources_checked || 0))}`);
       fetchAllData();
     } catch (error) {
       console.error('Error forcing recheck:', error);
-      toast.error('Eroare la lansarea verificării');
+      toast.error(t('admin.autoUpdate.errorCheck'));
     } finally {
       setActionLoading(null);
     }
@@ -211,7 +213,7 @@ export function AutoUpdateDashboard() {
       
       if (error) throw error;
       
-      toast.success(data?.message || 'Acțiune completată');
+      toast.success(data?.message || t('admin.autoUpdate.actionComplete'));
       setDialogOpen(false);
       setSelectedUpdate(null);
       setRejectReason('');
@@ -219,7 +221,7 @@ export function AutoUpdateDashboard() {
       fetchAuditLog();
     } catch (error) {
       console.error('Error performing action:', error);
-      toast.error('Eroare la efectuarea acțiunii');
+      toast.error(t('admin.autoUpdate.errorAction'));
     } finally {
       setActionLoading(null);
     }
@@ -234,11 +236,11 @@ export function AutoUpdateDashboard() {
   const getSeverityBadge = (severity: string) => {
     switch (severity) {
       case 'critical':
-        return <Badge variant="destructive">CRITIC</Badge>;
+        return <Badge variant="destructive">{t('admin.autoUpdate.severityCritical')}</Badge>;
       case 'major':
-        return <Badge className="bg-orange-500 hover:bg-orange-600">MAJOR</Badge>;
+        return <Badge className="bg-orange-500 hover:bg-orange-600">{t('admin.autoUpdate.severityMajor')}</Badge>;
       case 'minor':
-        return <Badge variant="secondary">MINOR</Badge>;
+        return <Badge variant="secondary">{t('admin.autoUpdate.severityMinor')}</Badge>;
       default:
         return <Badge variant="outline">{severity}</Badge>;
     }
@@ -247,17 +249,17 @@ export function AutoUpdateDashboard() {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'pending':
-        return <Badge className="bg-yellow-500 hover:bg-yellow-600">În așteptare</Badge>;
+        return <Badge className="bg-yellow-500 hover:bg-yellow-600">{t('admin.autoUpdate.statusPending')}</Badge>;
       case 'approved':
-        return <Badge className="bg-blue-500 hover:bg-blue-600">Aprobat</Badge>;
+        return <Badge className="bg-blue-500 hover:bg-blue-600">{t('admin.autoUpdate.statusApproved')}</Badge>;
       case 'applied':
-        return <Badge className="bg-green-500 hover:bg-green-600">Aplicat</Badge>;
+        return <Badge className="bg-green-500 hover:bg-green-600">{t('admin.autoUpdate.statusApplied')}</Badge>;
       case 'rejected':
-        return <Badge variant="destructive">Respins</Badge>;
+        return <Badge variant="destructive">{t('admin.autoUpdate.statusRejected')}</Badge>;
       case 'rolled_back':
-        return <Badge className="bg-purple-500 hover:bg-purple-600">Rollback</Badge>;
+        return <Badge className="bg-purple-500 hover:bg-purple-600">{t('admin.autoUpdate.statusRolledBack')}</Badge>;
       case 'failed':
-        return <Badge variant="destructive">Eșuat</Badge>;
+        return <Badge variant="destructive">{t('admin.autoUpdate.statusFailed')}</Badge>;
       default:
         return <Badge variant="outline">{status}</Badge>;
     }
@@ -283,45 +285,45 @@ export function AutoUpdateDashboard() {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Surse Active</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('admin.autoUpdate.activeSources')}</CardTitle>
             <Globe className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{sources.filter(s => s.is_active).length}</div>
-            <p className="text-xs text-muted-foreground">din {sources.length} total</p>
+            <p className="text-xs text-muted-foreground">{t('admin.autoUpdate.ofTotal').replace('{total}', String(sources.length))}</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Schimbări Detectate</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('admin.autoUpdate.detectedChanges')}</CardTitle>
             <Activity className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{changes.filter(c => !c.is_processed).length}</div>
-            <p className="text-xs text-muted-foreground">neprocesate</p>
+            <p className="text-xs text-muted-foreground">{t('admin.autoUpdate.unprocessed')}</p>
           </CardContent>
         </Card>
 
         <Card className={pendingUpdates.length > 0 ? 'border-yellow-500' : ''}>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Necesită Aprobare</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('admin.autoUpdate.needsApproval')}</CardTitle>
             <AlertTriangle className={`h-4 w-4 ${pendingUpdates.length > 0 ? 'text-yellow-500' : 'text-muted-foreground'}`} />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{pendingUpdates.length}</div>
-            <p className="text-xs text-muted-foreground">actualizări în așteptare</p>
+            <p className="text-xs text-muted-foreground">{t('admin.autoUpdate.pendingUpdates')}</p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Actualizări Azi</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('admin.autoUpdate.todayUpdates')}</CardTitle>
             <Zap className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{todayUpdates.length}</div>
-            <p className="text-xs text-muted-foreground">capitole actualizate</p>
+            <p className="text-xs text-muted-foreground">{t('admin.autoUpdate.chaptersUpdated')}</p>
           </CardContent>
         </Card>
       </div>
@@ -334,7 +336,7 @@ export function AutoUpdateDashboard() {
           variant="outline"
         >
           <RefreshCw className={`h-4 w-4 mr-2 ${actionLoading === 'recheck' ? 'animate-spin' : ''}`} />
-          Verificare Forțată Acum
+          {t('admin.autoUpdate.forceCheck')}
         </Button>
       </div>
 
@@ -343,23 +345,23 @@ export function AutoUpdateDashboard() {
         <TabsList className="grid w-full grid-cols-5">
           <TabsTrigger value="jobs" className="flex items-center gap-2">
             <Cpu className="h-4 w-4" />
-            Job-uri
+            {t('admin.autoUpdate.tabJobs')}
           </TabsTrigger>
           <TabsTrigger value="updates" className="flex items-center gap-2">
             <FileText className="h-4 w-4" />
-            Actualizări
+            {t('admin.autoUpdate.tabUpdates')}
           </TabsTrigger>
           <TabsTrigger value="sources" className="flex items-center gap-2">
             <Globe className="h-4 w-4" />
-            Surse
+            {t('admin.autoUpdate.tabSources')}
           </TabsTrigger>
           <TabsTrigger value="changes" className="flex items-center gap-2">
             <Activity className="h-4 w-4" />
-            Schimbări
+            {t('admin.autoUpdate.tabChanges')}
           </TabsTrigger>
           <TabsTrigger value="audit" className="flex items-center gap-2">
             <History className="h-4 w-4" />
-            Audit
+            {t('admin.autoUpdate.tabAudit')}
           </TabsTrigger>
         </TabsList>
 
@@ -372,20 +374,20 @@ export function AutoUpdateDashboard() {
         <TabsContent value="updates" className="mt-6">
           <Card>
             <CardHeader>
-              <CardTitle>Actualizări Conținut</CardTitle>
-              <CardDescription>Gestionare actualizări automate ale capitolelor</CardDescription>
+              <CardTitle>{t('admin.autoUpdate.contentUpdates')}</CardTitle>
+              <CardDescription>{t('admin.autoUpdate.contentUpdatesDesc')}</CardDescription>
             </CardHeader>
             <CardContent>
               <ScrollArea className="h-[500px]">
                 <Table>
                   <TableHeader>
                     <TableRow>
-                      <TableHead>Capitol</TableHead>
-                      <TableHead>Titlu</TableHead>
-                      <TableHead>Severitate</TableHead>
-                      <TableHead>Status</TableHead>
-                      <TableHead>Data</TableHead>
-                      <TableHead>Acțiuni</TableHead>
+                      <TableHead>{t('admin.autoUpdate.chapter')}</TableHead>
+                      <TableHead>{t('admin.autoUpdate.title')}</TableHead>
+                      <TableHead>{t('admin.autoUpdate.severity')}</TableHead>
+                      <TableHead>{t('admin.autoUpdate.status')}</TableHead>
+                      <TableHead>{t('admin.autoUpdate.date')}</TableHead>
+                      <TableHead>{t('admin.autoUpdate.actions')}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -440,7 +442,7 @@ export function AutoUpdateDashboard() {
                     {updates.length === 0 && (
                       <TableRow>
                         <TableCell colSpan={6} className="text-center text-muted-foreground py-8">
-                          Nu există actualizări înregistrate
+                          {t('admin.autoUpdate.noUpdates')}
                         </TableCell>
                       </TableRow>
                     )}
@@ -455,19 +457,19 @@ export function AutoUpdateDashboard() {
         <TabsContent value="sources" className="mt-6">
           <Card>
             <CardHeader>
-              <CardTitle>Surse de Date</CardTitle>
-              <CardDescription>Surse oficiale monitorizate pentru actualizări</CardDescription>
+              <CardTitle>{t('admin.autoUpdate.dataSources')}</CardTitle>
+              <CardDescription>{t('admin.autoUpdate.dataSourcesDesc')}</CardDescription>
             </CardHeader>
             <CardContent>
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>Nume</TableHead>
-                    <TableHead>Tip</TableHead>
-                    <TableHead>Categorie</TableHead>
-                    <TableHead>Frecvență</TableHead>
-                    <TableHead>Ultima Verificare</TableHead>
-                    <TableHead>Activ</TableHead>
+                    <TableHead>{t('admin.autoUpdate.name')}</TableHead>
+                    <TableHead>{t('admin.autoUpdate.type')}</TableHead>
+                    <TableHead>{t('admin.autoUpdate.category')}</TableHead>
+                    <TableHead>{t('admin.autoUpdate.frequency')}</TableHead>
+                    <TableHead>{t('admin.autoUpdate.lastCheck')}</TableHead>
+                    <TableHead>{t('admin.autoUpdate.active')}</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
