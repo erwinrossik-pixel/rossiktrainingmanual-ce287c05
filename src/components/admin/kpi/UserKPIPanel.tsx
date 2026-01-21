@@ -36,17 +36,19 @@ interface UserKPIPanelProps {
   loading: boolean;
 }
 
+// Score is on a 10-point scale (0-10), thresholds: Green ≥9, Amber ≥7, Red <7
 const getScoreColor = (score: number) => {
-  if (score >= 90) return 'text-emerald-600 dark:text-emerald-400 font-bold';
-  if (score >= 70) return 'text-amber-600 dark:text-amber-400 font-semibold';
-  if (score >= 50) return 'text-orange-600 dark:text-orange-400 font-semibold';
+  if (score >= 9) return 'text-emerald-600 dark:text-emerald-400 font-bold';
+  if (score >= 7) return 'text-amber-600 dark:text-amber-400 font-semibold';
+  if (score >= 5) return 'text-orange-600 dark:text-orange-400 font-semibold';
   return 'text-red-600 dark:text-red-400 font-bold';
 };
 
+// Score is on a 10-point scale (0-10), thresholds: Green ≥9, Amber ≥7, Red <7
 const getScoreBg = (score: number) => {
-  if (score >= 90) return 'bg-emerald-100 dark:bg-emerald-900/30 border-emerald-300 dark:border-emerald-700';
-  if (score >= 70) return 'bg-amber-100 dark:bg-amber-900/30 border-amber-300 dark:border-amber-700';
-  if (score >= 50) return 'bg-orange-100 dark:bg-orange-900/30 border-orange-300 dark:border-orange-700';
+  if (score >= 9) return 'bg-emerald-100 dark:bg-emerald-900/30 border-emerald-300 dark:border-emerald-700';
+  if (score >= 7) return 'bg-amber-100 dark:bg-amber-900/30 border-amber-300 dark:border-amber-700';
+  if (score >= 5) return 'bg-orange-100 dark:bg-orange-900/30 border-orange-300 dark:border-orange-700';
   return 'bg-red-100 dark:bg-red-900/30 border-red-300 dark:border-red-700';
 };
 
@@ -100,9 +102,10 @@ export const UserKPIPanel = memo(function UserKPIPanel({
     .slice(0, 5);
 
   // Users needing support
+  // avgScore is on 10-point scale, threshold for needing support is <7
   const needingSupport = userKPIs.filter(u => 
     u.problematicChapters.length >= 2 || 
-    (u.avgScore < 70 && u.chaptersCompleted > 3)
+    (u.avgScore < 7 && u.chaptersCompleted > 3)
   );
 
   if (loading) {
@@ -282,7 +285,7 @@ export const UserKPIPanel = memo(function UserKPIPanel({
                       </div>
                       <div className="text-right shrink-0 ml-4">
                         <div className={`text-2xl font-extrabold ${getScoreColor(user.avgScore)} px-3 py-1 rounded-lg border ${getScoreBg(user.avgScore)}`}>
-                          {user.avgScore.toFixed(0)}%
+                          {user.avgScore.toFixed(1)}/10
                         </div>
                         <p className="text-xs text-muted-foreground mt-1 font-medium">{t('admin.kpi.avgScore')}</p>
                       </div>
@@ -355,7 +358,7 @@ export const UserKPIPanel = memo(function UserKPIPanel({
                       </div>
                       <div className={`text-center px-3 py-2 rounded-lg border ${getScoreBg(user.avgScore)}`}>
                         <p className={`text-lg ${getScoreColor(user.avgScore)}`}>
-                          {user.avgScore.toFixed(0)}%
+                          {user.avgScore.toFixed(1)}/10
                         </p>
                         <p className="text-xs font-medium text-muted-foreground">scor</p>
                       </div>
