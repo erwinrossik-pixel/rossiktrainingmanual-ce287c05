@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
@@ -11,7 +12,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Award, Search, Download, XCircle, Eye, RefreshCw, CheckCircle2, Clock, AlertTriangle, ExternalLink, TrendingUp, Calendar, Users, BarChart3 } from "lucide-react";
 import { format, subMonths, startOfMonth, endOfMonth, parseISO, isSameMonth } from "date-fns";
-import { ro } from "date-fns/locale";
+import { ro, de, enUS } from "date-fns/locale";
 import { toast } from "sonner";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, LineChart, Line, Legend } from "recharts";
 
@@ -34,6 +35,7 @@ interface Certificate {
 type FilterType = "all" | "active" | "expired" | "revoked";
 
 export function CertificatesDashboard() {
+  const { t, language } = useLanguage();
   const [certificates, setCertificates] = useState<Certificate[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
@@ -43,6 +45,8 @@ export function CertificatesDashboard() {
   const [revokeReason, setRevokeReason] = useState("");
   const [isRevoking, setIsRevoking] = useState(false);
   const [detailsDialogOpen, setDetailsDialogOpen] = useState(false);
+  
+  const dateLocale = language === 'de' ? de : language === 'en' ? enUS : ro;
 
   useEffect(() => {
     fetchCertificates();
@@ -101,7 +105,7 @@ export function CertificatesDashboard() {
       });
       
       months.push({
-        month: format(monthDate, "MMM yy", { locale: ro }),
+        month: format(monthDate, "MMM yy", { locale: dateLocale }),
         issued: monthCerts.length,
         active: monthCerts.filter(c => getStatus(c) === "active").length,
         expired: monthCerts.filter(c => getStatus(c) === "expired").length,
@@ -110,14 +114,14 @@ export function CertificatesDashboard() {
     }
     
     return months;
-  }, [certificates]);
+  }, [certificates, dateLocale]);
 
   // Status distribution for pie chart
   const statusDistribution = useMemo(() => [
-    { name: "Active", value: stats.active, color: "#22c55e" },
-    { name: "Expirate", value: stats.expired, color: "#eab308" },
-    { name: "Revocate", value: stats.revoked, color: "#ef4444" },
-  ].filter(item => item.value > 0), [stats]);
+    { name: t('admin.certificates.active'), value: stats.active, color: "#22c55e" },
+    { name: t('admin.certificates.expired'), value: stats.expired, color: "#eab308" },
+    { name: t('admin.certificates.revoked'), value: stats.revoked, color: "#ef4444" },
+  ].filter(item => item.value > 0), [stats, t]);
 
   // Average score trend
   const scoreTrend = useMemo(() => {
@@ -138,14 +142,14 @@ export function CertificatesDashboard() {
         : 0;
       
       months.push({
-        month: format(monthDate, "MMM yy", { locale: ro }),
+        month: format(monthDate, "MMM yy", { locale: dateLocale }),
         avgScore,
         count: monthCerts.length
       });
     }
     
     return months;
-  }, [certificates]);
+  }, [certificates, dateLocale]);
 
   // Top performers
   const topPerformers = useMemo(() => {
@@ -241,21 +245,21 @@ export function CertificatesDashboard() {
         return (
           <Badge className="bg-green-500 hover:bg-green-600">
             <CheckCircle2 className="w-3 h-3 mr-1" />
-            Activ
+            {t('admin.certificates.active')}
           </Badge>
         );
       case "expired":
         return (
           <Badge className="bg-yellow-500 hover:bg-yellow-600">
             <Clock className="w-3 h-3 mr-1" />
-            Expirat
+            {t('admin.certificates.expired')}
           </Badge>
         );
       case "revoked":
         return (
           <Badge className="bg-red-500 hover:bg-red-600">
             <XCircle className="w-3 h-3 mr-1" />
-            Revocat
+            {t('admin.certificates.revoked')}
           </Badge>
         );
     }
@@ -275,55 +279,55 @@ export function CertificatesDashboard() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Total Certificate</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('admin.certificates.total')}</CardTitle>
             <Award className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{stats.total}</div>
             <p className="text-xs text-muted-foreground mt-1">
-              {thisMonthCount} luna aceasta
+              {thisMonthCount} {language === 'de' ? 'diesen Monat' : language === 'en' ? 'this month' : 'luna aceasta'}
             </p>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Active</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('admin.certificates.active')}</CardTitle>
             <CheckCircle2 className="h-4 w-4 text-green-500" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-green-600">{stats.active}</div>
             <p className="text-xs text-muted-foreground mt-1">
-              {stats.total > 0 ? Math.round((stats.active / stats.total) * 100) : 0}% din total
+              {stats.total > 0 ? Math.round((stats.active / stats.total) * 100) : 0}% {language === 'de' ? 'vom Gesamt' : language === 'en' ? 'of total' : 'din total'}
             </p>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Expirate</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('admin.certificates.expired')}</CardTitle>
             <Clock className="h-4 w-4 text-yellow-500" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-yellow-600">{stats.expired}</div>
             <p className="text-xs text-muted-foreground mt-1">
-              {stats.total > 0 ? Math.round((stats.expired / stats.total) * 100) : 0}% din total
+              {stats.total > 0 ? Math.round((stats.expired / stats.total) * 100) : 0}% {language === 'de' ? 'vom Gesamt' : language === 'en' ? 'of total' : 'din total'}
             </p>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Revocate</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('admin.certificates.revoked')}</CardTitle>
             <XCircle className="h-4 w-4 text-red-500" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold text-red-600">{stats.revoked}</div>
             <p className="text-xs text-muted-foreground mt-1">
-              {stats.total > 0 ? Math.round((stats.revoked / stats.total) * 100) : 0}% din total
+              {stats.total > 0 ? Math.round((stats.revoked / stats.total) * 100) : 0}% {language === 'de' ? 'vom Gesamt' : language === 'en' ? 'of total' : 'din total'}
             </p>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Creștere</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('admin.certificates.monthlyGrowth')}</CardTitle>
             <TrendingUp className={`h-4 w-4 ${growthRate >= 0 ? 'text-green-500' : 'text-red-500'}`} />
           </CardHeader>
           <CardContent>
@@ -331,7 +335,7 @@ export function CertificatesDashboard() {
               {growthRate >= 0 ? '+' : ''}{growthRate}%
             </div>
             <p className="text-xs text-muted-foreground mt-1">
-              vs. luna trecută
+              {language === 'de' ? 'vs. letzten Monat' : language === 'en' ? 'vs. last month' : 'vs. luna trecută'}
             </p>
           </CardContent>
         </Card>
@@ -344,9 +348,9 @@ export function CertificatesDashboard() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <BarChart3 className="h-5 w-5 text-primary" />
-              Certificate Emise pe Luni
+              {t('admin.certificates.issuedMonthly')}
             </CardTitle>
-            <CardDescription>Ultimele 12 luni</CardDescription>
+            <CardDescription>{language === 'de' ? 'Letzte 12 Monate' : language === 'en' ? 'Last 12 months' : 'Ultimele 12 luni'}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="h-[300px]">
@@ -363,9 +367,9 @@ export function CertificatesDashboard() {
                     }}
                   />
                   <Legend />
-                  <Bar dataKey="active" name="Active" fill="#22c55e" radius={[4, 4, 0, 0]} />
-                  <Bar dataKey="expired" name="Expirate" fill="#eab308" radius={[4, 4, 0, 0]} />
-                  <Bar dataKey="revoked" name="Revocate" fill="#ef4444" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="active" name={t('admin.certificates.active')} fill="#22c55e" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="expired" name={t('admin.certificates.expired')} fill="#eab308" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="revoked" name={t('admin.certificates.revoked')} fill="#ef4444" radius={[4, 4, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </div>
@@ -377,9 +381,9 @@ export function CertificatesDashboard() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Users className="h-5 w-5 text-primary" />
-              Distribuție Status
+              {t('admin.certificates.statusDist')}
             </CardTitle>
-            <CardDescription>Certificate după status</CardDescription>
+            <CardDescription>{language === 'de' ? 'Zertifikate nach Status' : language === 'en' ? 'Certificates by status' : 'Certificate după status'}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="h-[300px] flex items-center justify-center">
@@ -412,7 +416,7 @@ export function CertificatesDashboard() {
               ) : (
                 <div className="text-center text-muted-foreground">
                   <Award className="h-12 w-12 mx-auto mb-2 opacity-50" />
-                  <p>Nu există certificate</p>
+                  <p>{language === 'de' ? 'Keine Zertifikate' : language === 'en' ? 'No certificates' : 'Nu există certificate'}</p>
                 </div>
               )}
             </div>
@@ -427,9 +431,9 @@ export function CertificatesDashboard() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <TrendingUp className="h-5 w-5 text-primary" />
-              Evoluția Scorului Mediu
+              {t('admin.certificates.avgScoreTrend')}
             </CardTitle>
-            <CardDescription>Media scorurilor pe ultimele 12 luni</CardDescription>
+            <CardDescription>{language === 'de' ? 'Durchschnittsnoten der letzten 12 Monate' : language === 'en' ? 'Average scores over last 12 months' : 'Media scorurilor pe ultimele 12 luni'}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="h-[250px]">
@@ -440,11 +444,11 @@ export function CertificatesDashboard() {
                   <YAxis domain={[0, 100]} tick={{ fontSize: 12 }} className="fill-muted-foreground" />
                   <Tooltip 
                     contentStyle={{ 
-                      backgroundColor: 'hsl(var(--background))', 
+                      backgroundColor: 'hsl(var(--background))',
                       border: '1px solid hsl(var(--border))',
                       borderRadius: '8px'
                     }}
-                    formatter={(value: number) => [`${value}%`, 'Scor Mediu']}
+                    formatter={(value: number) => [`${value}%`, t('admin.kpi.avgScore')]}
                   />
                   <Line 
                     type="monotone" 
