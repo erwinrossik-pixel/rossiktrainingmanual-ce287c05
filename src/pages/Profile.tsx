@@ -5,7 +5,6 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { useCompany } from "@/contexts/CompanyContext";
 import { useProgressContext } from "@/contexts/ProgressContext";
 import { useGamification, ACHIEVEMENTS } from "@/hooks/useGamification";
-import { LanguageProvider } from "@/contexts/LanguageContext";
 import { ProgressProvider } from "@/contexts/ProgressContext";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -676,10 +675,8 @@ function ProfileContent() {
 
 export default function Profile() {
   return (
-    <LanguageProvider>
-      <ProgressProvider>
-        <ProfileContent />
-      </ProgressProvider>
-    </LanguageProvider>
+    <ProgressProvider>
+      <ProfileContent />
+    </ProgressProvider>
   );
 }
