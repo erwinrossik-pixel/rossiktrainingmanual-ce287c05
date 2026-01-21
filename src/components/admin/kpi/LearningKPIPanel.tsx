@@ -3,6 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { ChapterKPI } from '@/hooks/useLearningKPI';
+import { useLanguage } from '@/contexts/LanguageContext';
 import {
   BarChart,
   Bar,
@@ -36,6 +37,8 @@ export const LearningKPIPanel = memo(function LearningKPIPanel({
   chapterKPIs, 
   loading 
 }: LearningKPIPanelProps) {
+  const { t } = useLanguage();
+  
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
@@ -83,9 +86,9 @@ export const LearningKPIPanel = memo(function LearningKPIPanel({
 
   // Attempts distribution
   const attemptsDistribution = [
-    { name: '1 încercare', value: chapterKPIs.filter(c => c.avgAttempts <= 1.5).length, color: '#22c55e' },
-    { name: '2 încercări', value: chapterKPIs.filter(c => c.avgAttempts > 1.5 && c.avgAttempts <= 2.5).length, color: '#eab308' },
-    { name: '3+ încercări', value: chapterKPIs.filter(c => c.avgAttempts > 2.5).length, color: '#ef4444' },
+    { name: t('admin.kpi.attempt1'), value: chapterKPIs.filter(c => c.avgAttempts <= 1.5).length, color: '#22c55e' },
+    { name: t('admin.kpi.attempts2'), value: chapterKPIs.filter(c => c.avgAttempts > 1.5 && c.avgAttempts <= 2.5).length, color: '#eab308' },
+    { name: t('admin.kpi.attempts3plus'), value: chapterKPIs.filter(c => c.avgAttempts > 2.5).length, color: '#ef4444' },
   ];
 
   return (
@@ -96,7 +99,7 @@ export const LearningKPIPanel = memo(function LearningKPIPanel({
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium flex items-center gap-2">
               <Target className="h-4 w-4 text-primary" />
-              Rata Promovare Medie
+              {t('admin.kpi.avgPassRate')}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -111,12 +114,12 @@ export const LearningKPIPanel = memo(function LearningKPIPanel({
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium flex items-center gap-2">
               <Clock className="h-4 w-4 text-primary" />
-              Încercări Medii
+              {t('admin.kpi.avgAttempts')}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{avgAttempts.toFixed(1)}</div>
-            <p className="text-xs text-muted-foreground">per capitol</p>
+            <p className="text-xs text-muted-foreground">{t('admin.kpi.perChapter')}</p>
           </CardContent>
         </Card>
 
@@ -124,12 +127,12 @@ export const LearningKPIPanel = memo(function LearningKPIPanel({
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium flex items-center gap-2">
               <TrendingDown className="h-4 w-4 text-destructive" />
-              Total Încercări
+              {t('admin.kpi.totalAttempts')}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{totalAttempts.toLocaleString()}</div>
-            <p className="text-xs text-muted-foreground">din toate capitolele</p>
+            <p className="text-xs text-muted-foreground">{t('admin.kpi.fromAllChapters')}</p>
           </CardContent>
         </Card>
 
@@ -137,12 +140,12 @@ export const LearningKPIPanel = memo(function LearningKPIPanel({
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium flex items-center gap-2">
               <Users className="h-4 w-4 text-primary" />
-              Utilizatori Unici
+              {t('admin.kpi.uniqueUsers')}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{totalUniqueUsers}</div>
-            <p className="text-xs text-muted-foreground">care au dat quiz</p>
+            <p className="text-xs text-muted-foreground">{t('admin.kpi.tookQuiz')}</p>
           </CardContent>
         </Card>
       </div>

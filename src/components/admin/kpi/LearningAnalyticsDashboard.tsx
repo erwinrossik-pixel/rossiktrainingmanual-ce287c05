@@ -9,8 +9,10 @@ import { ContentKPIPanel } from './ContentKPIPanel';
 import { AIRecommendationsPanel } from './AIRecommendationsPanel';
 import { RefreshCw, BookOpen, Users, FileText, TrendingUp, Brain } from 'lucide-react';
 import { toast } from 'sonner';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export const LearningAnalyticsDashboard = memo(function LearningAnalyticsDashboard() {
+  const { t } = useLanguage();
   const {
     chapterKPIs,
     userKPIs,
@@ -24,9 +26,9 @@ export const LearningAnalyticsDashboard = memo(function LearningAnalyticsDashboa
   } = useLearningKPI();
 
   const handleRefresh = async () => {
-    toast.info('Se actualizează KPI-urile...');
+    toast.info(t('admin.kpi.refresh'));
     await refreshAllKPIs();
-    toast.success('KPI-uri actualizate cu succes!');
+    toast.success(t('admin.kpi.refresh') + '!');
   };
 
   return (
@@ -36,15 +38,15 @@ export const LearningAnalyticsDashboard = memo(function LearningAnalyticsDashboa
         <div>
           <h2 className="text-2xl font-bold flex items-center gap-2">
             <TrendingUp className="h-6 w-6 text-primary" />
-            Learning Analytics & KPI Dashboard
+            {t('admin.kpi.title')}
           </h2>
           <p className="text-muted-foreground">
-            Analiză avansată pentru decizii informate
+            {t('admin.kpi.subtitle')}
           </p>
         </div>
         <Button onClick={handleRefresh} disabled={loading}>
           <RefreshCw className={`h-4 w-4 mr-2 ${loading ? 'animate-spin' : ''}`} />
-          Actualizează
+          {t('admin.kpi.refresh')}
         </Button>
       </div>
 
@@ -53,7 +55,7 @@ export const LearningAnalyticsDashboard = memo(function LearningAnalyticsDashboa
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <Card className="bg-primary/5 border-primary/20">
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm">Rata Promovare Globală</CardTitle>
+              <CardTitle className="text-sm">{t('admin.kpi.globalPassRate')}</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-3xl font-bold text-primary">
@@ -63,7 +65,7 @@ export const LearningAnalyticsDashboard = memo(function LearningAnalyticsDashboa
           </Card>
           <Card className="bg-green-500/5 border-green-500/20">
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm">Utilizatori Activi (7 zile)</CardTitle>
+              <CardTitle className="text-sm">{t('admin.kpi.activeUsers7d')}</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-3xl font-bold text-green-600">
@@ -73,7 +75,7 @@ export const LearningAnalyticsDashboard = memo(function LearningAnalyticsDashboa
           </Card>
           <Card className="bg-orange-500/5 border-orange-500/20">
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm">Capitole Problematice</CardTitle>
+              <CardTitle className="text-sm">{t('admin.kpi.problematicChapters')}</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-3xl font-bold text-orange-600">
@@ -83,7 +85,7 @@ export const LearningAnalyticsDashboard = memo(function LearningAnalyticsDashboa
           </Card>
           <Card className="bg-blue-500/5 border-blue-500/20">
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm">Utilizatori Necesită Suport</CardTitle>
+              <CardTitle className="text-sm">{t('admin.kpi.usersNeedSupport')}</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-3xl font-bold text-blue-600">
@@ -99,19 +101,19 @@ export const LearningAnalyticsDashboard = memo(function LearningAnalyticsDashboa
         <TabsList className="grid w-full grid-cols-4">
           <TabsTrigger value="learning" className="flex items-center gap-2">
             <BookOpen className="h-4 w-4" />
-            KPI Învățare
+            {t('admin.kpi.learning')}
           </TabsTrigger>
           <TabsTrigger value="users" className="flex items-center gap-2">
             <Users className="h-4 w-4" />
-            KPI Utilizatori
+            {t('admin.kpi.users')}
           </TabsTrigger>
           <TabsTrigger value="content" className="flex items-center gap-2">
             <FileText className="h-4 w-4" />
-            KPI Conținut
+            {t('admin.kpi.content')}
           </TabsTrigger>
           <TabsTrigger value="ai-feedback" className="flex items-center gap-2">
             <Brain className="h-4 w-4" />
-            AI Feedback
+            {t('admin.kpi.aiFeedback')}
           </TabsTrigger>
         </TabsList>
 
