@@ -2,7 +2,7 @@ import { useState, useMemo } from "react";
 import { Book, Search, Filter } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
-
+import { Quiz } from "../Quiz";
 interface GlossaryTerm {
   termKey: string;
   term: string;
@@ -261,6 +261,9 @@ export function GlossaryChapter() {
           <p className="text-muted-foreground">{ct("noResults")}</p>
         </div>
       )}
+
+      {/* Quiz */}
+      <Quiz title="Quiz" chapterId="glossary" />
     </div>
   );
 }
