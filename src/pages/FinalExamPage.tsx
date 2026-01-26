@@ -5,7 +5,7 @@ import { useChapterProgress } from "@/hooks/useChapterProgress";
 import { FinalExam } from "@/components/manual/FinalExam";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Lock, Trophy, BookOpen, Target, ArrowLeft, CheckCircle2 } from "lucide-react";
+import { Lock, Trophy, BookOpen, Target, ArrowLeft, CheckCircle2, Shield } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { useEffect, useState } from "react";
 
@@ -23,7 +23,7 @@ const allChapterIds = [
 
 export default function FinalExamPage() {
   const navigate = useNavigate();
-  const { user, loading: authLoading } = useAuth();
+  const { user, loading: authLoading, isAdmin } = useAuth();
   const { language } = useLanguage();
   const { getChapterStatus, loading: progressLoading } = useChapterProgress();
   const [canTakeExam, setCanTakeExam] = useState(false);
@@ -40,9 +40,10 @@ export default function FinalExamPage() {
         }
       });
       setCompletedCount(completed);
-      setCanTakeExam(completed >= 50);
+      // Admins can always take the exam, users need 50 chapters completed
+      setCanTakeExam(isAdmin || completed >= 50);
     }
-  }, [progressLoading, user, getChapterStatus]);
+  }, [progressLoading, user, getChapterStatus, isAdmin]);
 
   const labels = {
     title: language === 'ro' ? 'Examen Final' : language === 'de' ? 'Abschlussprüfung' : 'Final Exam',
@@ -190,6 +191,18 @@ export default function FinalExamPage() {
               <div className="p-4 bg-destructive/10 border border-destructive/20 rounded-lg text-center">
                 <Lock className="w-5 h-5 mx-auto mb-2 text-destructive" />
                 <p className="text-sm text-destructive">{labels.locked}</p>
+              </div>
+            )}
+
+            {/* Admin access indicator */}
+            {isAdmin && completedCount < 50 && (
+              <div className="p-4 bg-primary/10 border border-primary/20 rounded-lg text-center">
+                <Shield className="w-5 h-5 mx-auto mb-2 text-primary" />
+                <p className="text-sm text-primary font-medium">
+                  {language === 'ro' ? 'Acces Admin - Poți testa examenul fără a finaliza toate capitolele' 
+                    : language === 'de' ? 'Admin-Zugang - Sie können die Prüfung testen, ohne alle Kapitel abzuschließen'
+                    : 'Admin Access - You can test the exam without completing all chapters'}
+                </p>
               </div>
             )}
 
