@@ -605,8 +605,8 @@ function CompanyDetailDialog({
             </div>
             <div className="flex items-center justify-between">
               <div>
-                <Label>Necesită Aprobare</Label>
-                <p className="text-xs text-muted-foreground">Utilizatorii noi trebuie aprobați manual</p>
+                <Label>{t('admin.company.requireApproval') || 'Necesită Aprobare'}</Label>
+                <p className="text-xs text-muted-foreground">{t('admin.company.requireApprovalDesc') || 'Utilizatorii noi trebuie aprobați manual'}</p>
               </div>
               <Switch
                 checked={formData.require_approval}
@@ -614,7 +614,7 @@ function CompanyDetailDialog({
               />
             </div>
             <div className="space-y-2">
-              <Label>Limba Implicită</Label>
+              <Label>{t('admin.company.defaultLanguage') || 'Limba Implicită'}</Label>
               <Select
                 value={formData.default_language}
                 onValueChange={(value) => setFormData({ ...formData, default_language: value })}
