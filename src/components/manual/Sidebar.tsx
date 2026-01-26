@@ -4,8 +4,9 @@ import {
   ClipboardList, Target, Menu, X, Phone, MessageSquare, Scale,
   FileText, Flame, Book, Lightbulb, CheckCircle2, BarChart3, Award, Lock,
   Brain, Leaf, BadgeCheck, Cpu, Globe, Zap, Gem, Train, Network, TrendingUp, Crown,
-  Gamepad2, Trophy, Star
+  Gamepad2, Trophy, Star, GraduationCap as FinalExamIcon
 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import rossikLogo from "@/assets/rossik-logo.jpg";
 import { cn } from "@/lib/utils";
 import { useState, useEffect, useMemo, useRef } from "react";
@@ -122,6 +123,7 @@ const getSections = (t: (key: string) => string) => [
 ];
 
 export function Sidebar({ activeChapter, onChapterChange, onShowDashboard, onShowSimulations }: SidebarProps) {
+  const navigate = useNavigate();
   const [mobileOpen, setMobileOpen] = useState(false);
   const { progress, getOverallProgress, getChapterProgress } = useProgressContext();
   const { t } = useLanguage();
@@ -470,6 +472,32 @@ export function Sidebar({ activeChapter, onChapterChange, onShowDashboard, onSho
                   </p>
                 </div>
                 <Zap className="w-4 h-4 text-violet-400 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0" />
+              </button>
+            </div>
+          )}
+
+          {/* Final Exam Button - only shown when user is logged in */}
+          {user && completedCount >= 50 && (
+            <div className="px-4 py-3 border-t border-border">
+              <button
+                onClick={() => {
+                  navigate('/final-exam');
+                  setMobileOpen(false);
+                }}
+                className="w-full flex items-center gap-3 p-3 rounded-lg bg-gradient-to-r from-emerald-600/20 to-teal-600/20 border border-emerald-500/30 hover:border-emerald-500/50 hover:from-emerald-600/30 hover:to-teal-600/30 transition-all group"
+              >
+                <div className="p-2 rounded-lg bg-gradient-to-br from-emerald-500 to-teal-600 flex-shrink-0">
+                  <Trophy className="w-4 h-4 text-white" />
+                </div>
+                <div className="flex-1 text-left min-w-0">
+                  <span className="text-sm font-medium text-foreground group-hover:text-emerald-500 transition-colors block truncate">
+                    {t('sidebar.finalExam') || 'Examen Final'}
+                  </span>
+                  <p className="text-[10px] text-muted-foreground truncate">
+                    {t('sidebar.finalExamDesc') || '100 întrebări comprehensive'}
+                  </p>
+                </div>
+                <Award className="w-4 h-4 text-emerald-400 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0" />
               </button>
             </div>
           )}
