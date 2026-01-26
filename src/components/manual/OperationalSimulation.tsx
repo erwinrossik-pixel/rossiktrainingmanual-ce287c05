@@ -81,7 +81,11 @@ const translations = {
     maxScore: 'Scor maxim',
     yourPerformance: 'Performanța ta',
     lessonsLearned: 'Lecții Învățate',
-    keyInsights: 'Informații cheie din această simulare'
+    keyInsights: 'Informații cheie din această simulare',
+    level: 'Nivel',
+    streak: 'Serie',
+    days: 'zile',
+    simulations: 'Simulări'
   },
   de: {
     title: 'Betriebssimulationen',
@@ -117,7 +121,11 @@ const translations = {
     maxScore: 'Maximale Punktzahl',
     yourPerformance: 'Ihre Leistung',
     lessonsLearned: 'Gelernte Lektionen',
-    keyInsights: 'Wichtige Erkenntnisse aus dieser Simulation'
+    keyInsights: 'Wichtige Erkenntnisse aus dieser Simulation',
+    level: 'Stufe',
+    streak: 'Serie',
+    days: 'Tage',
+    simulations: 'Simulationen'
   },
   en: {
     title: 'Operational Simulations',
@@ -153,7 +161,11 @@ const translations = {
     maxScore: 'Max score',
     yourPerformance: 'Your performance',
     lessonsLearned: 'Lessons Learned',
-    keyInsights: 'Key insights from this simulation'
+    keyInsights: 'Key insights from this simulation',
+    level: 'Level',
+    streak: 'Streak',
+    days: 'days',
+    simulations: 'Simulations'
   }
 };
 
@@ -366,7 +378,7 @@ const OperationalSimulation: React.FC = () => {
                   {userLevel}
                 </div>
                 <div className="text-left">
-                  <div className="text-xs text-muted-foreground">Level</div>
+                  <div className="text-xs text-muted-foreground">{t.level}</div>
                   <div className="text-sm font-semibold text-foreground">{gamification.total_xp} XP</div>
                 </div>
               </div>
@@ -374,7 +386,7 @@ const OperationalSimulation: React.FC = () => {
               <div className="flex items-center gap-2">
                 <Trophy className="w-5 h-5 text-amber-500" />
                 <div className="text-left">
-                  <div className="text-xs text-muted-foreground">Simulations</div>
+                  <div className="text-xs text-muted-foreground">{t.simulations}</div>
                   <div className="text-sm font-semibold text-foreground">{gamification.simulations_completed}</div>
                 </div>
               </div>
@@ -384,8 +396,8 @@ const OperationalSimulation: React.FC = () => {
                   <div className="flex items-center gap-2">
                     <Flame className="w-5 h-5 text-orange-500" />
                     <div className="text-left">
-                      <div className="text-xs text-muted-foreground">Streak</div>
-                      <div className="text-sm font-semibold text-foreground">{gamification.streak_days} days</div>
+                      <div className="text-xs text-muted-foreground">{t.streak}</div>
+                      <div className="text-sm font-semibold text-foreground">{gamification.streak_days} {t.days}</div>
                     </div>
                   </div>
                 </>

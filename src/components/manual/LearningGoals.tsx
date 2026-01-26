@@ -21,19 +21,21 @@ import {
   Calendar
 } from 'lucide-react';
 import { useLearningGoals, LearningGoal } from '@/hooks/useLearningGoals';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { format, differenceInDays } from 'date-fns';
-import { ro } from 'date-fns/locale';
+import { ro, de, enUS } from 'date-fns/locale';
 
-const goalTypeConfig = {
-  chapters: { icon: BookOpen, label: 'Capitole completate', unit: 'capitole', color: 'text-blue-500' },
-  score: { icon: TrendingUp, label: 'Scor mediu', unit: '%', color: 'text-green-500' },
-  time: { icon: Clock, label: 'Timp de studiu', unit: 'ore', color: 'text-purple-500' },
-  streak: { icon: Flame, label: 'Zile consecutive', unit: 'zile', color: 'text-orange-500' },
-  custom: { icon: Target, label: 'Obiectiv custom', unit: '', color: 'text-primary' },
-};
+const getGoalTypeConfig = (t: (key: string) => string) => ({
+  chapters: { icon: BookOpen, label: t('goals.type.chapters'), unit: t('goals.unit.chapters'), color: 'text-blue-500' },
+  score: { icon: TrendingUp, label: t('goals.type.score'), unit: t('goals.unit.score'), color: 'text-green-500' },
+  time: { icon: Clock, label: t('goals.type.time'), unit: t('goals.unit.time'), color: 'text-purple-500' },
+  streak: { icon: Flame, label: t('goals.type.streak'), unit: t('goals.unit.streak'), color: 'text-orange-500' },
+  custom: { icon: Target, label: t('goals.type.custom'), unit: '', color: 'text-primary' },
+});
 
 export const LearningGoals = memo(function LearningGoals() {
   const { goals, loading, createGoal, deleteGoal, activeGoals, completedGoals } = useLearningGoals();
+  const { t, language } = useLanguage();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [newGoal, setNewGoal] = useState({
     title: '',
@@ -42,6 +44,9 @@ export const LearningGoals = memo(function LearningGoals() {
     target_value: 10,
     target_date: '',
   });
+  
+  const goalTypeConfig = getGoalTypeConfig(t);
+  const dateLocale = language === 'de' ? de : language === 'en' ? enUS : ro;
 
   const handleCreateGoal = async () => {
     if (!newGoal.title.trim()) return;
@@ -90,34 +95,34 @@ export const LearningGoals = memo(function LearningGoals() {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Target className="h-5 w-5 text-primary" />
-            <CardTitle className="text-lg">Obiectivele Mele</CardTitle>
+            <CardTitle className="text-lg">{t('goals.title')}</CardTitle>
           </div>
           <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <DialogTrigger asChild>
               <Button size="sm">
                 <Plus className="h-4 w-4 mr-2" />
-                Obiectiv nou
+                {t('goals.newGoal')}
               </Button>
             </DialogTrigger>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>Creează un obiectiv nou</DialogTitle>
+                <DialogTitle>{t('goals.createTitle')}</DialogTitle>
                 <DialogDescription>
-                  Stabilește-ți un obiectiv de învățare pentru a-ți urmări progresul
+                  {t('goals.createDesc')}
                 </DialogDescription>
               </DialogHeader>
               <div className="space-y-4 py-4">
                 <div className="space-y-2">
-                  <Label htmlFor="title">Titlu obiectiv</Label>
+                  <Label htmlFor="title">{t('goals.goalTitle')}</Label>
                   <Input
                     id="title"
-                    placeholder="ex: Finalizează modulul ADR"
+                    placeholder={t('goals.goalTitlePlaceholder')}
                     value={newGoal.title}
                     onChange={(e) => setNewGoal(prev => ({ ...prev, title: e.target.value }))}
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="type">Tip obiectiv</Label>
+                  <Label htmlFor="type">{t('goals.goalType')}</Label>
                   <Select
                     value={newGoal.goal_type}
                     onValueChange={(value) => setNewGoal(prev => ({ ...prev, goal_type: value as LearningGoal['goal_type'] }))}
@@ -138,7 +143,7 @@ export const LearningGoals = memo(function LearningGoals() {
                   </Select>
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="target">Țintă ({goalTypeConfig[newGoal.goal_type].unit})</Label>
+                  <Label htmlFor="target">{t('goals.target')} ({goalTypeConfig[newGoal.goal_type].unit})</Label>
                   <Input
                     id="target"
                     type="number"
@@ -148,7 +153,7 @@ export const LearningGoals = memo(function LearningGoals() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="date">Termen limită (opțional)</Label>
+                  <Label htmlFor="date">{t('goals.deadline')}</Label>
                   <Input
                     id="date"
                     type="date"
@@ -159,25 +164,25 @@ export const LearningGoals = memo(function LearningGoals() {
               </div>
               <DialogFooter>
                 <Button variant="outline" onClick={() => setIsDialogOpen(false)}>
-                  Anulează
+                  {t('goals.cancel')}
                 </Button>
                 <Button onClick={handleCreateGoal} disabled={!newGoal.title.trim()}>
-                  Creează obiectiv
+                  {t('goals.create')}
                 </Button>
               </DialogFooter>
             </DialogContent>
           </Dialog>
         </div>
         <CardDescription>
-          Urmărește-ți progresul spre obiectivele tale de învățare
+          {t('goals.trackProgress')}
         </CardDescription>
       </CardHeader>
       <CardContent>
         {goals.length === 0 ? (
           <div className="text-center py-8 text-muted-foreground">
             <Target className="h-12 w-12 mx-auto mb-3 opacity-30" />
-            <p className="font-medium">Nu ai niciun obiectiv setat</p>
-            <p className="text-sm">Creează primul tău obiectiv pentru a-ți urmări progresul!</p>
+            <p className="font-medium">{t('goals.noGoals')}</p>
+            <p className="text-sm">{t('goals.noGoalsDesc')}</p>
           </div>
         ) : (
           <div className="space-y-6">
@@ -186,7 +191,7 @@ export const LearningGoals = memo(function LearningGoals() {
               <div>
                 <h4 className="font-medium mb-3 flex items-center gap-2">
                   <Target className="h-4 w-4 text-primary" />
-                  Obiective active ({activeGoals.length})
+                  {t('goals.active')} ({activeGoals.length})
                 </h4>
                 <ScrollArea className="h-[200px]">
                   <div className="space-y-3 pr-4">
@@ -206,19 +211,19 @@ export const LearningGoals = memo(function LearningGoals() {
                                 <config.icon className="h-4 w-4" />
                               </div>
                               <div className="flex-1 min-w-0">
-                                <div className="flex items-center gap-2 mb-1">
+                              <div className="flex items-center gap-2 mb-1">
                                   <h5 className="font-medium text-sm truncate">{goal.title}</h5>
                                   {daysRemaining !== null && (
                                     <Badge variant={daysRemaining < 3 ? 'destructive' : 'secondary'} className="text-xs">
                                       <Calendar className="h-3 w-3 mr-1" />
-                                      {daysRemaining > 0 ? `${daysRemaining} zile` : 'Astăzi'}
+                                      {daysRemaining > 0 ? `${daysRemaining} ${t('goals.daysLeft')}` : t('goals.today')}
                                     </Badge>
                                   )}
                                 </div>
                                 <div className="flex items-center gap-2 text-xs text-muted-foreground mb-2">
                                   <span>{goal.current_value} / {goal.target_value} {config.unit}</span>
                                   <span>•</span>
-                                  <span>{progress}% completat</span>
+                                  <span>{progress}% {t('goals.percentComplete')}</span>
                                 </div>
                                 <Progress value={progress} className="h-2" />
                               </div>
@@ -245,7 +250,7 @@ export const LearningGoals = memo(function LearningGoals() {
               <div>
                 <h4 className="font-medium mb-3 flex items-center gap-2">
                   <Trophy className="h-4 w-4 text-yellow-500" />
-                  Obiective atinse ({completedGoals.length})
+                  {t('goals.completed')} ({completedGoals.length})
                 </h4>
                 <div className="space-y-2">
                   {completedGoals.slice(0, 3).map((goal) => {
@@ -260,7 +265,7 @@ export const LearningGoals = memo(function LearningGoals() {
                         <div className="flex-1 min-w-0">
                           <p className="font-medium text-sm truncate">{goal.title}</p>
                           <p className="text-xs text-muted-foreground">
-                            Completat {goal.completed_at ? format(new Date(goal.completed_at), 'd MMM yyyy', { locale: ro }) : ''}
+                            {t('goals.completedOn')} {goal.completed_at ? format(new Date(goal.completed_at), 'd MMM yyyy', { locale: dateLocale }) : ''}
                           </p>
                         </div>
                         <Badge variant="secondary" className="shrink-0">

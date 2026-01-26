@@ -15,6 +15,7 @@ import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { toast } from "sonner";
 import { addYears, format } from "date-fns";
 import QRCode from "qrcode";
@@ -39,6 +40,7 @@ export function Certificate({
   totalTrainingHours = 0,
 }: CertificateProps) {
   const { user } = useAuth();
+  const { t } = useLanguage();
   const [traineeName, setTraineeName] = useState("");
   const [recipientEmail, setRecipientEmail] = useState("");
   const [sendEmail, setSendEmail] = useState(true);
@@ -249,9 +251,9 @@ export function Certificate({
         <div className="flex items-start gap-4">
           <Award className="w-10 h-10 text-muted-foreground/50" />
           <div>
-            <h3 className="font-semibold text-foreground">Certificate of Completion</h3>
+            <h3 className="font-semibold text-foreground">{t('certificate.title')}</h3>
             <p className="text-sm text-muted-foreground mt-1">
-              Complete all {totalChapters} chapters and pass all quizzes with 70%+ to earn your certificate.
+              {t('certificate.complete').replace('{total}', String(totalChapters))}
             </p>
             <div className="mt-3 space-y-1 text-sm">
               <div className="flex items-center gap-2">
@@ -261,7 +263,7 @@ export function Certificate({
                   <div className="w-4 h-4 rounded-full border-2 border-muted-foreground/30" />
                 )}
                 <span className={completedChapters === totalChapters ? "text-success" : "text-muted-foreground"}>
-                  Chapters: {completedChapters}/{totalChapters}
+                  {t('certificate.chapters')}: {completedChapters}/{totalChapters}
                 </span>
               </div>
               <div className="flex items-center gap-2">
@@ -271,7 +273,7 @@ export function Certificate({
                   <div className="w-4 h-4 rounded-full border-2 border-muted-foreground/30" />
                 )}
                 <span className={passedQuizzes === totalQuizzes && totalQuizzes > 0 ? "text-success" : "text-muted-foreground"}>
-                  Quizzes Passed (70%+): {passedQuizzes}/{totalQuizzes}
+                  {t('certificate.quizzesPassed')}: {passedQuizzes}/{totalQuizzes}
                 </span>
               </div>
             </div>
@@ -289,14 +291,14 @@ export function Certificate({
             <Award className="w-10 h-10 text-success" />
             <div className="flex-1">
               <h3 className="font-semibold text-success flex items-center gap-2">
-                🎉 Certificate Earned!
+                {t('certificate.eligible')}
               </h3>
               <p className="text-sm text-muted-foreground mt-1">
-                Congratulations! You've completed all chapters and passed all quizzes. Click to download your official certificate.
+                {t('certificate.eligibleDesc')}
               </p>
               <Button variant="default" className="mt-3 bg-success hover:bg-success/90">
                 <Download className="w-4 h-4 mr-2" />
-                Get Official Certificate
+                {t('certificate.getOfficial')}
               </Button>
             </div>
           </div>
@@ -307,16 +309,16 @@ export function Certificate({
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <Award className="w-5 h-5 text-primary" />
-            Generate Your Official Certificate
+            {t('certificate.generate')}
           </DialogTitle>
         </DialogHeader>
 
         <div className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="name">Your Full Name</Label>
+            <Label htmlFor="name">{t('certificate.yourName')}</Label>
             <Input
               id="name"
-              placeholder="Enter your name as it should appear on the certificate"
+              placeholder={t('certificate.namePlaceholder')}
               value={traineeName}
               onChange={(e) => setTraineeName(e.target.value)}
             />
@@ -332,22 +334,22 @@ export function Certificate({
               />
               <Label htmlFor="sendEmail" className="flex items-center gap-2 cursor-pointer">
                 <Mail className="w-4 h-4 text-primary" />
-                Trimite certificatul pe email
+                {t('certificate.sendEmail')}
               </Label>
             </div>
             
             {sendEmail && (
               <div className="space-y-2 pl-6">
-                <Label htmlFor="email" className="text-sm">Adresa de email</Label>
+                <Label htmlFor="email" className="text-sm">{t('certificate.emailAddress')}</Label>
                 <Input
                   id="email"
                   type="email"
-                  placeholder="email@exemplu.com"
+                  placeholder="email@example.com"
                   value={recipientEmail}
                   onChange={(e) => setRecipientEmail(e.target.value)}
                 />
                 <p className="text-xs text-muted-foreground">
-                  Vei primi un email cu detaliile certificatului și linkul de verificare.
+                  {t('certificate.emailDesc')}
                 </p>
               </div>
             )}
@@ -355,7 +357,7 @@ export function Certificate({
             {emailSent && (
               <div className="flex items-center gap-2 text-sm text-success pl-6">
                 <CheckCircle2 className="w-4 h-4" />
-                Email trimis cu succes!
+                {t('certificate.emailSent')}
               </div>
             )}
           </div>
@@ -365,7 +367,7 @@ export function Certificate({
             <div className="p-4 bg-success/10 border border-success/30 rounded-lg">
               <div className="flex items-start justify-between">
                 <div>
-                  <p className="text-sm text-muted-foreground">Certificate Code</p>
+                  <p className="text-sm text-muted-foreground">{t('certificate.code')}</p>
                   <p className="font-mono font-bold text-lg text-success">{generatedCertificate.code}</p>
                 </div>
                 <Button variant="outline" size="sm" onClick={copyVerificationLink}>
@@ -374,11 +376,11 @@ export function Certificate({
                   ) : (
                     <Copy className="w-4 h-4 mr-1" />
                   )}
-                  {codeCopied ? "Copied!" : "Copy Link"}
+                  {codeCopied ? t('certificate.copied') : t('certificate.copyLink')}
                 </Button>
               </div>
               <p className="text-sm text-muted-foreground mt-2">
-                Valid until: {expirationDate}
+                {t('certificate.validUntil')}: {expirationDate}
               </p>
               <Button
                 variant="link"
@@ -386,7 +388,7 @@ export function Certificate({
                 onClick={() => window.open(`${verificationUrl}${generatedCertificate.code}`, "_blank")}
               >
                 <ExternalLink className="w-3 h-3 mr-1" />
-                Verify Certificate Online
+                {t('certificate.verifyOnline')}
               </Button>
             </div>
           )}
