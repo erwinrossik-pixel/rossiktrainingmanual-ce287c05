@@ -3667,6 +3667,56 @@ export type Database = {
       }
     }
     Views: {
+      company_branding_public: {
+        Row: {
+          accent_color: string | null
+          background_color: string | null
+          company_id: string | null
+          favicon_url: string | null
+          font_family: string | null
+          id: string | null
+          logo_url: string | null
+          platform_name: string | null
+          primary_color: string | null
+          secondary_color: string | null
+          text_color: string | null
+        }
+        Insert: {
+          accent_color?: string | null
+          background_color?: string | null
+          company_id?: string | null
+          favicon_url?: string | null
+          font_family?: string | null
+          id?: string | null
+          logo_url?: string | null
+          platform_name?: string | null
+          primary_color?: string | null
+          secondary_color?: string | null
+          text_color?: string | null
+        }
+        Update: {
+          accent_color?: string | null
+          background_color?: string | null
+          company_id?: string | null
+          favicon_url?: string | null
+          font_family?: string | null
+          id?: string | null
+          logo_url?: string | null
+          platform_name?: string | null
+          primary_color?: string | null
+          secondary_color?: string | null
+          text_color?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "company_branding_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: true
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       content_quality_summary: {
         Row: {
           avg_score: number | null
