@@ -20,11 +20,36 @@ interface QuizQuestion {
   chapterName: string;
 }
 
-// Fisher-Yates shuffle algorithm
-function shuffleArray<T>(array: T[]): T[] {
+// Seeded random number generator (Mulberry32)
+function seededRandom(seed: number): () => number {
+  return function() {
+    let t = seed += 0x6D2B79F5;
+    t = Math.imul(t ^ t >>> 15, t | 1);
+    t ^= t + Math.imul(t ^ t >>> 7, t | 61);
+    return ((t ^ t >>> 14) >>> 0) / 4294967296;
+  };
+}
+
+// Generate numeric seed from string (user ID)
+function stringToSeed(str: string): number {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    const char = str.charCodeAt(i);
+    hash = ((hash << 5) - hash) + char;
+    hash = hash & hash; // Convert to 32bit integer
+  }
+  // Add date component so questions change daily
+  const today = new Date();
+  const dateHash = today.getFullYear() * 10000 + (today.getMonth() + 1) * 100 + today.getDate();
+  return Math.abs(hash + dateHash);
+}
+
+// Fisher-Yates shuffle algorithm with optional seed
+function shuffleArray<T>(array: T[], rng?: () => number): T[] {
   const shuffled = [...array];
+  const random = rng || Math.random;
   for (let i = shuffled.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
+    const j = Math.floor(random() * (i + 1));
     [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
   }
   return shuffled;
@@ -140,39 +165,50 @@ export function FinalExam({ onComplete, onBack }: FinalExamProps) {
     }
   }, [startTime, examCompleted]);
 
-  // Generate exam questions on mount
+  // Generate exam questions on mount - unique per user
   useEffect(() => {
-    const generateExamQuestions = (): QuizQuestion[] => {
+    const generateExamQuestions = (userId: string): QuizQuestion[] => {
       const questions: QuizQuestion[] = [];
       
-      allChapterIds.forEach(chapterId => {
+      // Create a seeded RNG based on user ID + date
+      const seed = stringToSeed(userId);
+      const rng = seededRandom(seed);
+      
+      allChapterIds.forEach((chapterId, chapterIndex) => {
         const chapterQuestions = quizTranslations[chapterId];
         if (!chapterQuestions || chapterQuestions.length === 0) return;
         
         // Get translated questions for this chapter
-        const translatedQuestions = chapterQuestions.map((q: TranslatedQuizQuestion) => ({
+        const translatedQuestions = chapterQuestions.map((q: TranslatedQuizQuestion, qIndex: number) => ({
           question: q.question[language] || q.question.en,
           options: q.options[language] || q.options.en,
           correctIndex: q.correctIndex,
           explanation: q.explanation[language] || q.explanation.en,
           chapterId,
-          chapterName: chapterNames[chapterId]?.[language] || chapterId
+          chapterName: chapterNames[chapterId]?.[language] || chapterId,
+          originalIndex: qIndex // Keep track of original index for consistent selection
         }));
         
-        // Shuffle and pick 2 questions
-        const shuffled = shuffleArray(translatedQuestions);
+        // Use chapter-specific seed for shuffling within each chapter
+        const chapterSeed = seed + chapterIndex * 1000;
+        const chapterRng = seededRandom(chapterSeed);
+        
+        // Shuffle and pick 2 questions using seeded RNG
+        const shuffled = shuffleArray(translatedQuestions, chapterRng);
         const selected = shuffled.slice(0, QUESTIONS_PER_CHAPTER);
         questions.push(...selected);
       });
       
-      // Final shuffle of all questions
-      return shuffleArray(questions);
+      // Final shuffle of all questions (also seeded)
+      return shuffleArray(questions, rng);
     };
     
-    const questions = generateExamQuestions();
+    // Use user ID if available, otherwise generate a session-based ID
+    const uniqueId = user?.id || `session-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const questions = generateExamQuestions(uniqueId);
     setExamQuestions(questions);
     setAnsweredQuestions(new Array(questions.length).fill(false));
-  }, [language]);
+  }, [language, user?.id]);
 
   const formatTime = (seconds: number): string => {
     const hrs = Math.floor(seconds / 3600);
@@ -263,11 +299,15 @@ export function FinalExam({ onComplete, onBack }: FinalExamProps) {
   };
 
   const handleRestart = () => {
-    // Regenerate questions
+    // Regenerate questions with NEW random seed (different questions on retry)
     const generateExamQuestions = (): QuizQuestion[] => {
       const questions: QuizQuestion[] = [];
       
-      allChapterIds.forEach(chapterId => {
+      // Create a new seed based on user ID + current timestamp for fresh questions
+      const retrySeed = stringToSeed((user?.id || 'anon') + '-retry-' + Date.now());
+      const rng = seededRandom(retrySeed);
+      
+      allChapterIds.forEach((chapterId, chapterIndex) => {
         const chapterQuestions = quizTranslations[chapterId];
         if (!chapterQuestions || chapterQuestions.length === 0) return;
         
@@ -280,12 +320,16 @@ export function FinalExam({ onComplete, onBack }: FinalExamProps) {
           chapterName: chapterNames[chapterId]?.[language] || chapterId
         }));
         
-        const shuffled = shuffleArray(translatedQuestions);
+        // Use chapter-specific seed for shuffling
+        const chapterSeed = retrySeed + chapterIndex * 1000;
+        const chapterRng = seededRandom(chapterSeed);
+        
+        const shuffled = shuffleArray(translatedQuestions, chapterRng);
         const selected = shuffled.slice(0, QUESTIONS_PER_CHAPTER);
         questions.push(...selected);
       });
       
-      return shuffleArray(questions);
+      return shuffleArray(questions, rng);
     };
     
     const questions = generateExamQuestions();
