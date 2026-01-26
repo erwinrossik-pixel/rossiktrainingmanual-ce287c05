@@ -476,8 +476,8 @@ export function Sidebar({ activeChapter, onChapterChange, onShowDashboard, onSho
             </div>
           )}
 
-          {/* Final Exam Button - only shown when user is logged in */}
-          {user && completedCount >= 50 && (
+          {/* Final Exam Button - visible for admins always, for users only when all chapters completed */}
+          {user && (isAdmin || completedCount >= 50) && (
             <div className="px-4 py-3 border-t border-border">
               <button
                 onClick={() => {
