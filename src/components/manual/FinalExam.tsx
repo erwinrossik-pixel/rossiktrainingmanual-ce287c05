@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useAuth } from "@/hooks/useAuth";
 import { quizTranslations, TranslatedQuizQuestion } from "@/data/quizTranslations";
+import { finalExamExtraQuestions } from "@/data/quizBanks/finalExamExtraQuestions";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -203,18 +204,32 @@ export function FinalExam({ onComplete, onBack }: FinalExamProps) {
       const rng = seededRandom(seed);
       
       allChapterIds.forEach((chapterId, chapterIndex) => {
-        const chapterQuestions = quizTranslations[chapterId];
-        if (!chapterQuestions || chapterQuestions.length === 0) return;
+        // Combine original questions with extra final exam questions
+        const originalQuestions = quizTranslations[chapterId] || [];
+        const extraQuestions = finalExamExtraQuestions[chapterId] || [];
+        
+        // Convert extra questions to TranslatedQuizQuestion format
+        const allChapterQuestions = [
+          ...originalQuestions,
+          ...extraQuestions.map(q => ({
+            question: q.question,
+            options: q.options,
+            correctIndex: q.correctIndex,
+            explanation: q.explanation
+          }))
+        ];
+        
+        if (allChapterQuestions.length === 0) return;
         
         // Get translated questions for this chapter
-        const translatedQuestions = chapterQuestions.map((q: TranslatedQuizQuestion, qIndex: number) => ({
+        const translatedQuestions = allChapterQuestions.map((q, qIndex: number) => ({
           question: q.question[language] || q.question.en,
           options: q.options[language] || q.options.en,
           correctIndex: q.correctIndex,
           explanation: q.explanation[language] || q.explanation.en,
           chapterId,
           chapterName: chapterNames[chapterId]?.[language] || chapterId,
-          originalIndex: qIndex // Keep track of original index for consistent selection
+          originalIndex: qIndex
         }));
         
         // Use chapter-specific seed for shuffling within each chapter
