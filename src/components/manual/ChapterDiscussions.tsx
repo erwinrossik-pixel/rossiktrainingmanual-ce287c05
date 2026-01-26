@@ -18,8 +18,9 @@ import {
 } from 'lucide-react';
 import { useDiscussions, Discussion } from '@/hooks/useDiscussions';
 import { useAuth } from '@/hooks/useAuth';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { formatDistanceToNow } from 'date-fns';
-import { ro } from 'date-fns/locale';
+import { ro, de, enUS } from 'date-fns/locale';
 
 interface ChapterDiscussionsProps {
   chapterId: string;
@@ -100,7 +101,7 @@ const DiscussionItem = memo(({
                 onClick={() => onReply(discussion.id)}
               >
                 <Reply className="h-3.5 w-3.5 mr-1" />
-                Răspunde
+                <span className="sr-only">Reply</span>
               </Button>
             )}
             
@@ -156,11 +157,14 @@ DiscussionItem.displayName = 'DiscussionItem';
 
 export const ChapterDiscussions = memo(({ chapterId }: ChapterDiscussionsProps) => {
   const { user } = useAuth();
+  const { t, language } = useLanguage();
   const { discussions, loading, addDiscussion, toggleLike, deleteDiscussion } = useDiscussions(chapterId);
   const [newComment, setNewComment] = useState('');
   const [replyTo, setReplyTo] = useState<string | null>(null);
   const [replyContent, setReplyContent] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  
+  const dateLocale = language === 'de' ? de : language === 'en' ? enUS : ro;
 
   const handleSubmit = async () => {
     if (!newComment.trim()) return;
@@ -184,7 +188,7 @@ export const ChapterDiscussions = memo(({ chapterId }: ChapterDiscussionsProps) 
       <CardHeader className="pb-3">
         <CardTitle className="text-lg flex items-center gap-2">
           <MessageCircle className="h-5 w-5 text-primary" />
-          Discuții ({discussions.length})
+          {t('discussions.title')} ({discussions.length})
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -198,7 +202,7 @@ export const ChapterDiscussions = memo(({ chapterId }: ChapterDiscussionsProps) 
             </Avatar>
             <div className="flex-1 space-y-2">
               <Textarea
-                placeholder="Adaugă un comentariu sau o întrebare..."
+                placeholder={t('discussions.addComment')}
                 value={newComment}
                 onChange={(e) => setNewComment(e.target.value)}
                 className="min-h-[80px] resize-none"
@@ -209,13 +213,13 @@ export const ChapterDiscussions = memo(({ chapterId }: ChapterDiscussionsProps) 
                 disabled={!newComment.trim() || isSubmitting}
               >
                 <Send className="h-4 w-4 mr-2" />
-                Publică
+                {t('discussions.send')}
               </Button>
             </div>
           </div>
         ) : (
           <div className="text-center py-4 text-muted-foreground">
-            Autentifică-te pentru a participa la discuții
+            {t('discussions.loginRequired')}
           </div>
         )}
 
@@ -223,13 +227,13 @@ export const ChapterDiscussions = memo(({ chapterId }: ChapterDiscussionsProps) 
         {replyTo && (
           <div className="ml-11 p-3 bg-muted/50 rounded-lg space-y-2">
             <div className="flex items-center justify-between">
-              <span className="text-sm font-medium">Răspunde la comentariu</span>
+              <span className="text-sm font-medium">{t('discussions.replyTo')}</span>
               <Button variant="ghost" size="sm" onClick={() => setReplyTo(null)}>
-                Anulează
+                {t('discussions.cancel')}
               </Button>
             </div>
             <Textarea
-              placeholder="Scrie răspunsul..."
+              placeholder={t('discussions.writePlaceholder')}
               value={replyContent}
               onChange={(e) => setReplyContent(e.target.value)}
               className="min-h-[60px] resize-none"
@@ -241,7 +245,7 @@ export const ChapterDiscussions = memo(({ chapterId }: ChapterDiscussionsProps) 
               disabled={!replyContent.trim() || isSubmitting}
             >
               <Send className="h-4 w-4 mr-2" />
-              Trimite răspunsul
+              {t('discussions.send')}
             </Button>
           </div>
         )}
@@ -253,7 +257,7 @@ export const ChapterDiscussions = memo(({ chapterId }: ChapterDiscussionsProps) 
           </div>
         ) : discussions.length === 0 ? (
           <div className="text-center py-8 text-muted-foreground">
-            Nicio discuție încă. Fii primul care începe!
+            {t('discussions.noDiscussions')}
           </div>
         ) : (
           <ScrollArea className="max-h-[500px]">

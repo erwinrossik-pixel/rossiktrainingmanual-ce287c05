@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { useProgressContext } from "@/contexts/ProgressContext";
 import { useChapterProgress } from "@/hooks/useChapterProgress";
 import { useAuth } from "@/hooks/useAuth";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 
@@ -77,6 +78,7 @@ export function ChapterNavigation({ activeChapter, onChapterChange }: ChapterNav
   const { getChapterProgress, completeChapter } = useProgressContext();
   const { completeIntroChapter } = useChapterProgress();
   const { user } = useAuth();
+  const { t } = useLanguage();
   const currentIndex = chapterOrder.findIndex(c => c.id === activeChapter);
   const prevChapter = currentIndex > 0 ? chapterOrder[currentIndex - 1] : null;
   const nextChapter = currentIndex < chapterOrder.length - 1 ? chapterOrder[currentIndex + 1] : null;
@@ -90,7 +92,7 @@ export function ChapterNavigation({ activeChapter, onChapterChange }: ChapterNav
 
   const handleMarkComplete = async () => {
     if (!canMarkComplete) {
-      toast.error("Trebuie să finalizezi quiz-ul pentru a marca capitolul ca finalizat");
+      toast.error(t('nav.quizNeedToPass'));
       return;
     }
     
@@ -101,10 +103,10 @@ export function ChapterNavigation({ activeChapter, onChapterChange }: ChapterNav
     if (user) {
       const success = await completeIntroChapter();
       if (success) {
-        toast.success("Capitol finalizat! Următorul capitol a fost deblocat.");
+        toast.success(t('nav.chapterUnlocked'));
       }
     } else {
-      toast.success("Capitol marcat ca finalizat!");
+      toast.success(t('nav.chapterMarkedComplete'));
     }
   };
 
@@ -115,7 +117,7 @@ export function ChapterNavigation({ activeChapter, onChapterChange }: ChapterNav
         <div className="flex items-center justify-center">
           <div className="flex items-center gap-2 px-4 py-2 bg-blue-600/15 text-blue-700 dark:text-blue-300 rounded-xl border border-blue-600/25">
             <BookOpen className="w-4 h-4" aria-hidden="true" />
-            <span className="text-sm font-medium">Capitol introductiv - nu necesită quiz</span>
+            <span className="text-sm font-medium">{t('nav.introChapter')}</span>
           </div>
         </div>
       )}
@@ -125,7 +127,7 @@ export function ChapterNavigation({ activeChapter, onChapterChange }: ChapterNav
         {isCompleted ? (
           <div className="flex items-center gap-3 px-6 py-3 bg-success/10 text-success rounded-2xl border border-success/20 shadow-sm">
             <CheckCircle2 className="w-5 h-5" />
-            <span className="font-semibold">Capitol Finalizat</span>
+            <span className="font-semibold">{t('nav.chapterCompleted')}</span>
             {chapterProgress?.quizScore !== undefined && chapterProgress.quizScore > 0 && (
               <span className="text-sm opacity-80 bg-success/20 px-2 py-0.5 rounded-full">
                 Quiz: {chapterProgress.quizScore}/{chapterProgress.quizTotal}
@@ -140,16 +142,16 @@ export function ChapterNavigation({ activeChapter, onChapterChange }: ChapterNav
             className="flex items-center gap-3 border-success/40 text-success hover:bg-success/10 hover:text-success hover:border-success/60 rounded-xl shadow-sm transition-all duration-200 hover:-translate-y-0.5"
           >
             <Sparkles className="w-4 h-4" aria-hidden="true" />
-            Marchează Capitol ca Finalizat
+            {t('nav.markComplete')}
           </Button>
         ) : (
           <div className="flex flex-col items-center gap-3">
             <div className="flex items-center gap-3 px-6 py-3 bg-amber-600/15 text-amber-700 dark:text-amber-300 rounded-2xl border border-amber-600/25 shadow-sm">
               <GraduationCap className="w-5 h-5" aria-hidden="true" />
-              <span className="font-medium">Acest capitol necesită finalizarea quiz-ului</span>
+              <span className="font-medium">{t('nav.quizRequired')}</span>
             </div>
             <p className="text-xs text-muted-foreground text-center max-w-md">
-              Răspunde la quiz-ul de la sfârșitul capitolului și obține minim 9/10 pentru a debloca următorul capitol
+              {t('nav.quizRequiredDesc')}
             </p>
           </div>
         )}
@@ -166,8 +168,8 @@ export function ChapterNavigation({ activeChapter, onChapterChange }: ChapterNav
           >
             <ChevronLeft className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
             <div className="text-left">
-              <p className="text-xs text-muted-foreground font-medium">Previous</p>
-              <p className="text-sm font-semibold text-foreground">{prevChapter.label}</p>
+              <p className="text-xs text-muted-foreground font-medium">{t('nav.previous')}</p>
+              <p className="text-sm font-semibold text-foreground">{t(`chapter.${prevChapter.id}`) || prevChapter.label}</p>
             </div>
           </Button>
         ) : (
@@ -181,8 +183,8 @@ export function ChapterNavigation({ activeChapter, onChapterChange }: ChapterNav
             className="flex items-center gap-3 px-5 py-6 rounded-xl bg-gradient-to-r from-primary to-rossik-dark hover:shadow-lg hover:shadow-primary/20 transition-all duration-200 hover:-translate-y-0.5 group"
           >
             <div className="text-right">
-              <p className="text-xs text-primary-foreground/70 font-medium">Next Chapter</p>
-              <p className="text-sm font-semibold text-primary-foreground">{nextChapter.label}</p>
+              <p className="text-xs text-primary-foreground/70 font-medium">{t('nav.nextChapter')}</p>
+              <p className="text-sm font-semibold text-primary-foreground">{t(`chapter.${nextChapter.id}`) || nextChapter.label}</p>
             </div>
             <ChevronRight className="w-5 h-5 text-primary-foreground group-hover:translate-x-0.5 transition-transform" />
           </Button>

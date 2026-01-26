@@ -12,6 +12,7 @@ import { PricingChapter } from "./chapters/PricingChapter";
 import { PaymentChapter } from "./chapters/PaymentChapter";
 import { PaywallOverlay } from "@/components/subscription/PaywallOverlay";
 import { usePremiumChapters } from "@/hooks/usePremiumChapters";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { ClientsChapter } from "./chapters/ClientsChapter";
 import { ExchangesChapter } from "./chapters/ExchangesChapter";
 import { TranslogicaChapter } from "./chapters/TranslogicaChapter";
@@ -63,6 +64,7 @@ interface ManualContentProps {
 
 export function ManualContent({ activeChapter, onChapterChange }: ManualContentProps) {
   const { isChapterLocked, getChapterMinPlan } = usePremiumChapters();
+  const { t } = useLanguage();
   
   const chapters: Record<string, React.ReactNode> = {
     intro: <IntroChapter />,
@@ -117,57 +119,9 @@ export function ManualContent({ activeChapter, onChapterChange }: ManualContentP
     "professional-development": <ProfessionalDevelopmentChapter />,
   };
 
-  const chapterNames: Record<string, string> = {
-    intro: "Introducere",
-    mindset: "Mindset",
-    workflow: "Flux de Lucru",
-    vehicle: "Vehicule",
-    loading: "Încărcare",
-    reefer: "Frigorific",
-    compliance: "Conformitate",
-    "driving-time": "Timp de Conducere",
-    pricing: "Prețuri",
-    payment: "Plăți",
-    clients: "Clienți",
-    "carrier-management": "Management Transportatori",
-    commercial: "Comercial",
-    negotiation: "Negociere",
-    exchanges: "Burse",
-    translogica: "Translogica",
-    fleet: "Flotă",
-    customs: "Vamă",
-    incoterms: "Incoterms",
-    "europe-zones": "Zone Europene",
-    warehouse: "Depozitare",
-    "supply-chain": "Lanț Aprovizionare",
-    emergency: "Urgențe",
-    communication: "Comunicare",
-    claims: "Daune",
-    insurance: "Asigurări",
-    adr: "ADR",
-    documents: "Documente",
-    environment: "Mediu",
-    "risk-management": "Management Risc",
-    accounting: "Contabilitate",
-    kpi: "KPI",
-    "soft-skills": "Soft Skills",
-    technology: "Tehnologie",
-    "case-studies": "Studii de Caz",
-    glossary: "Glosar",
-    training: "Training",
-    "red-flags": "Red Flags",
-    checklists: "Checklists",
-    "licenses-oversize": "Licențe Agabaritice",
-    "stress-management": "Gestionare Stres",
-    sustainability: "Sustenabilitate",
-    authorities: "Autorități",
-    digitalization: "Digitalizare",
-    "european-countries": "Țări Europene",
-    "express-transport": "Transport Expres",
-    "high-value-goods": "Mărfuri de Valoare",
-    intermodal: "Intermodal",
-    networking: "Networking",
-    "professional-development": "Dezvoltare Profesională",
+  // Get translated chapter name using the t() function
+  const getChapterName = (chapterId: string): string => {
+    return t(`chapter.${chapterId}`) || chapterId;
   };
 
   const isLocked = isChapterLocked(activeChapter);
@@ -192,7 +146,7 @@ export function ManualContent({ activeChapter, onChapterChange }: ManualContentP
               {isLocked && requiredPlan ? (
                 <PaywallOverlay 
                   requiredPlan={requiredPlan} 
-                  featureName={chapterNames[activeChapter] || activeChapter}
+                  featureName={getChapterName(activeChapter)}
                   className="min-h-[60vh]"
                 >
                   {chapters[activeChapter] || <IntroChapter />}
