@@ -15,6 +15,7 @@ const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
 const Profile = lazy(() => import("./pages/Profile"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const VerifyCertificate = lazy(() => import("./pages/VerifyCertificate"));
+const FinalExamPage = lazy(() => import("./pages/FinalExamPage"));
 
 // Optimized QueryClient with caching
 const queryClient = new QueryClient({
@@ -69,6 +70,11 @@ const App = () => (
                 <Route path="/verify/:code" element={
                   <Suspense fallback={<PageLoader />}>
                     <VerifyCertificate />
+                  </Suspense>
+                } />
+                <Route path="/final-exam" element={
+                  <Suspense fallback={<PageLoader />}>
+                    <FinalExamPage />
                   </Suspense>
                 } />
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
