@@ -1,6 +1,7 @@
 import { Checklist } from "../Checklist";
 import { DataTable } from "../DataTable";
 import { InfoCard } from "../InfoCard";
+import { Quiz } from "../Quiz";
 import { ClipboardList, Truck, Package, FileText, Calculator, AlertTriangle, Phone, Shield, Clock, Euro, MapPin, CheckCircle2, Thermometer, Users, Wrench, Globe, Camera, Scale, Ban, Fuel } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
@@ -366,6 +367,9 @@ export function ChecklistsChapter() {
           </table>
         </div>
       </div>
+
+      {/* Quiz */}
+      <Quiz title="Quiz" chapterId="checklists" />
     </div>
   );
 }
