@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo, useRef } from "react";
-import { CheckCircle2, XCircle, RotateCcw, Trophy, ChevronRight, Shuffle, Lock, AlertTriangle, ChevronDown, ChevronUp, Award, Clock, Target, BookOpen } from "lucide-react";
+import { CheckCircle2, XCircle, RotateCcw, Trophy, ChevronRight, Shuffle, Lock, AlertTriangle, ChevronDown, ChevronUp, Award, Clock, Target, BookOpen, Timer } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useAuth } from "@/hooks/useAuth";
@@ -124,6 +124,8 @@ const allChapterIds = [
 const TOTAL_QUESTIONS = 100;
 const QUESTIONS_PER_CHAPTER = 2;
 const PASSING_SCORE = 90; // 90% to pass final exam
+const TIME_LIMIT_MINUTES = 120; // 2 hours time limit
+const TIME_LIMIT_SECONDS = TIME_LIMIT_MINUTES * 60;
 
 interface FinalExamProps {
   onComplete?: (score: number, total: number, passed: boolean) => void;
@@ -154,16 +156,42 @@ export function FinalExam({ onComplete, onBack }: FinalExamProps) {
   const [showWrongAnswers, setShowWrongAnswers] = useState(false);
   const [startTime] = useState<Date>(new Date());
   const [elapsedTime, setElapsedTime] = useState(0);
+  const [remainingTime, setRemainingTime] = useState(TIME_LIMIT_SECONDS);
+  const [timeExpired, setTimeExpired] = useState(false);
+  const autoSubmitRef = useRef(false);
 
-  // Timer
+  // Timer - countdown and elapsed time
   useEffect(() => {
-    if (!examCompleted) {
+    if (!examCompleted && !timeExpired) {
       const timer = setInterval(() => {
-        setElapsedTime(Math.floor((new Date().getTime() - startTime.getTime()) / 1000));
+        const elapsed = Math.floor((new Date().getTime() - startTime.getTime()) / 1000);
+        setElapsedTime(elapsed);
+        
+        const remaining = TIME_LIMIT_SECONDS - elapsed;
+        setRemainingTime(Math.max(0, remaining));
+        
+        // Auto-submit when time expires
+        if (remaining <= 0 && !autoSubmitRef.current) {
+          autoSubmitRef.current = true;
+          setTimeExpired(true);
+          clearInterval(timer);
+        }
       }, 1000);
       return () => clearInterval(timer);
     }
-  }, [startTime, examCompleted]);
+  }, [startTime, examCompleted, timeExpired]);
+
+  // Handle time expiration - auto complete exam
+  useEffect(() => {
+    if (timeExpired && !examCompleted) {
+      toast({
+        title: language === 'ro' ? '⏰ Timpul a expirat!' : language === 'de' ? '⏰ Zeit abgelaufen!' : '⏰ Time expired!',
+        description: language === 'ro' ? 'Examenul s-a încheiat automat.' : language === 'de' ? 'Die Prüfung wurde automatisch beendet.' : 'The exam has ended automatically.',
+        variant: 'destructive',
+      });
+      setExamCompleted(true);
+    }
+  }, [timeExpired, examCompleted, language, toast]);
 
   // Generate exam questions on mount - unique per user
   useEffect(() => {
@@ -342,6 +370,10 @@ export function FinalExam({ onComplete, onBack }: FinalExamProps) {
     setExamCompleted(false);
     setWrongAnswers([]);
     setShowWrongAnswers(false);
+    // Reset timer
+    setRemainingTime(TIME_LIMIT_SECONDS);
+    setTimeExpired(false);
+    autoSubmitRef.current = false;
   };
 
   // Labels
@@ -363,6 +395,9 @@ export function FinalExam({ onComplete, onBack }: FinalExamProps) {
     incorrect: language === 'ro' ? 'Incorect' : language === 'de' ? 'Falsch' : 'Incorrect',
     chapter: language === 'ro' ? 'Capitol' : language === 'de' ? 'Kapitel' : 'Chapter',
     time: language === 'ro' ? 'Timp' : language === 'de' ? 'Zeit' : 'Time',
+    timeRemaining: language === 'ro' ? 'Timp Rămas' : language === 'de' ? 'Verbleibende Zeit' : 'Time Remaining',
+    timeLimit: language === 'ro' ? `Limită: ${TIME_LIMIT_MINUTES} minute` : language === 'de' ? `Limit: ${TIME_LIMIT_MINUTES} Minuten` : `Limit: ${TIME_LIMIT_MINUTES} minutes`,
+    timeExpired: language === 'ro' ? 'Timpul a expirat' : language === 'de' ? 'Zeit abgelaufen' : 'Time expired',
     score: language === 'ro' ? 'Scor' : language === 'de' ? 'Punktzahl' : 'Score',
     showWrongAnswers: language === 'ro' ? 'Vezi Răspunsurile Greșite' : language === 'de' ? 'Falsche Antworten Anzeigen' : 'Show Wrong Answers',
     hideWrongAnswers: language === 'ro' ? 'Ascunde Răspunsurile Greșite' : language === 'de' ? 'Falsche Antworten Ausblenden' : 'Hide Wrong Answers',
@@ -531,6 +566,14 @@ export function FinalExam({ onComplete, onBack }: FinalExamProps) {
     );
   }
 
+  // Get urgency level for timer color
+  const getTimerUrgency = () => {
+    if (remainingTime <= 300) return 'critical'; // Last 5 minutes
+    if (remainingTime <= 900) return 'warning'; // Last 15 minutes
+    return 'normal';
+  };
+  const timerUrgency = getTimerUrgency();
+
   // Active exam view
   return (
     <div className="max-w-4xl mx-auto p-6">
@@ -542,14 +585,22 @@ export function FinalExam({ onComplete, onBack }: FinalExamProps) {
               ← {labels.back}
             </Button>
           )}
-          <Badge variant="outline" className="text-sm">
-            <Clock className="w-3 h-3 mr-1" />
-            {formatTime(elapsedTime)}
-          </Badge>
+          
+          {/* Countdown Timer - Prominent */}
+          <div className={cn(
+            "flex items-center gap-2 px-4 py-2 rounded-lg font-mono text-lg font-bold",
+            timerUrgency === 'critical' && "bg-destructive/20 text-destructive animate-pulse",
+            timerUrgency === 'warning' && "bg-warning/20 text-warning",
+            timerUrgency === 'normal' && "bg-primary/10 text-primary"
+          )}>
+            <Timer className="w-5 h-5" />
+            <span>{formatTime(remainingTime)}</span>
+          </div>
         </div>
         
         <h1 className="text-2xl font-bold mb-2">{labels.title}</h1>
-        <p className="text-muted-foreground mb-4">{labels.subtitle}</p>
+        <p className="text-muted-foreground mb-2">{labels.subtitle}</p>
+        <p className="text-sm text-muted-foreground mb-4">{labels.timeLimit}</p>
         
         {/* Progress */}
         <div className="space-y-2">
