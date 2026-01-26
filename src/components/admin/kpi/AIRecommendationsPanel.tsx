@@ -61,6 +61,7 @@ const typeIcons: Record<string, React.ReactNode> = {
 export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
   const { t } = useLanguage();
   const [recommendations, setRecommendations] = useState<AIRecommendation[]>([]);
+  const [allCounts, setAllCounts] = useState({ pending: 0, applied: 0, dismissed: 0, total: 0 });
   const [loading, setLoading] = useState(true);
   const [analyzing, setAnalyzing] = useState(false);
   const [stats, setStats] = useState<AnalysisStats | null>(null);
@@ -69,6 +70,25 @@ export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
   const fetchRecommendations = useCallback(async () => {
     setLoading(true);
     try {
+      // Fetch counts for all statuses first
+      const [pendingRes, appliedRes, dismissedRes] = await Promise.all([
+        supabase.from('ai_recommendations').select('id', { count: 'exact', head: true }).eq('status', 'pending'),
+        supabase.from('ai_recommendations').select('id', { count: 'exact', head: true }).eq('status', 'applied'),
+        supabase.from('ai_recommendations').select('id', { count: 'exact', head: true }).eq('status', 'dismissed'),
+      ]);
+
+      const pendingCount = pendingRes.count || 0;
+      const appliedCount = appliedRes.count || 0;
+      const dismissedCount = dismissedRes.count || 0;
+      
+      setAllCounts({
+        pending: pendingCount,
+        applied: appliedCount,
+        dismissed: dismissedCount,
+        total: pendingCount + appliedCount + dismissedCount,
+      });
+
+      // Fetch filtered recommendations
       let query = supabase
         .from('ai_recommendations')
         .select('*')
@@ -88,7 +108,7 @@ export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
     } finally {
       setLoading(false);
     }
-  }, [filter]);
+  }, [filter, t]);
 
   useEffect(() => {
     fetchRecommendations();
@@ -160,8 +180,8 @@ export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
     }
   };
 
-  const pendingCount = recommendations.filter(r => r.status === 'pending').length;
-  const appliedCount = recommendations.filter(r => r.status === 'applied').length;
+  // Use global counts from allCounts state
+  const { pending: pendingCount, applied: appliedCount, total: totalCount } = allCounts;
 
   return (
     <div className="space-y-6">
@@ -262,7 +282,7 @@ export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-bold">{recommendations.length}</p>
+            <p className="text-2xl font-bold">{totalCount}</p>
           </CardContent>
         </Card>
       </div>
