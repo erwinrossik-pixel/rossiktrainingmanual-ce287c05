@@ -4,8 +4,6 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Switch } from '@/components/ui/switch';
-import { Label } from '@/components/ui/label';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -23,7 +21,6 @@ import {
   Sparkles,
   TrendingUp,
   Play,
-  Zap,
 } from 'lucide-react';
 
 interface AIRecommendation {
@@ -69,7 +66,6 @@ export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
   const [loading, setLoading] = useState(true);
   const [analyzing, setAnalyzing] = useState(false);
   const [applying, setApplying] = useState(false);
-  const [autoApplyEnabled, setAutoApplyEnabled] = useState(false);
   const [stats, setStats] = useState<AnalysisStats | null>(null);
   const [filter, setFilter] = useState<'all' | 'pending' | 'applied' | 'dismissed'>('pending');
 
@@ -204,40 +200,48 @@ export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
   const updateRecommendationStatus = async (
     id: string, 
     status: 'applied' | 'dismissed',
-    dismissReason?: string,
-    autoExecute: boolean = autoApplyEnabled
+    dismissReason?: string
   ) => {
     try {
-      const updateData: Record<string, unknown> = {
-        status,
-        updated_at: new Date().toISOString(),
-      };
-
       if (status === 'applied') {
-        updateData.applied_at = new Date().toISOString();
-      }
-      if (status === 'dismissed' && dismissReason) {
-        updateData.dismissed_reason = dismissReason;
-      }
+        // Directly apply the recommendation (execute the action)
+        setApplying(true);
+        toast.info('Se aplică recomandarea...');
+        
+        const { data, error } = await supabase.functions.invoke('apply-ai-recommendations', {
+          body: { recommendationIds: [id] }
+        });
 
-      const { error } = await supabase
-        .from('ai_recommendations')
-        .update(updateData)
-        .eq('id', id);
+        if (error) throw error;
 
-      if (error) throw error;
-
-      // If auto-apply is enabled and status is 'applied', execute the recommendation
-      if (status === 'applied' && autoExecute) {
-        await applySelectedRecommendations([id]);
+        if (data.success) {
+          toast.success('Recomandare aplicată și executată cu succes!');
+        } else {
+          toast.error(data.error || 'Eroare la aplicare');
+        }
+        setApplying(false);
       } else {
-        toast.success(status === 'applied' ? t('admin.ai.appliedLabel') : t('admin.ai.dismiss'));
+        // Just update status for dismissed
+        const updateData: Record<string, unknown> = {
+          status,
+          updated_at: new Date().toISOString(),
+          dismissed_reason: dismissReason || null,
+        };
+
+        const { error } = await supabase
+          .from('ai_recommendations')
+          .update(updateData)
+          .eq('id', id);
+
+        if (error) throw error;
+        toast.success(t('admin.ai.dismiss'));
       }
       
       await fetchRecommendations();
     } catch (error) {
       console.error('Error updating recommendation:', error);
       toast.error(t('admin.general.error'));
+      setApplying(false);
     }
   };
 
@@ -258,19 +262,6 @@ export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
           </p>
         </div>
         <div className="flex items-center gap-3">
-          {/* Auto-Apply Toggle */}
-          <div className="flex items-center gap-2 p-2 bg-muted/50 rounded-lg">
-            <Switch
-              id="auto-apply"
-              checked={autoApplyEnabled}
-              onCheckedChange={setAutoApplyEnabled}
-            />
-            <Label htmlFor="auto-apply" className="text-sm cursor-pointer flex items-center gap-1">
-              <Zap className="h-3 w-3" />
-              Auto-Apply
-            </Label>
-          </div>
-          
           {/* Apply All Button */}
           <Button
             onClick={applyAllApproved}
