@@ -4,6 +4,8 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Switch } from '@/components/ui/switch';
+import { Label } from '@/components/ui/label';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -20,6 +22,8 @@ import {
   Layers,
   Sparkles,
   TrendingUp,
+  Play,
+  Zap,
 } from 'lucide-react';
 
 interface AIRecommendation {
@@ -64,6 +68,8 @@ export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
   const [allCounts, setAllCounts] = useState({ pending: 0, applied: 0, dismissed: 0, total: 0 });
   const [loading, setLoading] = useState(true);
   const [analyzing, setAnalyzing] = useState(false);
+  const [applying, setApplying] = useState(false);
+  const [autoApplyEnabled, setAutoApplyEnabled] = useState(false);
   const [stats, setStats] = useState<AnalysisStats | null>(null);
   const [filter, setFilter] = useState<'all' | 'pending' | 'applied' | 'dismissed'>('pending');
 
@@ -147,10 +153,59 @@ export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
     }
   };
 
+  const applyAllApproved = async () => {
+    setApplying(true);
+    toast.info('Aplicare recomandări în curs...');
+
+    try {
+      const { data, error } = await supabase.functions.invoke('apply-ai-recommendations', {
+        body: { autoApply: false }
+      });
+
+      if (error) throw error;
+
+      if (data.error) {
+        toast.error(data.error);
+        return;
+      }
+
+      toast.success(`${data.applied} recomandări aplicate cu succes!`);
+      if (data.failed > 0) {
+        toast.warning(`${data.failed} recomandări au eșuat`);
+      }
+      await fetchRecommendations();
+    } catch (error) {
+      console.error('Error applying recommendations:', error);
+      toast.error('Eroare la aplicarea recomandărilor');
+    } finally {
+      setApplying(false);
+    }
+  };
+
+  const applySelectedRecommendations = async (ids: string[]) => {
+    setApplying(true);
+    try {
+      const { data, error } = await supabase.functions.invoke('apply-ai-recommendations', {
+        body: { recommendationIds: ids }
+      });
+
+      if (error) throw error;
+
+      toast.success(`${data.applied} recomandări aplicate!`);
+      await fetchRecommendations();
+    } catch (error) {
+      console.error('Error applying recommendations:', error);
+      toast.error('Eroare la aplicare');
+    } finally {
+      setApplying(false);
+    }
+  };
+
   const updateRecommendationStatus = async (
     id: string, 
     status: 'applied' | 'dismissed',
-    dismissReason?: string
+    dismissReason?: string,
+    autoExecute: boolean = autoApplyEnabled
   ) => {
     try {
       const updateData: Record<string, unknown> = {
@@ -172,7 +227,13 @@ export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
 
       if (error) throw error;
 
-      toast.success(status === 'applied' ? t('admin.ai.appliedLabel') : t('admin.ai.dismiss'));
+      // If auto-apply is enabled and status is 'applied', execute the recommendation
+      if (status === 'applied' && autoExecute) {
+        await applySelectedRecommendations([id]);
+      } else {
+        toast.success(status === 'applied' ? t('admin.ai.appliedLabel') : t('admin.ai.dismiss'));
+      }
+      
       await fetchRecommendations();
     } catch (error) {
       console.error('Error updating recommendation:', error);
@@ -186,7 +247,7 @@ export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between flex-wrap gap-4">
         <div>
           <h3 className="text-xl font-bold flex items-center gap-2">
             <Brain className="h-6 w-6 text-purple-500" />
@@ -196,18 +257,48 @@ export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
             {t('admin.ai.subtitle')}
           </p>
         </div>
-        <Button 
-          onClick={runAnalysis} 
-          disabled={analyzing}
-          className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600"
-        >
-          {analyzing ? (
-            <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
-          ) : (
-            <Sparkles className="h-4 w-4 mr-2" />
-          )}
-          {analyzing ? t('admin.ai.analyzing') : t('admin.ai.runAnalysis')}
-        </Button>
+        <div className="flex items-center gap-3">
+          {/* Auto-Apply Toggle */}
+          <div className="flex items-center gap-2 p-2 bg-muted/50 rounded-lg">
+            <Switch
+              id="auto-apply"
+              checked={autoApplyEnabled}
+              onCheckedChange={setAutoApplyEnabled}
+            />
+            <Label htmlFor="auto-apply" className="text-sm cursor-pointer flex items-center gap-1">
+              <Zap className="h-3 w-3" />
+              Auto-Apply
+            </Label>
+          </div>
+          
+          {/* Apply All Button */}
+          <Button
+            onClick={applyAllApproved}
+            disabled={applying || allCounts.pending === 0}
+            variant="outline"
+            className="border-green-500 text-green-600 hover:bg-green-500 hover:text-white"
+          >
+            {applying ? (
+              <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
+            ) : (
+              <Play className="h-4 w-4 mr-2" />
+            )}
+            Apply All ({allCounts.pending})
+          </Button>
+          
+          <Button 
+            onClick={runAnalysis} 
+            disabled={analyzing}
+            className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600"
+          >
+            {analyzing ? (
+              <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
+            ) : (
+              <Sparkles className="h-4 w-4 mr-2" />
+            )}
+            {analyzing ? t('admin.ai.analyzing') : t('admin.ai.runAnalysis')}
+          </Button>
+        </div>
       </div>
 
       {/* Stats */}
