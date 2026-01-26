@@ -465,7 +465,7 @@ export function Sidebar({ activeChapter, onChapterChange, onShowDashboard, onSho
                 </div>
                 <div className="flex-1 text-left min-w-0">
                   <span className="text-sm font-medium text-foreground group-hover:text-violet-500 transition-colors block truncate">
-                    {t('sidebar.simulations') || 'Simulări Operaționale'}
+                    Simulations
                   </span>
                   <p className="text-[10px] text-muted-foreground truncate">
                     {t('sidebar.simulationsDesc') || 'Învață prin practică'}
@@ -491,7 +491,7 @@ export function Sidebar({ activeChapter, onChapterChange, onShowDashboard, onSho
                 </div>
                 <div className="flex-1 text-left min-w-0">
                   <span className="text-sm font-medium text-foreground group-hover:text-emerald-500 transition-colors block truncate">
-                    {t('sidebar.finalExam') || 'Examen Final'}
+                    Final Exam
                   </span>
                   <p className="text-[10px] text-muted-foreground truncate">
                     {t('sidebar.finalExamDesc') || '100 întrebări comprehensive'}
