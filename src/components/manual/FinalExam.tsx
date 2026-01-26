@@ -124,7 +124,7 @@ const allChapterIds = [
 const TOTAL_QUESTIONS = 100;
 const QUESTIONS_PER_CHAPTER = 2;
 const PASSING_SCORE = 90; // 90% to pass final exam
-const TIME_LIMIT_MINUTES = 120; // 2 hours time limit
+const TIME_LIMIT_MINUTES = 180; // 3 hours time limit
 const TIME_LIMIT_SECONDS = TIME_LIMIT_MINUTES * 60;
 
 interface FinalExamProps {
@@ -326,55 +326,8 @@ export function FinalExam({ onComplete, onBack }: FinalExamProps) {
     }
   };
 
-  const handleRestart = () => {
-    // Regenerate questions with NEW random seed (different questions on retry)
-    const generateExamQuestions = (): QuizQuestion[] => {
-      const questions: QuizQuestion[] = [];
-      
-      // Create a new seed based on user ID + current timestamp for fresh questions
-      const retrySeed = stringToSeed((user?.id || 'anon') + '-retry-' + Date.now());
-      const rng = seededRandom(retrySeed);
-      
-      allChapterIds.forEach((chapterId, chapterIndex) => {
-        const chapterQuestions = quizTranslations[chapterId];
-        if (!chapterQuestions || chapterQuestions.length === 0) return;
-        
-        const translatedQuestions = chapterQuestions.map((q: TranslatedQuizQuestion) => ({
-          question: q.question[language] || q.question.en,
-          options: q.options[language] || q.options.en,
-          correctIndex: q.correctIndex,
-          explanation: q.explanation[language] || q.explanation.en,
-          chapterId,
-          chapterName: chapterNames[chapterId]?.[language] || chapterId
-        }));
-        
-        // Use chapter-specific seed for shuffling
-        const chapterSeed = retrySeed + chapterIndex * 1000;
-        const chapterRng = seededRandom(chapterSeed);
-        
-        const shuffled = shuffleArray(translatedQuestions, chapterRng);
-        const selected = shuffled.slice(0, QUESTIONS_PER_CHAPTER);
-        questions.push(...selected);
-      });
-      
-      return shuffleArray(questions, rng);
-    };
-    
-    const questions = generateExamQuestions();
-    setExamQuestions(questions);
-    setCurrentQuestion(0);
-    setSelectedAnswer(null);
-    setShowResult(false);
-    setScore(0);
-    setAnsweredQuestions(new Array(questions.length).fill(false));
-    setExamCompleted(false);
-    setWrongAnswers([]);
-    setShowWrongAnswers(false);
-    // Reset timer
-    setRemainingTime(TIME_LIMIT_SECONDS);
-    setTimeExpired(false);
-    autoSubmitRef.current = false;
-  };
+  // IMPORTANT: No restart function - once exam starts, it cannot be reset
+  // This ensures exam integrity and prevents gaming the system
 
   // Labels
   const labels = {
@@ -548,12 +501,8 @@ export function FinalExam({ onComplete, onBack }: FinalExamProps) {
               </div>
             )}
             
-            {/* Actions */}
+            {/* Actions - No restart allowed, exam is final */}
             <div className="flex gap-4 justify-center">
-              <Button onClick={handleRestart} disabled={isSaving} className="gap-2">
-                <RotateCcw className="w-4 h-4" />
-                {labels.tryAgain}
-              </Button>
               {onBack && (
                 <Button variant="outline" onClick={onBack}>
                   {labels.back}
