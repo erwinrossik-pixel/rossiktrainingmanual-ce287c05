@@ -50,3 +50,6 @@ verify_jwt = false
 
 [functions.send-user-notification]
 verify_jwt = false
+
+[functions.apply-ai-recommendations]
+verify_jwt = false
