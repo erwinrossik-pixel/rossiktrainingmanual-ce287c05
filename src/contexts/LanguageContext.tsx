@@ -751,6 +751,10 @@ const translations: Record<Language, Record<string, string>> = {
     'admin.premium.chapters': 'capitole',
     'admin.premium.updated': 'Restricție actualizată',
     'admin.premium.error': 'Eroare',
+    'admin.premium.planFree': 'Gratuit',
+    'admin.premium.planStarter': 'Starter+',
+    'admin.premium.planProfessional': 'Professional+',
+    'admin.premium.planEnterprise': 'Enterprise',
     
     // Subscription Plans
     'admin.plans.title': 'Planuri de Abonament',
@@ -2193,6 +2197,10 @@ const translations: Record<Language, Record<string, string>> = {
     'admin.premium.chapters': 'Kapitel',
     'admin.premium.updated': 'Einschränkung aktualisiert',
     'admin.premium.error': 'Fehler',
+    'admin.premium.planFree': 'Kostenlos',
+    'admin.premium.planStarter': 'Starter+',
+    'admin.premium.planProfessional': 'Professional+',
+    'admin.premium.planEnterprise': 'Enterprise',
     
     // Subscription Plans
     'admin.plans.title': 'Abonnementpläne',
@@ -3747,6 +3755,10 @@ const translations: Record<Language, Record<string, string>> = {
     'admin.premium.chapters': 'chapters',
     'admin.premium.updated': 'Restriction updated',
     'admin.premium.error': 'Error',
+    'admin.premium.planFree': 'Free',
+    'admin.premium.planStarter': 'Starter+',
+    'admin.premium.planProfessional': 'Professional+',
+    'admin.premium.planEnterprise': 'Enterprise',
     
     // Subscription Plans
     'admin.plans.title': 'Subscription Plans',
