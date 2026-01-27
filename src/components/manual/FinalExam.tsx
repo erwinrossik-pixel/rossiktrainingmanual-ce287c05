@@ -5,6 +5,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { useAuth } from "@/hooks/useAuth";
 import { quizTranslations, TranslatedQuizQuestion } from "@/data/quizTranslations";
 import { finalExamExtraQuestions } from "@/data/quizBanks/finalExamExtraQuestions";
+import { finalExamAdvancedQuestions, getQuestionStats } from "@/data/quizBanks/finalExamAdvancedQuestions";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
