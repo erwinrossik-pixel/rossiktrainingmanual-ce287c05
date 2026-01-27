@@ -27,13 +27,13 @@ interface UserTrainingTime {
 const TARGET_HOURS_PER_PHASE = 8;
 const TOTAL_TARGET_HOURS = 40; // 5 phases * 8 hours
 
-const PHASE_NAMES = {
-  1: 'Fundamente',
-  2: 'Echipament & Documente',
-  3: 'Geografie & Comercial',
-  4: 'Tehnologie & Finanțe',
-  5: 'Aplicare Practică',
-};
+const getPhaseNames = (t: (key: string) => string) => ({
+  1: t('admin.training.phase1Name'),
+  2: t('admin.training.phase2Name'),
+  3: t('admin.training.phase3Name'),
+  4: t('admin.training.phase4Name'),
+  5: t('admin.training.phase5Name'),
+});
 
 export function TrainingTimeAnalytics() {
   const { t } = useLanguage();
@@ -187,6 +187,7 @@ export function TrainingTimeAnalytics() {
   };
 
   // Chart data: time distribution by phase across all users
+  const PHASE_NAMES = getPhaseNames(t);
   const phaseDistribution = [1, 2, 3, 4, 5].map(phase => {
     const totalForPhase = usersTime.reduce((acc, u) => acc + (u.days[phase] || 0), 0);
     return {
@@ -244,9 +245,9 @@ export function TrainingTimeAnalytics() {
   ].filter(d => d.value > 0);
 
   const exportToCSV = () => {
-    const headers = ['Nume', 'Email', 'Faza 1', 'Faza 2', 'Faza 3', 'Faza 4', 'Faza 5', 'Total', 'Progres %', 'Eficiență %', 'Faze Active', 'Activ Acum', 'Început Training'];
+    const headers = [t('admin.training.name'), 'Email', t('admin.training.phase') + ' 1', t('admin.training.phase') + ' 2', t('admin.training.phase') + ' 3', t('admin.training.phase') + ' 4', t('admin.training.phase') + ' 5', t('admin.training.total'), t('admin.training.progressPercent') + ' %', t('admin.training.efficiency') + ' %', t('admin.training.activePhases'), t('admin.training.activeNow'), t('admin.training.started')];
     const rows = usersTime.map(u => [
-      `${u.firstName || ''} ${u.lastName || ''}`.trim() || 'N/A',
+      `${u.firstName || ''} ${u.lastName || ''}`.trim() || t('admin.training.noData'),
       u.email,
       formatTime(u.days[1] || 0),
       formatTime(u.days[2] || 0),
@@ -257,8 +258,8 @@ export function TrainingTimeAnalytics() {
       `${Math.min(100, Math.round((u.totalSeconds / (TOTAL_TARGET_HOURS * 3600)) * 100))}%`,
       `${u.efficiency}%`,
       u.activePhasesCount,
-      u.isCurrentlyTraining ? 'Da' : 'Nu',
-      u.trainingStartedAt ? format(new Date(u.trainingStartedAt), 'dd.MM.yyyy HH:mm') : 'N/A',
+      u.isCurrentlyTraining ? t('admin.training.yes') : t('admin.training.no'),
+      u.trainingStartedAt ? format(new Date(u.trainingStartedAt), 'dd.MM.yyyy HH:mm') : t('admin.training.noData'),
     ]);
 
     const csvContent = [headers, ...rows]
@@ -280,8 +281,8 @@ export function TrainingTimeAnalytics() {
       return (
         <div className="bg-popover border border-border rounded-lg shadow-lg p-3 text-sm">
           <p className="font-semibold">{data.fullName}</p>
-          <p className="text-muted-foreground">{data.hours.toFixed(1)} ore total</p>
-          <p className="text-xs text-muted-foreground">{data.users} utilizatori activi</p>
+          <p className="text-muted-foreground">{data.hours.toFixed(1)} {t('admin.training.hoursTotal')}</p>
+          <p className="text-xs text-muted-foreground">{data.users} {t('admin.training.usersActiveInPhase')}</p>
         </div>
       );
     }
@@ -421,7 +422,7 @@ export function TrainingTimeAnalytics() {
                       <Cell key={`cell-${index}`} fill={entry.color} />
                     ))}
                   </Pie>
-                  <Tooltip formatter={(value: number) => [`${value} utilizatori`, '']} />
+                  <Tooltip formatter={(value: number) => [`${value} ${t('admin.training.usersLabel')}`, '']} />
                 </PieChart>
               </ResponsiveContainer>
             </div>
@@ -470,7 +471,7 @@ export function TrainingTimeAnalytics() {
                       <div className="flex-1 min-w-0">
                         <p className="font-medium text-sm truncate">{userName}</p>
                         <p className="text-xs text-muted-foreground">
-                          {user.activePhasesCount} faze · {formatTime(user.totalSeconds)}
+                          {user.activePhasesCount} {t('admin.training.phases')} · {formatTime(user.totalSeconds)}
                         </p>
                       </div>
                       <div className={`text-lg font-bold ${getEfficiencyColor(user.efficiency)}`}>
@@ -480,7 +481,7 @@ export function TrainingTimeAnalytics() {
                   );
                 })}
               {usersWithAnyTime.length === 0 && (
-                <p className="text-center text-muted-foreground py-4">Niciun utilizator în clasament</p>
+                <p className="text-center text-muted-foreground py-4">{t('admin.training.noUsersInRanking')}</p>
               )}
             </div>
           </CardContent>
@@ -491,9 +492,9 @@ export function TrainingTimeAnalytics() {
           <CardHeader>
             <CardTitle className="text-base flex items-center gap-2">
               <Timer className="h-4 w-4 text-success" />
-              Top Timp Total
+              {t('admin.training.topTotalTime')}
             </CardTitle>
-            <CardDescription>Utilizatorii cu cel mai mult timp investit în training</CardDescription>
+            <CardDescription>{t('admin.training.topTotalTimeDesc')}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-3">
@@ -538,14 +539,14 @@ export function TrainingTimeAnalytics() {
                           {formatTime(user.totalSeconds)}
                         </p>
                         {isCompleted && (
-                          <Badge className="bg-success text-[10px] h-4 px-1">Complet</Badge>
+                          <Badge className="bg-success text-[10px] h-4 px-1">{t('admin.training.statusComplete')}</Badge>
                         )}
                       </div>
                     </div>
                   );
                 })}
               {usersWithAnyTime.length === 0 && (
-                <p className="text-center text-muted-foreground py-4">Niciun utilizator în clasament</p>
+                <p className="text-center text-muted-foreground py-4">{t('admin.training.noUsersInRanking')}</p>
               )}
             </div>
           </CardContent>
@@ -557,17 +558,17 @@ export function TrainingTimeAnalytics() {
       <Card>
         <CardHeader className="flex flex-row items-center justify-between">
           <div>
-            <CardTitle className="text-base">Timp Training per Utilizator</CardTitle>
-            <CardDescription>Detalii despre timpul petrecut de fiecare utilizator pe faze</CardDescription>
+            <CardTitle className="text-base">{t('admin.training.userTableTitle')}</CardTitle>
+            <CardDescription>{t('admin.training.userTableDesc')}</CardDescription>
           </div>
           <div className="flex items-center gap-2">
             <Button variant="outline" size="sm" onClick={fetchTrainingTime}>
               <RefreshCw className="h-4 w-4 mr-2" />
-              Actualizează
+              {t('admin.training.refresh')}
             </Button>
             <Button variant="outline" size="sm" onClick={exportToCSV}>
               <Download className="h-4 w-4 mr-2" />
-              Export CSV
+              {t('admin.training.exportCSV')}
             </Button>
           </div>
         </CardHeader>
@@ -575,16 +576,16 @@ export function TrainingTimeAnalytics() {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Utilizator</TableHead>
+                <TableHead>{t('admin.training.user')}</TableHead>
                 <TableHead className="text-center">F1</TableHead>
                 <TableHead className="text-center">F2</TableHead>
                 <TableHead className="text-center">F3</TableHead>
                 <TableHead className="text-center">F4</TableHead>
                 <TableHead className="text-center">F5</TableHead>
-                <TableHead className="text-center">Total</TableHead>
-                <TableHead className="w-28">Progres</TableHead>
-                <TableHead className="text-center">Eficiență</TableHead>
-                <TableHead className="text-center">Status</TableHead>
+                <TableHead className="text-center">{t('admin.training.total')}</TableHead>
+                <TableHead className="w-28">{t('admin.training.progressPercent')}</TableHead>
+                <TableHead className="text-center">{t('admin.training.efficiency')}</TableHead>
+                <TableHead className="text-center">{t('admin.training.status')}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -641,9 +642,9 @@ export function TrainingTimeAnalytics() {
                     </TableCell>
                     <TableCell className="text-center">
                       {userTime.isCurrentlyTraining ? (
-                        <Badge className="bg-green-500 animate-pulse">Activ</Badge>
+                        <Badge className="bg-green-500 animate-pulse">{t('admin.training.statusActive')}</Badge>
                       ) : userTime.totalSeconds > 0 ? (
-                        <Badge variant="secondary">Pauză</Badge>
+                        <Badge variant="secondary">{t('admin.training.statusPaused')}</Badge>
                       ) : (
                         <Badge variant="outline">-</Badge>
                       )}
@@ -654,7 +655,7 @@ export function TrainingTimeAnalytics() {
               {usersTime.length === 0 && (
                 <TableRow>
                   <TableCell colSpan={10} className="text-center text-muted-foreground py-8">
-                    Niciun utilizator nu a înregistrat timp de training încă
+                    {t('admin.training.noTrainingRecords')}
                   </TableCell>
                 </TableRow>
               )}
@@ -662,7 +663,7 @@ export function TrainingTimeAnalytics() {
           </Table>
           {usersTime.length > 20 && (
             <p className="text-sm text-muted-foreground text-center mt-4">
-              Se afișează primii 20 utilizatori. Exportă CSV pentru lista completă.
+              {t('admin.training.first20UsersNote')}
             </p>
           )}
         </CardContent>

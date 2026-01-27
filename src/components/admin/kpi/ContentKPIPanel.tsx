@@ -193,7 +193,7 @@ export const ContentKPIPanel = memo(function ContentKPIPanel({
                 <XAxis dataKey="name" tick={{ fontSize: 11 }} />
                 <YAxis />
                 <Tooltip />
-                <Bar dataKey="value" name="Capitole">
+                <Bar dataKey="value" name={t('admin.kpi.chaptersLabel')}>
                   {difficultyDistribution.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={entry.color} />
                   ))}
@@ -233,8 +233,8 @@ export const ContentKPIPanel = memo(function ContentKPIPanel({
                       return (
                         <div className="bg-background border rounded-lg p-2 shadow-lg">
                           <p className="font-medium">{data.name}</p>
-                          <p className="text-sm">Promovare: {data.x.toFixed(1)}%</p>
-                          <p className="text-sm">Încercări: {data.y.toFixed(1)}</p>
+                          <p className="text-sm">{t('admin.kpi.passRateLabel')}: {data.x.toFixed(1)}%</p>
+                          <p className="text-sm">{t('admin.kpi.attemptsLabel')}: {data.y.toFixed(1)}</p>
                           <Badge 
                             className="mt-1"
                             style={{ backgroundColor: difficultyColors[data.difficulty as ContentKPI['difficulty']] }}
