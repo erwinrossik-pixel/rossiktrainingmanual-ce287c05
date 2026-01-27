@@ -55,6 +55,7 @@ const parseChaptersFailed = (data: unknown): { chapter: string; error: string }[
 };
 
 export function JobsMonitor() {
+  const { t } = useLanguage();
   const [jobs, setJobs] = useState<RegenerationJob[]>([]);
   const [chapters, setChapters] = useState<Chapter[]>([]);
   const [selectedChapter, setSelectedChapter] = useState<string>('');
@@ -82,7 +83,7 @@ export function JobsMonitor() {
           if (payload.eventType === 'INSERT') {
             const newJob = payload.new as RegenerationJob;
             setJobs(prev => [newJob, ...prev]);
-            toast.info(`Nou job de regenerare pornit: ${newJob.total_chapters} capitole`);
+            toast.info(`${t('admin.jobs.newJobStarted')}: ${newJob.total_chapters} ${t('admin.jobs.chaptersLabel')}`);
           } else if (payload.eventType === 'UPDATE') {
             const updatedJob = payload.new as RegenerationJob;
             setJobs(prev => prev.map(job => 
@@ -91,9 +92,9 @@ export function JobsMonitor() {
             
             // Notify on completion
             if (updatedJob.status === 'completed') {
-              toast.success(`Job finalizat: ${updatedJob.chapters_completed.length} capitole procesate`);
+              toast.success(`${t('admin.jobs.completed')}: ${updatedJob.chapters_completed.length} ${t('admin.jobs.chaptersProcessed')}`);
             } else if (updatedJob.status === 'failed' || updatedJob.status === 'partial') {
-              toast.error(`Job ${updatedJob.status}: ${updatedJob.error_message || 'Eroare necunoscută'}`);
+              toast.error(`Job ${updatedJob.status}: ${updatedJob.error_message || t('admin.jobs.error')}`);
             }
           }
         }
@@ -136,7 +137,7 @@ export function JobsMonitor() {
 
   const handleManualRegeneration = async () => {
     if (!selectedChapter) {
-      toast.error('Selectează un capitol pentru regenerare');
+      toast.error(t('admin.jobs.selectChapter'));
       return;
     }
 
@@ -148,11 +149,11 @@ export function JobsMonitor() {
 
       if (error) throw error;
 
-      toast.success(`Job de regenerare pornit pentru "${selectedChapter}"`);
+      toast.success(`${t('admin.jobs.regenerationStarted')} "${selectedChapter}"`);
       setSelectedChapter('');
     } catch (error) {
       console.error('Error starting regeneration:', error);
-      toast.error('Eroare la pornirea regenerării');
+      toast.error(t('admin.jobs.startError'));
     } finally {
       setRegenerating(false);
     }
