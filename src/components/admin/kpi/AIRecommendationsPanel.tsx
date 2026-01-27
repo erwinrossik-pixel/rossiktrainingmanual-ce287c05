@@ -165,14 +165,14 @@ export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
         return;
       }
 
-      toast.success(`${data.applied} recomandări aplicate cu succes!`);
+      toast.success(t('admin.ai.applySuccess').replace('{count}', data.applied));
       if (data.failed > 0) {
-        toast.warning(`${data.failed} recomandări au eșuat`);
+        toast.warning(t('admin.ai.applyFailed').replace('{count}', data.failed));
       }
       await fetchRecommendations();
     } catch (error) {
       console.error('Error applying recommendations:', error);
-      toast.error('Eroare la aplicarea recomandărilor');
+      toast.error(t('admin.ai.applyError'));
     } finally {
       setApplying(false);
     }
@@ -187,11 +187,11 @@ export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
 
       if (error) throw error;
 
-      toast.success(`${data.applied} recomandări aplicate!`);
+      toast.success(t('admin.ai.applySuccess').replace('{count}', data.applied));
       await fetchRecommendations();
     } catch (error) {
       console.error('Error applying recommendations:', error);
-      toast.error('Eroare la aplicare');
+      toast.error(t('admin.ai.applyError'));
     } finally {
       setApplying(false);
     }

@@ -61,7 +61,7 @@ export function CertificatesDashboard() {
 
     if (error) {
       console.error("Error fetching certificates:", error);
-      toast.error("Eroare la încărcarea certificatelor");
+      toast.error(t('admin.certificates.errorLoading'));
     } else {
       setCertificates(data || []);
     }
@@ -180,9 +180,9 @@ export function CertificatesDashboard() {
 
     if (error) {
       console.error("Error revoking certificate:", error);
-      toast.error("Eroare la revocarea certificatului");
+      toast.error(t('admin.certificates.errorRevoke'));
     } else {
-      toast.success(`Certificatul ${selectedCertificate.certificate_code} a fost revocat`);
+      toast.success(t('admin.certificates.revokeSuccess').replace('{code}', selectedCertificate.certificate_code));
       fetchCertificates();
     }
 
@@ -285,7 +285,7 @@ export function CertificatesDashboard() {
           <CardContent>
             <div className="text-2xl font-bold">{stats.total}</div>
             <p className="text-xs text-muted-foreground mt-1">
-              {thisMonthCount} {language === 'de' ? 'diesen Monat' : language === 'en' ? 'this month' : 'luna aceasta'}
+              {thisMonthCount} {t('admin.certificates.thisMonth')}
             </p>
           </CardContent>
         </Card>
@@ -297,7 +297,7 @@ export function CertificatesDashboard() {
           <CardContent>
             <div className="text-2xl font-bold text-green-600">{stats.active}</div>
             <p className="text-xs text-muted-foreground mt-1">
-              {stats.total > 0 ? Math.round((stats.active / stats.total) * 100) : 0}% {language === 'de' ? 'vom Gesamt' : language === 'en' ? 'of total' : 'din total'}
+              {stats.total > 0 ? Math.round((stats.active / stats.total) * 100) : 0}% {t('admin.certificates.ofTotal')}
             </p>
           </CardContent>
         </Card>
@@ -309,7 +309,7 @@ export function CertificatesDashboard() {
           <CardContent>
             <div className="text-2xl font-bold text-yellow-600">{stats.expired}</div>
             <p className="text-xs text-muted-foreground mt-1">
-              {stats.total > 0 ? Math.round((stats.expired / stats.total) * 100) : 0}% {language === 'de' ? 'vom Gesamt' : language === 'en' ? 'of total' : 'din total'}
+              {stats.total > 0 ? Math.round((stats.expired / stats.total) * 100) : 0}% {t('admin.certificates.ofTotal')}
             </p>
           </CardContent>
         </Card>
@@ -321,7 +321,7 @@ export function CertificatesDashboard() {
           <CardContent>
             <div className="text-2xl font-bold text-red-600">{stats.revoked}</div>
             <p className="text-xs text-muted-foreground mt-1">
-              {stats.total > 0 ? Math.round((stats.revoked / stats.total) * 100) : 0}% {language === 'de' ? 'vom Gesamt' : language === 'en' ? 'of total' : 'din total'}
+              {stats.total > 0 ? Math.round((stats.revoked / stats.total) * 100) : 0}% {t('admin.certificates.ofTotal')}
             </p>
           </CardContent>
         </Card>
@@ -335,7 +335,7 @@ export function CertificatesDashboard() {
               {growthRate >= 0 ? '+' : ''}{growthRate}%
             </div>
             <p className="text-xs text-muted-foreground mt-1">
-              {language === 'de' ? 'vs. letzten Monat' : language === 'en' ? 'vs. last month' : 'vs. luna trecută'}
+              {t('admin.certificates.vsLastMonth')}
             </p>
           </CardContent>
         </Card>
@@ -350,7 +350,7 @@ export function CertificatesDashboard() {
               <BarChart3 className="h-5 w-5 text-primary" />
               {t('admin.certificates.issuedMonthly')}
             </CardTitle>
-            <CardDescription>{language === 'de' ? 'Letzte 12 Monate' : language === 'en' ? 'Last 12 months' : 'Ultimele 12 luni'}</CardDescription>
+            <CardDescription>{t('admin.certificates.last12Months')}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="h-[300px]">
@@ -383,7 +383,7 @@ export function CertificatesDashboard() {
               <Users className="h-5 w-5 text-primary" />
               {t('admin.certificates.statusDist')}
             </CardTitle>
-            <CardDescription>{language === 'de' ? 'Zertifikate nach Status' : language === 'en' ? 'Certificates by status' : 'Certificate după status'}</CardDescription>
+            <CardDescription>{t('admin.certificates.byStatus')}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="h-[300px] flex items-center justify-center">
@@ -416,7 +416,7 @@ export function CertificatesDashboard() {
               ) : (
                 <div className="text-center text-muted-foreground">
                   <Award className="h-12 w-12 mx-auto mb-2 opacity-50" />
-                  <p>{language === 'de' ? 'Keine Zertifikate' : language === 'en' ? 'No certificates' : 'Nu există certificate'}</p>
+                  <p>{t('admin.certificates.noCertificates')}</p>
                 </div>
               )}
             </div>
@@ -433,7 +433,7 @@ export function CertificatesDashboard() {
               <TrendingUp className="h-5 w-5 text-primary" />
               {t('admin.certificates.avgScoreTrend')}
             </CardTitle>
-            <CardDescription>{language === 'de' ? 'Durchschnittsnoten der letzten 12 Monate' : language === 'en' ? 'Average scores over last 12 months' : 'Media scorurilor pe ultimele 12 luni'}</CardDescription>
+            <CardDescription>{t('admin.certificates.avgScoresDesc')}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="h-[250px]">

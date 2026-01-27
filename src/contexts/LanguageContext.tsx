@@ -182,6 +182,10 @@ const translations: Record<Language, Record<string, string>> = {
     'admin.recentlyActive': 'activi recent',
     'admin.notificationsActive': 'Notificări active pentru certificate noi',
     'admin.enableNotifications': 'Activează notificările pentru certificate noi',
+    'admin.notifications.disableInBrowser': 'Pentru a dezactiva notificările, folosește setările browser-ului',
+    'admin.csv.chaptersCompleted': 'Capitole Completate',
+    'admin.csv.totalChapters': 'Total Capitole',
+    'admin.csv.registrationDate': 'Data Înregistrare',
     
     // Admin Categories
     'admin.category.superAdmin': '🏢 SUPER ADMIN',
@@ -497,6 +501,9 @@ const translations: Record<Language, Record<string, string>> = {
     'admin.ai.apply': 'Aplică',
     'admin.ai.dismiss': 'Respinge',
     'admin.ai.appliedLabel': 'Aplicată',
+    'admin.ai.applySuccess': '{count} recomandări aplicate cu succes!',
+    'admin.ai.applyFailed': '{count} recomandări au eșuat',
+    'admin.ai.applyError': 'Eroare la aplicarea recomandărilor',
     'admin.general.confirm': 'Confirmă',
     'admin.general.noData': 'Nu există date',
     'admin.general.perMonth': '/lună',
@@ -528,6 +535,16 @@ const translations: Record<Language, Record<string, string>> = {
     'admin.certificates.revokeConfirm': 'Revocă Certificat',
     'admin.certificates.revokeReason': 'Motiv revocare',
     'admin.certificates.revokeBtn': 'Revocă',
+    'admin.certificates.errorLoading': 'Eroare la încărcarea certificatelor',
+    'admin.certificates.errorRevoke': 'Eroare la revocarea certificatului',
+    'admin.certificates.revokeSuccess': 'Certificatul {code} a fost revocat',
+    'admin.certificates.thisMonth': 'luna aceasta',
+    'admin.certificates.ofTotal': 'din total',
+    'admin.certificates.vsLastMonth': 'vs. luna trecută',
+    'admin.certificates.last12Months': 'Ultimele 12 luni',
+    'admin.certificates.byStatus': 'Certificate după status',
+    'admin.certificates.noCertificates': 'Nu există certificate',
+    'admin.certificates.avgScoresDesc': 'Media scorurilor pe ultimele 12 luni',
     
     // User Management
     'admin.users.title': 'Gestionare Utilizatori',
@@ -555,6 +572,9 @@ const translations: Record<Language, Record<string, string>> = {
     'admin.retention.noMessages': 'Nu există mesaje de retenție încă.',
     'admin.retention.returned': 'Revenit',
     'admin.retention.score': 'Scor',
+    'admin.retention.errorLoading': 'Eroare la încărcarea datelor de retenție',
+    'admin.retention.errorAnalysis': 'Eroare la rularea analizei',
+    'admin.retention.analysisComplete': 'Analiză completă! {count} mesaje trimise',
     
     // Gamification specific
     'admin.gamification.inGamification': 'în sistem gamificare',
@@ -1662,6 +1682,10 @@ const translations: Record<Language, Record<string, string>> = {
     'admin.recentlyActive': 'kürzlich aktiv',
     'admin.notificationsActive': 'Benachrichtigungen für neue Zertifikate aktiv',
     'admin.enableNotifications': 'Benachrichtigungen für neue Zertifikate aktivieren',
+    'admin.notifications.disableInBrowser': 'Um Benachrichtigungen zu deaktivieren, verwenden Sie die Browser-Einstellungen',
+    'admin.csv.chaptersCompleted': 'Kapitel Abgeschlossen',
+    'admin.csv.totalChapters': 'Kapitel Gesamt',
+    'admin.csv.registrationDate': 'Registrierungsdatum',
     
     // Admin Categories
     'admin.category.superAdmin': '🏢 SUPER ADMIN',
@@ -1877,6 +1901,16 @@ const translations: Record<Language, Record<string, string>> = {
     'admin.certificates.revokeConfirm': 'Zertifikat Widerrufen',
     'admin.certificates.revokeReason': 'Widerrufsgrund',
     'admin.certificates.revokeBtn': 'Widerrufen',
+    'admin.certificates.errorLoading': 'Fehler beim Laden der Zertifikate',
+    'admin.certificates.errorRevoke': 'Fehler beim Widerrufen des Zertifikats',
+    'admin.certificates.revokeSuccess': 'Zertifikat {code} wurde widerrufen',
+    'admin.certificates.thisMonth': 'diesen Monat',
+    'admin.certificates.ofTotal': 'vom Gesamt',
+    'admin.certificates.vsLastMonth': 'vs. letzten Monat',
+    'admin.certificates.last12Months': 'Letzte 12 Monate',
+    'admin.certificates.byStatus': 'Zertifikate nach Status',
+    'admin.certificates.noCertificates': 'Keine Zertifikate',
+    'admin.certificates.avgScoresDesc': 'Durchschnittsnoten der letzten 12 Monate',
     
     // User Management
     'admin.users.title': 'Benutzerverwaltung',
@@ -1904,6 +1938,9 @@ const translations: Record<Language, Record<string, string>> = {
     'admin.retention.noMessages': 'Noch keine Bindungsnachrichten.',
     'admin.retention.returned': 'Zurückgekehrt',
     'admin.retention.score': 'Punktzahl',
+    'admin.retention.errorLoading': 'Fehler beim Laden der Retentionsdaten',
+    'admin.retention.errorAnalysis': 'Fehler bei der Analyse',
+    'admin.retention.analysisComplete': 'Analyse abgeschlossen! {count} Nachrichten gesendet',
     
     // Gamification specific
     'admin.gamification.inGamification': 'im Gamification-System',
@@ -2314,6 +2351,9 @@ const translations: Record<Language, Record<string, string>> = {
     'admin.ai.apply': 'Anwenden',
     'admin.ai.dismiss': 'Ablehnen',
     'admin.ai.appliedLabel': 'Angewendet',
+    'admin.ai.applySuccess': '{count} Empfehlungen erfolgreich angewendet!',
+    'admin.ai.applyFailed': '{count} Empfehlungen fehlgeschlagen',
+    'admin.ai.applyError': 'Fehler beim Anwenden der Empfehlungen',
     
     // Training Time Analytics
     'admin.training.totalPlatformTime': 'Gesamte Plattformzeit',
@@ -3139,6 +3179,10 @@ const translations: Record<Language, Record<string, string>> = {
     'admin.recentlyActive': 'recently active',
     'admin.notificationsActive': 'Notifications active for new certificates',
     'admin.enableNotifications': 'Enable notifications for new certificates',
+    'admin.notifications.disableInBrowser': 'To disable notifications, use browser settings',
+    'admin.csv.chaptersCompleted': 'Chapters Completed',
+    'admin.csv.totalChapters': 'Total Chapters',
+    'admin.csv.registrationDate': 'Registration Date',
     
     // Admin Categories
     'admin.category.superAdmin': '🏢 SUPER ADMIN',
@@ -3354,6 +3398,16 @@ const translations: Record<Language, Record<string, string>> = {
     'admin.certificates.revokeConfirm': 'Revoke Certificate',
     'admin.certificates.revokeReason': 'Revoke reason',
     'admin.certificates.revokeBtn': 'Revoke',
+    'admin.certificates.errorLoading': 'Error loading certificates',
+    'admin.certificates.errorRevoke': 'Error revoking certificate',
+    'admin.certificates.revokeSuccess': 'Certificate {code} has been revoked',
+    'admin.certificates.thisMonth': 'this month',
+    'admin.certificates.ofTotal': 'of total',
+    'admin.certificates.vsLastMonth': 'vs. last month',
+    'admin.certificates.last12Months': 'Last 12 months',
+    'admin.certificates.byStatus': 'Certificates by status',
+    'admin.certificates.noCertificates': 'No certificates',
+    'admin.certificates.avgScoresDesc': 'Average scores over last 12 months',
     
     // User Management
     'admin.users.title': 'User Management',
@@ -3381,6 +3435,9 @@ const translations: Record<Language, Record<string, string>> = {
     'admin.retention.noMessages': 'No retention messages yet.',
     'admin.retention.returned': 'Returned',
     'admin.retention.score': 'Score',
+    'admin.retention.errorLoading': 'Error loading retention data',
+    'admin.retention.errorAnalysis': 'Error running analysis',
+    'admin.retention.analysisComplete': 'Analysis complete! {count} messages sent',
     
     // Gamification specific
     'admin.gamification.inGamification': 'in gamification system',
@@ -3791,6 +3848,9 @@ const translations: Record<Language, Record<string, string>> = {
     'admin.ai.apply': 'Apply',
     'admin.ai.dismiss': 'Dismiss',
     'admin.ai.appliedLabel': 'Applied',
+    'admin.ai.applySuccess': '{count} recommendations applied successfully!',
+    'admin.ai.applyFailed': '{count} recommendations failed',
+    'admin.ai.applyError': 'Error applying recommendations',
     
     // Training Time Analytics
     'admin.training.totalPlatformTime': 'Total Platform Time',

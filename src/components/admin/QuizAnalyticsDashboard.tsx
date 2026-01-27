@@ -172,7 +172,7 @@ export function QuizAnalyticsDashboard() {
   }, []);
 
   const exportToCSV = () => {
-    const headers = ['Capitol', 'Începeri', 'Finalizări', 'Refresh-uri', 'Rată Refresh (%)'];
+    const headers = [t('admin.quiz.chapter'), t('admin.quiz.starts'), t('admin.quiz.completions'), t('admin.quiz.refreshes'), t('admin.quiz.abandonRate')];
     const rows = chapterStats.map(s => [
       s.chapterId,
       s.starts,

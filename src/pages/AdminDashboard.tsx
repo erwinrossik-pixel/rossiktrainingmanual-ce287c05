@@ -104,7 +104,7 @@ export default function AdminDashboard() {
 
   const handleToggleNotifications = async () => {
     if (notificationsEnabled) {
-      toast.info('Pentru a dezactiva notificările, folosește setările browser-ului');
+      toast.info(t('admin.notifications.disableInBrowser'));
     } else {
       const success = await requestNotificationPermission();
       setNotificationsEnabled(success);
@@ -369,7 +369,7 @@ export default function AdminDashboard() {
   };
 
   const exportToCSV = () => {
-    const headers = ['Nume', 'Email', 'Rol', 'Capitole Completate', 'Total Capitole', 'Scor Mediu', 'Ultima Activitate', 'Data Înregistrare'];
+    const headers = [t('admin.table.name'), t('admin.table.email'), t('admin.table.role'), t('admin.csv.chaptersCompleted'), t('admin.csv.totalChapters'), t('admin.table.avgScore'), t('admin.table.lastActivity'), t('admin.csv.registrationDate')];
     const rows = users.map(u => [
       `${u.first_name || ''} ${u.last_name || ''}`.trim() || 'N/A',
       u.email,

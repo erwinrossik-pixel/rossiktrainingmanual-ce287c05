@@ -122,7 +122,7 @@ export function RetentionDashboard() {
 
     } catch (error) {
       console.error('Error fetching retention data:', error);
-      toast.error('Eroare la încărcarea datelor de retenție');
+      toast.error(t('admin.retention.errorLoading'));
     } finally {
       setLoading(false);
     }
@@ -141,11 +141,11 @@ export function RetentionDashboard() {
 
       if (error) throw error;
 
-      toast.success(`Analiză completă! ${data.messages?.messagesSent || 0} mesaje trimise`);
+      toast.success(t('admin.retention.analysisComplete').replace('{count}', data.messages?.messagesSent || 0));
       fetchData();
     } catch (error) {
       console.error('Error running analysis:', error);
-      toast.error('Eroare la rularea analizei');
+      toast.error(t('admin.retention.errorAnalysis'));
     } finally {
       setAnalyzing(false);
     }
@@ -402,7 +402,7 @@ export function RetentionDashboard() {
                       
                       <div className="text-right shrink-0 ml-4">
                         <p className="text-xs text-muted-foreground">
-                          {new Date(log.sent_at).toLocaleDateString('ro-RO')}
+                          {new Date(log.sent_at).toLocaleDateString()}
                         </p>
                         {log.returned_at && (
                           <Badge className="bg-green-500/20 text-green-700 text-xs mt-1">
