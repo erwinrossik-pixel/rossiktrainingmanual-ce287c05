@@ -62,6 +62,69 @@ export function VehicleChapter() {
         </InfoCard>
       </div>
 
+      {/* Visual Vehicle Selection Guide */}
+      <section className="bg-gradient-to-br from-primary/5 to-primary/10 rounded-xl p-6 border border-primary/20">
+        <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
+          <Gauge className="w-6 h-6 text-primary" />
+          {ct('visualGuideTitle')}
+        </h2>
+        <p className="text-muted-foreground mb-6">{ct('visualGuideDesc')}</p>
+        
+        <div className="grid md:grid-cols-2 gap-6">
+          {/* Height Comparison */}
+          <div className="bg-background rounded-lg p-4 border">
+            <h3 className="font-semibold mb-3 flex items-center gap-2">
+              <Ruler className="w-4 h-4 text-primary" />
+              {ct('heightComparison')}
+            </h3>
+            <div className="flex items-end gap-4 h-32">
+              <div className="flex flex-col items-center">
+                <div className="w-20 bg-blue-500/20 border-2 border-blue-500 rounded-t" style={{ height: '81px' }}>
+                  <div className="h-full flex items-center justify-center text-xs font-bold">2.7m</div>
+                </div>
+                <span className="text-xs mt-1 font-medium">{ct('standardHeight')}</span>
+              </div>
+              <div className="flex flex-col items-center">
+                <div className="w-20 bg-green-500/20 border-2 border-green-500 rounded-t" style={{ height: '90px' }}>
+                  <div className="h-full flex items-center justify-center text-xs font-bold">3.0m</div>
+                </div>
+                <span className="text-xs mt-1 font-medium">{ct('megaHeight')}</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Quick Decision Matrix */}
+          <div className="bg-background rounded-lg p-4 border">
+            <h3 className="font-semibold mb-3 flex items-center gap-2">
+              <List className="w-4 h-4 text-primary" />
+              {ct('quickDecisionTitle')}
+            </h3>
+            <div className="space-y-2 text-sm">
+              <div className="flex justify-between items-center py-1 border-b border-border/50">
+                <span>{ct('decisionPalletized')}</span>
+                <span className="font-mono text-primary font-semibold">{ct('useCurtainsider')}</span>
+              </div>
+              <div className="flex justify-between items-center py-1 border-b border-border/50">
+                <span>{ct('decisionVoluminous')}</span>
+                <span className="font-mono text-green-600 font-semibold">{ct('useMega')}</span>
+              </div>
+              <div className="flex justify-between items-center py-1 border-b border-border/50">
+                <span>{ct('decisionCold')}</span>
+                <span className="font-mono text-blue-600 font-semibold">{ct('useReefer')}</span>
+              </div>
+              <div className="flex justify-between items-center py-1 border-b border-border/50">
+                <span>{ct('decisionHeavy')}</span>
+                <span className="font-mono text-orange-600 font-semibold">{ct('useLowLoader')}</span>
+              </div>
+              <div className="flex justify-between items-center py-1">
+                <span>{ct('decisionLiquid')}</span>
+                <span className="font-mono text-purple-600 font-semibold">{ct('useTanker')}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Vehicle Types */}
       <section>
         <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">

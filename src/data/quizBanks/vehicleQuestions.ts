@@ -613,5 +613,60 @@ export const vehicleExtendedQuestions: TranslatedQuizQuestion[] = [
       en: "Euro standards regulate pollutant emissions, Euro 6 being the current standard, with Euro 7 in preparation.",
       de: "Euro-Normen regeln Schadstoffemissionen, Euro 6 ist der aktuelle Standard, Euro 7 wird vorbereitet."
     }
+  },
+  // Advanced Scenario-Based Questions
+  {
+    question: {
+      ro: "SCENARIU: Client are 22 paleți EUR (800×1200mm), fiecare 1.2t. Poate merge pe un camion standard 40t?",
+      de: "SZENARIO: Kunde hat 22 EUR-Paletten (800×1200mm), jeweils 1,2t. Passt das auf einen Standard-40t-LKW?",
+      en: "SCENARIO: Client has 22 EUR pallets (800×1200mm), each 1.2t. Can it fit on a standard 40t truck?"
+    },
+    options: {
+      ro: ["Da, sigur încape", "NU - 22×1.2t=26.4t marfă + ~14t tara = 40.4t, depășește MMA 40t cu 400kg", "Depinde de șofer", "Doar dacă e Mega"],
+      de: ["Ja, passt sicher", "NEIN - 22×1,2t=26,4t Fracht + ~14t Eigengewicht = 40,4t, überschreitet 40t zGG um 400kg", "Hängt vom Fahrer ab", "Nur wenn es ein Mega ist"],
+      en: ["Yes, definitely fits", "NO - 22×1.2t=26.4t cargo + ~14t tare = 40.4t, exceeds 40t GVW by 400kg", "Depends on driver", "Only if it's a Mega"]
+    },
+    correctIndex: 1,
+    explanation: {
+      ro: "Calcul: 22 paleți × 1.2t = 26.4t marfă. Tara camion+trailer ≈ 14t. Total: 40.4t > 40t MMA. Soluție: scoate 1-2 paleți sau folosește remorcă mai ușoară.",
+      de: "Berechnung: 22 Paletten × 1,2t = 26,4t Fracht. Eigengewicht LKW+Auflieger ≈ 14t. Gesamt: 40,4t > 40t zGG. Lösung: 1-2 Paletten entfernen oder leichteren Auflieger verwenden.",
+      en: "Calculation: 22 pallets × 1.2t = 26.4t cargo. Truck+trailer tare ≈ 14t. Total: 40.4t > 40t GVW. Solution: remove 1-2 pallets or use lighter trailer."
+    }
+  },
+  {
+    question: {
+      ro: "SCENARIU: Marfă automotive 66 paleți, fiecare 200kg, înălțime 1.5m. Ce trailer recomanzi?",
+      de: "SZENARIO: Automotive-Fracht 66 Paletten, jeweils 200kg, Höhe 1,5m. Welchen Auflieger empfehlen Sie?",
+      en: "SCENARIO: Automotive cargo 66 pallets, each 200kg, height 1.5m. What trailer do you recommend?"
+    },
+    options: {
+      ro: ["Standard 2.7m", "Double Deck/Mega - paleții sunt stivuibili (200kg ușori), 1.5m × 2 = 3.0m, 66 paleți = 13.2t", "Frigorific", "Platformă"],
+      de: ["Standard 2,7m", "Doppelstock/Mega - Paletten sind stapelbar (200kg leicht), 1,5m × 2 = 3,0m, 66 Paletten = 13,2t", "Kühlauflieger", "Plattform"],
+      en: ["Standard 2.7m", "Double Deck/Mega - pallets are stackable (200kg light), 1.5m × 2 = 3.0m, 66 pallets = 13.2t", "Reefer", "Flatbed"]
+    },
+    correctIndex: 1,
+    explanation: {
+      ro: "66 paleți = dublu față de 33 standard → Double Deck sau Mega. Greutate: 66×200kg=13.2t (sub limita de 24t). Înălțime 1.5m×2=3.0m → necesită Mega cu 3.0m interior.",
+      de: "66 Paletten = doppelt so viel wie 33 Standard → Doppelstock oder Mega. Gewicht: 66×200kg=13,2t (unter 24t Limit). Höhe 1,5m×2=3,0m → benötigt Mega mit 3,0m Innenhöhe.",
+      en: "66 pallets = double the 33 standard → Double Deck or Mega. Weight: 66×200kg=13.2t (under 24t limit). Height 1.5m×2=3.0m → requires Mega with 3.0m interior."
+    }
+  },
+  {
+    question: {
+      ro: "SCENARIU: Transport RO→NL, camionul trece prin AT (Austria). Care e MMA maximă pe ruta Brenner?",
+      de: "SZENARIO: Transport RO→NL, LKW fährt durch AT (Österreich). Was ist das maximale zGG auf der Brenner-Route?",
+      en: "SCENARIO: Transport RO→NL, truck passes through AT (Austria). What's the maximum GVW on Brenner route?"
+    },
+    options: {
+      ro: ["50t ca în NL", "40t standard, cu controale foarte stricte pe Brenner și posibil restricții suplimentare", "44t ca în IT", "Nu contează"],
+      de: ["50t wie in NL", "40t Standard, mit sehr strengen Kontrollen am Brenner und möglichen zusätzlichen Einschränkungen", "44t wie in IT", "Spielt keine Rolle"],
+      en: ["50t like NL", "40t standard, with very strict controls on Brenner and possible additional restrictions", "44t like IT", "Doesn't matter"]
+    },
+    correctIndex: 1,
+    explanation: {
+      ro: "Austria: MMA 40t standard. Ruta Brenner are controale foarte stricte pentru greutate și emisii. Camioanele sub Euro 5 pot fi restricționate. Verifică ÎNTOTDEAUNA cerințele Brenner înainte!",
+      de: "Österreich: 40t zGG Standard. Brenner-Route hat sehr strenge Kontrollen für Gewicht und Emissionen. LKWs unter Euro 5 können eingeschränkt werden. Prüfen Sie IMMER die Brenner-Anforderungen vorher!",
+      en: "Austria: 40t GVW standard. Brenner route has very strict controls for weight and emissions. Trucks below Euro 5 may be restricted. ALWAYS check Brenner requirements beforehand!"
+    }
   }
 ];

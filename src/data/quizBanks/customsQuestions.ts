@@ -529,6 +529,61 @@ export const customsQuestions: QuizQuestion[] = [
       de: "TARIC ist die EU-Datenbank mit allen Zöllen, Kontingenten, Aussetzungen und anwendbaren Handelsmaßnahmen.",
       en: "TARIC is the EU database with all customs duties, quotas, suspensions and applicable trade measures."
     }
+  },
+  // Advanced Scenario-Based Questions
+  {
+    question: {
+      ro: "SCENARIU: Un client vrea să importe 20t de piese auto din Turcia. Declarația vamală arată HS 8708 (piese auto), dar la inspecție se găsesc și piese HS 8544 (cablaje). Ce problemă apare?",
+      de: "SZENARIO: Ein Kunde möchte 20t Autoteile aus der Türkei importieren. Die Zollanmeldung zeigt HS 8708 (Autoteile), aber bei der Kontrolle werden auch Teile HS 8544 (Kabelsätze) gefunden. Welches Problem entsteht?",
+      en: "SCENARIO: A client wants to import 20t of car parts from Turkey. Customs declaration shows HS 8708 (car parts), but inspection finds also parts HS 8544 (wiring harnesses). What problem arises?"
+    },
+    options: {
+      ro: ["Nicio problemă", "Clasificare greșită - risc de penalizări și întârzieri pentru HS incorect", "Doar recalculare taxe", "Doar amendă mică"],
+      de: ["Kein Problem", "Falsche Klassifizierung - Risiko von Strafen und Verzögerungen wegen falscher HS", "Nur Neuberechnung der Gebühren", "Nur kleine Geldstrafe"],
+      en: ["No problem", "Wrong classification - risk of penalties and delays for incorrect HS", "Only recalculate fees", "Only small fine"]
+    },
+    correctIndex: 1,
+    explanation: {
+      ro: "Clasificarea incorectă HS poate duce la sancțiuni severe, confiscarea mărfii și întârzieri semnificative. Verifică ÎNTOTDEAUNA codul HS corect pentru fiecare tip de produs.",
+      de: "Falsche HS-Klassifizierung kann zu schweren Sanktionen, Warenbeschlagnahme und erheblichen Verzögerungen führen. Überprüfen Sie IMMER den korrekten HS-Code für jeden Produkttyp.",
+      en: "Incorrect HS classification can lead to severe penalties, goods seizure and significant delays. ALWAYS verify correct HS code for each product type."
+    }
+  },
+  {
+    question: {
+      ro: "SCENARIU: Transport UK→DE cu mărfuri de €45.000. Clientul întreabă de ce trebuie vămuire dacă UK era în UE. Ce îi explici?",
+      de: "SZENARIO: Transport UK→DE mit Waren im Wert von €45.000. Der Kunde fragt, warum Verzollung nötig ist, wenn UK in der EU war. Was erklären Sie?",
+      en: "SCENARIO: Transport UK→DE with goods worth €45,000. Client asks why customs is needed if UK was in EU. What do you explain?"
+    },
+    options: {
+      ro: ["UK încă e în UE", "Post-Brexit, UK e țară terță și necesită declarații vamale complete, EORI și potențial taxe", "Doar formalități simple", "Nu e nevoie de vămuire"],
+      de: ["UK ist noch in der EU", "Nach dem Brexit ist UK ein Drittland und erfordert vollständige Zollanmeldungen, EORI und ggf. Zölle", "Nur einfache Formalitäten", "Keine Verzollung nötig"],
+      en: ["UK still in EU", "Post-Brexit, UK is third country requiring full customs declarations, EORI and potential duties", "Only simple formalities", "No customs needed"]
+    },
+    correctIndex: 1,
+    explanation: {
+      ro: "De la 1 ianuarie 2021, UK este țară terță. Toate transporturile UK↔UE necesită declarații vamale complete, EORI și pot implica taxe vamale.",
+      de: "Seit 1. Januar 2021 ist UK ein Drittland. Alle UK↔EU-Transporte erfordern vollständige Zollanmeldungen, EORI und können Zölle beinhalten.",
+      en: "Since January 1, 2021, UK is a third country. All UK↔EU transports require full customs declarations, EORI and may involve customs duties."
+    }
+  },
+  {
+    question: {
+      ro: "SCENARIU: Marfă în tranzit T1 ajunge în DE dar sigiliul TIR este rupt. Ce consecințe apar?",
+      de: "SZENARIO: Ware im T1-Transit kommt in DE an, aber das TIR-Siegel ist gebrochen. Welche Konsequenzen entstehen?",
+      en: "SCENARIO: Goods in T1 transit arrive in DE but TIR seal is broken. What consequences arise?"
+    },
+    options: {
+      ro: ["Nicio consecință", "Control fizic complet, risc de taxe la valoarea totală și anchetă pentru fraudă", "Doar întârziere mică", "Doar amendă simbolică"],
+      de: ["Keine Konsequenzen", "Vollständige physische Kontrolle, Risiko von Zöllen auf Gesamtwert und Betrugsermittlung", "Nur kleine Verzögerung", "Nur symbolische Strafe"],
+      en: ["No consequences", "Full physical control, risk of duties on total value and fraud investigation", "Only small delay", "Only symbolic fine"]
+    },
+    correctIndex: 1,
+    explanation: {
+      ro: "Sigiliul rupt înseamnă potențială manipulare. Vama poate impune taxe pe întreaga valoare și poate începe o anchetă. Verifică ÎNTOTDEAUNA sigiliile la preluare!",
+      de: "Gebrochenes Siegel bedeutet mögliche Manipulation. Zoll kann Abgaben auf Gesamtwert erheben und Ermittlungen einleiten. Prüfen Sie IMMER die Siegel bei Übernahme!",
+      en: "Broken seal means potential tampering. Customs may impose duties on full value and start investigation. ALWAYS check seals at pickup!"
+    }
   }
 ];
 
