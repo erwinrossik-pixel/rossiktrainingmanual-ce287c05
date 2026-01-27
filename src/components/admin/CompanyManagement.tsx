@@ -81,7 +81,7 @@ export function CompanyManagement() {
       setCompanies(enrichedCompanies);
     } catch (error) {
       console.error('Error fetching companies:', error);
-      toast({ title: 'Eroare', description: 'Nu s-au putut încărca companiile', variant: 'destructive' });
+      toast({ title: t('admin.general.error'), description: t('admin.company.loadError'), variant: 'destructive' });
     } finally {
       setLoading(false);
     }
@@ -131,12 +131,12 @@ export function CompanyManagement() {
         });
       }
 
-      toast({ title: 'Companie creată', description: `${newCompany.name} a fost creată cu succes` });
+      toast({ title: t('admin.company.created'), description: `${newCompany.name} ${t('admin.company.createdDesc')}` });
       setIsCreateOpen(false);
       setNewCompany({ name: '', slug: '', custom_domain: '', plan_type: 'starter' });
       fetchCompanies();
     } catch (error: any) {
-      toast({ title: 'Eroare', description: error.message, variant: 'destructive' });
+      toast({ title: t('admin.general.error'), description: error.message, variant: 'destructive' });
     }
   };
 
@@ -147,10 +147,10 @@ export function CompanyManagement() {
         .update({ is_active: !company.is_active })
         .eq('id', company.id);
 
-      toast({ title: 'Status actualizat', description: `${company.name} este acum ${!company.is_active ? 'activă' : 'inactivă'}` });
+      toast({ title: t('admin.company.updated'), description: `${company.name} ${t('admin.company.isNow') || 'is now'} ${!company.is_active ? t('admin.company.active') : t('admin.company.inactive')}` });
       fetchCompanies();
     } catch (error) {
-      toast({ title: 'Eroare', description: 'Nu s-a putut actualiza statusul', variant: 'destructive' });
+      toast({ title: t('admin.general.error'), description: t('admin.company.statusError'), variant: 'destructive' });
     }
   };
 
@@ -303,7 +303,7 @@ export function CompanyManagement() {
                             className="h-7 w-7 p-0"
                             onClick={() => {
                               navigator.clipboard.writeText(company.settings?.registration_code || '');
-                              toast({ title: 'Copiat!', description: 'Codul a fost copiat în clipboard' });
+                              toast({ title: t('admin.company.copied'), description: t('admin.company.copiedDesc') });
                             }}
                           >
                             <Copy className="h-3.5 w-3.5" />
@@ -689,6 +689,7 @@ function LogoUpload({
   currentLogoUrl: string; 
   onLogoChange: (url: string) => void;
 }) {
+  const { t } = useLanguage();
   const { toast } = useToast();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [uploading, setUploading] = useState(false);
@@ -702,8 +703,8 @@ function LogoUpload({
     const allowedTypes = ['image/png', 'image/jpeg', 'image/gif', 'image/webp', 'image/svg+xml'];
     if (!allowedTypes.includes(file.type)) {
       toast({
-        title: 'Tip de fișier invalid',
-        description: 'Încarcă o imagine PNG, JPG, GIF, WebP sau SVG',
+        title: t('admin.company.invalidFileType'),
+        description: t('admin.company.invalidFileTypeDesc'),
         variant: 'destructive'
       });
       return;
@@ -712,8 +713,8 @@ function LogoUpload({
     // Validate file size (max 5MB)
     if (file.size > 5 * 1024 * 1024) {
       toast({
-        title: 'Fișier prea mare',
-        description: 'Dimensiunea maximă este 5MB',
+        title: t('admin.company.fileTooLarge'),
+        description: t('admin.company.fileTooLargeDesc'),
         variant: 'destructive'
       });
       return;
@@ -740,12 +741,12 @@ function LogoUpload({
       setPreviewUrl(publicUrl);
       onLogoChange(publicUrl);
       
-      toast({ title: 'Logo încărcat', description: 'Logo-ul a fost salvat cu succes' });
+      toast({ title: t('admin.company.logoUploaded'), description: t('admin.company.logoUploadedDesc') });
     } catch (error: any) {
       console.error('Upload error:', error);
       toast({
-        title: 'Eroare la încărcare',
-        description: error.message || 'Nu s-a putut încărca logo-ul',
+        title: t('admin.company.uploadError'),
+        description: error.message || t('admin.company.uploadErrorDesc'),
         variant: 'destructive'
       });
     } finally {

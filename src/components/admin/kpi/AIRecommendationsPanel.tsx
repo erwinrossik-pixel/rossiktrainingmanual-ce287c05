@@ -215,9 +215,9 @@ export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
         if (error) throw error;
 
         if (data.success) {
-          toast.success('Recomandare aplicată și executată cu succes!');
+          toast.success(t('admin.ai.applySuccess').replace('{count}', '1'));
         } else {
-          toast.error(data.error || 'Eroare la aplicare');
+          toast.error(data.error || t('admin.ai.applyError'));
         }
         setApplying(false);
       } else {
