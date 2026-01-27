@@ -1533,6 +1533,14 @@ const translations: Record<Language, Record<string, string>> = {
     'sidebar.simulationsDesc': 'Învață prin practică',
     'sidebar.finalExam': 'Examen Final',
     'sidebar.finalExamDesc': '100 întrebări comprehensive',
+    'sidebar.openMenu': 'Deschide meniul',
+    'sidebar.closeMenu': 'Închide meniul',
+    
+    // User Menu
+    'menu.login': 'Autentificare',
+    'menu.profile': 'Profil',
+    'menu.adminDashboard': 'Admin Dashboard',
+    'menu.logout': 'Deconectare',
   },
   de: {
     // Sidebar
@@ -3047,6 +3055,14 @@ const translations: Record<Language, Record<string, string>> = {
     'sidebar.simulationsDesc': 'Lernen durch Praxis',
     'sidebar.finalExam': 'Abschlussprüfung',
     'sidebar.finalExamDesc': '100 umfassende Fragen',
+    'sidebar.openMenu': 'Menü öffnen',
+    'sidebar.closeMenu': 'Menü schließen',
+    
+    // User Menu
+    'menu.login': 'Anmelden',
+    'menu.profile': 'Profil',
+    'menu.adminDashboard': 'Admin Dashboard',
+    'menu.logout': 'Abmelden',
   },
   en: {
     // Sidebar
@@ -4562,6 +4578,14 @@ const translations: Record<Language, Record<string, string>> = {
     'sidebar.simulationsDesc': 'Learn by doing',
     'sidebar.finalExam': 'Final Exam',
     'sidebar.finalExamDesc': '100 comprehensive questions',
+    'sidebar.openMenu': 'Open menu',
+    'sidebar.closeMenu': 'Close menu',
+    
+    // User Menu
+    'menu.login': 'Login',
+    'menu.profile': 'Profile',
+    'menu.adminDashboard': 'Admin Dashboard',
+    'menu.logout': 'Logout',
   },
 };
 

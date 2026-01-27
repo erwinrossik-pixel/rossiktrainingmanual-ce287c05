@@ -6,6 +6,7 @@ import { ProgressDashboard } from "@/components/manual/ProgressDashboard";
 import { ProgressProvider, useProgressContext } from "@/contexts/ProgressContext";
 import { useAuth } from "@/hooks/useAuth";
 import { useCompany } from "@/contexts/CompanyContext";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { useAnalytics } from "@/hooks/useAnalytics";
 import { useRetentionTracking } from "@/hooks/useRetentionTracking";
 import { PendingApproval } from "@/components/PendingApproval";
@@ -36,6 +37,7 @@ const UserMenu = memo(function UserMenu() {
   const navigate = useNavigate();
   const { user, profile, loading, isAdmin, signOut } = useAuth();
   const { isSuperAdmin, isCompanyAdmin, company, branding } = useCompany();
+  const { t } = useLanguage();
 
   if (loading) {
     return (
@@ -47,7 +49,7 @@ const UserMenu = memo(function UserMenu() {
     return (
       <Button variant="outline" size="sm" onClick={() => navigate('/auth')}>
         <LogIn className="h-4 w-4 mr-2" />
-        Autentificare
+        {t('menu.login')}
       </Button>
     );
   }
@@ -81,17 +83,17 @@ const UserMenu = memo(function UserMenu() {
         {(isAdmin || isSuperAdmin || isCompanyAdmin) && (
           <DropdownMenuItem onClick={() => navigate('/admin')}>
             <Shield className="mr-2 h-4 w-4" />
-            <span>Admin Dashboard</span>
+            <span>{t('menu.adminDashboard')}</span>
           </DropdownMenuItem>
         )}
         <DropdownMenuItem onClick={() => navigate('/profile')}>
           <User className="mr-2 h-4 w-4" />
-          <span>Profil</span>
+          <span>{t('menu.profile')}</span>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={() => signOut()}>
           <LogOut className="mr-2 h-4 w-4" />
-          <span>Deconectare</span>
+          <span>{t('menu.logout')}</span>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

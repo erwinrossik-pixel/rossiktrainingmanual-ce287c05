@@ -212,7 +212,7 @@ export function Sidebar({ activeChapter, onChapterChange, onShowDashboard, onSho
       <button
         className="fixed top-4 left-4 z-50 lg:hidden bg-card p-2.5 rounded-lg shadow-md border border-border transition-transform duration-150 hover:scale-105 active:scale-95"
         onClick={() => setMobileOpen(!mobileOpen)}
-        aria-label={mobileOpen ? "Închide meniul" : "Deschide meniul"}
+        aria-label={mobileOpen ? t('sidebar.closeMenu') : t('sidebar.openMenu')}
         aria-expanded={mobileOpen}
       >
         {mobileOpen ? (
