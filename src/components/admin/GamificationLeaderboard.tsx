@@ -46,7 +46,7 @@ interface SimulationStats {
 }
 
 export function GamificationLeaderboard() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [leaderboard, setLeaderboard] = useState<LeaderboardEntry[]>([]);
   const [simulationStats, setSimulationStats] = useState<SimulationStats | null>(null);
   const [loading, setLoading] = useState(true);
@@ -369,10 +369,10 @@ export function GamificationLeaderboard() {
                       <div className="text-4xl">{achievement.icon}</div>
                       <div className="flex-1">
                         <h4 className="font-semibold text-foreground">
-                          {achievement.name.en}
+                          {achievement.name[language as keyof typeof achievement.name] || achievement.name.en}
                         </h4>
                         <p className="text-sm text-muted-foreground mt-1">
-                          {achievement.description.en}
+                          {achievement.description[language as keyof typeof achievement.description] || achievement.description.en}
                         </p>
                         {achievement.xpReward > 0 && (
                           <Badge variant="secondary" className="mt-2 bg-amber-100 text-amber-700">
