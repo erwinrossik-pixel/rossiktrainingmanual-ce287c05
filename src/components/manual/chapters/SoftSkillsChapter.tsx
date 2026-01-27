@@ -462,6 +462,83 @@ export function SoftSkillsChapter() {
         </div>
       </div>
 
+      {/* Case Studies Section - AI Recommendation Implementation */}
+      <div className="info-card bg-gradient-to-br from-purple-50 to-indigo-50 dark:from-purple-950/20 dark:to-indigo-950/20 border-2 border-purple-200 dark:border-purple-800">
+        <h2 className="section-title flex items-center gap-3 text-purple-800 dark:text-purple-200">
+          <Target className="w-6 h-6" />
+          {ct("caseStudiesTitle")}
+        </h2>
+        <p className="text-muted-foreground mb-6">{ct("caseStudiesSubtitle")}</p>
+
+        <div className="space-y-6">
+          {/* Case Study 1 */}
+          <div className="bg-background rounded-lg p-5 shadow-sm">
+            <h3 className="font-bold text-lg mb-3 flex items-center gap-2">
+              <MessageSquare className="w-5 h-5 text-red-500" />
+              {ct("caseStudy1Title")}
+            </h3>
+            <div className="bg-muted/50 p-3 rounded mb-4 text-sm italic">
+              <strong>{ct("whatWouldYouDo")}</strong> {ct("caseStudy1Scenario")}
+            </div>
+            <div className="grid md:grid-cols-2 gap-4 mb-3">
+              <div className="bg-red-50 dark:bg-red-950/30 p-3 rounded border-l-4 border-l-red-500">
+                <p className="text-sm font-medium mb-1">{ct("wrongApproach")}</p>
+                <p className="text-sm">{ct("caseStudy1Wrong")}</p>
+              </div>
+              <div className="bg-green-50 dark:bg-green-950/30 p-3 rounded border-l-4 border-l-green-500">
+                <p className="text-sm font-medium mb-1">{ct("rightApproach")}</p>
+                <p className="text-sm">{ct("caseStudy1Right")}</p>
+              </div>
+            </div>
+            <p className="text-sm text-primary font-medium">{ct("caseStudy1Lesson")}</p>
+          </div>
+
+          {/* Case Study 2 */}
+          <div className="bg-background rounded-lg p-5 shadow-sm">
+            <h3 className="font-bold text-lg mb-3 flex items-center gap-2">
+              <Users className="w-5 h-5 text-amber-500" />
+              {ct("caseStudy2Title")}
+            </h3>
+            <div className="bg-muted/50 p-3 rounded mb-4 text-sm italic">
+              <strong>{ct("whatWouldYouDo")}</strong> {ct("caseStudy2Scenario")}
+            </div>
+            <div className="grid md:grid-cols-2 gap-4 mb-3">
+              <div className="bg-red-50 dark:bg-red-950/30 p-3 rounded border-l-4 border-l-red-500">
+                <p className="text-sm font-medium mb-1">{ct("wrongApproach")}</p>
+                <p className="text-sm">{ct("caseStudy2Wrong")}</p>
+              </div>
+              <div className="bg-green-50 dark:bg-green-950/30 p-3 rounded border-l-4 border-l-green-500">
+                <p className="text-sm font-medium mb-1">{ct("rightApproach")}</p>
+                <p className="text-sm">{ct("caseStudy2Right")}</p>
+              </div>
+            </div>
+            <p className="text-sm text-primary font-medium">{ct("caseStudy2Lesson")}</p>
+          </div>
+
+          {/* Case Study 3 */}
+          <div className="bg-background rounded-lg p-5 shadow-sm">
+            <h3 className="font-bold text-lg mb-3 flex items-center gap-2">
+              <Shield className="w-5 h-5 text-blue-500" />
+              {ct("caseStudy3Title")}
+            </h3>
+            <div className="bg-muted/50 p-3 rounded mb-4 text-sm italic">
+              <strong>{ct("whatWouldYouDo")}</strong> {ct("caseStudy3Scenario")}
+            </div>
+            <div className="grid md:grid-cols-2 gap-4 mb-3">
+              <div className="bg-red-50 dark:bg-red-950/30 p-3 rounded border-l-4 border-l-red-500">
+                <p className="text-sm font-medium mb-1">{ct("wrongApproach")}</p>
+                <p className="text-sm">{ct("caseStudy3Wrong")}</p>
+              </div>
+              <div className="bg-green-50 dark:bg-green-950/30 p-3 rounded border-l-4 border-l-green-500">
+                <p className="text-sm font-medium mb-1">{ct("rightApproach")}</p>
+                <p className="text-sm">{ct("caseStudy3Right")}</p>
+              </div>
+            </div>
+            <p className="text-sm text-primary font-medium">{ct("caseStudy3Lesson")}</p>
+          </div>
+        </div>
+      </div>
+
       {/* Quiz */}
       {quizzes["soft-skills"] && (
         <Quiz
