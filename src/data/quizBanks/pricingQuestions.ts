@@ -547,6 +547,61 @@ export const pricingQuestions: QuizQuestion[] = [
       de: "TDC stellt die Gesamtkosten der beim Empfänger angekommenen Ware dar, einschließlich aller Kosten in der Lieferkette.",
       en: "TDC represents the complete cost of goods arrived at consignee, including all supply chain expenses."
     }
+  },
+  // Advanced Scenario-Based Questions with Calculations
+  {
+    question: {
+      ro: "CALCUL: Transport München→Paris, 850km. Costul/km estimat e €1.20, taxe drumuri €120, ferry €0, diesel adjustment +8%. Care e costul total aproximativ?",
+      de: "BERECHNUNG: Transport München→Paris, 850km. Geschätzte Kosten/km €1,20, Mautgebühren €120, Fähre €0, Dieselzuschlag +8%. Wie hoch sind die Gesamtkosten?",
+      en: "CALCULATION: Transport Munich→Paris, 850km. Estimated cost/km €1.20, toll fees €120, ferry €0, diesel adjustment +8%. What's approximate total cost?"
+    },
+    options: {
+      ro: ["€1,020", "€1,100", "€1,220 (850×1.20=€1,020 + €120 taxe + 8% diesel = ~€1,231)", "€900"],
+      de: ["€1.020", "€1.100", "€1.220 (850×1,20=€1.020 + €120 Maut + 8% Diesel = ~€1.231)", "€900"],
+      en: ["€1,020", "€1,100", "€1,220 (850×1.20=€1,020 + €120 tolls + 8% diesel = ~€1,231)", "€900"]
+    },
+    correctIndex: 2,
+    explanation: {
+      ro: "Calcul: 850km × €1.20 = €1,020 + €120 taxe = €1,140. Cu 8% diesel adjustment: €1,140 × 1.08 = €1,231. Întotdeauna include TOATE costurile!",
+      de: "Berechnung: 850km × €1,20 = €1.020 + €120 Maut = €1.140. Mit 8% Dieselzuschlag: €1.140 × 1,08 = €1.231. Immer ALLE Kosten einbeziehen!",
+      en: "Calculation: 850km × €1.20 = €1,020 + €120 tolls = €1,140. With 8% diesel adjustment: €1,140 × 1.08 = €1,231. Always include ALL costs!"
+    }
+  },
+  {
+    question: {
+      ro: "SCENARIU: Client cere preț FTL Amsterdam→Milano. El spune că un alt expeditor oferă €1,200. Costul tău real e €1,350. Ce faci?",
+      de: "SZENARIO: Kunde bittet um FTL-Preis Amsterdam→Mailand. Er sagt, ein anderer Spediteur bietet €1.200. Ihre realen Kosten sind €1.350. Was tun Sie?",
+      en: "SCENARIO: Client asks for FTL price Amsterdam→Milan. He says another forwarder offers €1,200. Your real cost is €1,350. What do you do?"
+    },
+    options: {
+      ro: ["Egalezi prețul și pierzi bani", "Explici valoarea adăugată (tracking, asigurare, flexibilitate) și oferi €1,450 cu justificare", "Refuzi clientul complet", "Oferi €1,100 să câștigi cu orice preț"],
+      de: ["Preis angleichen und Geld verlieren", "Mehrwert erklären (Tracking, Versicherung, Flexibilität) und €1.450 mit Begründung anbieten", "Kunden komplett ablehnen", "€1.100 anbieten um jeden Preis zu gewinnen"],
+      en: ["Match price and lose money", "Explain added value (tracking, insurance, flexibility) and offer €1,450 with justification", "Refuse client completely", "Offer €1,100 to win at any cost"]
+    },
+    correctIndex: 1,
+    explanation: {
+      ro: "Nu lucra NICIODATĂ sub cost. Diferențiază-te prin valoare adăugată: urmărire în timp real, asigurare inclusă, șofer de încredere. Prețul mic înseamnă adesea servicii slabe.",
+      de: "Arbeiten Sie NIEMALS unter Kosten. Differenzieren Sie sich durch Mehrwert: Echtzeit-Tracking, inkl. Versicherung, zuverlässiger Fahrer. Niedriger Preis bedeutet oft schlechten Service.",
+      en: "NEVER work below cost. Differentiate through added value: real-time tracking, insurance included, reliable driver. Low price often means poor service."
+    }
+  },
+  {
+    question: {
+      ro: "SCENARIU: Ai cotat €2,000 pentru transport RO→DE. La încărcare, marfa e cu 4t mai grea decât declarat. Ce faci cu prețul?",
+      de: "SZENARIO: Sie haben €2.000 für Transport RO→DE angeboten. Bei Beladung ist die Ware 4t schwerer als deklariert. Was machen Sie mit dem Preis?",
+      en: "SCENARIO: You quoted €2,000 for transport RO→DE. At loading, goods are 4t heavier than declared. What do you do with the price?"
+    },
+    options: {
+      ro: ["Nimic, absorbim diferența", "Recalculăm și comunicăm surplusul ÎNAINTE de plecare, documentăm cu poze", "Anulăm transportul", "Taxăm triplu ulterior"],
+      de: ["Nichts, wir absorbieren die Differenz", "Neu berechnen und Zuschlag VOR Abfahrt kommunizieren, mit Fotos dokumentieren", "Transport absagen", "Später dreifach berechnen"],
+      en: ["Nothing, absorb the difference", "Recalculate and communicate surcharge BEFORE departure, document with photos", "Cancel transport", "Charge triple later"]
+    },
+    correctIndex: 1,
+    explanation: {
+      ro: "Greutatea suplimentară = cost suplimentar (taxe drumuri, consum). ÎNTOTDEAUNA comunică prețul revizuit ÎNAINTE de plecare și documentează cu fotografii pentru a evita dispute.",
+      de: "Zusätzliches Gewicht = zusätzliche Kosten (Maut, Verbrauch). Kommunizieren Sie IMMER den revidierten Preis VOR Abfahrt und dokumentieren Sie mit Fotos zur Vermeidung von Streitigkeiten.",
+      en: "Extra weight = extra cost (tolls, consumption). ALWAYS communicate revised price BEFORE departure and document with photos to avoid disputes."
+    }
   }
 ];
 
