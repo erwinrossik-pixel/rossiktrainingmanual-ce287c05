@@ -367,6 +367,114 @@ export function IncotermsChapter() {
         </div>
       </div>
 
+      {/* Incoterms Cheat Sheet - AI Recommendation Implementation */}
+      <div className="info-card bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-950/20 dark:to-orange-950/20 border-2 border-amber-200 dark:border-amber-800">
+        <h2 className="section-title flex items-center gap-3 text-amber-800 dark:text-amber-200">
+          <FileText className="w-6 h-6" />
+          {ct("cheatSheetTitle")}
+        </h2>
+        <p className="text-muted-foreground mb-6">{ct("cheatSheetSubtitle")}</p>
+
+        {/* When to Use Quick Guide */}
+        <div className="mb-6">
+          <h3 className="font-semibold mb-3 flex items-center gap-2">
+            <CheckCircle2 className="w-5 h-5 text-green-600" />
+            {ct("forFreightForwarders")} - {ct("whenToUse")}
+          </h3>
+          <div className="grid md:grid-cols-2 gap-3">
+            <div className="bg-background/80 p-3 rounded-lg border-l-4 border-l-destructive">
+              <span className="font-mono font-bold text-destructive">EXW</span>
+              <p className="text-sm text-muted-foreground">{ct("useExwWhen")}</p>
+            </div>
+            <div className="bg-background/80 p-3 rounded-lg border-l-4 border-l-success">
+              <span className="font-mono font-bold text-success">FCA</span>
+              <p className="text-sm text-muted-foreground">{ct("useFcaWhen")}</p>
+            </div>
+            <div className="bg-background/80 p-3 rounded-lg border-l-4 border-l-info">
+              <span className="font-mono font-bold text-info">DAP</span>
+              <p className="text-sm text-muted-foreground">{ct("useDapWhen")}</p>
+            </div>
+            <div className="bg-background/80 p-3 rounded-lg border-l-4 border-l-primary">
+              <span className="font-mono font-bold text-primary">DDP</span>
+              <p className="text-sm text-muted-foreground">{ct("useDdpWhen")}</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Quick Tip */}
+        <div className="bg-amber-100 dark:bg-amber-900/30 p-4 rounded-lg mb-6">
+          <h4 className="font-semibold flex items-center gap-2 mb-2">
+            <AlertTriangle className="w-4 h-4 text-amber-600" />
+            {ct("quickTip")}
+          </h4>
+          <p className="text-sm">{ct("fcaDapTip")}</p>
+        </div>
+
+        {/* Responsibility Matrix */}
+        <div>
+          <h3 className="font-semibold mb-3">{ct("responsibilityMatrix")}</h3>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm border-collapse">
+              <thead>
+                <tr className="bg-muted/50">
+                  <th className="border p-2 text-left font-semibold">{ct("term")}</th>
+                  <th className="border p-2 text-center">{ct("loading")}</th>
+                  <th className="border p-2 text-center">{ct("exportClearanceShort")}</th>
+                  <th className="border p-2 text-center">{ct("mainTransport")}</th>
+                  <th className="border p-2 text-center">{ct("importClearanceShort")}</th>
+                  <th className="border p-2 text-center">{ct("unloading")}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className="border p-2 font-mono font-bold">EXW</td>
+                  <td className="border p-2 text-center bg-blue-100 dark:bg-blue-900/30">{ct("buyerShort")}</td>
+                  <td className="border p-2 text-center bg-blue-100 dark:bg-blue-900/30">{ct("buyerShort")}</td>
+                  <td className="border p-2 text-center bg-blue-100 dark:bg-blue-900/30">{ct("buyerShort")}</td>
+                  <td className="border p-2 text-center bg-blue-100 dark:bg-blue-900/30">{ct("buyerShort")}</td>
+                  <td className="border p-2 text-center bg-blue-100 dark:bg-blue-900/30">{ct("buyerShort")}</td>
+                </tr>
+                <tr>
+                  <td className="border p-2 font-mono font-bold">FCA</td>
+                  <td className="border p-2 text-center bg-green-100 dark:bg-green-900/30">{ct("sellerShort")}</td>
+                  <td className="border p-2 text-center bg-green-100 dark:bg-green-900/30">{ct("sellerShort")}</td>
+                  <td className="border p-2 text-center bg-blue-100 dark:bg-blue-900/30">{ct("buyerShort")}</td>
+                  <td className="border p-2 text-center bg-blue-100 dark:bg-blue-900/30">{ct("buyerShort")}</td>
+                  <td className="border p-2 text-center bg-blue-100 dark:bg-blue-900/30">{ct("buyerShort")}</td>
+                </tr>
+                <tr>
+                  <td className="border p-2 font-mono font-bold">DAP</td>
+                  <td className="border p-2 text-center bg-green-100 dark:bg-green-900/30">{ct("sellerShort")}</td>
+                  <td className="border p-2 text-center bg-green-100 dark:bg-green-900/30">{ct("sellerShort")}</td>
+                  <td className="border p-2 text-center bg-green-100 dark:bg-green-900/30">{ct("sellerShort")}</td>
+                  <td className="border p-2 text-center bg-blue-100 dark:bg-blue-900/30">{ct("buyerShort")}</td>
+                  <td className="border p-2 text-center bg-blue-100 dark:bg-blue-900/30">{ct("buyerShort")}</td>
+                </tr>
+                <tr>
+                  <td className="border p-2 font-mono font-bold">DDP</td>
+                  <td className="border p-2 text-center bg-green-100 dark:bg-green-900/30">{ct("sellerShort")}</td>
+                  <td className="border p-2 text-center bg-green-100 dark:bg-green-900/30">{ct("sellerShort")}</td>
+                  <td className="border p-2 text-center bg-green-100 dark:bg-green-900/30">{ct("sellerShort")}</td>
+                  <td className="border p-2 text-center bg-green-100 dark:bg-green-900/30">{ct("sellerShort")}</td>
+                  <td className="border p-2 text-center bg-blue-100 dark:bg-blue-900/30">{ct("buyerShort")}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div className="flex gap-4 mt-3 text-sm">
+            <span className="flex items-center gap-2">
+              <span className="w-4 h-4 bg-green-100 dark:bg-green-900/30 border rounded"></span>
+              {ct("sellerLegend")}
+            </span>
+            <span className="flex items-center gap-2">
+              <span className="w-4 h-4 bg-blue-100 dark:bg-blue-900/30 border rounded"></span>
+              {ct("buyerLegend")}
+            </span>
+          </div>
+          <p className="text-sm text-muted-foreground mt-3 italic">{ct("riskReminder")}</p>
+        </div>
+      </div>
+
       {/* Quiz */}
       {quizzes["incoterms"] && (
         <Quiz
