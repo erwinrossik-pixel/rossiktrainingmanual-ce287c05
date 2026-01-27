@@ -27,18 +27,23 @@ export interface CompetencyScore {
   last_assessment_at: string;
 }
 
-// Competency areas mapped to chapters
+// Competency areas mapped to chapters - use translationKey for dynamic labels
 export const COMPETENCY_AREAS = {
-  pricing: { label: 'Pricing & Tarife', chapters: ['pricing', 'commercial'] },
-  customs: { label: 'Vamă & Documente', chapters: ['customs', 'documents'] },
-  adr: { label: 'ADR & Marfă Periculoasă', chapters: ['adr'] },
-  vehicles: { label: 'Vehicule & Fleet', chapters: ['vehicle', 'fleet'] },
-  compliance: { label: 'Conformitate', chapters: ['compliance', 'driving-time'] },
-  clients: { label: 'Clienți & Comunicare', chapters: ['clients', 'communication'] },
-  claims: { label: 'Reclamații & Asigurări', chapters: ['claims', 'insurance'] },
-  technology: { label: 'Tehnologie & TMS', chapters: ['technology', 'digitalization', 'translogica'] },
-  negotiation: { label: 'Negociere', chapters: ['negotiation', 'soft-skills'] },
-  logistics: { label: 'Logistică', chapters: ['loading', 'warehouse', 'intermodal'] }
+  pricing: { translationKey: 'competency.area.pricing', chapters: ['pricing', 'commercial'] },
+  customs: { translationKey: 'competency.area.customs', chapters: ['customs', 'documents'] },
+  adr: { translationKey: 'competency.area.adr', chapters: ['adr'] },
+  vehicles: { translationKey: 'competency.area.vehicles', chapters: ['vehicle', 'fleet'] },
+  compliance: { translationKey: 'competency.area.compliance', chapters: ['compliance', 'driving-time'] },
+  clients: { translationKey: 'competency.area.clients', chapters: ['clients', 'communication'] },
+  claims: { translationKey: 'competency.area.claims', chapters: ['claims', 'insurance'] },
+  technology: { translationKey: 'competency.area.technology', chapters: ['technology', 'digitalization', 'translogica'] },
+  negotiation: { translationKey: 'competency.area.negotiation', chapters: ['negotiation', 'soft-skills'] },
+  logistics: { translationKey: 'competency.area.logistics', chapters: ['loading', 'warehouse', 'intermodal'] }
+};
+
+// Helper function to get translated competency areas
+export const getCompetencyAreaLabel = (area: keyof typeof COMPETENCY_AREAS, t: (key: string) => string): string => {
+  return t(COMPETENCY_AREAS[area]?.translationKey || area);
 };
 
 export function useSkillAssessment() {
@@ -197,7 +202,7 @@ export function useSkillAssessment() {
       .map(c => ({
         area: c.competency_area,
         score: c.score,
-        label: COMPETENCY_AREAS[c.competency_area as keyof typeof COMPETENCY_AREAS]?.label || c.competency_area
+        translationKey: COMPETENCY_AREAS[c.competency_area as keyof typeof COMPETENCY_AREAS]?.translationKey || c.competency_area
       }));
   }, [competencies]);
 
@@ -209,7 +214,7 @@ export function useSkillAssessment() {
       .map(c => ({
         area: c.competency_area,
         score: c.score,
-        label: COMPETENCY_AREAS[c.competency_area as keyof typeof COMPETENCY_AREAS]?.label || c.competency_area
+        translationKey: COMPETENCY_AREAS[c.competency_area as keyof typeof COMPETENCY_AREAS]?.translationKey || c.competency_area
       }));
   }, [competencies]);
 

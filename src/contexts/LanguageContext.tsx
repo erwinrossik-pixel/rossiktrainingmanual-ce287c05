@@ -647,6 +647,18 @@ const translations: Record<Language, Record<string, string>> = {
     'admin.matrix.medium': 'Mediu',
     'admin.matrix.needsImprovement': 'Necesită îmbunătățire',
     
+    // Competency Areas
+    'competency.area.pricing': 'Prețuri & Tarife',
+    'competency.area.customs': 'Vamă & Documente',
+    'competency.area.adr': 'ADR & Marfă Periculoasă',
+    'competency.area.vehicles': 'Vehicule & Flotă',
+    'competency.area.compliance': 'Conformitate',
+    'competency.area.clients': 'Clienți & Comunicare',
+    'competency.area.claims': 'Reclamații & Asigurări',
+    'competency.area.technology': 'Tehnologie & TMS',
+    'competency.area.negotiation': 'Negociere',
+    'competency.area.logistics': 'Logistică',
+    
     // Admin Charts
     'admin.charts.passRateTitle': 'Rata de Trecere per Capitol',
     'admin.charts.passRateDesc': 'Procentul utilizatorilor care au trecut fiecare capitol (≥9/10)',
@@ -851,6 +863,9 @@ const translations: Record<Language, Record<string, string>> = {
     'admin.map.locationsCollected': 'Locațiile sunt colectate automat la vizitarea site-ului',
     'admin.map.tokenSaved': 'Token Mapbox salvat!',
     'admin.map.mapError': 'Eroare la inițializarea hărții. Verifică token-ul Mapbox.',
+    'admin.map.unknown': 'Necunoscut',
+    'admin.map.defaultDevice': 'Desktop',
+    'admin.map.defaultBrowser': 'Browser',
     
     // Company Report Generator
     'admin.reports.title': 'Generator Rapoarte Companie',
@@ -974,6 +989,10 @@ const translations: Record<Language, Record<string, string>> = {
     'admin.usage.browsersDesc': 'Distribuție după browser',
     'admin.usage.topChapters': 'Cele Mai Vizitate Capitole',
     'admin.usage.topChaptersDesc': 'Top 10 capitole după vizualizări',
+    'admin.usage.deviceDesktop': 'Desktop',
+    'admin.usage.deviceMobile': 'Mobil',
+    'admin.usage.deviceTablet': 'Tabletă',
+    'admin.usage.browserOther': 'Altele',
     
     // CONTENT Section - Governance Dashboard
     'admin.governance.title': 'Guvernanța Conținutului',
@@ -2093,6 +2112,18 @@ const translations: Record<Language, Record<string, string>> = {
     'admin.matrix.medium': 'Mittel',
     'admin.matrix.needsImprovement': 'Verbesserungsbedarf',
     
+    // Competency Areas
+    'competency.area.pricing': 'Preise & Tarife',
+    'competency.area.customs': 'Zoll & Dokumente',
+    'competency.area.adr': 'ADR & Gefahrgut',
+    'competency.area.vehicles': 'Fahrzeuge & Flotte',
+    'competency.area.compliance': 'Konformität',
+    'competency.area.clients': 'Kunden & Kommunikation',
+    'competency.area.claims': 'Reklamationen & Versicherungen',
+    'competency.area.technology': 'Technologie & TMS',
+    'competency.area.negotiation': 'Verhandlung',
+    'competency.area.logistics': 'Logistik',
+    
     // Admin Charts
     'admin.charts.passRateTitle': 'Bestehensquote pro Kapitel',
     'admin.charts.passRateDesc': 'Prozentsatz der Benutzer, die jedes Kapitel bestanden haben (≥9/10)',
@@ -2277,6 +2308,9 @@ const translations: Record<Language, Record<string, string>> = {
     'admin.map.locationsCollected': 'Standorte werden automatisch beim Seitenbesuch erfasst',
     'admin.map.tokenSaved': 'Mapbox-Token gespeichert!',
     'admin.map.mapError': 'Fehler beim Initialisieren der Karte. Überprüfen Sie das Mapbox-Token.',
+    'admin.map.unknown': 'Unbekannt',
+    'admin.map.defaultDevice': 'Desktop',
+    'admin.map.defaultBrowser': 'Browser',
     
     // Company Report Generator
     'admin.reports.title': 'Unternehmensberichtsgenerator',
@@ -2531,6 +2565,10 @@ const translations: Record<Language, Record<string, string>> = {
     'admin.usage.browsersDesc': 'Verteilung nach Browser',
     'admin.usage.topChapters': 'Meistbesuchte Kapitel',
     'admin.usage.topChaptersDesc': 'Top 10 Kapitel nach Aufrufen',
+    'admin.usage.deviceDesktop': 'Desktop',
+    'admin.usage.deviceMobile': 'Mobil',
+    'admin.usage.deviceTablet': 'Tablet',
+    'admin.usage.browserOther': 'Sonstige',
     
     // CONTENT Section - Governance Dashboard
     'admin.governance.title': 'Content-Governance',
@@ -3651,6 +3689,18 @@ const translations: Record<Language, Record<string, string>> = {
     'admin.matrix.medium': 'Medium',
     'admin.matrix.needsImprovement': 'Needs improvement',
     
+    // Competency Areas
+    'competency.area.pricing': 'Pricing & Rates',
+    'competency.area.customs': 'Customs & Documents',
+    'competency.area.adr': 'ADR & Dangerous Goods',
+    'competency.area.vehicles': 'Vehicles & Fleet',
+    'competency.area.compliance': 'Compliance',
+    'competency.area.clients': 'Clients & Communication',
+    'competency.area.claims': 'Claims & Insurance',
+    'competency.area.technology': 'Technology & TMS',
+    'competency.area.negotiation': 'Negotiation',
+    'competency.area.logistics': 'Logistics',
+    
     // Admin Charts
     'admin.charts.passRateTitle': 'Pass Rate by Chapter',
     'admin.charts.passRateDesc': 'Percentage of users who passed each chapter (≥9/10)',
@@ -3835,6 +3885,9 @@ const translations: Record<Language, Record<string, string>> = {
     'admin.map.locationsCollected': 'Locations are collected automatically when visiting the site',
     'admin.map.tokenSaved': 'Mapbox token saved!',
     'admin.map.mapError': 'Error initializing map. Check the Mapbox token.',
+    'admin.map.unknown': 'Unknown',
+    'admin.map.defaultDevice': 'Desktop',
+    'admin.map.defaultBrowser': 'Browser',
     
     // Company Report Generator
     'admin.reports.title': 'Company Report Generator',
@@ -4089,6 +4142,10 @@ const translations: Record<Language, Record<string, string>> = {
     'admin.usage.browsersDesc': 'Distribution by browser',
     'admin.usage.topChapters': 'Most Visited Chapters',
     'admin.usage.topChaptersDesc': 'Top 10 chapters by views',
+    'admin.usage.deviceDesktop': 'Desktop',
+    'admin.usage.deviceMobile': 'Mobile',
+    'admin.usage.deviceTablet': 'Tablet',
+    'admin.usage.browserOther': 'Other',
     
     // CONTENT Section - Governance Dashboard
     'admin.governance.title': 'Content Governance',
