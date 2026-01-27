@@ -354,17 +354,17 @@ export const UserKPIPanel = memo(function UserKPIPanel({
                     <div className="flex items-center gap-6 shrink-0">
                       <div className="text-center px-3 py-2 bg-blue-50 dark:bg-blue-900/30 rounded-lg">
                         <p className="text-lg font-bold text-blue-700 dark:text-blue-300">{user.chaptersCompleted}/{user.totalChapters}</p>
-                        <p className="text-xs font-medium text-blue-600 dark:text-blue-400">capitole</p>
+                        <p className="text-xs font-medium text-blue-600 dark:text-blue-400">{t('admin.kpi.chapters')}</p>
                       </div>
                       <div className={`text-center px-3 py-2 rounded-lg border ${getScoreBg(user.avgScore)}`}>
                         <p className={`text-lg ${getScoreColor(user.avgScore)}`}>
                           {user.avgScore.toFixed(1)}/10
                         </p>
-                        <p className="text-xs font-medium text-muted-foreground">scor</p>
+                        <p className="text-xs font-medium text-muted-foreground">{t('admin.kpi.score')}</p>
                       </div>
                       <div className="text-center px-3 py-2 bg-purple-50 dark:bg-purple-900/30 rounded-lg">
                         <p className="text-lg font-bold text-purple-700 dark:text-purple-300">{user.learningVelocity.toFixed(1)}</p>
-                        <p className="text-xs font-medium text-purple-600 dark:text-purple-400">viteză</p>
+                        <p className="text-xs font-medium text-purple-600 dark:text-purple-400">{t('admin.kpi.speed')}</p>
                       </div>
                     </div>
                   </div>
@@ -385,7 +385,7 @@ export const UserKPIPanel = memo(function UserKPIPanel({
                 <CardDescription>{selectedUser.email}</CardDescription>
               </div>
               <Button variant="ghost" size="sm" onClick={() => setSelectedUser(null)}>
-                Închide
+                {t('admin.kpi.close')}
               </Button>
             </div>
           </CardHeader>
@@ -393,30 +393,30 @@ export const UserKPIPanel = memo(function UserKPIPanel({
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {/* User Stats */}
               <div className="space-y-4">
-                <h4 className="font-semibold">Statistici</h4>
+                <h4 className="font-semibold">{t('admin.kpi.statistics')}</h4>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="p-3 bg-muted rounded-lg">
-                    <p className="text-sm text-muted-foreground">Progres Total</p>
+                    <p className="text-sm text-muted-foreground">{t('admin.kpi.totalProgress')}</p>
                     <p className="text-xl font-bold">{selectedUser.totalProgress.toFixed(1)}%</p>
                     <Progress value={selectedUser.totalProgress} className="mt-1" />
                   </div>
                   <div className="p-3 bg-muted rounded-lg">
-                    <p className="text-sm text-muted-foreground">Capitole Complete</p>
+                    <p className="text-sm text-muted-foreground">{t('admin.kpi.chaptersCompleted')}</p>
                     <p className="text-xl font-bold">{selectedUser.chaptersCompleted}/{selectedUser.totalChapters}</p>
                   </div>
                   <div className="p-3 bg-muted rounded-lg">
-                    <p className="text-sm text-muted-foreground">Timp Total Studiu</p>
+                    <p className="text-sm text-muted-foreground">{t('admin.kpi.totalStudyTime')}</p>
                     <p className="text-xl font-bold">{selectedUser.totalStudyTimeHours.toFixed(1)}h</p>
                   </div>
                   <div className="p-3 bg-muted rounded-lg">
-                    <p className="text-sm text-muted-foreground">Eficiență</p>
+                    <p className="text-sm text-muted-foreground">{t('admin.kpi.efficiencyLabel')}</p>
                     <p className="text-xl font-bold">{selectedUser.efficiency.toFixed(2)}</p>
                   </div>
                 </div>
 
                 {selectedUser.problematicChapters.length > 0 && (
                   <div>
-                    <h4 className="font-semibold text-orange-600 mb-2">Capitole Problematice</h4>
+                    <h4 className="font-semibold text-orange-600 mb-2">{t('admin.kpi.problematicChaptersTitle')}</h4>
                     <div className="flex flex-wrap gap-2">
                       {selectedUser.problematicChapters.map(ch => (
                         <Badge key={ch} variant="destructive">{ch}</Badge>
@@ -428,7 +428,7 @@ export const UserKPIPanel = memo(function UserKPIPanel({
 
               {/* Score Evolution Chart */}
               <div>
-                <h4 className="font-semibold mb-4">Evoluția Scorului</h4>
+                <h4 className="font-semibold mb-4">{t('admin.kpi.scoreEvolution')}</h4>
                 {selectedUser.scoreEvolution.length > 0 ? (
                   <ResponsiveContainer width="100%" height={200}>
                     <AreaChart data={selectedUser.scoreEvolution.slice(-20)}>
@@ -436,7 +436,7 @@ export const UserKPIPanel = memo(function UserKPIPanel({
                       <XAxis dataKey="date" tick={{ fontSize: 10 }} />
                       <YAxis domain={[0, 10]} />
                       <Tooltip 
-                        formatter={(value: number) => [`${value}/10`, 'Scor']}
+                        formatter={(value: number) => [`${value}/10`, t('admin.kpi.score')]}
                         labelFormatter={(label, payload) => {
                           const chapter = payload?.[0]?.payload?.chapter;
                           return `${label}${chapter ? ` - ${chapter}` : ''}`;
@@ -452,7 +452,7 @@ export const UserKPIPanel = memo(function UserKPIPanel({
                   </ResponsiveContainer>
                 ) : (
                   <p className="text-muted-foreground text-sm text-center py-8">
-                    Nu există date despre evoluția scorului
+                    {t('admin.kpi.noScoreData')}
                   </p>
                 )}
               </div>
