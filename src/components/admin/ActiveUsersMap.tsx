@@ -153,11 +153,15 @@ const ActiveUsersMap: React.FC = () => {
       `;
       el.style.cursor = 'pointer';
 
+      const unknownText = t('admin.map.unknown');
+      const defaultDevice = t('admin.map.defaultDevice');
+      const defaultBrowser = t('admin.map.defaultBrowser');
+      
       const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(`
         <div class="p-2 text-sm">
-          <div class="font-semibold text-gray-900">${user.city || 'Unknown'}, ${user.country || 'Unknown'}</div>
+          <div class="font-semibold text-gray-900">${user.city || unknownText}, ${user.country || unknownText}</div>
           <div class="text-gray-600 text-xs mt-1">
-            <span class="capitalize">${user.device_type || 'Desktop'}</span> • ${user.browser || 'Browser'}
+            <span class="capitalize">${user.device_type || defaultDevice}</span> • ${user.browser || defaultBrowser}
           </div>
         </div>
       `);

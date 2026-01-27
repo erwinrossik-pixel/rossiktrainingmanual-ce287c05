@@ -91,16 +91,25 @@ export function UsageAnalytics() {
 
   // Device distribution
   const deviceDistribution = [
-    { name: 'Desktop', value: sessions.filter(s => s.device_type === 'desktop').length, icon: Monitor },
-    { name: 'Mobile', value: sessions.filter(s => s.device_type === 'mobile').length, icon: Smartphone },
-    { name: 'Tablet', value: sessions.filter(s => s.device_type === 'tablet').length, icon: Tablet },
+    { name: t('admin.usage.deviceDesktop'), value: sessions.filter(s => s.device_type === 'desktop').length, icon: Monitor },
+    { name: t('admin.usage.deviceMobile'), value: sessions.filter(s => s.device_type === 'mobile').length, icon: Smartphone },
+    { name: t('admin.usage.deviceTablet'), value: sessions.filter(s => s.device_type === 'tablet').length, icon: Tablet },
   ].filter(d => d.value > 0);
 
-  // Browser distribution
-  const browserDistribution = ['Chrome', 'Firefox', 'Safari', 'Edge', 'Opera', 'Other']
-    .map(browser => ({
-      name: browser,
-      value: sessions.filter(s => s.browser === browser).length,
+  // Browser distribution - browser names stay English (product names)
+  const browserMapping: Record<string, string> = {
+    'Chrome': 'Chrome',
+    'Firefox': 'Firefox', 
+    'Safari': 'Safari',
+    'Edge': 'Edge',
+    'Opera': 'Opera',
+    'Other': t('admin.usage.browserOther')
+  };
+  
+  const browserDistribution = Object.entries(browserMapping)
+    .map(([key, displayName]) => ({
+      name: displayName,
+      value: sessions.filter(s => s.browser === key).length,
     }))
     .filter(b => b.value > 0);
 

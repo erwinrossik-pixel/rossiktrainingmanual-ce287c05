@@ -137,7 +137,7 @@ export const CompetencyMatrix = memo(() => {
     const areaAverages = Object.entries(areaScores).map(([area, scores]) => ({
       area,
       avgScore: Math.round(scores.reduce((a, b) => a + b, 0) / scores.length),
-      label: COMPETENCY_AREAS[area as keyof typeof COMPETENCY_AREAS]?.label || area
+      label: t(COMPETENCY_AREAS[area as keyof typeof COMPETENCY_AREAS]?.translationKey || area)
     }));
 
     const sorted = [...areaAverages].sort((a, b) => b.avgScore - a.avgScore);
@@ -242,8 +242,8 @@ export const CompetencyMatrix = memo(() => {
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="all">{t('admin.matrix.allAreas')}</SelectItem>
-                    {Object.entries(COMPETENCY_AREAS).map(([key, { label }]) => (
-                      <SelectItem key={key} value={key}>{label}</SelectItem>
+                    {Object.entries(COMPETENCY_AREAS).map(([key, { translationKey }]) => (
+                      <SelectItem key={key} value={key}>{t(translationKey)}</SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
@@ -277,12 +277,12 @@ export const CompetencyMatrix = memo(() => {
                       <div className="grid grid-cols-2 md:grid-cols-5 gap-2">
                         {Object.entries(COMPETENCY_AREAS)
                           .filter(([key]) => selectedArea === 'all' || key === selectedArea)
-                          .map(([key, { label }]) => {
+                          .map(([key, { translationKey }]) => {
                             const score = member.competencies[key] || 0;
                             return (
                               <div key={key} className="space-y-1">
                                 <div className="flex items-center justify-between">
-                                  <span className="text-xs text-muted-foreground truncate">{label}</span>
+                                  <span className="text-xs text-muted-foreground truncate">{t(translationKey)}</span>
                                   <span className="text-xs font-medium">{score}%</span>
                                 </div>
                                 <Progress value={score} className="h-2" />
@@ -337,7 +337,7 @@ export const CompetencyMatrix = memo(() => {
                           <div key={area} className="flex items-center gap-2">
                             <div className={`h-2 w-2 rounded-full ${getScoreColor(score)}`} />
                             <span className="text-xs flex-1 truncate">
-                              {COMPETENCY_AREAS[area as keyof typeof COMPETENCY_AREAS]?.label || area}
+                              {t(COMPETENCY_AREAS[area as keyof typeof COMPETENCY_AREAS]?.translationKey || area)}
                             </span>
                             <span className="text-xs font-medium">{score}%</span>
                           </div>
@@ -357,7 +357,7 @@ export const CompetencyMatrix = memo(() => {
                             <div key={area} className="flex items-center gap-2">
                               <div className={`h-2 w-2 rounded-full ${getScoreColor(score)}`} />
                               <span className="text-xs flex-1 truncate">
-                                {COMPETENCY_AREAS[area as keyof typeof COMPETENCY_AREAS]?.label || area}
+                                {t(COMPETENCY_AREAS[area as keyof typeof COMPETENCY_AREAS]?.translationKey || area)}
                               </span>
                               <span className="text-xs font-medium">{score}%</span>
                             </div>

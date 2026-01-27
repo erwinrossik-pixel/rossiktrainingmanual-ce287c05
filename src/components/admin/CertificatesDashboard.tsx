@@ -535,13 +535,13 @@ export function CertificatesDashboard() {
             </div>
             <Select value={filter} onValueChange={(value: FilterType) => setFilter(value)}>
               <SelectTrigger className="w-[180px]">
-                <SelectValue placeholder="Filtrează" />
+                <SelectValue placeholder={t('admin.certificates.filterAll')} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">Toate ({stats.total})</SelectItem>
-                <SelectItem value="active">Active ({stats.active})</SelectItem>
-                <SelectItem value="expired">Expirate ({stats.expired})</SelectItem>
-                <SelectItem value="revoked">Revocate ({stats.revoked})</SelectItem>
+                <SelectItem value="all">{t('admin.certificates.filterAll')} ({stats.total})</SelectItem>
+                <SelectItem value="active">{t('admin.certificates.filterActive')} ({stats.active})</SelectItem>
+                <SelectItem value="expired">{t('admin.certificates.filterExpired')} ({stats.expired})</SelectItem>
+                <SelectItem value="revoked">{t('admin.certificates.filterRevoked')} ({stats.revoked})</SelectItem>
               </SelectContent>
             </Select>
           </div>
