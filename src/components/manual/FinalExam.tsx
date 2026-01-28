@@ -744,16 +744,36 @@ export function FinalExam({ onComplete, onBack }: FinalExamProps) {
             )}
             
             {hasSaved && (
-              <div className="flex items-center justify-center gap-2 p-3 bg-success/10 rounded-lg">
-                <CheckCircle2 className="w-4 h-4 text-success" />
-                <span className="text-sm text-success">
-                  {language === 'ro' ? 'Rezultat salvat cu succes!' : language === 'de' ? 'Ergebnis erfolgreich gespeichert!' : 'Result saved successfully!'}
+              <div className="flex items-center justify-center gap-2 p-3 bg-success/10 rounded-lg border border-success/30">
+                <CheckCircle2 className="w-5 h-5 text-success" />
+                <span className="text-sm font-medium text-success">
+                  {language === 'ro' ? '✓ Rezultat salvat și înregistrat cu succes!' : language === 'de' ? '✓ Ergebnis erfolgreich gespeichert und registriert!' : '✓ Result saved and registered successfully!'}
                 </span>
               </div>
             )}
             
+            {/* Manual save button - shows when auto-save failed */}
+            {!hasSaved && !isSaving && (
+              <div className="space-y-3">
+                <div className="flex items-center justify-center gap-2 p-3 bg-warning/10 rounded-lg border border-warning/30">
+                  <AlertTriangle className="w-5 h-5 text-warning" />
+                  <span className="text-sm text-warning">
+                    {language === 'ro' ? 'Rezultatul nu a fost încă salvat. Apasă butonul de mai jos pentru a-l înregistra.' : language === 'de' ? 'Ergebnis wurde noch nicht gespeichert. Drücken Sie die Taste unten, um es zu registrieren.' : 'Result has not been saved yet. Press the button below to register it.'}
+                  </span>
+                </div>
+                <Button 
+                  onClick={() => saveExamResult(score, wrongAnswers)}
+                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold py-3"
+                  size="lg"
+                >
+                  <CheckCircle2 className="w-5 h-5 mr-2" />
+                  {language === 'ro' ? 'Finalizează și Salvează Examenul' : language === 'de' ? 'Prüfung Abschließen und Speichern' : 'Finalize and Save Exam'}
+                </Button>
+              </div>
+            )}
+            
             {/* Actions - No restart allowed, exam is final */}
-            <div className="flex gap-4 justify-center">
+            <div className="flex gap-4 justify-center pt-4">
               {onBack && (
                 <Button variant="outline" onClick={onBack} disabled={isSaving}>
                   {labels.back}
