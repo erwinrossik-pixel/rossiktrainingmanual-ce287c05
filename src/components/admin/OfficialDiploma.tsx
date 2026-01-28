@@ -343,8 +343,8 @@ export function OfficialDiploma({ certificate, open, onOpenChange }: OfficialDip
             <div className="flex justify-between items-end">
               {/* Left: Issue Info & Signature Space */}
               <div className="text-left bg-white">
-                {/* Empty space for manual signature */}
-                <div className="h-10 w-40 mb-1">
+                {/* Empty space for manual signature - 1-2 lines */}
+                <div className="h-6 w-40 mb-1">
                   {/* Signature space - left empty for manual signing */}
                 </div>
                 <p className="text-xs text-gray-500">{issuedOnText[language]}</p>
