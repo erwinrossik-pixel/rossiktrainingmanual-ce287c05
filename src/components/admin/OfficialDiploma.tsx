@@ -208,6 +208,40 @@ export function OfficialDiploma({ certificate, open, onOpenChange }: OfficialDip
           <div className="absolute bottom-8 left-8 w-20 h-20 border-b-4 border-l-4 border-amber-600/50 rounded-bl-xl" />
           <div className="absolute bottom-8 right-8 w-20 h-20 border-b-4 border-r-4 border-amber-600/50 rounded-br-xl" />
 
+          {/* Left Side Decorative Elements */}
+          <div className="absolute left-3 top-1/2 -translate-y-1/2 flex flex-col items-center gap-3 pointer-events-none">
+            <div className="w-1 h-16 bg-gradient-to-b from-transparent via-amber-600/40 to-transparent rounded-full" />
+            <svg width="12" height="24" viewBox="0 0 12 24" className="text-amber-600/50">
+              <path d="M6,0 L6,8 M3,4 L6,8 L9,4" stroke="currentColor" strokeWidth="1.5" fill="none" />
+              <circle cx="6" cy="12" r="3" stroke="currentColor" strokeWidth="1.5" fill="none" />
+              <path d="M6,24 L6,16 M3,20 L6,16 L9,20" stroke="currentColor" strokeWidth="1.5" fill="none" />
+            </svg>
+            <div className="w-1 h-16 bg-gradient-to-b from-transparent via-amber-600/40 to-transparent rounded-full" />
+            <svg width="12" height="24" viewBox="0 0 12 24" className="text-amber-600/50">
+              <path d="M6,0 L6,8 M3,4 L6,8 L9,4" stroke="currentColor" strokeWidth="1.5" fill="none" />
+              <circle cx="6" cy="12" r="3" stroke="currentColor" strokeWidth="1.5" fill="none" />
+              <path d="M6,24 L6,16 M3,20 L6,16 L9,20" stroke="currentColor" strokeWidth="1.5" fill="none" />
+            </svg>
+            <div className="w-1 h-16 bg-gradient-to-b from-transparent via-amber-600/40 to-transparent rounded-full" />
+          </div>
+
+          {/* Right Side Decorative Elements */}
+          <div className="absolute right-3 top-1/2 -translate-y-1/2 flex flex-col items-center gap-3 pointer-events-none">
+            <div className="w-1 h-16 bg-gradient-to-b from-transparent via-amber-600/40 to-transparent rounded-full" />
+            <svg width="12" height="24" viewBox="0 0 12 24" className="text-amber-600/50">
+              <path d="M6,0 L6,8 M3,4 L6,8 L9,4" stroke="currentColor" strokeWidth="1.5" fill="none" />
+              <circle cx="6" cy="12" r="3" stroke="currentColor" strokeWidth="1.5" fill="none" />
+              <path d="M6,24 L6,16 M3,20 L6,16 L9,20" stroke="currentColor" strokeWidth="1.5" fill="none" />
+            </svg>
+            <div className="w-1 h-16 bg-gradient-to-b from-transparent via-amber-600/40 to-transparent rounded-full" />
+            <svg width="12" height="24" viewBox="0 0 12 24" className="text-amber-600/50">
+              <path d="M6,0 L6,8 M3,4 L6,8 L9,4" stroke="currentColor" strokeWidth="1.5" fill="none" />
+              <circle cx="6" cy="12" r="3" stroke="currentColor" strokeWidth="1.5" fill="none" />
+              <path d="M6,24 L6,16 M3,20 L6,16 L9,20" stroke="currentColor" strokeWidth="1.5" fill="none" />
+            </svg>
+            <div className="w-1 h-16 bg-gradient-to-b from-transparent via-amber-600/40 to-transparent rounded-full" />
+          </div>
+
           {/* Official Seal */}
           <div className="absolute top-10 right-12 w-24 h-24">
             <div className="relative w-full h-full">
