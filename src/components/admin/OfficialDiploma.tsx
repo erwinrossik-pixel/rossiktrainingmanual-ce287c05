@@ -10,7 +10,6 @@ import jsPDF from "jspdf";
 import QRCode from "qrcode";
 import { toast } from "sonner";
 import rossikLogo from "@/assets/rossik-logo.jpg";
-import moldovanSignature from "@/assets/moldovan-signature.png";
 
 interface OfficialDiplomaProps {
   certificate: {
@@ -348,14 +347,59 @@ export function OfficialDiploma({ certificate, open, onOpenChange }: OfficialDip
                 <p className="text-sm font-semibold text-gray-700">
                   {format(new Date(certificate.issued_at), "dd MMMM yyyy", { locale: dateLocale })}
                 </p>
-                {/* Real Signature Image */}
+                {/* Holographic Signature - styled like the real one */}
                 <div className="mt-4 mb-1">
-                  <img 
-                    src={moldovanSignature} 
-                    alt="Moldovan A. Signature" 
-                    className="h-14 w-auto object-contain"
-                    style={{ filter: 'brightness(0.9) contrast(1.2)' }}
-                  />
+                  <svg viewBox="0 0 120 80" className="w-28 h-16">
+                    {/* Main A shape with loop at top */}
+                    <path 
+                      d="M35,70 L55,15 Q58,8 62,12 L68,25 Q72,18 76,12 L82,25" 
+                      fill="none" 
+                      stroke="#1e3a8a" 
+                      strokeWidth="1.8" 
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    {/* Loop/flourish at top going left */}
+                    <path 
+                      d="M55,15 Q45,5 30,12 Q20,18 25,28 Q28,35 40,32 Q50,28 55,20" 
+                      fill="none" 
+                      stroke="#1e3a8a" 
+                      strokeWidth="1.8" 
+                      strokeLinecap="round"
+                    />
+                    {/* Diagonal cross line from top right to bottom left */}
+                    <path 
+                      d="M85,10 Q70,35 30,65" 
+                      fill="none" 
+                      stroke="#1e3a8a" 
+                      strokeWidth="1.8" 
+                      strokeLinecap="round"
+                    />
+                    {/* Horizontal cross through middle */}
+                    <path 
+                      d="M28,45 Q50,42 75,48" 
+                      fill="none" 
+                      stroke="#1e3a8a" 
+                      strokeWidth="1.5" 
+                      strokeLinecap="round"
+                    />
+                    {/* Small loop on right side */}
+                    <path 
+                      d="M75,48 Q85,45 88,52 Q90,60 82,62 Q75,63 72,58" 
+                      fill="none" 
+                      stroke="#1e3a8a" 
+                      strokeWidth="1.5" 
+                      strokeLinecap="round"
+                    />
+                    {/* Underline flourish */}
+                    <path 
+                      d="M20,72 Q55,68 95,74" 
+                      fill="none" 
+                      stroke="#1e3a8a" 
+                      strokeWidth="1.3" 
+                      strokeLinecap="round"
+                    />
+                  </svg>
                 </div>
                 <div className="w-36 border-t border-gray-400 mb-1" />
                 <p className="text-xs font-semibold text-gray-700">Alexandru I. Moldovan</p>
