@@ -147,6 +147,7 @@ export function FinalExam({ onComplete, onBack }: FinalExamProps) {
   const [answeredQuestions, setAnsweredQuestions] = useState<boolean[]>([]);
   const [examCompleted, setExamCompleted] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
+  const [hasSaved, setHasSaved] = useState(false);
   const [wrongAnswers, setWrongAnswers] = useState<Array<{
     question: string;
     userAnswer: string;
@@ -161,6 +162,7 @@ export function FinalExam({ onComplete, onBack }: FinalExamProps) {
   const [remainingTime, setRemainingTime] = useState(TIME_LIMIT_SECONDS);
   const [timeExpired, setTimeExpired] = useState(false);
   const autoSubmitRef = useRef(false);
+  const saveAttemptedRef = useRef(false);
 
   // Timer - countdown and elapsed time
   useEffect(() => {
@@ -183,7 +185,88 @@ export function FinalExam({ onComplete, onBack }: FinalExamProps) {
     }
   }, [startTime, examCompleted, timeExpired]);
 
-  // Handle time expiration - auto complete exam
+  // Centralized save function to ensure exam data is always saved
+  const saveExamResult = async (finalScore: number, finalWrongAnswers: typeof wrongAnswers) => {
+    if (!user || saveAttemptedRef.current || hasSaved) {
+      console.log('Save skipped: no user, already attempted, or already saved');
+      return;
+    }
+    
+    saveAttemptedRef.current = true;
+    setIsSaving(true);
+    
+    const finalPercentage = Math.round((finalScore / examQuestions.length) * 100);
+    const hasPassed = finalPercentage >= PASSING_SCORE;
+    const timeSpent = Math.floor((new Date().getTime() - startTime.getTime()) / 1000);
+    
+    console.log('Saving final exam result:', { 
+      userId: user.id, 
+      score: finalScore, 
+      percentage: finalPercentage, 
+      passed: hasPassed,
+      timeSpent 
+    });
+    
+    // Retry logic for reliability
+    let attempts = 0;
+    const maxAttempts = 3;
+    let lastError: Error | null = null;
+    
+    while (attempts < maxAttempts && !hasSaved) {
+      attempts++;
+      try {
+        const { error: attemptError } = await supabase
+          .from('final_exam_attempts')
+          .insert({
+            user_id: user.id,
+            score: finalScore,
+            total_questions: examQuestions.length,
+            percentage: finalPercentage,
+            passed: hasPassed,
+            time_spent_seconds: timeSpent,
+            wrong_answers: finalWrongAnswers,
+            started_at: startTime.toISOString(),
+            completed_at: new Date().toISOString(),
+          });
+          
+        if (attemptError) {
+          console.error(`Attempt ${attempts} failed:`, attemptError);
+          lastError = attemptError as unknown as Error;
+          // Wait before retry
+          if (attempts < maxAttempts) {
+            await new Promise(resolve => setTimeout(resolve, 1000 * attempts));
+          }
+        } else {
+          setHasSaved(true);
+          console.log('Final exam result saved successfully');
+          toast({
+            title: language === 'ro' ? '✅ Examen salvat!' : language === 'de' ? '✅ Prüfung gespeichert!' : '✅ Exam saved!',
+            description: language === 'ro' ? 'Rezultatul tău a fost înregistrat cu succes.' : language === 'de' ? 'Ihr Ergebnis wurde erfolgreich aufgezeichnet.' : 'Your result has been successfully recorded.',
+          });
+          break;
+        }
+      } catch (error) {
+        console.error(`Attempt ${attempts} error:`, error);
+        lastError = error as Error;
+        if (attempts < maxAttempts) {
+          await new Promise(resolve => setTimeout(resolve, 1000 * attempts));
+        }
+      }
+    }
+    
+    if (!hasSaved && lastError) {
+      console.error('Failed to save exam after all attempts:', lastError);
+      toast({
+        title: language === 'ro' ? '⚠️ Eroare salvare' : language === 'de' ? '⚠️ Speicherfehler' : '⚠️ Save error',
+        description: language === 'ro' ? 'Nu am putut salva rezultatul. Te rugăm să contactezi administratorul.' : language === 'de' ? 'Ergebnis konnte nicht gespeichert werden. Bitte kontaktieren Sie den Administrator.' : 'Could not save result. Please contact administrator.',
+        variant: 'destructive',
+      });
+    }
+    
+    setIsSaving(false);
+  };
+
+  // Handle time expiration - auto complete exam AND save results
   useEffect(() => {
     if (timeExpired && !examCompleted) {
       toast({
@@ -192,8 +275,12 @@ export function FinalExam({ onComplete, onBack }: FinalExamProps) {
         variant: 'destructive',
       });
       setExamCompleted(true);
+      
+      // Save results when time expires
+      saveExamResult(score, wrongAnswers);
+      onComplete?.(score, examQuestions.length, score >= PASSING_SCORE);
     }
-  }, [timeExpired, examCompleted, language, toast]);
+  }, [timeExpired, examCompleted, language, toast, score, wrongAnswers, examQuestions.length]);
 
   // Generate exam questions on mount - unique per user
   useEffect(() => {
@@ -300,44 +387,19 @@ export function FinalExam({ onComplete, onBack }: FinalExamProps) {
       setSelectedAnswer(null);
       setShowResult(false);
     } else {
-      const finalScore = score + (selectedAnswer === question?.correctIndex ? 1 : 0);
+      // Calculate final score - the current score already includes all answered questions
+      // The score was already updated in handleAnswer, so we use it directly
+      const finalScore = score;
+      
+      // Capture current wrong answers before any state changes
+      const finalWrongAnswers = [...wrongAnswers];
+      
+      console.log('Exam completed - Final score:', finalScore, 'of', examQuestions.length);
+      
       setExamCompleted(true);
       
-      // Save to database
-      if (user) {
-        setIsSaving(true);
-        const finalPercentage = Math.round((finalScore / examQuestions.length) * 100);
-        const hasPassed = finalPercentage >= PASSING_SCORE;
-        
-        try {
-          // Save final exam attempt to dedicated table
-          const { error: attemptError } = await supabase
-            .from('final_exam_attempts')
-            .insert({
-              user_id: user.id,
-              score: finalScore,
-              total_questions: examQuestions.length,
-              percentage: finalPercentage,
-              passed: hasPassed,
-              time_spent_seconds: elapsedTime,
-              wrong_answers: wrongAnswers,
-              started_at: startTime.toISOString(),
-              completed_at: new Date().toISOString(),
-            });
-            
-          if (attemptError) {
-            console.error('Error saving final exam attempt:', attemptError);
-          } else {
-            toast({
-              title: language === 'ro' ? 'Examen salvat!' : language === 'de' ? 'Prüfung gespeichert!' : 'Exam saved!',
-              description: language === 'ro' ? 'Rezultatul tău a fost înregistrat.' : language === 'de' ? 'Ihr Ergebnis wurde aufgezeichnet.' : 'Your result has been recorded.',
-            });
-          }
-        } catch (error) {
-          console.error('Error saving final exam:', error);
-        }
-        setIsSaving(false);
-      }
+      // Save to database using the centralized save function
+      await saveExamResult(finalScore, finalWrongAnswers);
       
       onComplete?.(finalScore, examQuestions.length, finalScore >= PASSING_SCORE);
     }
@@ -518,10 +580,29 @@ export function FinalExam({ onComplete, onBack }: FinalExamProps) {
               </div>
             )}
             
+            {/* Saving indicator */}
+            {isSaving && (
+              <div className="flex items-center justify-center gap-2 p-3 bg-primary/10 rounded-lg">
+                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-primary"></div>
+                <span className="text-sm text-primary">
+                  {language === 'ro' ? 'Se salvează rezultatul...' : language === 'de' ? 'Ergebnis wird gespeichert...' : 'Saving result...'}
+                </span>
+              </div>
+            )}
+            
+            {hasSaved && (
+              <div className="flex items-center justify-center gap-2 p-3 bg-success/10 rounded-lg">
+                <CheckCircle2 className="w-4 h-4 text-success" />
+                <span className="text-sm text-success">
+                  {language === 'ro' ? 'Rezultat salvat cu succes!' : language === 'de' ? 'Ergebnis erfolgreich gespeichert!' : 'Result saved successfully!'}
+                </span>
+              </div>
+            )}
+            
             {/* Actions - No restart allowed, exam is final */}
             <div className="flex gap-4 justify-center">
               {onBack && (
-                <Button variant="outline" onClick={onBack}>
+                <Button variant="outline" onClick={onBack} disabled={isSaving}>
                   {labels.back}
                 </Button>
               )}
