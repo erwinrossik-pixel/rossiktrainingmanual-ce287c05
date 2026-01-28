@@ -11,8 +11,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { useToast } from '@/hooks/use-toast';
-import { Users, Check, X, Clock, User as UserIcon, Mail, AlertCircle, Search, Building2, UserPlus } from 'lucide-react';
+import { Users, Check, X, Clock, User as UserIcon, Mail, AlertCircle, Search, Building2, UserPlus, GraduationCap, BookOpen, Trophy, Target, Timer } from 'lucide-react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Progress } from '@/components/ui/progress';
 import { format } from 'date-fns';
 import { ro, de, enUS } from 'date-fns/locale';
 
@@ -50,6 +51,30 @@ interface RegistrationRequest {
   company_name?: string;
 }
 
+interface UserProgress {
+  user_id: string;
+  email: string;
+  first_name: string | null;
+  last_name: string | null;
+  chapters_completed: number;
+  total_chapters: number;
+  progress_percentage: number;
+  avg_quiz_score: number;
+  final_exam?: {
+    score: number;
+    total_questions: number;
+    percentage: number;
+    passed: boolean;
+    time_spent_seconds: number;
+    completed_at: string;
+  } | null;
+  certificate?: {
+    certificate_code: string;
+    issued_at: string;
+    expires_at: string;
+  } | null;
+}
+
 export function UserManagement() {
   const { company, isCompanyAdmin, isSuperAdmin, subscription } = useCompany();
   const { user } = useAuth();
@@ -57,7 +82,9 @@ export function UserManagement() {
   const { toast } = useToast();
   const [allUsers, setAllUsers] = useState<UserProfile[]>([]);
   const [pendingRequests, setPendingRequests] = useState<RegistrationRequest[]>([]);
+  const [userProgress, setUserProgress] = useState<UserProgress[]>([]);
   const [loading, setLoading] = useState(true);
+  const [progressLoading, setProgressLoading] = useState(false);
   const [activeTab, setActiveTab] = useState('all-users');
   const [searchTerm, setSearchTerm] = useState('');
   const [companies, setCompanies] = useState<Company[]>([]);
@@ -72,6 +99,7 @@ export function UserManagement() {
       fetchAllUsers();
       fetchPendingRequests();
       fetchCompanies();
+      fetchUserProgress();
     }
   }, [company, isCompanyAdmin, isSuperAdmin]);
 
@@ -137,6 +165,95 @@ export function UserManagement() {
       console.error('Error fetching users:', error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const fetchUserProgress = async () => {
+    setProgressLoading(true);
+    try {
+      // Fetch all profiles
+      const { data: profiles } = await supabase
+        .from('profiles')
+        .select('id, email, first_name, last_name');
+
+      // Fetch chapter progress for all users
+      const { data: chapterProgress } = await supabase
+        .from('chapter_progress')
+        .select('user_id, chapter_id, status, best_score');
+
+      // Fetch final exam attempts
+      const { data: examAttempts } = await supabase
+        .from('final_exam_attempts')
+        .select('*')
+        .order('completed_at', { ascending: false });
+
+      // Fetch certificates
+      const { data: certificates } = await supabase
+        .from('certificates')
+        .select('user_id, certificate_code, issued_at, expires_at, is_revoked')
+        .eq('is_revoked', false);
+
+      // Fetch company_users for filtering
+      const { data: companyUsers } = await supabase
+        .from('company_users')
+        .select('user_id, company_id, status');
+
+      const TOTAL_CHAPTERS = 50;
+
+      // Build progress data for each user
+      const progressData: UserProgress[] = (profiles || []).map(profile => {
+        const userChapters = chapterProgress?.filter(cp => cp.user_id === profile.id) || [];
+        const completedChapters = userChapters.filter(cp => cp.status === 'completed').length;
+        const avgScore = userChapters.length > 0 
+          ? userChapters.reduce((sum, cp) => sum + (cp.best_score || 0), 0) / userChapters.length 
+          : 0;
+
+        // Get best exam attempt (most recent passed, or most recent overall)
+        const userExams = examAttempts?.filter(ea => ea.user_id === profile.id) || [];
+        const passedExam = userExams.find(ea => ea.passed);
+        const latestExam = passedExam || userExams[0];
+
+        // Get valid certificate
+        const userCert = certificates?.find(c => c.user_id === profile.id);
+
+        return {
+          user_id: profile.id,
+          email: profile.email,
+          first_name: profile.first_name,
+          last_name: profile.last_name,
+          chapters_completed: completedChapters,
+          total_chapters: TOTAL_CHAPTERS,
+          progress_percentage: Math.round((completedChapters / TOTAL_CHAPTERS) * 100),
+          avg_quiz_score: Math.round(avgScore * 10) / 10,
+          final_exam: latestExam ? {
+            score: latestExam.score,
+            total_questions: latestExam.total_questions,
+            percentage: Number(latestExam.percentage),
+            passed: latestExam.passed,
+            time_spent_seconds: latestExam.time_spent_seconds || 0,
+            completed_at: latestExam.completed_at
+          } : null,
+          certificate: userCert ? {
+            certificate_code: userCert.certificate_code,
+            issued_at: userCert.issued_at,
+            expires_at: userCert.expires_at
+          } : null
+        };
+      });
+
+      // Filter based on admin type
+      if (!isSuperAdmin && company) {
+        const companyUserIds = companyUsers
+          ?.filter(cu => cu.company_id === company.id && cu.status === 'approved')
+          .map(cu => cu.user_id) || [];
+        setUserProgress(progressData.filter(p => companyUserIds.includes(p.user_id)));
+      } else {
+        setUserProgress(progressData);
+      }
+    } catch (error) {
+      console.error('Error fetching user progress:', error);
+    } finally {
+      setProgressLoading(false);
     }
   };
 
@@ -493,10 +610,14 @@ export function UserManagement() {
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab}>
-        <TabsList>
+        <TabsList className="flex-wrap h-auto gap-1">
           <TabsTrigger value="all-users" className="flex items-center gap-2">
             <Users className="h-4 w-4" />
             {t('admin.users.allUsers')} ({allUsers.length})
+          </TabsTrigger>
+          <TabsTrigger value="progress" className="flex items-center gap-2">
+            <GraduationCap className="h-4 w-4" />
+            {language === 'ro' ? 'Progres & Examen' : language === 'de' ? 'Fortschritt & Prüfung' : 'Progress & Exam'}
           </TabsTrigger>
           <TabsTrigger value="pending" className="flex items-center gap-2">
             <Clock className="h-4 w-4" />
@@ -614,6 +735,160 @@ export function UserManagement() {
                     ))}
                   </TableBody>
                 </Table>
+              )}
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* Progress & Final Exam Tab */}
+        <TabsContent value="progress">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <GraduationCap className="h-5 w-5 text-primary" />
+                {language === 'ro' ? 'Progres Utilizatori & Examen Final' : language === 'de' ? 'Benutzerfortschritt & Abschlussprüfung' : 'User Progress & Final Exam'}
+              </CardTitle>
+              <CardDescription>
+                {language === 'ro' ? 'Vizualizați progresul fiecărui utilizator, rezultatele quiz-urilor și ale examenului final' : language === 'de' ? 'Sehen Sie den Fortschritt jedes Benutzers, Quiz- und Prüfungsergebnisse' : 'View each user\'s progress, quiz and exam results'}
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              {progressLoading ? (
+                <div className="flex justify-center py-8">
+                  <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+                </div>
+              ) : userProgress.filter(up => {
+                const searchLower = searchTerm.toLowerCase();
+                return (
+                  up.email?.toLowerCase().includes(searchLower) ||
+                  up.first_name?.toLowerCase().includes(searchLower) ||
+                  up.last_name?.toLowerCase().includes(searchLower)
+                );
+              }).length === 0 ? (
+                <p className="text-center py-8 text-muted-foreground">
+                  {language === 'ro' ? 'Nu există date de progres.' : language === 'de' ? 'Keine Fortschrittsdaten vorhanden.' : 'No progress data available.'}
+                </p>
+              ) : (
+                <div className="overflow-x-auto">
+                  <Table>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHead>{language === 'ro' ? 'Utilizator' : language === 'de' ? 'Benutzer' : 'User'}</TableHead>
+                        <TableHead>{language === 'ro' ? 'Progres Capitole' : language === 'de' ? 'Kapitelfortschritt' : 'Chapter Progress'}</TableHead>
+                        <TableHead>{language === 'ro' ? 'Scor Mediu Quiz' : language === 'de' ? 'Durchschnittliche Quiz-Punktzahl' : 'Avg Quiz Score'}</TableHead>
+                        <TableHead>{language === 'ro' ? 'Examen Final' : language === 'de' ? 'Abschlussprüfung' : 'Final Exam'}</TableHead>
+                        <TableHead>{language === 'ro' ? 'Certificat' : language === 'de' ? 'Zertifikat' : 'Certificate'}</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {userProgress
+                        .filter(up => {
+                          const searchLower = searchTerm.toLowerCase();
+                          return (
+                            up.email?.toLowerCase().includes(searchLower) ||
+                            up.first_name?.toLowerCase().includes(searchLower) ||
+                            up.last_name?.toLowerCase().includes(searchLower)
+                          );
+                        })
+                        .sort((a, b) => {
+                          // Sort by progress percentage desc, then by exam score
+                          if (b.progress_percentage !== a.progress_percentage) {
+                            return b.progress_percentage - a.progress_percentage;
+                          }
+                          return (b.final_exam?.percentage || 0) - (a.final_exam?.percentage || 0);
+                        })
+                        .map((up) => (
+                          <TableRow key={up.user_id}>
+                            <TableCell>
+                              <div className="flex items-center gap-3">
+                                <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
+                                  <UserIcon className="h-4 w-4 text-primary" />
+                                </div>
+                                <div>
+                                  <p className="font-medium">
+                                    {up.first_name} {up.last_name}
+                                  </p>
+                                  <p className="text-xs text-muted-foreground">{up.email}</p>
+                                </div>
+                              </div>
+                            </TableCell>
+                            <TableCell>
+                              <div className="space-y-1 min-w-[140px]">
+                                <div className="flex items-center justify-between text-sm">
+                                  <span className="flex items-center gap-1">
+                                    <BookOpen className="h-3 w-3 text-muted-foreground" />
+                                    {up.chapters_completed}/{up.total_chapters}
+                                  </span>
+                                  <span className="font-medium">{up.progress_percentage}%</span>
+                                </div>
+                                <Progress value={up.progress_percentage} className="h-2" />
+                              </div>
+                            </TableCell>
+                            <TableCell>
+                              <div className="flex items-center gap-2">
+                                <Target className="h-4 w-4 text-muted-foreground" />
+                                <span className={up.avg_quiz_score >= 9 ? 'text-green-600 font-semibold' : up.avg_quiz_score >= 7 ? 'text-amber-600' : 'text-muted-foreground'}>
+                                  {up.avg_quiz_score > 0 ? `${up.avg_quiz_score}/10` : '-'}
+                                </span>
+                              </div>
+                            </TableCell>
+                            <TableCell>
+                              {up.final_exam ? (
+                                <div className="space-y-1">
+                                  <div className="flex items-center gap-2">
+                                    {up.final_exam.passed ? (
+                                      <Badge className="bg-green-500 hover:bg-green-600">
+                                        <Trophy className="h-3 w-3 mr-1" />
+                                        {language === 'ro' ? 'Promovat' : language === 'de' ? 'Bestanden' : 'Passed'}
+                                      </Badge>
+                                    ) : (
+                                      <Badge variant="destructive">
+                                        <X className="h-3 w-3 mr-1" />
+                                        {language === 'ro' ? 'Nepromovat' : language === 'de' ? 'Nicht bestanden' : 'Failed'}
+                                      </Badge>
+                                    )}
+                                  </div>
+                                  <div className="text-xs text-muted-foreground space-y-0.5">
+                                    <p className="font-medium">{up.final_exam.score}/{up.final_exam.total_questions} ({up.final_exam.percentage}%)</p>
+                                    <p className="flex items-center gap-1">
+                                      <Timer className="h-3 w-3" />
+                                      {Math.floor(up.final_exam.time_spent_seconds / 60)}:{(up.final_exam.time_spent_seconds % 60).toString().padStart(2, '0')} min
+                                    </p>
+                                    <p>{format(new Date(up.final_exam.completed_at), 'dd MMM yyyy HH:mm', { locale: dateLocale })}</p>
+                                  </div>
+                                </div>
+                              ) : (
+                                <span className="text-muted-foreground text-sm">
+                                  {up.progress_percentage >= 100 ? (
+                                    <Badge variant="outline" className="text-amber-600 border-amber-600">
+                                      {language === 'ro' ? 'Eligibil' : language === 'de' ? 'Berechtigt' : 'Eligible'}
+                                    </Badge>
+                                  ) : (
+                                    '-'
+                                  )}
+                                </span>
+                              )}
+                            </TableCell>
+                            <TableCell>
+                              {up.certificate ? (
+                                <div className="space-y-1">
+                                  <Badge className="bg-purple-500 hover:bg-purple-600">
+                                    <GraduationCap className="h-3 w-3 mr-1" />
+                                    {up.certificate.certificate_code}
+                                  </Badge>
+                                  <p className="text-xs text-muted-foreground">
+                                    {language === 'ro' ? 'Emis:' : language === 'de' ? 'Ausgestellt:' : 'Issued:'} {format(new Date(up.certificate.issued_at), 'dd MMM yyyy', { locale: dateLocale })}
+                                  </p>
+                                </div>
+                              ) : (
+                                <span className="text-muted-foreground text-sm">-</span>
+                              )}
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                    </TableBody>
+                  </Table>
+                </div>
               )}
             </CardContent>
           </Card>
