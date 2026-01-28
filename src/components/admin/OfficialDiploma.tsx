@@ -202,21 +202,30 @@ export function OfficialDiploma({ certificate, open, onOpenChange }: OfficialDip
           <div className="absolute inset-3 border-4 border-double border-amber-600/30 rounded-lg pointer-events-none" />
           <div className="absolute inset-5 border-2 border-amber-600/20 rounded-lg pointer-events-none" />
 
-          {/* Extended Corner Decorations - Top */}
-          <div className="absolute top-6 left-6 right-6 h-0 border-t-2 border-amber-700/40 pointer-events-none" />
-          <div className="absolute top-6 left-6 w-0 h-16 border-l-2 border-amber-700/40 pointer-events-none" />
-          <div className="absolute top-6 right-6 w-0 h-16 border-r-2 border-amber-700/40 pointer-events-none" />
+          {/* Corner Decorations - Rounded L-shapes */}
+          {/* Top Left Corner */}
+          <div className="absolute top-5 left-5 w-24 h-24 pointer-events-none">
+            <div className="absolute top-0 left-0 w-full h-0 border-t-3 border-amber-700/50 rounded-tl-2xl" style={{ borderTopWidth: '3px' }} />
+            <div className="absolute top-0 left-0 w-0 h-full border-l-3 border-amber-700/50 rounded-tl-2xl" style={{ borderLeftWidth: '3px' }} />
+          </div>
           
-          {/* Extended Corner Decorations - Bottom */}
-          <div className="absolute bottom-6 left-6 right-6 h-0 border-b-2 border-amber-700/40 pointer-events-none" />
-          <div className="absolute bottom-6 left-6 w-0 h-16 border-l-2 border-amber-700/40 pointer-events-none" />
-          <div className="absolute bottom-6 right-6 w-0 h-16 border-r-2 border-amber-700/40 pointer-events-none" />
-
-          {/* Corner Ornaments */}
-          <div className="absolute top-5 left-5 w-3 h-3 border-t-4 border-l-4 border-amber-700/60 pointer-events-none" />
-          <div className="absolute top-5 right-5 w-3 h-3 border-t-4 border-r-4 border-amber-700/60 pointer-events-none" />
-          <div className="absolute bottom-5 left-5 w-3 h-3 border-b-4 border-l-4 border-amber-700/60 pointer-events-none" />
-          <div className="absolute bottom-5 right-5 w-3 h-3 border-b-4 border-r-4 border-amber-700/60 pointer-events-none" />
+          {/* Top Right Corner */}
+          <div className="absolute top-5 right-5 w-24 h-24 pointer-events-none">
+            <div className="absolute top-0 right-0 w-full h-0 border-t-3 border-amber-700/50 rounded-tr-2xl" style={{ borderTopWidth: '3px' }} />
+            <div className="absolute top-0 right-0 w-0 h-full border-r-3 border-amber-700/50 rounded-tr-2xl" style={{ borderRightWidth: '3px' }} />
+          </div>
+          
+          {/* Bottom Left Corner */}
+          <div className="absolute bottom-5 left-5 w-24 h-24 pointer-events-none">
+            <div className="absolute bottom-0 left-0 w-full h-0 border-b-3 border-amber-700/50 rounded-bl-2xl" style={{ borderBottomWidth: '3px' }} />
+            <div className="absolute bottom-0 left-0 w-0 h-full border-l-3 border-amber-700/50 rounded-bl-2xl" style={{ borderLeftWidth: '3px' }} />
+          </div>
+          
+          {/* Bottom Right Corner */}
+          <div className="absolute bottom-5 right-5 w-24 h-24 pointer-events-none">
+            <div className="absolute bottom-0 right-0 w-full h-0 border-b-3 border-amber-700/50 rounded-br-2xl" style={{ borderBottomWidth: '3px' }} />
+            <div className="absolute bottom-0 right-0 w-0 h-full border-r-3 border-amber-700/50 rounded-br-2xl" style={{ borderRightWidth: '3px' }} />
+          </div>
 
           {/* Official Seal */}
           <div className="absolute top-10 right-12 w-24 h-24">
