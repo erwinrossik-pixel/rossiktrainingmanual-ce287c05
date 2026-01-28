@@ -273,7 +273,10 @@ export function FinalExamResults() {
                       <span className="text-muted-foreground ml-1">({attempt.percentage}%)</span>
                     </TableCell>
                     <TableCell className="text-center">
-                      <Badge variant={attempt.passed ? 'default' : 'destructive'} className="gap-1">
+                      <Badge 
+                        variant={attempt.passed ? 'default' : 'destructive'} 
+                        className={`gap-1 ${attempt.passed ? 'bg-info text-info-foreground hover:bg-info/90' : ''}`}
+                      >
                         {attempt.passed ? <CheckCircle2 className="h-3 w-3" /> : <XCircle className="h-3 w-3" />}
                         {attempt.passed ? labels.passed : labels.failed}
                       </Badge>
