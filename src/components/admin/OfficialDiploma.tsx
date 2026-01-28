@@ -370,17 +370,16 @@ export function OfficialDiploma({ certificate, open, onOpenChange }: OfficialDip
               </div>
 
               {/* Right: Validity Info */}
-              <div className="text-right">
+              <div className="text-right flex flex-col justify-end">
+                {/* Empty space to align with left side */}
+                <div className="h-10 w-36 mb-1 ml-auto">
+                  {/* Signature space */}
+                </div>
+                <div className="w-36 border-t border-gray-400 mb-1 ml-auto" />
                 <p className="text-xs text-gray-500">{validUntilText[language]}</p>
                 <p className="text-sm font-semibold text-gray-700">
                   {format(new Date(certificate.expires_at), "dd MMMM yyyy", { locale: dateLocale })}
                 </p>
-                {/* Empty space for second signature if needed */}
-                <div className="h-10 w-36 mt-3 mb-1 ml-auto">
-                  {/* Signature space */}
-                </div>
-                <div className="w-36 border-t border-gray-400 mb-1 ml-auto" />
-                <p className="text-[10px] text-gray-500">Date of Issue</p>
               </div>
             </div>
           </div>
