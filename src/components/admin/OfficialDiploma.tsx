@@ -343,15 +343,15 @@ export function OfficialDiploma({ certificate, open, onOpenChange }: OfficialDip
             <div className="flex justify-between items-end">
               {/* Left: Issue Info & Signature Space */}
               <div className="text-left bg-white">
-                {/* Empty space for manual signature */}
-                <div className="h-8 w-40">
-                  {/* Signature space */}
-                </div>
                 <p className="text-xs text-gray-500">{issuedOnText[language]}</p>
                 <p className="text-sm font-semibold text-gray-700">
                   {format(new Date(certificate.issued_at), "dd MMMM yyyy", { locale: dateLocale })}
                 </p>
-                <div className="w-40 border-t border-gray-400 mt-1 mb-1" />
+                {/* Empty space for manual signature */}
+                <div className="h-10 w-40">
+                  {/* Signature space */}
+                </div>
+                <div className="w-40 border-t border-gray-400 mb-1" />
                 <p className="text-xs font-semibold text-gray-700">Alexandru I. Moldovan</p>
                 <p className="text-[10px] text-gray-500">Chief Development Officer</p>
               </div>
