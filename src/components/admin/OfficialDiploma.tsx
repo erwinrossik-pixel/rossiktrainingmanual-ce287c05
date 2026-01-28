@@ -198,34 +198,51 @@ export function OfficialDiploma({ certificate, open, onOpenChange }: OfficialDip
           className="bg-white p-8 aspect-[297/210] relative overflow-hidden print:p-12"
           style={{ minHeight: "600px" }}
         >
-          {/* Decorative Border */}
-          <div className="absolute inset-3 border-4 border-double border-amber-600/30 rounded-lg pointer-events-none" />
-          <div className="absolute inset-5 border-2 border-amber-600/20 rounded-lg pointer-events-none" />
+          {/* Elegant Double Border Frame */}
+          <div className="absolute inset-3 border-2 border-amber-700/40 pointer-events-none" />
+          <div className="absolute inset-5 border border-amber-600/30 pointer-events-none" />
 
-          {/* Corner Decorations - Rounded L-shapes */}
-          {/* Top Left Corner */}
-          <div className="absolute top-5 left-5 w-24 h-24 pointer-events-none">
-            <div className="absolute top-0 left-0 w-full h-0 border-t-3 border-amber-700/50 rounded-tl-2xl" style={{ borderTopWidth: '3px' }} />
-            <div className="absolute top-0 left-0 w-0 h-full border-l-3 border-amber-700/50 rounded-tl-2xl" style={{ borderLeftWidth: '3px' }} />
-          </div>
+          {/* Majestic Corner Ornaments - SVG curves */}
+          {/* Top Left */}
+          <svg className="absolute top-2 left-2 w-20 h-20 pointer-events-none" viewBox="0 0 80 80">
+            <path d="M5,40 Q5,5 40,5" fill="none" stroke="#b45309" strokeWidth="2.5" opacity="0.7"/>
+            <path d="M10,50 Q10,10 50,10" fill="none" stroke="#b45309" strokeWidth="1.5" opacity="0.5"/>
+            <circle cx="8" cy="8" r="3" fill="#b45309" opacity="0.6"/>
+          </svg>
           
-          {/* Top Right Corner */}
-          <div className="absolute top-5 right-5 w-24 h-24 pointer-events-none">
-            <div className="absolute top-0 right-0 w-full h-0 border-t-3 border-amber-700/50 rounded-tr-2xl" style={{ borderTopWidth: '3px' }} />
-            <div className="absolute top-0 right-0 w-0 h-full border-r-3 border-amber-700/50 rounded-tr-2xl" style={{ borderRightWidth: '3px' }} />
-          </div>
+          {/* Top Right */}
+          <svg className="absolute top-2 right-2 w-20 h-20 pointer-events-none" viewBox="0 0 80 80">
+            <path d="M75,40 Q75,5 40,5" fill="none" stroke="#b45309" strokeWidth="2.5" opacity="0.7"/>
+            <path d="M70,50 Q70,10 30,10" fill="none" stroke="#b45309" strokeWidth="1.5" opacity="0.5"/>
+            <circle cx="72" cy="8" r="3" fill="#b45309" opacity="0.6"/>
+          </svg>
           
-          {/* Bottom Left Corner */}
-          <div className="absolute bottom-5 left-5 w-24 h-24 pointer-events-none">
-            <div className="absolute bottom-0 left-0 w-full h-0 border-b-3 border-amber-700/50 rounded-bl-2xl" style={{ borderBottomWidth: '3px' }} />
-            <div className="absolute bottom-0 left-0 w-0 h-full border-l-3 border-amber-700/50 rounded-bl-2xl" style={{ borderLeftWidth: '3px' }} />
-          </div>
+          {/* Bottom Left */}
+          <svg className="absolute bottom-2 left-2 w-20 h-20 pointer-events-none" viewBox="0 0 80 80">
+            <path d="M5,40 Q5,75 40,75" fill="none" stroke="#b45309" strokeWidth="2.5" opacity="0.7"/>
+            <path d="M10,30 Q10,70 50,70" fill="none" stroke="#b45309" strokeWidth="1.5" opacity="0.5"/>
+            <circle cx="8" cy="72" r="3" fill="#b45309" opacity="0.6"/>
+          </svg>
           
-          {/* Bottom Right Corner */}
-          <div className="absolute bottom-5 right-5 w-24 h-24 pointer-events-none">
-            <div className="absolute bottom-0 right-0 w-full h-0 border-b-3 border-amber-700/50 rounded-br-2xl" style={{ borderBottomWidth: '3px' }} />
-            <div className="absolute bottom-0 right-0 w-0 h-full border-r-3 border-amber-700/50 rounded-br-2xl" style={{ borderRightWidth: '3px' }} />
-          </div>
+          {/* Bottom Right */}
+          <svg className="absolute bottom-2 right-2 w-20 h-20 pointer-events-none" viewBox="0 0 80 80">
+            <path d="M75,40 Q75,75 40,75" fill="none" stroke="#b45309" strokeWidth="2.5" opacity="0.7"/>
+            <path d="M70,30 Q70,70 30,70" fill="none" stroke="#b45309" strokeWidth="1.5" opacity="0.5"/>
+            <circle cx="72" cy="72" r="3" fill="#b45309" opacity="0.6"/>
+          </svg>
+
+          {/* Decorative Top Center Flourish */}
+          <svg className="absolute top-3 left-1/2 -translate-x-1/2 w-40 h-8 pointer-events-none" viewBox="0 0 160 32">
+            <path d="M10,16 Q40,5 80,16 Q120,27 150,16" fill="none" stroke="#b45309" strokeWidth="1.5" opacity="0.5"/>
+            <circle cx="80" cy="16" r="4" fill="none" stroke="#b45309" strokeWidth="1.5" opacity="0.6"/>
+            <path d="M76,16 L84,16 M80,12 L80,20" stroke="#b45309" strokeWidth="1" opacity="0.4"/>
+          </svg>
+
+          {/* Decorative Bottom Center Flourish */}
+          <svg className="absolute bottom-3 left-1/2 -translate-x-1/2 w-40 h-8 pointer-events-none" viewBox="0 0 160 32">
+            <path d="M10,16 Q40,27 80,16 Q120,5 150,16" fill="none" stroke="#b45309" strokeWidth="1.5" opacity="0.5"/>
+            <circle cx="80" cy="16" r="4" fill="none" stroke="#b45309" strokeWidth="1.5" opacity="0.6"/>
+          </svg>
 
           {/* Official Seal */}
           <div className="absolute top-10 right-12 w-24 h-24">
