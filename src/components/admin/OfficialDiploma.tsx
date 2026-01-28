@@ -199,14 +199,24 @@ export function OfficialDiploma({ certificate, open, onOpenChange }: OfficialDip
           style={{ minHeight: "600px" }}
         >
           {/* Decorative Border */}
-          <div className="absolute inset-4 border-4 border-double border-amber-600/30 rounded-lg pointer-events-none" />
-          <div className="absolute inset-6 border-2 border-amber-600/20 rounded-lg pointer-events-none" />
+          <div className="absolute inset-3 border-4 border-double border-amber-600/30 rounded-lg pointer-events-none" />
+          <div className="absolute inset-5 border-2 border-amber-600/20 rounded-lg pointer-events-none" />
 
-          {/* Corner Decorations */}
-          <div className="absolute top-8 left-8 w-20 h-20 border-t-4 border-l-4 border-amber-600/50 rounded-tl-xl" />
-          <div className="absolute top-8 right-8 w-20 h-20 border-t-4 border-r-4 border-amber-600/50 rounded-tr-xl" />
-          <div className="absolute bottom-8 left-8 w-12 h-12 border-b-4 border-l-4 border-amber-600/50 rounded-bl-xl" />
-          <div className="absolute bottom-8 right-8 w-12 h-12 border-b-4 border-r-4 border-amber-600/50 rounded-br-xl" />
+          {/* Extended Corner Decorations - Top */}
+          <div className="absolute top-6 left-6 right-6 h-0 border-t-2 border-amber-700/40 pointer-events-none" />
+          <div className="absolute top-6 left-6 w-0 h-16 border-l-2 border-amber-700/40 pointer-events-none" />
+          <div className="absolute top-6 right-6 w-0 h-16 border-r-2 border-amber-700/40 pointer-events-none" />
+          
+          {/* Extended Corner Decorations - Bottom */}
+          <div className="absolute bottom-6 left-6 right-6 h-0 border-b-2 border-amber-700/40 pointer-events-none" />
+          <div className="absolute bottom-6 left-6 w-0 h-16 border-l-2 border-amber-700/40 pointer-events-none" />
+          <div className="absolute bottom-6 right-6 w-0 h-16 border-r-2 border-amber-700/40 pointer-events-none" />
+
+          {/* Corner Ornaments */}
+          <div className="absolute top-5 left-5 w-3 h-3 border-t-4 border-l-4 border-amber-700/60 pointer-events-none" />
+          <div className="absolute top-5 right-5 w-3 h-3 border-t-4 border-r-4 border-amber-700/60 pointer-events-none" />
+          <div className="absolute bottom-5 left-5 w-3 h-3 border-b-4 border-l-4 border-amber-700/60 pointer-events-none" />
+          <div className="absolute bottom-5 right-5 w-3 h-3 border-b-4 border-r-4 border-amber-700/60 pointer-events-none" />
 
           {/* Official Seal */}
           <div className="absolute top-10 right-12 w-24 h-24">
