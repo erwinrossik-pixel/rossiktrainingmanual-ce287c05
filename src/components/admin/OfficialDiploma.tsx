@@ -10,6 +10,7 @@ import jsPDF from "jspdf";
 import QRCode from "qrcode";
 import { toast } from "sonner";
 import rossikLogo from "@/assets/rossik-logo.jpg";
+import moldovanSignature from "@/assets/moldovan-signature.png";
 
 interface OfficialDiplomaProps {
   certificate: {
@@ -347,104 +348,14 @@ export function OfficialDiploma({ certificate, open, onOpenChange }: OfficialDip
                 <p className="text-sm font-semibold text-gray-700">
                   {format(new Date(certificate.issued_at), "dd MMMM yyyy", { locale: dateLocale })}
                 </p>
-                {/* Holographic Signature - Moldovan A. */}
+                {/* Real Signature Image */}
                 <div className="mt-4 mb-1">
-                  <svg viewBox="0 0 280 70" className="w-44 h-14">
-                    {/* M */}
-                    <path 
-                      d="M8,55 L8,20 Q9,18 12,22 L22,42 Q24,46 26,42 L36,22 Q38,18 40,20 L40,55" 
-                      fill="none" 
-                      stroke="#1e40af" 
-                      strokeWidth="2.2" 
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    {/* o */}
-                    <path 
-                      d="M48,38 Q48,30 56,30 Q64,30 64,38 Q64,48 56,48 Q48,48 48,38" 
-                      fill="none" 
-                      stroke="#1e40af" 
-                      strokeWidth="2" 
-                      strokeLinecap="round"
-                    />
-                    {/* l */}
-                    <path 
-                      d="M72,22 Q71,35 73,48 Q74,52 76,48" 
-                      fill="none" 
-                      stroke="#1e40af" 
-                      strokeWidth="2" 
-                      strokeLinecap="round"
-                    />
-                    {/* d */}
-                    <path 
-                      d="M92,38 Q86,32 82,38 Q78,46 84,50 Q90,52 94,46 L94,22 Q94,20 96,22" 
-                      fill="none" 
-                      stroke="#1e40af" 
-                      strokeWidth="2" 
-                      strokeLinecap="round"
-                    />
-                    {/* o */}
-                    <path 
-                      d="M102,38 Q102,30 110,30 Q118,30 118,38 Q118,48 110,48 Q102,48 102,38" 
-                      fill="none" 
-                      stroke="#1e40af" 
-                      strokeWidth="2" 
-                      strokeLinecap="round"
-                    />
-                    {/* v */}
-                    <path 
-                      d="M124,30 Q128,42 132,50 Q136,42 140,30" 
-                      fill="none" 
-                      stroke="#1e40af" 
-                      strokeWidth="2" 
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    {/* a */}
-                    <path 
-                      d="M158,48 Q158,38 150,38 Q144,38 144,44 Q144,50 150,50 Q156,50 158,46 L158,50 Q160,52 162,48" 
-                      fill="none" 
-                      stroke="#1e40af" 
-                      strokeWidth="2" 
-                      strokeLinecap="round"
-                    />
-                    {/* n */}
-                    <path 
-                      d="M168,50 L168,36 Q168,30 176,30 Q184,30 184,38 L184,50" 
-                      fill="none" 
-                      stroke="#1e40af" 
-                      strokeWidth="2" 
-                      strokeLinecap="round"
-                    />
-                    {/* Connecting flourish and space */}
-                    <path 
-                      d="M188,48 Q195,44 200,46" 
-                      fill="none" 
-                      stroke="#1e40af" 
-                      strokeWidth="1.5" 
-                      strokeLinecap="round"
-                    />
-                    {/* A */}
-                    <path 
-                      d="M210,50 L222,22 Q224,18 226,22 L238,50 M214,40 L234,40" 
-                      fill="none" 
-                      stroke="#1e40af" 
-                      strokeWidth="2.2" 
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    {/* Period/dot */}
-                    <circle cx="248" cy="48" r="2.5" fill="#1e40af" />
-                    {/* Decorative underline flourish */}
-                    <path 
-                      d="M5,58 Q60,62 120,56 Q180,50 250,54 Q260,55 265,52" 
-                      fill="none" 
-                      stroke="#1e40af" 
-                      strokeWidth="1.2" 
-                      strokeLinecap="round"
-                      opacity="0.6"
-                    />
-                  </svg>
+                  <img 
+                    src={moldovanSignature} 
+                    alt="Moldovan A. Signature" 
+                    className="h-14 w-auto object-contain"
+                    style={{ filter: 'brightness(0.9) contrast(1.2)' }}
+                  />
                 </div>
                 <div className="w-36 border-t border-gray-400 mb-1" />
                 <p className="text-xs font-semibold text-gray-700">Alexandru I. Moldovan</p>
