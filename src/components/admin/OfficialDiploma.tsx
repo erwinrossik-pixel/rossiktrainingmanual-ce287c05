@@ -339,13 +339,13 @@ export function OfficialDiploma({ certificate, open, onOpenChange }: OfficialDip
           </div>
 
           {/* Footer Section */}
-          <div className="absolute bottom-10 left-0 right-0 px-20">
+          <div className="absolute bottom-8 left-0 right-0 px-20">
             <div className="flex justify-between items-end">
               {/* Left: Issue Info & Signature Space */}
-              <div className="text-left bg-white flex flex-col justify-end">
-                {/* Empty space for manual signature - 1-2 lines */}
+              <div className="text-left bg-white">
+                {/* Empty space for manual signature */}
                 <div className="h-8 w-40">
-                  {/* Signature space - left empty for manual signing */}
+                  {/* Signature space */}
                 </div>
                 <p className="text-xs text-gray-500">{issuedOnText[language]}</p>
                 <p className="text-sm font-semibold text-gray-700">
@@ -357,7 +357,7 @@ export function OfficialDiploma({ certificate, open, onOpenChange }: OfficialDip
               </div>
 
               {/* Center: QR Code & Certificate Number */}
-              <div className="text-center flex flex-col items-center justify-end bg-white px-2 pt-6">
+              <div className="text-center flex flex-col items-center bg-white px-2">
                 {qrCodeDataUrl ? (
                   <img src={qrCodeDataUrl} alt="Verification QR" className="w-20 h-20 mb-1" />
                 ) : (
@@ -370,10 +370,10 @@ export function OfficialDiploma({ certificate, open, onOpenChange }: OfficialDip
               </div>
 
               {/* Right: Validity Info */}
-              <div className="text-right bg-white flex flex-col justify-end">
+              <div className="text-right bg-white">
                 {/* Empty space for alignment */}
                 <div className="h-8 w-40 ml-auto">
-                  {/* Space for alignment */}
+                  {/* Space */}
                 </div>
                 <p className="text-xs text-gray-500">{validUntilText[language]}</p>
                 <p className="text-sm font-semibold text-gray-700">
