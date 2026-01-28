@@ -198,84 +198,15 @@ export function OfficialDiploma({ certificate, open, onOpenChange }: OfficialDip
           className="bg-white p-8 aspect-[297/210] relative overflow-hidden print:p-12"
           style={{ minHeight: "600px" }}
         >
-          {/* Classic Prestigious Border System */}
-          {/* Outer gold border */}
-          <div className="absolute inset-2 border-2 border-amber-600/60 pointer-events-none" />
-          {/* Inner decorative border */}
-          <div className="absolute inset-4 border border-amber-700/40 pointer-events-none" />
-          {/* Innermost thin line */}
-          <div className="absolute inset-6 border border-amber-600/25 pointer-events-none" />
+          {/* Decorative Border */}
+          <div className="absolute inset-4 border-4 border-double border-amber-600/30 rounded-lg pointer-events-none" />
+          <div className="absolute inset-6 border-2 border-amber-600/20 rounded-lg pointer-events-none" />
 
-          {/* Prestigious Corner Ornaments */}
-          {/* Top Left */}
-          <svg className="absolute top-1 left-1 w-28 h-28 pointer-events-none" viewBox="0 0 100 100">
-            <defs>
-              <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#d4a574" />
-                <stop offset="50%" stopColor="#b8860b" />
-                <stop offset="100%" stopColor="#8b6914" />
-              </linearGradient>
-            </defs>
-            {/* Outer curve */}
-            <path d="M8,60 C8,25 25,8 60,8" fill="none" stroke="url(#goldGrad)" strokeWidth="3"/>
-            {/* Inner curve */}
-            <path d="M12,55 C12,28 28,12 55,12" fill="none" stroke="url(#goldGrad)" strokeWidth="1.5"/>
-            {/* Decorative scroll */}
-            <path d="M20,20 Q25,15 30,20 Q35,25 30,30 Q25,28 22,24" fill="none" stroke="url(#goldGrad)" strokeWidth="1.5"/>
-            <circle cx="18" cy="18" r="2" fill="#b8860b"/>
-            {/* Leaf ornament */}
-            <path d="M35,10 Q40,15 35,20 M35,10 Q30,15 35,20" fill="none" stroke="#b8860b" strokeWidth="1" opacity="0.7"/>
-            <path d="M10,35 Q15,40 20,35 M10,35 Q15,30 20,35" fill="none" stroke="#b8860b" strokeWidth="1" opacity="0.7"/>
-          </svg>
-          
-          {/* Top Right */}
-          <svg className="absolute top-1 right-1 w-28 h-28 pointer-events-none" viewBox="0 0 100 100">
-            <path d="M92,60 C92,25 75,8 40,8" fill="none" stroke="url(#goldGrad)" strokeWidth="3"/>
-            <path d="M88,55 C88,28 72,12 45,12" fill="none" stroke="url(#goldGrad)" strokeWidth="1.5"/>
-            <path d="M80,20 Q75,15 70,20 Q65,25 70,30 Q75,28 78,24" fill="none" stroke="url(#goldGrad)" strokeWidth="1.5"/>
-            <circle cx="82" cy="18" r="2" fill="#b8860b"/>
-            <path d="M65,10 Q60,15 65,20 M65,10 Q70,15 65,20" fill="none" stroke="#b8860b" strokeWidth="1" opacity="0.7"/>
-            <path d="M90,35 Q85,40 80,35 M90,35 Q85,30 80,35" fill="none" stroke="#b8860b" strokeWidth="1" opacity="0.7"/>
-          </svg>
-          
-          {/* Bottom Left */}
-          <svg className="absolute bottom-1 left-1 w-28 h-28 pointer-events-none" viewBox="0 0 100 100">
-            <path d="M8,40 C8,75 25,92 60,92" fill="none" stroke="url(#goldGrad)" strokeWidth="3"/>
-            <path d="M12,45 C12,72 28,88 55,88" fill="none" stroke="url(#goldGrad)" strokeWidth="1.5"/>
-            <path d="M20,80 Q25,85 30,80 Q35,75 30,70 Q25,72 22,76" fill="none" stroke="url(#goldGrad)" strokeWidth="1.5"/>
-            <circle cx="18" cy="82" r="2" fill="#b8860b"/>
-            <path d="M35,90 Q40,85 35,80 M35,90 Q30,85 35,80" fill="none" stroke="#b8860b" strokeWidth="1" opacity="0.7"/>
-            <path d="M10,65 Q15,60 20,65 M10,65 Q15,70 20,65" fill="none" stroke="#b8860b" strokeWidth="1" opacity="0.7"/>
-          </svg>
-          
-          {/* Bottom Right */}
-          <svg className="absolute bottom-1 right-1 w-28 h-28 pointer-events-none" viewBox="0 0 100 100">
-            <path d="M92,40 C92,75 75,92 40,92" fill="none" stroke="url(#goldGrad)" strokeWidth="3"/>
-            <path d="M88,45 C88,72 72,88 45,88" fill="none" stroke="url(#goldGrad)" strokeWidth="1.5"/>
-            <path d="M80,80 Q75,85 70,80 Q65,75 70,70 Q75,72 78,76" fill="none" stroke="url(#goldGrad)" strokeWidth="1.5"/>
-            <circle cx="82" cy="82" r="2" fill="#b8860b"/>
-            <path d="M65,90 Q60,85 65,80 M65,90 Q70,85 65,80" fill="none" stroke="#b8860b" strokeWidth="1" opacity="0.7"/>
-            <path d="M90,65 Q85,60 80,65 M90,65 Q85,70 80,65" fill="none" stroke="#b8860b" strokeWidth="1" opacity="0.7"/>
-          </svg>
-
-          {/* Top Center Royal Crest */}
-          <svg className="absolute top-2 left-1/2 -translate-x-1/2 w-32 h-10 pointer-events-none" viewBox="0 0 120 40">
-            <path d="M10,20 Q30,8 60,20 Q90,32 110,20" fill="none" stroke="#b8860b" strokeWidth="1.5" opacity="0.6"/>
-            <path d="M20,20 Q40,12 60,20 Q80,28 100,20" fill="none" stroke="#b8860b" strokeWidth="1" opacity="0.4"/>
-            {/* Center diamond */}
-            <path d="M55,20 L60,12 L65,20 L60,28 Z" fill="none" stroke="#b8860b" strokeWidth="1.5" opacity="0.7"/>
-            <circle cx="60" cy="20" r="2" fill="#b8860b" opacity="0.6"/>
-            {/* Side flourishes */}
-            <path d="M35,18 Q40,15 45,18" fill="none" stroke="#b8860b" strokeWidth="1" opacity="0.5"/>
-            <path d="M75,18 Q80,15 85,18" fill="none" stroke="#b8860b" strokeWidth="1" opacity="0.5"/>
-          </svg>
-
-          {/* Bottom Center Laurel */}
-          <svg className="absolute bottom-2 left-1/2 -translate-x-1/2 w-32 h-10 pointer-events-none" viewBox="0 0 120 40">
-            <path d="M10,20 Q30,32 60,20 Q90,8 110,20" fill="none" stroke="#b8860b" strokeWidth="1.5" opacity="0.6"/>
-            <path d="M20,20 Q40,28 60,20 Q80,12 100,20" fill="none" stroke="#b8860b" strokeWidth="1" opacity="0.4"/>
-            <circle cx="60" cy="20" r="3" fill="none" stroke="#b8860b" strokeWidth="1.5" opacity="0.6"/>
-          </svg>
+          {/* Corner Decorations */}
+          <div className="absolute top-8 left-8 w-20 h-20 border-t-4 border-l-4 border-amber-600/50 rounded-tl-xl" />
+          <div className="absolute top-8 right-8 w-20 h-20 border-t-4 border-r-4 border-amber-600/50 rounded-tr-xl" />
+          <div className="absolute bottom-8 left-8 w-20 h-20 border-b-4 border-l-4 border-amber-600/50 rounded-bl-xl" />
+          <div className="absolute bottom-8 right-8 w-20 h-20 border-b-4 border-r-4 border-amber-600/50 rounded-br-xl" />
 
           {/* Official Seal */}
           <div className="absolute top-10 right-12 w-24 h-24">
