@@ -10,7 +10,8 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Award, Search, Download, XCircle, Eye, RefreshCw, CheckCircle2, Clock, AlertTriangle, ExternalLink, TrendingUp, Calendar, Users, BarChart3 } from "lucide-react";
+import { Award, Search, Download, XCircle, Eye, RefreshCw, CheckCircle2, Clock, AlertTriangle, ExternalLink, TrendingUp, Calendar, Users, BarChart3, Printer } from "lucide-react";
+import { OfficialDiploma } from "./OfficialDiploma";
 import { format, subMonths, startOfMonth, endOfMonth, parseISO, isSameMonth } from "date-fns";
 import { ro, de, enUS } from "date-fns/locale";
 import { toast } from "sonner";
@@ -30,6 +31,8 @@ interface Certificate {
   is_revoked: boolean;
   revoked_at: string | null;
   revoke_reason: string | null;
+  final_exam_score?: number;
+  final_exam_passed_at?: string;
 }
 
 type FilterType = "all" | "active" | "expired" | "revoked";
@@ -45,6 +48,7 @@ export function CertificatesDashboard() {
   const [revokeReason, setRevokeReason] = useState("");
   const [isRevoking, setIsRevoking] = useState(false);
   const [detailsDialogOpen, setDetailsDialogOpen] = useState(false);
+  const [diplomaDialogOpen, setDiplomaDialogOpen] = useState(false);
   
   const dateLocale = language === 'de' ? de : language === 'en' ? enUS : ro;
 
@@ -579,13 +583,27 @@ export function CertificatesDashboard() {
                           variant="ghost"
                           size="sm"
                           onClick={() => openDetailsDialog(cert)}
+                          title={t('admin.certificates.viewDetails')}
                         >
                           <Eye className="h-4 w-4" />
                         </Button>
                         <Button
                           variant="ghost"
                           size="sm"
+                          onClick={() => {
+                            setSelectedCertificate(cert);
+                            setDiplomaDialogOpen(true);
+                          }}
+                          title={language === 'ro' ? 'Printează Diplomă' : language === 'de' ? 'Diplom drucken' : 'Print Diploma'}
+                          className="text-amber-600 hover:text-amber-700 hover:bg-amber-50"
+                        >
+                          <Printer className="h-4 w-4" />
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="sm"
                           onClick={() => window.open(`/verify/${cert.certificate_code}`, "_blank")}
+                          title={t('admin.certificates.verify')}
                         >
                           <ExternalLink className="h-4 w-4" />
                         </Button>
@@ -595,6 +613,7 @@ export function CertificatesDashboard() {
                             size="sm"
                             className="text-red-600 hover:text-red-700 hover:bg-red-100"
                             onClick={() => openRevokeDialog(cert)}
+                            title={t('admin.certificates.revoke')}
                           >
                             <XCircle className="h-4 w-4" />
                           </Button>
@@ -724,6 +743,15 @@ export function CertificatesDashboard() {
           )}
         </DialogContent>
       </Dialog>
+
+      {/* Official Diploma Dialog */}
+      {selectedCertificate && (
+        <OfficialDiploma
+          certificate={selectedCertificate}
+          open={diplomaDialogOpen}
+          onOpenChange={setDiplomaDialogOpen}
+        />
+      )}
     </div>
   );
 }
