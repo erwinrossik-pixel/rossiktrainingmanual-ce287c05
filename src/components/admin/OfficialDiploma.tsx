@@ -264,7 +264,7 @@ export function OfficialDiploma({ certificate, open, onOpenChange }: OfficialDip
               {programTitle[language]}
             </h3>
             <p className="text-sm text-gray-500">
-              Complete Edition 2025 • European Road Transport Operations
+              Complete Edition 2026 • European Road Transport Operations
             </p>
           </div>
 
@@ -276,29 +276,29 @@ export function OfficialDiploma({ certificate, open, onOpenChange }: OfficialDip
             const finalExamPoints = certificate.final_exam_score ? Math.round(certificate.final_exam_score) : 0;
             
             return (
-              <div className="flex justify-center gap-3 my-4 flex-wrap">
-                <div className="text-center px-3 py-2 bg-gradient-to-b from-amber-50 to-amber-100/50 rounded-lg border border-amber-200">
-                  <p className="text-xl font-bold text-amber-700">50</p>
-                  <p className="text-[9px] text-gray-600 uppercase tracking-wide">
+              <div className="flex justify-center gap-4 my-5 flex-wrap">
+                <div className="text-center px-4 py-2 bg-gradient-to-b from-amber-50 to-amber-100/50 rounded-lg border border-amber-200">
+                  <p className="text-2xl font-bold text-amber-700">50</p>
+                  <p className="text-[10px] text-gray-600 uppercase tracking-wide">
                     {language === 'ro' ? 'Capitole Parcurse' : language === 'de' ? 'Kapitel Abgeschlossen' : 'Chapters Completed'}
                   </p>
                 </div>
-                <div className="text-center px-3 py-2 bg-gradient-to-b from-green-50 to-green-100/50 rounded-lg border border-green-200">
-                  <p className="text-xl font-bold text-green-700">{correctAnswers}/{totalQuizQuestions}</p>
-                  <p className="text-[9px] text-gray-600 uppercase tracking-wide">
+                <div className="text-center px-4 py-2 bg-gradient-to-b from-green-50 to-green-100/50 rounded-lg border border-green-200">
+                  <p className="text-2xl font-bold text-green-700">{correctAnswers}/{totalQuizQuestions}</p>
+                  <p className="text-[10px] text-gray-600 uppercase tracking-wide">
                     {language === 'ro' ? 'Întrebări Quiz Corecte' : language === 'de' ? 'Richtige Quiz-Antworten' : 'Correct Quiz Answers'}
                   </p>
                 </div>
-                <div className="text-center px-3 py-2 bg-gradient-to-b from-blue-50 to-blue-100/50 rounded-lg border border-blue-200">
-                  <p className="text-xl font-bold text-blue-700">{passRate}%</p>
-                  <p className="text-[9px] text-gray-600 uppercase tracking-wide">
+                <div className="text-center px-4 py-2 bg-gradient-to-b from-blue-50 to-blue-100/50 rounded-lg border border-blue-200">
+                  <p className="text-2xl font-bold text-blue-700">{passRate}%</p>
+                  <p className="text-[10px] text-gray-600 uppercase tracking-wide">
                     {language === 'ro' ? 'Rată Promovare' : language === 'de' ? 'Bestehensquote' : 'Pass Rate'}
                   </p>
                 </div>
                 {certificate.final_exam_score && (
-                  <div className="text-center px-3 py-2 bg-gradient-to-b from-purple-50 to-purple-100/50 rounded-lg border border-purple-200">
-                    <p className="text-xl font-bold text-purple-700">{finalExamPoints}/100</p>
-                    <p className="text-[9px] text-gray-600 uppercase tracking-wide">
+                  <div className="text-center px-4 py-2 bg-gradient-to-b from-purple-50 to-purple-100/50 rounded-lg border border-purple-200">
+                    <p className="text-2xl font-bold text-purple-700">{finalExamPoints}/100</p>
+                    <p className="text-[10px] text-gray-600 uppercase tracking-wide">
                       {language === 'ro' ? 'Puncte Examen Final' : language === 'de' ? 'Abschlussprüfung Punkte' : 'Final Exam Points'}
                     </p>
                   </div>
@@ -308,13 +308,13 @@ export function OfficialDiploma({ certificate, open, onOpenChange }: OfficialDip
           })()}
 
           {/* Compliance Standards */}
-          <div className="text-center mb-2">
-            <p className="text-[10px] text-gray-500 uppercase tracking-wider mb-1">
+          <div className="text-center mb-3">
+            <p className="text-xs text-gray-500 uppercase tracking-wider mb-2">
               {language === 'ro' ? 'În conformitate cu standardele' : language === 'de' ? 'In Übereinstimmung mit' : 'In compliance with'}
             </p>
-            <div className="flex justify-center gap-2 flex-wrap">
+            <div className="flex justify-center gap-3 flex-wrap">
               {COMPLIANCE_STANDARDS.map((standard, idx) => (
-                <span key={idx} className="text-[8px] bg-gray-100 text-gray-600 px-2 py-0.5 rounded">
+                <span key={idx} className="text-[10px] bg-gray-100 text-gray-600 px-2 py-1 rounded">
                   {standard}
                 </span>
               ))}
@@ -322,14 +322,14 @@ export function OfficialDiploma({ certificate, open, onOpenChange }: OfficialDip
           </div>
 
           {/* Official Authorities */}
-          <div className="text-center mb-4">
-            <p className="text-[10px] text-gray-500 uppercase tracking-wider mb-1">
+          <div className="text-center">
+            <p className="text-xs text-gray-500 uppercase tracking-wider mb-2">
               {language === 'ro' ? 'Surse autorizate de referință' : language === 'de' ? 'Autorisierte Referenzquellen' : 'Authorized Reference Sources'}
             </p>
-            <div className="flex justify-center gap-3 flex-wrap">
+            <div className="flex justify-center gap-4 flex-wrap">
               {OFFICIAL_AUTHORITIES.map((auth, idx) => (
-                <div key={idx} className="flex items-center gap-1 text-[8px] text-gray-600">
-                  <Globe className="w-2.5 h-2.5 text-gray-400" />
+                <div key={idx} className="flex items-center gap-1 text-[10px] text-gray-600">
+                  <Globe className="w-3 h-3 text-gray-400" />
                   <span className="font-semibold">{auth.abbr}</span>
                   <span className="text-gray-400">•</span>
                   <span>{auth.category}</span>
@@ -339,21 +339,21 @@ export function OfficialDiploma({ certificate, open, onOpenChange }: OfficialDip
           </div>
 
           {/* Footer Section */}
-          <div className="absolute bottom-8 left-0 right-0 px-12">
+          <div className="absolute bottom-6 left-0 right-0 px-14">
             <div className="flex justify-between items-end">
               {/* Left: Issue Info & Signature Space */}
               <div className="text-left">
-                <p className="text-[10px] text-gray-500">{issuedOnText[language]}</p>
-                <p className="text-xs font-semibold text-gray-700">
+                <p className="text-xs text-gray-500">{issuedOnText[language]}</p>
+                <p className="text-sm font-semibold text-gray-700">
                   {format(new Date(certificate.issued_at), "dd MMMM yyyy", { locale: dateLocale })}
                 </p>
                 {/* Empty space for manual signature */}
-                <div className="mt-2 mb-1 h-12 w-32">
+                <div className="mt-3 mb-1 h-10 w-36">
                   {/* Signature space - left empty for manual signing */}
                 </div>
-                <div className="w-32 border-t border-gray-400 mb-1" />
-                <p className="text-[10px] font-semibold text-gray-700">Alexandru I. Moldovan</p>
-                <p className="text-[8px] text-gray-500">Chief Development Officer</p>
+                <div className="w-36 border-t border-gray-400 mb-1" />
+                <p className="text-xs font-semibold text-gray-700">Alexandru I. Moldovan</p>
+                <p className="text-[10px] text-gray-500">Chief Development Officer</p>
               </div>
 
               {/* Center: QR Code & Certificate Number */}
@@ -365,22 +365,22 @@ export function OfficialDiploma({ certificate, open, onOpenChange }: OfficialDip
                     <span className="text-[8px] text-gray-400">QR</span>
                   </div>
                 )}
-                <p className="font-mono text-xs font-bold text-red-700">{certificate.certificate_code}</p>
-                <p className="text-[7px] text-gray-400">Scan to verify authenticity</p>
+                <p className="font-mono text-sm font-bold text-red-700">{certificate.certificate_code}</p>
+                <p className="text-[8px] text-gray-400">Scan to verify authenticity</p>
               </div>
 
               {/* Right: Validity Info */}
               <div className="text-right">
-                <p className="text-[10px] text-gray-500">{validUntilText[language]}</p>
-                <p className="text-xs font-semibold text-gray-700">
+                <p className="text-xs text-gray-500">{validUntilText[language]}</p>
+                <p className="text-sm font-semibold text-gray-700">
                   {format(new Date(certificate.expires_at), "dd MMMM yyyy", { locale: dateLocale })}
                 </p>
                 {/* Empty space for second signature if needed */}
-                <div className="h-12 w-32 mt-2 mb-1 ml-auto">
+                <div className="h-10 w-36 mt-3 mb-1 ml-auto">
                   {/* Signature space */}
                 </div>
-                <div className="w-32 border-t border-gray-400 mb-1 ml-auto" />
-                <p className="text-[8px] text-gray-500">Date of Issue</p>
+                <div className="w-36 border-t border-gray-400 mb-1 ml-auto" />
+                <p className="text-[10px] text-gray-500">Date of Issue</p>
               </div>
             </div>
           </div>
