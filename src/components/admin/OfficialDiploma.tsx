@@ -205,8 +205,8 @@ export function OfficialDiploma({ certificate, open, onOpenChange }: OfficialDip
           {/* Corner Decorations */}
           <div className="absolute top-8 left-8 w-20 h-20 border-t-4 border-l-4 border-amber-600/50 rounded-tl-xl" />
           <div className="absolute top-8 right-8 w-20 h-20 border-t-4 border-r-4 border-amber-600/50 rounded-tr-xl" />
-          <div className="absolute bottom-8 left-8 w-20 h-20 border-b-4 border-l-4 border-amber-600/50 rounded-bl-xl" />
-          <div className="absolute bottom-8 right-8 w-20 h-20 border-b-4 border-r-4 border-amber-600/50 rounded-br-xl" />
+          <div className="absolute bottom-8 left-8 w-12 h-12 border-b-4 border-l-4 border-amber-600/50 rounded-bl-xl" />
+          <div className="absolute bottom-8 right-8 w-12 h-12 border-b-4 border-r-4 border-amber-600/50 rounded-br-xl" />
 
           {/* Official Seal */}
           <div className="absolute top-10 right-12 w-24 h-24">
@@ -339,29 +339,29 @@ export function OfficialDiploma({ certificate, open, onOpenChange }: OfficialDip
           </div>
 
           {/* Footer Section */}
-          <div className="absolute bottom-6 left-0 right-0 px-14">
+          <div className="absolute bottom-12 left-0 right-0 px-20">
             <div className="flex justify-between items-end">
               {/* Left: Issue Info & Signature Space */}
-              <div className="text-left">
+              <div className="text-left bg-white">
                 <p className="text-xs text-gray-500">{issuedOnText[language]}</p>
-                <p className="text-sm font-semibold text-gray-700">
+                <p className="text-sm font-semibold text-gray-700 mb-2">
                   {format(new Date(certificate.issued_at), "dd MMMM yyyy", { locale: dateLocale })}
                 </p>
                 {/* Empty space for manual signature */}
-                <div className="mt-3 mb-1 h-10 w-36">
+                <div className="h-12 w-40 mb-1">
                   {/* Signature space - left empty for manual signing */}
                 </div>
-                <div className="w-36 border-t border-gray-400 mb-1" />
+                <div className="w-40 border-t border-gray-400 mb-1" />
                 <p className="text-xs font-semibold text-gray-700">Alexandru I. Moldovan</p>
                 <p className="text-[10px] text-gray-500">Chief Development Officer</p>
               </div>
 
               {/* Center: QR Code & Certificate Number */}
-              <div className="text-center flex flex-col items-center">
+              <div className="text-center flex flex-col items-center bg-white px-2">
                 {qrCodeDataUrl ? (
-                  <img src={qrCodeDataUrl} alt="Verification QR" className="w-16 h-16 mb-1" />
+                  <img src={qrCodeDataUrl} alt="Verification QR" className="w-14 h-14 mb-1" />
                 ) : (
-                  <div className="w-16 h-16 border-2 border-dashed border-gray-300 flex items-center justify-center mb-1">
+                  <div className="w-14 h-14 border-2 border-dashed border-gray-300 flex items-center justify-center mb-1">
                     <span className="text-[8px] text-gray-400">QR</span>
                   </div>
                 )}
@@ -370,16 +370,18 @@ export function OfficialDiploma({ certificate, open, onOpenChange }: OfficialDip
               </div>
 
               {/* Right: Validity Info */}
-              <div className="text-right flex flex-col justify-end">
-                {/* Empty space to align with left side */}
-                <div className="h-10 w-36 mb-1 ml-auto">
-                  {/* Signature space */}
-                </div>
-                <div className="w-36 border-t border-gray-400 mb-1 ml-auto" />
+              <div className="text-right bg-white">
                 <p className="text-xs text-gray-500">{validUntilText[language]}</p>
-                <p className="text-sm font-semibold text-gray-700">
+                <p className="text-sm font-semibold text-gray-700 mb-2">
                   {format(new Date(certificate.expires_at), "dd MMMM yyyy", { locale: dateLocale })}
                 </p>
+                {/* Empty space for alignment */}
+                <div className="h-12 w-40 mb-1 ml-auto">
+                  {/* Space for alignment */}
+                </div>
+                <div className="w-40 border-t border-gray-400 mb-1 ml-auto" />
+                <p className="text-xs font-semibold text-gray-700">E. Rossik Transport</p>
+                <p className="text-[10px] text-gray-500">& Logistics GmbH</p>
               </div>
             </div>
           </div>
