@@ -343,14 +343,14 @@ export function OfficialDiploma({ certificate, open, onOpenChange }: OfficialDip
             <div className="flex justify-between items-end">
               {/* Left: Issue Info & Signature Space */}
               <div className="text-left bg-white">
-                <p className="text-xs text-gray-500">{issuedOnText[language]}</p>
-                <p className="text-sm font-semibold text-gray-700 mb-2">
-                  {format(new Date(certificate.issued_at), "dd MMMM yyyy", { locale: dateLocale })}
-                </p>
                 {/* Empty space for manual signature */}
-                <div className="h-12 w-40 mb-1">
+                <div className="h-10 w-40 mb-1">
                   {/* Signature space - left empty for manual signing */}
                 </div>
+                <p className="text-xs text-gray-500">{issuedOnText[language]}</p>
+                <p className="text-sm font-semibold text-gray-700 mb-1">
+                  {format(new Date(certificate.issued_at), "dd MMMM yyyy", { locale: dateLocale })}
+                </p>
                 <div className="w-40 border-t border-gray-400 mb-1" />
                 <p className="text-xs font-semibold text-gray-700">Alexandru I. Moldovan</p>
                 <p className="text-[10px] text-gray-500">Chief Development Officer</p>
@@ -359,9 +359,9 @@ export function OfficialDiploma({ certificate, open, onOpenChange }: OfficialDip
               {/* Center: QR Code & Certificate Number */}
               <div className="text-center flex flex-col items-center bg-white px-2">
                 {qrCodeDataUrl ? (
-                  <img src={qrCodeDataUrl} alt="Verification QR" className="w-14 h-14 mb-1" />
+                  <img src={qrCodeDataUrl} alt="Verification QR" className="w-20 h-20 mb-1" />
                 ) : (
-                  <div className="w-14 h-14 border-2 border-dashed border-gray-300 flex items-center justify-center mb-1">
+                  <div className="w-20 h-20 border-2 border-dashed border-gray-300 flex items-center justify-center mb-1">
                     <span className="text-[8px] text-gray-400">QR</span>
                   </div>
                 )}
