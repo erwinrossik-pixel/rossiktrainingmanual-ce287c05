@@ -151,9 +151,9 @@ export function OfficialDiploma({ certificate, open, onOpenChange }: OfficialDip
   };
 
   const programTitle = {
-    ro: "Manual de Formare în Expediție de Mărfuri",
-    de: "Ausbildungshandbuch für Spedition",
-    en: "Freight Forwarding Training Manual"
+    ro: "Formare în Expediție de Mărfuri",
+    de: "Ausbildung für Spedition",
+    en: "Freight Forwarding Training"
   };
 
   const validUntilText = {
