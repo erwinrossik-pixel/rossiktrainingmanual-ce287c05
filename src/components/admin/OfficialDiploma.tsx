@@ -357,7 +357,7 @@ export function OfficialDiploma({ certificate, open, onOpenChange }: OfficialDip
               </div>
 
               {/* Center: QR Code & Certificate Number */}
-              <div className="text-center flex flex-col items-center bg-white px-2">
+              <div className="text-center flex flex-col items-center justify-end bg-white px-2">
                 {qrCodeDataUrl ? (
                   <img src={qrCodeDataUrl} alt="Verification QR" className="w-20 h-20 mb-1" />
                 ) : (
