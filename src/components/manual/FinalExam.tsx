@@ -188,6 +188,119 @@ export function FinalExam({ onComplete, onBack }: FinalExamProps) {
     }
   }, [startTime, examCompleted, timeExpired]);
 
+  // Function to auto-generate certificate when user passes the exam
+  const generateCertificateForPassedExam = async (userId: string, examPercentage: number, timeSpentSeconds: number) => {
+    try {
+      console.log('Auto-generating certificate for passed exam...');
+      
+      // Check if user already has a valid certificate
+      const { data: existingCert } = await supabase
+        .from('certificates')
+        .select('id, certificate_code')
+        .eq('user_id', userId)
+        .eq('is_revoked', false)
+        .gt('expires_at', new Date().toISOString())
+        .order('issued_at', { ascending: false })
+        .limit(1)
+        .maybeSingle();
+      
+      if (existingCert) {
+        console.log('User already has a valid certificate:', existingCert.certificate_code);
+        return;
+      }
+      
+      // Get user profile for trainee name
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('first_name, last_name, email')
+        .eq('id', userId)
+        .maybeSingle();
+      
+      const traineeName = profile?.first_name && profile?.last_name 
+        ? `${profile.first_name} ${profile.last_name}` 
+        : profile?.email?.split('@')[0] || 'Trainee';
+      
+      // Get chapter progress stats
+      const { data: chapterProgress } = await supabase
+        .from('chapter_progress')
+        .select('chapter_id, best_score, status')
+        .eq('user_id', userId);
+      
+      const completedChapters = chapterProgress?.filter(c => c.status === 'completed').length || 0;
+      const quizzesPassed = chapterProgress?.filter(c => (c.best_score || 0) >= 9).length || 0;
+      const avgScore = chapterProgress?.length 
+        ? chapterProgress.reduce((sum, c) => sum + (c.best_score || 0), 0) / chapterProgress.length 
+        : 0;
+      
+      // Get total training time
+      const { data: trainingSessions } = await supabase
+        .from('training_sessions')
+        .select('duration_minutes')
+        .eq('user_id', userId);
+      
+      const totalTrainingMinutes = trainingSessions?.reduce((sum, s) => sum + (s.duration_minutes || 0), 0) || 0;
+      const totalTrainingHours = Math.round((totalTrainingMinutes / 60) * 10) / 10;
+      
+      // Generate unique certificate code
+      const { data: codeData, error: codeError } = await supabase.rpc('generate_certificate_code');
+      
+      if (codeError || !codeData) {
+        console.error('Failed to generate certificate code:', codeError);
+        return;
+      }
+      
+      const certificateCode = codeData as string;
+      const issuedAt = new Date();
+      const expiresAt = new Date(issuedAt);
+      expiresAt.setFullYear(expiresAt.getFullYear() + 2); // Valid for 2 years
+      
+      // Get the latest exam attempt ID for linking
+      const { data: latestExamAttempt } = await supabase
+        .from('final_exam_attempts')
+        .select('id')
+        .eq('user_id', userId)
+        .eq('passed', true)
+        .order('completed_at', { ascending: false })
+        .limit(1)
+        .maybeSingle();
+      
+      // Insert certificate record
+      const { error: insertError } = await supabase
+        .from('certificates')
+        .insert({
+          user_id: userId,
+          certificate_code: certificateCode,
+          trainee_name: traineeName,
+          issued_at: issuedAt.toISOString(),
+          expires_at: expiresAt.toISOString(),
+          chapters_completed: completedChapters,
+          quizzes_passed: quizzesPassed,
+          average_score: avgScore,
+          total_training_hours: totalTrainingHours,
+          final_exam_score: examPercentage,
+          final_exam_passed_at: new Date().toISOString(),
+          final_exam_attempt_id: latestExamAttempt?.id || null,
+        });
+      
+      if (insertError) {
+        console.error('Failed to create certificate:', insertError);
+        return;
+      }
+      
+      console.log('Certificate auto-generated successfully:', certificateCode);
+      toast({
+        title: language === 'ro' ? '🎓 Certificat generat!' : language === 'de' ? '🎓 Zertifikat erstellt!' : '🎓 Certificate generated!',
+        description: language === 'ro' 
+          ? `Felicitări! Certificatul tău (${certificateCode}) a fost creat automat.` 
+          : language === 'de' 
+            ? `Herzlichen Glückwunsch! Ihr Zertifikat (${certificateCode}) wurde automatisch erstellt.`
+            : `Congratulations! Your certificate (${certificateCode}) has been automatically created.`,
+      });
+    } catch (error) {
+      console.error('Error generating certificate:', error);
+    }
+  };
+
   // Centralized save function to ensure exam data is always saved
   const saveExamResult = async (finalScore: number, finalWrongAnswers: typeof wrongAnswers) => {
     if (!user || hasSaved || savedRef.current) {
@@ -252,6 +365,12 @@ export function FinalExam({ onComplete, onBack }: FinalExamProps) {
           savedRef.current = true;
           setHasSaved(true);
           console.log('Final exam result saved successfully');
+          
+          // Auto-generate certificate if user passed the exam
+          if (hasPassed) {
+            await generateCertificateForPassedExam(user.id, finalPercentage, timeSpent);
+          }
+          
           toast({
             title: language === 'ro' ? '✅ Examen salvat!' : language === 'de' ? '✅ Prüfung gespeichert!' : '✅ Exam saved!',
             description: language === 'ro' ? 'Rezultatul tău a fost înregistrat cu succes.' : language === 'de' ? 'Ihr Ergebnis wurde erfolgreich aufgezeichnet.' : 'Your result has been successfully recorded.',

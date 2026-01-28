@@ -388,6 +388,9 @@ export type Database = {
           chapters_completed: number
           created_at: string | null
           expires_at: string
+          final_exam_attempt_id: string | null
+          final_exam_passed_at: string | null
+          final_exam_score: number | null
           id: string
           is_revoked: boolean | null
           issued_at: string
@@ -407,6 +410,9 @@ export type Database = {
           chapters_completed: number
           created_at?: string | null
           expires_at: string
+          final_exam_attempt_id?: string | null
+          final_exam_passed_at?: string | null
+          final_exam_score?: number | null
           id?: string
           is_revoked?: boolean | null
           issued_at?: string
@@ -426,6 +432,9 @@ export type Database = {
           chapters_completed?: number
           created_at?: string | null
           expires_at?: string
+          final_exam_attempt_id?: string | null
+          final_exam_passed_at?: string | null
+          final_exam_score?: number | null
           id?: string
           is_revoked?: boolean | null
           issued_at?: string
@@ -439,7 +448,15 @@ export type Database = {
           updated_at?: string | null
           user_id?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "certificates_final_exam_attempt_id_fkey"
+            columns: ["final_exam_attempt_id"]
+            isOneToOne: false
+            referencedRelation: "final_exam_attempts"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       challenge_participants: {
         Row: {
