@@ -306,26 +306,27 @@ export function FinalExam({ onComplete, onBack }: FinalExamProps) {
       // Save to database
       if (user) {
         setIsSaving(true);
+        const finalPercentage = Math.round((finalScore / examQuestions.length) * 100);
+        const hasPassed = finalPercentage >= PASSING_SCORE;
+        
         try {
-          // Save final exam result
-          const { error } = await supabase
-            .from('certificates')
-            .upsert({
+          // Save final exam attempt to dedicated table
+          const { error: attemptError } = await supabase
+            .from('final_exam_attempts')
+            .insert({
               user_id: user.id,
-              trainee_name: user.email || 'User',
-              certificate_code: `FINAL-${Date.now()}-${user.id.slice(0, 8)}`,
-              average_score: finalScore,
-              chapters_completed: 50,
-              quizzes_passed: 50,
-              total_training_hours: Math.round(elapsedTime / 3600 * 10) / 10,
-              issued_at: new Date().toISOString(),
-              expires_at: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString(),
-            }, {
-              onConflict: 'user_id'
+              score: finalScore,
+              total_questions: examQuestions.length,
+              percentage: finalPercentage,
+              passed: hasPassed,
+              time_spent_seconds: elapsedTime,
+              wrong_answers: wrongAnswers,
+              started_at: startTime.toISOString(),
+              completed_at: new Date().toISOString(),
             });
             
-          if (error) {
-            console.error('Error saving final exam:', error);
+          if (attemptError) {
+            console.error('Error saving final exam attempt:', attemptError);
           } else {
             toast({
               title: language === 'ro' ? 'Examen salvat!' : language === 'de' ? 'Prüfung gespeichert!' : 'Exam saved!',

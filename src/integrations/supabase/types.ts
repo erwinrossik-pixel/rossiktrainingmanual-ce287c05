@@ -1553,6 +1553,48 @@ export type Database = {
         }
         Relationships: []
       }
+      final_exam_attempts: {
+        Row: {
+          completed_at: string
+          created_at: string
+          id: string
+          passed: boolean
+          percentage: number
+          score: number
+          started_at: string
+          time_spent_seconds: number | null
+          total_questions: number
+          user_id: string
+          wrong_answers: Json | null
+        }
+        Insert: {
+          completed_at?: string
+          created_at?: string
+          id?: string
+          passed: boolean
+          percentage: number
+          score: number
+          started_at: string
+          time_spent_seconds?: number | null
+          total_questions?: number
+          user_id: string
+          wrong_answers?: Json | null
+        }
+        Update: {
+          completed_at?: string
+          created_at?: string
+          id?: string
+          passed?: boolean
+          percentage?: number
+          score?: number
+          started_at?: string
+          time_spent_seconds?: number | null
+          total_questions?: number
+          user_id?: string
+          wrong_answers?: Json | null
+        }
+        Relationships: []
+      }
       governance_incidents: {
         Row: {
           chapter_id: string | null

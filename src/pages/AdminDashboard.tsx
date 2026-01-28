@@ -44,6 +44,7 @@ import { SubscriptionCard } from '@/components/subscription';
 import { StandardsComplianceDashboard } from '@/components/admin/StandardsComplianceDashboard';
 import { ContentGovernorDashboard } from '@/components/admin/ContentGovernorDashboard';
 import { QuizAnalyticsDashboard } from '@/components/admin/QuizAnalyticsDashboard';
+import { FinalExamResults } from '@/components/admin/FinalExamResults';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import NotificationCenter from '@/components/NotificationCenter';
@@ -721,6 +722,11 @@ export default function AdminDashboard() {
               {t('admin.tab.certificates')}
             </TabsTrigger>
             
+            <TabsTrigger value="final-exam-results" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-rose-700 data-[state=active]:border-b-2 data-[state=active]:border-rose-500">
+              <Trophy className="h-4 w-4" />
+              {t('admin.tab.finalExamResults')}
+            </TabsTrigger>
+            
             {/* ═══════════════════════════════════════════════════════════════════
                 CATEGORIA 5: CONȚINUT & GUVERNANȚĂ
             ═══════════════════════════════════════════════════════════════════ */}
@@ -974,6 +980,10 @@ export default function AdminDashboard() {
 
           <TabsContent value="certificates" className="mt-6">
             <CertificatesDashboard />
+          </TabsContent>
+
+          <TabsContent value="final-exam-results" className="mt-6">
+            <FinalExamResults />
           </TabsContent>
 
           <TabsContent value="realtime" className="mt-6">
