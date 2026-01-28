@@ -9,6 +9,7 @@ import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import QRCode from "qrcode";
 import { toast } from "sonner";
+import rossikLogo from "@/assets/rossik-logo.jpg";
 
 interface OfficialDiplomaProps {
   certificate: {
@@ -23,6 +24,8 @@ interface OfficialDiplomaProps {
     total_training_hours: number;
     final_exam_score?: number;
     final_exam_passed_at?: string;
+    total_quiz_questions?: number;
+    chapter_pass_rate?: number;
   };
   open: boolean;
   onOpenChange: (open: boolean) => void;
@@ -228,10 +231,19 @@ export function OfficialDiploma({ certificate, open, onOpenChange }: OfficialDip
             </div>
           </div>
 
+          {/* Company Logo - Top Left */}
+          <div className="absolute top-10 left-12">
+            <img 
+              src={rossikLogo} 
+              alt="E. Rossik Transport & Logistics GmbH" 
+              className="h-16 w-auto object-contain"
+            />
+          </div>
+
           {/* Header */}
           <div className="text-center mt-8 mb-6">
             <p className="text-sm text-gray-500 uppercase tracking-[0.4em] font-medium mb-2">
-              Rossik Transport & Logistic SRL
+              E. Rossik Transport & Logistics GmbH
             </p>
             <h1 className="text-4xl font-serif font-bold text-gray-800 tracking-wide">
               {diplomaTitle[language]}
@@ -257,30 +269,30 @@ export function OfficialDiploma({ certificate, open, onOpenChange }: OfficialDip
           </div>
 
           {/* Achievement Stats */}
-          <div className="flex justify-center gap-8 my-6">
-            <div className="text-center px-6 py-3 bg-gradient-to-b from-amber-50 to-amber-100/50 rounded-lg border border-amber-200">
-              <p className="text-3xl font-bold text-amber-700">{certificate.chapters_completed}</p>
-              <p className="text-xs text-gray-600 uppercase tracking-wide">
-                {language === 'ro' ? 'Capitole' : language === 'de' ? 'Kapitel' : 'Chapters'}
+          <div className="flex justify-center gap-4 my-6 flex-wrap">
+            <div className="text-center px-4 py-3 bg-gradient-to-b from-amber-50 to-amber-100/50 rounded-lg border border-amber-200">
+              <p className="text-2xl font-bold text-amber-700">50</p>
+              <p className="text-[10px] text-gray-600 uppercase tracking-wide">
+                {language === 'ro' ? 'Capitole Parcurse' : language === 'de' ? 'Kapitel Abgeschlossen' : 'Chapters Completed'}
               </p>
             </div>
-            <div className="text-center px-6 py-3 bg-gradient-to-b from-green-50 to-green-100/50 rounded-lg border border-green-200">
-              <p className="text-3xl font-bold text-green-700">{certificate.quizzes_passed}</p>
-              <p className="text-xs text-gray-600 uppercase tracking-wide">
-                {language === 'ro' ? 'Quizuri' : language === 'de' ? 'Quiz' : 'Quizzes'}
+            <div className="text-center px-4 py-3 bg-gradient-to-b from-green-50 to-green-100/50 rounded-lg border border-green-200">
+              <p className="text-2xl font-bold text-green-700">{certificate.total_quiz_questions || (certificate.quizzes_passed * 10)}</p>
+              <p className="text-[10px] text-gray-600 uppercase tracking-wide">
+                {language === 'ro' ? 'Întrebări Quiz' : language === 'de' ? 'Quiz-Fragen' : 'Quiz Questions'}
               </p>
             </div>
-            <div className="text-center px-6 py-3 bg-gradient-to-b from-blue-50 to-blue-100/50 rounded-lg border border-blue-200">
-              <p className="text-3xl font-bold text-blue-700">{Math.round(certificate.average_score)}%</p>
-              <p className="text-xs text-gray-600 uppercase tracking-wide">
-                {language === 'ro' ? 'Scor Mediu' : language === 'de' ? 'Durchschnitt' : 'Avg Score'}
+            <div className="text-center px-4 py-3 bg-gradient-to-b from-blue-50 to-blue-100/50 rounded-lg border border-blue-200">
+              <p className="text-2xl font-bold text-blue-700">{certificate.chapter_pass_rate ? Math.round(certificate.chapter_pass_rate) : Math.round(certificate.average_score * 10)}%</p>
+              <p className="text-[10px] text-gray-600 uppercase tracking-wide">
+                {language === 'ro' ? 'Rată Promovare' : language === 'de' ? 'Bestehensquote' : 'Pass Rate'}
               </p>
             </div>
             {certificate.final_exam_score && (
-              <div className="text-center px-6 py-3 bg-gradient-to-b from-purple-50 to-purple-100/50 rounded-lg border border-purple-200">
-                <p className="text-3xl font-bold text-purple-700">{Math.round(certificate.final_exam_score)}%</p>
-                <p className="text-xs text-gray-600 uppercase tracking-wide">
-                  {language === 'ro' ? 'Examen Final' : language === 'de' ? 'Abschlussprüfung' : 'Final Exam'}
+              <div className="text-center px-4 py-3 bg-gradient-to-b from-purple-50 to-purple-100/50 rounded-lg border border-purple-200">
+                <p className="text-2xl font-bold text-purple-700">{Math.round(certificate.final_exam_score)}/100</p>
+                <p className="text-[10px] text-gray-600 uppercase tracking-wide">
+                  {language === 'ro' ? 'Puncte Examen Final' : language === 'de' ? 'Abschlussprüfung Punkte' : 'Final Exam Points'}
                 </p>
               </div>
             )}
@@ -320,14 +332,34 @@ export function OfficialDiploma({ certificate, open, onOpenChange }: OfficialDip
           {/* Footer Section */}
           <div className="absolute bottom-10 left-0 right-0 px-16">
             <div className="flex justify-between items-end">
-              {/* Left: Issue Info */}
+              {/* Left: Issue Info & Signature */}
               <div className="text-left">
                 <p className="text-xs text-gray-500">{issuedOnText[language]}</p>
                 <p className="text-sm font-semibold text-gray-700">
                   {format(new Date(certificate.issued_at), "dd MMMM yyyy", { locale: dateLocale })}
                 </p>
-                <div className="w-32 border-t border-gray-400 mt-8 mb-1" />
-                <p className="text-xs text-gray-500">Training Director</p>
+                {/* Signature */}
+                <div className="mt-4 mb-1">
+                  <svg viewBox="0 0 200 50" className="w-32 h-10">
+                    <path 
+                      d="M10,35 Q25,10 40,30 T70,25 Q85,20 100,30 T130,25 Q145,20 160,35 L170,30 Q175,28 180,32" 
+                      fill="none" 
+                      stroke="#1a365d" 
+                      strokeWidth="2" 
+                      strokeLinecap="round"
+                    />
+                    <path 
+                      d="M40,40 L50,38 M100,38 L110,42" 
+                      fill="none" 
+                      stroke="#1a365d" 
+                      strokeWidth="1.5" 
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                </div>
+                <div className="w-36 border-t border-gray-400 mb-1" />
+                <p className="text-xs font-semibold text-gray-700">Alexandru I. Moldovan</p>
+                <p className="text-[10px] text-gray-500">Chief Development Officer</p>
               </div>
 
               {/* Center: QR Code & Certificate Number */}
