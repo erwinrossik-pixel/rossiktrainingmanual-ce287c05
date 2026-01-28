@@ -12,7 +12,7 @@ import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { ArrowLeft, Users, BookOpen, Trophy, Clock, Eye, Download, BarChart3, RefreshCw, RotateCcw, Unlock, Shield, Activity, Timer, TrendingUp, Calendar, TimerReset, FileSearch, Award, Bell, BellOff, Radio, Building2, CreditCard, Server, Database, AlertTriangle, CheckCircle, Lock, Target, Network, Gamepad2, Globe } from 'lucide-react';
+import { ArrowLeft, Users, BookOpen, Trophy, Clock, Eye, Download, BarChart3, RefreshCw, RotateCcw, Unlock, Shield, Activity, Timer, TrendingUp, Calendar, TimerReset, FileSearch, Award, Bell, BellOff, Radio, Building2, CreditCard, Server, Database, AlertTriangle, CheckCircle, Lock, Target, Network, Gamepad2, Globe, Zap } from 'lucide-react';
 import { toast } from 'sonner';
 import { GovernanceDashboard } from '@/components/admin/GovernanceDashboard';
 import { format, subDays } from 'date-fns';
@@ -45,6 +45,7 @@ import { StandardsComplianceDashboard } from '@/components/admin/StandardsCompli
 import { ContentGovernorDashboard } from '@/components/admin/ContentGovernorDashboard';
 import { QuizAnalyticsDashboard } from '@/components/admin/QuizAnalyticsDashboard';
 import { FinalExamResults } from '@/components/admin/FinalExamResults';
+import { QuizResetManager } from '@/components/admin/QuizResetManager';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import NotificationCenter from '@/components/NotificationCenter';
@@ -668,6 +669,11 @@ export default function AdminDashboard() {
               {t('admin.tab.quizAnalytics')}
             </TabsTrigger>
             
+            <TabsTrigger value="quiz-resets" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-red-700 data-[state=active]:border-b-2 data-[state=active]:border-red-500">
+              <Zap className="h-4 w-4" />
+              {t('admin.tab.quizResets') || 'Resetări Quiz'}
+            </TabsTrigger>
+            
             <TabsTrigger value="analytics" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-violet-700 data-[state=active]:border-b-2 data-[state=active]:border-violet-500">
               <BarChart3 className="h-4 w-4" />
               {t('admin.tab.charts')}
@@ -1000,6 +1006,10 @@ export default function AdminDashboard() {
 
           <TabsContent value="quiz-analytics" className="mt-6">
             <QuizAnalyticsDashboard />
+          </TabsContent>
+
+          <TabsContent value="quiz-resets" className="mt-6">
+            <QuizResetManager />
           </TabsContent>
 
           <TabsContent value="competency-matrix" className="mt-6">

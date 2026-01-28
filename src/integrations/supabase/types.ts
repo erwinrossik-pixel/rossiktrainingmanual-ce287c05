@@ -650,8 +650,12 @@ export type Database = {
           chapter_id: string
           completed_at: string | null
           created_at: string
+          difficulty_level: number | null
           id: string
           last_attempt_at: string | null
+          last_reset_at: string | null
+          last_reset_by: string | null
+          reset_count: number | null
           status: string
           updated_at: string
           user_id: string
@@ -662,8 +666,12 @@ export type Database = {
           chapter_id: string
           completed_at?: string | null
           created_at?: string
+          difficulty_level?: number | null
           id?: string
           last_attempt_at?: string | null
+          last_reset_at?: string | null
+          last_reset_by?: string | null
+          reset_count?: number | null
           status?: string
           updated_at?: string
           user_id: string
@@ -674,8 +682,12 @@ export type Database = {
           chapter_id?: string
           completed_at?: string | null
           created_at?: string
+          difficulty_level?: number | null
           id?: string
           last_attempt_at?: string | null
+          last_reset_at?: string | null
+          last_reset_by?: string | null
+          reset_count?: number | null
           status?: string
           updated_at?: string
           user_id?: string
@@ -2394,6 +2406,48 @@ export type Database = {
           },
         ]
       }
+      quiz_reset_history: {
+        Row: {
+          chapter_id: string
+          created_at: string | null
+          difficulty_after: number | null
+          difficulty_before: number | null
+          id: string
+          previous_attempts: number | null
+          previous_score: number | null
+          reset_at: string | null
+          reset_by: string
+          reset_reason: string | null
+          user_id: string
+        }
+        Insert: {
+          chapter_id: string
+          created_at?: string | null
+          difficulty_after?: number | null
+          difficulty_before?: number | null
+          id?: string
+          previous_attempts?: number | null
+          previous_score?: number | null
+          reset_at?: string | null
+          reset_by: string
+          reset_reason?: string | null
+          user_id: string
+        }
+        Update: {
+          chapter_id?: string
+          created_at?: string | null
+          difficulty_after?: number | null
+          difficulty_before?: number | null
+          id?: string
+          previous_attempts?: number | null
+          previous_score?: number | null
+          reset_at?: string | null
+          reset_by?: string
+          reset_reason?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       quiz_sessions: {
         Row: {
           chapter_id: string
@@ -3841,6 +3895,14 @@ export type Database = {
       }
     }
     Functions: {
+      admin_reset_quiz: {
+        Args: {
+          p_chapter_id: string
+          p_reset_reason?: string
+          p_user_id: string
+        }
+        Returns: Json
+      }
       calculate_engagement_score: {
         Args: {
           p_chapters: number
@@ -3883,6 +3945,10 @@ export type Database = {
           timezone: string
           welcome_message: string
         }[]
+      }
+      get_quiz_difficulty: {
+        Args: { p_chapter_id: string; p_user_id: string }
+        Returns: number
       }
       get_user_company_id: { Args: { _user_id: string }; Returns: string }
       get_user_company_role: {
