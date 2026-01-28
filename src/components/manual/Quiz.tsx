@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo, useRef } from "react";
-import { CheckCircle2, XCircle, RotateCcw, Trophy, ChevronRight, Shuffle, Lock, Unlock, AlertTriangle, ChevronDown, ChevronUp, BookOpen, Bookmark, BookmarkCheck } from "lucide-react";
+import { CheckCircle2, XCircle, RotateCcw, Trophy, ChevronRight, Shuffle, Lock, Unlock, AlertTriangle, ChevronDown, ChevronUp, BookOpen, Bookmark, BookmarkCheck, Zap } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useProgressContext } from "@/contexts/ProgressContext";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -7,14 +7,23 @@ import { useAuth } from "@/hooks/useAuth";
 import { useChapterProgress } from "@/hooks/useChapterProgress";
 import { useBookmarks } from "@/hooks/useBookmarks";
 import { useQuizTracking } from "@/hooks/useQuizTracking";
+import { useQuizDifficulty } from "@/hooks/useQuizDifficulty";
 import { quizTranslations, TranslatedQuizQuestion } from "@/data/quizTranslations";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 
 interface QuizQuestion {
   question: string;
   options: string[];
   correctIndex: number;
   explanation: string;
+}
+
+interface EnhancedQuizQuestion extends QuizQuestion {
+  isMultiCorrect: boolean;
+  correctIndices: number[];
+  originalOptions: string[];
+  difficultyModifier: string | null;
 }
 
 interface QuizProps {
@@ -34,7 +43,7 @@ function shuffleArray<T>(array: T[]): T[] {
   return shuffled;
 }
 
-const PASSING_SCORE = 9;
+const DEFAULT_PASSING_SCORE = 9;
 const QUESTIONS_PER_ROUND = 10;
 
 export function Quiz({ title, questions, chapterId, questionsPerRound = QUESTIONS_PER_ROUND }: QuizProps) {
@@ -43,6 +52,7 @@ export function Quiz({ title, questions, chapterId, questionsPerRound = QUESTION
   const { recordQuizAttempt, getBestScore, getChapterStatus, PASSING_SCORE: dbPassingScore } = useChapterProgress();
   const { isBookmarked, toggleBookmark } = useBookmarks();
   const { startQuizSession, completeQuizSession, recordQuestionPerformance } = useQuizTracking();
+  const { difficulty, resetCount, config, applyDifficulty, getPassingScore, isLoading: difficultyLoading } = useQuizDifficulty(chapterId);
   
   // Track session and answered questions for analytics
   const sessionIdRef = useRef<string | null>(null);
@@ -69,29 +79,33 @@ export function Quiz({ title, questions, chapterId, questionsPerRound = QUESTION
   // Use 10 questions per round (or less if not enough available)
   const actualQuestionsPerRound = Math.min(questionsPerRound, translatedQuestions.length);
   
-  // Shuffle questions and limit to questionsPerRound
-  const [shuffledQuestions, setShuffledQuestions] = useState<QuizQuestion[]>([]);
+  // Calculate dynamic passing score based on difficulty
+  const PASSING_SCORE = getPassingScore(actualQuestionsPerRound, config);
+  
+  // Shuffle questions and apply difficulty
+  const [shuffledQuestions, setShuffledQuestions] = useState<EnhancedQuizQuestion[]>([]);
   const [quizRound, setQuizRound] = useState(0);
   
   // Start a quiz session when questions are shuffled
   useEffect(() => {
-    const shuffled = shuffleArray(translatedQuestions).slice(0, actualQuestionsPerRound);
-    setShuffledQuestions(shuffled);
+    const baseShuffled = shuffleArray(translatedQuestions).slice(0, actualQuestionsPerRound);
+    const enhanced = applyDifficulty(baseShuffled, config);
+    setShuffledQuestions(enhanced);
     
     // Reset tracking for new round
     questionsAnsweredRef.current = [];
     
     // Start session tracking for logged-in users
-    if (user && chapterId && shuffled.length > 0) {
-      const questionTexts = shuffled.map(q => q.question);
+    if (user && chapterId && baseShuffled.length > 0) {
+      const questionTexts = baseShuffled.map(q => q.question);
       startQuizSession(chapterId, language, questionTexts).then(id => {
         sessionIdRef.current = id;
       });
     }
-  }, [translatedQuestions, actualQuestionsPerRound, quizRound, user, chapterId, language, startQuizSession]);
+  }, [translatedQuestions, actualQuestionsPerRound, quizRound, user, chapterId, language, startQuizSession, config, applyDifficulty]);
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
+  const [selectedAnswers, setSelectedAnswers] = useState<number[]>([]);
   const [showResult, setShowResult] = useState(false);
   const [score, setScore] = useState(0);
   const [answeredQuestions, setAnsweredQuestions] = useState<boolean[]>([]);
@@ -111,6 +125,7 @@ export function Quiz({ title, questions, chapterId, questionsPerRound = QUESTION
   // Initialize answered questions array when shuffled questions change
   useEffect(() => {
     setAnsweredQuestions(new Array(shuffledQuestions.length).fill(false));
+    setSelectedAnswers([]);
   }, [shuffledQuestions.length]);
 
   const question = shuffledQuestions[currentQuestion];
@@ -122,52 +137,100 @@ export function Quiz({ title, questions, chapterId, questionsPerRound = QUESTION
   const isChapterCompleted = dbStatus === 'completed';
 
   const handleAnswer = (index: number) => {
-    // GUARD: Prevent submission without valid selection
-    if (typeof index !== 'number' || index < 0 || !question || answeredQuestions[currentQuestion]) return;
+    if (!question || answeredQuestions[currentQuestion]) return;
     
-    setSelectedAnswer(index);
+    if (question.isMultiCorrect) {
+      // Multi-select mode
+      setSelectedAnswers(prev => {
+        if (prev.includes(index)) {
+          return prev.filter(i => i !== index);
+        }
+        // Max 2 selections for multi-correct
+        if (prev.length >= 2) {
+          return [...prev.slice(1), index];
+        }
+        return [...prev, index];
+      });
+    } else {
+      // Single select mode - submit immediately
+      setSelectedAnswers([index]);
+      submitAnswer([index]);
+    }
+  };
+
+  const submitAnswer = (answers: number[]) => {
+    if (!question || answeredQuestions[currentQuestion]) return;
+    
     setShowResult(true);
     
     const newAnswered = [...answeredQuestions];
     newAnswered[currentQuestion] = true;
     setAnsweredQuestions(newAnswered);
     
-    const isCorrect = index === question.correctIndex;
+    let isCorrect = false;
+    
+    if (question.isMultiCorrect) {
+      // Check if selected answers match all correct indices
+      const sortedSelected = [...answers].sort((a, b) => a - b);
+      const sortedCorrect = [...question.correctIndices].sort((a, b) => a - b);
+      isCorrect = sortedSelected.length === sortedCorrect.length &&
+        sortedSelected.every((val, idx) => val === sortedCorrect[idx]);
+    } else {
+      isCorrect = answers[0] === question.correctIndex;
+    }
     
     // Track answer for analytics
     questionsAnsweredRef.current.push({
       questionText: question.question,
       wasCorrect: isCorrect,
-      userAnswerIndex: index,
+      userAnswerIndex: answers[0] ?? null,
       correctAnswerIndex: question.correctIndex,
     });
     
     if (isCorrect) {
-      setScore(score + 1);
+      setScore(prev => prev + 1);
     } else {
       // Track wrong answer for UI display
+      const userAnswerText = question.isMultiCorrect
+        ? answers.map(i => question.options[i]).join(', ')
+        : question.options[answers[0]];
+      const correctAnswerText = question.isMultiCorrect
+        ? question.correctIndices.map(i => question.options[i]).join(', ')
+        : question.options[question.correctIndex];
+      
       setWrongAnswers(prev => [...prev, {
         question: question.question,
-        userAnswer: question.options[index],
-        correctAnswer: question.options[question.correctIndex],
+        userAnswer: userAnswerText,
+        correctAnswer: correctAnswerText,
         explanation: question.explanation,
         questionIndex: currentQuestion + 1
       }]);
     }
   };
 
+  const handleSubmitMultiCorrect = () => {
+    if (question?.isMultiCorrect && selectedAnswers.length > 0) {
+      submitAnswer(selectedAnswers);
+    }
+  };
+
   const handleNext = async () => {
     if (currentQuestion < shuffledQuestions.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
-      setSelectedAnswer(null);
+      setSelectedAnswers([]);
       setShowResult(false);
     } else {
-      const finalScore = score + (selectedAnswer === question?.correctIndex ? 1 : 0);
+      // Calculate final score
+      let finalCorrect = 0;
+      questionsAnsweredRef.current.forEach(q => {
+        if (q.wasCorrect) finalCorrect++;
+      });
+      
       setQuizCompleted(true);
       
       // Save to localStorage (for guests)
       if (chapterId) {
-        saveQuizScore(chapterId, finalScore, shuffledQuestions.length);
+        saveQuizScore(chapterId, finalCorrect, shuffledQuestions.length);
       }
       
       // Save to database (for logged in users)
@@ -175,14 +238,14 @@ export function Quiz({ title, questions, chapterId, questionsPerRound = QUESTION
         setIsRecording(true);
         
         // Record the attempt
-        const attemptResult = await recordQuizAttempt(chapterId, finalScore, language);
+        await recordQuizAttempt(chapterId, finalCorrect, language);
         
         // Complete the session and record question performance
         await completeQuizSession(sessionIdRef.current || undefined);
         await recordQuestionPerformance(
           chapterId,
           language,
-          null, // We don't have attempt ID from recordQuizAttempt
+          null,
           questionsAnsweredRef.current
         );
         
@@ -192,9 +255,9 @@ export function Quiz({ title, questions, chapterId, questionsPerRound = QUESTION
   };
 
   const handleRestart = () => {
-    setQuizRound(prev => prev + 1); // Trigger new shuffle
+    setQuizRound(prev => prev + 1);
     setCurrentQuestion(0);
-    setSelectedAnswer(null);
+    setSelectedAnswers([]);
     setShowResult(false);
     setScore(0);
     setQuizCompleted(false);
@@ -203,9 +266,9 @@ export function Quiz({ title, questions, chapterId, questionsPerRound = QUESTION
   };
 
   const handleNewQuestions = () => {
-    setQuizRound(prev => prev + 1); // Trigger new shuffle with different questions
+    setQuizRound(prev => prev + 1);
     setCurrentQuestion(0);
-    setSelectedAnswer(null);
+    setSelectedAnswers([]);
     setShowResult(false);
     setScore(0);
     setAnsweredQuestions([]);
@@ -239,9 +302,23 @@ export function Quiz({ title, questions, chapterId, questionsPerRound = QUESTION
     return null;
   }
 
-  const finalScore = quizCompleted ? score : score + (selectedAnswer === question?.correctIndex ? 1 : 0);
+  // Calculate final score from tracked answers
+  const calculateFinalScore = () => {
+    return questionsAnsweredRef.current.filter(q => q.wasCorrect).length;
+  };
+
+  const finalScore = quizCompleted ? calculateFinalScore() : score;
   const passed = finalScore >= PASSING_SCORE;
   const percentage = Math.round((finalScore / shuffledQuestions.length) * 100);
+
+  // Difficulty indicator label
+  const difficultyLabel = {
+    1: { ro: 'Normal', de: 'Normal', en: 'Normal', color: 'bg-green-500/20 text-green-600' },
+    2: { ro: 'Greu', de: 'Schwer', en: 'Hard', color: 'bg-yellow-500/20 text-yellow-600' },
+    3: { ro: 'Foarte Greu', de: 'Sehr Schwer', en: 'Very Hard', color: 'bg-orange-500/20 text-orange-600' },
+    4: { ro: 'Expert', de: 'Experte', en: 'Expert', color: 'bg-red-500/20 text-red-600' },
+    5: { ro: 'Maxim', de: 'Maximum', en: 'Maximum', color: 'bg-purple-500/20 text-purple-600' }
+  };
 
   // Labels based on language
   const labels = {
@@ -283,6 +360,10 @@ export function Quiz({ title, questions, chapterId, questionsPerRound = QUESTION
     allCorrect: language === 'ro' ? 'Felicitări! Ai răspuns corect la toate întrebările!' : language === 'de' ? 'Herzlichen Glückwunsch! Du hast alle Fragen richtig beantwortet!' : 'Congratulations! You answered all questions correctly!',
     bookmark: language === 'ro' ? 'Salvează întrebarea' : language === 'de' ? 'Frage speichern' : 'Bookmark question',
     bookmarked: language === 'ro' ? 'Întrebare salvată' : language === 'de' ? 'Frage gespeichert' : 'Question bookmarked',
+    selectMultiple: language === 'ro' ? 'Selectează 2 răspunsuri corecte' : language === 'de' ? 'Wähle 2 richtige Antworten' : 'Select 2 correct answers',
+    submitAnswers: language === 'ro' ? 'Trimite Răspunsurile' : language === 'de' ? 'Antworten Senden' : 'Submit Answers',
+    difficultyLevel: language === 'ro' ? 'Nivel Dificultate' : language === 'de' ? 'Schwierigkeitsgrad' : 'Difficulty Level',
+    resetCount: language === 'ro' ? 'Resetări' : language === 'de' ? 'Resets' : 'Resets'
   };
 
   if (quizCompleted) {
@@ -302,6 +383,21 @@ export function Quiz({ title, questions, chapterId, questionsPerRound = QUESTION
           
           <h3 className="text-2xl font-bold font-serif mb-2">{labels.quizComplete}</h3>
           <p className="text-4xl font-bold text-primary mb-2">{finalScore}/{shuffledQuestions.length}</p>
+          
+          {/* Difficulty badge */}
+          {difficulty > 1 && (
+            <div className="flex items-center justify-center gap-2 mb-4">
+              <Badge className={difficultyLabel[difficulty as keyof typeof difficultyLabel]?.color}>
+                <Zap className="w-3 h-3 mr-1" />
+                {difficultyLabel[difficulty as keyof typeof difficultyLabel]?.[language] || 'Hard'}
+              </Badge>
+              {resetCount > 0 && (
+                <Badge variant="outline">
+                  {labels.resetCount}: {resetCount}
+                </Badge>
+              )}
+            </div>
+          )}
           
           {/* Passed/Failed message */}
           <div className={cn(
@@ -334,10 +430,10 @@ export function Quiz({ title, questions, chapterId, questionsPerRound = QUESTION
           )}
           
           {/* Progress bar */}
-          <div className="w-full bg-muted rounded-full h-3 mb-4">
+          <div className="w-full bg-muted rounded-full h-3 mb-4 relative">
             <div 
               className={cn(
-                "h-3 rounded-full transition-all duration-500 relative",
+                "h-3 rounded-full transition-all duration-500",
                 passed ? "bg-success" : "bg-destructive"
               )}
               style={{ width: `${percentage}%` }}
@@ -345,7 +441,7 @@ export function Quiz({ title, questions, chapterId, questionsPerRound = QUESTION
             {/* Passing threshold marker */}
             <div 
               className="absolute top-0 h-3 w-0.5 bg-foreground/50"
-              style={{ left: `${(PASSING_SCORE / shuffledQuestions.length) * 100}%`, marginTop: '-12px' }}
+              style={{ left: `${(PASSING_SCORE / shuffledQuestions.length) * 100}%` }}
             />
           </div>
           
@@ -449,10 +545,28 @@ export function Quiz({ title, questions, chapterId, questionsPerRound = QUESTION
     );
   }
 
+  // Check if current answer is correct for multi-correct
+  const checkMultiCorrectAnswer = () => {
+    if (!question?.isMultiCorrect) return false;
+    const sortedSelected = [...selectedAnswers].sort((a, b) => a - b);
+    const sortedCorrect = [...question.correctIndices].sort((a, b) => a - b);
+    return sortedSelected.length === sortedCorrect.length &&
+      sortedSelected.every((val, idx) => val === sortedCorrect[idx]);
+  };
+
   return (
     <div className="mt-12 p-6 md:p-8 bg-card rounded-2xl border border-border shadow-card">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-xl font-bold font-serif text-primary">{title}</h3>
+        <div className="flex items-center gap-3">
+          <h3 className="text-xl font-bold font-serif text-primary">{title}</h3>
+          {/* Difficulty badge */}
+          {difficulty > 1 && (
+            <Badge className={cn("text-xs", difficultyLabel[difficulty as keyof typeof difficultyLabel]?.color)}>
+              <Zap className="w-3 h-3 mr-1" />
+              {difficultyLabel[difficulty as keyof typeof difficultyLabel]?.[language]}
+            </Badge>
+          )}
+        </div>
         <span className="text-sm text-muted-foreground">{labels.question}</span>
       </div>
 
@@ -462,13 +576,21 @@ export function Quiz({ title, questions, chapterId, questionsPerRound = QUESTION
         {labels.passingRequirement}
       </div>
 
+      {/* Multi-correct indicator */}
+      {question.isMultiCorrect && (
+        <div className="mb-4 p-3 bg-primary/10 border border-primary/20 rounded-lg flex items-center gap-2">
+          <AlertTriangle className="w-4 h-4 text-primary" />
+          <span className="text-sm font-medium text-primary">{labels.selectMultiple}</span>
+        </div>
+      )}
+
       {/* Previous/Best score badge */}
       {(user && dbBestScore > 0) || previousProgress?.quizScore !== undefined ? (
         <div className="mb-4 text-sm text-muted-foreground flex items-center gap-2">
           <span>{labels.bestScore}</span>
           <span className={cn(
             "px-2 py-0.5 rounded-full text-xs font-medium",
-            (user ? dbBestScore : previousProgress?.quizScore || 0) >= PASSING_SCORE
+            (user ? dbBestScore : previousProgress?.quizScore || 0) >= DEFAULT_PASSING_SCORE
               ? "bg-success/20 text-success"
               : "bg-warning/20 text-warning"
           )}>
@@ -497,8 +619,10 @@ export function Quiz({ title, questions, chapterId, questionsPerRound = QUESTION
       {/* Options */}
       <div className="space-y-3 mb-6">
         {question.options.map((option, index) => {
-          const isSelected = selectedAnswer === index;
-          const isCorrect = index === question.correctIndex;
+          const isSelected = selectedAnswers.includes(index);
+          const isCorrect = question.isMultiCorrect 
+            ? question.correctIndices.includes(index)
+            : index === question.correctIndex;
           const showCorrectness = showResult;
 
           return (
@@ -509,7 +633,7 @@ export function Quiz({ title, questions, chapterId, questionsPerRound = QUESTION
               className={cn(
                 "w-full p-4 rounded-xl border text-left transition-all duration-200 flex items-center gap-3",
                 !showCorrectness && "hover:bg-muted/50 hover:border-primary/50",
-                !showCorrectness && isSelected && "border-primary bg-primary/5",
+                !showCorrectness && isSelected && "border-primary bg-primary/5 ring-2 ring-primary/30",
                 showCorrectness && isCorrect && "border-success bg-success/10",
                 showCorrectness && isSelected && !isCorrect && "border-destructive bg-destructive/10",
                 !showCorrectness && !isSelected && "border-border",
@@ -518,7 +642,8 @@ export function Quiz({ title, questions, chapterId, questionsPerRound = QUESTION
             >
               <span className={cn(
                 "w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium flex-shrink-0",
-                !showCorrectness && "bg-muted",
+                !showCorrectness && !isSelected && "bg-muted",
+                !showCorrectness && isSelected && "bg-primary text-primary-foreground",
                 showCorrectness && isCorrect && "bg-success text-success-foreground",
                 showCorrectness && isSelected && !isCorrect && "bg-destructive text-destructive-foreground"
               )}>
@@ -531,19 +656,35 @@ export function Quiz({ title, questions, chapterId, questionsPerRound = QUESTION
                 )}
               </span>
               <span className="flex-1">{option}</span>
+              {question.isMultiCorrect && isSelected && !showCorrectness && (
+                <CheckCircle2 className="w-5 h-5 text-primary" />
+              )}
             </button>
           );
         })}
       </div>
 
+      {/* Submit button for multi-correct questions */}
+      {question.isMultiCorrect && !showResult && selectedAnswers.length > 0 && (
+        <Button
+          onClick={handleSubmitMultiCorrect}
+          className="w-full mb-4"
+          disabled={selectedAnswers.length < 2}
+        >
+          {labels.submitAnswers} ({selectedAnswers.length}/2)
+        </Button>
+      )}
+
       {/* Feedback */}
       {showResult && (
         <div className={cn(
           "p-4 rounded-xl mb-6 animate-fade-in",
-          selectedAnswer === question.correctIndex ? "bg-success/10 border border-success/20" : "bg-destructive/10 border border-destructive/20"
+          (question.isMultiCorrect ? checkMultiCorrectAnswer() : selectedAnswers[0] === question.correctIndex)
+            ? "bg-success/10 border border-success/20" 
+            : "bg-destructive/10 border border-destructive/20"
         )}>
           <div className="flex items-start gap-3">
-            {selectedAnswer === question.correctIndex ? (
+            {(question.isMultiCorrect ? checkMultiCorrectAnswer() : selectedAnswers[0] === question.correctIndex) ? (
               <CheckCircle2 className="w-5 h-5 text-success flex-shrink-0 mt-0.5" />
             ) : (
               <XCircle className="w-5 h-5 text-destructive flex-shrink-0 mt-0.5" />
@@ -551,9 +692,13 @@ export function Quiz({ title, questions, chapterId, questionsPerRound = QUESTION
             <div className="flex-1">
               <p className={cn(
                 "font-medium mb-1",
-                selectedAnswer === question.correctIndex ? "text-success" : "text-destructive"
+                (question.isMultiCorrect ? checkMultiCorrectAnswer() : selectedAnswers[0] === question.correctIndex)
+                  ? "text-success" 
+                  : "text-destructive"
               )}>
-                {selectedAnswer === question.correctIndex ? labels.correct : labels.incorrect}
+                {(question.isMultiCorrect ? checkMultiCorrectAnswer() : selectedAnswers[0] === question.correctIndex)
+                  ? labels.correct 
+                  : labels.incorrect}
               </p>
               <p className="text-sm text-muted-foreground">{question.explanation}</p>
             </div>
@@ -594,9 +739,9 @@ export function Quiz({ title, questions, chapterId, questionsPerRound = QUESTION
           {language === 'ro' ? 'Scor curent:' : language === 'de' ? 'Aktueller Stand:' : 'Current score:'}{' '}
           <span className={cn(
             "font-bold",
-            score + (selectedAnswer === question.correctIndex ? 1 : 0) >= PASSING_SCORE ? "text-success" : "text-primary"
+            score >= PASSING_SCORE ? "text-success" : "text-primary"
           )}>
-            {score + (selectedAnswer === question.correctIndex ? 1 : 0)}/{currentQuestion + 1}
+            {score}/{currentQuestion + 1}
           </span>
         </div>
       )}
