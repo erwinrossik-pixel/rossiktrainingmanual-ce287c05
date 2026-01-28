@@ -162,7 +162,10 @@ export function FinalExam({ onComplete, onBack }: FinalExamProps) {
   const [remainingTime, setRemainingTime] = useState(TIME_LIMIT_SECONDS);
   const [timeExpired, setTimeExpired] = useState(false);
   const autoSubmitRef = useRef(false);
+  // Used to prevent parallel duplicate save requests for the same attempt
   const saveAttemptedRef = useRef(false);
+  // Used to prevent any further saves after one has succeeded (even before state updates propagate)
+  const savedRef = useRef(false);
 
   // Timer - countdown and elapsed time
   useEffect(() => {
@@ -187,8 +190,15 @@ export function FinalExam({ onComplete, onBack }: FinalExamProps) {
 
   // Centralized save function to ensure exam data is always saved
   const saveExamResult = async (finalScore: number, finalWrongAnswers: typeof wrongAnswers) => {
-    if (!user || saveAttemptedRef.current || hasSaved) {
-      console.log('Save skipped: no user, already attempted, or already saved');
+    if (!user || hasSaved || savedRef.current) {
+      console.log('Save skipped: no user or already saved');
+      return;
+    }
+
+    // Guard against double-submit while a save is already in-flight.
+    // IMPORTANT: we must allow retries if a save failed.
+    if (saveAttemptedRef.current) {
+      console.log('Save skipped: save already in progress');
       return;
     }
     
@@ -211,6 +221,7 @@ export function FinalExam({ onComplete, onBack }: FinalExamProps) {
     let attempts = 0;
     const maxAttempts = 3;
     let lastError: Error | null = null;
+    let saved = false;
     
     while (attempts < maxAttempts && !hasSaved) {
       attempts++;
@@ -237,6 +248,8 @@ export function FinalExam({ onComplete, onBack }: FinalExamProps) {
             await new Promise(resolve => setTimeout(resolve, 1000 * attempts));
           }
         } else {
+          saved = true;
+          savedRef.current = true;
           setHasSaved(true);
           console.log('Final exam result saved successfully');
           toast({
@@ -264,6 +277,12 @@ export function FinalExam({ onComplete, onBack }: FinalExamProps) {
     }
     
     setIsSaving(false);
+
+    // If the save failed, allow a retry (e.g., when user clicks "Vezi Rezultatele").
+    // If it succeeded, savedRef/hasSaved will prevent duplicates.
+    if (!saved) {
+      saveAttemptedRef.current = false;
+    }
   };
 
   // Handle time expiration - auto complete exam AND save results
@@ -366,18 +385,33 @@ export function FinalExam({ onComplete, onBack }: FinalExamProps) {
     setAnsweredQuestions(newAnswered);
     
     const isCorrect = index === question.correctIndex;
+    const isLastQuestion = currentQuestion === examQuestions.length - 1;
     
     if (isCorrect) {
-      setScore(score + 1);
+      const nextScore = score + 1;
+      setScore(nextScore);
+
+      // Preemptive save on the last question so results are recorded even if user navigates away
+      // before clicking "Vezi Rezultatele".
+      if (isLastQuestion) {
+        void saveExamResult(nextScore, [...wrongAnswers]);
+      }
     } else {
-      setWrongAnswers(prev => [...prev, {
+      const newWrongAnswer = {
         question: question.question,
         userAnswer: question.options[index],
         correctAnswer: question.options[question.correctIndex],
         explanation: question.explanation,
         chapterName: question.chapterName,
         questionIndex: currentQuestion + 1
-      }]);
+      };
+
+      const nextWrongAnswers = [...wrongAnswers, newWrongAnswer];
+      setWrongAnswers(prev => [...prev, newWrongAnswer]);
+
+      if (isLastQuestion) {
+        void saveExamResult(score, nextWrongAnswers);
+      }
     }
   };
 
