@@ -371,17 +371,16 @@ export function OfficialDiploma({ certificate, open, onOpenChange }: OfficialDip
 
               {/* Right: Validity Info */}
               <div className="text-right bg-white">
-                <p className="text-xs text-gray-500">{validUntilText[language]}</p>
-                <p className="text-sm font-semibold text-gray-700 mb-2">
-                  {format(new Date(certificate.expires_at), "dd MMMM yyyy", { locale: dateLocale })}
-                </p>
                 {/* Empty space for alignment */}
                 <div className="h-12 w-40 mb-1 ml-auto">
                   {/* Space for alignment */}
                 </div>
+                <p className="text-xs text-gray-500">{validUntilText[language]}</p>
+                <p className="text-sm font-semibold text-gray-700 mb-1">
+                  {format(new Date(certificate.expires_at), "dd MMMM yyyy", { locale: dateLocale })}
+                </p>
                 <div className="w-40 border-t border-gray-400 mb-1 ml-auto" />
-                <p className="text-xs font-semibold text-gray-700">E. Rossik Transport</p>
-                <p className="text-[10px] text-gray-500">& Logistics GmbH</p>
+                <p className="text-xs font-semibold text-gray-700">E. Rossik Transport & Logistics GmbH</p>
               </div>
             </div>
           </div>
