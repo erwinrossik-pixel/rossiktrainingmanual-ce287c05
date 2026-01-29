@@ -659,6 +659,7 @@ export type Database = {
           status: string
           updated_at: string
           user_id: string
+          user_restart_count: number | null
         }
         Insert: {
           attempts_count?: number | null
@@ -675,6 +676,7 @@ export type Database = {
           status?: string
           updated_at?: string
           user_id: string
+          user_restart_count?: number | null
         }
         Update: {
           attempts_count?: number | null
@@ -691,6 +693,7 @@ export type Database = {
           status?: string
           updated_at?: string
           user_id?: string
+          user_restart_count?: number | null
         }
         Relationships: [
           {

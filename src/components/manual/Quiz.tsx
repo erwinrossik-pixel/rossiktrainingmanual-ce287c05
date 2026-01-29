@@ -52,7 +52,7 @@ export function Quiz({ title, questions, chapterId, questionsPerRound = QUESTION
   const { recordQuizAttempt, getBestScore, getChapterStatus, PASSING_SCORE: dbPassingScore } = useChapterProgress();
   const { isBookmarked, toggleBookmark } = useBookmarks();
   const { startQuizSession, completeQuizSession, recordQuestionPerformance } = useQuizTracking();
-  const { difficulty, resetCount, config, applyDifficulty, getPassingScore, isLoading: difficultyLoading } = useQuizDifficulty(chapterId);
+  const { difficulty, resetCount, userRestartCount, config, applyDifficulty, getPassingScore, isLoading: difficultyLoading, recordUserRestart, refreshDifficulty } = useQuizDifficulty(chapterId);
   
   // Track session and answered questions for analytics
   const sessionIdRef = useRef<string | null>(null);
@@ -254,7 +254,13 @@ export function Quiz({ title, questions, chapterId, questionsPerRound = QUESTION
     }
   };
 
-  const handleRestart = () => {
+  const handleRestart = async () => {
+    // Record user restart and increase difficulty
+    if (user && chapterId) {
+      await recordUserRestart();
+      refreshDifficulty();
+    }
+    
     setQuizRound(prev => prev + 1);
     setCurrentQuestion(0);
     setSelectedAnswers([]);
@@ -265,7 +271,13 @@ export function Quiz({ title, questions, chapterId, questionsPerRound = QUESTION
     setShowWrongAnswers(false);
   };
 
-  const handleNewQuestions = () => {
+  const handleNewQuestions = async () => {
+    // Record user restart and increase difficulty
+    if (user && chapterId) {
+      await recordUserRestart();
+      refreshDifficulty();
+    }
+    
     setQuizRound(prev => prev + 1);
     setCurrentQuestion(0);
     setSelectedAnswers([]);

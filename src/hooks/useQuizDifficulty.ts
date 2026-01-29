@@ -53,6 +53,7 @@ const DIFFICULTY_CONFIGS: Record<number, DifficultyConfig> = {
 export interface QuizDifficultyData {
   difficulty: number;
   resetCount: number;
+  userRestartCount: number;
   config: DifficultyConfig;
 }
 
@@ -65,7 +66,7 @@ export function useQuizDifficulty(chapterId?: string) {
     queryKey: ['quizDifficulty', user?.id, chapterId],
     queryFn: async (): Promise<QuizDifficultyData> => {
       if (!user || !chapterId) {
-        return { difficulty: 1, resetCount: 0, config: DIFFICULTY_CONFIGS[1] };
+        return { difficulty: 1, resetCount: 0, userRestartCount: 0, config: DIFFICULTY_CONFIGS[1] };
       }
 
       const { data, error } = await supabase
@@ -77,21 +78,89 @@ export function useQuizDifficulty(chapterId?: string) {
 
       if (error) {
         console.error('Error fetching difficulty:', error);
-        return { difficulty: 1, resetCount: 0, config: DIFFICULTY_CONFIGS[1] };
+        return { difficulty: 1, resetCount: 0, userRestartCount: 0, config: DIFFICULTY_CONFIGS[1] };
       }
+
+      // Also fetch user_restart_count separately since it might be new column
+      const { data: restartData } = await supabase
+        .from('chapter_progress')
+        .select('user_restart_count')
+        .eq('user_id', user.id)
+        .eq('chapter_id', chapterId)
+        .maybeSingle();
 
       const difficulty = data?.difficulty_level || 1;
       const resetCount = data?.reset_count || 0;
+      const userRestartCount = (restartData as any)?.user_restart_count || 0;
 
       return {
         difficulty,
         resetCount,
+        userRestartCount,
         config: DIFFICULTY_CONFIGS[Math.min(difficulty, 5)] || DIFFICULTY_CONFIGS[1]
       };
     },
     enabled: !!user && !!chapterId,
     staleTime: 5 * 60 * 1000,
   });
+
+  // Record a user restart and increase difficulty
+  const recordUserRestart = useCallback(async (): Promise<{ newDifficulty: number }> => {
+    if (!user || !chapterId) {
+      return { newDifficulty: 1 };
+    }
+
+    try {
+      // Get current progress
+      const { data: currentProgress } = await supabase
+        .from('chapter_progress')
+        .select('difficulty_level')
+        .eq('user_id', user.id)
+        .eq('chapter_id', chapterId)
+        .maybeSingle();
+
+      // Get restart count separately
+      const { data: restartData } = await supabase
+        .from('chapter_progress')
+        .select('user_restart_count')
+        .eq('user_id', user.id)
+        .eq('chapter_id', chapterId)
+        .maybeSingle();
+
+      const currentDifficulty = currentProgress?.difficulty_level || 1;
+      const currentRestartCount = (restartData as any)?.user_restart_count || 0;
+      
+      // Calculate new difficulty (increase by 1, max 5)
+      const newDifficulty = Math.min(currentDifficulty + 1, 5);
+
+      // Update the progress
+      const { error } = await supabase
+        .from('chapter_progress')
+        .upsert({
+          user_id: user.id,
+          chapter_id: chapterId,
+          difficulty_level: newDifficulty,
+          user_restart_count: currentRestartCount + 1,
+          updated_at: new Date().toISOString()
+        }, {
+          onConflict: 'user_id,chapter_id'
+        });
+
+      if (error) {
+        console.error('Error recording user restart:', error);
+        return { newDifficulty: currentDifficulty };
+      }
+
+      // Invalidate cache
+      queryClient.invalidateQueries({ queryKey: ['quizDifficulty', user.id, chapterId] });
+      queryClient.invalidateQueries({ queryKey: ['chapterProgress', user.id] });
+
+      return { newDifficulty };
+    } catch (err) {
+      console.error('Error in recordUserRestart:', err);
+      return { newDifficulty: 1 };
+    }
+  }, [user, chapterId, queryClient]);
 
   // Apply difficulty transformations to questions
   const applyDifficulty = useCallback((
@@ -192,11 +261,13 @@ export function useQuizDifficulty(chapterId?: string) {
   return {
     difficulty: difficultyData?.difficulty || 1,
     resetCount: difficultyData?.resetCount || 0,
+    userRestartCount: difficultyData?.userRestartCount || 0,
     config: difficultyData?.config || DIFFICULTY_CONFIGS[1],
     isLoading,
     applyDifficulty,
     getPassingScore,
     refreshDifficulty,
+    recordUserRestart,
     DIFFICULTY_CONFIGS
   };
 }
