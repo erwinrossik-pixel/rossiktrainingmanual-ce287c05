@@ -3913,6 +3913,10 @@ export type Database = {
       }
     }
     Functions: {
+      admin_reset_all_user_training: {
+        Args: { p_user_id: string }
+        Returns: Json
+      }
       admin_reset_quiz: {
         Args: {
           p_chapter_id: string
