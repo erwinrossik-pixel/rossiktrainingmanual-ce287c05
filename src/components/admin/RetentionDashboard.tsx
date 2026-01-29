@@ -69,20 +69,32 @@ export function RetentionDashboard() {
   const fetchData = useCallback(async () => {
     setLoading(true);
     try {
-      // Fetch retention users with profiles
-      const { data: retentionData } = await supabase
+      // Fetch retention users
+      const { data: retentionData, error: retentionError } = await supabase
         .from('user_retention')
-        .select(`
-          *,
-          profiles:user_id(first_name, last_name, email)
-        `)
+        .select('*')
         .order('risk_level', { ascending: false })
         .order('days_inactive', { ascending: false })
         .limit(100);
+      
+      if (retentionError) {
+        console.error('Error fetching retention data:', retentionError);
+      }
+
+      // Fetch profiles for these users
+      const userIds = (retentionData || []).map(u => u.user_id);
+      const { data: profilesData } = await supabase
+        .from('profiles')
+        .select('id, first_name, last_name, email')
+        .in('id', userIds);
+      
+      // Create profiles map
+      const profilesMap = new Map();
+      (profilesData || []).forEach(p => profilesMap.set(p.id, p));
 
       const typedUsers = (retentionData || []).map(u => ({
         ...u,
-        profiles: u.profiles as any
+        profiles: profilesMap.get(u.user_id) || null
       })) as RetentionUser[];
       
       setUsers(typedUsers);
@@ -106,18 +118,29 @@ export function RetentionDashboard() {
       setStats(stats);
 
       // Fetch recent logs
-      const { data: logsData } = await supabase
+      const { data: logsData, error: logsError } = await supabase
         .from('retention_logs')
-        .select(`
-          *,
-          profiles:user_id(first_name, email)
-        `)
+        .select('*')
         .order('sent_at', { ascending: false })
         .limit(50);
+      
+      if (logsError) {
+        console.error('Error fetching retention logs:', logsError);
+      }
+
+      // Fetch profiles for logs
+      const logUserIds = (logsData || []).map(l => l.user_id);
+      const { data: logProfilesData } = await supabase
+        .from('profiles')
+        .select('id, first_name, email')
+        .in('id', logUserIds);
+      
+      const logProfilesMap = new Map();
+      (logProfilesData || []).forEach(p => logProfilesMap.set(p.id, p));
 
       setLogs((logsData || []).map(l => ({
         ...l,
-        profiles: l.profiles as any
+        profiles: logProfilesMap.get(l.user_id) || null
       })) as RetentionLog[]);
 
     } catch (error) {
