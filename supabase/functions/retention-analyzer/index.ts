@@ -98,10 +98,20 @@ async function analyzeAndUpdateRetention(supabase: any) {
     .select(`
       id,
       email,
-      first_name,
-      preferred_language,
-      company_users!inner(company_id)
+      first_name
     `);
+  
+  // Get company associations separately
+  const { data: companyUsers } = await supabase
+    .from("company_users")
+    .select("user_id, company_id")
+    .eq("status", "approved");
+  
+  // Create a map for quick lookup
+  const companyMap = new Map();
+  (companyUsers || []).forEach((cu: any) => {
+    companyMap.set(cu.user_id, cu.company_id);
+  });
 
   if (usersError) {
     console.error("[Retention] Error fetching users:", usersError);
@@ -163,7 +173,7 @@ async function analyzeAndUpdateRetention(supabase: any) {
       riskDistribution[riskLevel as keyof typeof riskDistribution]++;
 
       // Upsert retention record
-      const companyId = user.company_users?.[0]?.company_id || null;
+      const companyId = companyMap.get(user.id) || null;
       
       const { data: existing } = await supabase
         .from("user_retention")
@@ -243,7 +253,7 @@ async function sendProactiveMessages(supabase: any, resendApiKey: string | undef
     .from("user_retention")
     .select(`
       *,
-      profiles!inner(email, first_name, preferred_language)
+      profiles!inner(email, first_name)
     `)
     .in("risk_level", ["medium", "high", "critical"])
     .or(`last_notification_sent_at.is.null,last_notification_sent_at.lt.${cooldownTime}`);
@@ -257,7 +267,8 @@ async function sendProactiveMessages(supabase: any, resendApiKey: string | undef
       const campaign = findMatchingCampaign(campaigns, user);
       if (!campaign) continue;
 
-      const language = user.profiles?.preferred_language || "ro";
+      // Default to Romanian since preferred_language doesn't exist in profiles
+      const language = "ro";
       const message = getLocalizedMessage(campaign, language, user.profiles?.first_name);
 
       // Send in-app notification
