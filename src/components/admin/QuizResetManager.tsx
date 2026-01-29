@@ -273,14 +273,14 @@ export function QuizResetManager() {
 
   const getDifficultyBadge = (level: number) => {
     const colors: Record<number, string> = {
-      1: 'bg-green-500/20 text-green-600',
-      2: 'bg-yellow-500/20 text-yellow-600',
-      3: 'bg-orange-500/20 text-orange-600',
-      4: 'bg-red-500/20 text-red-600',
-      5: 'bg-purple-500/20 text-purple-600'
+      1: 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200 border-green-300',
+      2: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200 border-yellow-300',
+      3: 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200 border-orange-300',
+      4: 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200 border-red-300',
+      5: 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200 border-purple-300'
     };
     return (
-      <Badge className={colors[level] || colors[1]}>
+      <Badge className={`${colors[level] || colors[1]} font-medium border`}>
         {t.difficultyLevels[level as keyof typeof t.difficultyLevels] || level}
       </Badge>
     );
@@ -323,17 +323,17 @@ export function QuizResetManager() {
           </div>
 
           {/* Users Table */}
-          <div className="rounded-md border">
+          <div className="rounded-md border bg-card">
             <Table>
               <TableHeader>
-                <TableRow>
-                  <TableHead>{t.user}</TableHead>
-                  <TableHead className="text-center">{t.totalResets}</TableHead>
-                  <TableHead>{t.chapter}</TableHead>
-                  <TableHead className="text-center">{t.resets}</TableHead>
-                  <TableHead className="text-center">{t.difficulty}</TableHead>
-                  <TableHead className="text-center">{t.score}</TableHead>
-                  <TableHead>{t.actions}</TableHead>
+                <TableRow className="bg-muted/50">
+                  <TableHead className="font-semibold text-foreground">{t.user}</TableHead>
+                  <TableHead className="text-center font-semibold text-foreground">{t.totalResets}</TableHead>
+                  <TableHead className="font-semibold text-foreground">{t.chapter}</TableHead>
+                  <TableHead className="text-center font-semibold text-foreground">{t.resets}</TableHead>
+                  <TableHead className="text-center font-semibold text-foreground">{t.difficulty}</TableHead>
+                  <TableHead className="text-center font-semibold text-foreground">{t.score}</TableHead>
+                  <TableHead className="font-semibold text-foreground">{t.actions}</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -361,12 +361,12 @@ export function QuizResetManager() {
                               <>
                                 <TableCell rowSpan={showOnlyWithResets ? user.chapters.filter(c => c.reset_count > 0).length || 1 : Math.min(user.chapters.length, 3)}>
                                   <div className="flex items-center gap-2">
-                                    <User className="h-4 w-4 text-muted-foreground" />
-                                    <div>
-                                      <p className="font-medium">{user.first_name} {user.last_name}</p>
-                                      <p className="text-xs text-muted-foreground">{user.email}</p>
-                                    </div>
-                                  </div>
+                                                    <User className="h-4 w-4 text-foreground/70" />
+                                                    <div>
+                                                      <p className="font-medium text-foreground">{user.first_name} {user.last_name}</p>
+                                                      <p className="text-xs text-foreground/60">{user.email}</p>
+                                                    </div>
+                                                  </div>
                                 </TableCell>
                                 <TableCell rowSpan={showOnlyWithResets ? user.chapters.filter(c => c.reset_count > 0).length || 1 : Math.min(user.chapters.length, 3)} className="text-center">
                                   <Badge variant={user.total_resets > 0 ? "destructive" : "secondary"}>
@@ -387,8 +387,8 @@ export function QuizResetManager() {
                             )}
                             <TableCell>
                               <div className="flex items-center gap-2">
-                                <BookOpen className="h-4 w-4 text-muted-foreground" />
-                                {chapter.chapter_id}
+                                <BookOpen className="h-4 w-4 text-foreground/70" />
+                                <span className="text-foreground font-medium">{chapter.chapter_id}</span>
                               </div>
                             </TableCell>
                             <TableCell className="text-center">
@@ -401,10 +401,10 @@ export function QuizResetManager() {
                             </TableCell>
                             <TableCell className="text-center">
                               {chapter.best_score !== null ? (
-                                <span className={chapter.best_score >= 9 ? 'text-green-600' : 'text-orange-600'}>
+                                <span className={`font-semibold ${chapter.best_score >= 9 ? 'text-green-700 dark:text-green-400' : 'text-orange-700 dark:text-orange-400'}`}>
                                   {chapter.best_score}/10
                                 </span>
-                              ) : '-'}
+                              ) : <span className="text-foreground/50">-</span>}
                             </TableCell>
                             <TableCell>
                               <Button
@@ -426,17 +426,17 @@ export function QuizResetManager() {
                       <TableRow key={user.user_id}>
                         <TableCell>
                           <div className="flex items-center gap-2">
-                            <User className="h-4 w-4 text-muted-foreground" />
+                            <User className="h-4 w-4 text-foreground/70" />
                             <div>
-                              <p className="font-medium">{user.first_name} {user.last_name}</p>
-                              <p className="text-xs text-muted-foreground">{user.email}</p>
+                              <p className="font-medium text-foreground">{user.first_name} {user.last_name}</p>
+                              <p className="text-xs text-foreground/60">{user.email}</p>
                             </div>
                           </div>
                         </TableCell>
                         <TableCell className="text-center">
                           <Badge variant="secondary">0</Badge>
                         </TableCell>
-                        <TableCell colSpan={5} className="text-muted-foreground text-sm">
+                        <TableCell colSpan={5} className="text-foreground/60 text-sm">
                           No quiz progress yet
                         </TableCell>
                       </TableRow>
