@@ -13,9 +13,21 @@ import { ro, de, enUS } from 'date-fns/locale';
 import { 
   GraduationCap, User as UserIcon, BookOpen, Check, X, RotateCcw, Timer, 
   Target, Trophy, Award, Search, ChevronDown, ChevronRight, Eye, Clock,
-  AlertTriangle, TrendingUp, Unlock, Lock
+  AlertTriangle, TrendingUp, Unlock, Lock, Trash2
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog';
+import { toast } from 'sonner';
 
 interface ExamAttempt {
   id: string;
@@ -91,6 +103,40 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
   const [searchTerm, setSearchTerm] = useState('');
   const [expandedUsers, setExpandedUsers] = useState<Set<string>>(new Set());
   const [unlockingChapter, setUnlockingChapter] = useState<string | null>(null);
+  const [resettingUser, setResettingUser] = useState<string | null>(null);
+
+  const handleResetAllTraining = async (userId: string, userName: string) => {
+    setResettingUser(userId);
+    try {
+      const { data, error } = await supabase.rpc('admin_reset_all_user_training', {
+        p_user_id: userId
+      });
+      
+      if (error) {
+        console.error('Error resetting training:', error);
+        toast.error(language === 'ro' ? 'Eroare la resetarea training-ului' : 
+                   language === 'de' ? 'Fehler beim Zurücksetzen des Trainings' : 
+                   'Error resetting training');
+        return;
+      }
+      
+      toast.success(
+        language === 'ro' ? `Training-ul pentru ${userName} a fost resetat complet` :
+        language === 'de' ? `Training für ${userName} wurde vollständig zurückgesetzt` :
+        `Training for ${userName} has been completely reset`
+      );
+      
+      // Refresh data
+      fetchUserProgress();
+    } catch (err) {
+      console.error('Failed to reset training:', err);
+      toast.error(language === 'ro' ? 'Eroare la resetare' : 
+                 language === 'de' ? 'Fehler beim Zurücksetzen' : 
+                 'Reset failed');
+    } finally {
+      setResettingUser(null);
+    }
+  };
 
   const handleUnlockChapter = async (userId: string, chapterId: string) => {
     setUnlockingChapter(`${userId}-${chapterId}`);
@@ -173,6 +219,12 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
       unlock: 'Deblochează',
       unlocking: 'Se deblochează...',
       unlockSuccess: 'Capitol deblocat cu succes',
+      resetAllTraining: 'Resetare Completă Training',
+      resetAllConfirmTitle: 'Resetare Completă Training',
+      resetAllConfirmDescription: 'Această acțiune va șterge TOATE datele de progres, quiz-uri, timp de training și examene pentru acest utilizator. Acțiunea este ireversibilă. Utilizatorul va reîncepe de la primul capitol.',
+      resetAllConfirm: 'Da, Resetează Tot',
+      resetAllCancel: 'Anulează',
+      resetting: 'Se resetează...',
       unlockError: 'Eroare la deblocare',
     },
     de: {
@@ -232,6 +284,12 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
       unlocking: 'Entsperren...',
       unlockSuccess: 'Kapitel erfolgreich entsperrt',
       unlockError: 'Fehler beim Entsperren',
+      resetAllTraining: 'Training Komplett Zurücksetzen',
+      resetAllConfirmTitle: 'Training Komplett Zurücksetzen',
+      resetAllConfirmDescription: 'Diese Aktion löscht ALLE Fortschrittsdaten, Quizze, Trainingszeit und Prüfungen für diesen Benutzer. Die Aktion ist unwiderruflich. Der Benutzer beginnt wieder beim ersten Kapitel.',
+      resetAllConfirm: 'Ja, Alles Zurücksetzen',
+      resetAllCancel: 'Abbrechen',
+      resetting: 'Zurücksetzen...',
     },
     en: {
       title: 'User Progress & Final Exam',
@@ -290,6 +348,12 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
       unlocking: 'Unlocking...',
       unlockSuccess: 'Chapter unlocked successfully',
       unlockError: 'Failed to unlock',
+      resetAllTraining: 'Reset All Training',
+      resetAllConfirmTitle: 'Reset All Training',
+      resetAllConfirmDescription: 'This action will delete ALL progress data, quizzes, training time, and exams for this user. This action is irreversible. The user will restart from the first chapter.',
+      resetAllConfirm: 'Yes, Reset Everything',
+      resetAllCancel: 'Cancel',
+      resetting: 'Resetting...',
     }
   };
 
@@ -828,6 +892,55 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
                           </p>
                           <p className="text-xs text-muted-foreground">{t.resets}</p>
                         </div>
+                      </div>
+
+                      {/* Reset All Training Button */}
+                      <div className="mb-4 flex justify-end">
+                        <AlertDialog>
+                          <AlertDialogTrigger asChild>
+                            <Button
+                              variant="destructive"
+                              size="sm"
+                              disabled={resettingUser === up.user_id}
+                              className="gap-2"
+                            >
+                              {resettingUser === up.user_id ? (
+                                <>
+                                  <RotateCcw className="h-4 w-4 animate-spin" />
+                                  {t.resetting}
+                                </>
+                              ) : (
+                                <>
+                                  <Trash2 className="h-4 w-4" />
+                                  {t.resetAllTraining}
+                                </>
+                              )}
+                            </Button>
+                          </AlertDialogTrigger>
+                          <AlertDialogContent>
+                            <AlertDialogHeader>
+                              <AlertDialogTitle className="flex items-center gap-2 text-destructive">
+                                <AlertTriangle className="h-5 w-5" />
+                                {t.resetAllConfirmTitle}
+                              </AlertDialogTitle>
+                              <AlertDialogDescription className="text-left">
+                                <span className="font-semibold text-foreground block mb-2">
+                                  {up.first_name} {up.last_name} ({up.email})
+                                </span>
+                                {t.resetAllConfirmDescription}
+                              </AlertDialogDescription>
+                            </AlertDialogHeader>
+                            <AlertDialogFooter>
+                              <AlertDialogCancel>{t.resetAllCancel}</AlertDialogCancel>
+                              <AlertDialogAction
+                                onClick={() => handleResetAllTraining(up.user_id, `${up.first_name} ${up.last_name}`)}
+                                className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                              >
+                                {t.resetAllConfirm}
+                              </AlertDialogAction>
+                            </AlertDialogFooter>
+                          </AlertDialogContent>
+                        </AlertDialog>
                       </div>
 
                       {/* Chapter details table */}
