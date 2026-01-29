@@ -39,7 +39,8 @@ interface ChapterDetail {
   best_score: number;
   attempts_count: number; // total quiz attempts from quiz_attempts table
   reset_count: number; // admin resets from chapter_progress
-  restart_count: number; // times user backed out / restarted
+  restart_count: number; // times user backed out / restarted (calculated from attempts)
+  user_restart_count: number; // official user restarts that increased difficulty
   failed_count: number; // attempts where passed = false
   passed_count: number; // attempts where passed = true
   first_pass_score: number | null; // score when first passed
@@ -334,7 +335,7 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
         chaptersRes
       ] = await Promise.all([
         supabase.from('profiles').select('id, email, first_name, last_name'),
-        supabase.from('chapter_progress').select('user_id, chapter_id, status, best_score, attempts_count, reset_count, difficulty_level'),
+        supabase.from('chapter_progress').select('user_id, chapter_id, status, best_score, attempts_count, reset_count, difficulty_level, user_restart_count'),
         supabase.from('quiz_attempts').select('user_id, chapter_id, score, passed, created_at').order('created_at', { ascending: true }),
         supabase.from('training_time').select('user_id, total_seconds'),
         supabase.from('final_exam_attempts').select('id, user_id, score, total_questions, percentage, passed, time_spent_seconds, completed_at').order('completed_at', { ascending: false }),
@@ -400,7 +401,8 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
             best_score: progress?.best_score || 0,
             attempts_count: chapterQuizzes.length, // actual quiz attempts from table
             reset_count: progress?.reset_count || chapterResets.length || 0,
-            restart_count: restartCount,
+            restart_count: restartCount, // calculated from time intervals
+            user_restart_count: (progress as any)?.user_restart_count || 0, // official DB count
             failed_count: failedAttempts.length,
             passed_count: passedAttempts.length,
             first_pass_score: firstPass ? firstPass.score : null,
@@ -731,12 +733,18 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
                       </div>
                       
                       {/* Quiz-specific summary stats */}
-                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4 p-3 bg-card rounded-lg border-l-4 border-l-orange-500">
+                      <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-4 p-3 bg-card rounded-lg border-l-4 border-l-orange-500">
                         <div className="text-center">
                           <p className="text-2xl font-bold text-orange-600">
                             {up.chapter_details.reduce((sum, cd) => sum + cd.restart_count, 0)}
                           </p>
                           <p className="text-xs text-muted-foreground">{t.totalRestarts}</p>
+                        </div>
+                        <div className="text-center">
+                          <p className="text-2xl font-bold text-purple-600">
+                            {up.chapter_details.reduce((sum, cd) => sum + cd.user_restart_count, 0)}
+                          </p>
+                          <p className="text-xs text-muted-foreground">↑ Dificultate</p>
                         </div>
                         <div className="text-center">
                           <p className="text-2xl font-bold text-red-600">
@@ -768,6 +776,7 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
                               <TableHead className="font-bold text-foreground">{t.timeSpent}</TableHead>
                               <TableHead className="font-bold text-foreground text-center">{t.quizAttempts}</TableHead>
                               <TableHead className="font-bold text-foreground text-center">{t.restarts}</TableHead>
+                              <TableHead className="font-bold text-foreground text-center" title="Restarts cu creștere dificultate">↑D</TableHead>
                               <TableHead className="font-bold text-foreground text-center">{t.failedAttempts}</TableHead>
                               <TableHead className="font-bold text-foreground text-center">{t.passedAttempts}</TableHead>
                               <TableHead className="font-bold text-foreground">{t.quizResult}</TableHead>
@@ -806,11 +815,22 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
                                     {cd.attempts_count || '-'}
                                   </span>
                                 </TableCell>
-                                {/* Restarts */}
+                                {/* Restarts (calculated) */}
                                 <TableCell className="text-center">
                                   {cd.restart_count > 0 ? (
                                     <Badge variant="outline" className="text-xs bg-orange-50 text-orange-700 border-orange-300">
                                       {cd.restart_count}
+                                    </Badge>
+                                  ) : (
+                                    <span className="text-muted-foreground">-</span>
+                                  )}
+                                </TableCell>
+                                {/* User Restarts (with difficulty increase) */}
+                                <TableCell className="text-center">
+                                  {cd.user_restart_count > 0 ? (
+                                    <Badge variant="secondary" className="text-xs bg-purple-100 text-purple-700 border-purple-300">
+                                      <TrendingUp className="h-3 w-3 mr-1" />
+                                      {cd.user_restart_count}
                                     </Badge>
                                   ) : (
                                     <span className="text-muted-foreground">-</span>
