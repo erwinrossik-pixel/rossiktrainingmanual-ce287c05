@@ -219,10 +219,10 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
       unlock: 'Deblochează',
       unlocking: 'Se deblochează...',
       unlockSuccess: 'Capitol deblocat cu succes',
-      resetAllTraining: 'Resetare Completă Training',
-      resetAllConfirmTitle: 'Resetare Completă Training',
-      resetAllConfirmDescription: 'Această acțiune va șterge TOATE datele de progres, quiz-uri, timp de training și examene pentru acest utilizator. Acțiunea este ireversibilă. Utilizatorul va reîncepe de la primul capitol.',
-      resetAllConfirm: 'Da, Resetează Tot',
+      resetAllTraining: 'Reîncepe Training',
+      resetAllConfirmTitle: 'Reîncepe Training de la Zero',
+      resetAllConfirmDescription: 'Această acțiune va reseta progresul pe capitole - utilizatorul va reîncepe de la primul capitol. TOATE datele istorice (quiz-uri, timp, examene) vor fi PĂSTRATE pentru audit. Utilizatorul trebuie să treacă din nou fiecare quiz pentru a debloca capitolele următoare.',
+      resetAllConfirm: 'Da, Reîncepe Training',
       resetAllCancel: 'Anulează',
       resetting: 'Se resetează...',
       unlockError: 'Eroare la deblocare',
@@ -284,10 +284,10 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
       unlocking: 'Entsperren...',
       unlockSuccess: 'Kapitel erfolgreich entsperrt',
       unlockError: 'Fehler beim Entsperren',
-      resetAllTraining: 'Training Komplett Zurücksetzen',
-      resetAllConfirmTitle: 'Training Komplett Zurücksetzen',
-      resetAllConfirmDescription: 'Diese Aktion löscht ALLE Fortschrittsdaten, Quizze, Trainingszeit und Prüfungen für diesen Benutzer. Die Aktion ist unwiderruflich. Der Benutzer beginnt wieder beim ersten Kapitel.',
-      resetAllConfirm: 'Ja, Alles Zurücksetzen',
+      resetAllTraining: 'Training Neu Starten',
+      resetAllConfirmTitle: 'Training von Vorne Beginnen',
+      resetAllConfirmDescription: 'Diese Aktion setzt den Kapitelfortschritt zurück - der Benutzer beginnt beim ersten Kapitel. ALLE historischen Daten (Quizze, Zeit, Prüfungen) werden für Auditzwecke BEIBEHALTEN. Der Benutzer muss jedes Quiz erneut bestehen, um weitere Kapitel freizuschalten.',
+      resetAllConfirm: 'Ja, Training Neu Starten',
       resetAllCancel: 'Abbrechen',
       resetting: 'Zurücksetzen...',
     },
@@ -348,10 +348,10 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
       unlocking: 'Unlocking...',
       unlockSuccess: 'Chapter unlocked successfully',
       unlockError: 'Failed to unlock',
-      resetAllTraining: 'Reset All Training',
-      resetAllConfirmTitle: 'Reset All Training',
-      resetAllConfirmDescription: 'This action will delete ALL progress data, quizzes, training time, and exams for this user. This action is irreversible. The user will restart from the first chapter.',
-      resetAllConfirm: 'Yes, Reset Everything',
+      resetAllTraining: 'Restart Training',
+      resetAllConfirmTitle: 'Restart Training from Beginning',
+      resetAllConfirmDescription: 'This action will reset chapter progress - the user will restart from the first chapter. ALL historical data (quizzes, time, exams) will be PRESERVED for audit purposes. The user must pass each quiz again to unlock subsequent chapters.',
+      resetAllConfirm: 'Yes, Restart Training',
       resetAllCancel: 'Cancel',
       resetting: 'Resetting...',
     }
@@ -911,7 +911,7 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
                                 </>
                               ) : (
                                 <>
-                                  <Trash2 className="h-4 w-4" />
+                                  <RotateCcw className="h-4 w-4" />
                                   {t.resetAllTraining}
                                 </>
                               )}
