@@ -11,7 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { useToast } from '@/hooks/use-toast';
-import { Users, Check, X, Clock, User as UserIcon, Mail, AlertCircle, Search, Building2, UserPlus, GraduationCap, BookOpen, Trophy, Target, Timer } from 'lucide-react';
+import { Users, Check, X, Clock, User as UserIcon, Mail, AlertCircle, Search, Building2, UserPlus, GraduationCap, BookOpen, Trophy, Target, Timer, FileText, RotateCcw, Award } from 'lucide-react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Progress } from '@/components/ui/progress';
 import { format } from 'date-fns';
@@ -51,6 +51,16 @@ interface RegistrationRequest {
   company_name?: string;
 }
 
+interface ExamAttempt {
+  id: string;
+  score: number;
+  total_questions: number;
+  percentage: number;
+  passed: boolean;
+  time_spent_seconds: number;
+  completed_at: string;
+}
+
 interface UserProgress {
   user_id: string;
   email: string;
@@ -60,18 +70,16 @@ interface UserProgress {
   total_chapters: number;
   progress_percentage: number;
   avg_quiz_score: number;
-  final_exam?: {
-    score: number;
-    total_questions: number;
-    percentage: number;
-    passed: boolean;
-    time_spent_seconds: number;
-    completed_at: string;
-  } | null;
+  total_quiz_attempts: number;
+  passed_quizzes: number;
+  total_training_seconds: number;
+  exam_attempts: ExamAttempt[];
+  best_exam?: ExamAttempt | null;
   certificate?: {
     certificate_code: string;
     issued_at: string;
     expires_at: string;
+    total_training_hours: number | null;
   } | null;
 }
 
@@ -179,18 +187,28 @@ export function UserManagement() {
       // Fetch chapter progress for all users
       const { data: chapterProgress } = await supabase
         .from('chapter_progress')
-        .select('user_id, chapter_id, status, best_score');
+        .select('user_id, chapter_id, status, best_score, attempts_count');
 
-      // Fetch final exam attempts
+      // Fetch all quiz attempts for statistics
+      const { data: quizAttempts } = await supabase
+        .from('quiz_attempts')
+        .select('user_id, passed');
+
+      // Fetch training sessions for total time
+      const { data: trainingSessions } = await supabase
+        .from('training_sessions')
+        .select('user_id, duration_minutes');
+
+      // Fetch ALL final exam attempts (not just the latest)
       const { data: examAttempts } = await supabase
         .from('final_exam_attempts')
-        .select('*')
+        .select('id, user_id, score, total_questions, percentage, passed, time_spent_seconds, completed_at')
         .order('completed_at', { ascending: false });
 
-      // Fetch certificates
+      // Fetch certificates with training hours
       const { data: certificates } = await supabase
         .from('certificates')
-        .select('user_id, certificate_code, issued_at, expires_at, is_revoked')
+        .select('user_id, certificate_code, issued_at, expires_at, is_revoked, total_training_hours')
         .eq('is_revoked', false);
 
       // Fetch company_users for filtering
@@ -204,14 +222,37 @@ export function UserManagement() {
       const progressData: UserProgress[] = (profiles || []).map(profile => {
         const userChapters = chapterProgress?.filter(cp => cp.user_id === profile.id) || [];
         const completedChapters = userChapters.filter(cp => cp.status === 'completed').length;
+        const passedQuizzes = userChapters.filter(cp => cp.status === 'completed' && (cp.best_score || 0) >= 9).length;
         const avgScore = userChapters.length > 0 
           ? userChapters.reduce((sum, cp) => sum + (cp.best_score || 0), 0) / userChapters.length 
           : 0;
 
-        // Get best exam attempt (most recent passed, or most recent overall)
-        const userExams = examAttempts?.filter(ea => ea.user_id === profile.id) || [];
-        const passedExam = userExams.find(ea => ea.passed);
-        const latestExam = passedExam || userExams[0];
+        // Count total quiz attempts
+        const userQuizAttempts = quizAttempts?.filter(qa => qa.user_id === profile.id) || [];
+        const totalQuizAttempts = userQuizAttempts.length;
+
+        // Calculate total training time (duration_minutes -> convert to seconds)
+        const userTrainingSessions = trainingSessions?.filter(ts => ts.user_id === profile.id) || [];
+        const totalTrainingSeconds = userTrainingSessions.reduce((sum, ts) => sum + ((ts.duration_minutes || 0) * 60), 0);
+
+        // Get ALL exam attempts for this user
+        const userExams = (examAttempts?.filter(ea => ea.user_id === profile.id) || []).map(ea => ({
+          id: ea.id,
+          score: ea.score,
+          total_questions: ea.total_questions,
+          percentage: Number(ea.percentage),
+          passed: ea.passed,
+          time_spent_seconds: ea.time_spent_seconds || 0,
+          completed_at: ea.completed_at
+        }));
+
+        // Find best exam (highest score, prioritizing passed)
+        const passedExams = userExams.filter(e => e.passed);
+        const bestExam = passedExams.length > 0 
+          ? passedExams.reduce((best, current) => current.percentage > best.percentage ? current : best)
+          : userExams.length > 0 
+            ? userExams.reduce((best, current) => current.percentage > best.percentage ? current : best)
+            : null;
 
         // Get valid certificate
         const userCert = certificates?.find(c => c.user_id === profile.id);
@@ -225,18 +266,16 @@ export function UserManagement() {
           total_chapters: TOTAL_CHAPTERS,
           progress_percentage: Math.round((completedChapters / TOTAL_CHAPTERS) * 100),
           avg_quiz_score: Math.round(avgScore * 10) / 10,
-          final_exam: latestExam ? {
-            score: latestExam.score,
-            total_questions: latestExam.total_questions,
-            percentage: Number(latestExam.percentage),
-            passed: latestExam.passed,
-            time_spent_seconds: latestExam.time_spent_seconds || 0,
-            completed_at: latestExam.completed_at
-          } : null,
+          total_quiz_attempts: totalQuizAttempts,
+          passed_quizzes: passedQuizzes,
+          total_training_seconds: totalTrainingSeconds,
+          exam_attempts: userExams,
+          best_exam: bestExam,
           certificate: userCert ? {
             certificate_code: userCert.certificate_code,
             issued_at: userCert.issued_at,
-            expires_at: userCert.expires_at
+            expires_at: userCert.expires_at,
+            total_training_hours: userCert.total_training_hours
           } : null
         };
       });
@@ -795,7 +834,7 @@ export function UserManagement() {
                           if (b.progress_percentage !== a.progress_percentage) {
                             return b.progress_percentage - a.progress_percentage;
                           }
-                          return (b.final_exam?.percentage || 0) - (a.final_exam?.percentage || 0);
+                          return (b.best_exam?.percentage || 0) - (a.best_exam?.percentage || 0);
                         })
                         .map((up) => (
                           <TableRow key={up.user_id}>
@@ -813,7 +852,7 @@ export function UserManagement() {
                               </div>
                             </TableCell>
                             <TableCell>
-                              <div className="space-y-1 min-w-[140px]">
+                              <div className="space-y-1 min-w-[160px]">
                                 <div className="flex items-center justify-between text-sm">
                                   <span className="flex items-center gap-1">
                                     <BookOpen className="h-3 w-3 text-muted-foreground" />
@@ -822,6 +861,22 @@ export function UserManagement() {
                                   <span className="font-medium">{up.progress_percentage}%</span>
                                 </div>
                                 <Progress value={up.progress_percentage} className="h-2" />
+                                <div className="flex items-center gap-3 text-xs text-muted-foreground">
+                                  <span className="flex items-center gap-1" title={language === 'ro' ? 'Quiz-uri promovate' : language === 'de' ? 'Bestandene Quizze' : 'Passed Quizzes'}>
+                                    <Check className="h-3 w-3 text-green-500" />
+                                    {up.passed_quizzes}/{up.total_chapters}
+                                  </span>
+                                  <span className="flex items-center gap-1" title={language === 'ro' ? 'Total încercări quiz' : language === 'de' ? 'Gesamte Quiz-Versuche' : 'Total Quiz Attempts'}>
+                                    <RotateCcw className="h-3 w-3" />
+                                    {up.total_quiz_attempts}
+                                  </span>
+                                </div>
+                                {up.total_training_seconds > 0 && (
+                                  <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                                    <Timer className="h-3 w-3" />
+                                    {Math.floor(up.total_training_seconds / 3600)}h {Math.floor((up.total_training_seconds % 3600) / 60)}m
+                                  </div>
+                                )}
                               </div>
                             </TableCell>
                             <TableCell>
@@ -833,29 +888,65 @@ export function UserManagement() {
                               </div>
                             </TableCell>
                             <TableCell>
-                              {up.final_exam ? (
-                                <div className="space-y-1">
-                                  <div className="flex items-center gap-2">
-                                    {up.final_exam.passed ? (
-                                      <Badge className="bg-green-500 hover:bg-green-600">
-                                        <Trophy className="h-3 w-3 mr-1" />
-                                        {language === 'ro' ? 'Promovat' : language === 'de' ? 'Bestanden' : 'Passed'}
-                                      </Badge>
-                                    ) : (
-                                      <Badge variant="destructive">
-                                        <X className="h-3 w-3 mr-1" />
-                                        {language === 'ro' ? 'Nepromovat' : language === 'de' ? 'Nicht bestanden' : 'Failed'}
-                                      </Badge>
-                                    )}
-                                  </div>
-                                  <div className="text-xs text-muted-foreground space-y-0.5">
-                                    <p className="font-medium">{up.final_exam.score}/{up.final_exam.total_questions} ({up.final_exam.percentage}%)</p>
-                                    <p className="flex items-center gap-1">
-                                      <Timer className="h-3 w-3" />
-                                      {Math.floor(up.final_exam.time_spent_seconds / 60)}:{(up.final_exam.time_spent_seconds % 60).toString().padStart(2, '0')} min
-                                    </p>
-                                    <p>{format(new Date(up.final_exam.completed_at), 'dd MMM yyyy HH:mm', { locale: dateLocale })}</p>
-                                  </div>
+                              {up.exam_attempts.length > 0 ? (
+                                <div className="space-y-2 min-w-[200px]">
+                                  {/* Best/Latest Exam Result */}
+                                  {up.best_exam && (
+                                    <div className="space-y-1">
+                                      <div className="flex items-center gap-2">
+                                        {up.best_exam.passed ? (
+                                          <Badge className="bg-green-500 hover:bg-green-600">
+                                            <Trophy className="h-3 w-3 mr-1" />
+                                            {language === 'ro' ? 'Promovat' : language === 'de' ? 'Bestanden' : 'Passed'}
+                                          </Badge>
+                                        ) : (
+                                          <Badge variant="destructive">
+                                            <X className="h-3 w-3 mr-1" />
+                                            {language === 'ro' ? 'Nepromovat' : language === 'de' ? 'Nicht bestanden' : 'Failed'}
+                                          </Badge>
+                                        )}
+                                        <Badge variant="outline" className="text-xs">
+                                          {up.exam_attempts.length} {language === 'ro' ? 'încercări' : language === 'de' ? 'Versuche' : 'attempts'}
+                                        </Badge>
+                                      </div>
+                                      <div className="text-xs text-muted-foreground space-y-0.5">
+                                        <p className="font-medium text-foreground">
+                                          {up.best_exam.score}/{up.best_exam.total_questions} ({up.best_exam.percentage}%)
+                                        </p>
+                                        <p className="flex items-center gap-1">
+                                          <Timer className="h-3 w-3" />
+                                          {Math.floor(up.best_exam.time_spent_seconds / 60)}:{(up.best_exam.time_spent_seconds % 60).toString().padStart(2, '0')} min
+                                        </p>
+                                        <p>{format(new Date(up.best_exam.completed_at), 'dd MMM yyyy HH:mm', { locale: dateLocale })}</p>
+                                      </div>
+                                    </div>
+                                  )}
+                                  
+                                  {/* All Attempts History */}
+                                  {up.exam_attempts.length > 1 && (
+                                    <details className="text-xs">
+                                      <summary className="cursor-pointer text-muted-foreground hover:text-foreground">
+                                        {language === 'ro' ? 'Vezi toate încercările' : language === 'de' ? 'Alle Versuche anzeigen' : 'View all attempts'}
+                                      </summary>
+                                      <div className="mt-2 space-y-1 pl-2 border-l-2 border-muted">
+                                        {up.exam_attempts.map((attempt, idx) => (
+                                          <div key={attempt.id} className="flex items-center justify-between gap-2 py-1">
+                                            <span className="flex items-center gap-1">
+                                              {attempt.passed ? (
+                                                <Check className="h-3 w-3 text-green-500" />
+                                              ) : (
+                                                <X className="h-3 w-3 text-red-500" />
+                                              )}
+                                              {attempt.score}/{attempt.total_questions} ({attempt.percentage}%)
+                                            </span>
+                                            <span className="text-muted-foreground">
+                                              {format(new Date(attempt.completed_at), 'dd/MM/yy', { locale: dateLocale })}
+                                            </span>
+                                          </div>
+                                        ))}
+                                      </div>
+                                    </details>
+                                  )}
                                 </div>
                               ) : (
                                 <span className="text-muted-foreground text-sm">
@@ -873,12 +964,23 @@ export function UserManagement() {
                               {up.certificate ? (
                                 <div className="space-y-1">
                                   <Badge className="bg-purple-500 hover:bg-purple-600">
-                                    <GraduationCap className="h-3 w-3 mr-1" />
+                                    <Award className="h-3 w-3 mr-1" />
                                     {up.certificate.certificate_code}
                                   </Badge>
-                                  <p className="text-xs text-muted-foreground">
-                                    {language === 'ro' ? 'Emis:' : language === 'de' ? 'Ausgestellt:' : 'Issued:'} {format(new Date(up.certificate.issued_at), 'dd MMM yyyy', { locale: dateLocale })}
-                                  </p>
+                                  <div className="text-xs text-muted-foreground space-y-0.5">
+                                    <p>
+                                      {language === 'ro' ? 'Emis:' : language === 'de' ? 'Ausgestellt:' : 'Issued:'} {format(new Date(up.certificate.issued_at), 'dd MMM yyyy', { locale: dateLocale })}
+                                    </p>
+                                    <p>
+                                      {language === 'ro' ? 'Expiră:' : language === 'de' ? 'Läuft ab:' : 'Expires:'} {format(new Date(up.certificate.expires_at), 'dd MMM yyyy', { locale: dateLocale })}
+                                    </p>
+                                    {up.certificate.total_training_hours !== null && up.certificate.total_training_hours > 0 && (
+                                      <p className="flex items-center gap-1">
+                                        <Timer className="h-3 w-3" />
+                                        {up.certificate.total_training_hours.toFixed(1)}h {language === 'ro' ? 'training' : language === 'de' ? 'Training' : 'training'}
+                                      </p>
+                                    )}
+                                  </div>
                                 </div>
                               ) : (
                                 <span className="text-muted-foreground text-sm">-</span>
