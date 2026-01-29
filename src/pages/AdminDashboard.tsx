@@ -670,8 +670,8 @@ export default function AdminDashboard() {
             </TabsTrigger>
             
             <TabsTrigger value="quiz-resets" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-red-700 data-[state=active]:border-b-2 data-[state=active]:border-red-500">
-              <Zap className="h-4 w-4" />
-              {t('admin.tab.quizResets') || 'Resetări Quiz'}
+              <RotateCcw className="h-4 w-4" />
+              <span className="font-medium">{t('admin.tab.quizResets')}</span>
             </TabsTrigger>
             
             <TabsTrigger value="analytics" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-violet-700 data-[state=active]:border-b-2 data-[state=active]:border-violet-500">
