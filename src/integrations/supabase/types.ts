@@ -649,14 +649,19 @@ export type Database = {
           best_score: number | null
           chapter_id: string
           completed_at: string | null
+          consecutive_fails: number | null
           created_at: string
           difficulty_level: number | null
           id: string
+          is_locked_out: boolean | null
           last_attempt_at: string | null
           last_reset_at: string | null
           last_reset_by: string | null
+          locked_out_at: string | null
           reset_count: number | null
           status: string
+          unlocked_at: string | null
+          unlocked_by: string | null
           updated_at: string
           user_id: string
           user_restart_count: number | null
@@ -666,14 +671,19 @@ export type Database = {
           best_score?: number | null
           chapter_id: string
           completed_at?: string | null
+          consecutive_fails?: number | null
           created_at?: string
           difficulty_level?: number | null
           id?: string
+          is_locked_out?: boolean | null
           last_attempt_at?: string | null
           last_reset_at?: string | null
           last_reset_by?: string | null
+          locked_out_at?: string | null
           reset_count?: number | null
           status?: string
+          unlocked_at?: string | null
+          unlocked_by?: string | null
           updated_at?: string
           user_id: string
           user_restart_count?: number | null
@@ -683,14 +693,19 @@ export type Database = {
           best_score?: number | null
           chapter_id?: string
           completed_at?: string | null
+          consecutive_fails?: number | null
           created_at?: string
           difficulty_level?: number | null
           id?: string
+          is_locked_out?: boolean | null
           last_attempt_at?: string | null
           last_reset_at?: string | null
           last_reset_by?: string | null
+          locked_out_at?: string | null
           reset_count?: number | null
           status?: string
+          unlocked_at?: string | null
+          unlocked_by?: string | null
           updated_at?: string
           user_id?: string
           user_restart_count?: number | null
@@ -3906,6 +3921,10 @@ export type Database = {
         }
         Returns: Json
       }
+      admin_unlock_chapter: {
+        Args: { p_chapter_id: string; p_user_id: string }
+        Returns: Json
+      }
       calculate_engagement_score: {
         Args: {
           p_chapters: number
@@ -3970,6 +3989,10 @@ export type Database = {
         Returns: boolean
       }
       is_admin_user: { Args: { user_id: string }; Returns: boolean }
+      is_chapter_locked: {
+        Args: { p_chapter_id: string; p_user_id: string }
+        Returns: boolean
+      }
       is_company_admin: {
         Args: { _company_id: string; _user_id: string }
         Returns: boolean

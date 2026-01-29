@@ -5,12 +5,16 @@ import { useAuth } from './useAuth';
 
 interface ChapterProgress {
   chapter_id: string;
-  status: 'locked' | 'unlocked' | 'in_progress' | 'completed';
+  status: 'locked' | 'unlocked' | 'in_progress' | 'completed' | 'locked_out';
   best_score: number;
   attempts_count: number;
   completed_at: string | null;
   last_attempt_at: string | null;
+  is_locked_out: boolean;
+  consecutive_fails: number;
 }
+
+const MAX_CONSECUTIVE_FAILS = 3;
 
 const PASSING_SCORE = 9;
 const TOTAL_QUESTIONS = 10;
@@ -37,13 +41,16 @@ export function useChapterProgress() {
 
       const progressMap: Record<string, ChapterProgress> = {};
       data?.forEach((item) => {
+        const isLockedOut = item.is_locked_out === true;
         progressMap[item.chapter_id] = {
           chapter_id: item.chapter_id,
-          status: item.status as ChapterProgress['status'],
+          status: isLockedOut ? 'locked_out' : (item.status as ChapterProgress['status']),
           best_score: item.best_score || 0,
           attempts_count: item.attempts_count || 0,
           completed_at: item.completed_at,
           last_attempt_at: item.last_attempt_at,
+          is_locked_out: isLockedOut,
+          consecutive_fails: item.consecutive_fails || 0,
         };
       });
 
@@ -63,8 +70,13 @@ export function useChapterProgress() {
     // If user not logged in, only first chapter is accessible
     if (!user) return chapterIndex === 0;
 
-    // Check if this chapter is explicitly unlocked or completed
+    // Check if this chapter is locked out due to too many failures
     const chapterProgress = progress[chapterId];
+    if (chapterProgress?.is_locked_out) {
+      return false; // Locked out - needs admin to unlock
+    }
+
+    // Check if this chapter is explicitly unlocked or completed
     if (chapterProgress && (chapterProgress.status === 'unlocked' || 
         chapterProgress.status === 'in_progress' || 
         chapterProgress.status === 'completed')) {
@@ -73,6 +85,14 @@ export function useChapterProgress() {
 
     return false;
   }, [user, progress]);
+
+  const isChapterLockedOut = useCallback((chapterId: string): boolean => {
+    return progress[chapterId]?.is_locked_out || false;
+  }, [progress]);
+
+  const getConsecutiveFails = useCallback((chapterId: string): number => {
+    return progress[chapterId]?.consecutive_fails || 0;
+  }, [progress]);
 
   const getChapterStatus = useCallback((chapterId: string): ChapterProgress['status'] => {
     return progress[chapterId]?.status || 'locked';
@@ -118,11 +138,25 @@ export function useChapterProgress() {
     const currentProgress = progress[chapterId];
     const currentBestScore = currentProgress?.best_score || 0;
     const currentAttempts = currentProgress?.attempts_count || 0;
+    const currentConsecutiveFails = currentProgress?.consecutive_fails || 0;
 
     // Update chapter progress - cap score at 10 (max questions per quiz)
-    const newStatus = passed ? 'completed' : 'in_progress';
     const cappedScore = Math.min(score, TOTAL_QUESTIONS); // Ensure score never exceeds 10
     const newBestScore = Math.min(Math.max(currentBestScore, cappedScore), TOTAL_QUESTIONS);
+    
+    // Track consecutive failures
+    const newConsecutiveFails = passed ? 0 : currentConsecutiveFails + 1;
+    const shouldLockOut = newConsecutiveFails >= MAX_CONSECUTIVE_FAILS;
+    
+    // Determine new status
+    let newStatus: string;
+    if (shouldLockOut) {
+      newStatus = 'locked_out';
+    } else if (passed) {
+      newStatus = 'completed';
+    } else {
+      newStatus = 'in_progress';
+    }
 
     const { error: progressError } = await supabase
       .from('chapter_progress')
@@ -134,12 +168,22 @@ export function useChapterProgress() {
         attempts_count: currentAttempts + 1,
         completed_at: passed ? new Date().toISOString() : currentProgress?.completed_at,
         last_attempt_at: new Date().toISOString(),
+        consecutive_fails: newConsecutiveFails,
+        is_locked_out: shouldLockOut,
+        locked_out_at: shouldLockOut ? new Date().toISOString() : null,
       }, {
         onConflict: 'user_id,chapter_id',
       });
 
     if (progressError) {
       console.error('Error updating progress:', progressError);
+      return false;
+    }
+
+    // If locked out, don't proceed further
+    if (shouldLockOut) {
+      console.log(`Chapter ${chapterId} locked out after ${MAX_CONSECUTIVE_FAILS} consecutive failures`);
+      queryClient.invalidateQueries({ queryKey: ['chapterProgress', user.id] });
       return false;
     }
 
@@ -271,14 +315,17 @@ export function useChapterProgress() {
     progress,
     loading,
     isChapterUnlocked,
+    isChapterLockedOut,
     getChapterStatus,
     getBestScore,
     getAttemptsCount,
+    getConsecutiveFails,
     recordQuizAttempt,
     initializeUserProgress,
     refreshProgress,
     completeIntroChapter,
     PASSING_SCORE,
     TOTAL_QUESTIONS,
+    MAX_CONSECUTIVE_FAILS,
   };
 }

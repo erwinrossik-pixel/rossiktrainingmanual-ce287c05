@@ -13,8 +13,9 @@ import { ro, de, enUS } from 'date-fns/locale';
 import { 
   GraduationCap, User as UserIcon, BookOpen, Check, X, RotateCcw, Timer, 
   Target, Trophy, Award, Search, ChevronDown, ChevronRight, Eye, Clock,
-  AlertTriangle, TrendingUp
+  AlertTriangle, TrendingUp, Unlock, Lock
 } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 interface ExamAttempt {
   id: string;
@@ -48,6 +49,8 @@ interface ChapterDetail {
   visit_count: number;
   total_time_seconds: number;
   quiz_history: QuizAttemptDetail[];
+  is_locked_out: boolean;
+  consecutive_fails: number;
 }
 
 interface UserProgress {
@@ -87,6 +90,29 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [expandedUsers, setExpandedUsers] = useState<Set<string>>(new Set());
+  const [unlockingChapter, setUnlockingChapter] = useState<string | null>(null);
+
+  const handleUnlockChapter = async (userId: string, chapterId: string) => {
+    setUnlockingChapter(`${userId}-${chapterId}`);
+    try {
+      const { data, error } = await supabase.rpc('admin_unlock_chapter', {
+        p_user_id: userId,
+        p_chapter_id: chapterId
+      });
+      
+      if (error) {
+        console.error('Error unlocking chapter:', error);
+        return;
+      }
+      
+      // Refresh data
+      fetchUserProgress();
+    } catch (err) {
+      console.error('Failed to unlock chapter:', err);
+    } finally {
+      setUnlockingChapter(null);
+    }
+  };
 
   const dateLocale = language === 'de' ? de : language === 'en' ? enUS : ro;
 
@@ -143,6 +169,11 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
       totalPassed: 'Total Reușite',
       quizStats: 'Statistici Quiz',
       firstPassScore: 'Scor Prima Trecere',
+      lockedOut: 'Blocat (3x eșec)',
+      unlock: 'Deblochează',
+      unlocking: 'Se deblochează...',
+      unlockSuccess: 'Capitol deblocat cu succes',
+      unlockError: 'Eroare la deblocare',
     },
     de: {
       title: 'Benutzerfortschritt & Abschlussprüfung',
@@ -196,6 +227,11 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
       totalPassed: 'Gesamt Bestanden',
       quizStats: 'Quiz-Statistiken',
       firstPassScore: 'Erste Bestanden-Punktzahl',
+      lockedOut: 'Gesperrt (3x Fehler)',
+      unlock: 'Entsperren',
+      unlocking: 'Entsperren...',
+      unlockSuccess: 'Kapitel erfolgreich entsperrt',
+      unlockError: 'Fehler beim Entsperren',
     },
     en: {
       title: 'User Progress & Final Exam',
@@ -249,6 +285,11 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
       totalPassed: 'Total Passed',
       quizStats: 'Quiz Stats',
       firstPassScore: 'First Pass Score',
+      lockedOut: 'Locked (3x fail)',
+      unlock: 'Unlock',
+      unlocking: 'Unlocking...',
+      unlockSuccess: 'Chapter unlocked successfully',
+      unlockError: 'Failed to unlock',
     }
   };
 
@@ -335,7 +376,7 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
         chaptersRes
       ] = await Promise.all([
         supabase.from('profiles').select('id, email, first_name, last_name'),
-        supabase.from('chapter_progress').select('user_id, chapter_id, status, best_score, attempts_count, reset_count, difficulty_level, user_restart_count'),
+        supabase.from('chapter_progress').select('user_id, chapter_id, status, best_score, attempts_count, reset_count, difficulty_level, user_restart_count, is_locked_out, consecutive_fails'),
         supabase.from('quiz_attempts').select('user_id, chapter_id, score, passed, created_at').order('created_at', { ascending: true }),
         supabase.from('training_time').select('user_id, total_seconds'),
         supabase.from('final_exam_attempts').select('id, user_id, score, total_questions, percentage, passed, time_spent_seconds, completed_at').order('completed_at', { ascending: false }),
@@ -416,7 +457,7 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
 
           return {
             chapter_id: chapterId,
-            status: progress?.status || 'locked',
+            status: (progress as any)?.is_locked_out ? 'locked_out' : (progress?.status || 'locked'),
             best_score: progress?.best_score || 0,
             attempts_count: actualAttemptsCount,
             reset_count: progress?.reset_count || chapterResets.length || 0,
@@ -437,7 +478,9 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
                 created_at: q.created_at,
                 was_restart: wasRestart
               };
-            })
+            }),
+            is_locked_out: (progress as any)?.is_locked_out || false,
+            consecutive_fails: (progress as any)?.consecutive_fails || 0,
           };
         });
 
@@ -561,6 +604,8 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
         return <Badge className="bg-blue-500 text-white text-xs">{t.inProgress}</Badge>;
       case 'unlocked':
         return <Badge variant="outline" className="text-xs">{t.unlocked}</Badge>;
+      case 'locked_out':
+        return <Badge variant="destructive" className="text-xs animate-pulse">{t.lockedOut}</Badge>;
       default:
         return <Badge variant="secondary" className="text-xs">{t.locked}</Badge>;
     }
@@ -801,6 +846,7 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
                               <TableHead className="font-bold text-foreground">{t.quizResult}</TableHead>
                               <TableHead className="font-bold text-foreground text-center">{t.resets}</TableHead>
                               <TableHead className="font-bold text-foreground">{t.difficulty}</TableHead>
+                              <TableHead className="font-bold text-foreground text-center">Acțiune</TableHead>
                             </TableRow>
                           </TableHeader>
                           <TableBody>
@@ -905,6 +951,36 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
                                 <TableCell>
                                   {getDifficultyBadge(cd.difficulty_level)}
                                 </TableCell>
+                                {/* Action - Unlock button for locked_out chapters */}
+                                <TableCell className="text-center">
+                                  {cd.is_locked_out ? (
+                                    <Button
+                                      size="sm"
+                                      variant="outline"
+                                      className="h-7 px-2 text-xs border-green-500 text-green-600 hover:bg-green-50 hover:text-green-700"
+                                      onClick={(e) => {
+                                        e.stopPropagation();
+                                        handleUnlockChapter(up.user_id, cd.chapter_id);
+                                      }}
+                                      disabled={unlockingChapter === `${up.user_id}-${cd.chapter_id}`}
+                                    >
+                                      {unlockingChapter === `${up.user_id}-${cd.chapter_id}` ? (
+                                        <span className="animate-spin">⏳</span>
+                                      ) : (
+                                        <>
+                                          <Unlock className="h-3 w-3 mr-1" />
+                                          {t.unlock}
+                                        </>
+                                      )}
+                                    </Button>
+                                  ) : cd.consecutive_fails > 0 && cd.consecutive_fails < 3 ? (
+                                    <span className="text-xs text-amber-600">
+                                      {cd.consecutive_fails}/3 eșecuri
+                                    </span>
+                                  ) : (
+                                    <span className="text-muted-foreground">-</span>
+                                  )}
+                                </TableCell>
                               </TableRow>
                           ))}
                           {/* Totals Row */}
@@ -996,6 +1072,9 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
                                 </TableCell>
                                 <TableCell>
                                   <span className="text-primary font-bold">Ø {avgDifficulty}</span>
+                                </TableCell>
+                                <TableCell className="text-center">
+                                  <span className="text-muted-foreground">-</span>
                                 </TableCell>
                               </TableRow>
                             );

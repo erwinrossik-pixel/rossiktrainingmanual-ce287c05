@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo, useRef } from "react";
-import { CheckCircle2, XCircle, RotateCcw, Trophy, ChevronRight, Shuffle, Lock, Unlock, AlertTriangle, ChevronDown, ChevronUp, BookOpen, Bookmark, BookmarkCheck, Zap } from "lucide-react";
+import { CheckCircle2, XCircle, RotateCcw, Trophy, ChevronRight, Shuffle, Lock, Unlock, AlertTriangle, ChevronDown, ChevronUp, BookOpen, Bookmark, BookmarkCheck, Zap, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { useProgressContext } from "@/contexts/ProgressContext";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useAuth } from "@/hooks/useAuth";
@@ -49,7 +50,7 @@ const QUESTIONS_PER_ROUND = 10;
 export function Quiz({ title, questions, chapterId, questionsPerRound = QUESTIONS_PER_ROUND }: QuizProps) {
   const { language } = useLanguage();
   const { user } = useAuth();
-  const { recordQuizAttempt, getBestScore, getChapterStatus, PASSING_SCORE: dbPassingScore } = useChapterProgress();
+  const { recordQuizAttempt, getBestScore, getChapterStatus, isChapterLockedOut, getConsecutiveFails, PASSING_SCORE: dbPassingScore, MAX_CONSECUTIVE_FAILS } = useChapterProgress();
   const { isBookmarked, toggleBookmark } = useBookmarks();
   const { startQuizSession, completeQuizSession, recordQuestionPerformance } = useQuizTracking();
   const { difficulty, resetCount, userRestartCount, config, applyDifficulty, getPassingScore, isLoading: difficultyLoading, recordUserRestart, refreshDifficulty } = useQuizDifficulty(chapterId);
@@ -135,6 +136,29 @@ export function Quiz({ title, questions, chapterId, questionsPerRound = QUESTION
   const dbBestScore = chapterId && user ? getBestScore(chapterId) : 0;
   const dbStatus = chapterId && user ? getChapterStatus(chapterId) : null;
   const isChapterCompleted = dbStatus === 'completed';
+  const isLockedOut = chapterId && user ? isChapterLockedOut(chapterId) : false;
+  const consecutiveFails = chapterId && user ? getConsecutiveFails(chapterId) : 0;
+
+  // If chapter is locked out, show message
+  if (isLockedOut) {
+    return (
+      <Card className="w-full max-w-4xl mx-auto border-destructive bg-destructive/5">
+        <CardHeader className="text-center">
+          <CardTitle className="flex items-center justify-center gap-2 text-destructive">
+            <X className="h-6 w-6" />
+            {language === 'ro' ? 'Capitol Blocat' : language === 'de' ? 'Kapitel Gesperrt' : 'Chapter Locked'}
+          </CardTitle>
+          <p className="text-muted-foreground mt-2">
+            {language === 'ro' 
+              ? 'Ai depășit limita de 3 încercări eșuate consecutive. Contactează un administrator pentru a debloca acest capitol.'
+              : language === 'de'
+              ? 'Du hast die Grenze von 3 aufeinanderfolgenden Fehlversuchen überschritten. Kontaktiere einen Administrator, um dieses Kapitel freizuschalten.'
+              : 'You have exceeded the limit of 3 consecutive failed attempts. Contact an administrator to unlock this chapter.'}
+          </p>
+        </CardHeader>
+      </Card>
+    );
+  }
 
   const handleAnswer = (index: number) => {
     if (!question || answeredQuestions[currentQuestion]) return;
