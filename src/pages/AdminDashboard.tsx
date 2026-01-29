@@ -12,7 +12,7 @@ import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { ArrowLeft, Users, BookOpen, Trophy, Clock, Eye, Download, BarChart3, RefreshCw, RotateCcw, Unlock, Shield, Activity, Timer, TrendingUp, Calendar, TimerReset, FileSearch, Award, Bell, BellOff, Radio, Building2, CreditCard, Server, Database, AlertTriangle, CheckCircle, Lock, Target, Network, Gamepad2, Globe, Zap } from 'lucide-react';
+import { ArrowLeft, Users, BookOpen, Trophy, Clock, Eye, Download, BarChart3, RefreshCw, RotateCcw, Unlock, Shield, Activity, Timer, TrendingUp, Calendar, TimerReset, FileSearch, Award, Bell, BellOff, Radio, Building2, CreditCard, Server, Database, AlertTriangle, CheckCircle, Lock, Target, Network, Gamepad2, Globe, Zap, GraduationCap } from 'lucide-react';
 import { toast } from 'sonner';
 import { GovernanceDashboard } from '@/components/admin/GovernanceDashboard';
 import { format, subDays } from 'date-fns';
@@ -46,6 +46,7 @@ import { ContentGovernorDashboard } from '@/components/admin/ContentGovernorDash
 import { QuizAnalyticsDashboard } from '@/components/admin/QuizAnalyticsDashboard';
 import { FinalExamResults } from '@/components/admin/FinalExamResults';
 import { QuizResetManager } from '@/components/admin/QuizResetManager';
+import { UserProgressExamPanel } from '@/components/admin/UserProgressExamPanel';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import NotificationCenter from '@/components/NotificationCenter';
@@ -650,6 +651,11 @@ export default function AdminDashboard() {
               {t('admin.tab.allProfiles')}
             </TabsTrigger>
             
+            <TabsTrigger value="user-progress-exam" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-green-700 data-[state=active]:border-b-2 data-[state=active]:border-green-500">
+              <GraduationCap className="h-4 w-4" />
+              <span className="font-medium">{t('admin.tab.progressExam')}</span>
+            </TabsTrigger>
+            
             <TabsTrigger value="retention" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-rose-700 data-[state=active]:border-b-2 data-[state=active]:border-rose-500">
               <TrendingUp className="h-4 w-4" />
               {t('admin.tab.retention')}
@@ -837,6 +843,11 @@ export default function AdminDashboard() {
               </TabsContent>
             </>
           )}
+
+          {/* User Progress & Final Exam - Dedicated Tab */}
+          <TabsContent value="user-progress-exam" className="mt-6">
+            <UserProgressExamPanel />
+          </TabsContent>
 
           <TabsContent value="users" className="mt-6">
             <Card className="border-2 shadow-lg">
