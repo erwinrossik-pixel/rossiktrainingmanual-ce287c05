@@ -388,11 +388,11 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
             }
           }
 
-          // Count passed and failed attempts
-          const passedAttempts = chapterQuizzes.filter(q => q.passed);
-          const failedAttempts = chapterQuizzes.filter(q => !q.passed);
+          // Count passed and failed attempts - ensure boolean comparison
+          const passedAttempts = chapterQuizzes.filter(q => q.passed === true);
+          const failedAttempts = chapterQuizzes.filter(q => q.passed === false || !q.passed);
           
-          // Find first pass score
+          // Find first pass score (already sorted by created_at ascending)
           const firstPass = passedAttempts.length > 0 ? passedAttempts[0] : null;
 
           // Use attempts_count from chapter_progress as fallback when no quiz_attempts exist
