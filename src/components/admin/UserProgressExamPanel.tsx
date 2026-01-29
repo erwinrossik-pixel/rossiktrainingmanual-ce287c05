@@ -861,11 +861,11 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
                                     <span className="text-muted-foreground">-</span>
                                   )}
                                 </TableCell>
-                                {/* Best Score */}
+                                {/* Best Score - capped at 10 */}
                                 <TableCell>
                                   {cd.best_score > 0 ? (
-                                    <span className={cd.best_score >= 9 ? 'text-green-600 font-semibold' : cd.best_score >= 7 ? 'text-amber-600' : 'text-red-600'}>
-                                      {cd.best_score}/10
+                                    <span className={Math.min(cd.best_score, 10) >= 9 ? 'text-green-600 font-semibold' : Math.min(cd.best_score, 10) >= 7 ? 'text-amber-600' : 'text-red-600'}>
+                                      {Math.min(cd.best_score, 10)}/10
                                     </span>
                                   ) : (
                                     <span className="text-muted-foreground text-xs">{t.noQuizYet}</span>
