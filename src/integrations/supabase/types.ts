@@ -3077,6 +3077,39 @@ export type Database = {
         }
         Relationships: []
       }
+      training_reset_log: {
+        Row: {
+          avg_score_before: number | null
+          chapters_completed_before: number | null
+          created_at: string | null
+          id: string
+          notes: string | null
+          reset_at: string | null
+          reset_by: string
+          user_id: string
+        }
+        Insert: {
+          avg_score_before?: number | null
+          chapters_completed_before?: number | null
+          created_at?: string | null
+          id?: string
+          notes?: string | null
+          reset_at?: string | null
+          reset_by: string
+          user_id: string
+        }
+        Update: {
+          avg_score_before?: number | null
+          chapters_completed_before?: number | null
+          created_at?: string | null
+          id?: string
+          notes?: string | null
+          reset_at?: string | null
+          reset_by?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       training_sessions: {
         Row: {
           chapter_id: string | null
