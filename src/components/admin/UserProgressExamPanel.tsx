@@ -26,20 +26,27 @@ interface ExamAttempt {
   completed_at: string;
 }
 
+interface QuizAttemptDetail {
+  score: number;
+  passed: boolean;
+  created_at: string;
+  was_restart: boolean; // if attempt happened shortly after another
+}
+
 interface ChapterDetail {
   chapter_id: string;
   status: string;
   best_score: number;
-  attempts_count: number;
-  reset_count: number;
+  attempts_count: number; // total quiz attempts from quiz_attempts table
+  reset_count: number; // admin resets from chapter_progress
+  restart_count: number; // times user backed out / restarted
+  failed_count: number; // attempts where passed = false
+  passed_count: number; // attempts where passed = true
+  first_pass_score: number | null; // score when first passed
   difficulty_level: number;
   visit_count: number;
   total_time_seconds: number;
-  quiz_history: Array<{
-    score: number;
-    passed: boolean;
-    created_at: string;
-  }>;
+  quiz_history: QuizAttemptDetail[];
 }
 
 interface UserProgress {
@@ -110,7 +117,10 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
       timeSpent: 'Timp Petrecut',
       quizResult: 'Rezultat Quiz',
       quizAttempts: 'Încercări Quiz',
-      resets: 'Resetări',
+      resets: 'Resetări Admin',
+      restarts: 'Reînceput',
+      failedAttempts: 'Eșecuri',
+      passedAttempts: 'Reușite',
       difficulty: 'Dificultate',
       quizHistory: 'Istoric Quiz',
       totalAppTime: 'Timp Total Aplicație',
@@ -127,6 +137,11 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
       minutes: 'min',
       hours: 'ore',
       notVisited: 'Nevizitat',
+      totalRestarts: 'Total Reînceput',
+      totalFailed: 'Total Eșecuri',
+      totalPassed: 'Total Reușite',
+      quizStats: 'Statistici Quiz',
+      firstPassScore: 'Scor Prima Trecere',
     },
     de: {
       title: 'Benutzerfortschritt & Abschlussprüfung',
@@ -155,7 +170,10 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
       timeSpent: 'Verbrachte Zeit',
       quizResult: 'Quiz-Ergebnis',
       quizAttempts: 'Quiz-Versuche',
-      resets: 'Zurücksetzungen',
+      resets: 'Admin-Resets',
+      restarts: 'Neustart',
+      failedAttempts: 'Fehlversuche',
+      passedAttempts: 'Bestanden',
       difficulty: 'Schwierigkeit',
       quizHistory: 'Quiz-Verlauf',
       totalAppTime: 'Gesamte App-Zeit',
@@ -172,6 +190,11 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
       minutes: 'Min',
       hours: 'Std',
       notVisited: 'Nicht besucht',
+      totalRestarts: 'Gesamt Neustart',
+      totalFailed: 'Gesamt Fehlversuche',
+      totalPassed: 'Gesamt Bestanden',
+      quizStats: 'Quiz-Statistiken',
+      firstPassScore: 'Erste Bestanden-Punktzahl',
     },
     en: {
       title: 'User Progress & Final Exam',
@@ -200,7 +223,10 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
       timeSpent: 'Time Spent',
       quizResult: 'Quiz Result',
       quizAttempts: 'Quiz Attempts',
-      resets: 'Resets',
+      resets: 'Admin Resets',
+      restarts: 'Restarts',
+      failedAttempts: 'Failed',
+      passedAttempts: 'Passed',
       difficulty: 'Difficulty',
       quizHistory: 'Quiz History',
       totalAppTime: 'Total App Time',
@@ -217,6 +243,11 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
       minutes: 'min',
       hours: 'hrs',
       notVisited: 'Not visited',
+      totalRestarts: 'Total Restarts',
+      totalFailed: 'Total Failed',
+      totalPassed: 'Total Passed',
+      quizStats: 'Quiz Stats',
+      firstPassScore: 'First Pass Score',
     }
   };
 
@@ -338,23 +369,54 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
         const chapterDetails: ChapterDetail[] = chapterOrder.map(chapterId => {
           const progress = userChapterProgress.find(cp => cp.chapter_id === chapterId);
           const chapterViews = userPageViews.filter(pv => pv.chapter_id === chapterId);
-          const chapterQuizzes = userQuizAttempts.filter(qa => qa.chapter_id === chapterId);
+          const chapterQuizzes = userQuizAttempts
+            .filter(qa => qa.chapter_id === chapterId)
+            .sort((a, b) => new Date(a.created_at).getTime() - new Date(b.created_at).getTime());
           const chapterResets = userResets.filter(rh => rh.chapter_id === chapterId);
+
+          // Calculate restarts: attempts that happened within 2 minutes of previous attempt
+          // or attempts where user didn't finish (score = 0 or very low attempts in sequence)
+          let restartCount = 0;
+          for (let i = 1; i < chapterQuizzes.length; i++) {
+            const prevTime = new Date(chapterQuizzes[i - 1].created_at).getTime();
+            const currTime = new Date(chapterQuizzes[i].created_at).getTime();
+            const diffMinutes = (currTime - prevTime) / (1000 * 60);
+            // If attempts are within 5 minutes, consider it a restart
+            if (diffMinutes < 5) {
+              restartCount++;
+            }
+          }
+
+          // Count passed and failed attempts
+          const passedAttempts = chapterQuizzes.filter(q => q.passed);
+          const failedAttempts = chapterQuizzes.filter(q => !q.passed);
+          
+          // Find first pass score
+          const firstPass = passedAttempts.length > 0 ? passedAttempts[0] : null;
 
           return {
             chapter_id: chapterId,
             status: progress?.status || 'locked',
             best_score: progress?.best_score || 0,
-            attempts_count: progress?.attempts_count || 0,
+            attempts_count: chapterQuizzes.length, // actual quiz attempts from table
             reset_count: progress?.reset_count || chapterResets.length || 0,
+            restart_count: restartCount,
+            failed_count: failedAttempts.length,
+            passed_count: passedAttempts.length,
+            first_pass_score: firstPass ? firstPass.score : null,
             difficulty_level: progress?.difficulty_level || 1,
             visit_count: chapterViews.length,
             total_time_seconds: chapterViews.reduce((sum, v) => sum + (v.duration_seconds || 0), 0),
-            quiz_history: chapterQuizzes.map(q => ({
-              score: q.score,
-              passed: q.passed,
-              created_at: q.created_at
-            }))
+            quiz_history: chapterQuizzes.map((q, idx) => {
+              const wasRestart = idx > 0 && 
+                (new Date(q.created_at).getTime() - new Date(chapterQuizzes[idx - 1].created_at).getTime()) < 5 * 60 * 1000;
+              return {
+                score: q.score,
+                passed: q.passed,
+                created_at: q.created_at,
+                was_restart: wasRestart
+              };
+            })
           };
         });
 
@@ -648,8 +710,8 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
                   {/* Expanded chapter details */}
                   <CollapsibleContent>
                     <div className="border-t bg-muted/30 p-4">
-                      {/* Summary stats */}
-                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4 p-3 bg-card rounded-lg">
+                      {/* Summary stats - 2 rows */}
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-2 p-3 bg-card rounded-lg">
                         <div className="text-center">
                           <p className="text-2xl font-bold text-green-600">{formatTime(up.total_training_seconds)}</p>
                           <p className="text-xs text-muted-foreground">{t.totalAppTime}</p>
@@ -667,6 +729,34 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
                           <p className="text-xs text-muted-foreground">{t.passedQuizzes}</p>
                         </div>
                       </div>
+                      
+                      {/* Quiz-specific summary stats */}
+                      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4 p-3 bg-card rounded-lg border-l-4 border-l-orange-500">
+                        <div className="text-center">
+                          <p className="text-2xl font-bold text-orange-600">
+                            {up.chapter_details.reduce((sum, cd) => sum + cd.restart_count, 0)}
+                          </p>
+                          <p className="text-xs text-muted-foreground">{t.totalRestarts}</p>
+                        </div>
+                        <div className="text-center">
+                          <p className="text-2xl font-bold text-red-600">
+                            {up.chapter_details.reduce((sum, cd) => sum + cd.failed_count, 0)}
+                          </p>
+                          <p className="text-xs text-muted-foreground">{t.totalFailed}</p>
+                        </div>
+                        <div className="text-center">
+                          <p className="text-2xl font-bold text-green-600">
+                            {up.chapter_details.reduce((sum, cd) => sum + cd.passed_count, 0)}
+                          </p>
+                          <p className="text-xs text-muted-foreground">{t.totalPassed}</p>
+                        </div>
+                        <div className="text-center">
+                          <p className="text-2xl font-bold text-sky-600">
+                            {up.chapter_details.filter(cd => cd.reset_count > 0).length}
+                          </p>
+                          <p className="text-xs text-muted-foreground">{t.resets}</p>
+                        </div>
+                      </div>
 
                       {/* Chapter details table */}
                       <div className="overflow-x-auto">
@@ -676,8 +766,11 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
                               <TableHead className="font-bold text-foreground">{t.chapter}</TableHead>
                               <TableHead className="font-bold text-foreground text-center">{t.visits}</TableHead>
                               <TableHead className="font-bold text-foreground">{t.timeSpent}</TableHead>
-                              <TableHead className="font-bold text-foreground">{t.quizResult}</TableHead>
                               <TableHead className="font-bold text-foreground text-center">{t.quizAttempts}</TableHead>
+                              <TableHead className="font-bold text-foreground text-center">{t.restarts}</TableHead>
+                              <TableHead className="font-bold text-foreground text-center">{t.failedAttempts}</TableHead>
+                              <TableHead className="font-bold text-foreground text-center">{t.passedAttempts}</TableHead>
+                              <TableHead className="font-bold text-foreground">{t.quizResult}</TableHead>
                               <TableHead className="font-bold text-foreground text-center">{t.resets}</TableHead>
                               <TableHead className="font-bold text-foreground">{t.difficulty}</TableHead>
                             </TableRow>
@@ -707,6 +800,48 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
                                     <span className="text-muted-foreground text-xs">{t.notVisited}</span>
                                   )}
                                 </TableCell>
+                                {/* Quiz Attempts */}
+                                <TableCell className="text-center">
+                                  <span className={cd.attempts_count > 0 ? 'font-semibold text-foreground' : 'text-muted-foreground'}>
+                                    {cd.attempts_count || '-'}
+                                  </span>
+                                </TableCell>
+                                {/* Restarts */}
+                                <TableCell className="text-center">
+                                  {cd.restart_count > 0 ? (
+                                    <Badge variant="outline" className="text-xs bg-orange-50 text-orange-700 border-orange-300">
+                                      {cd.restart_count}
+                                    </Badge>
+                                  ) : (
+                                    <span className="text-muted-foreground">-</span>
+                                  )}
+                                </TableCell>
+                                {/* Failed */}
+                                <TableCell className="text-center">
+                                  {cd.failed_count > 0 ? (
+                                    <Badge variant="destructive" className="text-xs">
+                                      <X className="h-3 w-3 mr-1" />
+                                      {cd.failed_count}
+                                    </Badge>
+                                  ) : (
+                                    <span className="text-muted-foreground">-</span>
+                                  )}
+                                </TableCell>
+                                {/* Passed */}
+                                <TableCell className="text-center">
+                                  {cd.passed_count > 0 ? (
+                                    <Badge className="text-xs bg-green-500">
+                                      <Check className="h-3 w-3 mr-1" />
+                                      {cd.passed_count}
+                                      {cd.first_pass_score !== null && (
+                                        <span className="ml-1">({cd.first_pass_score}/10)</span>
+                                      )}
+                                    </Badge>
+                                  ) : (
+                                    <span className="text-muted-foreground">-</span>
+                                  )}
+                                </TableCell>
+                                {/* Best Score */}
                                 <TableCell>
                                   {cd.best_score > 0 ? (
                                     <span className={cd.best_score >= 9 ? 'text-green-600 font-semibold' : cd.best_score >= 7 ? 'text-amber-600' : 'text-red-600'}>
@@ -716,11 +851,7 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
                                     <span className="text-muted-foreground text-xs">{t.noQuizYet}</span>
                                   )}
                                 </TableCell>
-                                <TableCell className="text-center">
-                                  <span className={cd.attempts_count > 0 ? 'text-foreground' : 'text-muted-foreground'}>
-                                    {cd.attempts_count || '-'}
-                                  </span>
-                                </TableCell>
+                                {/* Admin Resets */}
                                 <TableCell className="text-center">
                                   {cd.reset_count > 0 ? (
                                     <Badge variant="destructive" className="text-xs">
@@ -731,6 +862,7 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
                                     <span className="text-muted-foreground">-</span>
                                   )}
                                 </TableCell>
+                                {/* Difficulty */}
                                 <TableCell>
                                   {getDifficultyBadge(cd.difficulty_level)}
                                 </TableCell>
