@@ -887,7 +887,100 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
                                   {getDifficultyBadge(cd.difficulty_level)}
                                 </TableCell>
                               </TableRow>
-                            ))}
+                          ))}
+                          {/* Totals Row */}
+                          {(() => {
+                            const totals = up.chapter_details.reduce((acc, cd) => ({
+                              visits: acc.visits + (cd.visit_count || 0),
+                              time: acc.time + (cd.total_time_seconds || 0),
+                              attempts: acc.attempts + (cd.attempts_count || 0),
+                              restarts: acc.restarts + (cd.restart_count || 0),
+                              userRestarts: acc.userRestarts + (cd.user_restart_count || 0),
+                              failed: acc.failed + (cd.failed_count || 0),
+                              passed: acc.passed + (cd.passed_count || 0),
+                              totalScore: acc.totalScore + (cd.best_score > 0 ? Math.min(cd.best_score, 10) : 0),
+                              scoredChapters: acc.scoredChapters + (cd.best_score > 0 ? 1 : 0),
+                              adminResets: acc.adminResets + (cd.reset_count || 0),
+                              totalDifficulty: acc.totalDifficulty + (cd.difficulty_level || 1),
+                            }), { visits: 0, time: 0, attempts: 0, restarts: 0, userRestarts: 0, failed: 0, passed: 0, totalScore: 0, scoredChapters: 0, adminResets: 0, totalDifficulty: 0 });
+                            
+                            const avgScore = totals.scoredChapters > 0 ? (totals.totalScore / totals.scoredChapters).toFixed(1) : '-';
+                            const avgDifficulty = up.chapter_details.length > 0 ? (totals.totalDifficulty / up.chapter_details.length).toFixed(1) : '-';
+                            
+                            return (
+                              <TableRow className="bg-muted/50 font-semibold border-t-2 border-primary/20">
+                                <TableCell className="font-bold text-primary">
+                                  TOTAL
+                                </TableCell>
+                                <TableCell>
+                                  <span className="text-primary font-bold">{totals.visits}</span>
+                                </TableCell>
+                                <TableCell>
+                                  <span className="text-primary font-bold">{formatTime(totals.time)}</span>
+                                </TableCell>
+                                <TableCell className="text-center">
+                                  <span className="text-primary font-bold">{totals.attempts}</span>
+                                </TableCell>
+                                <TableCell className="text-center">
+                                  {totals.restarts > 0 ? (
+                                    <Badge variant="outline" className="text-xs bg-orange-100 text-orange-800 border-orange-400 font-bold">
+                                      {totals.restarts}
+                                    </Badge>
+                                  ) : (
+                                    <span className="text-muted-foreground">-</span>
+                                  )}
+                                </TableCell>
+                                <TableCell className="text-center">
+                                  {totals.userRestarts > 0 ? (
+                                    <Badge variant="secondary" className="text-xs bg-purple-200 text-purple-800 border-purple-500 font-bold">
+                                      <TrendingUp className="h-3 w-3 mr-1" />
+                                      {totals.userRestarts}
+                                    </Badge>
+                                  ) : (
+                                    <span className="text-muted-foreground">-</span>
+                                  )}
+                                </TableCell>
+                                <TableCell className="text-center">
+                                  {totals.failed > 0 ? (
+                                    <Badge variant="destructive" className="text-xs font-bold">
+                                      <X className="h-3 w-3 mr-1" />
+                                      {totals.failed}
+                                    </Badge>
+                                  ) : (
+                                    <span className="text-muted-foreground">-</span>
+                                  )}
+                                </TableCell>
+                                <TableCell className="text-center">
+                                  {totals.passed > 0 ? (
+                                    <Badge className="text-xs bg-green-600 font-bold">
+                                      <Check className="h-3 w-3 mr-1" />
+                                      {totals.passed}
+                                    </Badge>
+                                  ) : (
+                                    <span className="text-muted-foreground">-</span>
+                                  )}
+                                </TableCell>
+                                <TableCell>
+                                  <span className="text-primary font-bold">
+                                    Ø {avgScore}/10
+                                  </span>
+                                </TableCell>
+                                <TableCell className="text-center">
+                                  {totals.adminResets > 0 ? (
+                                    <Badge variant="destructive" className="text-xs font-bold">
+                                      <RotateCcw className="h-3 w-3 mr-1" />
+                                      {totals.adminResets}
+                                    </Badge>
+                                  ) : (
+                                    <span className="text-muted-foreground">-</span>
+                                  )}
+                                </TableCell>
+                                <TableCell>
+                                  <span className="text-primary font-bold">Ø {avgDifficulty}</span>
+                                </TableCell>
+                              </TableRow>
+                            );
+                          })()}
                           </TableBody>
                         </Table>
                       </div>
