@@ -119,9 +119,10 @@ export function useChapterProgress() {
     const currentBestScore = currentProgress?.best_score || 0;
     const currentAttempts = currentProgress?.attempts_count || 0;
 
-    // Update chapter progress
+    // Update chapter progress - cap score at 10 (max questions per quiz)
     const newStatus = passed ? 'completed' : 'in_progress';
-    const newBestScore = Math.max(currentBestScore, score);
+    const cappedScore = Math.min(score, TOTAL_QUESTIONS); // Ensure score never exceeds 10
+    const newBestScore = Math.min(Math.max(currentBestScore, cappedScore), TOTAL_QUESTIONS);
 
     const { error: progressError } = await supabase
       .from('chapter_progress')
