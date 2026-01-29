@@ -395,17 +395,36 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
           // Find first pass score
           const firstPass = passedAttempts.length > 0 ? passedAttempts[0] : null;
 
+          // Use attempts_count from chapter_progress as fallback when no quiz_attempts exist
+          const actualAttemptsCount = chapterQuizzes.length > 0 
+            ? chapterQuizzes.length 
+            : (progress?.attempts_count || 0);
+
+          // For passed/failed, if no quiz records but chapter is completed, treat as 1 passed
+          const passedCount = chapterQuizzes.length > 0 
+            ? passedAttempts.length 
+            : (progress?.status === 'completed' && (progress?.best_score || 0) >= 9 ? 1 : 0);
+          
+          const failedCount = chapterQuizzes.length > 0 
+            ? failedAttempts.length 
+            : (actualAttemptsCount > passedCount ? actualAttemptsCount - passedCount : 0);
+
+          // First pass score - use best_score from progress if no quiz records
+          const firstPassScore = firstPass 
+            ? firstPass.score 
+            : (progress?.status === 'completed' ? Math.min(progress?.best_score || 0, 10) : null);
+
           return {
             chapter_id: chapterId,
             status: progress?.status || 'locked',
             best_score: progress?.best_score || 0,
-            attempts_count: chapterQuizzes.length, // actual quiz attempts from table
+            attempts_count: actualAttemptsCount,
             reset_count: progress?.reset_count || chapterResets.length || 0,
             restart_count: restartCount, // calculated from time intervals
             user_restart_count: (progress as any)?.user_restart_count || 0, // official DB count
-            failed_count: failedAttempts.length,
-            passed_count: passedAttempts.length,
-            first_pass_score: firstPass ? firstPass.score : null,
+            failed_count: failedCount,
+            passed_count: passedCount,
+            first_pass_score: firstPassScore,
             difficulty_level: progress?.difficulty_level || 1,
             visit_count: chapterViews.length,
             total_time_seconds: chapterViews.reduce((sum, v) => sum + (v.duration_seconds || 0), 0),
