@@ -4,6 +4,7 @@ import { useAuth } from '@/hooks/useAuth';
 
 const SESSION_KEY = 'analytics_session_id';
 const ACTIVITY_UPDATE_INTERVAL = 30000; // 30 seconds minimum between updates
+const DURATION_UPDATE_INTERVAL = 10000; // Update duration every 10 seconds
 
 function generateSessionId(): string {
   return `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
@@ -30,10 +31,12 @@ export function useAnalytics() {
   const { user } = useAuth();
   const pageStartTime = useRef<number>(Date.now());
   const currentPath = useRef<string>('');
+  const currentPageViewId = useRef<string | null>(null);
   const sessionId = useRef<string>('');
   const lastActivityUpdate = useRef<number>(0);
   const sessionInitialized = useRef<boolean>(false);
   const pendingUpdate = useRef<NodeJS.Timeout | null>(null);
+  const durationUpdateInterval = useRef<NodeJS.Timeout | null>(null);
 
   // Initialize or get session
   useEffect(() => {
@@ -117,6 +120,37 @@ export function useAnalytics() {
     }
   }, [user]);
 
+  // Update page view duration
+  const updatePageViewDuration = useCallback(async (pageViewId: string, durationSeconds: number) => {
+    if (!user || !pageViewId) return;
+    
+    try {
+      await supabase
+        .from('page_views')
+        .update({ duration_seconds: durationSeconds })
+        .eq('id', pageViewId);
+    } catch (error) {
+      console.error('Error updating page view duration:', error);
+    }
+  }, [user]);
+
+  // Save current page duration and cleanup interval
+  const savePreviousPageDuration = useCallback(async () => {
+    if (currentPageViewId.current && pageStartTime.current) {
+      const duration = Math.floor((Date.now() - pageStartTime.current) / 1000);
+      if (duration > 0) {
+        await updatePageViewDuration(currentPageViewId.current, duration);
+        updateSessionActivity(duration);
+      }
+    }
+    
+    // Clear the interval for previous page
+    if (durationUpdateInterval.current) {
+      clearInterval(durationUpdateInterval.current);
+      durationUpdateInterval.current = null;
+    }
+  }, [updatePageViewDuration, updateSessionActivity]);
+
   // Track page view - debounced
   const trackPageView = useCallback(async (pagePath: string, chapterId?: string) => {
     if (!user || !sessionId.current) return;
@@ -125,28 +159,36 @@ export function useAnalytics() {
     if (currentPath.current === pagePath) return;
 
     // Save duration for previous page
-    if (currentPath.current) {
-      const duration = Math.floor((Date.now() - pageStartTime.current) / 1000);
-      if (duration > 0) {
-        updateSessionActivity(duration);
-      }
-    }
+    await savePreviousPageDuration();
 
     // Start tracking new page
     pageStartTime.current = Date.now();
     currentPath.current = pagePath;
 
     try {
-      await supabase.from('page_views').insert({
+      const { data, error } = await supabase.from('page_views').insert({
         user_id: user.id,
         page_path: pagePath,
         chapter_id: chapterId || null,
         session_id: sessionId.current,
-      });
+        duration_seconds: 0,
+      }).select('id').single();
+      
+      if (!error && data) {
+        currentPageViewId.current = data.id;
+        
+        // Start interval to periodically update duration while on page
+        durationUpdateInterval.current = setInterval(async () => {
+          if (currentPageViewId.current) {
+            const duration = Math.floor((Date.now() - pageStartTime.current) / 1000);
+            await updatePageViewDuration(currentPageViewId.current, duration);
+          }
+        }, DURATION_UPDATE_INTERVAL);
+      }
     } catch (error) {
       console.error('Error tracking page view:', error);
     }
-  }, [user, updateSessionActivity]);
+  }, [user, savePreviousPageDuration, updatePageViewDuration]);
 
   // Track chapter visit - memoized
   const trackChapterVisit = useCallback((chapterId: string) => {
@@ -166,26 +208,46 @@ export function useAnalytics() {
       if (pendingUpdate.current) {
         clearTimeout(pendingUpdate.current);
       }
+      if (durationUpdateInterval.current) {
+        clearInterval(durationUpdateInterval.current);
+      }
     };
   }, []);
 
-  // Track page unload
+  // Track page unload - save final duration
   useEffect(() => {
-    const handleUnload = () => {
-      if (currentPath.current && user) {
+    const handleUnload = async () => {
+      if (currentPageViewId.current && user) {
         const duration = Math.floor((Date.now() - pageStartTime.current) / 1000);
-        // Use sendBeacon for reliable tracking on page unload
-        navigator.sendBeacon && navigator.sendBeacon('/api/analytics', JSON.stringify({
-          type: 'duration',
-          duration,
-          sessionId: sessionId.current,
-        }));
+        
+        // Try to update with sendBeacon for reliability
+        if (navigator.sendBeacon) {
+          // Unfortunately we can't use Supabase with sendBeacon, 
+          // but we can at least try the regular update
+          try {
+            await updatePageViewDuration(currentPageViewId.current, duration);
+          } catch (e) {
+            // Ignore errors on unload
+          }
+        }
+      }
+    };
+
+    const handleVisibilityChange = async () => {
+      if (document.visibilityState === 'hidden' && currentPageViewId.current) {
+        const duration = Math.floor((Date.now() - pageStartTime.current) / 1000);
+        await updatePageViewDuration(currentPageViewId.current, duration);
       }
     };
 
     window.addEventListener('beforeunload', handleUnload);
-    return () => window.removeEventListener('beforeunload', handleUnload);
-  }, [user]);
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    
+    return () => {
+      window.removeEventListener('beforeunload', handleUnload);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, [user, updatePageViewDuration]);
 
   return {
     trackPageView,
