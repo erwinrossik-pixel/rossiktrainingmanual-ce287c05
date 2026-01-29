@@ -344,11 +344,26 @@ Generate a brief content update in JSON:
     const contentLevel = chapterData?.content_level || 'informational';
     const isBlocked = chapterData?.auto_update_blocked || false;
     
-    // Human-in-the-loop: CRITICAL content or MAJOR/CRITICAL severity always requires approval
-    const requiresApproval = 
-      changeSeverity === 'critical' || 
-      changeSeverity === 'major' || 
-      contentLevel === 'critical';
+    // Get governance settings
+    const { data: govSettings } = await supabase
+      .from('governance_settings')
+      .select('setting_key, setting_value');
+    
+    const autoApplyMinor = govSettings?.find(s => s.setting_key === 'auto_apply_minor_updates')?.setting_value?.enabled ?? true;
+    const requireApprovalMajor = govSettings?.find(s => s.setting_key === 'require_approval_for_major')?.setting_value?.enabled ?? true;
+    const requireApprovalCritical = govSettings?.find(s => s.setting_key === 'require_approval_for_critical')?.setting_value?.enabled ?? true;
+    
+    // Human-in-the-loop: Based on governance settings and content level
+    let requiresApproval = false;
+    if (contentLevel === 'critical') {
+      requiresApproval = true; // Critical content always requires approval
+    } else if (changeSeverity === 'critical') {
+      requiresApproval = requireApprovalCritical;
+    } else if (changeSeverity === 'major') {
+      requiresApproval = requireApprovalMajor;
+    } else if (changeSeverity === 'minor') {
+      requiresApproval = !autoApplyMinor; // Minor only requires approval if auto-apply is disabled
+    }
     
     // If chapter has auto-update blocked, skip creating update
     if (isBlocked) {

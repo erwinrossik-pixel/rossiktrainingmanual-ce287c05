@@ -307,6 +307,15 @@ If no significant changes, return {"hasChanges": false, "changes": []}`;
       } else {
         console.log(`[AUTO-UPDATE] Inserted ${insertedChanges?.length || 0} detected changes`);
 
+        // Get governance settings for auto-apply rules
+        const { data: govSettings } = await supabase
+          .from('governance_settings')
+          .select('setting_key, setting_value');
+        
+        const autoApplyMinor = govSettings?.find(s => s.setting_key === 'auto_apply_minor_updates')?.setting_value?.enabled ?? true;
+        const requireApprovalMajor = govSettings?.find(s => s.setting_key === 'require_approval_for_major')?.setting_value?.enabled ?? true;
+        const requireApprovalCritical = govSettings?.find(s => s.setting_key === 'require_approval_for_critical')?.setting_value?.enabled ?? true;
+
         // Create chapter impacts for each change
         for (let i = 0; i < (insertedChanges?.length || 0); i++) {
           const change = insertedChanges![i];
@@ -321,9 +330,70 @@ If no significant changes, return {"hasChanges": false, "changes": []}`;
             });
           }
 
-          // Send email notification for CRITICAL changes
-          if (change.severity === 'critical') {
-            console.log(`[AUTO-UPDATE] Sending email notification for critical change: ${change.title}`);
+          // Determine if this change should trigger auto-regeneration
+          const shouldAutoProcess = 
+            (change.severity === 'minor' && autoApplyMinor) ||
+            (change.severity === 'major' && !requireApprovalMajor) ||
+            (change.severity === 'critical' && !requireApprovalCritical);
+
+          // Auto-process MINOR changes by triggering content-regenerate
+          if (shouldAutoProcess && affectedChapters.length > 0) {
+            console.log(`[AUTO-UPDATE] Auto-processing ${change.severity} change: ${change.title}`);
+            
+            // Trigger content regeneration for each affected chapter
+            for (const chapterId of affectedChapters) {
+              try {
+                console.log(`[AUTO-UPDATE] Triggering regeneration for chapter: ${chapterId}`);
+                await fetch(`${supabaseUrl}/functions/v1/content-regenerate`, {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${supabaseServiceKey}`,
+                  },
+                  body: JSON.stringify({
+                    change_id: change.id,
+                    chapter_id: chapterId,
+                    auto_apply: true,
+                    triggered_by: 'auto-update-check'
+                  }),
+                });
+              } catch (regenError) {
+                console.error(`[AUTO-UPDATE] Failed to trigger regeneration for ${chapterId}:`, regenError);
+              }
+            }
+          } else if (!shouldAutoProcess && affectedChapters.length > 0) {
+            // For changes requiring approval, create pending auto_updates
+            console.log(`[AUTO-UPDATE] Creating pending approval for ${change.severity} change: ${change.title}`);
+            
+            for (const chapterId of affectedChapters) {
+              // Check if chapter has auto-update blocked
+              const { data: chapterData } = await supabase
+                .from('chapters')
+                .select('content_level, auto_update_blocked')
+                .eq('id', chapterId)
+                .single();
+              
+              if (chapterData?.auto_update_blocked) {
+                console.log(`[AUTO-UPDATE] Chapter ${chapterId} has auto-update blocked, skipping`);
+                continue;
+              }
+              
+              await supabase.from('auto_updates').insert({
+                chapter_id: chapterId,
+                change_id: change.id,
+                status: 'pending',
+                severity: change.severity,
+                content_level: chapterData?.content_level || 'informational',
+                title: `Update: ${change.title}`,
+                description: change.description || 'Detected change requires approval',
+                requires_approval: true,
+              });
+            }
+          }
+
+          // Send email notification for CRITICAL and MAJOR changes
+          if (change.severity === 'critical' || change.severity === 'major') {
+            console.log(`[AUTO-UPDATE] Sending email notification for ${change.severity} change: ${change.title}`);
             try {
               await fetch(`${supabaseUrl}/functions/v1/send-admin-notification`, {
                 method: 'POST',
@@ -332,12 +402,13 @@ If no significant changes, return {"hasChanges": false, "changes": []}`;
                   'Authorization': `Bearer ${supabaseServiceKey}`,
                 },
                 body: JSON.stringify({
-                  type: 'critical_change',
+                  type: change.severity === 'critical' ? 'critical_change' : 'major_change',
                   data: {
                     change_title: change.title,
                     source_name: detectedChanges[i]?.source_url || 'Unknown source',
                     severity: change.severity,
                     summary: change.description,
+                    affected_chapters: affectedChapters,
                   }
                 }),
               });
