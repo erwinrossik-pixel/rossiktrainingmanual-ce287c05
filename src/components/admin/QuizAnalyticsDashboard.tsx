@@ -63,17 +63,23 @@ export function QuizAnalyticsDashboard() {
     setLoading(true);
 
     try {
-      // Fetch sessions
+      // Fetch sessions - limit to last 90 days for performance
+      const ninetyDaysAgo = new Date();
+      ninetyDaysAgo.setDate(ninetyDaysAgo.getDate() - 90);
+      
       const { data: sessions } = await supabase
         .from('quiz_sessions')
-        .select('*')
-        .order('started_at', { ascending: false });
+        .select('chapter_id, user_id, was_completed, started_at')
+        .gte('started_at', ninetyDaysAgo.toISOString())
+        .order('started_at', { ascending: false })
+        .limit(2000);
 
-      // Fetch question performance (wrong answers)
+      // Fetch question performance (wrong answers) - limit for performance
       const { data: performance } = await supabase
         .from('question_performance')
-        .select('*')
-        .eq('was_correct', false);
+        .select('chapter_id, question_hash, question_text')
+        .eq('was_correct', false)
+        .limit(1000);
 
       // Fetch user profiles for mapping
       const { data: profiles } = await supabase
