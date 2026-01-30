@@ -31,17 +31,17 @@ interface TeamMember {
 }
 
 const getScoreColor = (score: number) => {
-  if (score >= 80) return 'bg-green-500';
-  if (score >= 60) return 'bg-amber-500';
-  if (score >= 40) return 'bg-orange-500';
-  return 'bg-red-500';
+  if (score >= 80) return 'bg-success';
+  if (score >= 60) return 'bg-warning';
+  if (score >= 40) return 'bg-warning/80';
+  return 'bg-destructive';
 };
 
 const getScoreBadge = (score: number, t: (key: string) => string) => {
-  if (score >= 80) return { label: t('admin.matrix.excellent'), color: 'bg-green-100 text-green-700' };
-  if (score >= 60) return { label: t('admin.matrix.good'), color: 'bg-amber-100 text-amber-700' };
-  if (score >= 40) return { label: t('admin.matrix.medium'), color: 'bg-orange-100 text-orange-700' };
-  return { label: t('admin.matrix.needsImprovement'), color: 'bg-red-100 text-red-700' };
+  if (score >= 80) return { label: t('admin.matrix.excellent'), color: 'bg-success/10 text-success' };
+  if (score >= 60) return { label: t('admin.matrix.good'), color: 'bg-warning/10 text-warning' };
+  if (score >= 40) return { label: t('admin.matrix.medium'), color: 'bg-warning/10 text-warning' };
+  return { label: t('admin.matrix.needsImprovement'), color: 'bg-destructive/10 text-destructive' };
 };
 
 export const CompetencyMatrix = memo(() => {
@@ -163,55 +163,55 @@ export const CompetencyMatrix = memo(() => {
     <div className="space-y-6">
       {/* Summary Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card className="bg-gradient-to-br from-blue-500 to-cyan-600 text-white border-0">
+        <Card className="bg-gradient-to-br from-info to-info/80 text-info-foreground border-0">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-white/80 flex items-center gap-2">
+            <CardTitle className="text-sm font-medium text-info-foreground/80 flex items-center gap-2">
               <Users className="h-4 w-4" />
               {t('admin.matrix.teamMembers')}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold">{teamData.length}</div>
-            <p className="text-xs text-white/70">{t('admin.matrix.withEvaluated')}</p>
+            <p className="text-xs text-info-foreground/70">{t('admin.matrix.withEvaluated')}</p>
           </CardContent>
         </Card>
 
-        <Card className="bg-gradient-to-br from-emerald-500 to-green-600 text-white border-0">
+        <Card className="bg-gradient-to-br from-success to-success/80 text-success-foreground border-0">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-white/80 flex items-center gap-2">
+            <CardTitle className="text-sm font-medium text-success-foreground/80 flex items-center gap-2">
               <Target className="h-4 w-4" />
               {t('admin.matrix.teamAvg')}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold">{stats.avgScore}%</div>
-            <p className="text-xs text-white/70">{t('admin.matrix.generalComp')}</p>
+            <p className="text-xs text-success-foreground/70">{t('admin.matrix.generalComp')}</p>
           </CardContent>
         </Card>
 
-        <Card className="bg-gradient-to-br from-amber-500 to-orange-600 text-white border-0">
+        <Card className="bg-gradient-to-br from-warning to-warning/80 text-warning-foreground border-0">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-white/80 flex items-center gap-2">
+            <CardTitle className="text-sm font-medium text-warning-foreground/80 flex items-center gap-2">
               <TrendingUp className="h-4 w-4" />
               {t('admin.matrix.strongPoint')}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-lg font-bold truncate">{stats.topAreas[0]?.label || '-'}</div>
-            <p className="text-xs text-white/70">{stats.topAreas[0]?.avgScore || 0}% {t('admin.matrix.average')}</p>
+            <p className="text-xs text-warning-foreground/70">{stats.topAreas[0]?.avgScore || 0}% {t('admin.matrix.average')}</p>
           </CardContent>
         </Card>
 
-        <Card className="bg-gradient-to-br from-rose-500 to-pink-600 text-white border-0">
+        <Card className="bg-gradient-to-br from-destructive to-destructive/80 text-destructive-foreground border-0">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-white/80 flex items-center gap-2">
+            <CardTitle className="text-sm font-medium text-destructive-foreground/80 flex items-center gap-2">
               <AlertTriangle className="h-4 w-4" />
               {t('admin.matrix.toImprove')}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-lg font-bold truncate">{stats.weakAreas[0]?.label || '-'}</div>
-            <p className="text-xs text-white/70">{stats.weakAreas[0]?.avgScore || 0}% {t('admin.matrix.average')}</p>
+            <p className="text-xs text-destructive-foreground/70">{stats.weakAreas[0]?.avgScore || 0}% {t('admin.matrix.average')}</p>
           </CardContent>
         </Card>
       </div>
