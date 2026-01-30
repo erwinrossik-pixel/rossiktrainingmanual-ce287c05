@@ -53,7 +53,7 @@ const STANDARDS_INFO: Record<string, StandardInfo> = {
     name: 'ISO 9001',
     fullName: 'ISO 9001:2015 Quality Management',
     icon: <Award className="w-5 h-5" />,
-    color: 'bg-green-500',
+    color: 'bg-success',
     description: 'Quality management system requirements',
     requirements: ISO9001_REQUIREMENTS.length
   },
@@ -170,15 +170,15 @@ ${t('admin.standards.generatedBy')}
   };
 
   const getComplianceColor = (percentage: number) => {
-    if (percentage >= 90) return 'text-green-600';
-    if (percentage >= 70) return 'text-yellow-600';
-    return 'text-red-600';
+    if (percentage >= 90) return 'text-success';
+    if (percentage >= 70) return 'text-warning';
+    return 'text-destructive';
   };
 
   const getComplianceBadge = (percentage: number) => {
-    if (percentage >= 90) return <Badge className="bg-green-500">{t('admin.standards.compliant')}</Badge>;
-    if (percentage >= 70) return <Badge className="bg-yellow-500">{t('admin.standards.partial')}</Badge>;
-    return <Badge className="bg-red-500">{t('admin.standards.needsAttention')}</Badge>;
+    if (percentage >= 90) return <Badge className="bg-success">{t('admin.standards.compliant')}</Badge>;
+    if (percentage >= 70) return <Badge className="bg-warning">{t('admin.standards.partial')}</Badge>;
+    return <Badge className="bg-destructive">{t('admin.standards.needsAttention')}</Badge>;
   };
 
   return (
@@ -269,7 +269,7 @@ ${t('admin.standards.generatedBy')}
               <div className="text-sm text-muted-foreground">{t('admin.standards.totalGaps')}</div>
             </div>
             <div className="text-center p-4 bg-muted rounded-lg">
-              <div className="text-3xl font-bold text-red-600">
+              <div className="text-3xl font-bold text-destructive">
                 {complianceData.overall.criticalGaps}
               </div>
               <div className="text-sm text-muted-foreground">{t('admin.standards.criticalGaps')}</div>
@@ -359,7 +359,7 @@ ${t('admin.standards.generatedBy')}
                           {chapter.gaps.length > 0 ? (
                             <Badge variant="destructive">{chapter.gaps.length}</Badge>
                           ) : (
-                            <CheckCircle className="w-4 h-4 text-green-500 mx-auto" />
+                            <CheckCircle className="w-4 h-4 text-success mx-auto" />
                           )}
                         </TableCell>
                       </TableRow>
@@ -375,9 +375,9 @@ ${t('admin.standards.generatedBy')}
         <TabsContent value="gaps">
           <div className="grid gap-4">
             {/* Critical Gaps */}
-            <Card className="border-red-500/50">
+            <Card className="border-destructive/50">
               <CardHeader className="pb-2">
-                <CardTitle className="text-red-600 flex items-center gap-2">
+                <CardTitle className="text-destructive flex items-center gap-2">
                   <AlertTriangle className="w-5 h-5" />
                   {t('admin.standards.criticalGapsTitle')} ({allGaps.critical.length})
                 </CardTitle>
@@ -386,7 +386,7 @@ ${t('admin.standards.generatedBy')}
                 {allGaps.critical.length > 0 ? (
                   <div className="space-y-2">
                     {allGaps.critical.map((gap, idx) => (
-                      <div key={idx} className="flex items-start gap-3 p-3 bg-red-50 dark:bg-red-950/20 rounded-lg">
+                      <div key={idx} className="flex items-start gap-3 p-3 bg-destructive/10 rounded-lg">
                         <Badge variant="destructive">{gap.standard}</Badge>
                         <div>
                           <p className="font-medium">{gap.requirement}</p>
@@ -400,7 +400,7 @@ ${t('admin.standards.generatedBy')}
                   </div>
                 ) : (
                   <p className="text-muted-foreground text-center py-4">
-                    <CheckCircle className="w-8 h-8 text-green-500 mx-auto mb-2" />
+                    <CheckCircle className="w-8 h-8 text-success mx-auto mb-2" />
                     {t('admin.standards.noCriticalGaps')}
                   </p>
                 )}

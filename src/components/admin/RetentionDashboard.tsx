@@ -176,23 +176,23 @@ export function RetentionDashboard() {
 
   const getRiskColor = (level: string) => {
     switch (level) {
-      case 'critical': return 'bg-red-500';
-      case 'high': return 'bg-orange-500';
-      case 'medium': return 'bg-yellow-500';
-      default: return 'bg-green-500';
+      case 'critical': return 'bg-destructive';
+      case 'high': return 'bg-warning';
+      case 'medium': return 'bg-warning/70';
+      default: return 'bg-success';
     }
   };
 
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'active':
-        return <Badge className="bg-green-500/20 text-green-700">{t('admin.company.active')}</Badge>;
+        return <Badge className="bg-success/20 text-success">{t('admin.company.active')}</Badge>;
       case 'at_risk':
-        return <Badge className="bg-yellow-500/20 text-yellow-700">{t('admin.retention.atRisk')}</Badge>;
+        return <Badge className="bg-warning/20 text-warning">{t('admin.retention.atRisk')}</Badge>;
       case 'inactive':
-        return <Badge className="bg-orange-500/20 text-orange-700">{t('admin.retention.inactive')}</Badge>;
+        return <Badge className="bg-warning/20 text-warning">{t('admin.retention.inactive')}</Badge>;
       case 'churned':
-        return <Badge className="bg-red-500/20 text-red-700">{t('admin.status.locked')}</Badge>;
+        return <Badge className="bg-destructive/20 text-destructive">{t('admin.status.locked')}</Badge>;
       case 're_engaged':
         return <Badge className="bg-blue-500/20 text-blue-700">{t('admin.retention.returned')}</Badge>;
       default:
@@ -255,8 +255,8 @@ export function RetentionDashboard() {
         <Card>
           <CardContent className="pt-6">
             <div className="flex items-center gap-3">
-              <div className="p-3 rounded-full bg-yellow-500/10">
-                <AlertTriangle className="h-6 w-6 text-yellow-600" />
+              <div className="p-3 rounded-full bg-warning/10">
+                <AlertTriangle className="h-6 w-6 text-warning" />
               </div>
               <div>
                 <p className="text-2xl font-bold">{stats?.atRisk || 0}</p>

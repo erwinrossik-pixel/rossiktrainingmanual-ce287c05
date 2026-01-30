@@ -339,13 +339,13 @@ export const CronJobsMonitor = memo(function CronJobsMonitor() {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'success':
-        return <Badge className="bg-green-500/10 text-green-600 border-green-500/20"><CheckCircle2 className="h-3 w-3 mr-1" />{t('admin.cron.statusSuccess')}</Badge>;
+        return <Badge className="bg-success/10 text-success border-success/20"><CheckCircle2 className="h-3 w-3 mr-1" />{t('admin.cron.statusSuccess')}</Badge>;
       case 'failed':
         return <Badge variant="destructive"><XCircle className="h-3 w-3 mr-1" />{t('admin.cron.statusFailed')}</Badge>;
       case 'running':
-        return <Badge className="bg-blue-500/10 text-blue-600 border-blue-500/20"><RefreshCw className="h-3 w-3 mr-1 animate-spin" />{t('admin.cron.statusRunning')}</Badge>;
+        return <Badge className="bg-info/10 text-info border-info/20"><RefreshCw className="h-3 w-3 mr-1 animate-spin" />{t('admin.cron.statusRunning')}</Badge>;
       case 'timeout':
-        return <Badge className="bg-amber-500/10 text-amber-600 border-amber-500/20"><Timer className="h-3 w-3 mr-1" />{t('admin.cron.statusTimeout')}</Badge>;
+        return <Badge className="bg-warning/10 text-warning border-warning/20"><Timer className="h-3 w-3 mr-1" />{t('admin.cron.statusTimeout')}</Badge>;
       default:
         return <Badge variant="secondary">{status}</Badge>;
     }
@@ -461,12 +461,12 @@ export const CronJobsMonitor = memo(function CronJobsMonitor() {
         <Card>
           <CardContent className="pt-6">
             <div className="flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-blue-500/10">
-                <Zap className="h-5 w-5 text-blue-600" />
+              <div className="p-2 rounded-lg bg-info/10">
+                <Zap className="h-5 w-5 text-info" />
               </div>
               <div>
                 <p className="text-xs text-muted-foreground">{t('admin.cron.running')}</p>
-                <p className="text-xl font-bold text-blue-600">{runningCount}</p>
+                <p className="text-xl font-bold text-info">{runningCount}</p>
               </div>
             </div>
           </CardContent>
@@ -475,8 +475,8 @@ export const CronJobsMonitor = memo(function CronJobsMonitor() {
         <Card>
           <CardContent className="pt-6">
             <div className="flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-amber-500/10">
-                <Timer className="h-5 w-5 text-amber-600" />
+              <div className="p-2 rounded-lg bg-warning/10">
+                <Timer className="h-5 w-5 text-warning" />
               </div>
               <div>
                 <p className="text-xs text-muted-foreground">{t('admin.cron.avgDuration')}</p>
@@ -684,8 +684,8 @@ export const CronJobsMonitor = memo(function CronJobsMonitor() {
       <Card className="border-dashed">
         <CardContent className="pt-6">
           <div className="flex items-start gap-4">
-            <div className="p-2 rounded-lg bg-amber-500/10">
-              <AlertCircle className="h-5 w-5 text-amber-600" />
+            <div className="p-2 rounded-lg bg-warning/10">
+              <AlertCircle className="h-5 w-5 text-warning" />
             </div>
             <div className="space-y-1">
               <p className="font-medium">{t('admin.cron.aboutCron')}</p>
