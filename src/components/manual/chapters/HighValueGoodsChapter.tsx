@@ -22,13 +22,6 @@ export function HighValueGoodsChapter() {
         variant="high-value-goods"
       />
 
-      {/* High Value Security Image */}
-      <ChapterImage
-        src={highValueSecurityImg}
-        alt="High security transport truck"
-        variant="inline"
-        className="mb-6"
-      />
 
       {/* Introduction */}
       <div className="info-card">
@@ -68,6 +61,14 @@ export function HighValueGoodsChapter() {
             <p className="text-muted-foreground">{ct('section3Content')}</p>
           </InfoCard>
         </div>
+        
+        {/* Security Transport Image - contextual placement */}
+        <ChapterImage
+          src={highValueSecurityImg}
+          alt="High security transport truck with advanced protection systems"
+          variant="float-right"
+          className="mt-4"
+        />
       </section>
 
       {/* Loading Procedures */}
