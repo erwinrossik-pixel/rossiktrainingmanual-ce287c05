@@ -155,33 +155,33 @@ export const UserKPIPanel = memo(function UserKPIPanel({
           </CardContent>
         </Card>
 
-        <Card className="bg-gradient-to-br from-orange-50 to-red-100 dark:from-orange-950/50 dark:to-red-900/30 border-2 border-orange-200 dark:border-orange-800 shadow-lg shadow-orange-500/10">
+        <Card className="bg-gradient-to-br from-warning/10 to-destructive/10 dark:from-warning/20 dark:to-destructive/20 border-2 border-warning/30 dark:border-warning/40 shadow-lg shadow-warning/10">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-semibold flex items-center gap-2 text-orange-800 dark:text-orange-200">
-              <div className="p-2 bg-orange-500 rounded-lg shadow-lg shadow-orange-500/30">
-                <AlertCircle className="h-4 w-4 text-white" />
+            <CardTitle className="text-sm font-semibold flex items-center gap-2 text-warning">
+              <div className="p-2 bg-warning rounded-lg shadow-lg shadow-warning/30">
+                <AlertCircle className="h-4 w-4 text-warning-foreground" />
               </div>
               {t('admin.kpi.usersWithProblems')}
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-extrabold text-orange-600 dark:text-orange-400">{usersWithProblems}</div>
-            <p className="text-sm font-medium text-orange-600 dark:text-orange-400">{t('admin.kpi.haveProblematicChapters')}</p>
+            <div className="text-3xl font-extrabold text-warning">{usersWithProblems}</div>
+            <p className="text-sm font-medium text-warning">{t('admin.kpi.haveProblematicChapters')}</p>
           </CardContent>
         </Card>
 
-        <Card className="bg-gradient-to-br from-purple-50 to-violet-100 dark:from-purple-950/50 dark:to-violet-900/30 border-2 border-purple-200 dark:border-purple-800 shadow-lg shadow-purple-500/10">
+        <Card className="bg-gradient-to-br from-primary/10 to-primary/5 dark:from-primary/20 dark:to-primary/10 border-2 border-primary/30 dark:border-primary/40 shadow-lg shadow-primary/10">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-semibold flex items-center gap-2 text-purple-800 dark:text-purple-200">
-              <div className="p-2 bg-purple-500 rounded-lg shadow-lg shadow-purple-500/30">
-                <Clock className="h-4 w-4 text-white" />
+            <CardTitle className="text-sm font-semibold flex items-center gap-2 text-primary">
+              <div className="p-2 bg-primary rounded-lg shadow-lg shadow-primary/30">
+                <Clock className="h-4 w-4 text-primary-foreground" />
               </div>
               {t('admin.kpi.avgStudyTime')}
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-extrabold text-purple-700 dark:text-purple-300">{avgStudyTime.toFixed(1)}h</div>
-            <p className="text-sm font-medium text-purple-600 dark:text-purple-400">{t('admin.kpi.perUser')}</p>
+            <div className="text-3xl font-extrabold text-primary">{avgStudyTime.toFixed(1)}h</div>
+            <p className="text-sm font-medium text-primary">{t('admin.kpi.perUser')}</p>
           </CardContent>
         </Card>
       </div>

@@ -144,13 +144,13 @@ export function IncidentManagement() {
   const getSeverityBadge = (severity: string) => {
     switch (severity) {
       case 'critical':
-        return <Badge className="bg-red-500/20 text-red-400 border-red-500/30">{t('admin.incident.severityCritical')}</Badge>;
+        return <Badge className="bg-destructive/20 text-destructive border-destructive/30">{t('admin.incident.severityCritical')}</Badge>;
       case 'high':
-        return <Badge className="bg-orange-500/20 text-orange-400 border-orange-500/30">{t('admin.incident.severityHigh')}</Badge>;
+        return <Badge className="bg-warning/20 text-warning border-warning/30">{t('admin.incident.severityHigh')}</Badge>;
       case 'medium':
-        return <Badge className="bg-yellow-500/20 text-yellow-400 border-yellow-500/30">{t('admin.incident.severityMedium')}</Badge>;
+        return <Badge className="bg-warning/10 text-warning border-warning/20">{t('admin.incident.severityMedium')}</Badge>;
       case 'low':
-        return <Badge className="bg-blue-500/20 text-blue-400 border-blue-500/30">{t('admin.incident.severityLow')}</Badge>;
+        return <Badge className="bg-info/20 text-info border-info/30">{t('admin.incident.severityLow')}</Badge>;
       default:
         return <Badge variant="secondary">{severity}</Badge>;
     }
@@ -159,15 +159,15 @@ export function IncidentManagement() {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'open':
-        return <Badge className="bg-red-500/20 text-red-400 border-red-500/30">{t('admin.incident.statusOpen')}</Badge>;
+        return <Badge className="bg-destructive/20 text-destructive border-destructive/30">{t('admin.incident.statusOpen')}</Badge>;
       case 'investigating':
-        return <Badge className="bg-yellow-500/20 text-yellow-400 border-yellow-500/30">{t('admin.incident.statusInvestigating')}</Badge>;
+        return <Badge className="bg-warning/20 text-warning border-warning/30">{t('admin.incident.statusInvestigating')}</Badge>;
       case 'identified':
-        return <Badge className="bg-blue-500/20 text-blue-400 border-blue-500/30">{t('admin.incident.statusIdentified')}</Badge>;
+        return <Badge className="bg-info/20 text-info border-info/30">{t('admin.incident.statusIdentified')}</Badge>;
       case 'monitoring':
-        return <Badge className="bg-purple-500/20 text-purple-400 border-purple-500/30">{t('admin.incident.statusMonitoring')}</Badge>;
+        return <Badge className="bg-primary/20 text-primary border-primary/30">{t('admin.incident.statusMonitoring')}</Badge>;
       case 'resolved':
-        return <Badge className="bg-green-500/20 text-green-400 border-green-500/30">{t('admin.incident.statusResolved')}</Badge>;
+        return <Badge className="bg-success/20 text-success border-success/30">{t('admin.incident.statusResolved')}</Badge>;
       default:
         return <Badge variant="secondary">{status}</Badge>;
     }
@@ -194,52 +194,52 @@ export function IncidentManagement() {
     <div className="space-y-6">
       {/* Overview Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card className="bg-red-500/10 border-red-500/30">
+        <Card className="bg-destructive/10 border-destructive/30">
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-red-400">{t('admin.incident.openIncidents')}</p>
-                <p className="text-3xl font-bold text-red-400">{openIncidents.length}</p>
+                <p className="text-sm text-destructive">{t('admin.incident.openIncidents')}</p>
+                <p className="text-3xl font-bold text-destructive">{openIncidents.length}</p>
               </div>
-              <AlertCircle className="h-8 w-8 text-red-400" />
+              <AlertCircle className="h-8 w-8 text-destructive" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-green-500/10 border-green-500/30">
+        <Card className="bg-success/10 border-success/30">
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-green-400">{t('admin.incident.resolved30d')}</p>
-                <p className="text-3xl font-bold text-green-400">{resolvedIncidents.length}</p>
+                <p className="text-sm text-success">{t('admin.incident.resolved30d')}</p>
+                <p className="text-3xl font-bold text-success">{resolvedIncidents.length}</p>
               </div>
-              <CheckCircle className="h-8 w-8 text-green-400" />
+              <CheckCircle className="h-8 w-8 text-success" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-yellow-500/10 border-yellow-500/30">
+        <Card className="bg-warning/10 border-warning/30">
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-yellow-400">{t('admin.incident.mttr')}</p>
-                <p className="text-3xl font-bold text-yellow-400">{calculateMTTR()}</p>
+                <p className="text-sm text-warning">{t('admin.incident.mttr')}</p>
+                <p className="text-3xl font-bold text-warning">{calculateMTTR()}</p>
               </div>
-              <Clock className="h-8 w-8 text-yellow-400" />
+              <Clock className="h-8 w-8 text-warning" />
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-purple-500/10 border-purple-500/30">
+        <Card className="bg-primary/10 border-primary/30">
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-purple-400">{t('admin.incident.criticalActive')}</p>
-                <p className="text-3xl font-bold text-purple-400">
+                <p className="text-sm text-primary">{t('admin.incident.criticalActive')}</p>
+                <p className="text-3xl font-bold text-primary">
                   {openIncidents.filter(i => i.severity === 'critical').length}
                 </p>
               </div>
-              <AlertTriangle className="h-8 w-8 text-purple-400" />
+              <AlertTriangle className="h-8 w-8 text-primary" />
             </div>
           </CardContent>
         </Card>
@@ -317,7 +317,7 @@ export function IncidentManagement() {
         <Card className="bg-card/50 border-border/50">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <AlertCircle className="h-5 w-5 text-red-400" />
+              <AlertCircle className="h-5 w-5 text-destructive" />
               {t('admin.incident.activeIncidents')}
             </CardTitle>
             <CardDescription>{t('admin.incident.activeIncidentsDesc')}</CardDescription>
@@ -373,7 +373,7 @@ export function IncidentManagement() {
                         {(incident.status === 'identified' || incident.status === 'monitoring') && (
                           <Button
                             size="sm"
-                            className="bg-green-600 hover:bg-green-700"
+                            className="bg-success hover:bg-success/90"
                             onClick={(e) => {
                               e.stopPropagation();
                               updateStatus.mutate({ incidentId: incident.id, newStatus: 'resolved' });
@@ -388,7 +388,7 @@ export function IncidentManagement() {
                 ))}
                 {openIncidents.length === 0 && (
                   <div className="text-center py-8 text-muted-foreground">
-                    <CheckCircle className="h-12 w-12 mx-auto mb-2 text-green-400" />
+                    <CheckCircle className="h-12 w-12 mx-auto mb-2 text-success" />
                     <p>{t('admin.incident.noActiveIncidents')}</p>
                   </div>
                 )}
@@ -450,7 +450,7 @@ export function IncidentManagement() {
       <Card className="bg-card/50 border-border/50">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <CheckCircle className="h-5 w-5 text-green-400" />
+            <CheckCircle className="h-5 w-5 text-success" />
             {t('admin.incident.recentlyResolved')}
           </CardTitle>
           <CardDescription>{t('admin.incident.recentlyResolvedDesc')}</CardDescription>
