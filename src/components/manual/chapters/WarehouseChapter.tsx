@@ -3,7 +3,6 @@ import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { MultiModalContent } from "../MultiModalContent";
 import { ChapterImage } from "../ChapterImage";
-import { quizzes } from "@/data/quizData";
 import { Warehouse, Package, ArrowRight, Clock, Truck, CheckCircle2, AlertTriangle, Zap, BarChart3, MapPin, Users, RefreshCw, Book, FileText } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
@@ -404,14 +403,7 @@ export function WarehouseChapter() {
       <MultiModalContent chapterId="warehouse" />
 
       {/* Quiz */}
-      {quizzes["warehouse"] && (
-        <Quiz
-          title={ct("quizTitle")}
-          questions={quizzes["warehouse"]}
-          chapterId="warehouse"
-          questionsPerRound={10}
-        />
-      )}
+      <Quiz title={ct("quizTitle")} chapterId="warehouse" />
     </div>
   );
 }

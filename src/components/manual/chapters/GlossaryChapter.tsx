@@ -2,8 +2,10 @@ import { useState, useMemo } from "react";
 import { Book, Search, Filter } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
+import { ChapterImage } from "../ChapterImage";
 import { Quiz } from "../Quiz";
 import { MultiModalContent } from "../MultiModalContent";
+import glossaryImg from "@/assets/chapters/glossary-hero.jpg";
 interface GlossaryTerm {
   termKey: string;
   term: string;
@@ -201,6 +203,14 @@ export function GlossaryChapter() {
         description={ct('heroDescription')}
         icon={Book}
         variant="glossary"
+      />
+
+      {/* Glossary Image */}
+      <ChapterImage
+        src={glossaryImg}
+        alt="Freight forwarding terminology glossary"
+        variant="inline"
+        className="mb-6"
       />
 
       {/* Search and Filter */}

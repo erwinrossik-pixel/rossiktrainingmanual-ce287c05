@@ -2,7 +2,6 @@ import { InfoCard } from "../InfoCard";
 import { DataTable } from "../DataTable";
 import { Quiz } from "../Quiz";
 import { MultiModalContent } from "../MultiModalContent";
-import { quizzes } from "@/data/quizData";
 import { Leaf, Truck, BarChart3, FileText, Globe, Fuel, TrendingDown, Award } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
@@ -253,9 +252,7 @@ export function EnvironmentChapter() {
       <MultiModalContent chapterId="environment" />
 
       {/* Quiz */}
-      {quizzes.environment && (
-        <Quiz title={ct("quizTitle")} questions={quizzes.environment} chapterId="environment" />
-      )}
+      <Quiz title={ct("quizTitle")} chapterId="environment" />
     </div>
   );
 }

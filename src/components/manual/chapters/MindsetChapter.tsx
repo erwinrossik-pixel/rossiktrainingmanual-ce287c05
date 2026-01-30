@@ -5,7 +5,6 @@ import { MultiModalContent } from "../MultiModalContent";
 import { Checklist } from "../Checklist";
 import { ChapterHero } from "../ChapterHero";
 import { ChapterImage } from "../ChapterImage";
-import { quizzes } from "@/data/quizData";
 import { 
   Target, MessageSquare, Brain, FileText, Scale, Users, CheckCircle, 
   AlertTriangle, Clock, Phone, Shield, Heart, Zap, Eye, Lightbulb,
@@ -465,9 +464,7 @@ export function MindsetChapter() {
       <MultiModalContent chapterId="mindset" />
 
       {/* Quiz */}
-      {quizzes.mindset && (
-        <Quiz title={ct('quizTitle')} questions={quizzes.mindset} chapterId="mindset" />
-      )}
+      <Quiz title={ct('quizTitle')} chapterId="mindset" />
     </div>
   );
 }

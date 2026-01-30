@@ -3,7 +3,6 @@ import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { MultiModalContent } from "../MultiModalContent";
 import { ChapterImage } from "../ChapterImage";
-import { quizzes } from "@/data/quizData";
 import { Clock, Users, AlertTriangle, Gauge, Car, Ban } from "lucide-react";
 import { Badge } from "../Badge";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
@@ -224,7 +223,7 @@ export function DrivingTimeChapter() {
       <MultiModalContent chapterId="driving-time" />
 
       {/* Quiz */}
-      <Quiz title={ct("knowledgeCheck")} questions={quizzes["driving-time"]} chapterId="driving-time" />
+      <Quiz title={ct("quizTitle")} chapterId="driving-time" />
     </div>
   );
 }

@@ -3,7 +3,6 @@ import { DataTable } from "../DataTable";
 import { Quiz } from "../Quiz";
 import { MultiModalContent } from "../MultiModalContent";
 import { ChapterImage } from "../ChapterImage";
-import { quizzes } from "@/data/quizData";
 import {
   Monitor, Users, Truck, Package, CalendarDays, FileText, 
   BarChart3, Settings, Link, CheckCircle2, Search, MapPin, 
@@ -548,7 +547,7 @@ export function TranslogicaChapter() {
       <MultiModalContent chapterId="translogica" />
 
       {/* Quiz */}
-      <Quiz title={`🎯 ${ct("knowledgeCheck")}`} questions={quizzes.translogica} chapterId="translogica" />
+      <Quiz title={ct("quizTitle")} chapterId="translogica" />
     </div>
   );
 }

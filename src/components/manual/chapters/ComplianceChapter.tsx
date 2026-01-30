@@ -3,7 +3,6 @@ import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { MultiModalContent } from "../MultiModalContent";
 import { ChapterImage } from "../ChapterImage";
-import { quizzes } from "@/data/quizData";
 import { Clock, AlertTriangle, Moon, Calendar, Shield, FileText, Truck, CheckCircle2, XCircle, Scale, Timer, Coffee, Bed, MapPin, Ban, Euro, Calculator, Eye } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
@@ -577,7 +576,7 @@ export function ComplianceChapter() {
       <MultiModalContent chapterId="compliance" />
 
       {/* Quiz */}
-      <Quiz title={ct('quizTitle')} questions={quizzes.compliance} chapterId="compliance" />
+      <Quiz title={ct('quizTitle')} chapterId="compliance" />
     </div>
   );
 }
