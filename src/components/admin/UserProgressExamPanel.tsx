@@ -656,17 +656,17 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
     if (ratio < 0.5) {
       return <Badge variant="destructive" className="text-xs"><AlertTriangle className="h-3 w-3 mr-1" />{t.belowRecommended}</Badge>;
     } else if (ratio < 1) {
-      return <Badge className="bg-amber-500 hover:bg-amber-600 text-xs"><TrendingUp className="h-3 w-3 mr-1" />{t.onTrack}</Badge>;
+      return <Badge className="bg-warning hover:bg-warning/90 text-xs"><TrendingUp className="h-3 w-3 mr-1" />{t.onTrack}</Badge>;
     }
-    return <Badge className="bg-green-500 hover:bg-green-600 text-xs"><Check className="h-3 w-3 mr-1" />{t.exceeds}</Badge>;
+    return <Badge className="bg-success hover:bg-success/90 text-xs"><Check className="h-3 w-3 mr-1" />{t.exceeds}</Badge>;
   };
 
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'completed':
-        return <Badge className="bg-green-500 text-white text-xs">{t.completed}</Badge>;
+        return <Badge className="bg-success text-success-foreground text-xs">{t.completed}</Badge>;
       case 'in_progress':
-        return <Badge className="bg-blue-500 text-white text-xs">{t.inProgress}</Badge>;
+        return <Badge className="bg-info text-info-foreground text-xs">{t.inProgress}</Badge>;
       case 'unlocked':
         return <Badge variant="outline" className="text-xs">{t.unlocked}</Badge>;
       case 'locked_out':
@@ -704,21 +704,21 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
   }, [userProgress, searchTerm]);
 
   return (
-    <Card className="border-2 border-green-200 shadow-lg">
-      <CardHeader className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-950 dark:to-emerald-950 border-b border-green-100">
-        <CardTitle className="flex items-center gap-2 text-green-800 dark:text-green-200">
-          <GraduationCap className="h-6 w-6 text-green-600" />
+    <Card className="border-2 border-success/30 shadow-lg">
+      <CardHeader className="bg-gradient-to-r from-success/10 to-success/5 dark:from-success/20 dark:to-success/10 border-b border-success/20">
+        <CardTitle className="flex items-center gap-2 text-success">
+          <GraduationCap className="h-6 w-6 text-success" />
           {t.title}
         </CardTitle>
-        <CardDescription className="text-green-700 dark:text-green-300">{t.subtitle}</CardDescription>
+        <CardDescription className="text-success/80">{t.subtitle}</CardDescription>
         
         {/* Time recommendation info */}
-        <div className="mt-2 p-3 bg-white/50 dark:bg-gray-800/50 rounded-lg border border-green-200">
+        <div className="mt-2 p-3 bg-background/50 rounded-lg border border-success/20">
           <div className="flex items-center gap-4 text-sm">
             <div className="flex items-center gap-2">
-              <Clock className="h-4 w-4 text-green-600" />
-              <span className="text-green-800 dark:text-green-200 font-medium">{t.recommendedTime}:</span>
-              <span className="text-green-600 font-bold">{Math.round(TOTAL_RECOMMENDED_SECONDS / 3600)} {t.hours}</span>
+              <Clock className="h-4 w-4 text-success" />
+              <span className="text-success font-medium">{t.recommendedTime}:</span>
+              <span className="text-success font-bold">{Math.round(TOTAL_RECOMMENDED_SECONDS / 3600)} {t.hours}</span>
               <span className="text-muted-foreground text-xs">(~48 {t.minutes}/{t.chapter})</span>
             </div>
           </div>
@@ -757,8 +757,8 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
                       <div className="grid grid-cols-1 md:grid-cols-6 gap-4 items-center">
                         {/* User */}
                         <div className="flex items-center gap-3">
-                          <div className="h-10 w-10 rounded-full bg-green-100 dark:bg-green-900 flex items-center justify-center">
-                            <UserIcon className="h-5 w-5 text-green-600 dark:text-green-400" />
+                          <div className="h-10 w-10 rounded-full bg-success/10 flex items-center justify-center">
+                            <UserIcon className="h-5 w-5 text-success" />
                           </div>
                           <div className="text-left">
                             <p className="font-medium text-foreground">
@@ -783,7 +783,7 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
                         {/* Quiz Score */}
                         <div className="flex items-center gap-2">
                           <Target className="h-4 w-4 text-muted-foreground" />
-                          <span className={up.avg_quiz_score >= 9 ? 'text-green-600 font-semibold' : up.avg_quiz_score >= 7 ? 'text-amber-600' : 'text-foreground'}>
+                          <span className={up.avg_quiz_score >= 9 ? 'text-success font-semibold' : up.avg_quiz_score >= 7 ? 'text-warning' : 'text-foreground'}>
                             {up.avg_quiz_score > 0 ? `${up.avg_quiz_score}/10` : '-'}
                           </span>
                           <span className="text-xs text-muted-foreground">

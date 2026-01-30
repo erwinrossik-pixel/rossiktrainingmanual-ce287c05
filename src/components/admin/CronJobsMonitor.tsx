@@ -433,12 +433,12 @@ export const CronJobsMonitor = memo(function CronJobsMonitor() {
         <Card>
           <CardContent className="pt-6">
             <div className="flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-green-500/10">
-                <CheckCircle2 className="h-5 w-5 text-green-600" />
+              <div className="p-2 rounded-lg bg-success/10">
+                <CheckCircle2 className="h-5 w-5 text-success" />
               </div>
               <div>
                 <p className="text-xs text-muted-foreground">{t('admin.cron.success')}</p>
-                <p className="text-xl font-bold text-green-600">{successCount}</p>
+                <p className="text-xl font-bold text-success">{successCount}</p>
               </div>
             </div>
           </CardContent>
@@ -447,12 +447,12 @@ export const CronJobsMonitor = memo(function CronJobsMonitor() {
         <Card>
           <CardContent className="pt-6">
             <div className="flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-red-500/10">
-                <XCircle className="h-5 w-5 text-red-600" />
+              <div className="p-2 rounded-lg bg-destructive/10">
+                <XCircle className="h-5 w-5 text-destructive" />
               </div>
               <div>
                 <p className="text-xs text-muted-foreground">{t('admin.cron.failed')}</p>
-                <p className="text-xl font-bold text-red-600">{failedCount}</p>
+                <p className="text-xl font-bold text-destructive">{failedCount}</p>
               </div>
             </div>
           </CardContent>
