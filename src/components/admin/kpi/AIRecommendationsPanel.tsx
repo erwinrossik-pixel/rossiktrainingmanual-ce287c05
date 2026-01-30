@@ -48,10 +48,10 @@ interface AnalysisStats {
 }
 
 const severityColors: Record<string, string> = {
-  low: 'bg-blue-500',
-  medium: 'bg-yellow-500',
-  high: 'bg-orange-500',
-  critical: 'bg-red-500',
+  low: 'bg-info',
+  medium: 'bg-warning',
+  high: 'bg-warning',
+  critical: 'bg-destructive',
 };
 
 const typeIcons: Record<string, React.ReactNode> = {
@@ -260,7 +260,7 @@ export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
       <div className="flex items-center justify-between flex-wrap gap-4">
         <div>
           <h3 className="text-xl font-bold flex items-center gap-2">
-            <Brain className="h-6 w-6 text-purple-500" />
+            <Brain className="h-6 w-6 text-primary" />
             {t('admin.ai.title')}
           </h3>
           <p className="text-muted-foreground text-sm">
@@ -357,7 +357,7 @@ export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
               }
             }}
             disabled={implementing || allCounts.applied === 0}
-            className="bg-purple-500 hover:bg-purple-600"
+            className="bg-primary hover:bg-primary/90"
           >
             {implementing ? (
               <>
@@ -377,7 +377,7 @@ export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
             onClick={applyAllApproved}
             disabled={applying || allCounts.pending === 0}
             variant="outline"
-            className="border-green-500 text-green-600 hover:bg-green-500 hover:text-white"
+            className="border-success text-success hover:bg-success hover:text-success-foreground"
           >
             {applying ? (
               <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
@@ -405,25 +405,25 @@ export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
       {/* Stats */}
       {stats && (
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-          <Card className="bg-purple-500/5 border-purple-500/20">
+          <Card className="bg-primary/5 border-primary/20">
             <CardContent className="pt-4">
               <p className="text-sm text-muted-foreground">{t('admin.ai.chaptersAnalyzed')}</p>
               <p className="text-2xl font-bold">{stats.totalChapters}</p>
             </CardContent>
           </Card>
-          <Card className="bg-orange-500/5 border-orange-500/20">
+          <Card className="bg-warning/5 border-warning/20">
             <CardContent className="pt-4">
               <p className="text-sm text-muted-foreground">{t('admin.ai.problematic')}</p>
-              <p className="text-2xl font-bold text-orange-600">{stats.problematicCount}</p>
+              <p className="text-2xl font-bold text-warning">{stats.problematicCount}</p>
             </CardContent>
           </Card>
-          <Card className="bg-green-500/5 border-green-500/20">
+          <Card className="bg-success/5 border-success/20">
             <CardContent className="pt-4">
               <p className="text-sm text-muted-foreground">{t('admin.ai.tooEasy')}</p>
-              <p className="text-2xl font-bold text-green-600">{stats.tooEasyCount}</p>
+              <p className="text-2xl font-bold text-success">{stats.tooEasyCount}</p>
             </CardContent>
           </Card>
-          <Card className="bg-blue-500/5 border-blue-500/20">
+          <Card className="bg-info/5 border-info/20">
             <CardContent className="pt-4">
               <p className="text-sm text-muted-foreground">{t('admin.ai.lastAnalysis')}</p>
               <p className="text-sm font-medium">
@@ -435,8 +435,8 @@ export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
             <CardContent className="pt-4">
               <p className="text-sm text-muted-foreground">{t('admin.ai.cronJob')}</p>
               <div className="flex items-center gap-1">
-                <Clock className="h-4 w-4 text-green-500" />
-                <p className="text-sm font-medium text-green-600">{t('admin.ai.daily')} 09:00</p>
+                <Clock className="h-4 w-4 text-success" />
+                <p className="text-sm font-medium text-success">{t('admin.ai.daily')} 09:00</p>
               </div>
             </CardContent>
           </Card>
@@ -458,23 +458,23 @@ export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-sm flex items-center gap-2">
-              <CheckCircle2 className="h-4 w-4 text-green-500" />
+              <CheckCircle2 className="h-4 w-4 text-success" />
               {t('admin.ai.applied')}
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-bold text-green-600">{appliedCount}</p>
+            <p className="text-2xl font-bold text-success">{appliedCount}</p>
           </CardContent>
         </Card>
-        <Card className="border-purple-500/30 bg-purple-500/5">
+        <Card className="border-primary/30 bg-primary/5">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm flex items-center gap-2">
-              <Sparkles className="h-4 w-4 text-purple-500" />
+              <Sparkles className="h-4 w-4 text-primary" />
               {t('admin.ai.implemented')}
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-2xl font-bold text-purple-600">{completedCount}</p>
+            <p className="text-2xl font-bold text-primary">{completedCount}</p>
           </CardContent>
         </Card>
         <Card>
@@ -496,7 +496,7 @@ export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
           <TabsTrigger value="all">{t('admin.ai.allRec')}</TabsTrigger>
           <TabsTrigger value="pending">{t('admin.ai.pendingRec')}</TabsTrigger>
           <TabsTrigger value="applied">{t('admin.ai.appliedRec')}</TabsTrigger>
-          <TabsTrigger value="completed" className="text-purple-600">{t('admin.ai.implementedRec')}</TabsTrigger>
+          <TabsTrigger value="completed" className="text-primary">{t('admin.ai.implementedRec')}</TabsTrigger>
           <TabsTrigger value="dismissed">{t('admin.ai.dismissedRec')}</TabsTrigger>
         </TabsList>
       </Tabs>
