@@ -120,18 +120,18 @@ export const UserKPIPanel = memo(function UserKPIPanel({
     <div className="space-y-6">
       {/* Summary Stats - Enhanced visibility */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <Card className="bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950/50 dark:to-blue-900/30 border-2 border-blue-200 dark:border-blue-800 shadow-lg shadow-blue-500/10">
+        <Card className="bg-gradient-to-br from-info/10 to-info/5 dark:from-info/20 dark:to-info/10 border-2 border-info/30 dark:border-info/40 shadow-lg shadow-info/10">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-semibold flex items-center gap-2 text-blue-800 dark:text-blue-200">
-              <div className="p-2 bg-blue-500 rounded-lg shadow-lg shadow-blue-500/30">
-                <Target className="h-4 w-4 text-white" />
+            <CardTitle className="text-sm font-semibold flex items-center gap-2 text-info">
+              <div className="p-2 bg-info rounded-lg shadow-lg shadow-info/30">
+                <Target className="h-4 w-4 text-info-foreground" />
               </div>
               {t('admin.kpi.avgProgress')}
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-extrabold text-blue-700 dark:text-blue-300">{avgProgress.toFixed(1)}%</div>
-            <div className="mt-2 h-3 rounded-full bg-blue-200 dark:bg-blue-800 overflow-hidden">
+            <div className="text-3xl font-extrabold text-info">{avgProgress.toFixed(1)}%</div>
+            <div className="mt-2 h-3 rounded-full bg-info/20 dark:bg-info/30 overflow-hidden">
               <div 
                 className={`h-full rounded-full transition-all duration-500 ${getProgressColor(avgProgress)}`}
                 style={{ width: `${avgProgress}%` }}
@@ -140,18 +140,18 @@ export const UserKPIPanel = memo(function UserKPIPanel({
           </CardContent>
         </Card>
 
-        <Card className="bg-gradient-to-br from-amber-50 to-yellow-100 dark:from-amber-950/50 dark:to-yellow-900/30 border-2 border-amber-200 dark:border-amber-800 shadow-lg shadow-amber-500/10">
+        <Card className="bg-gradient-to-br from-warning/10 to-warning/5 dark:from-warning/20 dark:to-warning/10 border-2 border-warning/30 dark:border-warning/40 shadow-lg shadow-warning/10">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-semibold flex items-center gap-2 text-amber-800 dark:text-amber-200">
-              <div className="p-2 bg-amber-500 rounded-lg shadow-lg shadow-amber-500/30">
-                <Zap className="h-4 w-4 text-white" />
+            <CardTitle className="text-sm font-semibold flex items-center gap-2 text-warning">
+              <div className="p-2 bg-warning rounded-lg shadow-lg shadow-warning/30">
+                <Zap className="h-4 w-4 text-warning-foreground" />
               </div>
               {t('admin.kpi.learningSpeed')}
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-3xl font-extrabold text-amber-700 dark:text-amber-300">{avgVelocity.toFixed(1)}</div>
-            <p className="text-sm font-medium text-amber-600 dark:text-amber-400">{t('admin.kpi.chaptersPerWeek')}</p>
+            <div className="text-3xl font-extrabold text-warning">{avgVelocity.toFixed(1)}</div>
+            <p className="text-sm font-medium text-warning">{t('admin.kpi.chaptersPerWeek')}</p>
           </CardContent>
         </Card>
 
@@ -237,15 +237,15 @@ export const UserKPIPanel = memo(function UserKPIPanel({
         </Card>
 
         {/* Needing Support */}
-        <Card className="border-2 border-orange-200 dark:border-orange-800 bg-gradient-to-br from-orange-50/50 to-red-50/50 dark:from-orange-950/30 dark:to-red-950/30 shadow-xl">
-          <CardHeader className="border-b border-orange-200 dark:border-orange-800 bg-orange-100/50 dark:bg-orange-900/30">
-            <CardTitle className="text-xl flex items-center gap-3 text-orange-800 dark:text-orange-200">
-              <div className="p-2 bg-gradient-to-br from-orange-500 to-red-500 rounded-lg shadow-lg shadow-orange-500/40 animate-pulse">
-                <AlertCircle className="h-6 w-6 text-white" />
+        <Card className="border-2 border-warning/30 dark:border-warning/40 bg-gradient-to-br from-warning/10 to-destructive/10 dark:from-warning/20 dark:to-destructive/20 shadow-xl">
+          <CardHeader className="border-b border-warning/30 dark:border-warning/40 bg-warning/20 dark:bg-warning/10">
+            <CardTitle className="text-xl flex items-center gap-3 text-warning">
+              <div className="p-2 bg-gradient-to-br from-warning to-destructive rounded-lg shadow-lg shadow-warning/40 animate-pulse">
+                <AlertCircle className="h-6 w-6 text-warning-foreground" />
               </div>
               {t('admin.kpi.needsSupport')}
             </CardTitle>
-            <CardDescription className="text-orange-700 dark:text-orange-300 font-medium">{t('admin.kpi.learningDifficulties')}</CardDescription>
+            <CardDescription className="text-warning font-medium">{t('admin.kpi.learningDifficulties')}</CardDescription>
           </CardHeader>
           <CardContent className="pt-4">
             <ScrollArea className="h-[300px]">
@@ -262,7 +262,7 @@ export const UserKPIPanel = memo(function UserKPIPanel({
                   needingSupport.map((user) => (
                     <div 
                       key={user.userId}
-                      className="flex items-start justify-between p-4 bg-white dark:bg-orange-900/20 rounded-xl cursor-pointer hover:bg-orange-100 dark:hover:bg-orange-800/30 transition-all duration-200 border-2 border-orange-300 dark:border-orange-700 shadow-sm hover:shadow-md"
+                      className="flex items-start justify-between p-4 bg-card dark:bg-warning/10 rounded-xl cursor-pointer hover:bg-warning/10 dark:hover:bg-warning/20 transition-all duration-200 border-2 border-warning/30 dark:border-warning/40 shadow-sm hover:shadow-md"
                       onClick={() => setSelectedUser(user)}
                     >
                       <div className="flex-1">
@@ -271,12 +271,12 @@ export const UserKPIPanel = memo(function UserKPIPanel({
                         {user.problematicChapters.length > 0 && (
                           <div className="mt-2 flex flex-wrap gap-1">
                             {user.problematicChapters.slice(0, 3).map(ch => (
-                              <Badge key={ch} variant="destructive" className="text-xs bg-red-500 text-white">
+                              <Badge key={ch} variant="destructive" className="text-xs bg-destructive text-destructive-foreground">
                                 {ch.slice(0, 10)}
                               </Badge>
                             ))}
                             {user.problematicChapters.length > 3 && (
-                              <Badge variant="outline" className="text-xs border-red-300 text-red-600 dark:text-red-400">
+                              <Badge variant="outline" className="text-xs border-destructive/30 text-destructive">
                                 +{user.problematicChapters.length - 3}
                               </Badge>
                             )}
@@ -337,8 +337,8 @@ export const UserKPIPanel = memo(function UserKPIPanel({
                       <div className="flex items-center gap-2">
                         <p className="font-bold text-base truncate">{user.userName}</p>
                         {user.problematicChapters.length > 0 && (
-                          <div className="p-1 bg-orange-100 dark:bg-orange-900/50 rounded-full">
-                            <AlertCircle className="h-4 w-4 text-orange-500" />
+                          <div className="p-1 bg-warning/20 dark:bg-warning/30 rounded-full">
+                            <AlertCircle className="h-4 w-4 text-warning" />
                           </div>
                         )}
                       </div>
@@ -352,9 +352,9 @@ export const UserKPIPanel = memo(function UserKPIPanel({
                       </div>
                     </div>
                     <div className="flex items-center gap-6 shrink-0">
-                      <div className="text-center px-3 py-2 bg-blue-50 dark:bg-blue-900/30 rounded-lg">
-                        <p className="text-lg font-bold text-blue-700 dark:text-blue-300">{user.chaptersCompleted}/{user.totalChapters}</p>
-                        <p className="text-xs font-medium text-blue-600 dark:text-blue-400">{t('admin.kpi.chapters')}</p>
+                      <div className="text-center px-3 py-2 bg-info/10 dark:bg-info/20 rounded-lg">
+                        <p className="text-lg font-bold text-info">{user.chaptersCompleted}/{user.totalChapters}</p>
+                        <p className="text-xs font-medium text-info">{t('admin.kpi.chapters')}</p>
                       </div>
                       <div className={`text-center px-3 py-2 rounded-lg border ${getScoreBg(user.avgScore)}`}>
                         <p className={`text-lg ${getScoreColor(user.avgScore)}`}>
@@ -362,9 +362,9 @@ export const UserKPIPanel = memo(function UserKPIPanel({
                         </p>
                         <p className="text-xs font-medium text-muted-foreground">{t('admin.kpi.score')}</p>
                       </div>
-                      <div className="text-center px-3 py-2 bg-purple-50 dark:bg-purple-900/30 rounded-lg">
-                        <p className="text-lg font-bold text-purple-700 dark:text-purple-300">{user.learningVelocity.toFixed(1)}</p>
-                        <p className="text-xs font-medium text-purple-600 dark:text-purple-400">{t('admin.kpi.speed')}</p>
+                      <div className="text-center px-3 py-2 bg-primary/10 dark:bg-primary/20 rounded-lg">
+                        <p className="text-lg font-bold text-primary">{user.learningVelocity.toFixed(1)}</p>
+                        <p className="text-xs font-medium text-primary">{t('admin.kpi.speed')}</p>
                       </div>
                     </div>
                   </div>
@@ -416,7 +416,7 @@ export const UserKPIPanel = memo(function UserKPIPanel({
 
                 {selectedUser.problematicChapters.length > 0 && (
                   <div>
-                    <h4 className="font-semibold text-orange-600 mb-2">{t('admin.kpi.problematicChaptersTitle')}</h4>
+                    <h4 className="font-semibold text-warning mb-2">{t('admin.kpi.problematicChaptersTitle')}</h4>
                     <div className="flex flex-wrap gap-2">
                       {selectedUser.problematicChapters.map(ch => (
                         <Badge key={ch} variant="destructive">{ch}</Badge>
