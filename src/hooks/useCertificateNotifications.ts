@@ -2,6 +2,7 @@ import { useEffect, useRef, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { Award } from 'lucide-react';
+import { logger } from '@/utils/logger';
 
 interface Certificate {
   id: string;
@@ -25,7 +26,7 @@ export function useCertificateNotifications(isAdmin: boolean) {
         Notification.requestPermission().then(permission => {
           notificationPermission.current = permission;
           if (permission === 'granted') {
-            console.log('Notification permission granted');
+            logger.certificate('Notification permission granted');
           }
         });
       }
@@ -76,7 +77,7 @@ export function useCertificateNotifications(isAdmin: boolean) {
   useEffect(() => {
     if (!isAdmin) return;
 
-    console.log('Setting up certificate realtime subscription for admin...');
+    logger.certificate('Setting up realtime subscription for admin...');
 
     const channel = supabase
       .channel('admin-certificate-notifications')
@@ -88,7 +89,7 @@ export function useCertificateNotifications(isAdmin: boolean) {
           table: 'certificates',
         },
         (payload) => {
-          console.log('New certificate detected:', payload);
+          logger.certificate('New certificate detected:', payload);
           
           const certificate = payload.new as Certificate;
           
@@ -98,11 +99,11 @@ export function useCertificateNotifications(isAdmin: boolean) {
         }
       )
       .subscribe((status) => {
-        console.log('Certificate notification channel status:', status);
+        logger.certificate('Notification channel status:', status);
       });
 
     return () => {
-      console.log('Cleaning up certificate notification subscription');
+      logger.certificate('Cleaning up notification subscription');
       supabase.removeChannel(channel);
     };
   }, [isAdmin, showBrowserNotification, showToastNotification]);

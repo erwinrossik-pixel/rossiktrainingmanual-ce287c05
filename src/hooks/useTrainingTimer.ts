@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
+import { logger } from '@/utils/logger';
 
 interface DayTimerData {
   totalSeconds: number;
@@ -123,7 +124,7 @@ export function useTrainingTimer() {
           filter: `user_id=eq.${user.id}`,
         },
         async (payload) => {
-          console.log('Training time changed:', payload);
+          logger.training('Training time changed:', payload);
           // Reload data when changes are detected
           if (payload.eventType === 'DELETE') {
             // Immediately block any pending syncs to prevent race condition

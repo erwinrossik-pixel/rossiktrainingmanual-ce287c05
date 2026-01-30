@@ -1,6 +1,7 @@
 import { useEffect, useCallback, useRef } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from './useAuth';
+import { logger } from '@/utils/logger';
 
 /**
  * Hook to track user activity for retention system
@@ -90,9 +91,9 @@ export function useRetentionTracking() {
         browser: browser
       });
 
-      console.log('[Retention] Session started:', sessionId);
+      logger.retention('Session started:', sessionId);
     } catch (error) {
-      console.error('Error starting session:', error);
+      logger.error('Error starting session:', error, { tag: 'Retention' });
     }
   }, [user, generateSessionId]);
 
@@ -133,10 +134,10 @@ export function useRetentionTracking() {
           .eq('user_id', user.id)
           .is('returned_at', null);
 
-        console.log('[Retention] User re-engaged');
+        logger.retention('User re-engaged');
       }
     } catch (error) {
-      console.error('Error marking return:', error);
+      logger.error('Error marking return:', error, { tag: 'Retention' });
     }
   }, [user]);
 
