@@ -83,6 +83,7 @@ export const intermodalTranslations = {
     glossaryDef9: "Macara portal (pod rulant) utilizată pentru încărcarea/descărcarea containerelor de pe vagoane sau nave",
     glossaryTerm10: "Cranabil",
     glossaryDef10: "Caracteristică a semiremorcilor care au puncte de prindere pentru ridicare cu macaraua pe vagoane",
+    quizTitle: "Quiz Transport Intermodal",
   },
   de: {
     chapterTitle: "Intermodaler Transport",
@@ -168,6 +169,7 @@ export const intermodalTranslations = {
     glossaryDef9: "Brückenkran für das Be- und Entladen von Containern auf Waggons oder Schiffen",
     glossaryTerm10: "Kranbar",
     glossaryDef10: "Eigenschaft von Aufliegern mit Greifpunkten zum Heben mit Kran auf Waggons",
+    quizTitle: "Quiz Intermodaler Transport",
   },
   en: {
     chapterTitle: "Intermodal Transport",
@@ -253,5 +255,6 @@ export const intermodalTranslations = {
     glossaryDef9: "Portal crane for loading/unloading containers onto wagons or ships",
     glossaryTerm10: "Cranable",
     glossaryDef10: "Property of semi-trailers with grip points for lifting by crane onto wagons",
+    quizTitle: "Intermodal Transport Quiz",
   },
 };

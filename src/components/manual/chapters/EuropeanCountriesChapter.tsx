@@ -171,7 +171,7 @@ export function EuropeanCountriesChapter() {
       <MultiModalContent chapterId="european-countries" />
 
       {/* Quiz */}
-      <Quiz title="Quiz" chapterId="european-countries" />
+      <Quiz title={ct("quizTitle")} chapterId="european-countries" />
     </div>
   );
 }

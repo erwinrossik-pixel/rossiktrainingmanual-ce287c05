@@ -188,6 +188,7 @@ export const stressManagementTranslations = {
     glossaryDef14: "Simptome fizice cauzate sau agravate de factori mentali precum stresul și anxietatea.",
     glossaryTerm15: "Self-Compassion",
     glossaryDef15: "Tratarea de sine cu aceeași bunătate și înțelegere cu care ai trata un prieten în dificultate.",
+    quizTitle: "Quiz Management Stres",
   },
   de: {
     chapterTitle: "Stressmanagement",
@@ -378,6 +379,7 @@ export const stressManagementTranslations = {
     glossaryDef14: "Körperliche Symptome, die durch mentale Faktoren wie Stress und Angst verursacht oder verschlimmert werden.",
     glossaryTerm15: "Selbstmitgefühl",
     glossaryDef15: "Sich selbst mit derselben Freundlichkeit und Verständnis behandeln, mit der man einen Freund in Schwierigkeiten behandeln würde.",
+    quizTitle: "Quiz Stressmanagement",
   },
   en: {
     chapterTitle: "Stress Management",
@@ -568,5 +570,6 @@ export const stressManagementTranslations = {
     glossaryDef14: "Physical symptoms caused or aggravated by mental factors such as stress and anxiety.",
     glossaryTerm15: "Self-Compassion",
     glossaryDef15: "Treating oneself with the same kindness and understanding one would show to a friend in difficulty.",
+    quizTitle: "Stress Management Quiz",
   },
 };

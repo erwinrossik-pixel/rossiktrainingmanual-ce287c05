@@ -693,7 +693,7 @@ export function ProfessionalDevelopmentChapter() {
       <MultiModalContent chapterId="professional-development" />
 
       {/* Quiz */}
-      <Quiz title="Quiz" chapterId="professional-development" />
+      <Quiz title={ct("quizTitle")} chapterId="professional-development" />
     </div>
   );
 }

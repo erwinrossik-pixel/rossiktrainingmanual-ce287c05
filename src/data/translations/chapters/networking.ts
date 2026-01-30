@@ -209,6 +209,7 @@ export const networkingTranslations = {
     glossaryDef14: "Contract de reprezentare cu un partener local în altă țară/regiune",
     glossaryTerm15: "Warm Introduction",
     glossaryDef15: "Prezentare către un nou contact făcută de o cunoștință comună de încredere",
+    quizTitle: "Quiz Networking",
   },
   de: {
     chapterTitle: "Networking und Partnerschaften",
@@ -420,6 +421,7 @@ export const networkingTranslations = {
     glossaryDef14: "Vertretungsvertrag mit einem lokalen Partner in einem anderen Land/Region",
     glossaryTerm15: "Warm Introduction",
     glossaryDef15: "Vorstellung an einen neuen Kontakt durch einen gemeinsamen vertrauenswürdigen Bekannten",
+    quizTitle: "Quiz Networking",
   },
   en: {
     chapterTitle: "Networking and Partnerships",
@@ -631,5 +633,6 @@ export const networkingTranslations = {
     glossaryDef14: "Representation contract with a local partner in another country/region",
     glossaryTerm15: "Warm Introduction",
     glossaryDef15: "Introduction to a new contact made by a trusted mutual acquaintance",
+    quizTitle: "Networking Quiz",
   },
 };

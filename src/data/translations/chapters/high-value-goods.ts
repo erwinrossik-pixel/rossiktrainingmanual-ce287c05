@@ -1098,6 +1098,7 @@ LA LIVRARE:
     glossaryDef9: "Alocarea de coduri unice fiecărei unități individuale de produs pentru tracking și autentificare.",
     glossaryTerm10: "FMD",
     glossaryDef10: "Falsified Medicines Directive - Directiva UE care impune serialization pentru produse farmaceutice.",
+    quizTitle: "Quiz Transport Mărfuri Valoroase",
   },
 
   de: {
@@ -1700,6 +1701,7 @@ BEI LIEFERUNG:
     glossaryDef9: "Zuweisung eindeutiger Codes für jede einzelne Produkteinheit zur Nachverfolgung und Authentifizierung.",
     glossaryTerm10: "FMD",
     glossaryDef10: "Falsified Medicines Directive - EU-Richtlinie, die Serialisierung für pharmazeutische Produkte vorschreibt.",
+    quizTitle: "Quiz Hochwertige Güter Transport",
   },
 
   en: {
@@ -2302,5 +2304,6 @@ AT DELIVERY:
     glossaryDef9: "Allocation of unique codes to each individual product unit for tracking and authentication.",
     glossaryTerm10: "FMD",
     glossaryDef10: "Falsified Medicines Directive - EU directive requiring serialization for pharmaceutical products.",
+    quizTitle: "High-Value Goods Transport Quiz",
   },
 };

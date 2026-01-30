@@ -1137,6 +1137,7 @@ LECȚII PENTRU TINE:
 
     // Intro title
     introTitle: "Introducere",
+    quizTitle: "Quiz Dezvoltare Profesională",
   },
 
   de: {
@@ -1651,6 +1652,7 @@ LEKTIONEN FÜR DICH:
     longTermGoal3: "Mentor für jüngere Fachkräfte werden",
     
     introTitle: "Einführung",
+    quizTitle: "Quiz Berufliche Entwicklung",
   },
 
   en: {
@@ -2173,5 +2175,6 @@ LESSONS FOR YOU:
     longTermGoal3: "Become a mentor for younger professionals",
     
     introTitle: "Introduction",
+    quizTitle: "Professional Development Quiz",
   },
 };

@@ -269,6 +269,7 @@ export const europeanCountriesTranslations = {
     glossaryDef9: "Pauza de prânz extinsă în Spania (14:00-17:00).",
     glossaryTerm10: "Télépéage",
     glossaryDef10: "Sistemul francez de plată electronică a taxelor rutiere.",
+    quizTitle: "Quiz Țări Europene",
   },
 
   de: {
@@ -541,6 +542,7 @@ export const europeanCountriesTranslations = {
     glossaryDef9: "Verlängerte Mittagspause in Spanien (14:00-17:00).",
     glossaryTerm10: "Télépéage",
     glossaryDef10: "Französisches elektronisches Mautzahlungssystem.",
+    quizTitle: "Quiz Europäische Länder",
   },
 
   en: {
@@ -813,5 +815,6 @@ export const europeanCountriesTranslations = {
     glossaryDef9: "Extended lunch break in Spain (14:00-17:00).",
     glossaryTerm10: "Télépéage",
     glossaryDef10: "French electronic toll payment system.",
+    quizTitle: "European Countries Quiz",
   },
 };

@@ -247,6 +247,7 @@ export const authoritiesTranslations = {
     glossaryDef9: "Interdicție de circulație emisă de autorități pentru defecte grave sau încălcări serioase.",
     glossaryTerm10: "Imobilizare",
     glossaryDef10: "Reținerea vehiculului de către autorități până la remedierea problemei sau plata garanției.",
+    quizTitle: "Quiz Relații cu Autoritățile",
   },
 
   de: {
@@ -487,6 +488,7 @@ export const authoritiesTranslations = {
     glossaryAtestare: "Tätigkeitsnachweis: Dokument, das Zeiträume ohne Tachographaufzeichnung rechtfertigt (Urlaub, Krankheit, andere Tätigkeiten)",
     glossaryProhibitie: "Fahrverbot: Von Behörden erlassenes Fahrverbot bei schweren Mängeln oder Verstößen",
     glossaryImobilizare: "Stilllegung: Festhaltung des Fahrzeugs durch Behörden bis zur Problembehebung oder Garantiezahlung",
+    quizTitle: "Quiz Behördenbeziehungen",
   },
 
   en: {
@@ -727,5 +729,6 @@ export const authoritiesTranslations = {
     glossaryAtestare: "Attestation Form: Document justifying periods without tachograph recording (leave, illness, other activities)",
     glossaryProhibitie: "Prohibition: Driving ban issued by authorities for serious defects or violations",
     glossaryImobilizare: "Immobilization: Vehicle detention by authorities until problem is remedied or guarantee paid",
+    quizTitle: "Authorities Relations Quiz",
   },
 };

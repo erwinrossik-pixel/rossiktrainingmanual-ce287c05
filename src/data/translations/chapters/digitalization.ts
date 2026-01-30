@@ -146,7 +146,8 @@ export const digitalizationTranslations = {
     commonMistake2: "Neglijarea securității cibernetice în graba implementării",
     commonMistake3: "Lipsa planului de adoptare și change management",
     commonMistake4: "Selectarea tehnologiei înaintea înțelegerii proceselor de business",
-    commonMistake5: "Subdimensionarea bugetului pentru training și suport post-implementare"
+    commonMistake5: "Subdimensionarea bugetului pentru training și suport post-implementare",
+    quizTitle: "Quiz Digitalizare și AI",
   },
   de: {
     chapterTitle: "Digitalisierung und KI",
@@ -285,7 +286,8 @@ export const digitalizationTranslations = {
     commonMistake2: "Vernachlässigung der Cybersicherheit bei übereilter Implementierung",
     commonMistake3: "Fehlender Einführungsplan und Change Management",
     commonMistake4: "Technologieauswahl vor dem Verständnis der Geschäftsprozesse",
-    commonMistake5: "Unterschätzung des Budgets für Training und Post-Implementierungs-Support"
+    commonMistake5: "Unterschätzung des Budgets für Training und Post-Implementierungs-Support",
+    quizTitle: "Quiz Digitalisierung und KI",
   },
   en: {
     chapterTitle: "Digitalization and AI",
@@ -424,6 +426,7 @@ export const digitalizationTranslations = {
     commonMistake2: "Neglecting cybersecurity in the rush to implement",
     commonMistake3: "Lack of adoption plan and change management",
     commonMistake4: "Selecting technology before understanding business processes",
-    commonMistake5: "Underestimating budget for training and post-implementation support"
+    commonMistake5: "Underestimating budget for training and post-implementation support",
+    quizTitle: "Digitalization and AI Quiz",
   },
 };

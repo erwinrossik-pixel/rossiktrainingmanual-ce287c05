@@ -177,7 +177,7 @@ export function DigitalizationChapter() {
       <MultiModalContent chapterId="digitalization" />
 
       {/* Quiz */}
-      <Quiz title="Quiz" chapterId="digitalization" />
+      <Quiz title={ct("quizTitle")} chapterId="digitalization" />
     </div>
   );
 }

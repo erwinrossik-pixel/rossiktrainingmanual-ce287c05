@@ -171,7 +171,7 @@ export function StressManagementChapter() {
       <MultiModalContent chapterId="stress-management" />
 
       {/* Quiz */}
-      <Quiz title="Quiz" chapterId="stress-management" />
+      <Quiz title={ct("quizTitle")} chapterId="stress-management" />
     </div>
   );
 }
