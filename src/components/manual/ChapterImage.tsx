@@ -7,7 +7,7 @@ interface ChapterImageProps {
   alt: string;
   caption?: string;
   className?: string;
-  variant?: 'hero' | 'inline' | 'gallery';
+  variant?: 'hero' | 'inline' | 'gallery' | 'left' | 'right' | 'full' | 'float-left' | 'float-right';
 }
 
 export function ChapterImage({ src, alt, caption, className, variant = 'inline' }: ChapterImageProps) {
@@ -17,11 +17,27 @@ export function ChapterImage({ src, alt, caption, className, variant = 'inline' 
     hero: 'w-full h-48 md:h-64 object-cover rounded-xl shadow-lg',
     inline: 'w-full max-w-lg mx-auto rounded-lg shadow-md',
     gallery: 'w-full h-40 object-cover rounded-lg cursor-pointer hover:opacity-90 transition-opacity',
+    left: 'w-full md:w-1/2 rounded-lg shadow-md',
+    right: 'w-full md:w-1/2 ml-auto rounded-lg shadow-md',
+    full: 'w-full rounded-xl shadow-lg object-cover h-64 md:h-80',
+    'float-left': 'w-full sm:w-64 sm:float-left sm:mr-6 mb-4 rounded-lg shadow-md',
+    'float-right': 'w-full sm:w-64 sm:float-right sm:ml-6 mb-4 rounded-lg shadow-md',
+  };
+
+  const containerStyles = {
+    hero: '',
+    inline: 'flex justify-center',
+    gallery: '',
+    left: 'flex justify-start',
+    right: 'flex justify-end',
+    full: '',
+    'float-left': 'clear-both',
+    'float-right': 'clear-both',
   };
 
   return (
     <>
-      <figure className={cn('relative group', className)}>
+      <figure className={cn('relative group', containerStyles[variant], className)}>
         <div className="relative overflow-hidden rounded-xl">
           <img
             src={src}
@@ -29,7 +45,7 @@ export function ChapterImage({ src, alt, caption, className, variant = 'inline' 
             className={cn(baseStyles[variant], 'transition-transform duration-300')}
             loading="lazy"
           />
-          {variant !== 'hero' && (
+          {variant !== 'hero' && variant !== 'float-left' && variant !== 'float-right' && (
             <button
               onClick={() => setIsZoomed(true)}
               className="absolute top-2 right-2 p-2 bg-black/50 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"

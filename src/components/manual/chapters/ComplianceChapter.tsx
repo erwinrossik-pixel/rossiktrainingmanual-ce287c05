@@ -21,12 +21,12 @@ export function ComplianceChapter() {
         variant="compliance"
       />
 
-      {/* Compliance Checklist Image */}
+      {/* Compliance Checklist Image - Left aligned */}
       <ChapterImage
         src={complianceImg}
         alt="EU transport compliance checklist"
         caption={ct('complianceChecklistCaption') || "Checklist conformitate - cerințe legale transport EU"}
-        variant="inline"
+        variant="left"
         className="mb-6"
       />
 

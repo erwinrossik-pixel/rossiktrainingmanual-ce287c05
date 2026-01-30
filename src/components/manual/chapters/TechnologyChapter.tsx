@@ -21,12 +21,12 @@ export function TechnologyChapter() {
         variant="technology"
       />
 
-      {/* Technology Control Room Image */}
+      {/* Technology Control Room Image - Full width */}
       <ChapterImage
         src={technologyControlRoomImg}
         alt="Modern Logistics Control Room"
         caption={ct('controlRoomCaption') || "Control room modern pentru monitorizare transport și logistică"}
-        variant="inline"
+        variant="full"
         className="mb-6"
       />
 

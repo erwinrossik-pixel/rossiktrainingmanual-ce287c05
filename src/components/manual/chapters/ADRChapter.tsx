@@ -54,12 +54,12 @@ export function ADRChapter() {
           {ct('adrHazardClasses')}
         </h2>
         
-        {/* ADR Hazard Symbols Image */}
+        {/* ADR Hazard Symbols Image - Left aligned */}
         <ChapterImage
           src={adrHazardSymbolsImg}
           alt="ADR Hazard Warning Symbols"
           caption={ct('hazardSymbolsCaption') || "Simboluri de avertizare ADR pentru mărfuri periculoase"}
-          variant="inline"
+          variant="left"
           className="mb-6"
         />
         <div className="overflow-x-auto">

@@ -20,12 +20,12 @@ export function CommunicationChapter() {
         variant="communication"
       />
 
-      {/* Communication Team Image */}
+      {/* Communication Team Image - Right aligned */}
       <ChapterImage
         src={communicationImg}
         alt="Professional logistics team meeting"
         caption={ct('communicationTeamCaption') || "Comunicare profesională în echipa de logistică"}
-        variant="inline"
+        variant="right"
         className="mb-6"
       />
 

@@ -20,12 +20,12 @@ export function InsuranceChapter() {
         variant="insurance"
       />
 
-      {/* Insurance Claim Image */}
+      {/* Insurance Claim Image - Left aligned */}
       <ChapterImage
         src={insuranceClaimImg}
         alt="Insurance claim document with truck"
         caption={ct('insuranceClaimCaption') || "Documentație asigurare și cerere de despăgubire pentru transport"}
-        variant="inline"
+        variant="left"
         className="mb-6"
       />
 
