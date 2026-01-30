@@ -2,10 +2,12 @@ import { InfoCard } from "../InfoCard";
 import { DataTable } from "../DataTable";
 import { Quiz } from "../Quiz";
 import { MultiModalContent } from "../MultiModalContent";
+import { ChapterImage } from "../ChapterImage";
 import { quizzes } from "@/data/quizData";
 import { CreditCard, FileText, AlertTriangle, CheckCircle, Clock, Shield, Calculator, Users } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
+import paymentImg from "@/assets/chapters/payment-transaction.jpg";
 
 export function PaymentChapter() {
   const { ct } = useChapterTranslation("payment");
@@ -17,6 +19,15 @@ export function PaymentChapter() {
         description={ct('heroDescription')}
         icon={CreditCard}
         variant="payment"
+      />
+
+      {/* Payment Transaction Image */}
+      <ChapterImage
+        src={paymentImg}
+        alt="Payment and credit management"
+        caption={ct('paymentCaption') || "Managementul plăților - termeni de plată și credit în transport"}
+        variant="inline"
+        className="mb-6"
       />
 
       {/* Payment Terms */}

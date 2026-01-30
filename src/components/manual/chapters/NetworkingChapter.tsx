@@ -1,12 +1,14 @@
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { ChapterHero } from "../ChapterHero";
+import { ChapterImage } from "../ChapterImage";
 import { MultiModalContent } from "../MultiModalContent";
 import {
   Users, Handshake, Globe, Calendar, Laptop,
   Building2, Heart, Shield, Gift, Clock, CheckCircle, AlertTriangle, Book
 } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
+import networkingEventImg from "@/assets/chapters/networking-event.jpg";
 
 export function NetworkingChapter() {
   const { ct } = useChapterTranslation('networking');
@@ -18,6 +20,15 @@ export function NetworkingChapter() {
         description={ct("heroDescription")}
         icon={Users}
         variant="networking"
+      />
+
+      {/* Networking Event Image */}
+      <ChapterImage
+        src={networkingEventImg}
+        alt="Professional logistics networking event"
+        caption={ct('networkingCaption') || "Eveniment de networking - dezvoltarea rețelei profesionale în transport"}
+        variant="inline"
+        className="mb-6"
       />
 
       {/* Introduction */}

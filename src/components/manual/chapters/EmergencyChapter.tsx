@@ -1,6 +1,7 @@
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { MultiModalContent } from "../MultiModalContent";
+import { ChapterImage } from "../ChapterImage";
 import { FlowDiagram, DecisionDiagram, ProcessMap } from "../FlowDiagram";
 import { quizzes } from "@/data/quizData";
 import { AlertTriangle, Phone, FileText, Shield, Truck, MapPin, Clock, CheckCircle, Eye, XCircle, Timer, HelpCircle } from "lucide-react";
@@ -8,6 +9,7 @@ import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
+import emergencyResponseImg from "@/assets/chapters/emergency-response.jpg";
 
 // Interactive "What's Missing?" Scenario Component
 function WhatsMissingScenario({ 

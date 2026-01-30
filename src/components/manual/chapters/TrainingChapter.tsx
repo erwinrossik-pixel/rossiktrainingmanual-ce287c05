@@ -1,11 +1,13 @@
 import { GraduationCap, Calculator, Search, Settings, FileText, Target, Clock, Users, BookOpen, Award, CheckCircle, AlertTriangle, Briefcase, TrendingUp, Lightbulb, HelpCircle, ThumbsUp, ThumbsDown } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
+import { ChapterImage } from "../ChapterImage";
 import { Quiz } from "../Quiz";
 import { MultiModalContent } from "../MultiModalContent";
 import { quizzes } from "@/data/quizData";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import trainingSessionImg from "@/assets/chapters/training-session.jpg";
 
 // Formative Assessment Component - Quick knowledge checks
 function FormativeCheck({
@@ -102,6 +104,15 @@ export function TrainingChapter() {
         description={ct('heroDescription')}
         icon={GraduationCap}
         variant="training"
+      />
+
+      {/* Training Session Image */}
+      <ChapterImage
+        src={trainingSessionImg}
+        alt="Professional logistics training session"
+        caption={ct('trainingCaption') || "Sesiune de training profesional în transport și logistică"}
+        variant="inline"
+        className="mb-6"
       />
 
       {/* Training Overview */}

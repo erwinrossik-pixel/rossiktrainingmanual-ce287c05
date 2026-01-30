@@ -2,10 +2,12 @@ import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { MultiModalContent } from "../MultiModalContent";
 import { FlowDiagram, DecisionDiagram } from "../FlowDiagram";
+import { ChapterImage } from "../ChapterImage";
 import { quizzes } from "@/data/quizData";
 import { FileText, AlertTriangle, Shield, Clock, Euro, CheckCircle, Scale, Camera } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
+import claimsInspectionImg from "@/assets/chapters/claims-inspection.jpg";
 
 export function ClaimsChapter() {
   const { ct } = useChapterTranslation("claims");
@@ -17,6 +19,15 @@ export function ClaimsChapter() {
         description={ct('heroDescription')}
         icon={Scale}
         variant="claims"
+      />
+
+      {/* Claims Inspection Image */}
+      <ChapterImage
+        src={claimsInspectionImg}
+        alt="Cargo claims inspection at warehouse"
+        caption={ct('inspectionCaption') || "Inspecția mărfurilor - documentarea reclamațiilor de transport"}
+        variant="inline"
+        className="mb-6"
       />
 
       {/* CMR Liability Overview */}

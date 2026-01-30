@@ -3,10 +3,12 @@ import { InfoCard } from "../InfoCard";
 import { Checklist } from "../Checklist";
 import { Quiz } from "../Quiz";
 import { MultiModalContent } from "../MultiModalContent";
+import { ChapterImage } from "../ChapterImage";
 import { quizzes } from "@/data/quizData";
 import { Users, Shield, FileCheck, AlertTriangle, CheckCircle2, Star, Handshake, Scale, TrendingUp, Clock, Euro, Phone, BadgeCheck } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
+import carrierPartnershipImg from "@/assets/chapters/carrier-partnership.jpg";
 
 export function CarrierManagementChapter() {
   const { ct } = useChapterTranslation("carrier-management");
@@ -18,6 +20,15 @@ export function CarrierManagementChapter() {
         description={ct('heroDescription')}
         icon={Users}
         variant="carrier"
+      />
+
+      {/* Carrier Partnership Image */}
+      <ChapterImage
+        src={carrierPartnershipImg}
+        alt="Fleet manager reviewing carrier performance"
+        caption={ct('partnershipCaption') || "Managementul transportatorilor - evaluarea performanței partenerilor"}
+        variant="inline"
+        className="mb-6"
       />
 
       {/* Introduction */}

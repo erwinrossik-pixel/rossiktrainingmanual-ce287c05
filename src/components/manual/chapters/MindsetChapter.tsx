@@ -4,6 +4,7 @@ import { Quiz } from "../Quiz";
 import { MultiModalContent } from "../MultiModalContent";
 import { Checklist } from "../Checklist";
 import { ChapterHero } from "../ChapterHero";
+import { ChapterImage } from "../ChapterImage";
 import { quizzes } from "@/data/quizData";
 import { 
   Target, MessageSquare, Brain, FileText, Scale, Users, CheckCircle, 
@@ -12,6 +13,7 @@ import {
   Volume2, Mail, Calendar, AlertCircle, Info, ArrowRight
 } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
+import mindsetDispatcherImg from "@/assets/chapters/mindset-dispatcher.jpg";
 
 export function MindsetChapter() {
   const { ct } = useChapterTranslation('mindset');
@@ -24,6 +26,15 @@ export function MindsetChapter() {
         description={ct("heroDescription")}
         icon={Brain}
         variant="mindset"
+      />
+
+      {/* Dispatcher Image */}
+      <ChapterImage
+        src={mindsetDispatcherImg}
+        alt="Freight forwarder dispatcher at work"
+        caption={ct('dispatcherCaption') || "Dispečer de transport internațional - coordonarea operațiunilor zilnice"}
+        variant="inline"
+        className="mb-6"
       />
 
       {/* Introduction */}

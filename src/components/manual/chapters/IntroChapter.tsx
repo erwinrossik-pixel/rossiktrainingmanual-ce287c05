@@ -2,8 +2,10 @@ import { Truck, Globe, BookOpen, Target, Award, Users, MapPin, Building2, CheckC
 import rossikLogo from "@/assets/rossik-logo.jpg";
 import { InfoCard } from "../InfoCard";
 import { ChapterHero } from "../ChapterHero";
+import { ChapterImage } from "../ChapterImage";
 import { MultiModalContent } from "../MultiModalContent";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
+import introTransportImg from "@/assets/chapters/intro-european-transport.jpg";
 
 export function IntroChapter() {
   const { ct } = useChapterTranslation("intro");
@@ -16,6 +18,15 @@ export function IntroChapter() {
         description={ct("heroDescription")}
         icon={BookOpen}
         variant="intro"
+      />
+
+      {/* European Transport Image */}
+      <ChapterImage
+        src={introTransportImg}
+        alt="European freight transport convoy"
+        caption={ct('introTransportCaption') || "Transport rutier european - începutul călătoriei tale în logistică"}
+        variant="inline"
+        className="mb-6"
       />
 
       {/* Welcome Message */}

@@ -3,9 +3,11 @@ import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { MultiModalContent } from "../MultiModalContent";
 import { ChapterHero } from "../ChapterHero";
+import { ChapterImage } from "../ChapterImage";
 import { quizzes } from "@/data/quizData";
 import { Brain, MessageSquare, Clock, Users, Target, Lightbulb, Heart, Shield, Zap, CheckCircle2, AlertTriangle, Volume2, Ear, PenTool, Euro } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
+import softSkillsTeamImg from "@/assets/chapters/soft-skills-team.jpg";
 
 export function SoftSkillsChapter() {
   const { ct } = useChapterTranslation("soft-skills");
@@ -18,6 +20,15 @@ export function SoftSkillsChapter() {
         description={ct("heroDescription")}
         icon={Users}
         variant="softskills"
+      />
+
+      {/* Team Collaboration Image */}
+      <ChapterImage
+        src={softSkillsTeamImg}
+        alt="Professional team collaboration meeting"
+        caption={ct('teamCaption') || "Colaborare profesională în echipă - competențe esențiale în transport"}
+        variant="inline"
+        className="mb-6"
       />
 
       {/* Introduction */}

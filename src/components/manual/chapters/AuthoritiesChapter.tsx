@@ -2,12 +2,14 @@ import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { Checklist } from "../Checklist";
 import { ChapterHero } from "../ChapterHero";
+import { ChapterImage } from "../ChapterImage";
 import { MultiModalContent } from "../MultiModalContent";
 import {
   Shield, FileText, AlertTriangle, CheckCircle, Users,
   Phone, Clock, Scale, Eye, Truck, BookOpen, Info, Book
 } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
+import authoritiesControlImg from "@/assets/chapters/authorities-control.jpg";
 
 export function AuthoritiesChapter() {
   const { ct } = useChapterTranslation('authorities');
@@ -19,6 +21,15 @@ export function AuthoritiesChapter() {
         description={ct("heroDescription")}
         icon={Shield}
         variant="authorities"
+      />
+
+      {/* Authorities Control Image */}
+      <ChapterImage
+        src={authoritiesControlImg}
+        alt="Transport authorities roadside control"
+        caption={ct('controlCaption') || "Control rutier - verificarea documentelor de transport"}
+        variant="inline"
+        className="mb-6"
       />
 
       {/* Introduction */}
