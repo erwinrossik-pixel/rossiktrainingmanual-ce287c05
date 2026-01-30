@@ -49,7 +49,7 @@ export const AdminHeader = memo(function AdminHeader({
                   size="icon"
                   onClick={onToggleNotifications}
                   className={`${notificationsEnabled 
-                    ? 'bg-emerald-500 border-emerald-400 text-white hover:bg-emerald-600' 
+                    ? 'bg-success border-success text-success-foreground hover:bg-success/90' 
                     : 'bg-white/10 border-white/30 text-white hover:bg-white/20'
                   }`}
                 >
@@ -69,7 +69,7 @@ export const AdminHeader = memo(function AdminHeader({
           </TooltipProvider>
           <Button 
             onClick={onExportCSV}
-            className="bg-white text-slate-800 hover:bg-white/90 font-bold shadow-lg"
+            className="bg-white text-foreground hover:bg-white/90 font-bold shadow-lg"
           >
             <Download className="h-4 w-4 mr-2" />
             {t('admin.exportCSV')}

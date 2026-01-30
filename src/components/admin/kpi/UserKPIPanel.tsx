@@ -299,11 +299,11 @@ export const UserKPIPanel = memo(function UserKPIPanel({
       </div>
 
       {/* User Search & List */}
-      <Card className="border-2 border-slate-200 dark:border-slate-700 shadow-xl">
-        <CardHeader className="border-b border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900/50">
-          <CardTitle className="text-xl flex items-center gap-3 text-slate-800 dark:text-slate-200">
-            <div className="p-2 bg-gradient-to-br from-slate-500 to-slate-700 rounded-lg shadow-lg">
-              <BookOpen className="h-5 w-5 text-white" />
+      <Card className="border-2 border-border shadow-xl">
+        <CardHeader className="border-b border-border bg-muted/50">
+          <CardTitle className="text-xl flex items-center gap-3 text-foreground">
+            <div className="p-2 bg-gradient-to-br from-muted-foreground to-foreground rounded-lg shadow-lg">
+              <BookOpen className="h-5 w-5 text-background" />
             </div>
             {t('admin.kpi.allUsers')} ({filteredUsers.length})
           </CardTitle>
@@ -329,7 +329,7 @@ export const UserKPIPanel = memo(function UserKPIPanel({
                     className={`flex items-center justify-between p-4 rounded-xl cursor-pointer transition-all duration-200 ${
                       selectedUser?.userId === user.userId 
                         ? 'bg-primary/15 border-2 border-primary shadow-lg shadow-primary/20' 
-                        : 'bg-white dark:bg-slate-800/50 hover:bg-slate-100 dark:hover:bg-slate-700/50 border-2 border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 shadow-sm hover:shadow-md'
+                        : 'bg-background hover:bg-muted/50 border-2 border-border hover:border-muted-foreground/30 shadow-sm hover:shadow-md'
                     }`}
                     onClick={() => setSelectedUser(user)}
                   >
@@ -344,7 +344,7 @@ export const UserKPIPanel = memo(function UserKPIPanel({
                       </div>
                       <p className="text-sm text-muted-foreground truncate">{user.email}</p>
                       {/* Mini progress bar */}
-                      <div className="mt-2 h-2 w-32 rounded-full bg-slate-200 dark:bg-slate-700 overflow-hidden">
+                      <div className="mt-2 h-2 w-32 rounded-full bg-muted overflow-hidden">
                         <div 
                           className={`h-full rounded-full transition-all ${getProgressColor(progressPercent)}`}
                           style={{ width: `${progressPercent}%` }}
