@@ -120,12 +120,12 @@ export function KnowledgeGraph() {
 
   const getRelationColor = (type: ConceptRelation['type']) => {
     const colors = {
-      requires: 'text-red-400',
-      extends: 'text-blue-400',
-      related: 'text-gray-400',
-      conflicts: 'text-orange-400',
-      enables: 'text-green-400',
-      validates: 'text-purple-400'
+      requires: 'text-destructive',
+      extends: 'text-info',
+      related: 'text-muted-foreground',
+      conflicts: 'text-warning',
+      enables: 'text-success',
+      validates: 'text-primary'
     };
     return colors[type];
   };
