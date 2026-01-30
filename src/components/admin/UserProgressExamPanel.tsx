@@ -1043,7 +1043,7 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
                                 {/* Best Score - capped at 10 */}
                                 <TableCell>
                                   {cd.best_score > 0 ? (
-                                    <span className={Math.min(cd.best_score, 10) >= 9 ? 'text-green-600 font-semibold' : Math.min(cd.best_score, 10) >= 7 ? 'text-amber-600' : 'text-red-600'}>
+                                    <span className={Math.min(cd.best_score, 10) >= 9 ? 'text-success font-semibold' : Math.min(cd.best_score, 10) >= 7 ? 'text-warning' : 'text-destructive'}>
                                       {Math.min(cd.best_score, 10)}/10
                                     </span>
                                   ) : (

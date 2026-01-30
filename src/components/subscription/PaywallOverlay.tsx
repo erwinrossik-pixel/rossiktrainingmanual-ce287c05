@@ -74,18 +74,18 @@ export function PaywallOverlay({
 
   const getPlanIcon = (plan: PlanType) => {
     switch (plan) {
-      case 'enterprise': return <Crown className="h-10 w-10 text-amber-500" />;
-      case 'professional': return <Sparkles className="h-10 w-10 text-purple-500" />;
-      case 'starter': return <Star className="h-10 w-10 text-blue-500" />;
+      case 'enterprise': return <Crown className="h-10 w-10 text-warning" />;
+      case 'professional': return <Sparkles className="h-10 w-10 text-primary" />;
+      case 'starter': return <Star className="h-10 w-10 text-info" />;
       default: return <Lock className="h-10 w-10 text-muted-foreground" />;
     }
   };
 
   const getPlanGradient = (plan: PlanType) => {
     switch (plan) {
-      case 'enterprise': return 'from-amber-500/20 via-orange-500/10 to-transparent';
-      case 'professional': return 'from-purple-500/20 via-purple-500/10 to-transparent';
-      case 'starter': return 'from-blue-500/20 via-blue-500/10 to-transparent';
+      case 'enterprise': return 'from-warning/20 via-warning/10 to-transparent';
+      case 'professional': return 'from-primary/20 via-primary/10 to-transparent';
+      case 'starter': return 'from-info/20 via-info/10 to-transparent';
       default: return 'from-muted/50 to-transparent';
     }
   };

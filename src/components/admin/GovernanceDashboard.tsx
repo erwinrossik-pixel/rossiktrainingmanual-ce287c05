@@ -306,7 +306,7 @@ export function GovernanceDashboard() {
       case 'critical':
         return <Badge variant="destructive">CRITICAL</Badge>;
       case 'major':
-        return <Badge className="bg-orange-500">MAJOR</Badge>;
+        return <Badge className="bg-warning text-warning-foreground">MAJOR</Badge>;
       case 'minor':
         return <Badge variant="secondary">MINOR</Badge>;
       default:
@@ -428,7 +428,7 @@ export function GovernanceDashboard() {
             <CardContent>
               {pendingUpdates.length === 0 ? (
                 <div className="text-center py-8 text-muted-foreground">
-                  <CheckCircle2 className="h-12 w-12 mx-auto mb-4 text-green-500" />
+                  <CheckCircle2 className="h-12 w-12 mx-auto mb-4 text-success" />
                   <p>{t('admin.governance.noPending')}</p>
                 </div>
               ) : (
@@ -503,7 +503,7 @@ export function GovernanceDashboard() {
                               checked={!chapter.auto_update_blocked}
                               onCheckedChange={() => toggleAutoUpdateBlock(chapter.id, chapter.auto_update_blocked)}
                             />
-                            <span className={chapter.auto_update_blocked ? 'text-red-600' : 'text-green-600'}>
+                            <span className={chapter.auto_update_blocked ? 'text-destructive' : 'text-success'}>
                               {chapter.auto_update_blocked ? (
                                 <><Lock className="h-4 w-4 inline mr-1" />{t('admin.governance.disabled')}</>
                               ) : (

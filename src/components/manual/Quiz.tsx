@@ -317,7 +317,7 @@ export function Quiz({ title, questions, chapterId, questionsPerRound = QUESTION
   if (shuffledQuestions.length === 0) {
     return (
       <div className="mt-12 p-8 bg-card rounded-2xl border border-border shadow-card text-center">
-        <div className="text-amber-500 mb-4">
+        <div className="text-warning mb-4">
           <AlertTriangle className="w-12 h-12 mx-auto" />
         </div>
         <h3 className="text-lg font-bold mb-2">
@@ -349,11 +349,11 @@ export function Quiz({ title, questions, chapterId, questionsPerRound = QUESTION
 
   // Difficulty indicator label
   const difficultyLabel = {
-    1: { ro: 'Normal', de: 'Normal', en: 'Normal', color: 'bg-green-500/20 text-green-600' },
-    2: { ro: 'Greu', de: 'Schwer', en: 'Hard', color: 'bg-yellow-500/20 text-yellow-600' },
-    3: { ro: 'Foarte Greu', de: 'Sehr Schwer', en: 'Very Hard', color: 'bg-orange-500/20 text-orange-600' },
-    4: { ro: 'Expert', de: 'Experte', en: 'Expert', color: 'bg-red-500/20 text-red-600' },
-    5: { ro: 'Maxim', de: 'Maximum', en: 'Maximum', color: 'bg-purple-500/20 text-purple-600' }
+    1: { ro: 'Normal', de: 'Normal', en: 'Normal', color: 'bg-success/20 text-success' },
+    2: { ro: 'Greu', de: 'Schwer', en: 'Hard', color: 'bg-warning/20 text-warning' },
+    3: { ro: 'Foarte Greu', de: 'Sehr Schwer', en: 'Very Hard', color: 'bg-warning/30 text-warning' },
+    4: { ro: 'Expert', de: 'Experte', en: 'Expert', color: 'bg-destructive/20 text-destructive' },
+    5: { ro: 'Maxim', de: 'Maximum', en: 'Maximum', color: 'bg-primary/20 text-primary' }
   };
 
   // Labels based on language

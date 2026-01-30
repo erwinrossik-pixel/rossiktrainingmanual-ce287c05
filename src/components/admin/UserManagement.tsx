@@ -883,7 +883,7 @@ export function UserManagement() {
                             <TableCell>
                               <div className="flex items-center gap-2">
                                 <Target className="h-4 w-4 text-muted-foreground" />
-                                <span className={up.avg_quiz_score >= 9 ? 'text-green-600 font-semibold' : up.avg_quiz_score >= 7 ? 'text-amber-600' : 'text-muted-foreground'}>
+                                <span className={up.avg_quiz_score >= 9 ? 'text-success font-semibold' : up.avg_quiz_score >= 7 ? 'text-warning' : 'text-muted-foreground'}>
                                   {up.avg_quiz_score > 0 ? `${up.avg_quiz_score}/10` : '-'}
                                 </span>
                               </div>

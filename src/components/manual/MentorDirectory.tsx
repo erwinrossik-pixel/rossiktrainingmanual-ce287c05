@@ -192,7 +192,7 @@ function MentorCard({ mentor, onRequest, isPending, isActive, isOwnProfile }: Me
           <div className="flex items-center gap-2">
             <h3 className="font-semibold">{mentor.mentor_name || 'Mentor'}</h3>
             {mentor.rating > 0 && (
-              <span className="flex items-center gap-1 text-sm text-amber-500">
+              <span className="flex items-center gap-1 text-sm text-warning">
                 <Star className="h-3 w-3 fill-current" />
                 {mentor.rating.toFixed(1)}
               </span>
@@ -229,7 +229,7 @@ function MentorCard({ mentor, onRequest, isPending, isActive, isOwnProfile }: Me
         {isOwnProfile ? (
           <Badge variant="outline">Your Profile</Badge>
         ) : isActive ? (
-          <Badge className="bg-green-500">Active Mentorship</Badge>
+          <Badge className="bg-success text-success-foreground">Active Mentorship</Badge>
         ) : isPending ? (
           <Badge variant="secondary">Request Pending</Badge>
         ) : (

@@ -63,17 +63,17 @@ export const LearningAnalyticsDashboard = memo(function LearningAnalyticsDashboa
               </p>
             </CardContent>
           </Card>
-          <Card className="bg-green-500/5 border-green-500/20">
+          <Card className="bg-success/5 border-success/20">
             <CardHeader className="pb-2">
               <CardTitle className="text-sm">{t('admin.kpi.activeUsers7d')}</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-3xl font-bold text-green-600">
+              <p className="text-3xl font-bold text-success">
                 {globalKPI.activeUsersLast7Days}
               </p>
             </CardContent>
           </Card>
-          <Card className="bg-orange-500/5 border-orange-500/20">
+          <Card className="bg-warning/5 border-warning/20">
             <CardHeader className="pb-2">
               <CardTitle className="text-sm">{t('admin.kpi.problematicChapters')}</CardTitle>
             </CardHeader>

@@ -190,12 +190,12 @@ export function FinalExamResults() {
             <p className="text-3xl font-bold">{stats.total}</p>
           </CardContent>
         </Card>
-        <Card className={stats.passRate >= 80 ? 'bg-green-50 dark:bg-green-950/20' : 'bg-orange-50 dark:bg-orange-950/20'}>
+        <Card className={stats.passRate >= 80 ? 'bg-success/5 dark:bg-success/10' : 'bg-warning/5 dark:bg-warning/10'}>
           <CardHeader className="pb-2">
             <CardTitle className="text-sm text-muted-foreground">{labels.passRate}</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className={`text-3xl font-bold ${stats.passRate >= 80 ? 'text-green-600' : 'text-orange-600'}`}>
+            <p className={`text-3xl font-bold ${stats.passRate >= 80 ? 'text-success' : 'text-warning'}`}>
               {stats.passRate}%
             </p>
           </CardContent>
