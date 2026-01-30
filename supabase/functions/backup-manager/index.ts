@@ -26,9 +26,11 @@ serve(async (req) => {
   const supabaseServiceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
   const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
-  const { action } = await req.json();
+  const body = await req.json();
+  const action = body.action;
 
-  if (action === 'create_backup') {
+  // Support both "backup" and "create_backup" for compatibility with cron jobs
+  if (action === 'create_backup' || action === 'backup') {
     const startTime = Date.now();
     
     // Create backup log entry
