@@ -47,6 +47,7 @@ import { QuizAnalyticsDashboard } from '@/components/admin/QuizAnalyticsDashboar
 import { FinalExamResults } from '@/components/admin/FinalExamResults';
 import { QuizResetManager } from '@/components/admin/QuizResetManager';
 import { UserProgressExamPanel } from '@/components/admin/UserProgressExamPanel';
+import { ContentVisualAnalyzer } from '@/components/admin/ContentVisualAnalyzer';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import NotificationCenter from '@/components/NotificationCenter';
@@ -778,6 +779,11 @@ export default function AdminDashboard() {
               {t('admin.tab.knowledgeGraph')}
             </TabsTrigger>
             
+            <TabsTrigger value="visual-analyzer" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-cyan-700 data-[state=active]:border-b-2 data-[state=active]:border-cyan-500">
+              <Eye className="h-4 w-4" />
+              {t('admin.tab.visualAnalyzer')}
+            </TabsTrigger>
+            
             {/* ═══════════════════════════════════════════════════════════════════
                 CATEGORIA 6: SISTEM & ENTERPRISE
             ═══════════════════════════════════════════════════════════════════ */}
@@ -1033,6 +1039,10 @@ export default function AdminDashboard() {
 
           <TabsContent value="content-governor" className="mt-6">
             <ContentGovernorDashboard />
+          </TabsContent>
+
+          <TabsContent value="visual-analyzer" className="mt-6">
+            <ContentVisualAnalyzer />
           </TabsContent>
 
           {/* Enterprise Deployment Tabs - Super Admin only */}
