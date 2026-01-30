@@ -102,57 +102,57 @@ export function CompetencyGapAnalysis() {
       {/* Company Overview */}
       {insights && (
         <div className="grid md:grid-cols-4 gap-4">
-          <Card className="bg-gradient-to-br from-blue-50 to-indigo-100 border-blue-200">
+          <Card className="bg-gradient-to-br from-info/10 to-info/5 border-info/20">
             <CardContent className="pt-6">
               <div className="flex items-center gap-3">
-                <div className="p-3 bg-blue-500 rounded-lg">
-                  <BarChart3 className="h-6 w-6 text-white" />
+                <div className="p-3 bg-info rounded-lg">
+                  <BarChart3 className="h-6 w-6 text-info-foreground" />
                 </div>
                 <div>
-                  <p className="text-sm text-blue-600 font-medium">{t('admin.competency.avgScore')}</p>
-                  <p className="text-3xl font-bold text-blue-700">{insights.averageScore}%</p>
+                  <p className="text-sm text-info font-medium">{t('admin.competency.avgScore')}</p>
+                  <p className="text-3xl font-bold text-info">{insights.averageScore}%</p>
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="bg-gradient-to-br from-red-50 to-orange-100 border-red-200">
+          <Card className="bg-gradient-to-br from-destructive/10 to-warning/10 border-destructive/20">
             <CardContent className="pt-6">
               <div className="flex items-center gap-3">
-                <div className="p-3 bg-red-500 rounded-lg">
-                  <AlertTriangle className="h-6 w-6 text-white" />
+                <div className="p-3 bg-destructive rounded-lg">
+                  <AlertTriangle className="h-6 w-6 text-destructive-foreground" />
                 </div>
                 <div>
-                  <p className="text-sm text-red-600 font-medium">{t('admin.competency.needsSupport')}</p>
-                  <p className="text-3xl font-bold text-red-700">{insights.usersNeedingSupport}</p>
+                  <p className="text-sm text-destructive font-medium">{t('admin.competency.needsSupport')}</p>
+                  <p className="text-3xl font-bold text-destructive">{insights.usersNeedingSupport}</p>
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="bg-gradient-to-br from-green-50 to-emerald-100 border-green-200">
+          <Card className="bg-gradient-to-br from-success/10 to-success/5 border-success/20">
             <CardContent className="pt-6">
               <div className="flex items-center gap-3">
-                <div className="p-3 bg-green-500 rounded-lg">
-                  <CheckCircle2 className="h-6 w-6 text-white" />
+                <div className="p-3 bg-success rounded-lg">
+                  <CheckCircle2 className="h-6 w-6 text-success-foreground" />
                 </div>
                 <div>
-                  <p className="text-sm text-green-600 font-medium">{t('admin.competency.masteredChapters')}</p>
-                  <p className="text-3xl font-bold text-green-700">{insights.topStrongChapters.length}</p>
+                  <p className="text-sm text-success font-medium">{t('admin.competency.masteredChapters')}</p>
+                  <p className="text-3xl font-bold text-success">{insights.topStrongChapters.length}</p>
                 </div>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="bg-gradient-to-br from-amber-50 to-yellow-100 border-amber-200">
+          <Card className="bg-gradient-to-br from-warning/10 to-warning/5 border-warning/20">
             <CardContent className="pt-6">
               <div className="flex items-center gap-3">
-                <div className="p-3 bg-amber-500 rounded-lg">
-                  <BookOpen className="h-6 w-6 text-white" />
+                <div className="p-3 bg-warning rounded-lg">
+                  <BookOpen className="h-6 w-6 text-warning-foreground" />
                 </div>
                 <div>
-                  <p className="text-sm text-amber-600 font-medium">{t('admin.competency.problematicChapters')}</p>
-                  <p className="text-3xl font-bold text-amber-700">{insights.topWeakChapters.length}</p>
+                  <p className="text-sm text-warning font-medium">{t('admin.competency.problematicChapters')}</p>
+                  <p className="text-3xl font-bold text-warning">{insights.topWeakChapters.length}</p>
                 </div>
               </div>
             </CardContent>
@@ -224,11 +224,11 @@ export function CompetencyGapAnalysis() {
 
                     <div className="flex items-center gap-6">
                       <div className="text-center">
-                        <p className="text-2xl font-bold text-green-600">{user.strongAreas.length}</p>
+                        <p className="text-2xl font-bold text-success">{user.strongAreas.length}</p>
                         <p className="text-xs text-muted-foreground">{t('admin.competency.strongPoints')}</p>
                       </div>
                       <div className="text-center">
-                        <p className="text-2xl font-bold text-red-600">{user.weakAreas.length}</p>
+                        <p className="text-2xl font-bold text-destructive">{user.weakAreas.length}</p>
                         <p className="text-xs text-muted-foreground">{t('admin.competency.toImprove')}</p>
                       </div>
                       <div className="text-center">
@@ -249,9 +249,9 @@ export function CompetencyGapAnalysis() {
         {/* Chapters Analysis Tab */}
         <TabsContent value="chapters">
           <div className="grid md:grid-cols-2 gap-6">
-            <Card className="border-red-200">
+            <Card className="border-destructive/20">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-red-600">
+                <CardTitle className="flex items-center gap-2 text-destructive">
                   <AlertTriangle className="h-5 w-5" />
                   {t('admin.competency.problematic')}
                 </CardTitle>
@@ -260,9 +260,9 @@ export function CompetencyGapAnalysis() {
               <CardContent>
                 <div className="space-y-4">
                   {insights?.topWeakChapters.map((chapter, idx) => (
-                    <div key={chapter.chapterId} className="flex items-center justify-between p-3 bg-red-50 rounded-lg">
+                    <div key={chapter.chapterId} className="flex items-center justify-between p-3 bg-destructive/10 rounded-lg">
                       <div className="flex items-center gap-3">
-                        <span className="w-6 h-6 rounded-full bg-red-200 text-red-700 flex items-center justify-center text-sm font-bold">
+                        <span className="w-6 h-6 rounded-full bg-destructive/20 text-destructive flex items-center justify-center text-sm font-bold">
                           {idx + 1}
                         </span>
                         <span className="font-medium">{chapter.chapterName}</span>
@@ -284,9 +284,9 @@ export function CompetencyGapAnalysis() {
               </CardContent>
             </Card>
 
-            <Card className="border-green-200">
+            <Card className="border-success/20">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-green-600">
+                <CardTitle className="flex items-center gap-2 text-success">
                   <Star className="h-5 w-5" />
                   {t('admin.competency.wellMastered')}
                 </CardTitle>
@@ -295,14 +295,14 @@ export function CompetencyGapAnalysis() {
               <CardContent>
                 <div className="space-y-4">
                   {insights?.topStrongChapters.map((chapter, idx) => (
-                    <div key={chapter.chapterId} className="flex items-center justify-between p-3 bg-green-50 rounded-lg">
+                    <div key={chapter.chapterId} className="flex items-center justify-between p-3 bg-success/10 rounded-lg">
                       <div className="flex items-center gap-3">
-                        <span className="w-6 h-6 rounded-full bg-green-200 text-green-700 flex items-center justify-center text-sm font-bold">
+                        <span className="w-6 h-6 rounded-full bg-success/20 text-success flex items-center justify-center text-sm font-bold">
                           {idx + 1}
                         </span>
                         <span className="font-medium">{chapter.chapterName}</span>
                       </div>
-                      <Badge className="bg-green-500">{chapter.avgScore}%</Badge>
+                      <Badge className="bg-success text-success-foreground">{chapter.avgScore}%</Badge>
                     </div>
                   ))}
                   {insights?.topStrongChapters.length === 0 && (
@@ -333,10 +333,10 @@ export function CompetencyGapAnalysis() {
                     <Progress 
                       value={level.percentage} 
                       className={`h-3 ${
-                        level.level.includes('Mastered') ? '[&>div]:bg-green-500' :
-                        level.level.includes('Proficient') ? '[&>div]:bg-blue-500' :
-                        level.level.includes('Developing') ? '[&>div]:bg-amber-500' :
-                        '[&>div]:bg-red-500'
+                        level.level.includes('Mastered') ? '[&>div]:bg-success' :
+                        level.level.includes('Proficient') ? '[&>div]:bg-info' :
+                        level.level.includes('Developing') ? '[&>div]:bg-warning' :
+                        '[&>div]:bg-destructive'
                       }`}
                     />
                   </div>
@@ -399,38 +399,38 @@ function UserDetailModal({
             <div className="space-y-6">
               {/* Summary */}
               <div className="grid grid-cols-4 gap-4">
-                <Card className="bg-gradient-to-br from-blue-50 to-blue-100">
+                <Card className="bg-gradient-to-br from-info/10 to-info/5">
                   <CardContent className="pt-4 text-center">
-                    <p className="text-3xl font-bold text-blue-600">{userProfile.overallScore}%</p>
-                    <p className="text-sm text-blue-600">{t('admin.competency.overallScore')}</p>
+                    <p className="text-3xl font-bold text-info">{userProfile.overallScore}%</p>
+                    <p className="text-sm text-info">{t('admin.competency.overallScore')}</p>
                   </CardContent>
                 </Card>
-                <Card className="bg-gradient-to-br from-green-50 to-green-100">
+                <Card className="bg-gradient-to-br from-success/10 to-success/5">
                   <CardContent className="pt-4 text-center">
-                    <p className="text-3xl font-bold text-green-600">{userProfile.strongAreas.length}</p>
-                    <p className="text-sm text-green-600">{t('admin.competency.strongPoints')}</p>
+                    <p className="text-3xl font-bold text-success">{userProfile.strongAreas.length}</p>
+                    <p className="text-sm text-success">{t('admin.competency.strongPoints')}</p>
                   </CardContent>
                 </Card>
-                <Card className="bg-gradient-to-br from-red-50 to-red-100">
+                <Card className="bg-gradient-to-br from-destructive/10 to-destructive/5">
                   <CardContent className="pt-4 text-center">
-                    <p className="text-3xl font-bold text-red-600">{userProfile.weakAreas.length}</p>
-                    <p className="text-sm text-red-600">{t('admin.competency.toImprove')}</p>
+                    <p className="text-3xl font-bold text-destructive">{userProfile.weakAreas.length}</p>
+                    <p className="text-sm text-destructive">{t('admin.competency.toImprove')}</p>
                   </CardContent>
                 </Card>
-                <Card className="bg-gradient-to-br from-purple-50 to-purple-100">
+                <Card className="bg-gradient-to-br from-primary/10 to-primary/5">
                   <CardContent className="pt-4 text-center">
-                    <p className="text-3xl font-bold text-purple-600">
+                    <p className="text-3xl font-bold text-primary">
                       {userProfile.completedChapters}/{userProfile.totalChapters}
                     </p>
-                    <p className="text-sm text-purple-600">{t('admin.competency.completedChapters')}</p>
+                    <p className="text-sm text-primary">{t('admin.competency.completedChapters')}</p>
                   </CardContent>
                 </Card>
               </div>
 
               {userProfile.recommendations.length > 0 && (
-                <Card className="border-amber-200 bg-amber-50">
+                <Card className="border-warning/20 bg-warning/5">
                   <CardHeader className="pb-2">
-                    <CardTitle className="flex items-center gap-2 text-amber-700">
+                    <CardTitle className="flex items-center gap-2 text-warning">
                       <Lightbulb className="h-5 w-5" />
                       {t('admin.competency.recommendations')}
                     </CardTitle>
@@ -441,18 +441,18 @@ function UserDetailModal({
                         <div 
                           key={idx} 
                           className={`flex items-center justify-between p-3 rounded-lg ${
-                            rec.priority === 'high' ? 'bg-red-100 border border-red-200' :
-                            rec.priority === 'medium' ? 'bg-amber-100 border border-amber-200' :
-                            'bg-green-100 border border-green-200'
+                            rec.priority === 'high' ? 'bg-destructive/10 border border-destructive/20' :
+                            rec.priority === 'medium' ? 'bg-warning/10 border border-warning/20' :
+                            'bg-success/10 border border-success/20'
                           }`}
                         >
                           <div className="flex items-center gap-3">
                             {rec.priority === 'high' ? (
-                              <AlertCircle className="h-5 w-5 text-red-500" />
+                              <AlertCircle className="h-5 w-5 text-destructive" />
                             ) : rec.priority === 'medium' ? (
-                              <AlertTriangle className="h-5 w-5 text-amber-500" />
+                              <AlertTriangle className="h-5 w-5 text-warning" />
                             ) : (
-                              <Lightbulb className="h-5 w-5 text-green-500" />
+                              <Lightbulb className="h-5 w-5 text-success" />
                             )}
                             <div>
                               <p className="font-medium">{rec.chapterName}</p>
