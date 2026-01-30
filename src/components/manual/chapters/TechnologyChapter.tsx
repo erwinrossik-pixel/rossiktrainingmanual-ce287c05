@@ -2,10 +2,12 @@ import { DataTable } from "../DataTable";
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { MultiModalContent } from "../MultiModalContent";
+import { ChapterImage } from "../ChapterImage";
 import { quizzes } from "@/data/quizData";
 import { Cpu, Smartphone, Cloud, Globe, BarChart3, Zap, Shield, TrendingUp, CheckCircle2, AlertTriangle, Bot, Wifi, Database, MapPin, Link, Users, Package, FileText, Workflow } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
+import technologyControlRoomImg from "@/assets/chapters/technology-control-room.jpg";
 
 export function TechnologyChapter() {
   const { ct } = useChapterTranslation("technology");
@@ -17,6 +19,15 @@ export function TechnologyChapter() {
         description={ct('heroDescription')}
         icon={Cpu}
         variant="technology"
+      />
+
+      {/* Technology Control Room Image */}
+      <ChapterImage
+        src={technologyControlRoomImg}
+        alt="Modern Logistics Control Room"
+        caption={ct('controlRoomCaption') || "Control room modern pentru monitorizare transport și logistică"}
+        variant="inline"
+        className="mb-6"
       />
 
       {/* Introduction */}

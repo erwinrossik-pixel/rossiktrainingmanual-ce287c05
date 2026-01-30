@@ -2,10 +2,12 @@ import { InfoCard } from "../InfoCard";
 import { DataTable } from "../DataTable";
 import { Quiz } from "../Quiz";
 import { MultiModalContent } from "../MultiModalContent";
+import { ChapterImage } from "../ChapterImage";
 import { quizzes } from "@/data/quizData";
 import { Globe, FileText, AlertTriangle, CheckCircle, Clock, MapPin, Shield } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
+import customsProcessFlowImg from "@/assets/chapters/customs-process-flow.jpg";
 
 export function CustomsChapter() {
   const { ct } = useChapterTranslation('customs');
@@ -17,6 +19,15 @@ export function CustomsChapter() {
         description={ct('heroDescription')}
         icon={Globe}
         variant="customs"
+      />
+
+      {/* Customs Process Flow Image */}
+      <ChapterImage
+        src={customsProcessFlowImg}
+        alt="European Customs Clearance Process"
+        caption={ct('customsProcessCaption') || "Fluxul procedurilor vamale UE pentru import/export"}
+        variant="inline"
+        className="mb-6"
       />
 
       {/* EU vs Non-EU */}

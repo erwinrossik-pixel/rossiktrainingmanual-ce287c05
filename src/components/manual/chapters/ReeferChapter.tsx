@@ -3,6 +3,7 @@ import { DataTable } from "../DataTable";
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { MultiModalContent } from "../MultiModalContent";
+import { ChapterImage } from "../ChapterImage";
 import { quizzes } from "@/data/quizData";
 import { 
   Thermometer, Snowflake, AlertTriangle, CheckCircle, FileText, Clock, Truck,
@@ -11,6 +12,7 @@ import {
 } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
+import reeferTemperatureImg from "@/assets/chapters/reefer-temperature-zones.jpg";
 
 export function ReeferChapter() {
   const { ct } = useChapterTranslation('reefer');
@@ -22,6 +24,15 @@ export function ReeferChapter() {
         description={ct('heroDescription')}
         icon={Snowflake}
         variant="reefer"
+      />
+
+      {/* Reefer Temperature Zones Image */}
+      <ChapterImage
+        src={reeferTemperatureImg}
+        alt="Refrigerated Trailer Temperature Zones"
+        caption={ct('temperatureZonesCaption') || "Zone de temperatură pentru transport frigorific"}
+        variant="inline"
+        className="mb-6"
       />
 
       {/* Introduction */}
