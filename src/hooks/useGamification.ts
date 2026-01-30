@@ -20,7 +20,7 @@ const createNotificationInDB = async (
       icon
     });
   } catch (error) {
-    console.error('[Gamification] Error creating notification:', error);
+    logger.error('[Gamification] Error creating notification:', error);
   }
 };
 
@@ -163,7 +163,7 @@ export function useGamification() {
         .single();
 
       if (gamError && gamError.code !== 'PGRST116') {
-        console.error('Error fetching gamification:', gamError);
+        logger.error('Error fetching gamification:', gamError);
       }
 
       if (gamData) {
@@ -189,7 +189,7 @@ export function useGamification() {
 
       setAchievements(achData || []);
     } catch (error) {
-      console.error('Error in fetchGamification:', error);
+      logger.error('Error in fetchGamification:', error);
     } finally {
       setLoading(false);
     }
@@ -266,7 +266,7 @@ export function useGamification() {
       .single();
 
     if (gamError) {
-      console.error('[Gamification] Error fetching current gamification:', gamError);
+      logger.error('[Gamification] Error fetching current gamification:', gamError);
       return { xpEarned: 0, newAchievements: [], levelUp: false };
     }
 

@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from './useAuth';
+import { logger } from '@/utils/logger';
 
 export interface WeeklyChallenge {
   id: string;
@@ -73,7 +74,7 @@ export function useWeeklyChallenges() {
 
       setChallenges(enrichedChallenges);
     } catch (error) {
-      console.error('Error fetching challenges:', error);
+      logger.error('Error fetching challenges:', error);
     } finally {
       setLoading(false);
     }
@@ -100,7 +101,7 @@ export function useWeeklyChallenges() {
         return true;
       }
     } catch (error) {
-      console.error('Error joining challenge:', error);
+      logger.error('Error joining challenge:', error);
     }
     return false;
   }, [user, fetchChallenges]);
@@ -127,7 +128,7 @@ export function useWeeklyChallenges() {
         return true;
       }
     } catch (error) {
-      console.error('Error updating progress:', error);
+      logger.error('Error updating progress:', error);
     }
     return false;
   }, [user, challenges, fetchChallenges]);

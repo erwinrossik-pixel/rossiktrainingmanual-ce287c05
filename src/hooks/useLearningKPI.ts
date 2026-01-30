@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
+import { logger } from '@/utils/logger';
 
 // Types for KPI data
 export interface ChapterKPI {
@@ -175,7 +176,7 @@ export function useLearningKPI() {
       setChapterKPIs(kpis);
       return kpis;
     } catch (err) {
-      console.error('Error fetching chapter KPIs:', err);
+      logger.error('Error fetching chapter KPIs:', err);
       setError('Failed to fetch chapter KPIs');
       return [];
     }
@@ -284,7 +285,7 @@ export function useLearningKPI() {
       setUserKPIs(kpis);
       return kpis;
     } catch (err) {
-      console.error('Error fetching user KPIs:', err);
+      logger.error('Error fetching user KPIs:', err);
       setError('Failed to fetch user KPIs');
       return [];
     }
@@ -412,7 +413,7 @@ export function useLearningKPI() {
       setContentKPIs(kpis);
       return kpis;
     } catch (err) {
-      console.error('Error fetching content KPIs:', err);
+      logger.error('Error fetching content KPIs:', err);
       setError('Failed to fetch content KPIs');
       return [];
     }
@@ -501,7 +502,7 @@ export function useLearningKPI() {
       setGlobalKPI(global);
       return global;
     } catch (err) {
-      console.error('Error fetching global KPI:', err);
+      logger.error('Error fetching global KPI:', err);
       setError('Failed to fetch global KPI');
       return null;
     }
@@ -520,7 +521,7 @@ export function useLearningKPI() {
       
       await fetchGlobalKPI(chapters, users);
     } catch (err) {
-      console.error('Error refreshing KPIs:', err);
+      logger.error('Error refreshing KPIs:', err);
       setError('Failed to refresh KPIs');
     } finally {
       setLoading(false);

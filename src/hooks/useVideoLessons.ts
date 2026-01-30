@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from './useAuth';
+import { logger } from '@/utils/logger';
 
 export interface VideoLesson {
   id: string;
@@ -55,7 +56,7 @@ export function useVideoLessons(chapterId?: string) {
         }
       }
     } catch (error) {
-      console.error('Error fetching videos:', error);
+      logger.error('Error fetching videos:', error);
     } finally {
       setLoading(false);
     }
@@ -86,7 +87,7 @@ export function useVideoLessons(chapterId?: string) {
         }));
       }
     } catch (error) {
-      console.error('Error updating progress:', error);
+      logger.error('Error updating progress:', error);
     }
   }, [user]);
 

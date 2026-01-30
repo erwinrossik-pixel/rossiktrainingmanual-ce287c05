@@ -2,6 +2,7 @@ import { useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from './useAuth';
 import { toast } from 'sonner';
+import { logger } from '@/utils/logger';
 
 type ShareType = 'certificate' | 'achievement' | 'milestone' | 'challenge';
 type Platform = 'linkedin' | 'twitter' | 'facebook';
@@ -58,7 +59,7 @@ export function useSocialShare() {
             share_url: shareUrl
           });
       } catch (error) {
-        console.error('Error logging share:', error);
+        logger.error('Error logging share:', error);
       }
     }
 

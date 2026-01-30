@@ -48,7 +48,7 @@ export function useRetentionTracking() {
 
       lastActivityRef.current = now;
     } catch (error) {
-      console.error('Error updating activity:', error);
+      logger.error('Error updating activity:', error);
     }
   }, [user]);
 

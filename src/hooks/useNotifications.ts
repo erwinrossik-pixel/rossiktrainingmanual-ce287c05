@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from './useAuth';
+import { logger } from '@/utils/logger';
 
 export interface UserNotification {
   id: string;
@@ -38,7 +39,7 @@ export function useNotifications() {
         .limit(50);
 
       if (error) {
-        console.error('Error fetching notifications:', error);
+        logger.error('Error fetching notifications:', error);
         return;
       }
 
@@ -46,7 +47,7 @@ export function useNotifications() {
       setNotifications(typedData);
       setUnreadCount(typedData.filter(n => !n.is_read).length);
     } catch (error) {
-      console.error('Error in fetchNotifications:', error);
+      logger.error('Error in fetchNotifications:', error);
     } finally {
       setLoading(false);
     }
@@ -172,7 +173,7 @@ export function useNotifications() {
       .single();
 
     if (error) {
-      console.error('Error creating notification:', error);
+      logger.error('Error creating notification:', error);
       return null;
     }
 

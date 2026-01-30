@@ -290,7 +290,7 @@ export function useAdminQuizReset() {
       });
 
       if (error) {
-        console.error('Error resetting quiz:', error);
+        logger.error('Error resetting quiz:', error);
         return { success: false, error: error.message };
       }
 
@@ -322,7 +322,7 @@ export function useAdminQuizReset() {
     const { data, error } = await query.limit(100);
 
     if (error) {
-      console.error('Error fetching reset history:', error);
+      logger.error('Error fetching reset history:', error);
       return [];
     }
 
@@ -338,7 +338,7 @@ export function useAdminQuizReset() {
       .order('reset_count', { ascending: false });
 
     if (error) {
-      console.error('Error fetching reset counts:', error);
+      logger.error('Error fetching reset counts:', error);
       return [];
     }
 

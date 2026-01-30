@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from './useAuth';
 import { useToast } from './use-toast';
+import { logger } from '@/utils/logger';
 
 export interface TrainingSession {
   id: string;
@@ -42,7 +43,7 @@ export function useTrainingSessions() {
       if (error) throw error;
       setSessions(data || []);
     } catch (error) {
-      console.error('Error fetching sessions:', error);
+      logger.error('Error fetching sessions:', error);
     } finally {
       setLoading(false);
     }
@@ -83,7 +84,7 @@ export function useTrainingSessions() {
       toast({ title: 'Sesiune programată' });
       return data;
     } catch (error) {
-      console.error('Error creating session:', error);
+      logger.error('Error creating session:', error);
       toast({ title: 'Eroare la programare', variant: 'destructive' });
       return null;
     }
@@ -104,7 +105,7 @@ export function useTrainingSessions() {
       await fetchSessions();
       return true;
     } catch (error) {
-      console.error('Error updating session:', error);
+      logger.error('Error updating session:', error);
       return false;
     }
   }, [user, fetchSessions]);
@@ -125,7 +126,7 @@ export function useTrainingSessions() {
       toast({ title: 'Sesiune ștearsă' });
       return true;
     } catch (error) {
-      console.error('Error deleting session:', error);
+      logger.error('Error deleting session:', error);
       return false;
     }
   }, [user, fetchSessions, toast]);
