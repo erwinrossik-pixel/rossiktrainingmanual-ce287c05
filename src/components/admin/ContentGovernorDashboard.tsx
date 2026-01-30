@@ -129,11 +129,11 @@ export function ContentGovernorDashboard() {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'open':
-        return <Badge className="bg-red-500">{t('admin.governor.statusOpen')}</Badge>;
+        return <Badge className="bg-destructive">{t('admin.governor.statusOpen')}</Badge>;
       case 'reviewed':
-        return <Badge className="bg-yellow-500">{t('admin.governor.statusReviewed')}</Badge>;
+        return <Badge className="bg-warning">{t('admin.governor.statusReviewed')}</Badge>;
       case 'resolved':
-        return <Badge className="bg-green-500">{t('admin.governor.statusResolved')}</Badge>;
+        return <Badge className="bg-success">{t('admin.governor.statusResolved')}</Badge>;
       case 'ignored':
         return <Badge variant="secondary">{t('admin.governor.statusIgnored')}</Badge>;
       default:
@@ -151,9 +151,9 @@ export function ContentGovernorDashboard() {
       case 'critical':
         return <Badge variant="destructive">{t('admin.governor.severityCritical')}</Badge>;
       case 'high':
-        return <Badge className="bg-orange-500">{t('admin.governor.severityHigh')}</Badge>;
+        return <Badge className="bg-warning">{t('admin.governor.severityHigh')}</Badge>;
       case 'medium':
-        return <Badge className="bg-yellow-500">{t('admin.governor.severityMedium')}</Badge>;
+        return <Badge className="bg-warning/80">{t('admin.governor.severityMedium')}</Badge>;
       default:
         return <Badge variant="secondary">{t('admin.governor.severityLow')}</Badge>;
     }
@@ -162,13 +162,13 @@ export function ContentGovernorDashboard() {
   const getCategoryBadge = (category: string) => {
     switch (category) {
       case 'legal':
-        return <Badge className="bg-purple-500">{t('admin.governor.categoryLegal')}</Badge>;
+        return <Badge className="bg-primary">{t('admin.governor.categoryLegal')}</Badge>;
       case 'operational':
-        return <Badge className="bg-blue-500">{t('admin.governor.categoryOperational')}</Badge>;
+        return <Badge className="bg-info">{t('admin.governor.categoryOperational')}</Badge>;
       case 'technical':
-        return <Badge className="bg-cyan-500">{t('admin.governor.categoryTechnical')}</Badge>;
+        return <Badge className="bg-info/80">{t('admin.governor.categoryTechnical')}</Badge>;
       case 'compliance':
-        return <Badge className="bg-green-500">{t('admin.governor.categoryCompliance')}</Badge>;
+        return <Badge className="bg-success">{t('admin.governor.categoryCompliance')}</Badge>;
       default:
         return <Badge variant="outline">{category}</Badge>;
     }
@@ -234,11 +234,11 @@ export function ContentGovernorDashboard() {
           </CardContent>
         </Card>
 
-        <Card className="bg-gradient-to-br from-orange-500/10 to-orange-600/5 border-orange-500/20">
+        <Card className="bg-gradient-to-br from-warning/10 to-warning/5 border-warning/20">
           <CardContent className="pt-6">
             <div className="flex items-center gap-3">
-              <div className="p-2 bg-orange-500/20 rounded-lg">
-                <AlertTriangle className="h-5 w-5 text-orange-500" />
+              <div className="p-2 bg-warning/20 rounded-lg">
+                <AlertTriangle className="h-5 w-5 text-warning" />
               </div>
               <div>
                 <p className="text-2xl font-bold">{openIncidents}</p>
@@ -248,11 +248,11 @@ export function ContentGovernorDashboard() {
           </CardContent>
         </Card>
 
-        <Card className="bg-gradient-to-br from-red-500/10 to-red-600/5 border-red-500/20">
+        <Card className="bg-gradient-to-br from-destructive/10 to-destructive/5 border-destructive/20">
           <CardContent className="pt-6">
             <div className="flex items-center gap-3">
-              <div className="p-2 bg-red-500/20 rounded-lg">
-                <XCircle className="h-5 w-5 text-red-500" />
+              <div className="p-2 bg-destructive/20 rounded-lg">
+                <XCircle className="h-5 w-5 text-destructive" />
               </div>
               <div>
                 <p className="text-2xl font-bold">{criticalIncidents}</p>
@@ -325,7 +325,7 @@ export function ContentGovernorDashboard() {
                         </TableCell>
                         <TableCell>
                           {term.isLocked ? (
-                            <Badge className="bg-red-500/20 text-red-500 border-red-500/30">
+                            <Badge className="bg-destructive/20 text-destructive border-destructive/30">
                               <Lock className="h-3 w-3 mr-1" />
                               {t('admin.governor.locked')}
                             </Badge>
@@ -428,7 +428,7 @@ export function ContentGovernorDashboard() {
                         <TableCell>{getSeverityBadge(rule.severity)}</TableCell>
                         <TableCell>
                           {rule.autoReject ? (
-                            <Badge className="bg-red-500">
+                            <Badge className="bg-destructive">
                               <XCircle className="h-3 w-3 mr-1" />
                               {t('admin.governor.yes')}
                             </Badge>
@@ -476,7 +476,7 @@ export function ContentGovernorDashboard() {
                   </div>
                 ) : incidents.length === 0 ? (
                   <div className="text-center py-8 text-muted-foreground">
-                    <CheckCircle className="h-12 w-12 mx-auto mb-4 text-green-500" />
+                    <CheckCircle className="h-12 w-12 mx-auto mb-4 text-success" />
                     <p>Niciun incident înregistrat</p>
                   </div>
                 ) : (
@@ -531,7 +531,7 @@ export function ContentGovernorDashboard() {
                                     setShowResolveDialog(true);
                                   }}
                                 >
-                                  <CheckCircle className="h-4 w-4 text-green-500" />
+                                  <CheckCircle className="h-4 w-4 text-success" />
                                 </Button>
                                 <Button
                                   variant="ghost"
@@ -598,25 +598,25 @@ export function ContentGovernorDashboard() {
               </Button>
 
               {testResult && (
-                <Card className={testResult.isValid ? 'border-green-500' : 'border-red-500'}>
+                <Card className={testResult.isValid ? 'border-success' : 'border-destructive'}>
                   <CardContent className="pt-4">
                     <div className="flex items-center gap-2 mb-4">
                       {testResult.isValid ? (
                         <>
-                          <CheckCircle className="h-5 w-5 text-green-500" />
-                          <span className="font-medium text-green-500">Validare reușită</span>
+                          <CheckCircle className="h-5 w-5 text-success" />
+                          <span className="font-medium text-success">Validare reușită</span>
                         </>
                       ) : (
                         <>
-                          <XCircle className="h-5 w-5 text-red-500" />
-                          <span className="font-medium text-red-500">Validare eșuată</span>
+                          <XCircle className="h-5 w-5 text-destructive" />
+                          <span className="font-medium text-destructive">Validare eșuată</span>
                         </>
                       )}
                     </div>
 
                     {testResult.violations.length > 0 && (
                       <div className="space-y-2 mb-4">
-                        <h4 className="text-sm font-medium text-red-500">Încălcări:</h4>
+                        <h4 className="text-sm font-medium text-destructive">Încălcări:</h4>
                         {testResult.violations.map((v, i) => (
                           <div key={i} className="text-sm p-2 bg-red-500/10 rounded">
                             {v.description}

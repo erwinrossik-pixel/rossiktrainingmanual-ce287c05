@@ -159,21 +159,21 @@ export function GamificationLeaderboard() {
   const getRankIcon = (rank: number) => {
     switch (rank) {
       case 1:
-        return <Crown className="h-6 w-6 text-yellow-500" />;
+        return <Crown className="h-6 w-6 text-warning" />;
       case 2:
-        return <Medal className="h-5 w-5 text-gray-400" />;
+        return <Medal className="h-5 w-5 text-muted-foreground" />;
       case 3:
-        return <Medal className="h-5 w-5 text-amber-600" />;
+        return <Medal className="h-5 w-5 text-warning" />;
       default:
         return <span className="text-lg font-bold text-muted-foreground">#{rank}</span>;
     }
   };
 
   const getLevelColor = (level: number) => {
-    if (level >= 15) return 'from-purple-500 to-pink-500';
-    if (level >= 10) return 'from-amber-500 to-orange-500';
-    if (level >= 5) return 'from-blue-500 to-cyan-500';
-    return 'from-green-500 to-emerald-500';
+    if (level >= 15) return 'from-primary to-primary/70';
+    if (level >= 10) return 'from-warning to-warning/70';
+    if (level >= 5) return 'from-info to-info/70';
+    return 'from-success to-success/70';
   };
 
   if (loading) {
@@ -314,16 +314,16 @@ export function GamificationLeaderboard() {
                           </div>
                           <div className="flex items-center gap-4 mt-1 text-sm text-muted-foreground">
                             <span className="flex items-center gap-1">
-                              <Zap className="h-3 w-3 text-yellow-500" />
+                              <Zap className="h-3 w-3 text-warning" />
                               {entry.total_xp.toLocaleString()} XP
                             </span>
                             <span className="flex items-center gap-1">
-                              <Target className="h-3 w-3 text-blue-500" />
+                              <Target className="h-3 w-3 text-info" />
                               {entry.simulations_completed} {t('admin.gamification.simulations').toLowerCase()}
                             </span>
                             {entry.streak_days > 0 && (
                               <span className="flex items-center gap-1">
-                                <Flame className="h-3 w-3 text-orange-500" />
+                                <Flame className="h-3 w-3 text-warning" />
                                 {entry.streak_days} {t('admin.gamification.days')}
                               </span>
                             )}
@@ -332,8 +332,8 @@ export function GamificationLeaderboard() {
                         </div>
                         
                         <div className="text-right">
-                          <div className="flex items-center gap-1 text-amber-600">
-                            <Star className="h-4 w-4 fill-amber-500 text-amber-500" />
+                          <div className="flex items-center gap-1 text-warning">
+                            <Star className="h-4 w-4 fill-warning text-warning" />
                             <span className="font-bold">{entry.perfect_simulations}</span>
                           </div>
                           <span className="text-xs text-muted-foreground">{t('admin.gamification.perfect')}</span>
@@ -410,9 +410,9 @@ export function GamificationLeaderboard() {
                       </div>
                     </div>
                     <Badge className={`${
-                      performer.avg_score >= 80 ? 'bg-green-100 text-green-700' :
-                      performer.avg_score >= 60 ? 'bg-amber-100 text-amber-700' :
-                      'bg-red-100 text-red-700'
+                      performer.avg_score >= 80 ? 'bg-success/10 text-success' :
+                      performer.avg_score >= 60 ? 'bg-warning/10 text-warning' :
+                      'bg-destructive/10 text-destructive'
                     }`}>
                       {performer.avg_score.toFixed(0)}%
                     </Badge>
@@ -424,7 +424,7 @@ export function GamificationLeaderboard() {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Gamepad2 className="h-5 w-5 text-purple-500" />
+                  <Gamepad2 className="h-5 w-5 text-primary" />
                   {t('admin.gamification.simPopularity')}
                 </CardTitle>
               </CardHeader>
