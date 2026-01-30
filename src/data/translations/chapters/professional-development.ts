@@ -1070,16 +1070,7 @@ LECȚII PENTRU TINE:
 
     // Checklist Anual
     checklistTitle: "Checklist Anual de Dezvoltare Profesională",
-    checklistItems: `1. Am definit obiective clare pentru anul următor?
-2. Am obținut sau am în curs cel puțin o certificare?
-3. Am participat la minim 2-3 evenimente de industrie?
-4. Am citit regulat publicații și news de industrie?
-5. Am actualizat profilul LinkedIn și CV-ul?
-6. Am cerut și primit feedback de la manager/colegi?
-7. Am oferit mentorat sau training unui coleg?
-8. Am revizuit și ajustat planul de carieră pe 1-3-5 ani?
-9. Am dezvoltat cel puțin o competență nouă semnificativă?
-10. Am extins rețeaua profesională cu minim 10 contacte valoroase?`,
+    checklistItems: "Am definit obiective clare pentru anul următor | Am obținut sau am în curs cel puțin o certificare | Am participat la minim 2-3 evenimente de industrie | Am citit regulat publicații și news de industrie | Am actualizat profilul LinkedIn și CV-ul | Am cerut și primit feedback de la manager/colegi | Am oferit mentorat sau training unui coleg | Am revizuit și ajustat planul de carieră pe 1-3-5 ani | Am dezvoltat cel puțin o competență nouă semnificativă | Am extins rețeaua profesională cu minim 10 contacte valoroase",
 
     // Best Practices și Common Mistakes
     bestPractice1: "Investește în learning continuu - minim 2-4 ore pe săptămână în dezvoltare profesională",
@@ -1598,16 +1589,7 @@ LEKTIONEN FÜR DICH:
     caseStudyLesson: "Wichtige Lektion: Karriereerfolg kommt nicht durch Glück, sondern durch konsistente Entscheidungen zum Lernen, Spezialisieren und Aufbau von Beziehungen. Investiere täglich in deine Entwicklung und die Ergebnisse werden natürlich kommen.",
 
     checklistTitle: "Jährliche Checkliste für berufliche Entwicklung",
-    checklistItems: `1. Habe ich klare Ziele für das kommende Jahr definiert?
-2. Habe ich mindestens eine Zertifizierung erhalten oder bin in Arbeit?
-3. Habe ich an mindestens 2-3 Branchenveranstaltungen teilgenommen?
-4. Habe ich regelmäßig Branchenpublikationen und News gelesen?
-5. Habe ich mein LinkedIn-Profil und meinen Lebenslauf aktualisiert?
-6. Habe ich Feedback von Manager/Kollegen erbeten und erhalten?
-7. Habe ich einem Kollegen Mentoring oder Training angeboten?
-8. Habe ich meinen 1-3-5-Jahres-Karriereplan überprüft und angepasst?
-9. Habe ich mindestens eine bedeutende neue Kompetenz entwickelt?
-10. Habe ich mein berufliches Netzwerk um mindestens 10 wertvolle Kontakte erweitert?`,
+    checklistItems: "Klare Ziele für das kommende Jahr definiert | Mindestens eine Zertifizierung erhalten oder in Arbeit | An mindestens 2-3 Branchenveranstaltungen teilgenommen | Regelmäßig Branchenpublikationen und News gelesen | LinkedIn-Profil und Lebenslauf aktualisiert | Feedback von Manager/Kollegen erbeten und erhalten | Einem Kollegen Mentoring oder Training angeboten | 1-3-5-Jahres-Karriereplan überprüft und angepasst | Mindestens eine bedeutende neue Kompetenz entwickelt | Berufliches Netzwerk um mindestens 10 wertvolle Kontakte erweitert",
 
     bestPractice1: "Investieren Sie in kontinuierliches Lernen - mindestens 2-4 Stunden pro Woche in berufliche Entwicklung",
     bestPractice2: "Erwerben Sie mindestens eine international anerkannte Hauptzertifizierung (FIATA, CILT)",
@@ -2127,16 +2109,7 @@ LESSONS FOR YOU:
     caseStudyLesson: "Key lesson: Career success doesn't come from luck, but from consistent decisions to learn, specialize, and build relationships. Invest daily in your development and results will come naturally.",
 
     checklistTitle: "Annual Professional Development Checklist",
-    checklistItems: `1. Have I defined clear goals for the coming year?
-2. Have I obtained or am working on at least one certification?
-3. Have I attended at least 2-3 industry events?
-4. Have I regularly read industry publications and news?
-5. Have I updated my LinkedIn profile and CV?
-6. Have I requested and received feedback from manager/colleagues?
-7. Have I offered mentoring or training to a colleague?
-8. Have I reviewed and adjusted my 1-3-5 year career plan?
-9. Have I developed at least one significant new competency?
-10. Have I expanded my professional network by at least 10 valuable contacts?`,
+    checklistItems: "Defined clear goals for the coming year | Obtained or working on at least one certification | Attended at least 2-3 industry events | Regularly read industry publications and news | Updated LinkedIn profile and CV | Requested and received feedback from manager/colleagues | Offered mentoring or training to a colleague | Reviewed and adjusted 1-3-5 year career plan | Developed at least one significant new competency | Expanded professional network by at least 10 valuable contacts",
 
     bestPractice1: "Invest in continuous learning - at least 2-4 hours per week in professional development",
     bestPractice2: "Obtain at least one internationally recognized major certification (FIATA, CILT)",
