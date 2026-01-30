@@ -499,10 +499,36 @@ export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
                       )}
                       
                       {rec.status === 'applied' && (
-                        <Badge className="bg-green-500 shrink-0">
-                          <CheckCircle2 className="h-3 w-3 mr-1" />
-                          {t('admin.ai.appliedLabel')}
-                        </Badge>
+                        <div className="flex flex-col gap-2 shrink-0">
+                          <Badge className="bg-green-500">
+                            <CheckCircle2 className="h-3 w-3 mr-1" />
+                            {t('admin.ai.appliedLabel')}
+                          </Badge>
+                          <Button 
+                            size="sm" 
+                            onClick={async () => {
+                              try {
+                                const { error } = await supabase
+                                  .from('ai_recommendations')
+                                  .update({ 
+                                    status: 'completed', 
+                                    updated_at: new Date().toISOString() 
+                                  })
+                                  .eq('id', rec.id);
+                                if (error) throw error;
+                                toast.success(t('admin.ai.markedImplemented'));
+                                await fetchRecommendations();
+                              } catch (error) {
+                                console.error('Error marking as implemented:', error);
+                                toast.error(t('admin.general.error'));
+                              }
+                            }}
+                            className="bg-purple-500 hover:bg-purple-600"
+                          >
+                            <Sparkles className="h-4 w-4 mr-1" />
+                            {t('admin.ai.markImplemented')}
+                          </Button>
+                        </div>
                       )}
                       
                       {rec.status === 'completed' && (
