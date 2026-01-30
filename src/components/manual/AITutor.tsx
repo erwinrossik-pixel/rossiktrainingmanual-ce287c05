@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, useCallback, memo } from "react";
+import { logger } from '@/utils/logger';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -177,7 +178,7 @@ export const AITutor = memo(function AITutor({ chapterId, chapterTitle }: AITuto
 
       setMessages(prev => [...prev, assistantMessage]);
     } catch (error: any) {
-      console.error("AI Tutor error:", error);
+      logger.error("AI Tutor error:", error);
       
       let errorMessage = t.error;
       if (error.message?.includes("429") || error.status === 429) {

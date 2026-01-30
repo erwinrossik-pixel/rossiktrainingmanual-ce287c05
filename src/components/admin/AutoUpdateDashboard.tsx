@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
+import { logger } from '@/utils/logger';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -115,7 +116,7 @@ export function AutoUpdateDashboard() {
       .order('name');
     
     if (error) {
-      console.error('Error fetching sources:', error);
+      logger.error('Error fetching sources:', error);
     } else {
       setSources(data || []);
     }
@@ -129,7 +130,7 @@ export function AutoUpdateDashboard() {
       .limit(50);
     
     if (error) {
-      console.error('Error fetching changes:', error);
+      logger.error('Error fetching changes:', error);
     } else {
       const changesWithSource = data?.map(change => ({
         ...change,
@@ -147,7 +148,7 @@ export function AutoUpdateDashboard() {
       .limit(100);
     
     if (error) {
-      console.error('Error fetching updates:', error);
+      logger.error('Error fetching updates:', error);
     } else {
       setUpdates(data || []);
     }
@@ -161,7 +162,7 @@ export function AutoUpdateDashboard() {
       .limit(100);
     
     if (error) {
-      console.error('Error fetching audit log:', error);
+      logger.error('Error fetching audit log:', error);
     } else {
       setAuditLog(data || []);
     }
@@ -193,7 +194,7 @@ export function AutoUpdateDashboard() {
       toast.success(`${t('admin.autoUpdate.forceCheckLaunched').replace('{count}', String(data?.sources_checked || 0))}`);
       fetchAllData();
     } catch (error) {
-      console.error('Error forcing recheck:', error);
+      logger.error('Error forcing recheck:', error);
       toast.error(t('admin.autoUpdate.errorCheck'));
     } finally {
       setActionLoading(null);
@@ -220,7 +221,7 @@ export function AutoUpdateDashboard() {
       fetchUpdates();
       fetchAuditLog();
     } catch (error) {
-      console.error('Error performing action:', error);
+      logger.error('Error performing action:', error);
       toast.error(t('admin.autoUpdate.errorAction'));
     } finally {
       setActionLoading(null);

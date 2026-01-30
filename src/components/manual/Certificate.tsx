@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect } from "react";
+import { logger } from '@/utils/logger';
 import { Award, Download, CheckCircle2, ExternalLink, Copy, Check, Mail, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -84,7 +85,7 @@ export function Certificate({
           });
           setQrCodeDataUrl(dataUrl);
         } catch (err) {
-          console.error('Error generating QR code:', err);
+          logger.error('Error generating QR code:', err);
         }
       }
     };
@@ -120,7 +121,7 @@ export function Certificate({
         throw new Error(data?.error || "Failed to send email");
       }
     } catch (error) {
-      console.error("Error sending certificate email:", error);
+      logger.error("Error sending certificate email:", error);
       toast.error("Eroare la trimiterea emailului");
     } finally {
       setIsSendingEmail(false);
@@ -180,7 +181,7 @@ export function Certificate({
           });
 
         if (insertError) {
-          console.error("Error saving certificate:", insertError);
+          logger.error("Error saving certificate:", insertError);
           throw new Error("Failed to save certificate");
         }
       }
@@ -221,7 +222,7 @@ export function Certificate({
         await sendCertificateEmail(certificateCode, issuedAt, expiresAt);
       }
     } catch (error) {
-      console.error("Error generating certificate:", error);
+      logger.error("Error generating certificate:", error);
       toast.error("Eroare la generarea certificatului");
     } finally {
       setIsGenerating(false);

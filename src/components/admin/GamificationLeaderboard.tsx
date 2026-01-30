@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { logger } from '@/utils/logger';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
@@ -149,7 +150,7 @@ export function GamificationLeaderboard() {
         });
       }
     } catch (error) {
-      console.error('Error fetching gamification data:', error);
+      logger.error('Error fetching gamification data:', error);
     } finally {
       setLoading(false);
     }

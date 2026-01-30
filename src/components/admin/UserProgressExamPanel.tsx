@@ -1,5 +1,6 @@
 import { useState, useEffect, memo, useMemo } from 'react';
 import { supabase } from '@/integrations/supabase/client';
+import { logger } from '@/utils/logger';
 import { useCompany } from '@/contexts/CompanyContext';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -113,8 +114,8 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
       });
       
       if (error) {
-        console.error('Error resetting training:', error);
-        toast.error(language === 'ro' ? 'Eroare la resetarea training-ului' : 
+        logger.error('Error resetting training:', error);
+        toast.error(language === 'ro' ? 'Eroare la resetarea training-ului' :
                    language === 'de' ? 'Fehler beim Zurücksetzen des Trainings' : 
                    'Error resetting training');
         return;
@@ -129,8 +130,8 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
       // Refresh data
       fetchUserProgress();
     } catch (err) {
-      console.error('Failed to reset training:', err);
-      toast.error(language === 'ro' ? 'Eroare la resetare' : 
+      logger.error('Failed to reset training:', err);
+      toast.error(language === 'ro' ? 'Eroare la resetare' :
                  language === 'de' ? 'Fehler beim Zurücksetzen' : 
                  'Reset failed');
     } finally {
@@ -147,14 +148,14 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
       });
       
       if (error) {
-        console.error('Error unlocking chapter:', error);
+        logger.error('Error unlocking chapter:', error);
         return;
       }
       
       // Refresh data
       fetchUserProgress();
     } catch (err) {
-      console.error('Failed to unlock chapter:', err);
+      logger.error('Failed to unlock chapter:', err);
     } finally {
       setUnlockingChapter(null);
     }
@@ -623,7 +624,7 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
         setUserProgress(progressData);
       }
     } catch (error) {
-      console.error('Error fetching user progress:', error);
+      logger.error('Error fetching user progress:', error);
     } finally {
       setLoading(false);
     }

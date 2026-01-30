@@ -379,7 +379,7 @@ export function FinalExam({ onComplete, onBack }: FinalExamProps) {
           break;
         }
       } catch (error) {
-        console.error(`Attempt ${attempts} error:`, error);
+        logger.error(`Attempt ${attempts} error:`, error);
         lastError = error as Error;
         if (attempts < maxAttempts) {
           await new Promise(resolve => setTimeout(resolve, 1000 * attempts));
@@ -388,7 +388,7 @@ export function FinalExam({ onComplete, onBack }: FinalExamProps) {
     }
     
     if (!hasSaved && lastError) {
-      console.error('Failed to save exam after all attempts:', lastError);
+      logger.error('Failed to save exam after all attempts:', lastError);
       toast({
         title: language === 'ro' ? '⚠️ Eroare salvare' : language === 'de' ? '⚠️ Speicherfehler' : '⚠️ Save error',
         description: language === 'ro' ? 'Nu am putut salva rezultatul. Te rugăm să contactezi administratorul.' : language === 'de' ? 'Ergebnis konnte nicht gespeichert werden. Bitte kontaktieren Sie den Administrator.' : 'Could not save result. Please contact administrator.',

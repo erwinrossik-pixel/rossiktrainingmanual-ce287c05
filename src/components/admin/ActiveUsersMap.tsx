@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
+import { logger } from '@/utils/logger';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { supabase } from '@/integrations/supabase/client';
@@ -64,7 +65,7 @@ const ActiveUsersMap: React.FC = () => {
       .not('longitude', 'is', null);
 
     if (error) {
-      console.error('Error fetching active users:', error);
+      logger.error('Error fetching active users:', error);
       return;
     }
 
@@ -130,7 +131,7 @@ const ActiveUsersMap: React.FC = () => {
 
       setIsMapInitialized(true);
     } catch (error) {
-      console.error('Error initializing map:', error);
+      logger.error('Error initializing map:', error);
       toast.error(t('admin.map.mapError'));
     }
 

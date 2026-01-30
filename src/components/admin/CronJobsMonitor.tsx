@@ -1,5 +1,6 @@
 import { useState, useEffect, memo } from 'react';
 import { supabase } from '@/integrations/supabase/client';
+import { logger } from '@/utils/logger';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -166,13 +167,13 @@ export const CronJobsMonitor = memo(function CronJobsMonitor() {
       const { data, error } = await query.limit(100);
 
       if (error) {
-        console.error('Error fetching cron logs:', error);
+        logger.error('Error fetching cron logs:', error);
         toast.error(t('admin.cron.errorLoading'));
       } else {
         setLogs(data || []);
       }
     } catch (error) {
-      console.error('Error fetching cron data:', error);
+      logger.error('Error fetching cron data:', error);
     } finally {
       setLoading(false);
       setRefreshing(false);

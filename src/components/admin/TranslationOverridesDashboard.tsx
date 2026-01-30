@@ -1,4 +1,5 @@
 import React from 'react';
+import { logger } from '@/utils/logger';
 import { useAllTranslationOverrides } from '@/hooks/useTranslationOverrides';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -25,7 +26,7 @@ const TranslationOverridesDashboard: React.FC = () => {
       toast.success(`Analiză completă! ${data.results?.length || 0} capitole procesate.`);
       refetch();
     } catch (err) {
-      console.error('Analysis error:', err);
+      logger.error('Analysis error:', err);
       toast.error('Eroare la analiză');
     } finally {
       setIsRunning(false);
