@@ -4,7 +4,6 @@ import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { MultiModalContent } from "../MultiModalContent";
 import { ChapterImage } from "../ChapterImage";
-import { quizzes } from "@/data/quizData";
 import { 
   Thermometer, Snowflake, AlertTriangle, CheckCircle, FileText, Clock, Truck,
   Shield, Zap, Eye, AlertCircle, Info, Target, Package, Euro, Phone,
@@ -553,9 +552,7 @@ export function ReeferChapter() {
       <MultiModalContent chapterId="reefer" />
 
       {/* Quiz */}
-      {quizzes.reefer && (
-        <Quiz title={ct('knowledgeCheck')} questions={quizzes.reefer} chapterId="reefer" />
-      )}
+      <Quiz title={ct('quizTitle')} chapterId="reefer" />
     </div>
   );
 }

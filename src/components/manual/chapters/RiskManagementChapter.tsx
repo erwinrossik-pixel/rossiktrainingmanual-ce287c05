@@ -3,10 +3,12 @@ import { InfoCard } from "../InfoCard";
 import { Checklist } from "../Checklist";
 import { Quiz } from "../Quiz";
 import { MultiModalContent } from "../MultiModalContent";
+import { ChapterImage } from "../ChapterImage";
 import { quizzes } from "@/data/quizData";
 import { Shield, AlertTriangle, CheckCircle2, XCircle, Eye, TrendingUp, FileText, Scale, Users, Zap, Target, Lock } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
+import riskManagementImg from "@/assets/chapters/risk-management-hero.jpg";
 
 export function RiskManagementChapter() {
   const { ct } = useChapterTranslation("risk-management");
@@ -18,6 +20,14 @@ export function RiskManagementChapter() {
         description={ct('heroDescription')}
         icon={Shield}
         variant="risk"
+      />
+
+      {/* Risk Management Image */}
+      <ChapterImage
+        src={riskManagementImg}
+        alt="Risk management - analysis dashboard"
+        variant="inline"
+        className="mb-6"
       />
 
       {/* Introduction */}

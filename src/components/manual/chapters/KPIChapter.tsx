@@ -2,10 +2,12 @@ import { DataTable } from "../DataTable";
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { MultiModalContent } from "../MultiModalContent";
+import { ChapterImage } from "../ChapterImage";
 import { quizzes } from "@/data/quizData";
 import { BarChart3, Target, TrendingUp, TrendingDown, Clock, Euro, Users, Truck, CheckCircle2, AlertTriangle, Award, Activity } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
+import kpiDashboardImg from "@/assets/chapters/kpi-hero.jpg";
 
 export function KPIChapter() {
   const { ct } = useChapterTranslation('kpi');
@@ -17,6 +19,14 @@ export function KPIChapter() {
         description={ct('heroDescription')}
         icon={BarChart3}
         variant="kpi"
+      />
+
+      {/* KPI Dashboard Image */}
+      <ChapterImage
+        src={kpiDashboardImg}
+        alt="KPI Dashboard - Performance metrics"
+        variant="inline"
+        className="mb-6"
       />
 
       {/* Introduction */}

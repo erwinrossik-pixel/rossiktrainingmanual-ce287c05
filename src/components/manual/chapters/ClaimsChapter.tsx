@@ -3,7 +3,6 @@ import { Quiz } from "../Quiz";
 import { MultiModalContent } from "../MultiModalContent";
 import { FlowDiagram, DecisionDiagram } from "../FlowDiagram";
 import { ChapterImage } from "../ChapterImage";
-import { quizzes } from "@/data/quizData";
 import { FileText, AlertTriangle, Shield, Clock, Euro, CheckCircle, Scale, Camera } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
@@ -349,9 +348,7 @@ export function ClaimsChapter() {
       <MultiModalContent chapterId="claims" />
 
       {/* Quiz */}
-      {quizzes.claims && (
-        <Quiz title={ct("quizTitle")} questions={quizzes.claims} chapterId="claims" />
-      )}
+      <Quiz title={ct("quizTitle")} chapterId="claims" />
     </div>
   );
 }

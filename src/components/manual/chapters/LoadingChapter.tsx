@@ -5,7 +5,6 @@ import { Quiz } from "../Quiz";
 import { MultiModalContent } from "../MultiModalContent";
 import { FlowDiagram, DecisionDiagram } from "../FlowDiagram";
 import { ChapterImage } from "../ChapterImage";
-import { quizzes } from "@/data/quizData";
 import { 
   Package, Camera, FileText, AlertTriangle, Shield, Truck, 
   CheckCircle2, Scale, Ruler, Target, Info, Clock, Users,
@@ -479,9 +478,7 @@ export function LoadingChapter() {
       <MultiModalContent chapterId="loading" />
 
       {/* Quiz */}
-      {quizzes.loading && (
-        <Quiz title={ct('quizTitle')} questions={quizzes.loading} chapterId="loading" />
-      )}
+      <Quiz title={ct('quizTitle')} chapterId="loading" />
     </div>
   );
 }

@@ -2,10 +2,12 @@ import { DataTable } from "../DataTable";
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { MultiModalContent } from "../MultiModalContent";
+import { ChapterImage } from "../ChapterImage";
 import { quizzes } from "@/data/quizData";
 import { Euro, TrendingUp, Users, Target, MessageSquare, Mail, FileText, CheckCircle2, AlertTriangle, Clock, Briefcase, Star, Building2 } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
+import commercialImg from "@/assets/chapters/commercial-hero.jpg";
 
 export function CommercialChapter() {
   const { ct } = useChapterTranslation("commercial");
@@ -17,6 +19,14 @@ export function CommercialChapter() {
         description={ct('heroDescription')}
         icon={Briefcase}
         variant="commercial"
+      />
+
+      {/* Commercial Strategy Image */}
+      <ChapterImage
+        src={commercialImg}
+        alt="Commercial strategy - business meeting"
+        variant="inline"
+        className="mb-6"
       />
 
       {/* Introduction */}

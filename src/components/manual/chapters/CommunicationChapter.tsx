@@ -2,7 +2,6 @@ import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { MultiModalContent } from "../MultiModalContent";
 import { ChapterImage } from "../ChapterImage";
-import { quizzes } from "@/data/quizData";
 import { MessageSquare, Phone, Mail, Users, Clock, CheckCircle, AlertTriangle, FileText } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
@@ -323,9 +322,7 @@ export function CommunicationChapter() {
       <MultiModalContent chapterId="communication" />
 
       {/* Quiz */}
-      {quizzes.communication && (
-        <Quiz title={ct("quizTitle")} questions={quizzes.communication} chapterId="communication" />
-      )}
+      <Quiz title={ct("quizTitle")} chapterId="communication" />
     </div>
   );
 }

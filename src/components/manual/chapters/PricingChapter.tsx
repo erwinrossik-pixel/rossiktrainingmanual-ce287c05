@@ -4,7 +4,6 @@ import { Quiz } from "../Quiz";
 import { MultiModalContent } from "../MultiModalContent";
 import { ChapterImage } from "../ChapterImage";
 import { PriceCalculator } from "../PriceCalculator";
-import { quizzes } from "@/data/quizData";
 import { Calculator, Euro, Route, TrendingUp, Calendar, AlertTriangle, Percent, MapPin, Fuel, Clock, Truck, ArrowRight, CheckCircle2, XCircle, Info, Zap, Shield } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
@@ -823,7 +822,7 @@ export function PricingChapter() {
       <MultiModalContent chapterId="pricing" />
 
       {/* Quiz */}
-      <Quiz title={ct("quizTitle")} questions={quizzes.pricing} chapterId="pricing" />
+      <Quiz title={ct("quizTitle")} chapterId="pricing" />
     </div>
   );
 }
