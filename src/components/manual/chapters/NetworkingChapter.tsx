@@ -1,6 +1,7 @@
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { ChapterHero } from "../ChapterHero";
+import { MultiModalContent } from "../MultiModalContent";
 import {
   Users, Handshake, Globe, Calendar, Laptop,
   Building2, Heart, Shield, Gift, Clock, CheckCircle, AlertTriangle, Book
@@ -165,6 +166,9 @@ export function NetworkingChapter() {
           ))}
         </div>
       </section>
+
+      {/* Multi-Modal Content */}
+      <MultiModalContent chapterId="networking" />
 
       {/* Quiz */}
       <Quiz title="Quiz" chapterId="networking" />

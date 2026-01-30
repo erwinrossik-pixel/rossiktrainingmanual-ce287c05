@@ -1,6 +1,7 @@
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { ChapterHero } from "../ChapterHero";
+import { MultiModalContent } from "../MultiModalContent";
 import {
   Leaf, Globe, Calculator, FileText, Award,
   TrendingDown, Fuel, BarChart3, Users, Target, CheckCircle, AlertTriangle, Book
@@ -165,6 +166,9 @@ export function SustainabilityChapter() {
           ))}
         </div>
       </section>
+
+      {/* Multi-Modal Content */}
+      <MultiModalContent chapterId="sustainability" />
 
       {/* Quiz */}
       <Quiz title="Quiz" chapterId="sustainability" />

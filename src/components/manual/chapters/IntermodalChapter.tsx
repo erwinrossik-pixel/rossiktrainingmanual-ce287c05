@@ -1,6 +1,7 @@
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { ChapterHero } from "../ChapterHero";
+import { MultiModalContent } from "../MultiModalContent";
 import {
   Train, Truck, Ship, Package, FileText, Users,
   Clock, AlertTriangle, Laptop, TrendingUp, CheckCircle, Leaf
@@ -165,6 +166,9 @@ export function IntermodalChapter() {
           ))}
         </div>
       </section>
+
+      {/* Multi-Modal Content */}
+      <MultiModalContent chapterId="intermodal" />
 
       {/* Quiz */}
       <Quiz title="Quiz" chapterId="intermodal" />

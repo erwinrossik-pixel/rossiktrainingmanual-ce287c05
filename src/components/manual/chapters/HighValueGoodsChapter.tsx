@@ -1,6 +1,7 @@
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { ChapterHero } from "../ChapterHero";
+import { MultiModalContent } from "../MultiModalContent";
 import {
   Diamond, Shield, Lock, Eye, Truck, MapPin,
   FileText, AlertTriangle, Phone, Users, CheckCircle, Book
@@ -165,6 +166,9 @@ export function HighValueGoodsChapter() {
           ))}
         </div>
       </section>
+
+      {/* Multi-Modal Content */}
+      <MultiModalContent chapterId="high-value-goods" />
 
       {/* Quiz */}
       <Quiz title="Quiz" chapterId="high-value-goods" />

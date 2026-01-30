@@ -1,6 +1,7 @@
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { ChapterHero } from "../ChapterHero";
+import { MultiModalContent } from "../MultiModalContent";
 import {
   Globe, MapPin, Truck, Clock, Shield, AlertTriangle,
   CheckCircle, Mountain, Ship, Snowflake, Building2, Book
@@ -165,6 +166,9 @@ export function EuropeanCountriesChapter() {
           ))}
         </div>
       </section>
+
+      {/* Multi-Modal Content */}
+      <MultiModalContent chapterId="european-countries" />
 
       {/* Quiz */}
       <Quiz title="Quiz" chapterId="european-countries" />
