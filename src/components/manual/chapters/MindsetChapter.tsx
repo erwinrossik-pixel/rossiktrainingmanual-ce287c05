@@ -28,12 +28,12 @@ export function MindsetChapter() {
         variant="mindset"
       />
 
-      {/* Dispatcher Image */}
+      {/* Dispatcher Image - Right aligned */}
       <ChapterImage
         src={mindsetDispatcherImg}
         alt="Freight forwarder dispatcher at work"
         caption={ct('dispatcherCaption') || "Dispečer de transport internațional - coordonarea operațiunilor zilnice"}
-        variant="inline"
+        variant="right"
         className="mb-6"
       />
 

@@ -21,12 +21,12 @@ export function FleetChapter() {
         variant="fleet"
       />
 
-      {/* Fleet Dashboard Image */}
+      {/* Fleet Dashboard Image - Full width */}
       <ChapterImage
         src={fleetDashboardImg}
         alt="Fleet management control center dashboard"
         caption={ct('dashboardCaption') || "Centru de comandă pentru managementul flotei - monitorizare în timp real"}
-        variant="inline"
+        variant="full"
         className="mb-6"
       />
 

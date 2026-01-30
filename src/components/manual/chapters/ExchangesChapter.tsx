@@ -22,12 +22,12 @@ export function ExchangesChapter() {
         variant="exchanges"
       />
 
-      {/* Freight Exchange Platform Image */}
+      {/* Freight Exchange Platform Image - Left aligned */}
       <ChapterImage
         src={exchangeImg}
         alt="Freight exchange platform interface"
         caption={ct('exchangePlatformCaption') || "Platformă bursă de marfă - interfață oferte transport"}
-        variant="inline"
+        variant="left"
         className="mb-6"
       />
 

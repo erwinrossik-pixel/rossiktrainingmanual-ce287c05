@@ -21,12 +21,12 @@ export function WarehouseChapter() {
         variant="warehouse"
       />
 
-      {/* Warehouse Interior Image */}
+      {/* Warehouse Interior Image - Full width */}
       <ChapterImage
         src={warehouseInteriorImg}
         alt="Modern Warehouse Interior"
         caption={ct('warehouseInteriorCaption') || "Depozit modern cu rafturi și stivuitoare"}
-        variant="inline"
+        variant="full"
         className="mb-6"
       />
 
