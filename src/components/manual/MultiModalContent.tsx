@@ -339,22 +339,18 @@ interface DiagramViewerProps {
 
 function DiagramViewer({ title, content, isCompleted, onView, translations }: DiagramViewerProps) {
   const [isExpanded, setIsExpanded] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const [hasViewed, setHasViewed] = useState(false);
 
+  // Mark as viewed when expanded
   useEffect(() => {
-    if (isExpanded && containerRef.current) {
-      // Render mermaid diagram using simple pre-formatted display
-      const diagramCode = content.mermaid.replace(/\\n/g, '\n');
-      containerRef.current.innerHTML = `
-        <pre class="text-xs font-mono p-4 bg-muted rounded overflow-x-auto whitespace-pre-wrap">${diagramCode}</pre>
-        <p class="text-xs text-muted-foreground mt-2">
-          💡 ${translations.mermaidTip}
-          <a href="https://mermaid.live" target="_blank" rel="noopener" class="text-primary underline">mermaid.live</a>
-        </p>
-      `;
+    if (isExpanded && !hasViewed) {
+      setHasViewed(true);
       onView();
     }
-  }, [isExpanded, content.mermaid, onView, translations.mermaidTip]);
+  }, [isExpanded, hasViewed, onView]);
+
+  // Safely format mermaid code for display
+  const diagramCode = content.mermaid.replace(/\\n/g, '\n');
 
   return (
     <div className="p-4 rounded-lg bg-muted/50 space-y-3">
@@ -381,10 +377,22 @@ function DiagramViewer({ title, content, isCompleted, onView, translations }: Di
       </div>
 
       {isExpanded && (
-        <div 
-          ref={containerRef}
-          className="p-4 bg-background rounded-lg border overflow-x-auto min-h-[200px]"
-        />
+        <div className="p-4 bg-background rounded-lg border overflow-x-auto min-h-[200px]">
+          <pre className="text-xs font-mono p-4 bg-muted rounded overflow-x-auto whitespace-pre-wrap">
+            {diagramCode}
+          </pre>
+          <p className="text-xs text-muted-foreground mt-2">
+            💡 {translations.mermaidTip}{' '}
+            <a 
+              href="https://mermaid.live" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="text-primary underline"
+            >
+              mermaid.live
+            </a>
+          </p>
+        </div>
       )}
 
       {!isExpanded && (

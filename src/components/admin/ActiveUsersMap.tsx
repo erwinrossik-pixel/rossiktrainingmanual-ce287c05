@@ -23,6 +23,17 @@ interface ActiveUser {
   last_activity_at: string;
 }
 
+// Simple HTML sanitizer for user-displayed content
+const sanitizeText = (text: string | null | undefined): string => {
+  if (!text) return '';
+  return text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+};
+
 const ActiveUsersMap: React.FC = () => {
   const { t } = useLanguage();
   const mapContainer = useRef<HTMLDivElement>(null);
@@ -157,11 +168,17 @@ const ActiveUsersMap: React.FC = () => {
       const defaultDevice = t('admin.map.defaultDevice');
       const defaultBrowser = t('admin.map.defaultBrowser');
       
+      // Sanitize user data before inserting into HTML
+      const safeCity = sanitizeText(user.city) || unknownText;
+      const safeCountry = sanitizeText(user.country) || unknownText;
+      const safeDevice = sanitizeText(user.device_type) || defaultDevice;
+      const safeBrowser = sanitizeText(user.browser) || defaultBrowser;
+      
       const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(`
         <div class="p-2 text-sm">
-          <div class="font-semibold text-gray-900">${user.city || unknownText}, ${user.country || unknownText}</div>
+          <div class="font-semibold text-gray-900">${safeCity}, ${safeCountry}</div>
           <div class="text-gray-600 text-xs mt-1">
-            <span class="capitalize">${user.device_type || defaultDevice}</span> • ${user.browser || defaultBrowser}
+            <span class="capitalize">${safeDevice}</span> • ${safeBrowser}
           </div>
         </div>
       `);
