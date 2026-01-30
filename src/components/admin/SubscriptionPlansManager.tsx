@@ -100,20 +100,20 @@ export function SubscriptionPlansManager() {
 
   const getPlanColor = (planType: string) => {
     switch (planType) {
-      case 'free': return 'bg-gradient-to-br from-slate-50 to-slate-100 border-slate-300';
-      case 'starter': return 'bg-gradient-to-br from-blue-50 to-blue-100 border-blue-300';
-      case 'professional': return 'bg-gradient-to-br from-purple-50 to-purple-100 border-purple-300';
-      case 'enterprise': return 'bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50 border-amber-300';
-      default: return 'bg-gray-50';
+      case 'free': return 'bg-gradient-to-br from-muted/50 to-muted border-border';
+      case 'starter': return 'bg-gradient-to-br from-info/10 to-info/20 border-info/30';
+      case 'professional': return 'bg-gradient-to-br from-primary/10 to-primary/20 border-primary/30';
+      case 'enterprise': return 'bg-gradient-to-br from-warning/10 via-warning/5 to-warning/10 border-warning/30';
+      default: return 'bg-muted';
     }
   };
 
   const getPlanBadge = (planType: string) => {
     switch (planType) {
-      case 'free': return <Badge variant="secondary" className="bg-slate-600 text-white font-bold px-3 py-1 shadow-sm">Free</Badge>;
-      case 'starter': return <Badge className="bg-blue-500 text-white font-bold px-3 py-1 shadow-md">Starter</Badge>;
-      case 'professional': return <Badge className="bg-purple-500 text-white font-bold px-3 py-1 shadow-md">Professional</Badge>;
-      case 'enterprise': return <Badge className="bg-gradient-to-r from-amber-500 to-orange-500 text-white font-bold px-3 py-1 shadow-md">Enterprise</Badge>;
+      case 'free': return <Badge variant="secondary" className="bg-muted text-muted-foreground font-bold px-3 py-1 shadow-sm">Free</Badge>;
+      case 'starter': return <Badge className="bg-info text-info-foreground font-bold px-3 py-1 shadow-md">Starter</Badge>;
+      case 'professional': return <Badge className="bg-primary text-primary-foreground font-bold px-3 py-1 shadow-md">Professional</Badge>;
+      case 'enterprise': return <Badge className="bg-gradient-to-r from-warning to-warning/80 text-warning-foreground font-bold px-3 py-1 shadow-md">Enterprise</Badge>;
       default: return <Badge>{planType}</Badge>;
     }
   };
@@ -155,45 +155,45 @@ export function SubscriptionPlansManager() {
                 </div>
 
                 <div className="space-y-3 text-sm">
-                  <div className="flex items-center gap-3 p-2 bg-white/40 rounded-lg">
-                    <div className="p-1.5 bg-blue-500 rounded-md">
-                      <Users className="h-4 w-4 text-white" />
+                  <div className="flex items-center gap-3 p-2 bg-background/40 rounded-lg">
+                    <div className="p-1.5 bg-info rounded-md">
+                      <Users className="h-4 w-4 text-info-foreground" />
                     </div>
-                    <span className="font-semibold text-slate-700">{plan.max_users ?? '∞'} {t('admin.plans.users')}</span>
+                    <span className="font-semibold text-foreground">{plan.max_users ?? '∞'} {t('admin.plans.users')}</span>
                   </div>
-                  <div className="flex items-center gap-3 p-2 bg-white/40 rounded-lg">
-                    <div className="p-1.5 bg-purple-500 rounded-md">
-                      <BookOpen className="h-4 w-4 text-white" />
+                  <div className="flex items-center gap-3 p-2 bg-background/40 rounded-lg">
+                    <div className="p-1.5 bg-primary rounded-md">
+                      <BookOpen className="h-4 w-4 text-primary-foreground" />
                     </div>
-                    <span className="font-semibold text-slate-700">{plan.max_chapters ?? t('admin.plans.all')} {t('admin.plans.chapters')}</span>
+                    <span className="font-semibold text-foreground">{plan.max_chapters ?? t('admin.plans.all')} {t('admin.plans.chapters')}</span>
                   </div>
-                  <div className={`flex items-center gap-3 p-2 rounded-lg ${plan.has_certificates ? 'bg-emerald-100/80' : 'bg-slate-100/80'}`}>
-                    <div className={`p-1.5 rounded-md ${plan.has_certificates ? 'bg-emerald-500' : 'bg-slate-300'}`}>
+                  <div className={`flex items-center gap-3 p-2 rounded-lg ${plan.has_certificates ? 'bg-success/10' : 'bg-muted/50'}`}>
+                    <div className={`p-1.5 rounded-md ${plan.has_certificates ? 'bg-success' : 'bg-muted-foreground/30'}`}>
                       <CreditCard className="h-4 w-4 text-white" />
                     </div>
-                    <span className={`font-semibold ${plan.has_certificates ? 'text-emerald-700' : 'text-slate-400'}`}>{t('admin.plans.certificates')}</span>
-                    {plan.has_certificates && <Check className="h-4 w-4 text-emerald-600 ml-auto" />}
+                    <span className={`font-semibold ${plan.has_certificates ? 'text-success' : 'text-muted-foreground'}`}>{t('admin.plans.certificates')}</span>
+                    {plan.has_certificates && <Check className="h-4 w-4 text-success ml-auto" />}
                   </div>
-                  <div className={`flex items-center gap-3 p-2 rounded-lg ${plan.has_ai_tutor ? 'bg-emerald-100/80' : 'bg-slate-100/80'}`}>
-                    <div className={`p-1.5 rounded-md ${plan.has_ai_tutor ? 'bg-emerald-500' : 'bg-slate-300'}`}>
+                  <div className={`flex items-center gap-3 p-2 rounded-lg ${plan.has_ai_tutor ? 'bg-success/10' : 'bg-muted/50'}`}>
+                    <div className={`p-1.5 rounded-md ${plan.has_ai_tutor ? 'bg-success' : 'bg-muted-foreground/30'}`}>
                       <Bot className="h-4 w-4 text-white" />
                     </div>
-                    <span className={`font-semibold ${plan.has_ai_tutor ? 'text-emerald-700' : 'text-slate-400'}`}>AI Tutor</span>
-                    {plan.has_ai_tutor && <Check className="h-4 w-4 text-emerald-600 ml-auto" />}
+                    <span className={`font-semibold ${plan.has_ai_tutor ? 'text-success' : 'text-muted-foreground'}`}>AI Tutor</span>
+                    {plan.has_ai_tutor && <Check className="h-4 w-4 text-success ml-auto" />}
                   </div>
-                  <div className={`flex items-center gap-3 p-2 rounded-lg ${plan.has_analytics ? 'bg-emerald-100/80' : 'bg-slate-100/80'}`}>
-                    <div className={`p-1.5 rounded-md ${plan.has_analytics ? 'bg-emerald-500' : 'bg-slate-300'}`}>
+                  <div className={`flex items-center gap-3 p-2 rounded-lg ${plan.has_analytics ? 'bg-success/10' : 'bg-muted/50'}`}>
+                    <div className={`p-1.5 rounded-md ${plan.has_analytics ? 'bg-success' : 'bg-muted-foreground/30'}`}>
                       <BarChart3 className="h-4 w-4 text-white" />
                     </div>
-                    <span className={`font-semibold ${plan.has_analytics ? 'text-emerald-700' : 'text-slate-400'}`}>Analytics</span>
-                    {plan.has_analytics && <Check className="h-4 w-4 text-emerald-600 ml-auto" />}
+                    <span className={`font-semibold ${plan.has_analytics ? 'text-success' : 'text-muted-foreground'}`}>Analytics</span>
+                    {plan.has_analytics && <Check className="h-4 w-4 text-success ml-auto" />}
                   </div>
-                  <div className={`flex items-center gap-3 p-2 rounded-lg ${plan.has_custom_branding ? 'bg-emerald-100/80' : 'bg-slate-100/80'}`}>
-                    <div className={`p-1.5 rounded-md ${plan.has_custom_branding ? 'bg-emerald-500' : 'bg-slate-300'}`}>
+                  <div className={`flex items-center gap-3 p-2 rounded-lg ${plan.has_custom_branding ? 'bg-success/10' : 'bg-muted/50'}`}>
+                    <div className={`p-1.5 rounded-md ${plan.has_custom_branding ? 'bg-success' : 'bg-muted-foreground/30'}`}>
                       <Palette className="h-4 w-4 text-white" />
                     </div>
-                    <span className={`font-semibold ${plan.has_custom_branding ? 'text-emerald-700' : 'text-slate-400'}`}>{t('admin.plans.customBranding')}</span>
-                    {plan.has_custom_branding && <Check className="h-4 w-4 text-emerald-600 ml-auto" />}
+                    <span className={`font-semibold ${plan.has_custom_branding ? 'text-success' : 'text-muted-foreground'}`}>{t('admin.plans.customBranding')}</span>
+                    {plan.has_custom_branding && <Check className="h-4 w-4 text-success ml-auto" />}
                   </div>
                 </div>
               </CardContent>

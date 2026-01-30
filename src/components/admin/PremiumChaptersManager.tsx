@@ -92,13 +92,13 @@ export function PremiumChaptersManager() {
   const getPlanBadge = (plan: PlanType | undefined) => {
     switch (plan) {
       case 'starter':
-        return <Badge className="bg-blue-500 text-white font-bold px-3 py-1 shadow-md"><Star className="h-3 w-3 mr-1" />{t('admin.premium.planStarter')}</Badge>;
+        return <Badge className="bg-info text-info-foreground font-bold px-3 py-1 shadow-md"><Star className="h-3 w-3 mr-1" />{t('admin.premium.planStarter')}</Badge>;
       case 'professional':
-        return <Badge className="bg-purple-500 text-white font-bold px-3 py-1 shadow-md"><Sparkles className="h-3 w-3 mr-1" />{t('admin.premium.planProfessional')}</Badge>;
+        return <Badge className="bg-primary text-primary-foreground font-bold px-3 py-1 shadow-md"><Sparkles className="h-3 w-3 mr-1" />{t('admin.premium.planProfessional')}</Badge>;
       case 'enterprise':
-        return <Badge className="bg-gradient-to-r from-amber-500 to-orange-500 text-white font-bold px-3 py-1 shadow-md"><Crown className="h-3 w-3 mr-1" />{t('admin.premium.planEnterprise')}</Badge>;
+        return <Badge className="bg-gradient-to-r from-warning to-warning/80 text-warning-foreground font-bold px-3 py-1 shadow-md"><Crown className="h-3 w-3 mr-1" />{t('admin.premium.planEnterprise')}</Badge>;
       default:
-        return <Badge variant="secondary" className="bg-slate-200 text-slate-700 font-bold px-3 py-1"><Unlock className="h-3 w-3 mr-1" />{t('admin.premium.planFree')}</Badge>;
+        return <Badge variant="secondary" className="bg-muted text-muted-foreground font-bold px-3 py-1"><Unlock className="h-3 w-3 mr-1" />{t('admin.premium.planFree')}</Badge>;
     }
   };
 
@@ -122,22 +122,22 @@ export function PremiumChaptersManager() {
   }, {} as Record<string, Chapter[]>);
 
   return (
-    <Card className="admin-section-card border-amber-200">
-      <CardHeader className="admin-section-header bg-gradient-to-r from-amber-50 via-orange-50 to-yellow-50">
+    <Card className="admin-section-card border-warning/30">
+      <CardHeader className="admin-section-header bg-gradient-to-r from-warning/10 via-warning/5 to-warning/10">
         <CardTitle className="flex items-center gap-3 text-2xl">
-          <div className="p-2 bg-amber-500 rounded-lg shadow-md">
-            <Lock className="h-6 w-6 text-white" />
+          <div className="p-2 bg-warning rounded-lg shadow-md">
+            <Lock className="h-6 w-6 text-warning-foreground" />
           </div>
-          <span className="text-amber-800">{t('admin.premium.title')}</span>
+          <span className="text-foreground">{t('admin.premium.title')}</span>
         </CardTitle>
-        <CardDescription className="text-amber-700 font-medium">
+        <CardDescription className="text-muted-foreground font-medium">
           {t('admin.premium.subtitle')}
         </CardDescription>
       </CardHeader>
       <CardContent className="p-6">
         {loading ? (
           <div className="flex justify-center py-8">
-            <div className="w-8 h-8 border-4 border-amber-500 border-t-transparent rounded-full animate-spin" />
+            <div className="w-8 h-8 border-4 border-warning border-t-transparent rounded-full animate-spin" />
           </div>
         ) : (
           <div className="space-y-8">
@@ -163,7 +163,7 @@ export function PremiumChaptersManager() {
                     {moduleChapters.map((chapter) => {
                       const currentPlan = premiumChapters.get(chapter.id);
                       return (
-                        <TableRow key={chapter.id} className="hover:bg-amber-50/50 border-b">
+                        <TableRow key={chapter.id} className="hover:bg-warning/5 border-b">
                           <TableCell className="font-mono text-slate-500 font-bold">
                             {chapter.order_index}
                           </TableCell>
@@ -190,17 +190,17 @@ export function PremiumChaptersManager() {
                                 </SelectItem>
                                 <SelectItem value="starter">
                                   <span className="flex items-center gap-2 font-medium">
-                                    <Star className="h-4 w-4 text-blue-500" /> {t('admin.premium.planStarter')}
+                                    <Star className="h-4 w-4 text-info" /> {t('admin.premium.planStarter')}
                                   </span>
                                 </SelectItem>
                                 <SelectItem value="professional">
                                   <span className="flex items-center gap-2 font-medium">
-                                    <Sparkles className="h-4 w-4 text-purple-500" /> {t('admin.premium.planProfessional')}
+                                    <Sparkles className="h-4 w-4 text-primary" /> {t('admin.premium.planProfessional')}
                                   </span>
                                 </SelectItem>
                                 <SelectItem value="enterprise">
                                   <span className="flex items-center gap-2 font-medium">
-                                    <Crown className="h-4 w-4 text-amber-500" /> {t('admin.premium.planEnterprise')}
+                                    <Crown className="h-4 w-4 text-warning" /> {t('admin.premium.planEnterprise')}
                                   </span>
                                 </SelectItem>
                               </SelectContent>
