@@ -373,7 +373,7 @@ export function ChecklistsChapter() {
       <MultiModalContent chapterId="checklists" />
 
       {/* Quiz */}
-      <Quiz title="Quiz" chapterId="checklists" />
+      <Quiz title={ct("quizTitle")} chapterId="checklists" />
     </div>
   );
 }

@@ -171,7 +171,7 @@ export function ExpressTransportChapter() {
       <MultiModalContent chapterId="express-transport" />
 
       {/* Quiz */}
-      <Quiz title="Quiz" chapterId="express-transport" />
+      <Quiz title={ct("quizTitle")} chapterId="express-transport" />
     </div>
   );
 }

@@ -171,7 +171,7 @@ export function NetworkingChapter() {
       <MultiModalContent chapterId="networking" />
 
       {/* Quiz */}
-      <Quiz title="Quiz" chapterId="networking" />
+      <Quiz title={ct("quizTitle")} chapterId="networking" />
     </div>
   );
 }

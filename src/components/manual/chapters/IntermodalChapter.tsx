@@ -171,7 +171,7 @@ export function IntermodalChapter() {
       <MultiModalContent chapterId="intermodal" />
 
       {/* Quiz */}
-      <Quiz title="Quiz" chapterId="intermodal" />
+      <Quiz title={ct("quizTitle")} chapterId="intermodal" />
     </div>
   );
 }

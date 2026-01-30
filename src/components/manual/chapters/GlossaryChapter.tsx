@@ -267,7 +267,7 @@ export function GlossaryChapter() {
       <MultiModalContent chapterId="glossary" />
 
       {/* Quiz */}
-      <Quiz title="Quiz" chapterId="glossary" />
+      <Quiz title={ct("quizTitle")} chapterId="glossary" />
     </div>
   );
 }

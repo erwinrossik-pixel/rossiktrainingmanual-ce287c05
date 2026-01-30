@@ -144,6 +144,7 @@ export const checklistsTranslations: Record<string, Record<string, string>> = {
     weeklyRest: "Weekly rest",
     weeklyDrivingMax: "Weekly driving max",
     biweeklyMax: "Bi-weekly max",
+    quizTitle: "Checklists Quiz",
   },
   ro: {
     chapterNumber: "Capitolul 39",
@@ -290,6 +291,7 @@ export const checklistsTranslations: Record<string, Record<string, string>> = {
     weeklyRest: "Odihnă săptămânală",
     weeklyDrivingMax: "Max conducere săptămânală",
     biweeklyMax: "Max bi-săptămânal",
+    quizTitle: "Quiz Liste Verificare",
   },
   de: {
     chapterNumber: "Kapitel 39",
@@ -436,5 +438,6 @@ export const checklistsTranslations: Record<string, Record<string, string>> = {
     weeklyRest: "Wöchentliche Ruhezeit",
     weeklyDrivingMax: "Max wöchentliche Lenkzeit",
     biweeklyMax: "Max zwei-wöchentlich",
+    quizTitle: "Quiz Checklisten",
   },
 };

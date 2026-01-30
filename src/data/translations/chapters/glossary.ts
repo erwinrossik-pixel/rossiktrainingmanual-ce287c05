@@ -166,6 +166,7 @@ export const glossaryTranslations: Record<string, Record<string, string>> = {
     CarnetATA_def: "International customs document for temporary import/export of goods.",
     Verzollung_def: "Customs duty payment and clearance formalities.",
     Einfuhrabgaben_def: "Import duties and taxes payable when goods enter a customs territory.",
+    quizTitle: "Glossary Quiz",
   },
   ro: {
     chapterNumber: "Capitolul 40",
@@ -334,6 +335,7 @@ export const glossaryTranslations: Record<string, Record<string, string>> = {
     CarnetATA_def: "Document vamal internațional pentru importul/exportul temporar de mărfuri.",
     Verzollung_def: "Plata taxelor vamale și formalitățile de vămuire.",
     Einfuhrabgaben_def: "Taxe și impozite de import plătibile când mărfurile intră într-un teritoriu vamal.",
+    quizTitle: "Quiz Glosar",
   },
   de: {
     chapterNumber: "Kapitel 40",
@@ -502,5 +504,6 @@ export const glossaryTranslations: Record<string, Record<string, string>> = {
     CarnetATA_def: "Internationales Zolldokument für vorübergehende Ein-/Ausfuhr von Waren.",
     Verzollung_def: "Zollabgabenzahlung und Verzollungsformalitäten.",
     Einfuhrabgaben_def: "Einfuhrzölle und Steuern, die zu zahlen sind, wenn Waren ein Zollgebiet betreten.",
+    quizTitle: "Quiz Glossar",
   },
 };

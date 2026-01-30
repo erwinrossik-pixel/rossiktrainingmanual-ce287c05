@@ -171,7 +171,7 @@ export function SustainabilityChapter() {
       <MultiModalContent chapterId="sustainability" />
 
       {/* Quiz */}
-      <Quiz title="Quiz" chapterId="sustainability" />
+      <Quiz title={ct("quizTitle")} chapterId="sustainability" />
     </div>
   );
 }

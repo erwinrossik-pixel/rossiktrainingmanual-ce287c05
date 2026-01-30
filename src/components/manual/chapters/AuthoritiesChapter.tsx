@@ -178,7 +178,7 @@ export function AuthoritiesChapter() {
       <MultiModalContent chapterId="authorities" />
 
       {/* Quiz */}
-      <Quiz title="Quiz" chapterId="authorities" />
+      <Quiz title={ct("quizTitle")} chapterId="authorities" />
     </div>
   );
 }

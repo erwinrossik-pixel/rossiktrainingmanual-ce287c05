@@ -171,7 +171,7 @@ export function HighValueGoodsChapter() {
       <MultiModalContent chapterId="high-value-goods" />
 
       {/* Quiz */}
-      <Quiz title="Quiz" chapterId="high-value-goods" />
+      <Quiz title={ct("quizTitle")} chapterId="high-value-goods" />
     </div>
   );
 }

@@ -80,6 +80,7 @@ export const expressTransportTranslations = {
     glossaryDef9: "On-Time Delivery Rate - procentul de transporturi livrate în fereastra promisă.",
     glossaryTerm10: "Echipaj Dublu",
     glossaryDef10: "Doi șoferi permițând condus continuu pentru distanțe >1.000km fără oprire de noapte.",
+    quizTitle: "Quiz Transport Express",
   },
   de: {
     chapterTitle: "Expresstransport",
@@ -162,6 +163,7 @@ export const expressTransportTranslations = {
     glossaryDef9: "On-Time Delivery Rate - Prozentsatz der Sendungen die im versprochenen Zeitfenster geliefert wurden.",
     glossaryTerm10: "Doppelbesatzung",
     glossaryDef10: "Zwei Fahrer ermöglichen Dauerfahrt für Strecken >1.000km ohne Übernachtungsstopp.",
+    quizTitle: "Quiz Expresstransport",
   },
   en: {
     chapterTitle: "Express Transport",
@@ -244,5 +246,6 @@ export const expressTransportTranslations = {
     glossaryDef9: "On-Time Delivery Rate - percentage of shipments delivered within promised window.",
     glossaryTerm10: "Double Crew",
     glossaryDef10: "Two drivers enabling continuous driving for distances >1,000km without overnight stop.",
+    quizTitle: "Express Transport Quiz",
   },
 };

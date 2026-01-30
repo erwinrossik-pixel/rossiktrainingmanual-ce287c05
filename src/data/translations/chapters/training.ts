@@ -348,6 +348,7 @@ export const trainingTranslations: Record<string, Record<string, string>> = {
     check5OptionC: "33 pallets",
     check5OptionD: "36 pallets",
     check5Explanation: "A standard 13.6m trailer fits 33 EUR pallets (800x1200mm) when loaded crosswise in 3 rows. This equals 13.6 LDM (Loading Meters).",
+    quizTitle: "Training Quiz",
   },
   ro: {
     chapterNumber: "Capitolul 38",
@@ -698,6 +699,7 @@ export const trainingTranslations: Record<string, Record<string, string>> = {
     check5OptionC: "33 paleți",
     check5OptionD: "36 paleți",
     check5Explanation: "O semiremorcă standard de 13,6m încape 33 paleți EUR (800x1200mm) când sunt încărcați transversal în 3 rânduri. Aceasta echivalează cu 13,6 LDM (Metri de Încărcare).",
+    quizTitle: "Quiz Training",
   },
   de: {
     chapterNumber: "Kapitel 38",
@@ -1048,5 +1050,6 @@ export const trainingTranslations: Record<string, Record<string, string>> = {
     check5OptionC: "33 Paletten",
     check5OptionD: "36 Paletten",
     check5Explanation: "Ein Standard-13,6m-Auflieger fasst 33 EUR-Paletten (800x1200mm) wenn quer in 3 Reihen geladen. Dies entspricht 13,6 LDM (Lademeter).",
+    quizTitle: "Quiz Schulung",
   },
 };

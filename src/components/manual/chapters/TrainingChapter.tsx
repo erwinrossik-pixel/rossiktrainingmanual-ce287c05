@@ -719,7 +719,7 @@ export function TrainingChapter() {
       <MultiModalContent chapterId="training" />
 
       {/* Quiz */}
-      <Quiz title="Training Quiz" questions={quizzes.training} chapterId="training" />
+      <Quiz title={ct("quizTitle")} questions={quizzes.training} chapterId="training" />
     </div>
   );
 }

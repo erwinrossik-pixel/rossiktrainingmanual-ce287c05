@@ -149,6 +149,7 @@ export const sustainabilityTranslations = {
     commonMistake3: "Lipsa strategiei pe termen lung pentru tranziția către flotă verde",
     commonMistake4: "Subestimarea impactului financiar al ETS2 și al cerințelor climatice",
     commonMistake5: "Tratarea sustenabilității ca cost, nu ca oportunitate de diferențiere și valoare",
+    quizTitle: "Quiz Sustenabilitate",
   },
   de: {
     chapterTitle: "Nachhaltigkeit im Transport",
@@ -300,6 +301,7 @@ export const sustainabilityTranslations = {
     commonMistake3: "Fehlende langfristige Strategie für die Transition zur grünen Flotte",
     commonMistake4: "Unterschätzung der finanziellen Auswirkungen von ETS2 und Klimaanforderungen",
     commonMistake5: "Nachhaltigkeit als Kosten behandeln, nicht als Differenzierungs- und Wertschöpfungsmöglichkeit",
+    quizTitle: "Quiz Nachhaltigkeit",
   },
   en: {
     chapterTitle: "Sustainability in Transport",
@@ -461,5 +463,6 @@ export const sustainabilityTranslations = {
     commonMistake3: "Lack of long-term strategy for transition to green fleet",
     commonMistake4: "Underestimating the financial impact of ETS2 and climate requirements",
     commonMistake5: "Treating sustainability as cost, not as differentiation and value opportunity",
+    quizTitle: "Sustainability Quiz",
   },
 };
