@@ -234,12 +234,14 @@ export const europeanCountriesTranslations = {
     caseStudyResult: "Rezultat: Timp total 5 zile, fără amenzi, toate livrările la timp.",
 
     // BEST PRACTICES & COMMON MISTAKES - Expanded
+    bestPracticesTitle: "Bune Practici",
     bestPractice1: "Verifică întotdeauna restricțiile specifice și calendarul sărbătorilor înainte de planificarea rutei",
     bestPractice2: "Asigură-te că toate OBU-urile (Toll Collect, GO-Box, Viapass, etc.) sunt funcționale înainte de plecare",
     bestPractice3: "Planifică ruta cu buffer de timp pentru potențiale controale și formalități vamale",
     bestPractice4: "Instruiește șoferul despre particularitățile culturale și operaționale ale fiecărei țări",
     bestPractice5: "Menține documentație completă și organizată pentru toate țările de tranzit",
     
+    commonMistakesTitle: "Greșeli Frecvente",
     commonMistake1: "Ignorarea interdicțiilor de weekend și sosirea în fața porților închise",
     commonMistake2: "Subestimarea timpului pentru formalități vamale UK/CH cu 4-6 ore",
     commonMistake3: "Lipsa echipamentelor obligatorii (lanțuri, anvelope de iarnă) pentru Scandinavia",
@@ -504,12 +506,14 @@ export const europeanCountriesTranslations = {
     caseStudyResult: "Ergebnis: Gesamtzeit 5 Tage, keine Bußgelder, alle Lieferungen pünktlich.",
 
     // BEST PRACTICES & COMMON MISTAKES - Expanded
+    bestPracticesTitle: "Best Practices",
     bestPractice1: "Immer spezifische Beschränkungen und Feiertagskalender vor Routenplanung prüfen",
     bestPractice2: "Alle OBUs (Toll Collect, GO-Box, Viapass, etc.) vor Abfahrt auf Funktion prüfen",
     bestPractice3: "Route mit Zeitpuffer für potenzielle Kontrollen und Zollformalitäten planen",
     bestPractice4: "Fahrer über kulturelle und operative Besonderheiten jedes Landes instruieren",
     bestPractice5: "Vollständige und geordnete Dokumentation für alle Transitländer führen",
     
+    commonMistakesTitle: "Häufige Fehler",
     commonMistake1: "Wochenendverbote ignorieren und vor geschlossenen Toren ankommen",
     commonMistake2: "Zeit für UK/CH Zollformalitäten um 4-6 Stunden unterschätzen",
     commonMistake3: "Fehlende Pflichtausrüstung (Ketten, Winterreifen) für Skandinavien",
@@ -774,12 +778,14 @@ export const europeanCountriesTranslations = {
     caseStudyResult: "Result: Total time 5 days, no fines, all deliveries on time.",
 
     // BEST PRACTICES & COMMON MISTAKES - Expanded
+    bestPracticesTitle: "Best Practices",
     bestPractice1: "Always check specific restrictions and holiday calendar before route planning",
     bestPractice2: "Ensure all OBUs (Toll Collect, GO-Box, Viapass, etc.) are functional before departure",
     bestPractice3: "Plan route with time buffer for potential controls and customs formalities",
     bestPractice4: "Instruct driver on cultural and operational particularities of each country",
     bestPractice5: "Maintain complete and organized documentation for all transit countries",
     
+    commonMistakesTitle: "Common Mistakes",
     commonMistake1: "Ignoring weekend bans and arriving at closed gates",
     commonMistake2: "Underestimating time for UK/CH customs formalities by 4-6 hours",
     commonMistake3: "Missing mandatory equipment (chains, winter tires) for Scandinavia",

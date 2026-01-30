@@ -111,14 +111,20 @@ export const warehouseTranslations: Record<string, Record<string, string>> = {
     commonMistake1: "Arriving without a time slot at strict DC's - results in long waits or rejection",
     commonMistake2: "Not counting pallets at loading/unloading - leads to claim disputes later",
     commonMistake3: "Ignoring special unloading requirements (tail lift, side door) - causes failed deliveries",
+    bestPracticesTitle: "Best Practices",
+    commonMistakesTitle: "Common Mistakes",
     
     // Case Study
     caseStudyTitle: "Case Study: Retail DC Time Slot Crisis",
     caseStudyIntro: "A freight forwarder regularly delivered to a major retail distribution center in Germany.",
-    caseStudyProblem: "Problem: Driver arrived 45 minutes late due to traffic. The DC had strict 30-minute tolerance. Result: Load rejected, driver had to wait 6 hours for the next available slot. Client charged €350 waiting time + €200 rebooking fee.",
-    caseStudySolution: "Solution implemented: GPS tracking with ETA alerts, automatic slot rebooking system, buffer time built into all retail DC deliveries (arrive 1h early), direct communication channel with DC reception.",
-    caseStudyResult: "Result: Time slot compliance improved from 78% to 96%. Waiting time charges reduced by 85%. Client satisfaction increased significantly.",
-    caseStudyLesson: "Lesson: For retail DC's with strict time slots, buffer time and proactive communication are essential. The cost of arriving early is far less than the cost of arriving late.",
+    labelProblem: "Problem",
+    caseStudyProblem: "Driver arrived 45 minutes late due to traffic. The DC had strict 30-minute tolerance. Result: Load rejected, driver had to wait 6 hours for the next available slot. Client charged €350 waiting time + €200 rebooking fee.",
+    labelSolution: "Solution",
+    caseStudySolution: "GPS tracking with ETA alerts, automatic slot rebooking system, buffer time built into all retail DC deliveries (arrive 1h early), direct communication channel with DC reception.",
+    labelResult: "Result",
+    caseStudyResult: "Time slot compliance improved from 78% to 96%. Waiting time charges reduced by 85%. Client satisfaction increased significantly.",
+    labelLesson: "Key Lesson",
+    caseStudyLesson: "For retail DC's with strict time slots, buffer time and proactive communication are essential. The cost of arriving early is far less than the cost of arriving late.",
     
     // Glossary
     glossaryTitle: "Warehouse Operations Glossary",
@@ -257,14 +263,20 @@ export const warehouseTranslations: Record<string, Record<string, string>> = {
     commonMistake1: "Sosirea fără slot de timp la CD-uri stricte - rezultă în așteptări lungi sau refuz",
     commonMistake2: "Nenumărarea paleților la încărcare/descărcare - duce la dispute de daune ulterior",
     commonMistake3: "Ignorarea cerințelor speciale de descărcare (haion, ușă laterală) - cauzează livrări eșuate",
+    bestPracticesTitle: "Bune Practici",
+    commonMistakesTitle: "Greșeli Frecvente",
     
     // Case Study
     caseStudyTitle: "Studiu de Caz: Criză Slot de Timp la CD Retail",
     caseStudyIntro: "Un expeditor livra regulat către un centru de distribuție retail major din Germania.",
-    caseStudyProblem: "Problema: Șoferul a sosit cu 45 minute întârziere din cauza traficului. CD-ul avea toleranță strictă de 30 minute. Rezultat: Încărcătura respinsă, șoferul a trebuit să aștepte 6 ore pentru următorul slot disponibil. Clientul a fost taxat €350 timp de așteptare + €200 taxă de reprogramare.",
-    caseStudySolution: "Soluție implementată: Tracking GPS cu alerte ETA, sistem automat de reprogramare slot, timp buffer inclus în toate livrările la CD-uri retail (sosire cu 1h mai devreme), canal de comunicare directă cu recepția CD-ului.",
-    caseStudyResult: "Rezultat: Conformitatea slot de timp s-a îmbunătățit de la 78% la 96%. Taxele pentru timp de așteptare s-au redus cu 85%. Satisfacția clientului a crescut semnificativ.",
-    caseStudyLesson: "Lecție: Pentru CD-uri retail cu sloturi de timp stricte, buffer-ul de timp și comunicarea proactivă sunt esențiale. Costul sosirii devreme este mult mai mic decât costul sosirii cu întârziere.",
+    labelProblem: "Problema",
+    caseStudyProblem: "Șoferul a sosit cu 45 minute întârziere din cauza traficului. CD-ul avea toleranță strictă de 30 minute. Rezultat: Încărcătura respinsă, șoferul a trebuit să aștepte 6 ore pentru următorul slot disponibil. Clientul a fost taxat €350 timp de așteptare + €200 taxă de reprogramare.",
+    labelSolution: "Soluția",
+    caseStudySolution: "Tracking GPS cu alerte ETA, sistem automat de reprogramare slot, timp buffer inclus în toate livrările la CD-uri retail (sosire cu 1h mai devreme), canal de comunicare directă cu recepția CD-ului.",
+    labelResult: "Rezultatul",
+    caseStudyResult: "Conformitatea slot de timp s-a îmbunătățit de la 78% la 96%. Taxele pentru timp de așteptare s-au redus cu 85%. Satisfacția clientului a crescut semnificativ.",
+    labelLesson: "Lecția Cheie",
+    caseStudyLesson: "Pentru CD-uri retail cu sloturi de timp stricte, buffer-ul de timp și comunicarea proactivă sunt esențiale. Costul sosirii devreme este mult mai mic decât costul sosirii cu întârziere.",
     
     // Glossary
     glossaryTitle: "Glosar Operațiuni Depozit",
@@ -403,14 +415,20 @@ export const warehouseTranslations: Record<string, Record<string, string>> = {
     commonMistake1: "Ankunft ohne Zeitfenster bei strengen VZs - führt zu langen Wartezeiten oder Ablehnung",
     commonMistake2: "Paletten bei Be-/Entladung nicht zählen - führt später zu Schadenstreitigkeiten",
     commonMistake3: "Ignorieren spezieller Entladeanforderungen (Ladebordwand, Seitentür) - verursacht fehlgeschlagene Lieferungen",
+    bestPracticesTitle: "Best Practices",
+    commonMistakesTitle: "Häufige Fehler",
     
     // Case Study
     caseStudyTitle: "Fallstudie: Zeitfenster-Krise im Retail-VZ",
     caseStudyIntro: "Ein Spediteur lieferte regelmäßig an ein großes Retail-Verteilzentrum in Deutschland.",
-    caseStudyProblem: "Problem: Der Fahrer kam wegen Verkehr 45 Minuten zu spät an. Das VZ hatte eine strenge 30-Minuten-Toleranz. Ergebnis: Ladung abgelehnt, Fahrer musste 6 Stunden auf den nächsten verfügbaren Slot warten. Kunde wurde mit €350 Wartezeit + €200 Umbuchungsgebühr belastet.",
-    caseStudySolution: "Implementierte Lösung: GPS-Tracking mit ETA-Warnungen, automatisches Slot-Umbuchungssystem, Pufferzeit in alle Retail-VZ-Lieferungen eingebaut (1h früher ankommen), direkter Kommunikationskanal mit VZ-Empfang.",
-    caseStudyResult: "Ergebnis: Zeitfenster-Konformität verbesserte sich von 78% auf 96%. Wartezeit-Gebühren um 85% reduziert. Kundenzufriedenheit stieg signifikant.",
-    caseStudyLesson: "Lektion: Für Retail-VZs mit strengen Zeitfenstern sind Pufferzeit und proaktive Kommunikation essentiell. Die Kosten des frühen Ankommens sind weit geringer als die Kosten des späten Ankommens.",
+    labelProblem: "Problem",
+    caseStudyProblem: "Der Fahrer kam wegen Verkehr 45 Minuten zu spät an. Das VZ hatte eine strenge 30-Minuten-Toleranz. Ergebnis: Ladung abgelehnt, Fahrer musste 6 Stunden auf den nächsten verfügbaren Slot warten. Kunde wurde mit €350 Wartezeit + €200 Umbuchungsgebühr belastet.",
+    labelSolution: "Lösung",
+    caseStudySolution: "GPS-Tracking mit ETA-Warnungen, automatisches Slot-Umbuchungssystem, Pufferzeit in alle Retail-VZ-Lieferungen eingebaut (1h früher ankommen), direkter Kommunikationskanal mit VZ-Empfang.",
+    labelResult: "Ergebnis",
+    caseStudyResult: "Zeitfenster-Konformität verbesserte sich von 78% auf 96%. Wartezeit-Gebühren um 85% reduziert. Kundenzufriedenheit stieg signifikant.",
+    labelLesson: "Wichtige Lektion",
+    caseStudyLesson: "Für Retail-VZs mit strengen Zeitfenstern sind Pufferzeit und proaktive Kommunikation essentiell. Die Kosten des frühen Ankommens sind weit geringer als die Kosten des späten Ankommens.",
     
     // Glossary
     glossaryTitle: "Glossar Lagerbetrieb",
