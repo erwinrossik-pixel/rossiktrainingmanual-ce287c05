@@ -52,7 +52,7 @@ export function useRetentionTracking() {
     }
   }, [user]);
 
-  // Start a new session
+  // Start a new session with conflict handling
   const startSession = useCallback(async () => {
     if (!user) return;
 
@@ -62,6 +62,19 @@ export function useRetentionTracking() {
     pagesVisitedRef.current = 1;
 
     try {
+      // Check if session exists (could be created by useAnalytics)
+      const { data: existing } = await supabase
+        .from('user_sessions')
+        .select('id')
+        .eq('session_id', sessionId)
+        .maybeSingle();
+
+      if (existing) {
+        // Session already exists, skip insert
+        logger.retention('Session already exists:', sessionId);
+        return;
+      }
+
       // Detect device type
       const deviceType = /Mobile|Android|iPhone/i.test(navigator.userAgent)
         ? 'mobile'
@@ -80,7 +93,8 @@ export function useRetentionTracking() {
         ? 'Edge'
         : 'Other';
 
-      await supabase.from('user_sessions').insert({
+      // Use upsert to prevent conflicts
+      const { error } = await supabase.from('user_sessions').upsert({
         user_id: user.id,
         session_id: sessionId,
         started_at: new Date().toISOString(),
@@ -89,7 +103,14 @@ export function useRetentionTracking() {
         total_duration_seconds: 0,
         device_type: deviceType,
         browser: browser
+      }, {
+        onConflict: 'session_id',
+        ignoreDuplicates: true
       });
+
+      if (error && error.code !== '23505') {
+        throw error;
+      }
 
       logger.retention('Session started:', sessionId);
     } catch (error) {

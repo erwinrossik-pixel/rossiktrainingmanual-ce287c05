@@ -49,43 +49,61 @@ export function useAnalytics() {
     sessionId.current = storedSession;
   }, []);
 
-  // Track session start/update - only once per session
+  // Track session start/update - only once per session with proper conflict handling
   const initSession = useCallback(async () => {
     if (!user || !sessionId.current || sessionInitialized.current) return;
 
     try {
+      // Check if session already exists (could be created by another hook)
       const { data: existing } = await supabase
         .from('user_sessions')
         .select('id')
         .eq('session_id', sessionId.current)
         .maybeSingle();
 
-      if (!existing) {
-        // Try to get location from edge function
-        let locationData = { latitude: null, longitude: null, country: null, city: null };
-        try {
-          const { data, error } = await supabase.functions.invoke('get-location');
-          if (!error && data) {
-            locationData = data;
-          }
-        } catch (locError) {
-          logger.debug('Could not get location:', locError);
-        }
-
-        await supabase.from('user_sessions').insert({
-          user_id: user.id,
-          session_id: sessionId.current,
-          device_type: getDeviceType(),
-          browser: getBrowser(),
-          latitude: locationData.latitude,
-          longitude: locationData.longitude,
-          country: locationData.country,
-          city: locationData.city,
-        });
+      if (existing) {
+        // Session already exists, just mark as initialized
+        sessionInitialized.current = true;
+        return;
       }
+
+      // Try to get location from edge function
+      let locationData = { latitude: null, longitude: null, country: null, city: null };
+      try {
+        const { data, error } = await supabase.functions.invoke('get-location');
+        if (!error && data) {
+          locationData = data;
+        }
+      } catch (locError) {
+        logger.debug('Could not get location:', locError);
+      }
+
+      // Use upsert to handle potential race conditions
+      const { error: insertError } = await supabase.from('user_sessions').upsert({
+        user_id: user.id,
+        session_id: sessionId.current,
+        device_type: getDeviceType(),
+        browser: getBrowser(),
+        latitude: locationData.latitude,
+        longitude: locationData.longitude,
+        country: locationData.country,
+        city: locationData.city,
+        started_at: new Date().toISOString(),
+        last_activity_at: new Date().toISOString(),
+      }, { 
+        onConflict: 'session_id',
+        ignoreDuplicates: true 
+      });
+
+      if (insertError && insertError.code !== '23505') {
+        // Log only non-duplicate errors
+        logger.error('Error initializing session:', insertError);
+      }
+      
       sessionInitialized.current = true;
     } catch (error) {
       logger.error('Error initializing session:', error);
+      sessionInitialized.current = true; // Mark as initialized to prevent infinite retries
     }
   }, [user]);
 
