@@ -142,21 +142,21 @@ export function PremiumChaptersManager() {
         ) : (
           <div className="space-y-8">
             {Object.entries(groupedChapters).map(([module, moduleChapters]) => (
-              <div key={module} className="bg-white rounded-xl border-2 border-slate-100 overflow-hidden shadow-sm">
-                <h3 className="font-bold text-lg p-4 flex items-center gap-2 bg-gradient-to-r from-slate-100 to-slate-50 border-b">
-                  <div className="p-1.5 bg-indigo-500 rounded-lg">
-                    <BookOpen className="h-4 w-4 text-white" />
+              <div key={module} className="bg-background rounded-xl border-2 border-border overflow-hidden shadow-sm">
+                <h3 className="font-bold text-lg p-4 flex items-center gap-2 bg-gradient-to-r from-muted to-muted/50 border-b">
+                  <div className="p-1.5 bg-primary rounded-lg">
+                    <BookOpen className="h-4 w-4 text-primary-foreground" />
                   </div>
-                  <span className="text-slate-800">{module}</span>
-                  <Badge className="ml-2 bg-slate-600">{moduleChapters.length} {t('admin.premium.chapters')}</Badge>
+                  <span className="text-foreground">{module}</span>
+                  <Badge className="ml-2 bg-muted-foreground">{moduleChapters.length} {t('admin.premium.chapters')}</Badge>
                 </h3>
                 <Table>
                   <TableHeader>
-                    <TableRow className="bg-slate-50 hover:bg-slate-50">
-                      <TableHead className="w-12 font-bold text-slate-700">#</TableHead>
-                      <TableHead className="font-bold text-slate-700">{t('admin.premium.chapter')}</TableHead>
-                      <TableHead className="font-bold text-slate-700">{t('admin.premium.currentRestriction')}</TableHead>
-                      <TableHead className="w-48 font-bold text-slate-700">{t('admin.premium.minPlan')}</TableHead>
+                    <TableRow className="bg-muted/50 hover:bg-muted/50">
+                      <TableHead className="w-12 font-bold text-foreground">#</TableHead>
+                      <TableHead className="font-bold text-foreground">{t('admin.premium.chapter')}</TableHead>
+                      <TableHead className="font-bold text-foreground">{t('admin.premium.currentRestriction')}</TableHead>
+                      <TableHead className="w-48 font-bold text-foreground">{t('admin.premium.minPlan')}</TableHead>
                     </TableRow>
                   </TableHeader>
                   <TableBody>
@@ -164,10 +164,10 @@ export function PremiumChaptersManager() {
                       const currentPlan = premiumChapters.get(chapter.id);
                       return (
                         <TableRow key={chapter.id} className="hover:bg-warning/5 border-b">
-                          <TableCell className="font-mono text-slate-500 font-bold">
+                          <TableCell className="font-mono text-muted-foreground font-bold">
                             {chapter.order_index}
                           </TableCell>
-                          <TableCell className="font-semibold text-slate-800">
+                          <TableCell className="font-semibold text-foreground">
                             {chapter.slug.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase())}
                           </TableCell>
                           <TableCell>
@@ -185,7 +185,7 @@ export function PremiumChaptersManager() {
                               <SelectContent className="bg-white border-2 shadow-xl">
                                 <SelectItem value="free">
                                   <span className="flex items-center gap-2 font-medium">
-                                    <Unlock className="h-4 w-4 text-slate-500" /> {t('admin.premium.planFree')}
+                                    <Unlock className="h-4 w-4 text-muted-foreground" /> {t('admin.premium.planFree')}
                                   </span>
                                 </SelectItem>
                                 <SelectItem value="starter">

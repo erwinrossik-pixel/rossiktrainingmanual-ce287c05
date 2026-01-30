@@ -145,13 +145,13 @@ export function SubscriptionPlansManager() {
                     <Edit className="h-4 w-4" />
                   </Button>
                 </div>
-                <CardTitle className="text-2xl font-black text-slate-800">{plan.name}</CardTitle>
+                <CardTitle className="text-2xl font-black text-foreground">{plan.name}</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="mb-5 p-4 bg-white/60 rounded-xl border shadow-inner">
-                  <span className="text-4xl font-black text-slate-800">€{plan.price_monthly}</span>
-                  <span className="text-slate-600 font-medium">{t('admin.plans.perMonth')}</span>
-                  <p className="text-sm text-slate-500 mt-1 font-medium">€{plan.price_yearly}{t('admin.plans.perYear')} (-17%)</p>
+                <div className="mb-5 p-4 bg-background/60 rounded-xl border shadow-inner">
+                  <span className="text-4xl font-black text-foreground">€{plan.price_monthly}</span>
+                  <span className="text-muted-foreground font-medium">{t('admin.plans.perMonth')}</span>
+                  <p className="text-sm text-muted-foreground/80 mt-1 font-medium">€{plan.price_yearly}{t('admin.plans.perYear')} (-17%)</p>
                 </div>
 
                 <div className="space-y-3 text-sm">

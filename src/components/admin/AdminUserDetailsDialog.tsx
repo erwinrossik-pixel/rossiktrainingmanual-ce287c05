@@ -62,11 +62,11 @@ export const AdminUserDetailsDialog = memo(function AdminUserDetailsDialog({
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'completed':
-        return <Badge className="bg-green-500">{t('admin.status.completed')}</Badge>;
+        return <Badge className="bg-success">{t('admin.status.completed')}</Badge>;
       case 'in_progress':
-        return <Badge className="bg-yellow-500">{t('admin.status.inProgress')}</Badge>;
+        return <Badge className="bg-warning">{t('admin.status.inProgress')}</Badge>;
       case 'unlocked':
-        return <Badge className="bg-blue-500">{t('admin.status.unlocked')}</Badge>;
+        return <Badge className="bg-info">{t('admin.status.unlocked')}</Badge>;
       default:
         return <Badge variant="secondary">{t('admin.status.locked')}</Badge>;
     }
@@ -93,7 +93,7 @@ export const AdminUserDetailsDialog = memo(function AdminUserDetailsDialog({
                     variant="outline" 
                     size="sm"
                     onClick={() => selectedUser && onResetTrainingTime(selectedUser.id)}
-                    className="text-amber-600 hover:text-amber-800 border-amber-300"
+                    className="text-warning hover:text-warning/80 border-warning/30"
                   >
                     <TimerReset className="h-4 w-4 mr-2" />
                     {t('admin.profiles.resetTimer')}
@@ -139,7 +139,7 @@ export const AdminUserDetailsDialog = memo(function AdminUserDetailsDialog({
                               size="sm"
                               onClick={() => selectedUser && onUnlockChapter(progress.chapter_id, selectedUser.id)}
                               title={t('admin.profiles.unlockChapter')}
-                              className="text-blue-600 hover:text-blue-800"
+                              className="text-info hover:text-info/80"
                             >
                               <Unlock className="h-4 w-4" />
                             </Button>
@@ -181,7 +181,7 @@ export const AdminUserDetailsDialog = memo(function AdminUserDetailsDialog({
                       <TableCell>{attempt.score}/{attempt.total_questions}</TableCell>
                       <TableCell>
                         {attempt.passed 
-                          ? <Badge className="bg-green-500">{t('admin.table.yes')}</Badge>
+                          ? <Badge className="bg-success">{t('admin.table.yes')}</Badge>
                           : <Badge variant="destructive">{t('admin.table.no')}</Badge>}
                       </TableCell>
                       <TableCell>{attempt.language.toUpperCase()}</TableCell>

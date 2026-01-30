@@ -44,14 +44,14 @@ export const AdminUsersTable = memo(function AdminUsersTable({
       <CardContent className="p-0">
         <Table>
           <TableHeader>
-            <TableRow className="bg-slate-100 hover:bg-slate-100">
-              <TableHead className="font-bold text-slate-800 text-base py-4">{t('admin.table.name')}</TableHead>
-              <TableHead className="font-bold text-slate-800 text-base">{t('admin.table.email')}</TableHead>
-              <TableHead className="font-bold text-slate-800 text-base">{t('admin.table.role')}</TableHead>
-              <TableHead className="font-bold text-slate-800 text-base">{t('admin.table.chapterProgress')}</TableHead>
-              <TableHead className="font-bold text-slate-800 text-base">{t('admin.table.avgScore')}</TableHead>
-              <TableHead className="font-bold text-slate-800 text-base">{t('admin.table.lastActivity')}</TableHead>
-              <TableHead className="font-bold text-slate-800 text-base">{t('admin.table.actions')}</TableHead>
+            <TableRow className="bg-muted hover:bg-muted">
+              <TableHead className="font-bold text-foreground text-base py-4">{t('admin.table.name')}</TableHead>
+              <TableHead className="font-bold text-foreground text-base">{t('admin.table.email')}</TableHead>
+              <TableHead className="font-bold text-foreground text-base">{t('admin.table.role')}</TableHead>
+              <TableHead className="font-bold text-foreground text-base">{t('admin.table.chapterProgress')}</TableHead>
+              <TableHead className="font-bold text-foreground text-base">{t('admin.table.avgScore')}</TableHead>
+              <TableHead className="font-bold text-foreground text-base">{t('admin.table.lastActivity')}</TableHead>
+              <TableHead className="font-bold text-foreground text-base">{t('admin.table.actions')}</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -75,7 +75,7 @@ export const AdminUsersTable = memo(function AdminUsersTable({
                       ? `${userItem.first_name || ''} ${userItem.last_name || ''}`.trim()
                       : 'N/A'}
                   </TableCell>
-                  <TableCell className="text-slate-600">{userItem.email}</TableCell>
+                  <TableCell className="text-muted-foreground">{userItem.email}</TableCell>
                   <TableCell>
                     <Badge 
                       className={userItem.role === 'admin' 
@@ -89,7 +89,7 @@ export const AdminUsersTable = memo(function AdminUsersTable({
                     <div className="flex items-center gap-3">
                       <Progress 
                         value={progressPercent} 
-                        className={`w-28 h-3 bg-slate-200 ${progressBarColor}`}
+                        className={`w-28 h-3 bg-muted ${progressBarColor}`}
                       />
                       <span className={`font-bold text-sm px-2 py-1 rounded border ${
                         progressPercent >= 80 
@@ -107,7 +107,7 @@ export const AdminUsersTable = memo(function AdminUsersTable({
                       {userItem.averageScore}/10
                     </span>
                   </TableCell>
-                  <TableCell className="text-slate-600 font-medium">
+                  <TableCell className="text-muted-foreground font-medium">
                     {userItem.lastActivity 
                       ? format(new Date(userItem.lastActivity), 'dd.MM.yyyy HH:mm')
                       : 'N/A'}
