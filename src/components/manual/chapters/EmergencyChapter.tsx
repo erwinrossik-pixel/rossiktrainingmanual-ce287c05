@@ -2,9 +2,144 @@ import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { FlowDiagram, DecisionDiagram, ProcessMap } from "../FlowDiagram";
 import { quizzes } from "@/data/quizData";
-import { AlertTriangle, Phone, FileText, Shield, Truck, MapPin, Clock, CheckCircle } from "lucide-react";
+import { AlertTriangle, Phone, FileText, Shield, Truck, MapPin, Clock, CheckCircle, Eye, XCircle, Timer, HelpCircle } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
+import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+
+// Interactive "What's Missing?" Scenario Component
+function WhatsMissingScenario({ 
+  title, 
+  scenario, 
+  items, 
+  missingItems, 
+  timeLimit = 30 
+}: { 
+  title: string;
+  scenario: string;
+  items: { id: string; label: string; isMissing: boolean }[];
+  missingItems: string[];
+  timeLimit?: number;
+}) {
+  const [selectedItems, setSelectedItems] = useState<string[]>([]);
+  const [timeLeft, setTimeLeft] = useState(timeLimit);
+  const [isActive, setIsActive] = useState(false);
+  const [showResult, setShowResult] = useState(false);
+  const [score, setScore] = useState(0);
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    if (isActive && timeLeft > 0) {
+      interval = setInterval(() => {
+        setTimeLeft(t => t - 1);
+      }, 1000);
+    } else if (timeLeft === 0 && isActive) {
+      handleSubmit();
+    }
+    return () => clearInterval(interval);
+  }, [isActive, timeLeft]);
+
+  const handleStart = () => {
+    setIsActive(true);
+    setShowResult(false);
+    setSelectedItems([]);
+    setTimeLeft(timeLimit);
+  };
+
+  const handleSelect = (id: string) => {
+    if (!isActive || showResult) return;
+    setSelectedItems(prev => 
+      prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]
+    );
+  };
+
+  const handleSubmit = () => {
+    setIsActive(false);
+    setShowResult(true);
+    const correct = selectedItems.filter(s => missingItems.includes(s)).length;
+    const incorrect = selectedItems.filter(s => !missingItems.includes(s)).length;
+    setScore(Math.max(0, correct - incorrect));
+  };
+
+  return (
+    <div className="bg-card border border-border rounded-xl p-6">
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="font-semibold flex items-center gap-2">
+          <Eye className="w-5 h-5 text-warning" />
+          {title}
+        </h3>
+        {isActive && (
+          <div className={`flex items-center gap-2 px-3 py-1 rounded-full ${timeLeft <= 10 ? 'bg-destructive/20 text-destructive' : 'bg-warning/20 text-warning'}`}>
+            <Timer className="w-4 h-4" />
+            <span className="font-mono font-bold">{timeLeft}s</span>
+          </div>
+        )}
+      </div>
+
+      <p className="text-sm text-muted-foreground mb-4">{scenario}</p>
+
+      {!isActive && !showResult ? (
+        <Button onClick={handleStart} className="w-full">
+          <Timer className="w-4 h-4 mr-2" />
+          Start Challenge ({timeLimit}s)
+        </Button>
+      ) : (
+        <>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-2 mb-4">
+            {items.map(item => (
+              <button
+                key={item.id}
+                onClick={() => handleSelect(item.id)}
+                disabled={showResult}
+                className={`p-3 text-sm rounded-lg border transition-all text-left ${
+                  showResult
+                    ? item.isMissing
+                      ? selectedItems.includes(item.id)
+                        ? 'bg-success/20 border-success text-success'
+                        : 'bg-destructive/20 border-destructive text-destructive'
+                      : selectedItems.includes(item.id)
+                        ? 'bg-destructive/20 border-destructive text-destructive'
+                        : 'bg-muted border-border'
+                    : selectedItems.includes(item.id)
+                      ? 'bg-primary/20 border-primary'
+                      : 'bg-muted/50 border-border hover:border-primary/50'
+                }`}
+              >
+                {showResult && (
+                  <span className="mr-2">
+                    {item.isMissing ? (selectedItems.includes(item.id) ? '✓' : '✗') : (selectedItems.includes(item.id) ? '✗' : '')}
+                  </span>
+                )}
+                {item.label}
+              </button>
+            ))}
+          </div>
+
+          {isActive && (
+            <Button onClick={handleSubmit} variant="outline" className="w-full">
+              Submit Answer
+            </Button>
+          )}
+
+          {showResult && (
+            <div className={`p-4 rounded-lg ${score === missingItems.length ? 'bg-success/20 border border-success/30' : 'bg-warning/20 border border-warning/30'}`}>
+              <p className="font-semibold mb-2">
+                {score === missingItems.length ? '🎉 Perfect!' : `Score: ${score}/${missingItems.length}`}
+              </p>
+              <p className="text-sm text-muted-foreground">
+                Missing items: {missingItems.map(id => items.find(i => i.id === id)?.label).join(', ')}
+              </p>
+              <Button onClick={handleStart} variant="outline" size="sm" className="mt-3">
+                Try Again
+              </Button>
+            </div>
+          )}
+        </>
+      )}
+    </div>
+  );
+}
 
 export function EmergencyChapter() {
   const { ct } = useChapterTranslation("emergency");
@@ -367,6 +502,64 @@ export function EmergencyChapter() {
               </tr>
             </tbody>
           </table>
+        </div>
+      </section>
+
+      {/* Interactive Vigilance Scenarios */}
+      <section>
+        <h2 className="text-2xl font-bold mb-4 font-serif flex items-center gap-2">
+          <Eye className="w-6 h-6 text-warning" />
+          {ct("vigilanceScenariosTitle") || "Vigilance Scenarios"}
+        </h2>
+        <p className="text-muted-foreground mb-6">
+          {ct("vigilanceScenariosDesc") || "Test your situational awareness with timed challenges. Identify what's missing or wrong in each emergency scenario."}
+        </p>
+        
+        <div className="space-y-6">
+          <WhatsMissingScenario
+            title={ct("scenario1Title") || "Highway Breakdown Scene"}
+            scenario={ct("scenario1Desc") || "A truck has stopped on the emergency lane. The driver is standing by the vehicle. Hazard lights are on. What safety elements are MISSING from this scene?"}
+            items={[
+              { id: "triangle", label: ct("triangleLabel") || "Warning Triangle (100-200m)", isMissing: true },
+              { id: "vest", label: ct("vestLabel") || "High-Visibility Vest", isMissing: true },
+              { id: "hazards", label: ct("hazardsLabel") || "Hazard Lights", isMissing: false },
+              { id: "barrier", label: ct("barrierLabel") || "Behind Safety Barrier", isMissing: true },
+              { id: "phone", label: ct("phoneLabel") || "Phone in Hand", isMissing: false },
+              { id: "hood", label: ct("hoodLabel") || "Hood Open", isMissing: false },
+            ]}
+            missingItems={["triangle", "vest", "barrier"]}
+            timeLimit={25}
+          />
+
+          <WhatsMissingScenario
+            title={ct("scenario2Title") || "Cargo Damage Documentation"}
+            scenario={ct("scenario2Desc") || "A consignment arrived with visible damage. The driver signed the CMR cleanly. What CRITICAL steps were missed?"}
+            items={[
+              { id: "photos", label: ct("photosLabel") || "Timestamped Photos", isMissing: true },
+              { id: "reservation", label: ct("reservationLabel") || "CMR Reservation Note", isMissing: true },
+              { id: "signed", label: ct("signedLabel") || "CMR Signed", isMissing: false },
+              { id: "dispatcher", label: ct("dispatcherNotifiedLabel") || "Dispatcher Notified", isMissing: true },
+              { id: "unloaded", label: ct("unloadedLabel") || "Cargo Unloaded", isMissing: false },
+              { id: "witness", label: ct("witnessLabel") || "Witness Statement", isMissing: true },
+            ]}
+            missingItems={["photos", "reservation", "dispatcher", "witness"]}
+            timeLimit={30}
+          />
+
+          <WhatsMissingScenario
+            title={ct("scenario3Title") || "Theft Prevention Check"}
+            scenario={ct("scenario3Desc") || "Driver parks at an unsecured rest area for the night with high-value cargo. Which security measures are MISSING?"}
+            items={[
+              { id: "secure_parking", label: ct("secureParking") || "Secure Parking Area", isMissing: true },
+              { id: "door_locks", label: ct("doorLocks") || "Extra Door Locks", isMissing: true },
+              { id: "fuel", label: ct("fuelCheck") || "Fuel Level Checked", isMissing: false },
+              { id: "tracking", label: ct("trackingActive") || "GPS Tracking Active", isMissing: true },
+              { id: "curtains", label: ct("curtainsClosed") || "Curtains Closed", isMissing: false },
+              { id: "dispatcher_night", label: ct("dispatcherNight") || "Dispatcher Notified of Location", isMissing: true },
+            ]}
+            missingItems={["secure_parking", "door_locks", "tracking", "dispatcher_night"]}
+            timeLimit={25}
+          />
         </div>
       </section>
 

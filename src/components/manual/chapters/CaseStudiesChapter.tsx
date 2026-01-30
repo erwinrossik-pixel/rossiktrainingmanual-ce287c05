@@ -1,9 +1,113 @@
 import { InfoCard } from "../InfoCard";
-import { Lightbulb, AlertTriangle, CheckCircle, XCircle, Euro, Clock, Truck, MapPin, Thermometer, FileText, Users, TrendingUp, Target } from "lucide-react";
+import { Lightbulb, AlertTriangle, CheckCircle, XCircle, Euro, Clock, Truck, MapPin, Thermometer, FileText, Users, TrendingUp, Target, HelpCircle, Route, Scale } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
 import { Quiz } from "../Quiz";
 import { quizzes } from "@/data/quizData";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+
+// Interactive Decision Scenario Component
+function DecisionScenario({
+  title,
+  situation,
+  variables,
+  options,
+  correctOption,
+  explanation
+}: {
+  title: string;
+  situation: string;
+  variables: { label: string; value: string; isUnexpected?: boolean }[];
+  options: { id: string; label: string; description: string }[];
+  correctOption: string;
+  explanation: string;
+}) {
+  const [selected, setSelected] = useState<string | null>(null);
+  const [showResult, setShowResult] = useState(false);
+
+  const handleSubmit = () => {
+    if (selected) setShowResult(true);
+  };
+
+  const isCorrect = selected === correctOption;
+
+  return (
+    <div className="bg-card border border-border rounded-xl overflow-hidden">
+      <div className="bg-primary/10 p-4 border-b border-border">
+        <h3 className="font-semibold flex items-center gap-2">
+          <HelpCircle className="w-5 h-5 text-primary" />
+          {title}
+        </h3>
+      </div>
+      <div className="p-6 space-y-4">
+        <p className="text-muted-foreground">{situation}</p>
+        
+        {/* Variables/Constraints */}
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+          {variables.map((v, i) => (
+            <div 
+              key={i} 
+              className={`p-3 rounded-lg text-sm ${v.isUnexpected ? 'bg-warning/20 border border-warning/30' : 'bg-muted/50'}`}
+            >
+              <span className="text-muted-foreground">{v.label}:</span>
+              <span className={`font-medium ml-1 ${v.isUnexpected ? 'text-warning' : ''}`}>
+                {v.value}
+                {v.isUnexpected && ' ⚠️'}
+              </span>
+            </div>
+          ))}
+        </div>
+
+        {/* Options */}
+        <div className="space-y-2">
+          {options.map(opt => (
+            <button
+              key={opt.id}
+              onClick={() => !showResult && setSelected(opt.id)}
+              disabled={showResult}
+              className={`w-full text-left p-4 rounded-lg border transition-all ${
+                showResult
+                  ? opt.id === correctOption
+                    ? 'bg-success/20 border-success'
+                    : opt.id === selected
+                      ? 'bg-destructive/20 border-destructive'
+                      : 'bg-muted/30 border-border'
+                  : selected === opt.id
+                    ? 'bg-primary/20 border-primary'
+                    : 'bg-muted/30 border-border hover:border-primary/50'
+              }`}
+            >
+              <p className="font-medium">{opt.label}</p>
+              <p className="text-sm text-muted-foreground mt-1">{opt.description}</p>
+            </button>
+          ))}
+        </div>
+
+        {!showResult ? (
+          <Button onClick={handleSubmit} disabled={!selected} className="w-full">
+            Submit Decision
+          </Button>
+        ) : (
+          <div className={`p-4 rounded-lg ${isCorrect ? 'bg-success/20 border border-success/30' : 'bg-warning/20 border border-warning/30'}`}>
+            <p className="font-semibold mb-2">
+              {isCorrect ? '✓ Correct Decision!' : '✗ Not the optimal choice'}
+            </p>
+            <p className="text-sm text-muted-foreground">{explanation}</p>
+            <Button 
+              onClick={() => { setSelected(null); setShowResult(false); }} 
+              variant="outline" 
+              size="sm" 
+              className="mt-3"
+            >
+              Try Another Scenario
+            </Button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
 
 export function CaseStudiesChapter() {
   const { ct } = useChapterTranslation("case-studies");
@@ -377,6 +481,79 @@ export function CaseStudiesChapter() {
         </div>
       </section>
 
+      {/* Interactive Decision Scenarios */}
+      <section>
+        <h2 className="section-title flex items-center gap-2 mb-4">
+          <HelpCircle className="w-6 h-6 text-primary" />
+          {ct("decisionScenariosTitle") || "Decision Scenarios"}
+        </h2>
+        <p className="text-muted-foreground mb-6">
+          {ct("decisionScenariosDesc") || "Apply your knowledge to real-world logistics challenges. Consider all variables before making your decision."}
+        </p>
+
+        <div className="space-y-6">
+          <DecisionScenario
+            title={ct("decision1Title") || "Route Selection Under Pressure"}
+            situation={ct("decision1Situation") || "Client needs urgent delivery from Munich to Barcelona. You have two route options, but just received news of a major traffic jam on the main route."}
+            variables={[
+              { label: "Distance A5/A7", value: "1,450 km" },
+              { label: "Distance via Lyon", value: "1,520 km" },
+              { label: "Traffic Delay", value: "4+ hours", isUnexpected: true },
+              { label: "Deadline", value: "48h" },
+              { label: "Driver Hours Left", value: "7h today" },
+              { label: "Tunnel Fee (Fréjus)", value: "€420" },
+            ]}
+            options={[
+              { id: "a", label: "Route A: Via A5/A7 (shorter)", description: "Take the jam, save on distance and tolls" },
+              { id: "b", label: "Route B: Via Lyon/A9", description: "Longer but avoids congestion, higher tolls" },
+              { id: "c", label: "Route C: Wait until jam clears", description: "Park and wait 4-5 hours for traffic to clear" },
+            ]}
+            correctOption="b"
+            explanation={ct("decision1Explanation") || "Route B is optimal. The 70km extra costs ~€85 in fuel/tolls, but saves 4+ hours. Waiting wastes driver hours and risks deadline. Always factor in opportunity cost of delays vs. extra distance."}
+          />
+
+          <DecisionScenario
+            title={ct("decision2Title") || "Carrier Selection Dilemma"}
+            situation={ct("decision2Situation") || "You need a reefer for pharmaceutical goods (-8°C). Three carriers responded to your exchange posting."}
+            variables={[
+              { label: "Carrier A Price", value: "€1,850" },
+              { label: "Carrier B Price", value: "€1,650", isUnexpected: true },
+              { label: "Carrier C Price", value: "€1,920" },
+              { label: "Cargo Value", value: "€185,000" },
+              { label: "Carrier B Rating", value: "3.2/5 (new)", isUnexpected: true },
+              { label: "Route", value: "NL → IT" },
+            ]}
+            options={[
+              { id: "a", label: "Carrier A: €1,850", description: "4.8 rating, 5 years experience, GDP certified" },
+              { id: "b", label: "Carrier B: €1,650 (cheapest)", description: "3.2 rating, 8 months in business, basic insurance" },
+              { id: "c", label: "Carrier C: €1,920", description: "4.6 rating, pharma specialist, €500k cargo insurance" },
+            ]}
+            correctOption="c"
+            explanation={ct("decision2Explanation") || "Carrier C is the right choice. For €185k pharmaceutical cargo, the €70 premium over Carrier A buys specialist handling and higher insurance. Carrier B's low rating and limited experience are major red flags for temperature-sensitive goods."}
+          />
+
+          <DecisionScenario
+            title={ct("decision3Title") || "Port Delay Crisis"}
+            situation={ct("decision3Situation") || "Your driver arrives at Rotterdam port but the container isn't ready. Terminal says 6-hour delay. Client expects delivery tomorrow morning in Stuttgart."}
+            variables={[
+              { label: "Current Time", value: "14:00" },
+              { label: "Container Delay", value: "6 hours", isUnexpected: true },
+              { label: "Rotterdam-Stuttgart", value: "650 km / 7.5h" },
+              { label: "Driver Rest Due", value: "22:00" },
+              { label: "Delivery Deadline", value: "Tomorrow 08:00" },
+              { label: "Demurrage", value: "€150/hour after 2h" },
+            ]}
+            options={[
+              { id: "a", label: "Wait at port", description: "Driver waits, picks up at 20:00, drives overnight" },
+              { id: "b", label: "Driver rest now, pickup later", description: "Start daily rest at port, pick up early morning" },
+              { id: "c", label: "Request relay driver", description: "Second driver takes over for overnight leg" },
+            ]}
+            correctOption="b"
+            explanation={ct("decision3Explanation") || "Option B is optimal. Driver starts 11h rest at 14:00, wakes at 01:00, picks up container (ready by 20:00), and drives 7.5h to arrive Stuttgart by 08:30. This respects driving time rules and costs no extra vs. relay. Option A violates rest requirements."}
+          />
+        </div>
+      </section>
+
       {/* Summary */}
       <section className="highlight-card">
         <h2 className="section-title flex items-center gap-2 mb-4">
@@ -398,7 +575,7 @@ export function CaseStudiesChapter() {
 
       {/* Quiz */}
       {quizzes["case-studies"] && (
-        <Quiz title={ct("quizTitle")} questions={quizzes["case-studies"]} />
+        <Quiz title={ct("quizTitle")} questions={quizzes["case-studies"]} chapterId="case-studies" />
       )}
     </div>
   );
