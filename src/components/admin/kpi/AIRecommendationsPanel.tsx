@@ -62,32 +62,35 @@ const typeIcons: Record<string, React.ReactNode> = {
 export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
   const { t } = useLanguage();
   const [recommendations, setRecommendations] = useState<AIRecommendation[]>([]);
-  const [allCounts, setAllCounts] = useState({ pending: 0, applied: 0, dismissed: 0, total: 0 });
+  const [allCounts, setAllCounts] = useState({ pending: 0, applied: 0, dismissed: 0, completed: 0, total: 0 });
   const [loading, setLoading] = useState(true);
   const [analyzing, setAnalyzing] = useState(false);
   const [applying, setApplying] = useState(false);
   const [stats, setStats] = useState<AnalysisStats | null>(null);
-  const [filter, setFilter] = useState<'all' | 'pending' | 'applied' | 'dismissed'>('pending');
+  const [filter, setFilter] = useState<'all' | 'pending' | 'applied' | 'dismissed' | 'completed'>('pending');
 
   const fetchRecommendations = useCallback(async () => {
     setLoading(true);
     try {
       // Fetch counts for all statuses first
-      const [pendingRes, appliedRes, dismissedRes] = await Promise.all([
+      const [pendingRes, appliedRes, dismissedRes, completedRes] = await Promise.all([
         supabase.from('ai_recommendations').select('id', { count: 'exact', head: true }).eq('status', 'pending'),
         supabase.from('ai_recommendations').select('id', { count: 'exact', head: true }).eq('status', 'applied'),
         supabase.from('ai_recommendations').select('id', { count: 'exact', head: true }).eq('status', 'dismissed'),
+        supabase.from('ai_recommendations').select('id', { count: 'exact', head: true }).eq('status', 'completed'),
       ]);
 
       const pendingCount = pendingRes.count || 0;
       const appliedCount = appliedRes.count || 0;
       const dismissedCount = dismissedRes.count || 0;
+      const completedCount = completedRes.count || 0;
       
       setAllCounts({
         pending: pendingCount,
         applied: appliedCount,
         dismissed: dismissedCount,
-        total: pendingCount + appliedCount + dismissedCount,
+        completed: completedCount,
+        total: pendingCount + appliedCount + dismissedCount + completedCount,
       });
 
       // Fetch filtered recommendations
@@ -246,7 +249,7 @@ export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
   };
 
   // Use global counts from allCounts state
-  const { pending: pendingCount, applied: appliedCount, total: totalCount } = allCounts;
+  const { pending: pendingCount, applied: appliedCount, completed: completedCount, total: totalCount } = allCounts;
 
   return (
     <div className="space-y-6">
@@ -333,7 +336,7 @@ export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
         </div>
       )}
 
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-4 gap-4">
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-sm flex items-center gap-2">
@@ -356,6 +359,17 @@ export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
             <p className="text-2xl font-bold text-green-600">{appliedCount}</p>
           </CardContent>
         </Card>
+        <Card className="border-purple-500/30 bg-purple-500/5">
+          <CardHeader className="pb-2">
+            <CardTitle className="text-sm flex items-center gap-2">
+              <Sparkles className="h-4 w-4 text-purple-500" />
+              {t('admin.ai.implemented')}
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p className="text-2xl font-bold text-purple-600">{completedCount}</p>
+          </CardContent>
+        </Card>
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-sm flex items-center gap-2">
@@ -375,6 +389,7 @@ export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
           <TabsTrigger value="all">{t('admin.ai.allRec')}</TabsTrigger>
           <TabsTrigger value="pending">{t('admin.ai.pendingRec')}</TabsTrigger>
           <TabsTrigger value="applied">{t('admin.ai.appliedRec')}</TabsTrigger>
+          <TabsTrigger value="completed" className="text-purple-600">{t('admin.ai.implementedRec')}</TabsTrigger>
           <TabsTrigger value="dismissed">{t('admin.ai.dismissedRec')}</TabsTrigger>
         </TabsList>
       </Tabs>
@@ -412,6 +427,8 @@ export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
                         ? 'border-yellow-500/30 bg-yellow-500/5' 
                         : rec.status === 'applied'
                         ? 'border-green-500/30 bg-green-500/5'
+                        : rec.status === 'completed'
+                        ? 'border-purple-500/30 bg-purple-500/5'
                         : 'border-muted bg-muted/30'
                     }`}
                   >
@@ -485,6 +502,13 @@ export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
                         <Badge className="bg-green-500 shrink-0">
                           <CheckCircle2 className="h-3 w-3 mr-1" />
                           {t('admin.ai.appliedLabel')}
+                        </Badge>
+                      )}
+                      
+                      {rec.status === 'completed' && (
+                        <Badge className="bg-purple-500 shrink-0">
+                          <Sparkles className="h-3 w-3 mr-1" />
+                          {t('admin.ai.implementedLabel')}
                         </Badge>
                       )}
                     </div>
