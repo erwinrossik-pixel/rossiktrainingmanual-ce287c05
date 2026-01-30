@@ -38,8 +38,8 @@ export function ReeferChapter() {
       {/* Introduction */}
       <div className="info-card">
         <div className="flex items-start gap-4">
-          <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
-            <Thermometer className="w-6 h-6 text-blue-600" />
+          <div className="w-12 h-12 rounded-full bg-info/20 flex items-center justify-center flex-shrink-0">
+            <Thermometer className="w-6 h-6 text-info" />
           </div>
           <div>
             <h2 className="section-title mb-2">{ct('coldChainTitle')}</h2>
@@ -47,16 +47,16 @@ export function ReeferChapter() {
               {ct('coldChainDesc')}
             </p>
             <div className="grid md:grid-cols-3 gap-4 text-sm">
-              <div className="p-3 bg-blue-50 rounded-lg">
-                <p className="font-semibold text-blue-600">€50B+</p>
+              <div className="p-3 bg-info/10 rounded-lg">
+                <p className="font-semibold text-info">€50B+</p>
                 <p className="text-muted-foreground">{ct('euReeferMarket')}</p>
               </div>
-              <div className="p-3 bg-blue-50 rounded-lg">
-                <p className="font-semibold text-blue-600">+25-40%</p>
+              <div className="p-3 bg-info/10 rounded-lg">
+                <p className="font-semibold text-info">+25-40%</p>
                 <p className="text-muted-foreground">{ct('premiumOverStandard')}</p>
               </div>
-              <div className="p-3 bg-blue-50 rounded-lg">
-                <p className="font-semibold text-blue-600">{ct('zeroTolerance')}</p>
+              <div className="p-3 bg-info/10 rounded-lg">
+                <p className="font-semibold text-info">{ct('zeroTolerance')}</p>
                 <p className="text-muted-foreground">{ct('zeroTolerancePharma')}</p>
               </div>
             </div>
@@ -153,9 +153,9 @@ export function ReeferChapter() {
           {ct('coldChainBestPracticesTitle')}
         </h2>
         <div className="grid md:grid-cols-3 gap-4">
-          <div className="p-6 bg-blue-50 rounded-xl border border-blue-200">
-            <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mb-3">
-              <Thermometer className="w-5 h-5 text-blue-600" />
+          <div className="p-6 bg-info/10 rounded-xl border border-info/30">
+            <div className="w-10 h-10 bg-info/20 rounded-lg flex items-center justify-center mb-3">
+              <Thermometer className="w-5 h-5 text-info" />
             </div>
             <h3 className="font-semibold mb-3">{ct('preCoolingProtocol')}</h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
@@ -167,9 +167,9 @@ export function ReeferChapter() {
               <li>• {ct('preCool6')}</li>
             </ul>
           </div>
-          <div className="p-6 bg-cyan-50 rounded-xl border border-cyan-200">
-            <div className="w-10 h-10 bg-cyan-100 rounded-lg flex items-center justify-center mb-3">
-              <Truck className="w-5 h-5 text-cyan-600" />
+          <div className="p-6 bg-primary/10 rounded-xl border border-primary/30">
+            <div className="w-10 h-10 bg-primary/20 rounded-lg flex items-center justify-center mb-3">
+              <Truck className="w-5 h-5 text-primary" />
             </div>
             <h3 className="font-semibold mb-3">{ct('loadingProtocol')}</h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
@@ -181,9 +181,9 @@ export function ReeferChapter() {
               <li>• {ct('loading6')}</li>
             </ul>
           </div>
-          <div className="p-6 bg-emerald-50 rounded-xl border border-emerald-200">
-            <div className="w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center mb-3">
-              <CheckCircle className="w-5 h-5 text-emerald-600" />
+          <div className="p-6 bg-success/10 rounded-xl border border-success/30">
+            <div className="w-10 h-10 bg-success/20 rounded-lg flex items-center justify-center mb-3">
+              <CheckCircle className="w-5 h-5 text-success" />
             </div>
             <h3 className="font-semibold mb-3">{ct('temperatureMonitoring')}</h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
