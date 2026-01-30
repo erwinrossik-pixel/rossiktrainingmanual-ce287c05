@@ -2,11 +2,13 @@ import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { ChapterHero } from "../ChapterHero";
 import { MultiModalContent } from "../MultiModalContent";
+import { ChapterImage } from "../ChapterImage";
 import {
   Zap, Clock, Truck, Target, Users, Calculator,
   FileText, Shield, BarChart3, XCircle, CheckCircle, AlertTriangle
 } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
+import expressImg from "@/assets/chapters/express-delivery-fleet.jpg";
 
 export function ExpressTransportChapter() {
   const { ct } = useChapterTranslation('express-transport');
@@ -18,6 +20,15 @@ export function ExpressTransportChapter() {
         description={ct("heroDescription")}
         icon={Zap}
         variant="express-transport"
+      />
+
+      {/* Express Delivery Fleet Image */}
+      <ChapterImage
+        src={expressImg}
+        alt="Express transport delivery fleet"
+        caption={ct('expressFleetCaption') || "Flotă transport express - livrări time-sensitive"}
+        variant="inline"
+        className="mb-6"
       />
 
       {/* Introduction */}

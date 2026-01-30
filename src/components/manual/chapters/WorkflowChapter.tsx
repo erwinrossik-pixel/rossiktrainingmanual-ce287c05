@@ -2,6 +2,7 @@ import { InfoCard } from "../InfoCard";
 import { DataTable } from "../DataTable";
 import { Quiz } from "../Quiz";
 import { MultiModalContent } from "../MultiModalContent";
+import { ChapterImage } from "../ChapterImage";
 import { FlowDiagram, ProcessMap, DecisionDiagram } from "../FlowDiagram";
 import { Checklist } from "../Checklist";
 import { ChapterHero } from "../ChapterHero";
@@ -14,6 +15,7 @@ import {
   Globe, Building2, Route, TrendingUp
 } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
+import workflowImg from "@/assets/chapters/workflow-operations.jpg";
 
 export function WorkflowChapter() {
   const { ct } = useChapterTranslation("workflow");
@@ -26,6 +28,15 @@ export function WorkflowChapter() {
         description={ct("heroDescription")}
         icon={Route}
         variant="workflow"
+      />
+
+      {/* Workflow Operations Image */}
+      <ChapterImage
+        src={workflowImg}
+        alt="Freight forwarding workflow diagram"
+        caption={ct('workflowDiagramCaption') || "Flux operațional - procesarea comenzilor în expediție"}
+        variant="inline"
+        className="mb-6"
       />
 
       {/* Introduction to Workflow */}

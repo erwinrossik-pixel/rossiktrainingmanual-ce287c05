@@ -1,10 +1,12 @@
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { MultiModalContent } from "../MultiModalContent";
+import { ChapterImage } from "../ChapterImage";
 import { quizzes } from "@/data/quizData";
 import { FileText, Truck, Globe, CheckCircle, AlertTriangle, Package, Shield, Stamp } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
+import documentsImg from "@/assets/chapters/documents-cmr.jpg";
 
 export function DocumentsChapter() {
   const { ct } = useChapterTranslation('documents');
@@ -16,6 +18,15 @@ export function DocumentsChapter() {
         description={ct('heroDescription')}
         icon={FileText}
         variant="documents"
+      />
+
+      {/* CMR Documents Image */}
+      <ChapterImage
+        src={documentsImg}
+        alt="CMR consignment note and transport documents"
+        caption={ct('cmrDocumentsCaption') || "Scrisoarea de transport CMR - documentul principal în transport"}
+        variant="inline"
+        className="mb-6"
       />
 
       {/* CMR Consignment Note */}
