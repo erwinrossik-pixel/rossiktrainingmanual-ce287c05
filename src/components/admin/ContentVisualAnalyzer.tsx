@@ -14,10 +14,11 @@ import { toast } from 'sonner';
 import { 
   Eye, RefreshCw, CheckCircle, XCircle, AlertTriangle, Clock, 
   Zap, Settings, Play, Pause, BarChart3, Wrench, History,
-  FileText, Palette, Layout, Globe, Image, TrendingUp
+  FileText, Palette, Layout, Globe, Image, TrendingUp, Languages
 } from 'lucide-react';
 import { format, formatDistanceToNow } from 'date-fns';
 import { ro, de, enUS } from 'date-fns/locale';
+import TranslationOverridesDashboard from './TranslationOverridesDashboard';
 
 interface VisualAnalysis {
   id: string;
@@ -499,10 +500,14 @@ export function ContentVisualAnalyzer() {
 
       {/* Tabs */}
       <Tabs defaultValue="overview" className="w-full">
-        <TabsList className="grid w-full grid-cols-4">
+        <TabsList className="grid w-full grid-cols-5">
           <TabsTrigger value="overview" className="flex items-center gap-2">
             <BarChart3 className="h-4 w-4" />
             {tr.overview}
+          </TabsTrigger>
+          <TabsTrigger value="translations" className="flex items-center gap-2">
+            <Languages className="h-4 w-4" />
+            Traduceri
           </TabsTrigger>
           <TabsTrigger value="schedules" className="flex items-center gap-2">
             <Settings className="h-4 w-4" />
@@ -517,6 +522,11 @@ export function ContentVisualAnalyzer() {
             {tr.fixes}
           </TabsTrigger>
         </TabsList>
+
+        {/* Translation Overrides Tab */}
+        <TabsContent value="translations" className="mt-6">
+          <TranslationOverridesDashboard />
+        </TabsContent>
 
         {/* Overview Tab */}
         <TabsContent value="overview" className="mt-6">
