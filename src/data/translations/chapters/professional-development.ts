@@ -1066,6 +1066,8 @@ LECȚII PENTRU TINE:
 • Relațiile contează la fel de mult ca competențele
 • Nu aștepta permisiunea pentru a te comporta ca un lider`,
 
+    caseStudyLesson: "Lecție cheie: Succesul în carieră nu vine din noroc, ci din decizii consistente de învățare, specializare și construire a relațiilor. Investește zilnic în dezvoltarea ta și rezultatele vor veni natural.",
+
     // Checklist Anual
     checklistTitle: "Checklist Anual de Dezvoltare Profesională",
     checklistItems: `1. Am definit obiective clare pentru anul următor?
@@ -1558,7 +1560,42 @@ Erfolge:
 • Erstes internes Training gehalten (für neue Kollegen)
 • Wiederkehrendes Reklamationsproblem identifiziert und gelöst (60% Reduzierung)
 
-Wichtiger Tipp: "Ich habe mich entschieden, in etwas Spezifischem der Beste zu werden. Wenn Kollegen Fragen zu Kühlung hatten, kamen sie zu mir."`,
+Wichtiger Tipp: "Ich habe mich entschieden, in etwas Spezifischem der Beste zu werden. Wenn Kollegen Fragen zu Kühlung hatten, kamen sie zu mir."
+
+JAHR 5-6: AUFKOMMENDE FÜHRUNG
+Fokus: Übergang vom Einzelbeitragenden zum Führenden
+Erfolge:
+• Befördert zum Team Lead - Team von 5 Disponenten
+• CILT Diploma Zertifizierung erhalten
+• Teilnahme an Transport Logistic München (großes Networking)
+• Prozessverbesserungsprojekt implementiert (50.000€/Jahr Einsparung)
+
+Wichtiger Tipp: "Die Beförderung kam, weil ich bereits informeller Leader war. Ich habe nicht auf den Titel gewartet, um meinen Kollegen zu helfen."
+
+JAHR 7-8: MANAGEMENT
+Fokus: Strategische Vision und Wirkung auf Abteilungsebene
+Erfolge:
+• Befördert zum Operations Manager - verantwortlich für 25 Personen
+• P&L-Verantwortung für die Abteilung
+• Implementierung des neuen TMS geleitet (18-Monats-Projekt)
+• Redner auf der FIATA Young Leaders Konferenz
+
+Wichtiger Tipp: "Auf dieser Ebene hängt mein Erfolg zu 100% vom Erfolg des Teams ab. Ich habe aufgehört, operativ der Beste zu sein - ich bin derjenige geworden, der andere besser macht."
+
+ERFOLGSFAKTOREN:
+1. Kontinuierliches Lernen: Mindestens 3 Stunden/Woche in Entwicklung investiert
+2. Aktives Networking: Mitglied bei FIATA Young Leaders, Branchenkontakte
+3. Übernahme von Schwierigkeiten: Projekte übernommen, die andere vermieden haben
+4. Gegenseitiges Mentoring: Hatte Mentoren und hat selbst mentoriert
+5. Dokumentation: Alles Gelernte wurde systematisiert und geteilt
+
+LEKTIONEN FÜR DICH:
+• Erfolg ist kein Zufall - er ist das Ergebnis konsistenter Entscheidungen
+• Die Zeit vergeht sowieso - investiere sie in Entwicklung
+• Beziehungen zählen genauso viel wie Kompetenzen
+• Warte nicht auf Erlaubnis, dich wie ein Leader zu verhalten`,
+
+    caseStudyLesson: "Wichtige Lektion: Karriereerfolg kommt nicht durch Glück, sondern durch konsistente Entscheidungen zum Lernen, Spezialisieren und Aufbau von Beziehungen. Investiere täglich in deine Entwicklung und die Ergebnisse werden natürlich kommen.",
 
     checklistTitle: "Jährliche Checkliste für berufliche Entwicklung",
     checklistItems: `1. Habe ich klare Ziele für das kommende Jahr definiert?
@@ -2062,7 +2099,32 @@ Achievements:
 • Attended Transport Logistic Munich (major networking)
 • Implemented process improvement project (€50k/year savings)
 
-Key tip: "The promotion came because I was already an informal leader. I didn't wait for the title to help my colleagues."`,
+Key tip: "The promotion came because I was already an informal leader. I didn't wait for the title to help my colleagues."
+
+YEAR 7-8: MANAGEMENT
+Focus: Strategic vision and impact at department level
+Achievements:
+• Promoted to Operations Manager - responsible for 25 people
+• P&L responsibility for the department
+• Led new TMS implementation (18-month project)
+• Speaker at FIATA Young Leaders conference
+
+Key tip: "At this level, my success depends 100% on the team's success. I stopped being the best operationally - I became the one who makes others better."
+
+SUCCESS FACTORS:
+1. Continuous learning: At least 3 hours/week invested in development
+2. Active networking: FIATA Young Leaders member, industry connections
+3. Taking on difficulties: Took on projects others avoided
+4. Mutual mentoring: Had mentors and mentored in return
+5. Documentation: Everything learned was systematized and shared
+
+LESSONS FOR YOU:
+• Success is not an accident - it's the result of consistent decisions
+• Time passes anyway - invest it in development
+• Relationships matter as much as competencies
+• Don't wait for permission to behave like a leader`,
+
+    caseStudyLesson: "Key lesson: Career success doesn't come from luck, but from consistent decisions to learn, specialize, and build relationships. Invest daily in your development and results will come naturally.",
 
     checklistTitle: "Annual Professional Development Checklist",
     checklistItems: `1. Have I defined clear goals for the coming year?
