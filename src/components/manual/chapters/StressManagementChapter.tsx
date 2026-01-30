@@ -1,6 +1,7 @@
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { ChapterHero } from "../ChapterHero";
+import { MultiModalContent } from "../MultiModalContent";
 import {
   Brain, Zap, AlertTriangle, Clock, MessageSquare,
   Users, Heart, Shield, Phone, TrendingUp, CheckCircle
@@ -165,6 +166,9 @@ export function StressManagementChapter() {
           ))}
         </div>
       </section>
+
+      {/* Multi-Modal Content */}
+      <MultiModalContent chapterId="stress-management" />
 
       {/* Quiz */}
       <Quiz title="Quiz" chapterId="stress-management" />
