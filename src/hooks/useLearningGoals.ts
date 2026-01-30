@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
 import { toast } from 'sonner';
+import { logger } from '@/utils/logger';
 
 export interface LearningGoal {
   id: string;
@@ -36,7 +37,7 @@ export function useLearningGoals() {
       if (error) throw error;
       setGoals(data as LearningGoal[] || []);
     } catch (error) {
-      console.error('Error fetching goals:', error);
+      logger.error('Error fetching goals:', error);
     } finally {
       setLoading(false);
     }
@@ -69,7 +70,7 @@ export function useLearningGoals() {
       toast.success('Obiectiv creat cu succes!');
       return data;
     } catch (error) {
-      console.error('Error creating goal:', error);
+      logger.error('Error creating goal:', error);
       toast.error('Eroare la crearea obiectivului');
       return null;
     }
@@ -103,7 +104,7 @@ export function useLearningGoals() {
         toast.success('🎉 Obiectiv atins! Felicitări!');
       }
     } catch (error) {
-      console.error('Error updating goal:', error);
+      logger.error('Error updating goal:', error);
     }
   };
 
@@ -119,7 +120,7 @@ export function useLearningGoals() {
       setGoals(prev => prev.filter(g => g.id !== goalId));
       toast.success('Obiectiv șters');
     } catch (error) {
-      console.error('Error deleting goal:', error);
+      logger.error('Error deleting goal:', error);
       toast.error('Eroare la ștergerea obiectivului');
     }
   };
@@ -137,7 +138,7 @@ export function useLearningGoals() {
         g.id === goalId ? { ...g, status: 'abandoned' as const } : g
       ));
     } catch (error) {
-      console.error('Error abandoning goal:', error);
+      logger.error('Error abandoning goal:', error);
     }
   };
 
@@ -180,7 +181,7 @@ export function useLearningGoals() {
         }
       }
     } catch (error) {
-      console.error('Error syncing goals:', error);
+      logger.error('Error syncing goals:', error);
     }
   }, [user, goals]);
 

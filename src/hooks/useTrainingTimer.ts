@@ -97,7 +97,7 @@ export function useTrainingTimer() {
             const parsed = JSON.parse(stored);
             setTimerData(parsed);
           } catch (e) {
-            console.error('Failed to parse timer data:', e);
+            logger.error('Failed to parse timer data:', e);
           }
         }
       }
@@ -238,7 +238,7 @@ export function useTrainingTimer() {
           });
 
         if (error) {
-          console.error('Failed to sync training time:', error);
+          logger.error('Failed to sync training time:', error);
         }
       }
     }, 500);

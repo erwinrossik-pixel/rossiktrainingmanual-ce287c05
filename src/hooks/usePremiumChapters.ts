@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useSubscription, PlanType } from './useSubscription';
+import { logger } from '@/utils/logger';
 
 interface PremiumChapter {
   chapter_id: string;
@@ -33,7 +34,7 @@ export function usePremiumChapters(): UsePremiumChaptersResult {
           min_plan_type: item.min_plan_type as PlanType
         })));
       } catch (error) {
-        console.error('Error fetching premium chapters:', error);
+        logger.error('Error fetching premium chapters:', error);
       } finally {
         setLoading(false);
       }

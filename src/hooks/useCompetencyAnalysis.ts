@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { supabase } from '@/integrations/supabase/client';
+import { logger } from '@/utils/logger';
 
 export interface ChapterCompetency {
   chapterId: string;
@@ -225,7 +226,7 @@ export function useCompetencyAnalysis(userId?: string) {
         recommendations
       });
     } catch (err) {
-      console.error('Error fetching competencies:', err);
+      logger.error('Error fetching competencies:', err);
       setError('Failed to load competency data');
     } finally {
       setLoading(false);
@@ -386,7 +387,7 @@ export function useCompanyCompetencyInsights() {
         competencyDistribution: distribution
       });
     } catch (err) {
-      console.error('Error fetching company insights:', err);
+      logger.error('Error fetching company insights:', err);
     } finally {
       setLoading(false);
     }

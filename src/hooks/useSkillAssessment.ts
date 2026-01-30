@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from './useAuth';
 import { Json } from '@/integrations/supabase/types';
+import { logger } from '@/utils/logger';
 
 export interface SkillScore {
   area: string;
@@ -83,7 +84,7 @@ export function useSkillAssessment() {
       setAssessments(typedAssessments);
       setCompetencies(competencyData || []);
     } catch (error) {
-      console.error('Error fetching assessment data:', error);
+      logger.error('Error fetching assessment data:', error);
     } finally {
       setLoading(false);
     }
@@ -137,12 +138,12 @@ export function useSkillAssessment() {
             onConflict: 'user_id,competency_area'
           });
 
-        if (error) console.error('Error upserting competency:', error);
+        if (error) logger.error('Error upserting competency:', error);
       }
 
       await fetchData();
     } catch (error) {
-      console.error('Error calculating competency:', error);
+      logger.error('Error calculating competency:', error);
     }
   }, [user, fetchData]);
 
@@ -175,7 +176,7 @@ export function useSkillAssessment() {
       await fetchData();
       return data;
     } catch (error) {
-      console.error('Error saving assessment:', error);
+      logger.error('Error saving assessment:', error);
       return null;
     }
   }, [user, fetchData]);

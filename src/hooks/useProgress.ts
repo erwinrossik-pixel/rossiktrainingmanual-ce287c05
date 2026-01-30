@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import { logger } from '@/utils/logger';
 
 export interface ChapterProgress {
   completed: boolean;
@@ -42,7 +43,7 @@ export function useProgress() {
           localStorage.removeItem(STORAGE_KEY);
         }
       } catch (e) {
-        console.error('Failed to parse progress data:', e);
+        logger.error('Failed to parse progress data:', e);
         // RECOVERY: Remove corrupted data
         localStorage.removeItem(STORAGE_KEY);
       }

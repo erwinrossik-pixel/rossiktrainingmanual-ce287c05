@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from './useAuth';
 import { useToast } from './use-toast';
+import { logger } from '@/utils/logger';
 
 export interface TwoFactorStatus {
   isEnabled: boolean;
@@ -45,7 +46,7 @@ export function use2FA() {
         });
       }
     } catch (error) {
-      console.error('Error fetching 2FA status:', error);
+      logger.error('Error fetching 2FA status:', error);
     } finally {
       setLoading(false);
     }
@@ -96,7 +97,7 @@ export function use2FA() {
 
       return { secret, backupCodes };
     } catch (error) {
-      console.error('Error enabling 2FA:', error);
+      logger.error('Error enabling 2FA:', error);
       toast({
         title: 'Eroare la activare 2FA',
         variant: 'destructive'
@@ -144,7 +145,7 @@ export function use2FA() {
 
       return true;
     } catch (error) {
-      console.error('Error verifying 2FA:', error);
+      logger.error('Error verifying 2FA:', error);
       toast({
         title: 'Eroare la verificare',
         variant: 'destructive'
@@ -182,7 +183,7 @@ export function use2FA() {
 
       return true;
     } catch (error) {
-      console.error('Error disabling 2FA:', error);
+      logger.error('Error disabling 2FA:', error);
       toast({
         title: 'Eroare la dezactivare',
         variant: 'destructive'
@@ -214,7 +215,7 @@ export function use2FA() {
 
       return backupCodes;
     } catch (error) {
-      console.error('Error regenerating backup codes:', error);
+      logger.error('Error regenerating backup codes:', error);
       toast({
         title: 'Eroare la regenerare',
         variant: 'destructive'

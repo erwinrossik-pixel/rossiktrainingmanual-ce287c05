@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from './useAuth';
+import { logger } from '@/utils/logger';
 
 export interface MentorProfile {
   id: string;
@@ -87,7 +88,7 @@ export function useMentorship() {
         setMyMentorProfile(userMentor || null);
       }
     } catch (error) {
-      console.error('Error fetching mentors:', error);
+      logger.error('Error fetching mentors:', error);
     } finally {
       setLoading(false);
     }
@@ -104,7 +105,7 @@ export function useMentorship() {
 
       setMyMentorships((data || []) as Mentorship[]);
     } catch (error) {
-      console.error('Error fetching mentorships:', error);
+      logger.error('Error fetching mentorships:', error);
     }
   }, [user]);
 
@@ -130,7 +131,7 @@ export function useMentorship() {
         return true;
       }
     } catch (error) {
-      console.error('Error requesting mentor:', error);
+      logger.error('Error requesting mentor:', error);
     }
     return false;
   }, [user, fetchMyMentorships]);
@@ -154,7 +155,7 @@ export function useMentorship() {
         return true;
       }
     } catch (error) {
-      console.error('Error becoming mentor:', error);
+      logger.error('Error becoming mentor:', error);
     }
     return false;
   }, [user, fetchMentors]);
@@ -178,7 +179,7 @@ export function useMentorship() {
         return true;
       }
     } catch (error) {
-      console.error('Error updating mentorship:', error);
+      logger.error('Error updating mentorship:', error);
     }
     return false;
   }, [fetchMyMentorships]);

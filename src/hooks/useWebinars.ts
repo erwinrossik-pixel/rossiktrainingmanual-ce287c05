@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from './useAuth';
+import { logger } from '@/utils/logger';
 
 export interface Webinar {
   id: string;
@@ -75,7 +76,7 @@ export function useWebinars() {
 
       setWebinars(enrichedWebinars);
     } catch (error) {
-      console.error('Error fetching webinars:', error);
+      logger.error('Error fetching webinars:', error);
     } finally {
       setLoading(false);
     }
@@ -98,7 +99,7 @@ export function useWebinars() {
         return true;
       }
     } catch (error) {
-      console.error('Error registering:', error);
+      logger.error('Error registering:', error);
     }
     return false;
   }, [user, fetchWebinars]);
@@ -118,7 +119,7 @@ export function useWebinars() {
         return true;
       }
     } catch (error) {
-      console.error('Error unregistering:', error);
+      logger.error('Error unregistering:', error);
     }
     return false;
   }, [user, fetchWebinars]);

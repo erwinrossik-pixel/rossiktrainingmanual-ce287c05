@@ -1,6 +1,7 @@
 import { useEffect, useRef, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
+import { logger } from '@/utils/logger';
 
 const SESSION_KEY = 'analytics_session_id';
 const ACTIVITY_UPDATE_INTERVAL = 30000; // 30 seconds minimum between updates
@@ -68,7 +69,7 @@ export function useAnalytics() {
             locationData = data;
           }
         } catch (locError) {
-          console.log('Could not get location:', locError);
+          logger.debug('Could not get location:', locError);
         }
 
         await supabase.from('user_sessions').insert({
@@ -84,7 +85,7 @@ export function useAnalytics() {
       }
       sessionInitialized.current = true;
     } catch (error) {
-      console.error('Error initializing session:', error);
+      logger.error('Error initializing session:', error);
     }
   }, [user]);
 
@@ -116,7 +117,7 @@ export function useAnalytics() {
         })
         .eq('session_id', sessionId.current);
     } catch (error) {
-      console.error('Error updating session:', error);
+      logger.error('Error updating session:', error);
     }
   }, [user]);
 
@@ -130,7 +131,7 @@ export function useAnalytics() {
         .update({ duration_seconds: durationSeconds })
         .eq('id', pageViewId);
     } catch (error) {
-      console.error('Error updating page view duration:', error);
+      logger.error('Error updating page view duration:', error);
     }
   }, [user]);
 
@@ -186,7 +187,7 @@ export function useAnalytics() {
         }, DURATION_UPDATE_INTERVAL);
       }
     } catch (error) {
-      console.error('Error tracking page view:', error);
+      logger.error('Error tracking page view:', error);
     }
   }, [user, savePreviousPageDuration, updatePageViewDuration]);
 

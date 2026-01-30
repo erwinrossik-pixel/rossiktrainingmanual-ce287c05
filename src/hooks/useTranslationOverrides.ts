@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+import { logger } from '@/utils/logger';
 
 export interface TranslationOverride {
   id: string;
@@ -30,7 +31,7 @@ export const useTranslationOverrides = (chapterId?: string, language: string = '
       const { data, error } = await query;
 
       if (error) {
-        console.error('Error fetching translation overrides:', error);
+        logger.error('Error fetching translation overrides:', error);
         return [];
       }
 
@@ -75,7 +76,7 @@ export const useAllTranslationOverrides = () => {
         .order('applied_at', { ascending: false });
 
       if (error) {
-        console.error('Error fetching all translation overrides:', error);
+        logger.error('Error fetching all translation overrides:', error);
         return [];
       }
 

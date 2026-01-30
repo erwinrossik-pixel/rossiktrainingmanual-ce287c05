@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from './useAuth';
 import { Json } from '@/integrations/supabase/types';
+import { logger } from '@/utils/logger';
 
 interface CompletionPrediction {
   estimated_date: string;
@@ -79,7 +80,7 @@ export function useMLPredictions() {
 
       setPredictions(predictionsMap);
     } catch (error) {
-      console.error('Error fetching predictions:', error);
+      logger.error('Error fetching predictions:', error);
     } finally {
       setLoading(false);
     }
@@ -181,7 +182,7 @@ export function useMLPredictions() {
 
       await fetchPredictions();
     } catch (error) {
-      console.error('Error generating predictions:', error);
+      logger.error('Error generating predictions:', error);
     }
   }, [user, fetchPredictions]);
 

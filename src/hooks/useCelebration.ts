@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from './useAuth';
 import { Json } from '@/integrations/supabase/types';
+import { logger } from '@/utils/logger';
 
 export interface CelebrationEvent {
   id: string;
@@ -40,7 +41,7 @@ export function useCelebration() {
         setCurrentCelebration(typedData[0]);
       }
     } catch (error) {
-      console.error('Error fetching celebrations:', error);
+      logger.error('Error fetching celebrations:', error);
     }
   }, [user, currentCelebration]);
 
@@ -65,7 +66,7 @@ export function useCelebration() {
         return remaining;
       });
     } catch (error) {
-      console.error('Error marking celebration shown:', error);
+      logger.error('Error marking celebration shown:', error);
     }
   }, [user]);
 
@@ -100,7 +101,7 @@ export function useCelebration() {
         setPendingCelebrations(prev => [...prev, typedData]);
       }
     } catch (error) {
-      console.error('Error triggering celebration:', error);
+      logger.error('Error triggering celebration:', error);
     }
   }, [user, currentCelebration]);
 

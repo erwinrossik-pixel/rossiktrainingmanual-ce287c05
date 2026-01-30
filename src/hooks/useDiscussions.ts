@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from './useAuth';
 import { useToast } from './use-toast';
+import { logger } from '@/utils/logger';
 
 export interface Discussion {
   id: string;
@@ -97,7 +98,7 @@ export function useDiscussions(chapterId: string) {
 
       setDiscussions(enrichedDiscussions);
     } catch (error) {
-      console.error('Error fetching discussions:', error);
+      logger.error('Error fetching discussions:', error);
     } finally {
       setLoading(false);
     }
@@ -136,7 +137,7 @@ export function useDiscussions(chapterId: string) {
       });
       return data;
     } catch (error) {
-      console.error('Error adding discussion:', error);
+      logger.error('Error adding discussion:', error);
       toast({
         title: 'Eroare la adăugare',
         variant: 'destructive'
@@ -205,7 +206,7 @@ export function useDiscussions(chapterId: string) {
 
       await fetchDiscussions();
     } catch (error) {
-      console.error('Error toggling like:', error);
+      logger.error('Error toggling like:', error);
     }
   }, [user, fetchDiscussions, toast]);
 
@@ -224,7 +225,7 @@ export function useDiscussions(chapterId: string) {
       await fetchDiscussions();
       toast({ title: 'Comentariu șters' });
     } catch (error) {
-      console.error('Error deleting discussion:', error);
+      logger.error('Error deleting discussion:', error);
     }
   }, [user, fetchDiscussions, toast]);
 

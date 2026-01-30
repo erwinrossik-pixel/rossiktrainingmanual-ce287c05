@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from './useAuth';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { logger } from '@/utils/logger';
 
 export interface ChapterMedia {
   id: string;
@@ -99,7 +100,7 @@ export function useChapterMedia(chapterId: string) {
         setProgress(progressMap);
       }
     } catch (error) {
-      console.error('Error fetching chapter media:', error);
+      logger.error('Error fetching chapter media:', error);
     } finally {
       setLoading(false);
     }
@@ -141,7 +142,7 @@ export function useChapterMedia(chapterId: string) {
         }
       }));
     } catch (error) {
-      console.error('Error updating progress:', error);
+      logger.error('Error updating progress:', error);
     }
   }, [user]);
 

@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from './useAuth';
+import { logger } from '@/utils/logger';
 
 interface ChapterProgress {
   chapter_id: string;
@@ -35,7 +36,7 @@ export function useChapterProgress() {
         .eq('user_id', user.id);
 
       if (error) {
-        console.error('Error fetching progress:', error);
+        logger.error('Error fetching progress:', error);
         return {};
       }
 
@@ -130,7 +131,7 @@ export function useChapterProgress() {
       }]);
 
     if (attemptError) {
-      console.error('Error recording attempt:', attemptError);
+      logger.error('Error recording attempt:', attemptError);
       return false;
     }
 
@@ -176,13 +177,13 @@ export function useChapterProgress() {
       });
 
     if (progressError) {
-      console.error('Error updating progress:', progressError);
+      logger.error('Error updating progress:', progressError);
       return false;
     }
 
     // If locked out, don't proceed further
     if (shouldLockOut) {
-      console.log(`Chapter ${chapterId} locked out after ${MAX_CONSECUTIVE_FAILS} consecutive failures`);
+      logger.info(`Chapter ${chapterId} locked out after ${MAX_CONSECUTIVE_FAILS} consecutive failures`);
       queryClient.invalidateQueries({ queryKey: ['chapterProgress', user.id] });
       return false;
     }
@@ -276,7 +277,7 @@ export function useChapterProgress() {
       });
 
     if (progressError) {
-      console.error('Error completing intro:', progressError);
+      logger.error('Error completing intro:', progressError);
       return false;
     }
 

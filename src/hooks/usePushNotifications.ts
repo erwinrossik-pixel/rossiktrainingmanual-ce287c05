@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
 import { toast } from 'sonner';
+import { logger } from '@/utils/logger';
 
 export function usePushNotifications() {
   const { user } = useAuth();
@@ -64,7 +65,7 @@ export function usePushNotifications() {
       
       return false;
     } catch (error) {
-      console.error('Error requesting permission:', error);
+      logger.error('Error requesting permission:', error);
       toast.error('Eroare la activarea notificărilor');
       return false;
     }
@@ -102,7 +103,7 @@ export function usePushNotifications() {
       toast.success('Notificări push activate!');
       return true;
     } catch (error) {
-      console.error('Error subscribing:', error);
+      logger.error('Error subscribing:', error);
       toast.error('Eroare la activarea notificărilor');
       return false;
     }
@@ -123,7 +124,7 @@ export function usePushNotifications() {
       toast.success('Notificări dezactivate');
       return true;
     } catch (error) {
-      console.error('Error unsubscribing:', error);
+      logger.error('Error unsubscribing:', error);
       toast.error('Eroare la dezactivarea notificărilor');
       return false;
     }
@@ -140,7 +141,7 @@ export function usePushNotifications() {
         ...options,
       });
     } catch (error) {
-      console.error('Error showing notification:', error);
+      logger.error('Error showing notification:', error);
     }
   };
 
