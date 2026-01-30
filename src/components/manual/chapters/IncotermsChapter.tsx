@@ -210,13 +210,6 @@ export function IncotermsChapter() {
         variant="incoterms"
       />
 
-      {/* Incoterms Chart Image */}
-      <ChapterImage
-        src={incotermsChartImg}
-        alt="Incoterms 2020 responsibility chart"
-        variant="inline"
-        className="mb-6"
-      />
 
       {/* Introduction */}
       <div className="info-card bg-gradient-to-br from-primary/5 to-primary/10">
@@ -284,6 +277,14 @@ export function IncotermsChapter() {
             </ul>
           </div>
         </div>
+        
+        {/* Incoterms Chart Image - contextual after incoterms classification */}
+        <ChapterImage
+          src={incotermsChartImg}
+          alt="Incoterms 2020 risk and cost distribution chart"
+          variant="float-right"
+          className="mt-4"
+        />
       </div>
 
       {/* Most Common for Road Freight */}

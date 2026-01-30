@@ -22,13 +22,6 @@ export function ExpressTransportChapter() {
         variant="express-transport"
       />
 
-      {/* Express Delivery Fleet Image */}
-      <ChapterImage
-        src={expressImg}
-        alt="Express transport delivery fleet"
-        variant="inline"
-        className="mb-6"
-      />
 
       {/* Introduction */}
       <div className="info-card">
@@ -60,6 +53,14 @@ export function ExpressTransportChapter() {
           <Truck className="w-5 h-5 sm:w-6 sm:h-6 text-primary flex-shrink-0" />
           <span>{ct('section2Title')}</span>
         </h2>
+        
+        {/* Express Delivery Fleet Image - contextual before service types */}
+        <ChapterImage
+          src={expressImg}
+          alt="Express transport fleet - dedicated delivery vehicles"
+          variant="float-right"
+          className="mb-4"
+        />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
           <InfoCard title={ct('section2Title')} icon={Truck}>
             <p className="text-muted-foreground">{ct('section2Content')}</p>

@@ -20,13 +20,6 @@ export function WarehouseChapter() {
         variant="warehouse"
       />
 
-      {/* Warehouse Interior Image */}
-      <ChapterImage
-        src={warehouseInteriorImg}
-        alt="Modern Warehouse Interior"
-        variant="inline"
-        className="mb-6"
-      />
 
       {/* Introduction */}
       <div className="info-card bg-gradient-to-br from-primary/5 to-primary/10">
@@ -80,6 +73,14 @@ export function WarehouseChapter() {
           ]}
         />
       </div>
+
+      {/* Warehouse Interior Image - contextual before cross-docking */}
+      <ChapterImage
+        src={warehouseInteriorImg}
+        alt="Modern warehouse interior with organized storage systems"
+        variant="float-right"
+        className="mb-4"
+      />
 
       {/* Cross-Docking */}
       <div className="info-card">

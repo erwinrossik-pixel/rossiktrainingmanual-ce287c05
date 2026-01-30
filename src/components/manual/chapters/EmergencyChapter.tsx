@@ -181,6 +181,14 @@ export function EmergencyChapter() {
         }}
       />
 
+      {/* Emergency Response Image - contextual before process map */}
+      <ChapterImage
+        src={emergencyResponseImg}
+        alt="Emergency response team managing transport incident"
+        variant="float-right"
+        className="mb-4"
+      />
+
       {/* Emergency Response Process Map */}
       <ProcessMap
         title={ct("emergencySituationHandling")}
