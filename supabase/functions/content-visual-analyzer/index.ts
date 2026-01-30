@@ -121,20 +121,24 @@ serve(async (req) => {
 
         if (!chapter) continue;
 
-        // Create analysis record
-        const { data: analysisRecord, error: insertError } = await supabase
+        // Use UPSERT to handle existing records
+        const { data: analysisRecord, error: upsertError } = await supabase
           .from("content_visual_analysis")
-          .insert({
+          .upsert({
             chapter_id: chapterId,
             language,
             analysis_type,
             status: "analyzing",
+            updated_at: new Date().toISOString(),
+          }, {
+            onConflict: 'chapter_id,language,analysis_type',
+            ignoreDuplicates: false
           })
           .select()
           .single();
 
-        if (insertError) {
-          console.error("Error creating analysis record:", insertError);
+        if (upsertError) {
+          console.error("Error upserting analysis record:", upsertError);
           continue;
         }
 
