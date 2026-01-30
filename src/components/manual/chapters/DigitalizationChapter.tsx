@@ -2,11 +2,13 @@ import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { ChapterHero } from "../ChapterHero";
 import { MultiModalContent } from "../MultiModalContent";
+import { ChapterImage } from "../ChapterImage";
 import {
   Laptop, Brain, Cpu, BarChart3, Globe, Wifi, 
   Lock, FileText, Zap, GraduationCap, CheckCircle, AlertTriangle, Book
 } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
+import digitalizationImg from "@/assets/chapters/digitalization-control-center.jpg";
 
 export function DigitalizationChapter() {
   const { ct } = useChapterTranslation('digitalization');
@@ -18,6 +20,15 @@ export function DigitalizationChapter() {
         description={ct("heroDescription")}
         icon={Laptop}
         variant="digitalization"
+      />
+
+      {/* Digitalization Control Center Image */}
+      <ChapterImage
+        src={digitalizationImg}
+        alt="Digital logistics control center with AI"
+        caption={ct('digitalizationControlCaption') || "Centru de comandă digital cu analize AI pentru logistică"}
+        variant="inline"
+        className="mb-6"
       />
 
       {/* Introduction */}

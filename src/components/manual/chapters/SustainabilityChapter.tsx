@@ -2,11 +2,13 @@ import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { ChapterHero } from "../ChapterHero";
 import { MultiModalContent } from "../MultiModalContent";
+import { ChapterImage } from "../ChapterImage";
 import {
   Leaf, Globe, Calculator, FileText, Award,
   TrendingDown, Fuel, BarChart3, Users, Target, CheckCircle, AlertTriangle, Book
 } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
+import sustainabilityImg from "@/assets/chapters/sustainability-green-logistics.jpg";
 
 export function SustainabilityChapter() {
   const { ct } = useChapterTranslation('sustainability');
@@ -18,6 +20,15 @@ export function SustainabilityChapter() {
         description={ct("heroDescription")}
         icon={Leaf}
         variant="sustainability"
+      />
+
+      {/* Sustainability Image */}
+      <ChapterImage
+        src={sustainabilityImg}
+        alt="Green logistics - sustainable transport"
+        caption={ct('sustainabilityCaption') || "Transport sustenabil - logistică verde cu energie regenerabilă"}
+        variant="inline"
+        className="mb-6"
       />
 
       {/* Introduction */}
