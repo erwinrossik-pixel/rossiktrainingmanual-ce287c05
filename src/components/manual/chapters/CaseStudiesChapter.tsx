@@ -124,12 +124,11 @@ export function CaseStudiesChapter() {
         variant="casestudies"
       />
 
-      {/* Case Study Analysis Image - Left aligned */}
+      {/* Case Study Analysis Image */}
       <ChapterImage
         src={caseStudyImg}
         alt="Case study analysis meeting"
-        caption={ct('caseStudyCaption') || "Analiză studii de caz - rezolvarea scenariilor complexe în transport"}
-        variant="left"
+        variant="inline"
         className="mb-6"
       />
 

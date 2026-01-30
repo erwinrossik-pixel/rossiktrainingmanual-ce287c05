@@ -20,12 +20,11 @@ export function IntroChapter() {
         variant="intro"
       />
 
-      {/* European Transport Image - Full width hero */}
+      {/* European Transport Image */}
       <ChapterImage
         src={introTransportImg}
         alt="European freight transport convoy"
-        caption={ct('introTransportCaption') || "Transport rutier european - începutul călătoriei tale în logistică"}
-        variant="full"
+        variant="inline"
         className="mb-6"
       />
 

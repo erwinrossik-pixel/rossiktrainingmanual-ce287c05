@@ -22,12 +22,11 @@ export function DrivingTimeChapter() {
         variant="drivingtime"
       />
 
-      {/* Tachograph Image - Left aligned */}
+      {/* Tachograph Image */}
       <ChapterImage
         src={tachographImg}
         alt="Digital tachograph device"
-        caption={ct('tachographCaption') || "Tahograf digital pentru înregistrarea timpului de conducere"}
-        variant="left"
+        variant="inline"
         className="mb-6"
       />
 

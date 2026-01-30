@@ -86,7 +86,6 @@ export function RedFlagsChapter() {
       <ChapterImage
         src={redFlagsImg}
         alt="Fraud investigation and document verification"
-        caption={ct('investigationCaption') || "Prevenirea fraudei - verificarea documentelor și partenerilor"}
         variant="inline"
         className="mb-6"
       />

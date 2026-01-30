@@ -21,12 +21,11 @@ export function NegotiationChapter() {
         variant="negotiation"
       />
 
-      {/* Negotiation Image - Right aligned */}
+      {/* Negotiation Image */}
       <ChapterImage
         src={negotiationHandshakeImg}
         alt="Professional Business Negotiation"
-        caption={ct('negotiationImageCaption') || "Negociere profesională în domeniul logistic"}
-        variant="right"
+        variant="inline"
         className="mb-6"
       />
 

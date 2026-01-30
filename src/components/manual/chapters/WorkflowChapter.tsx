@@ -30,12 +30,11 @@ export function WorkflowChapter() {
         variant="workflow"
       />
 
-      {/* Workflow Operations Image - Full width */}
+      {/* Workflow Operations Image */}
       <ChapterImage
         src={workflowImg}
         alt="Freight forwarding workflow diagram"
-        caption={ct('workflowDiagramCaption') || "Flux operațional - procesarea comenzilor în expediție"}
-        variant="full"
+        variant="inline"
         className="mb-6"
       />
 

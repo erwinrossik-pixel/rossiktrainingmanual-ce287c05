@@ -21,12 +21,11 @@ export function PaymentChapter() {
         variant="payment"
       />
 
-      {/* Payment Transaction Image - Left aligned */}
+      {/* Payment Transaction Image */}
       <ChapterImage
         src={paymentImg}
         alt="Payment and credit management"
-        caption={ct('paymentCaption') || "Managementul plăților - termeni de plată și credit în transport"}
-        variant="left"
+        variant="inline"
         className="mb-6"
       />
 

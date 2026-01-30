@@ -110,7 +110,6 @@ export function TrainingChapter() {
       <ChapterImage
         src={trainingSessionImg}
         alt="Professional logistics training session"
-        caption={ct('trainingCaption') || "Sesiune de training profesional în transport și logistică"}
         variant="inline"
         className="mb-6"
       />
