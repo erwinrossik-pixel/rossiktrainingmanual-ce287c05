@@ -923,6 +923,144 @@ export function LicensesOversizeChapter() {
         </div>
       </section>
 
+      {/* AI Recommendation: Visual Infographic - Dimension/Weight Limits Cheat Sheet */}
+      <section className="content-section">
+        <div className="info-card bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-950/20 dark:to-orange-950/20 border-2 border-amber-200 dark:border-amber-800">
+          <h2 className="section-title flex items-center gap-3 text-amber-800 dark:text-amber-200">
+            <Ruler className="w-7 h-7" />
+            {ct('dimensionCheatSheetTitle') || 'Quick Reference: Dimension & Weight Limits'}
+          </h2>
+          <p className="text-muted-foreground mb-6">{ct('dimensionCheatSheetSubtitle') || 'Visual guide for standard vs. oversize thresholds - memorize these key numbers!'}</p>
+
+          {/* Visual Dimension Cards */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+            {/* Length */}
+            <div className="bg-background rounded-xl p-4 border-2 border-info/30 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-16 h-16 bg-info/10 rounded-bl-full" />
+              <div className="flex items-center gap-2 mb-2">
+                <ArrowRight className="w-5 h-5 text-info rotate-0" />
+                <span className="font-semibold text-info">{ct('lengthLabel') || 'LENGTH'}</span>
+              </div>
+              <div className="text-3xl font-bold text-info mb-1">16.5m</div>
+              <p className="text-xs text-muted-foreground">{ct('standardMaxLength') || 'Standard max (truck+trailer)'}</p>
+              <div className="mt-3 pt-3 border-t border-dashed">
+                <p className="text-xs font-medium text-destructive">{ct('oversizeAbove') || 'OVERSIZE:'} &gt; 16.5m</p>
+                <p className="text-xs text-muted-foreground">{ct('requiresPermitEscort') || 'Requires permit + pilot car'}</p>
+              </div>
+            </div>
+
+            {/* Width */}
+            <div className="bg-background rounded-xl p-4 border-2 border-warning/30 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-16 h-16 bg-warning/10 rounded-bl-full" />
+              <div className="flex items-center gap-2 mb-2">
+                <ArrowRight className="w-5 h-5 text-warning rotate-90" />
+                <span className="font-semibold text-warning">{ct('widthLabel') || 'WIDTH'}</span>
+              </div>
+              <div className="text-3xl font-bold text-warning mb-1">2.55m</div>
+              <p className="text-xs text-muted-foreground">{ct('standardMaxWidth') || 'Standard max (2.60m reefer)'}</p>
+              <div className="mt-3 pt-3 border-t border-dashed">
+                <p className="text-xs font-medium text-destructive">{ct('oversizeAbove') || 'OVERSIZE:'} &gt; 2.55m</p>
+                <p className="text-xs text-muted-foreground">{ct('restrictedHoursEscort') || 'Restricted hours + escort'}</p>
+              </div>
+            </div>
+
+            {/* Height */}
+            <div className="bg-background rounded-xl p-4 border-2 border-primary/30 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-16 h-16 bg-primary/10 rounded-bl-full" />
+              <div className="flex items-center gap-2 mb-2">
+                <ArrowRight className="w-5 h-5 text-primary -rotate-90" />
+                <span className="font-semibold text-primary">{ct('heightLabel') || 'HEIGHT'}</span>
+              </div>
+              <div className="text-3xl font-bold text-primary mb-1">4.00m</div>
+              <p className="text-xs text-muted-foreground">{ct('standardMaxHeight') || 'Standard max (4.30m some countries)'}</p>
+              <div className="mt-3 pt-3 border-t border-dashed">
+                <p className="text-xs font-medium text-destructive">{ct('oversizeAbove') || 'OVERSIZE:'} &gt; 4.00m</p>
+                <p className="text-xs text-muted-foreground">{ct('routeStudyBridges') || 'Route study + bridge verification'}</p>
+              </div>
+            </div>
+
+            {/* Weight */}
+            <div className="bg-background rounded-xl p-4 border-2 border-success/30 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-16 h-16 bg-success/10 rounded-bl-full" />
+              <div className="flex items-center gap-2 mb-2">
+                <Weight className="w-5 h-5 text-success" />
+                <span className="font-semibold text-success">{ct('weightLabel') || 'WEIGHT'}</span>
+              </div>
+              <div className="text-3xl font-bold text-success mb-1">40t</div>
+              <p className="text-xs text-muted-foreground">{ct('standardMaxWeight') || 'Standard GVW (44t some routes)'}</p>
+              <div className="mt-3 pt-3 border-t border-dashed">
+                <p className="text-xs font-medium text-destructive">{ct('oversizeAbove') || 'OVERSIZE:'} &gt; 40t</p>
+                <p className="text-xs text-muted-foreground">{ct('specialPlatformAxles') || 'Special platform + multi-axle'}</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Quick Decision Matrix */}
+          <div className="bg-background rounded-xl p-4 border">
+            <h3 className="font-semibold mb-3 flex items-center gap-2">
+              <Target className="w-5 h-5 text-primary" />
+              {ct('quickDecisionMatrix') || 'Quick Decision: Do I Need a Special Permit?'}
+            </h3>
+            <div className="grid md:grid-cols-3 gap-4">
+              <div className="p-3 bg-success/10 rounded-lg border border-success/20">
+                <p className="font-medium text-success mb-2">{ct('standardTransport') || '✓ STANDARD TRANSPORT'}</p>
+                <ul className="text-xs space-y-1 text-muted-foreground">
+                  <li>• L ≤ 16.5m</li>
+                  <li>• W ≤ 2.55m</li>
+                  <li>• H ≤ 4.00m</li>
+                  <li>• Weight ≤ 40t</li>
+                </ul>
+                <p className="text-xs font-medium text-success mt-2">{ct('noPermitNeeded') || 'No special permit needed'}</p>
+              </div>
+              <div className="p-3 bg-warning/10 rounded-lg border border-warning/20">
+                <p className="font-medium text-warning mb-2">{ct('categoryI') || '⚠ CATEGORY I (Light)'}</p>
+                <ul className="text-xs space-y-1 text-muted-foreground">
+                  <li>• L up to 22m</li>
+                  <li>• W up to 3.0m</li>
+                  <li>• Weight 40-60t</li>
+                </ul>
+                <p className="text-xs font-medium text-warning mt-2">{ct('permitRequired') || 'Permit required, 1-2 weeks'}</p>
+              </div>
+              <div className="p-3 bg-destructive/10 rounded-lg border border-destructive/20">
+                <p className="font-medium text-destructive mb-2">{ct('categoryIIIII') || '⛔ CATEGORY II-III (Heavy)'}</p>
+                <ul className="text-xs space-y-1 text-muted-foreground">
+                  <li>• L &gt; 22m / W &gt; 3m</li>
+                  <li>• H &gt; 4.5m</li>
+                  <li>• Weight &gt; 60t</li>
+                </ul>
+                <p className="text-xs font-medium text-destructive mt-2">{ct('fullProcessEscort') || 'Full process + escort + police'}</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Axle Weight Reference */}
+          <div className="mt-4 p-4 bg-muted/30 rounded-lg">
+            <h4 className="font-semibold text-sm mb-2 flex items-center gap-2">
+              <Calculator className="w-4 h-4 text-primary" />
+              {ct('axleWeightReference') || 'Axle Weight Reference'}
+            </h4>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-center">
+              <div className="bg-background p-2 rounded">
+                <p className="text-lg font-bold text-primary">10t</p>
+                <p className="text-xs text-muted-foreground">{ct('singleAxle') || 'Single axle'}</p>
+              </div>
+              <div className="bg-background p-2 rounded">
+                <p className="text-lg font-bold text-primary">11.5t</p>
+                <p className="text-xs text-muted-foreground">{ct('driveAxle') || 'Drive axle'}</p>
+              </div>
+              <div className="bg-background p-2 rounded">
+                <p className="text-lg font-bold text-primary">18t</p>
+                <p className="text-xs text-muted-foreground">{ct('tandemAxle') || 'Tandem axle'}</p>
+              </div>
+              <div className="bg-background p-2 rounded">
+                <p className="text-lg font-bold text-primary">24t</p>
+                <p className="text-xs text-muted-foreground">{ct('tripleAxle') || 'Triple axle'}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Quiz Section */}
       {quizzes["licenses-oversize"] && (
         <section className="content-section">
