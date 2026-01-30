@@ -470,6 +470,110 @@ export function ComplianceChapter() {
         </div>
       </div>
 
+      {/* Due Diligence Section - AI Recommendation Implementation */}
+      <div className="info-card bg-gradient-to-br from-warning/5 to-warning/10 border-warning/30">
+        <h2 className="section-title flex items-center gap-3">
+          <Eye className="w-6 h-6 text-warning" />
+          {ct('dueDiligenceTitle')}
+        </h2>
+        
+        <p className="text-muted-foreground mb-6">
+          {ct('dueDiligenceIntro')}
+        </p>
+
+        <div className="grid md:grid-cols-2 gap-6">
+          {/* Sanctioned Goods */}
+          <div className="bg-background p-4 rounded-lg border border-border">
+            <h3 className="font-semibold mb-3 flex items-center gap-2">
+              <AlertTriangle className="w-5 h-5 text-warning" />
+              {ct('sanctionedGoodsTitle')}
+            </h3>
+            <p className="text-sm text-muted-foreground">
+              {ct('sanctionedGoodsDesc')}
+            </p>
+          </div>
+
+          {/* Due Diligence Checklist */}
+          <div className="bg-background p-4 rounded-lg border border-border">
+            <h3 className="font-semibold mb-3 flex items-center gap-2">
+              <CheckCircle2 className="w-5 h-5 text-success" />
+              {ct('dueDiligenceChecklist')}
+            </h3>
+            <ul className="space-y-2 text-sm">
+              <li className="flex items-start gap-2">
+                <CheckCircle2 className="w-4 h-4 text-success mt-0.5 flex-shrink-0" />
+                <span>{ct('ddCheck1')}</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <CheckCircle2 className="w-4 h-4 text-success mt-0.5 flex-shrink-0" />
+                <span>{ct('ddCheck2')}</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <CheckCircle2 className="w-4 h-4 text-success mt-0.5 flex-shrink-0" />
+                <span>{ct('ddCheck3')}</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <CheckCircle2 className="w-4 h-4 text-success mt-0.5 flex-shrink-0" />
+                <span>{ct('ddCheck4')}</span>
+              </li>
+              <li className="flex items-start gap-2">
+                <CheckCircle2 className="w-4 h-4 text-success mt-0.5 flex-shrink-0" />
+                <span>{ct('ddCheck5')}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Red Flags */}
+        <div className="mt-6 p-4 bg-destructive/10 border border-destructive/30 rounded-lg">
+          <h3 className="font-semibold mb-3 flex items-center gap-2 text-destructive">
+            <XCircle className="w-5 h-5" />
+            {ct('redFlagsDD')}
+          </h3>
+          <div className="grid md:grid-cols-2 gap-3 text-sm">
+            <div className="flex items-start gap-2">
+              <XCircle className="w-4 h-4 text-destructive mt-0.5 flex-shrink-0" />
+              <span>{ct('ddRedFlag1')}</span>
+            </div>
+            <div className="flex items-start gap-2">
+              <XCircle className="w-4 h-4 text-destructive mt-0.5 flex-shrink-0" />
+              <span>{ct('ddRedFlag2')}</span>
+            </div>
+            <div className="flex items-start gap-2">
+              <XCircle className="w-4 h-4 text-destructive mt-0.5 flex-shrink-0" />
+              <span>{ct('ddRedFlag3')}</span>
+            </div>
+            <div className="flex items-start gap-2">
+              <XCircle className="w-4 h-4 text-destructive mt-0.5 flex-shrink-0" />
+              <span>{ct('ddRedFlag4')}</span>
+            </div>
+            <div className="flex items-start gap-2 md:col-span-2">
+              <XCircle className="w-4 h-4 text-destructive mt-0.5 flex-shrink-0" />
+              <span>{ct('ddRedFlag5')}</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Resources */}
+        <div className="mt-6">
+          <h3 className="font-semibold mb-3">{ct('complianceResourcesTitle')}</h3>
+          <div className="flex flex-wrap gap-3">
+            <a href="https://www.sanctionsmap.eu" target="_blank" rel="noopener noreferrer" 
+               className="px-4 py-2 bg-primary/10 hover:bg-primary/20 rounded-lg text-sm transition-colors">
+              🌍 {ct('euSanctionsMap')}
+            </a>
+            <a href="https://trade.ec.europa.eu" target="_blank" rel="noopener noreferrer"
+               className="px-4 py-2 bg-primary/10 hover:bg-primary/20 rounded-lg text-sm transition-colors">
+              📋 {ct('tradeLicensePortal')}
+            </a>
+            <a href="https://trade.ec.europa.eu/access-to-markets/en/content/dual-use-items" target="_blank" rel="noopener noreferrer"
+               className="px-4 py-2 bg-primary/10 hover:bg-primary/20 rounded-lg text-sm transition-colors">
+              🔍 {ct('dualUseDatabase')}
+            </a>
+          </div>
+        </div>
+      </div>
+
       {/* Multi-Modal Content */}
       <MultiModalContent chapterId="compliance" />
 
