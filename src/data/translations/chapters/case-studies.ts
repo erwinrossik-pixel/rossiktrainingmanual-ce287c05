@@ -269,6 +269,19 @@ export const caseStudiesTranslations: Record<string, Record<string, string>> = {
     // Quiz prompt
     quizTitle: "Case Studies Quiz",
     quizDesc: "Test your understanding of the lessons learned from these real-world scenarios.",
+    
+    // Decision Scenarios (AI Recommendation Implementation)
+    decisionScenariosTitle: "Decision Scenarios",
+    decisionScenariosDesc: "Apply your knowledge to real-world logistics challenges. Consider all variables before making your decision.",
+    decision1Title: "Route Selection Under Pressure",
+    decision1Situation: "Client needs urgent delivery from Munich to Barcelona. You have two route options, but just received news of a major traffic jam on the main route.",
+    decision1Explanation: "Route B is optimal. The 70km extra costs ~€85 in fuel/tolls, but saves 4+ hours. Waiting wastes driver hours and risks deadline. Always factor in opportunity cost of delays vs. extra distance.",
+    decision2Title: "Carrier Selection Dilemma",
+    decision2Situation: "You need a reefer for pharmaceutical goods (-8°C). Three carriers responded to your exchange posting.",
+    decision2Explanation: "Carrier C is the right choice. For €185k pharmaceutical cargo, the €70 premium over Carrier A buys specialist handling and higher insurance. Carrier B's low rating and limited experience are major red flags for temperature-sensitive goods.",
+    decision3Title: "Port Delay Crisis",
+    decision3Situation: "Your driver arrives at Rotterdam port but the container isn't ready. Terminal says 6-hour delay. Client expects delivery tomorrow morning in Stuttgart.",
+    decision3Explanation: "Option B is optimal. Driver starts 11h rest at 14:00, wakes at 01:00, picks up container (ready by 20:00), and drives 7.5h to arrive Stuttgart by 08:30. This respects driving time rules and costs no extra vs. relay. Option A violates rest requirements.",
   },
   ro: {
     chapterNumber: "Capitolul 39",
@@ -540,6 +553,19 @@ export const caseStudiesTranslations: Record<string, Record<string, string>> = {
     // Quiz prompt
     quizTitle: "Quiz Studii de Caz",
     quizDesc: "Testati-va intelegerea lectiilor invatate din aceste scenarii din lumea reala.",
+    
+    // Decision Scenarios (AI Recommendation Implementation)
+    decisionScenariosTitle: "Scenarii de Decizie",
+    decisionScenariosDesc: "Aplicați cunoștințele la provocări logistice reale. Luați în considerare toate variabilele înainte de a lua o decizie.",
+    decision1Title: "Selectarea Rutei Sub Presiune",
+    decision1Situation: "Clientul are nevoie de livrare urgentă de la München la Barcelona. Aveți două opțiuni de rută, dar tocmai ați aflat de un blocaj major pe ruta principală.",
+    decision1Explanation: "Ruta B este optimă. Cei 70km extra costă ~€85 în combustibil/taxe, dar economisesc 4+ ore. Așteptarea irosește orele șoferului și pune în pericol termenul limită.",
+    decision2Title: "Dilema Selectării Transportatorului",
+    decision2Situation: "Aveți nevoie de un frigorific pentru mărfuri farmaceutice (-8°C). Trei transportatori au răspuns la anunțul dvs. pe bursă.",
+    decision2Explanation: "Transportatorul C este alegerea corectă. Pentru marfă farmaceutică de €185k, prima de €70 față de Transportatorul A cumpără manipulare specializată și asigurare mai mare.",
+    decision3Title: "Criză de Întârziere în Port",
+    decision3Situation: "Șoferul dvs. ajunge în portul Rotterdam dar containerul nu este gata. Terminalul anunță o întârziere de 6 ore. Clientul așteaptă livrarea mâine dimineață în Stuttgart.",
+    decision3Explanation: "Opțiunea B este optimă. Șoferul începe odihna de 11h la 14:00, se trezește la 01:00, ridică containerul (gata până la 20:00) și conduce 7.5h pentru a ajunge în Stuttgart la 08:30.",
   },
   de: {
     chapterNumber: "Kapitel 39",
@@ -811,5 +837,18 @@ export const caseStudiesTranslations: Record<string, Record<string, string>> = {
     // Quiz prompt
     quizTitle: "Fallstudien-Quiz",
     quizDesc: "Testen Sie Ihr Verstandnis der Lektionen aus diesen realen Szenarien.",
+    
+    // Decision Scenarios (AI Recommendation Implementation)
+    decisionScenariosTitle: "Entscheidungsszenarien",
+    decisionScenariosDesc: "Wenden Sie Ihr Wissen auf reale Logistik-Herausforderungen an. Berücksichtigen Sie alle Variablen, bevor Sie Ihre Entscheidung treffen.",
+    decision1Title: "Routenwahl unter Druck",
+    decision1Situation: "Der Kunde benötigt eine dringende Lieferung von München nach Barcelona. Sie haben zwei Routenoptionen, aber gerade wurde ein großer Stau auf der Hauptroute gemeldet.",
+    decision1Explanation: "Route B ist optimal. Die zusätzlichen 70km kosten ~€85 an Kraftstoff/Maut, sparen aber 4+ Stunden. Warten verschwendet Fahrerzeit und gefährdet die Frist.",
+    decision2Title: "Spediteurauswahl-Dilemma",
+    decision2Situation: "Sie benötigen einen Kühlwagen für pharmazeutische Güter (-8°C). Drei Spediteure haben auf Ihre Börsenanfrage geantwortet.",
+    decision2Explanation: "Spediteur C ist die richtige Wahl. Für €185k Pharma-Fracht kauft der €70-Aufschlag gegenüber Spediteur A spezialisierte Handhabung und höhere Versicherung.",
+    decision3Title: "Hafenverzögerungskrise",
+    decision3Situation: "Ihr Fahrer kommt im Hafen Rotterdam an, aber der Container ist nicht bereit. Das Terminal meldet eine 6-stündige Verzögerung. Der Kunde erwartet die Lieferung morgen früh in Stuttgart.",
+    decision3Explanation: "Option B ist optimal. Der Fahrer beginnt die 11h-Ruhezeit um 14:00, wacht um 01:00 auf, holt den Container ab (um 20:00 bereit) und fährt 7,5h, um um 08:30 in Stuttgart anzukommen.",
   },
 };
