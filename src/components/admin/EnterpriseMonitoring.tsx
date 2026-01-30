@@ -109,10 +109,10 @@ export function EnterpriseMonitoring() {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'healthy': return 'bg-green-500';
-      case 'degraded': return 'bg-yellow-500';
-      case 'down': return 'bg-red-500';
-      default: return 'bg-gray-500';
+      case 'healthy': return 'bg-success';
+      case 'degraded': return 'bg-warning';
+      case 'down': return 'bg-destructive';
+      default: return 'bg-muted';
     }
   };
 

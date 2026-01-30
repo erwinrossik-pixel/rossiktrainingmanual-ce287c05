@@ -183,7 +183,7 @@ export const AdminTabsList = memo(function AdminTabsList({
         {t('admin.tab.contentQuality')}
       </TabsTrigger>
       
-      <TabsTrigger value="governance" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-slate-700 data-[state=active]:border-b-2 data-[state=active]:border-slate-500">
+      <TabsTrigger value="governance" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-foreground data-[state=active]:border-b-2 data-[state=active]:border-muted-foreground">
         <Shield className="h-4 w-4" />
         {t('admin.tab.governance')}
       </TabsTrigger>
@@ -217,12 +217,12 @@ export const AdminTabsList = memo(function AdminTabsList({
           CATEGORIA 6: SISTEM & ENTERPRISE
       ═══════════════════════════════════════════════════════════════════ */}
       <div className="w-full flex items-center gap-2 py-1 px-2 mb-1 mt-2">
-        <Badge variant="outline" className="bg-gray-100 text-gray-800 border-gray-300 text-xs font-bold">
+        <Badge variant="outline" className="bg-muted text-muted-foreground border-border text-xs font-bold">
           {t('admin.category.system')}
         </Badge>
-        <div className="flex-1 h-px bg-gray-200"></div>
+        <div className="flex-1 h-px bg-border"></div>
       </div>
-      <TabsTrigger value="cron-jobs" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-gray-700 data-[state=active]:border-b-2 data-[state=active]:border-gray-500">
+      <TabsTrigger value="cron-jobs" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-foreground data-[state=active]:border-b-2 data-[state=active]:border-muted-foreground">
         <Calendar className="h-4 w-4" />
         {t('admin.tab.cronJobs')}
       </TabsTrigger>

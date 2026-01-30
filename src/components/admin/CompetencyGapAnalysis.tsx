@@ -38,11 +38,11 @@ export function CompetencyGapAnalysis() {
 
   const getStatusColor = (status: ChapterCompetency['status']) => {
     switch (status) {
-      case 'mastered': return 'bg-green-500';
-      case 'proficient': return 'bg-blue-500';
-      case 'developing': return 'bg-amber-500';
-      case 'needs_work': return 'bg-red-500';
-      default: return 'bg-gray-300';
+      case 'mastered': return 'bg-success';
+      case 'proficient': return 'bg-info';
+      case 'developing': return 'bg-warning';
+      case 'needs_work': return 'bg-destructive';
+      default: return 'bg-muted';
     }
   };
 
@@ -58,18 +58,18 @@ export function CompetencyGapAnalysis() {
 
   const getTrendIcon = (trend: ChapterCompetency['trend']) => {
     switch (trend) {
-      case 'improving': return <TrendingUp className="h-4 w-4 text-green-500" />;
-      case 'declining': return <TrendingDown className="h-4 w-4 text-red-500" />;
-      case 'stable': return <Minus className="h-4 w-4 text-gray-500" />;
+      case 'improving': return <TrendingUp className="h-4 w-4 text-success" />;
+      case 'declining': return <TrendingDown className="h-4 w-4 text-destructive" />;
+      case 'stable': return <Minus className="h-4 w-4 text-muted-foreground" />;
       default: return null;
     }
   };
 
   const getScoreColor = (score: number) => {
-    if (score >= 90) return 'text-green-600 bg-green-100';
-    if (score >= 70) return 'text-blue-600 bg-blue-100';
-    if (score >= 50) return 'text-amber-600 bg-amber-100';
-    return 'text-red-600 bg-red-100';
+    if (score >= 90) return 'text-success bg-success/10';
+    if (score >= 70) return 'text-info bg-info/10';
+    if (score >= 50) return 'text-warning bg-warning/10';
+    return 'text-destructive bg-destructive/10';
   };
 
   if (loading) {
@@ -206,9 +206,9 @@ export function CompetencyGapAnalysis() {
                   >
                     <div className="flex items-center gap-4">
                       <div className={`w-12 h-12 rounded-full flex items-center justify-center text-white font-bold ${
-                        user.overallScore >= 70 ? 'bg-green-500' : 
-                        user.overallScore >= 50 ? 'bg-amber-500' : 
-                        user.overallScore > 0 ? 'bg-red-500' : 'bg-gray-400'
+                        user.overallScore >= 70 ? 'bg-success' : 
+                        user.overallScore >= 50 ? 'bg-warning' : 
+                        user.overallScore > 0 ? 'bg-destructive' : 'bg-muted'
                       }`}>
                         {user.overallScore}%
                       </div>
