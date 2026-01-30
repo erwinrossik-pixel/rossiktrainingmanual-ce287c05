@@ -2,6 +2,7 @@ import { DataTable } from "../DataTable";
 import { InfoCard } from "../InfoCard";
 import { Checklist } from "../Checklist";
 import { Quiz } from "../Quiz";
+import { MultiModalContent } from "../MultiModalContent";
 import { quizzes } from "@/data/quizData";
 import { Users, Shield, FileCheck, AlertTriangle, CheckCircle2, Star, Handshake, Scale, TrendingUp, Clock, Euro, Phone, BadgeCheck } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
@@ -511,6 +512,9 @@ export function CarrierManagementChapter() {
           </p>
         </div>
       </div>
+
+      {/* Multi-Modal Content */}
+      <MultiModalContent chapterId="carrier-management" />
 
       {/* Quiz */}
       {quizzes["carrier-management"] && (

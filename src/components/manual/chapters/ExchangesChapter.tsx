@@ -1,6 +1,7 @@
 import { DataTable } from "../DataTable";
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
+import { MultiModalContent } from "../MultiModalContent";
 import { quizzes } from "@/data/quizData";
 import { Globe, Shield, MessageSquare, Search, Star, CreditCard } from "lucide-react";
 import { Badge } from "../Badge";
@@ -174,6 +175,9 @@ export function ExchangesChapter() {
           </ul>
         </div>
       </div>
+
+      {/* Multi-Modal Content */}
+      <MultiModalContent chapterId="exchanges" />
 
       {/* Quiz */}
       <Quiz title={`🎯 ${ct("knowledgeCheck")}`} questions={quizzes.exchanges} chapterId="exchanges" />
