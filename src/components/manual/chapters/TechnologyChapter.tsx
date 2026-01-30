@@ -20,13 +20,6 @@ export function TechnologyChapter() {
         variant="technology"
       />
 
-      {/* Technology Control Room Image */}
-      <ChapterImage
-        src={technologyControlRoomImg}
-        alt="Modern Logistics Control Room"
-        variant="inline"
-        className="mb-6"
-      />
 
       {/* Introduction */}
       <div className="info-card bg-gradient-to-br from-primary/5 to-primary/10">
@@ -84,6 +77,14 @@ export function TechnologyChapter() {
             [ct("reporting"), "KPIs, analytics, dashboards", "Data-driven decisions"],
             [ct("integration"), "EDI, API connections, carrier systems", "Automated data exchange"],
           ]}
+        />
+        
+        {/* Technology Control Room Image - contextual after TMS modules table */}
+        <ChapterImage
+          src={technologyControlRoomImg}
+          alt="Modern logistics technology control room with multiple displays"
+          variant="float-right"
+          className="mt-4"
         />
 
         <div className="grid md:grid-cols-2 gap-4 mt-6">

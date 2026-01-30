@@ -20,13 +20,6 @@ export function FleetChapter() {
         variant="fleet"
       />
 
-      {/* Fleet Dashboard Image */}
-      <ChapterImage
-        src={fleetDashboardImg}
-        alt="Fleet management control center dashboard"
-        variant="inline"
-        className="mb-6"
-      />
 
       {/* TMS Dispoplan Integration */}
       <section>
@@ -70,6 +63,14 @@ export function FleetChapter() {
             ["Solo-LKW 12t", "7.2m x 2.45m x 2.40m", "5-6t", "15-18 EUR"],
             ["Sprinter 3.5t", "4.2m x 1.8m x 1.9m", "1-1.2t", "6-8 EUR"],
           ]}
+        />
+        
+        {/* Fleet Dashboard Image - contextual after vehicle data */}
+        <ChapterImage
+          src={fleetDashboardImg}
+          alt="Fleet management control center dashboard with real-time tracking"
+          variant="float-right"
+          className="mt-4"
         />
       </section>
 

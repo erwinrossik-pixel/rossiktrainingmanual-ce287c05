@@ -21,13 +21,6 @@ export function ChecklistsChapter() {
         variant="checklists"
       />
 
-      {/* Checklist Verification Image */}
-      <ChapterImage
-        src={checklistImg}
-        alt="Dispatcher using checklist at warehouse"
-        variant="inline"
-        className="mb-6"
-      />
 
       {/* Pre-Trip & Loading Checklists */}
       <div className="grid md:grid-cols-2 gap-6">
@@ -79,6 +72,14 @@ export function ChecklistsChapter() {
               ct("loading12"),
               ct("loading13"),
             ]}
+          />
+          
+          {/* Checklist Verification Image - contextual after loading checklist */}
+          <ChapterImage
+            src={checklistImg}
+            alt="Dispatcher verifying transport checklist at warehouse"
+            variant="float-right"
+            className="mt-4"
           />
         </div>
       </div>

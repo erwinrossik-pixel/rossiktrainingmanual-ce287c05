@@ -21,13 +21,6 @@ export function PricingChapter() {
         variant="pricing"
       />
 
-      {/* Pricing Calculation Image */}
-      <ChapterImage
-        src={pricingImg}
-        alt="Freight rate calculation spreadsheet"
-        variant="inline"
-        className="mb-6"
-      />
 
       {/* Main Formula - Enhanced */}
       <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary to-rossik-dark p-8 text-primary-foreground">
@@ -85,6 +78,14 @@ export function PricingChapter() {
           <p className="text-xs text-muted-foreground">{ct("monitorWeekly")}</p>
         </InfoCard>
       </div>
+      
+      {/* Pricing Calculation Image - contextual after key rates */}
+      <ChapterImage
+        src={pricingImg}
+        alt="Freight rate calculation spreadsheet with cost breakdown"
+        variant="float-right"
+        className="mt-4"
+      />
 
       {/* Cost Components Breakdown */}
       <div className="info-card">

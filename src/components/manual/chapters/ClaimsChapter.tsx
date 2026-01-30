@@ -20,13 +20,6 @@ export function ClaimsChapter() {
         variant="claims"
       />
 
-      {/* Claims Inspection Image */}
-      <ChapterImage
-        src={claimsInspectionImg}
-        alt="Cargo claims inspection at warehouse"
-        variant="inline"
-        className="mb-6"
-      />
 
       {/* CMR Liability Overview */}
       <section>
@@ -97,6 +90,14 @@ export function ClaimsChapter() {
             </ul>
           </InfoCard>
         </div>
+        
+        {/* Claims Inspection Image - contextual after types of claims */}
+        <ChapterImage
+          src={claimsInspectionImg}
+          alt="Professional cargo claims inspection process"
+          variant="float-right"
+          className="mt-4"
+        />
       </section>
 
       {/* Visual Claims Flow */}

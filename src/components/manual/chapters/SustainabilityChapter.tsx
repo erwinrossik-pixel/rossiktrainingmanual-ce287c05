@@ -22,13 +22,6 @@ export function SustainabilityChapter() {
         variant="sustainability"
       />
 
-      {/* Sustainability Image */}
-      <ChapterImage
-        src={sustainabilityImg}
-        alt="Green logistics - sustainable transport"
-        variant="inline"
-        className="mb-6"
-      />
 
       {/* Introduction */}
       <div className="info-card">
@@ -79,6 +72,14 @@ export function SustainabilityChapter() {
         <div className="info-card">
           <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">{ct('section4Content')}</p>
         </div>
+        
+        {/* Sustainability Green Logistics Image - contextual after certifications */}
+        <ChapterImage
+          src={sustainabilityImg}
+          alt="Green logistics fleet with sustainable transport practices"
+          variant="float-right"
+          className="mt-4"
+        />
       </section>
 
       {/* Reduction Strategies & Alternative Fuels */}

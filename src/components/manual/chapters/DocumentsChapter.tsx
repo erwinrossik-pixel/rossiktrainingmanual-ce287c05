@@ -19,13 +19,6 @@ export function DocumentsChapter() {
         variant="documents"
       />
 
-      {/* CMR Documents Image */}
-      <ChapterImage
-        src={documentsImg}
-        alt="CMR consignment note and transport documents"
-        variant="inline"
-        className="mb-6"
-      />
 
       {/* CMR Consignment Note */}
       <section>
@@ -67,6 +60,13 @@ export function DocumentsChapter() {
           {ct('cmrFieldsCheck')}
         </h2>
         <div className="bg-card border border-border rounded-xl p-6">
+          {/* CMR Documents Image - contextual within fields section */}
+          <ChapterImage
+            src={documentsImg}
+            alt="CMR consignment note showing essential transport documentation"
+            variant="float-right"
+            className="mb-4"
+          />
           <div className="overflow-x-auto">
             <table className="w-full border-collapse">
               <thead>

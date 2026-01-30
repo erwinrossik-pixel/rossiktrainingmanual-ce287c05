@@ -20,13 +20,6 @@ export function SupplyChainChapter() {
         variant="supplychain"
       />
 
-      {/* Supply Chain Network Image */}
-      <ChapterImage
-        src={supplyChainImg}
-        alt="Global supply chain network visualization"
-        variant="inline"
-        className="mb-6"
-      />
 
       {/* Introduction */}
       <div className="info-card bg-gradient-to-br from-primary/5 to-primary/10">
@@ -81,6 +74,14 @@ export function SupplyChainChapter() {
             [ct("continuous"), "Steady flow, commodity products", "Bulk transport, consistent capacity", "Food processing, chemicals"],
             [ct("makeToOrder"), "Custom products, variable demand", "Flexible scheduling, partial loads", "Industrial equipment, furniture"],
           ]}
+        />
+        
+        {/* Supply Chain Network Image - contextual after chain types */}
+        <ChapterImage
+          src={supplyChainImg}
+          alt="Global supply chain network visualization with connected nodes"
+          variant="float-right"
+          className="mt-4"
         />
       </div>
 

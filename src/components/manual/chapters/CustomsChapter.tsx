@@ -20,13 +20,6 @@ export function CustomsChapter() {
         variant="customs"
       />
 
-      {/* Customs Process Flow Image */}
-      <ChapterImage
-        src={customsProcessFlowImg}
-        alt="European Customs Clearance Process"
-        variant="inline"
-        className="mb-6"
-      />
 
       {/* EU vs Non-EU */}
       <section>
@@ -71,6 +64,14 @@ export function CustomsChapter() {
             [ct('ataCarnet'), ct('ataPurpose'), ct('ataWhen')],
             [ct('eur1'), ct('eur1Purpose'), ct('eur1When')],
           ]}
+        />
+        
+        {/* Customs Process Flow Image - contextual after transit documents */}
+        <ChapterImage
+          src={customsProcessFlowImg}
+          alt="European customs clearance process flow diagram"
+          variant="float-right"
+          className="mt-4"
         />
       </section>
 
