@@ -215,16 +215,16 @@ export function ContentQualityDashboard() {
   const getScoreBadge = (score: number) => {
     if (score === 0) return <Badge variant="outline" className="text-muted-foreground">N/A</Badge>;
     if (score >= 90) return <Badge className="bg-success text-success-foreground">{score}</Badge>;
-    if (score >= 85) return <Badge className="bg-blue-600 text-white">{score}</Badge>;
-    if (score >= 70) return <Badge className="bg-amber-500 text-white">{score}</Badge>;
+    if (score >= 85) return <Badge className="bg-info text-info-foreground">{score}</Badge>;
+    if (score >= 70) return <Badge className="bg-warning text-warning-foreground">{score}</Badge>;
     return <Badge variant="destructive">{score}</Badge>;
   };
 
   const getSeverityIcon = (severity: string) => {
     switch (severity) {
       case "high": return <XCircle className="w-4 h-4 text-destructive" />;
-      case "medium": return <AlertTriangle className="w-4 h-4 text-amber-500" />;
-      default: return <AlertCircle className="w-4 h-4 text-blue-500" />;
+      case "medium": return <AlertTriangle className="w-4 h-4 text-warning" />;
+      default: return <AlertCircle className="w-4 h-4 text-info" />;
     }
   };
 
@@ -303,9 +303,9 @@ export function ContentQualityDashboard() {
               <div className="text-sm text-muted-foreground">{t('admin.quality.avgScore')}</div>
             </CardContent>
           </Card>
-          <Card className={stats.belowThreshold > 0 ? "border-amber-500" : ""}>
+          <Card className={stats.belowThreshold > 0 ? "border-warning" : ""}>
             <CardContent className="pt-4">
-              <div className="text-2xl font-bold text-amber-600">{stats.belowThreshold}</div>
+              <div className="text-2xl font-bold text-warning">{stats.belowThreshold}</div>
               <div className="text-sm text-muted-foreground">{t('admin.quality.belowThreshold')}</div>
             </CardContent>
           </Card>

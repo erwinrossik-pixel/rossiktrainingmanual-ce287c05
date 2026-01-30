@@ -159,8 +159,8 @@ const ActiveUsersMap: React.FC = () => {
       el.className = 'user-marker';
       el.innerHTML = `
         <div class="relative">
-          <div class="w-4 h-4 bg-green-500 rounded-full animate-ping absolute"></div>
-          <div class="w-4 h-4 bg-green-400 rounded-full relative border-2 border-white shadow-lg"></div>
+          <div class="w-4 h-4 bg-success rounded-full animate-ping absolute"></div>
+          <div class="w-4 h-4 bg-success/80 rounded-full relative border-2 border-white shadow-lg"></div>
         </div>
       `;
       el.style.cursor = 'pointer';
@@ -257,10 +257,10 @@ const ActiveUsersMap: React.FC = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">{t('admin.map.usersOnMap')}</p>
-                <p className="text-3xl font-bold text-green-600">{activeUsers.length}</p>
+                <p className="text-3xl font-bold text-success">{activeUsers.length}</p>
               </div>
-              <div className="h-12 w-12 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
-                <MapPin className="h-6 w-6 text-green-600" />
+              <div className="h-12 w-12 rounded-full bg-success/10 flex items-center justify-center">
+                <MapPin className="h-6 w-6 text-success" />
               </div>
             </div>
           </CardContent>
@@ -271,10 +271,10 @@ const ActiveUsersMap: React.FC = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">{t('admin.map.activeCountries')}</p>
-                <p className="text-3xl font-bold text-blue-600">{Object.keys(usersByCountry).length}</p>
+                <p className="text-3xl font-bold text-info">{Object.keys(usersByCountry).length}</p>
               </div>
-              <div className="h-12 w-12 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
-                <Globe className="h-6 w-6 text-blue-600" />
+              <div className="h-12 w-12 rounded-full bg-info/10 flex items-center justify-center">
+                <Globe className="h-6 w-6 text-info" />
               </div>
             </div>
           </CardContent>
@@ -303,7 +303,7 @@ const ActiveUsersMap: React.FC = () => {
             <CardTitle className="flex items-center gap-2">
               <Users className="h-5 w-5 text-primary" />
               {t('admin.map.mapTitle')}
-              <Badge variant="outline" className="ml-2 animate-pulse bg-green-50 text-green-700 border-green-200">
+              <Badge variant="outline" className="ml-2 animate-pulse bg-success/10 text-success border-success/30">
                 LIVE
               </Badge>
             </CardTitle>

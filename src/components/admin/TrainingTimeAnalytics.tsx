@@ -343,10 +343,10 @@ export function TrainingTimeAnalytics() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium">{t('admin.training.currentlyTraining')}</CardTitle>
-            <Clock className="h-4 w-4 text-green-500 animate-pulse" />
+            <Clock className="h-4 w-4 text-success animate-pulse" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-green-600">{usersCurrentlyTraining}</div>
+            <div className="text-2xl font-bold text-success">{usersCurrentlyTraining}</div>
             <p className="text-xs text-muted-foreground">{t('admin.training.usersActive')}</p>
           </CardContent>
         </Card>
@@ -642,7 +642,7 @@ export function TrainingTimeAnalytics() {
                     </TableCell>
                     <TableCell className="text-center">
                       {userTime.isCurrentlyTraining ? (
-                        <Badge className="bg-green-500 animate-pulse">{t('admin.training.statusActive')}</Badge>
+                        <Badge className="bg-success animate-pulse">{t('admin.training.statusActive')}</Badge>
                       ) : userTime.totalSeconds > 0 ? (
                         <Badge variant="secondary">{t('admin.training.statusPaused')}</Badge>
                       ) : (
