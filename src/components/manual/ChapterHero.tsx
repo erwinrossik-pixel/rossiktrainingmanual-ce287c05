@@ -80,6 +80,49 @@ import loadingHero from "@/assets/chapters/loading-hero.jpg";
 import reeferHero from "@/assets/chapters/reefer-hero.jpg";
 import expressTransportHero from "@/assets/chapters/express-transport-hero.jpg";
 import intermodalHero from "@/assets/chapters/intermodal-hero.jpg";
+// Chapters 11-20
+import documentsHero from "@/assets/chapters/documents-hero.jpg";
+import customsHero from "@/assets/chapters/customs-hero.jpg";
+import pricingHero from "@/assets/chapters/pricing-hero.jpg";
+import incotermsHero from "@/assets/chapters/incoterms-hero.jpg";
+import adrHero from "@/assets/chapters/adr-hero.jpg";
+import claimsHero from "@/assets/chapters/claims-hero.jpg";
+import insuranceHero from "@/assets/chapters/insurance-hero.jpg";
+import paymentHero from "@/assets/chapters/payment-hero.jpg";
+import negotiationHero from "@/assets/chapters/negotiation-hero.jpg";
+import communicationHero from "@/assets/chapters/communication-hero.jpg";
+// Chapters 21-30
+import carrierManagementHero from "@/assets/chapters/carrier-management-hero.jpg";
+import exchangesHero from "@/assets/chapters/exchanges-hero.jpg";
+import clientsHero from "@/assets/chapters/clients-hero.jpg";
+import commercialHero from "@/assets/chapters/commercial-hero.jpg";
+import redFlagsHero from "@/assets/chapters/red-flags-hero.jpg";
+import technologyHero from "@/assets/chapters/technology-hero.jpg";
+import supplyChainHero from "@/assets/chapters/supply-chain-hero.jpg";
+import kpiHero from "@/assets/chapters/kpi-hero.jpg";
+import fleetHero from "@/assets/chapters/fleet-hero.jpg";
+import complianceHero from "@/assets/chapters/compliance-hero.jpg";
+// Chapters 31-50
+import drivingTimeHero from "@/assets/chapters/driving-time-hero.jpg";
+import europeZonesHero from "@/assets/chapters/europe-zones-hero.jpg";
+import warehouseHero from "@/assets/chapters/warehouse-hero.jpg";
+import translogicaHero from "@/assets/chapters/translogica-hero.jpg";
+import accountingHero from "@/assets/chapters/accounting-hero.jpg";
+import riskManagementHero from "@/assets/chapters/risk-management-hero.jpg";
+import environmentHero from "@/assets/chapters/environment-hero.jpg";
+import emergencyHero from "@/assets/chapters/emergency-hero.jpg";
+import trainingHero from "@/assets/chapters/training-hero.jpg";
+import caseStudiesHero from "@/assets/chapters/case-studies-hero.jpg";
+import checklistsHero from "@/assets/chapters/checklists-hero.jpg";
+import glossaryHero from "@/assets/chapters/glossary-hero.jpg";
+import authoritiesHero from "@/assets/chapters/authorities-hero.jpg";
+import sustainabilityHero from "@/assets/chapters/sustainability-hero.jpg";
+import europeanCountriesHero from "@/assets/chapters/european-countries-hero.jpg";
+import highValueGoodsHero from "@/assets/chapters/high-value-goods-hero.jpg";
+import digitalizationHero from "@/assets/chapters/digitalization-hero.jpg";
+import networkingHero from "@/assets/chapters/networking-hero.jpg";
+import professionalDevelopmentHero from "@/assets/chapters/professional-development-hero.jpg";
+import licensesOversizeHero from "@/assets/chapters/licenses-oversize-hero.jpg";
 
 // Map variants to hero images
 const heroImages: Partial<Record<HeroVariant, string>> = {
@@ -93,6 +136,46 @@ const heroImages: Partial<Record<HeroVariant, string>> = {
   reefer: reeferHero,
   "express-transport": expressTransportHero,
   intermodal: intermodalHero,
+  documents: documentsHero,
+  customs: customsHero,
+  pricing: pricingHero,
+  incoterms: incotermsHero,
+  adr: adrHero,
+  claims: claimsHero,
+  insurance: insuranceHero,
+  payment: paymentHero,
+  negotiation: negotiationHero,
+  communication: communicationHero,
+  carrier: carrierManagementHero,
+  exchanges: exchangesHero,
+  clients: clientsHero,
+  commercial: commercialHero,
+  redflags: redFlagsHero,
+  technology: technologyHero,
+  supplychain: supplyChainHero,
+  kpi: kpiHero,
+  fleet: fleetHero,
+  compliance: complianceHero,
+  drivingtime: drivingTimeHero,
+  europezones: europeZonesHero,
+  warehouse: warehouseHero,
+  translogica: translogicaHero,
+  accounting: accountingHero,
+  risk: riskManagementHero,
+  environment: environmentHero,
+  emergency: emergencyHero,
+  training: trainingHero,
+  casestudies: caseStudiesHero,
+  checklists: checklistsHero,
+  glossary: glossaryHero,
+  authorities: authoritiesHero,
+  sustainability: sustainabilityHero,
+  "european-countries": europeanCountriesHero,
+  "high-value-goods": highValueGoodsHero,
+  digitalization: digitalizationHero,
+  networking: networkingHero,
+  "professional-development": professionalDevelopmentHero,
+  licenses: licensesOversizeHero,
 };
 
 // Map variant to chapter ID for number calculation
