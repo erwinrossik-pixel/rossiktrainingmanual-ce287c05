@@ -62,9 +62,9 @@ export function CompanyManagement() {
       const enrichedCompanies = await Promise.all(
         (companiesData || []).map(async (company) => {
           const [brandingRes, settingsRes, subscriptionRes, usersRes] = await Promise.all([
-            supabase.from('company_branding').select('*').eq('company_id', company.id).single(),
-            supabase.from('company_settings').select('*').eq('company_id', company.id).single(),
-            supabase.from('company_subscriptions').select('*, plan:subscription_plans(*)').eq('company_id', company.id).single(),
+            supabase.from('company_branding').select('*').eq('company_id', company.id).maybeSingle(),
+            supabase.from('company_settings').select('*').eq('company_id', company.id).maybeSingle(),
+            supabase.from('company_subscriptions').select('*, plan:subscription_plans(*)').eq('company_id', company.id).maybeSingle(),
             supabase.from('company_users').select('id', { count: 'exact' }).eq('company_id', company.id).eq('status', 'approved')
           ]);
 
