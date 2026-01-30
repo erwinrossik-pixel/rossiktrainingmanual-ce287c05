@@ -1,10 +1,200 @@
+import { useState } from "react";
 import { DataTable } from "../DataTable";
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { quizzes } from "@/data/quizData";
-import { FileText, Ship, Truck, Plane, Package, AlertTriangle, CheckCircle2, ArrowRight, Scale, Euro, MapPin, Target, Lightbulb, Zap } from "lucide-react";
+import { FileText, Ship, Truck, Plane, Package, AlertTriangle, CheckCircle2, ArrowRight, Scale, Euro, MapPin, Target, Lightbulb, Zap, Calculator, Play, RefreshCw } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
+import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/contexts/LanguageContext";
+
+// Interactive Risk/Cost Simulator Component
+function IncotermsSimulator({ ct }: { ct: (key: string) => string }) {
+  const { language } = useLanguage();
+  const [selectedIncoterm, setSelectedIncoterm] = useState<string | null>(null);
+  const [scenario, setScenario] = useState({
+    productValue: 50000,
+    transportCost: 2500,
+    insuranceCost: 250,
+    customsDuties: 3500,
+    unloadingCost: 150
+  });
+  const [showResults, setShowResults] = useState(false);
+
+  const incoterms = [
+    { code: 'EXW', sellerCost: 0, buyerCost: 100, riskTransfer: 0 },
+    { code: 'FCA', sellerCost: 10, buyerCost: 90, riskTransfer: 15 },
+    { code: 'CPT', sellerCost: 45, buyerCost: 55, riskTransfer: 15 },
+    { code: 'CIP', sellerCost: 50, buyerCost: 50, riskTransfer: 15 },
+    { code: 'DAP', sellerCost: 85, buyerCost: 15, riskTransfer: 90 },
+    { code: 'DPU', sellerCost: 90, buyerCost: 10, riskTransfer: 95 },
+    { code: 'DDP', sellerCost: 100, buyerCost: 0, riskTransfer: 100 },
+  ];
+
+  const calculateCosts = (incoterm: string) => {
+    const total = scenario.transportCost + scenario.insuranceCost + scenario.customsDuties + scenario.unloadingCost;
+    const term = incoterms.find(t => t.code === incoterm);
+    if (!term) return { seller: 0, buyer: total };
+    
+    return {
+      seller: Math.round(total * (term.sellerCost / 100)),
+      buyer: Math.round(total * (term.buyerCost / 100))
+    };
+  };
+
+  const labels = {
+    ro: {
+      title: "Simulator Interactiv Risc/Cost",
+      subtitle: "Selectează un Incoterm pentru a vedea distribuția costurilor și riscurilor",
+      selectIncoterm: "Selectează Incoterm",
+      calculate: "Calculează",
+      reset: "Resetează",
+      sellerPays: "Vânzătorul plătește",
+      buyerPays: "Cumpărătorul plătește",
+      riskTransferPoint: "Punct transfer risc",
+      totalLogisticsCost: "Cost total logistică",
+      costBreakdown: "Defalcare costuri",
+      transport: "Transport",
+      insurance: "Asigurare",
+      customs: "Vamă",
+      unloading: "Descărcare"
+    },
+    de: {
+      title: "Interaktiver Risiko/Kosten-Simulator",
+      subtitle: "Wählen Sie einen Incoterm, um die Kosten- und Risikoverteilung zu sehen",
+      selectIncoterm: "Incoterm auswählen",
+      calculate: "Berechnen",
+      reset: "Zurücksetzen",
+      sellerPays: "Verkäufer zahlt",
+      buyerPays: "Käufer zahlt",
+      riskTransferPoint: "Risikotransferpunkt",
+      totalLogisticsCost: "Gesamtlogistikkosten",
+      costBreakdown: "Kostenaufschlüsselung",
+      transport: "Transport",
+      insurance: "Versicherung",
+      customs: "Zoll",
+      unloading: "Entladung"
+    },
+    en: {
+      title: "Interactive Risk/Cost Simulator",
+      subtitle: "Select an Incoterm to see cost and risk distribution",
+      selectIncoterm: "Select Incoterm",
+      calculate: "Calculate",
+      reset: "Reset",
+      sellerPays: "Seller pays",
+      buyerPays: "Buyer pays",
+      riskTransferPoint: "Risk transfer point",
+      totalLogisticsCost: "Total logistics cost",
+      costBreakdown: "Cost breakdown",
+      transport: "Transport",
+      insurance: "Insurance",
+      customs: "Customs",
+      unloading: "Unloading"
+    }
+  };
+
+  const t = labels[language as keyof typeof labels] || labels.ro;
+  const costs = selectedIncoterm ? calculateCosts(selectedIncoterm) : null;
+  const selectedTermData = incoterms.find(term => term.code === selectedIncoterm);
+
+  return (
+    <div className="bg-gradient-to-br from-purple-500/5 to-indigo-500/10 border-2 border-purple-200 dark:border-purple-800 rounded-xl p-6">
+      <h3 className="text-xl font-bold flex items-center gap-2 mb-2">
+        <Calculator className="w-6 h-6 text-purple-600" />
+        {t.title}
+      </h3>
+      <p className="text-muted-foreground mb-6">{t.subtitle}</p>
+
+      {/* Incoterm Selection */}
+      <div className="flex flex-wrap gap-2 mb-6">
+        {incoterms.map(term => (
+          <button
+            key={term.code}
+            onClick={() => { setSelectedIncoterm(term.code); setShowResults(true); }}
+            className={`px-4 py-2 rounded-lg font-mono font-bold transition-all ${
+              selectedIncoterm === term.code
+                ? 'bg-purple-600 text-white shadow-lg scale-105'
+                : 'bg-muted hover:bg-purple-100 dark:hover:bg-purple-900/30'
+            }`}
+          >
+            {term.code}
+          </button>
+        ))}
+      </div>
+
+      {showResults && selectedIncoterm && costs && selectedTermData && (
+        <div className="space-y-4 animate-fade-in">
+          {/* Cost Distribution Bar */}
+          <div className="bg-background rounded-lg p-4">
+            <p className="text-sm font-medium mb-2">{t.costBreakdown} ({selectedIncoterm})</p>
+            <div className="flex h-8 rounded-lg overflow-hidden">
+              <div 
+                className="bg-green-500 flex items-center justify-center text-white text-xs font-medium transition-all"
+                style={{ width: `${selectedTermData.sellerCost}%` }}
+              >
+                {selectedTermData.sellerCost > 10 && `${t.sellerPays}: €${costs.seller}`}
+              </div>
+              <div 
+                className="bg-blue-500 flex items-center justify-center text-white text-xs font-medium transition-all"
+                style={{ width: `${selectedTermData.buyerCost}%` }}
+              >
+                {selectedTermData.buyerCost > 10 && `${t.buyerPays}: €${costs.buyer}`}
+              </div>
+            </div>
+            <div className="flex justify-between text-xs text-muted-foreground mt-1">
+              <span className="text-green-600">{t.sellerPays}</span>
+              <span className="text-blue-600">{t.buyerPays}</span>
+            </div>
+          </div>
+
+          {/* Risk Transfer Visualization */}
+          <div className="bg-background rounded-lg p-4">
+            <p className="text-sm font-medium mb-2">{t.riskTransferPoint}</p>
+            <div className="relative h-6 bg-muted rounded-lg">
+              <div 
+                className="absolute top-0 left-0 h-full bg-gradient-to-r from-green-500 to-green-400 rounded-l-lg transition-all"
+                style={{ width: `${selectedTermData.riskTransfer}%` }}
+              />
+              <div 
+                className="absolute top-0 h-full w-4 bg-yellow-500 rounded transition-all flex items-center justify-center"
+                style={{ left: `calc(${selectedTermData.riskTransfer}% - 8px)` }}
+              >
+                <div className="w-2 h-2 bg-white rounded-full" />
+              </div>
+            </div>
+            <div className="flex justify-between text-xs mt-1">
+              <span>{ct("sellerPremises") || "Factory"}</span>
+              <span>{ct("destination") || "Destination"}</span>
+            </div>
+          </div>
+
+          {/* Summary Cards */}
+          <div className="grid grid-cols-2 gap-3">
+            <div className="bg-green-50 dark:bg-green-900/20 p-3 rounded-lg border border-green-200 dark:border-green-800">
+              <p className="text-xs text-muted-foreground">{t.sellerPays}</p>
+              <p className="text-2xl font-bold text-green-600">€{costs.seller.toLocaleString()}</p>
+            </div>
+            <div className="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-lg border border-blue-200 dark:border-blue-800">
+              <p className="text-xs text-muted-foreground">{t.buyerPays}</p>
+              <p className="text-2xl font-bold text-blue-600">€{costs.buyer.toLocaleString()}</p>
+            </div>
+          </div>
+
+          <Button 
+            variant="outline" 
+            size="sm" 
+            onClick={() => { setSelectedIncoterm(null); setShowResults(false); }}
+            className="w-full"
+          >
+            <RefreshCw className="w-4 h-4 mr-2" />
+            {t.reset}
+          </Button>
+        </div>
+      )}
+    </div>
+  );
+}
 
 export function IncotermsChapter() {
   const { ct } = useChapterTranslation("incoterms");
@@ -207,6 +397,9 @@ export function IncotermsChapter() {
           </div>
         </div>
       </div>
+
+      {/* Interactive Risk/Cost Simulator - AI Recommendation Implementation */}
+      <IncotermsSimulator ct={ct} />
 
       {/* Complete Incoterms Table */}
       <div className="info-card">
