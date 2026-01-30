@@ -76,7 +76,7 @@ export function VehicleChapter() {
         <ChapterImage
           src={truckComparisonImg}
           alt="Comparație între trailer standard și mega trailer"
-          variant="inline"
+          variant="float-right"
           className="mb-6"
         />
         

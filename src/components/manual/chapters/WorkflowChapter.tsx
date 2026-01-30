@@ -29,13 +29,6 @@ export function WorkflowChapter() {
         variant="workflow"
       />
 
-      {/* Workflow Operations Image */}
-      <ChapterImage
-        src={workflowImg}
-        alt="Freight forwarding workflow diagram"
-        variant="inline"
-        className="mb-6"
-      />
 
       {/* Introduction to Workflow */}
       <div className="info-card">
@@ -76,6 +69,14 @@ export function WorkflowChapter() {
           { id: "execution", label: ct("execution"), description: ct("planTrack"), color: "success" },
           { id: "delivery", label: ct("delivery"), description: ct("podClose"), color: "primary" },
         ]}
+      />
+
+      {/* Workflow Operations Image - contextual before process map */}
+      <ChapterImage
+        src={workflowImg}
+        alt="Freight forwarding workflow operations diagram"
+        variant="float-right"
+        className="mb-4"
       />
 
       {/* Detailed Process Map */}

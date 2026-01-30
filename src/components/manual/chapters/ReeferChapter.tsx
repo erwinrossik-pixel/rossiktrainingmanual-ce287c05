@@ -25,13 +25,6 @@ export function ReeferChapter() {
         variant="reefer"
       />
 
-      {/* Reefer Temperature Zones Image */}
-      <ChapterImage
-        src={reeferTemperatureImg}
-        alt="Refrigerated Trailer Temperature Zones"
-        variant="inline"
-        className="mb-6"
-      />
 
       {/* Introduction */}
       <div className="info-card">
@@ -79,6 +72,13 @@ export function ReeferChapter() {
             [ct('multiTemperature'), ct('variousZones'), ct('mixedLoads'), ct('dualTempReefer'), ct('dividersRequired')],
           ]}
         />
+      {/* Reefer Temperature Zones Image - contextual after temperature table */}
+      <ChapterImage
+        src={reeferTemperatureImg}
+        alt="Temperature zones diagram for refrigerated transport"
+        variant="float-right"
+        className="mt-4"
+      />
         <div className="mt-4 p-4 bg-info/10 border border-info/30 rounded-lg">
           <p className="text-sm flex items-start gap-2">
             <Info className="w-4 h-4 mt-0.5 flex-shrink-0 text-info" />

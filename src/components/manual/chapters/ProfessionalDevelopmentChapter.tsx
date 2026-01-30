@@ -286,6 +286,14 @@ export function ProfessionalDevelopmentChapter() {
         </div>
       </section>
 
+      {/* Career Development Image - contextual before career paths */}
+      <ChapterImage
+        src={careerDevelopmentImg}
+        alt="Professional development and career growth in logistics"
+        variant="float-right"
+        className="mb-4"
+      />
+
       {/* Career Paths - Visual Timeline */}
       <section>
         <h2 className="section-title flex items-center gap-3 mb-6">

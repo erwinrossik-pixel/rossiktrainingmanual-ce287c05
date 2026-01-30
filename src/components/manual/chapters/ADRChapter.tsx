@@ -43,6 +43,14 @@ export function ADRChapter() {
               <p className="text-sm">{ct('updateCycle')}</p>
             </div>
           </div>
+          
+          {/* ADR Hazard Symbols Image - contextual after ADR overview */}
+          <ChapterImage
+            src={adrHazardSymbolsImg}
+            alt="ADR hazard class symbols and warning labels"
+            variant="float-right"
+            className="mt-4"
+          />
         </InfoCard>
       </section>
 
@@ -53,13 +61,6 @@ export function ADRChapter() {
           {ct('adrHazardClasses')}
         </h2>
         
-        {/* ADR Hazard Symbols Image */}
-        <ChapterImage
-          src={adrHazardSymbolsImg}
-          alt="ADR Hazard Warning Symbols"
-          variant="inline"
-          className="mb-6"
-        />
         <div className="overflow-x-auto">
           <table className="w-full border-collapse">
             <thead>

@@ -22,13 +22,6 @@ export function IntermodalChapter() {
         variant="intermodal"
       />
 
-      {/* Intermodal Transport Image */}
-      <ChapterImage
-        src={intermodalImg}
-        alt="Intermodal transport - truck, train, ship"
-        variant="inline"
-        className="mb-6"
-      />
 
       {/* Introduction */}
       <div className="info-card">
@@ -60,6 +53,14 @@ export function IntermodalChapter() {
           <Ship className="w-5 h-5 sm:w-6 sm:h-6 text-primary flex-shrink-0" />
           <span>{ct('section2Title')}</span>
         </h2>
+        
+        {/* Intermodal Transport Image - contextual before transport types */}
+        <ChapterImage
+          src={intermodalImg}
+          alt="Intermodal transport combining truck, rail and ship"
+          variant="float-right"
+          className="mb-4"
+        />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
           <InfoCard title={ct('section2Title')} icon={Train}>
             <p className="text-muted-foreground">{ct('section2Content')}</p>

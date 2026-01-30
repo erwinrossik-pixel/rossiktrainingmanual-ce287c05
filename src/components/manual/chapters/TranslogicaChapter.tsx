@@ -25,13 +25,6 @@ export function TranslogicaChapter() {
         variant="translogica"
       />
 
-      {/* TMS Interface Image */}
-      <ChapterImage
-        src={tmsInterfaceImg}
-        alt="TMS Transport Management System Interface"
-        variant="inline"
-        className="mb-6"
-      />
 
       {/* Introduction */}
       <div className="info-card bg-gradient-to-br from-primary/5 to-primary/10">
@@ -86,6 +79,14 @@ export function TranslogicaChapter() {
           ))}
         </div>
       </div>
+
+      {/* TMS Interface Image - contextual before navigation section */}
+      <ChapterImage
+        src={tmsInterfaceImg}
+        alt="Transport Management System interface dashboard"
+        variant="float-right"
+        className="mb-4"
+      />
 
       {/* Navigation & Interface */}
       <div className="info-card">

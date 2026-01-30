@@ -26,13 +26,6 @@ export function LoadingChapter() {
         variant="loading"
       />
 
-      {/* Loading Diagram Image */}
-      <ChapterImage
-        src={loadingDiagramImg}
-        alt="Cargo Loading Weight Distribution"
-        variant="inline"
-        className="mb-6"
-      />
 
       {/* Introduction */}
       <div className="info-card">
@@ -96,6 +89,14 @@ export function LoadingChapter() {
           <Target className="w-6 h-6 text-primary" />
           {ct('loadingProcessStepByStep')}
         </h2>
+        
+        {/* Loading Diagram Image - contextual before loading steps */}
+        <ChapterImage
+          src={loadingDiagramImg}
+          alt="Cargo weight distribution diagram for proper truck loading"
+          variant="float-right"
+          className="mb-4"
+        />
         <div className="space-y-4">
           {[
             { 

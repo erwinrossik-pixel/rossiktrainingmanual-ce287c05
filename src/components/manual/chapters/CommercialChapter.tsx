@@ -20,13 +20,6 @@ export function CommercialChapter() {
         variant="commercial"
       />
 
-      {/* Commercial Strategy Image */}
-      <ChapterImage
-        src={commercialImg}
-        alt="Commercial strategy - business meeting"
-        variant="inline"
-        className="mb-6"
-      />
 
       {/* Introduction */}
       <div className="info-card bg-gradient-to-br from-primary/5 to-primary/10">
@@ -63,6 +56,14 @@ export function CommercialChapter() {
           <Euro className="w-6 h-6 text-primary" />
           {ct("pricingTitle")}
         </h2>
+
+        {/* Commercial Strategy Image - contextual after pricing formula */}
+        <ChapterImage
+          src={commercialImg}
+          alt="Commercial strategy discussion in freight forwarding"
+          variant="float-right"
+          className="mb-4"
+        />
 
         <div className="bg-muted/50 p-4 rounded-lg mb-6 font-mono text-sm">
           <p className="text-muted-foreground mb-2">{ct("pricingFormula")}</p>
