@@ -154,12 +154,12 @@ export const ContentKPIPanel = memo(function ContentKPIPanel({
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium flex items-center gap-2">
-              <AlertTriangle className="h-4 w-4 text-orange-500" />
+              <AlertTriangle className="h-4 w-4 text-warning" />
               {t('admin.kpi.needsReview')}
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-orange-600">{chaptersNeedingReview.length}</div>
+            <div className="text-2xl font-bold text-warning">{chaptersNeedingReview.length}</div>
             <p className="text-xs text-muted-foreground">{t('admin.kpi.priorityRequired')}</p>
           </CardContent>
         </Card>
@@ -263,7 +263,7 @@ export const ContentKPIPanel = memo(function ContentKPIPanel({
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
               <CardTitle className="text-lg flex items-center gap-2">
-                <Lightbulb className="h-5 w-5 text-yellow-500" />
+                <Lightbulb className="h-5 w-5 text-warning" />
                 {t('admin.kpi.detailedAnalysis')}
               </CardTitle>
               <CardDescription>{t('admin.kpi.orderedBy')} {sortBy === 'passRate' ? t('admin.kpi.passRate') : sortBy === 'bounceRate' ? t('admin.kpi.bounceRate') : t('admin.kpi.difficulty')}</CardDescription>
@@ -304,7 +304,7 @@ export const ContentKPIPanel = memo(function ContentKPIPanel({
                   key={chapter.chapterId}
                   className={`p-4 rounded-lg border ${
                     chapter.needsReview 
-                      ? 'border-orange-500/50 bg-orange-500/5' 
+                      ? 'border-warning/50 bg-warning/5' 
                       : 'border-border bg-muted/30'
                   }`}
                 >
@@ -319,7 +319,7 @@ export const ContentKPIPanel = memo(function ContentKPIPanel({
                           {difficultyLabels[chapter.difficulty]}
                         </Badge>
                         {chapter.needsReview && (
-                          <Badge variant="outline" className="border-orange-500 text-orange-600">
+                          <Badge variant="outline" className="border-warning text-warning">
                             <AlertTriangle className="h-3 w-3 mr-1" />
                             {t('admin.kpi.review')}
                           </Badge>
@@ -347,17 +347,17 @@ export const ContentKPIPanel = memo(function ContentKPIPanel({
                         </div>
                         <div>
                           <p className="text-muted-foreground">{t('admin.kpi.bounceRate')}</p>
-                          <p className="font-medium text-orange-600">{chapter.bounceRate.toFixed(1)}%</p>
+                          <p className="font-medium text-warning">{chapter.bounceRate.toFixed(1)}%</p>
                         </div>
                       </div>
                     </div>
                   </div>
                   
                   {chapter.recommendation && (
-                    <div className="mt-3 p-3 bg-yellow-500/10 rounded border border-yellow-500/30">
+                    <div className="mt-3 p-3 bg-warning/10 rounded border border-warning/30">
                       <div className="flex items-start gap-2">
-                        <Lightbulb className="h-4 w-4 text-yellow-600 mt-0.5 shrink-0" />
-                        <p className="text-sm text-yellow-800 dark:text-yellow-200">
+                        <Lightbulb className="h-4 w-4 text-warning mt-0.5 shrink-0" />
+                        <p className="text-sm text-warning">
                           {chapter.recommendation}
                         </p>
                       </div>

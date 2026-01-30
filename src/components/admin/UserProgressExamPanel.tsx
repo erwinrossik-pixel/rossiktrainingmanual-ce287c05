@@ -678,11 +678,11 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
 
   const getDifficultyBadge = (level: number) => {
     const colors: Record<number, string> = {
-      1: 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200',
-      2: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200',
-      3: 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200',
-      4: 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200',
-      5: 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200',
+      1: 'bg-success/20 text-success border-success/30',
+      2: 'bg-warning/20 text-warning border-warning/30',
+      3: 'bg-warning/30 text-warning border-warning/40',
+      4: 'bg-destructive/20 text-destructive border-destructive/30',
+      5: 'bg-primary/20 text-primary border-primary/30',
     };
     return <Badge className={`${colors[level] || colors[1]} text-xs`}>Lv.{level}</Badge>;
   };
@@ -848,35 +848,35 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
                           <p className="text-xs text-muted-foreground">{t.totalAppTime}</p>
                         </div>
                         <div className="text-center">
-                          <p className="text-2xl font-bold text-blue-600">{formatTime(up.recommended_time_seconds)}</p>
+                          <p className="text-2xl font-bold text-info">{formatTime(up.recommended_time_seconds)}</p>
                           <p className="text-xs text-muted-foreground">{t.recommendedTime}</p>
                         </div>
                         <div className="text-center">
-                          <p className="text-2xl font-bold text-amber-600">{up.total_quiz_attempts}</p>
+                          <p className="text-2xl font-bold text-warning">{up.total_quiz_attempts}</p>
                           <p className="text-xs text-muted-foreground">{t.totalQuizAttempts}</p>
                         </div>
                         <div className="text-center">
-                          <p className="text-2xl font-bold text-purple-600">{up.passed_quizzes}</p>
+                          <p className="text-2xl font-bold text-primary">{up.passed_quizzes}</p>
                           <p className="text-xs text-muted-foreground">{t.passedQuizzes}</p>
                         </div>
                       </div>
                       
                       {/* Quiz-specific summary stats */}
-                      <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-4 p-3 bg-card rounded-lg border-l-4 border-l-orange-500">
+                      <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-4 p-3 bg-card rounded-lg border-l-4 border-l-warning">
                         <div className="text-center">
-                          <p className="text-2xl font-bold text-orange-600">
+                          <p className="text-2xl font-bold text-warning">
                             {up.chapter_details.reduce((sum, cd) => sum + cd.restart_count, 0)}
                           </p>
                           <p className="text-xs text-muted-foreground">{t.totalRestarts}</p>
                         </div>
                         <div className="text-center">
-                          <p className="text-2xl font-bold text-purple-600">
+                          <p className="text-2xl font-bold text-primary">
                             {up.chapter_details.reduce((sum, cd) => sum + cd.user_restart_count, 0)}
                           </p>
                           <p className="text-xs text-muted-foreground">↑ Dificultate</p>
                         </div>
                         <div className="text-center">
-                          <p className="text-2xl font-bold text-red-600">
+                          <p className="text-2xl font-bold text-destructive">
                             {up.chapter_details.reduce((sum, cd) => sum + cd.failed_count, 0)}
                           </p>
                           <p className="text-xs text-muted-foreground">{t.totalFailed}</p>
@@ -997,7 +997,7 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
                                 {/* Restarts (calculated) */}
                                 <TableCell className="text-center">
                                   {cd.restart_count > 0 ? (
-                                    <Badge variant="outline" className="text-xs bg-orange-50 text-orange-700 border-orange-300">
+                                    <Badge variant="outline" className="text-xs bg-warning/10 text-warning border-warning/30">
                                       {cd.restart_count}
                                     </Badge>
                                   ) : (
@@ -1007,7 +1007,7 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
                                 {/* User Restarts (with difficulty increase) */}
                                 <TableCell className="text-center">
                                   {cd.user_restart_count > 0 ? (
-                                    <Badge variant="secondary" className="text-xs bg-purple-100 text-purple-700 border-purple-300">
+                                    <Badge variant="secondary" className="text-xs bg-primary/20 text-primary border-primary/30">
                                       <TrendingUp className="h-3 w-3 mr-1" />
                                       {cd.user_restart_count}
                                     </Badge>
@@ -1132,7 +1132,7 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
                                 </TableCell>
                                 <TableCell className="text-center">
                                   {totals.restarts > 0 ? (
-                                    <Badge variant="outline" className="text-xs bg-orange-100 text-orange-800 border-orange-400 font-bold">
+                                    <Badge variant="outline" className="text-xs bg-warning/20 text-warning border-warning/40 font-bold">
                                       {totals.restarts}
                                     </Badge>
                                   ) : (
@@ -1141,7 +1141,7 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
                                 </TableCell>
                                 <TableCell className="text-center">
                                   {totals.userRestarts > 0 ? (
-                                    <Badge variant="secondary" className="text-xs bg-purple-200 text-purple-800 border-purple-500 font-bold">
+                                    <Badge variant="secondary" className="text-xs bg-primary/30 text-primary border-primary/50 font-bold">
                                       <TrendingUp className="h-3 w-3 mr-1" />
                                       {totals.userRestarts}
                                     </Badge>
