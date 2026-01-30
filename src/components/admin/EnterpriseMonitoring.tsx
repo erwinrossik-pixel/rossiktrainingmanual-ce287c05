@@ -118,18 +118,18 @@ export function EnterpriseMonitoring() {
 
   const getStatusBadge = (status: string) => {
     switch (status) {
-      case 'healthy': return <Badge className="bg-green-500/20 text-green-400 border-green-500/30">{t('admin.monitor.statusHealthy')}</Badge>;
-      case 'degraded': return <Badge className="bg-yellow-500/20 text-yellow-400 border-yellow-500/30">{t('admin.monitor.statusDegraded')}</Badge>;
-      case 'down': return <Badge className="bg-red-500/20 text-red-400 border-red-500/30">{t('admin.monitor.statusDown')}</Badge>;
+      case 'healthy': return <Badge className="bg-success/20 text-success border-success/30">{t('admin.monitor.statusHealthy')}</Badge>;
+      case 'degraded': return <Badge className="bg-warning/20 text-warning border-warning/30">{t('admin.monitor.statusDegraded')}</Badge>;
+      case 'down': return <Badge className="bg-destructive/20 text-destructive border-destructive/30">{t('admin.monitor.statusDown')}</Badge>;
       default: return <Badge variant="secondary">Unknown</Badge>;
     }
   };
 
   const getSeverityBadge = (severity: string) => {
     switch (severity) {
-      case 'critical': return <Badge className="bg-red-500/20 text-red-400 border-red-500/30">{t('admin.incident.severityCritical')}</Badge>;
-      case 'error': return <Badge className="bg-orange-500/20 text-orange-400 border-orange-500/30">Error</Badge>;
-      case 'warning': return <Badge className="bg-yellow-500/20 text-yellow-400 border-yellow-500/30">{t('admin.monitor.warning')}</Badge>;
+      case 'critical': return <Badge className="bg-destructive/20 text-destructive border-destructive/30">{t('admin.incident.severityCritical')}</Badge>;
+      case 'error': return <Badge className="bg-warning/20 text-warning border-warning/30">Error</Badge>;
+      case 'warning': return <Badge className="bg-warning/20 text-warning border-warning/30">{t('admin.monitor.warning')}</Badge>;
       default: return <Badge variant="secondary">{severity}</Badge>;
     }
   };
@@ -159,13 +159,13 @@ export function EnterpriseMonitoring() {
                   {healthData ? getStatusBadge(healthData.status) : <Badge variant="secondary">{t('admin.monitor.loading')}</Badge>}
                 </div>
               </div>
-              <div className={`w-12 h-12 rounded-full flex items-center justify-center ${healthData?.status === 'healthy' ? 'bg-green-500/20' : healthData?.status === 'degraded' ? 'bg-yellow-500/20' : 'bg-red-500/20'}`}>
+              <div className={`w-12 h-12 rounded-full flex items-center justify-center ${healthData?.status === 'healthy' ? 'bg-success/20' : healthData?.status === 'degraded' ? 'bg-warning/20' : 'bg-destructive/20'}`}>
                 {healthData?.status === 'healthy' ? (
-                  <CheckCircle className="h-6 w-6 text-green-400" />
+                  <CheckCircle className="h-6 w-6 text-success" />
                 ) : healthData?.status === 'degraded' ? (
-                  <AlertTriangle className="h-6 w-6 text-yellow-400" />
+                  <AlertTriangle className="h-6 w-6 text-warning" />
                 ) : (
-                  <XCircle className="h-6 w-6 text-red-400" />
+                  <XCircle className="h-6 w-6 text-destructive" />
                 )}
               </div>
             </div>
