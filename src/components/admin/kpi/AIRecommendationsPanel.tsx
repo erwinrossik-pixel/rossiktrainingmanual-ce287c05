@@ -66,6 +66,8 @@ export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
   const [loading, setLoading] = useState(true);
   const [analyzing, setAnalyzing] = useState(false);
   const [applying, setApplying] = useState(false);
+  const [implementing, setImplementing] = useState(false);
+  const [implementProgress, setImplementProgress] = useState({ current: 0, total: 0, currentTitle: '' });
   const [stats, setStats] = useState<AnalysisStats | null>(null);
   const [filter, setFilter] = useState<'all' | 'pending' | 'applied' | 'dismissed' | 'completed'>('pending');
 
@@ -268,27 +270,80 @@ export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
           {/* Implement All Applied Button */}
           <Button
             onClick={async () => {
+              setImplementing(true);
               try {
-                const { data, error } = await supabase
+                // Fetch all applied recommendations
+                const { data: appliedRecs, error: fetchError } = await supabase
                   .from('ai_recommendations')
-                  .update({ 
-                    status: 'completed', 
-                    updated_at: new Date().toISOString() 
-                  })
-                  .eq('status', 'applied');
-                if (error) throw error;
-                toast.success(t('admin.ai.allMarkedImplemented'));
+                  .select('id, title')
+                  .eq('status', 'applied')
+                  .order('created_at', { ascending: true });
+
+                if (fetchError) throw fetchError;
+                if (!appliedRecs || appliedRecs.length === 0) {
+                  toast.info(t('admin.ai.noAppliedToImplement'));
+                  setImplementing(false);
+                  return;
+                }
+
+                setImplementProgress({ current: 0, total: appliedRecs.length, currentTitle: '' });
+
+                // Process each one sequentially
+                let successCount = 0;
+                for (let i = 0; i < appliedRecs.length; i++) {
+                  const rec = appliedRecs[i];
+                  setImplementProgress({ 
+                    current: i + 1, 
+                    total: appliedRecs.length, 
+                    currentTitle: rec.title 
+                  });
+
+                  try {
+                    const { error: updateError } = await supabase
+                      .from('ai_recommendations')
+                      .update({ 
+                        status: 'completed', 
+                        updated_at: new Date().toISOString() 
+                      })
+                      .eq('id', rec.id);
+
+                    if (updateError) {
+                      console.error(`Error implementing ${rec.id}:`, updateError);
+                    } else {
+                      successCount++;
+                    }
+                  } catch (err) {
+                    console.error(`Error implementing ${rec.id}:`, err);
+                  }
+
+                  // Small delay for visual feedback
+                  await new Promise(resolve => setTimeout(resolve, 150));
+                }
+
+                toast.success(t('admin.ai.implementComplete').replace('{count}', String(successCount)));
                 await fetchRecommendations();
               } catch (error) {
-                console.error('Error marking all as implemented:', error);
+                console.error('Error implementing recommendations:', error);
                 toast.error(t('admin.general.error'));
+              } finally {
+                setImplementing(false);
+                setImplementProgress({ current: 0, total: 0, currentTitle: '' });
               }
             }}
-            disabled={allCounts.applied === 0}
+            disabled={implementing || allCounts.applied === 0}
             className="bg-purple-500 hover:bg-purple-600"
           >
-            <Sparkles className="h-4 w-4 mr-2" />
-            {t('admin.ai.implementAll')} ({allCounts.applied})
+            {implementing ? (
+              <>
+                <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
+                {implementProgress.current}/{implementProgress.total}
+              </>
+            ) : (
+              <>
+                <Sparkles className="h-4 w-4 mr-2" />
+                {t('admin.ai.implementAll')} ({allCounts.applied})
+              </>
+            )}
           </Button>
 
           {/* Apply All Button */}
