@@ -1114,6 +1114,36 @@ LECȚII PENTRU TINE:
     glossaryDef9: "Echilibrul sănătos între responsabilitățile profesionale și viața personală",
     glossaryTerm10: "Strategic Planning",
     glossaryDef10: "Procesul de definire a obiectivelor pe termen lung și a pașilor necesari pentru atingerea lor",
+    
+    // Learning Objectives
+    objective1: "Identifică și evaluează diferitele trasee de carieră disponibile în freight forwarding",
+    objective2: "Creează un plan personalizat de dezvoltare a competențelor tehnice și soft skills",
+    objective3: "Înțelege și accede la certificările recunoscute în industrie",
+    objective4: "Implementează strategii eficiente de învățare continuă",
+    objective5: "Construiește și valorifică o rețea profesională solidă",
+    objective6: "Planifică strategic cariera pe termen scurt, mediu și lung",
+    
+    // Career Stage Descriptions
+    career1Desc: "Asistență booking-uri, tracking, comunicare de bază cu transportatorii. Focus pe învățarea TMS-ului.",
+    career2Desc: "Gestionare independentă portofoliu clienți, negociere rate, rezolvare probleme operaționale.",
+    career3Desc: "Clienți strategici, transporturi complexe, mentorat colegi juniori, referință pentru situații dificile.",
+    career4Desc: "Coordonare echipă 3-8 persoane, atingere KPIs, recrutare și training, raportare management.",
+    career5Desc: "Gestionare departament complet, P&L responsibility, strategie operațională, optimizare procese.",
+    career6Desc: "Viziune strategică, dezvoltare afaceri noi, reprezentare companie, leadership executiv.",
+    
+    // Career Planning Goals
+    shortTermGoal1: "Stăpânește TMS-ul și procesele operaționale de bază",
+    shortTermGoal2: "Obține prima certificare (ADR, TMS specific)",
+    shortTermGoal3: "Construiește relații solide cu transportatorii cheie",
+    mediumTermGoal1: "Obține certificare majoră (FIATA, CILT)",
+    mediumTermGoal2: "Dezvoltă o specializare valoroasă în piață",
+    mediumTermGoal3: "Preia responsabilități de leadership informal",
+    longTermGoal1: "Atinge poziție de management sau expert recunoscut",
+    longTermGoal2: "Construiește rețea profesională solidă în industrie",
+    longTermGoal3: "Devino mentor pentru profesioniștii mai tineri",
+
+    // Intro title
+    introTitle: "Introducere",
   },
 
   de: {
@@ -1575,6 +1605,33 @@ Wichtiger Tipp: "Ich habe mich entschieden, in etwas Spezifischem der Beste zu w
     glossaryDef9: "Gesundes Gleichgewicht zwischen beruflichen Verantwortlichkeiten und Privatleben",
     glossaryTerm10: "Strategische Planung",
     glossaryDef10: "Prozess der Definition langfristiger Ziele und der zu ihrer Erreichung erforderlichen Schritte",
+    
+    // Learning Objectives
+    objective1: "Verschiedene Karrierewege im Freight Forwarding identifizieren und bewerten",
+    objective2: "Personalisierten Entwicklungsplan für technische und Soft Skills erstellen",
+    objective3: "Branchenanerkannte Zertifizierungen verstehen und nutzen",
+    objective4: "Effektive Strategien für kontinuierliches Lernen implementieren",
+    objective5: "Solides professionelles Netzwerk aufbauen und nutzen",
+    objective6: "Karriere kurz-, mittel- und langfristig strategisch planen",
+    
+    career1Desc: "Buchungsunterstützung, Tracking, Basis-Kommunikation mit Spediteuren. TMS-Lernen.",
+    career2Desc: "Selbstständige Kundenportfolioverwaltung, Ratenverhandlung, Problemlösung.",
+    career3Desc: "Strategische Kunden, komplexe Transporte, Mentoring, Referenz für schwierige Situationen.",
+    career4Desc: "Teamkoordination 3-8 Personen, KPI-Erreichung, Recruiting und Training.",
+    career5Desc: "Abteilungsführung, P&L-Verantwortung, operative Strategie, Prozessoptimierung.",
+    career6Desc: "Strategische Vision, Geschäftsentwicklung, Unternehmensrepräsentation.",
+    
+    shortTermGoal1: "TMS und operative Grundprozesse beherrschen",
+    shortTermGoal2: "Erste Zertifizierung erhalten (ADR, TMS-spezifisch)",
+    shortTermGoal3: "Solide Beziehungen zu Schlüssel-Spediteuren aufbauen",
+    mediumTermGoal1: "Große Zertifizierung erhalten (FIATA, CILT)",
+    mediumTermGoal2: "Wertvolle Markt-Spezialisierung entwickeln",
+    mediumTermGoal3: "Informelle Führungsverantwortung übernehmen",
+    longTermGoal1: "Management-Position oder anerkannten Experten-Status erreichen",
+    longTermGoal2: "Solides professionelles Netzwerk in der Branche aufbauen",
+    longTermGoal3: "Mentor für jüngere Fachkräfte werden",
+    
+    introTitle: "Einführung",
   },
 
   en: {
@@ -2052,5 +2109,34 @@ Key tip: "The promotion came because I was already an informal leader. I didn't 
     glossaryDef9: "Healthy balance between professional responsibilities and personal life",
     glossaryTerm10: "Strategic Planning",
     glossaryDef10: "Process of defining long-term goals and the steps needed to achieve them",
+    
+    // Learning Objectives
+    objective1: "Identify and evaluate different career paths available in freight forwarding",
+    objective2: "Create a personalized development plan for technical and soft skills",
+    objective3: "Understand and access industry-recognized certifications",
+    objective4: "Implement effective continuous learning strategies",
+    objective5: "Build and leverage a solid professional network",
+    objective6: "Strategically plan short, medium and long-term career",
+    
+    // Career Stage Descriptions
+    career1Desc: "Booking assistance, tracking, basic carrier communication. Focus on TMS learning.",
+    career2Desc: "Independent client portfolio management, rate negotiation, operational problem solving.",
+    career3Desc: "Strategic clients, complex transports, junior mentoring, reference for difficult situations.",
+    career4Desc: "Team coordination 3-8 people, KPI achievement, recruiting and training, management reporting.",
+    career5Desc: "Full department management, P&L responsibility, operational strategy, process optimization.",
+    career6Desc: "Strategic vision, new business development, company representation, executive leadership.",
+    
+    // Career Planning Goals
+    shortTermGoal1: "Master TMS and basic operational processes",
+    shortTermGoal2: "Obtain first certification (ADR, specific TMS)",
+    shortTermGoal3: "Build solid relationships with key carriers",
+    mediumTermGoal1: "Obtain major certification (FIATA, CILT)",
+    mediumTermGoal2: "Develop a valuable market specialization",
+    mediumTermGoal3: "Take on informal leadership responsibilities",
+    longTermGoal1: "Reach management position or recognized expert status",
+    longTermGoal2: "Build solid professional network in industry",
+    longTermGoal3: "Become a mentor for younger professionals",
+    
+    introTitle: "Introduction",
   },
 };
