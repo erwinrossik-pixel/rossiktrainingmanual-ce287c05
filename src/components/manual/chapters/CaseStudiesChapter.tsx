@@ -1,5 +1,6 @@
 import { InfoCard } from "../InfoCard";
 import { MultiModalContent } from "../MultiModalContent";
+import { ChapterImage } from "../ChapterImage";
 import { Lightbulb, AlertTriangle, CheckCircle, XCircle, Euro, Clock, Truck, MapPin, Thermometer, FileText, Users, TrendingUp, Target, HelpCircle, Route, Scale } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
@@ -7,6 +8,7 @@ import { Quiz } from "../Quiz";
 import { quizzes } from "@/data/quizData";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import caseStudyImg from "@/assets/chapters/case-study-analysis.jpg";
 
 // Interactive Decision Scenario Component
 function DecisionScenario({
@@ -120,6 +122,15 @@ export function CaseStudiesChapter() {
         description={ct('heroDescription')}
         icon={Lightbulb}
         variant="casestudies"
+      />
+
+      {/* Case Study Analysis Image */}
+      <ChapterImage
+        src={caseStudyImg}
+        alt="Case study analysis meeting"
+        caption={ct('caseStudyCaption') || "Analiză studii de caz - rezolvarea scenariilor complexe în transport"}
+        variant="inline"
+        className="mb-6"
       />
 
       {/* Introduction */}

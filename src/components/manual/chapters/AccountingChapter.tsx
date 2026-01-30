@@ -2,10 +2,12 @@ import { DataTable } from "../DataTable";
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { MultiModalContent } from "../MultiModalContent";
+import { ChapterImage } from "../ChapterImage";
 import { quizzes } from "@/data/quizData";
 import { FileText, Euro, Calendar, CreditCard, Calculator, CheckCircle2, AlertTriangle, Clock, TrendingUp, Building2, Receipt, Scale } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
+import accountingImg from "@/assets/chapters/accounting-financial.jpg";
 
 export function AccountingChapter() {
   const { ct } = useChapterTranslation("accounting");
@@ -17,6 +19,15 @@ export function AccountingChapter() {
         description={ct('heroDescription')}
         icon={Receipt}
         variant="accounting"
+      />
+
+      {/* Accounting Financial Image */}
+      <ChapterImage
+        src={accountingImg}
+        alt="Transport accounting and financial documents"
+        caption={ct('accountingCaption') || "Gestiune financiară în transport - facturi și documente contabile"}
+        variant="inline"
+        className="mb-6"
       />
 
       {/* Introduction */}

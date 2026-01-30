@@ -2,10 +2,12 @@ import { InfoCard } from "../InfoCard";
 import { DataTable } from "../DataTable";
 import { Quiz } from "../Quiz";
 import { MultiModalContent } from "../MultiModalContent";
+import { ChapterImage } from "../ChapterImage";
 import { quizzes } from "@/data/quizData";
 import { MapPin, Truck, BarChart3, Shield, Fuel, Settings, AlertTriangle, Monitor, Database, Navigation, Calendar, Users, FileText } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
+import fleetDashboardImg from "@/assets/chapters/fleet-management-dashboard.jpg";
 
 export function FleetChapter() {
   const { ct } = useChapterTranslation("fleet");
@@ -17,6 +19,15 @@ export function FleetChapter() {
         description={ct('heroDescription')}
         icon={Truck}
         variant="fleet"
+      />
+
+      {/* Fleet Dashboard Image */}
+      <ChapterImage
+        src={fleetDashboardImg}
+        alt="Fleet management control center dashboard"
+        caption={ct('dashboardCaption') || "Centru de comandă pentru managementul flotei - monitorizare în timp real"}
+        variant="inline"
+        className="mb-6"
       />
 
       {/* TMS Dispoplan Integration */}

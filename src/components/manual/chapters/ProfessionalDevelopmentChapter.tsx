@@ -2,6 +2,7 @@ import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { MultiModalContent } from "../MultiModalContent";
 import { ChapterHero } from "../ChapterHero";
+import { ChapterImage } from "../ChapterImage";
 import {
   GraduationCap, TrendingUp, Award, BookOpen, Globe,
   Laptop, Users, Heart, Star, Target, CheckCircle, AlertTriangle, Book,
@@ -10,6 +11,7 @@ import {
 } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { useLanguage } from "@/contexts/LanguageContext";
+import careerDevelopmentImg from "@/assets/chapters/career-development.jpg";
 
 // Career stages data structure
 const careerStages = [

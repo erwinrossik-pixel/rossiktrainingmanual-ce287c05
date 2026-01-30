@@ -2,10 +2,12 @@ import { InfoCard } from "../InfoCard";
 import { DataTable } from "../DataTable";
 import { Quiz } from "../Quiz";
 import { MultiModalContent } from "../MultiModalContent";
+import { ChapterImage } from "../ChapterImage";
 import { quizzes } from "@/data/quizData";
 import { Building2, Search, FileText, BarChart3, Target, Handshake, Phone, Mail, Users, TrendingUp, AlertTriangle, CheckCircle } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
+import clientsMeetingImg from "@/assets/chapters/clients-meeting.jpg";
 
 export function ClientsChapter() {
   const { ct } = useChapterTranslation("clients");
@@ -17,6 +19,15 @@ export function ClientsChapter() {
         description={ct('heroDescription')}
         icon={Building2}
         variant="clients"
+      />
+
+      {/* Clients Meeting Image */}
+      <ChapterImage
+        src={clientsMeetingImg}
+        alt="Business meeting with logistics client"
+        caption={ct('clientsMeetingCaption') || "Întâlnire cu clientul - dezvoltarea relațiilor de afaceri în transport"}
+        variant="inline"
+        className="mb-6"
       />
 
       {/* Client Sources */}

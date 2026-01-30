@@ -3,9 +3,11 @@ import { DataTable } from "../DataTable";
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { MultiModalContent } from "../MultiModalContent";
+import { ChapterImage } from "../ChapterImage";
 import { ClipboardList, Truck, Package, FileText, Calculator, AlertTriangle, Phone, Shield, Clock, Euro, MapPin, CheckCircle2, Thermometer, Users, Wrench, Globe, Camera, Scale, Ban, Fuel } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
+import checklistImg from "@/assets/chapters/checklist-verification.jpg";
 
 export function ChecklistsChapter() {
   const { ct } = useChapterTranslation("checklists");
@@ -17,6 +19,15 @@ export function ChecklistsChapter() {
         description={ct('heroDescription')}
         icon={ClipboardList}
         variant="checklists"
+      />
+
+      {/* Checklist Verification Image */}
+      <ChapterImage
+        src={checklistImg}
+        alt="Dispatcher using checklist at warehouse"
+        caption={ct('checklistCaption') || "Verificarea checklist-ului operațional - controlul calității în transport"}
+        variant="inline"
+        className="mb-6"
       />
 
       {/* Pre-Trip & Loading Checklists */}

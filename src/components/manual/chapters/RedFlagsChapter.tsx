@@ -3,9 +3,11 @@ import { Quiz } from "../Quiz";
 import { DataTable } from "../DataTable";
 import { InfoCard } from "../InfoCard";
 import { MultiModalContent } from "../MultiModalContent";
+import { ChapterImage } from "../ChapterImage";
 import { quizzes } from "@/data/quizData";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
+import redFlagsImg from "@/assets/chapters/red-flags-investigation.jpg";
 
 export function RedFlagsChapter() {
   const { ct } = useChapterTranslation('red-flags');
@@ -78,6 +80,15 @@ export function RedFlagsChapter() {
         description={ct('heroDescription')}
         icon={AlertTriangle}
         variant="redflags"
+      />
+
+      {/* Red Flags Investigation Image */}
+      <ChapterImage
+        src={redFlagsImg}
+        alt="Fraud investigation and document verification"
+        caption={ct('investigationCaption') || "Prevenirea fraudei - verificarea documentelor și partenerilor"}
+        variant="inline"
+        className="mb-6"
       />
 
       {/* Why Red Flags Matter */}
