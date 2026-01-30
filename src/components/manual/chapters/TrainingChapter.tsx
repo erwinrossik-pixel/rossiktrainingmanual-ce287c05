@@ -4,7 +4,6 @@ import { ChapterHero } from "../ChapterHero";
 import { ChapterImage } from "../ChapterImage";
 import { Quiz } from "../Quiz";
 import { MultiModalContent } from "../MultiModalContent";
-import { quizzes } from "@/data/quizData";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import trainingSessionImg from "@/assets/chapters/training-session.jpg";
@@ -729,7 +728,7 @@ export function TrainingChapter() {
       <MultiModalContent chapterId="training" />
 
       {/* Quiz */}
-      <Quiz title={ct("quizTitle")} questions={quizzes.training} chapterId="training" />
+      <Quiz title={ct("quizTitle")} chapterId="training" />
     </div>
   );
 }

@@ -3,7 +3,6 @@ import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { MultiModalContent } from "../MultiModalContent";
 import { ChapterImage } from "../ChapterImage";
-import { quizzes } from "@/data/quizData";
 import { Users, Target, MessageSquare, CheckCircle2, XCircle, AlertTriangle, Zap, Scale, TrendingUp, Handshake, Shield, Euro } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
@@ -369,14 +368,7 @@ export function NegotiationChapter() {
       <MultiModalContent chapterId="negotiation" />
 
       {/* Quiz */}
-      {quizzes["negotiation"] && (
-        <Quiz
-          title={ct("quizTitle")}
-          questions={quizzes["negotiation"]}
-          chapterId="negotiation"
-          questionsPerRound={10}
-        />
-      )}
+      <Quiz title={ct("quizTitle")} chapterId="negotiation" />
     </div>
   );
 }

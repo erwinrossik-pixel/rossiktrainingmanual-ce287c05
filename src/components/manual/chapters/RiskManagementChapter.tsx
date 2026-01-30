@@ -4,7 +4,6 @@ import { Checklist } from "../Checklist";
 import { Quiz } from "../Quiz";
 import { MultiModalContent } from "../MultiModalContent";
 import { ChapterImage } from "../ChapterImage";
-import { quizzes } from "@/data/quizData";
 import { Shield, AlertTriangle, CheckCircle2, XCircle, Eye, TrendingUp, FileText, Scale, Users, Zap, Target, Lock } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
@@ -354,14 +353,7 @@ export function RiskManagementChapter() {
       <MultiModalContent chapterId="risk-management" />
 
       {/* Quiz */}
-      {quizzes["risk-management"] && (
-        <Quiz
-          title={ct("quizTitle")}
-          questions={quizzes["risk-management"]}
-          chapterId="risk-management"
-          questionsPerRound={10}
-        />
-      )}
+      <Quiz title={ct("quizTitle")} chapterId="risk-management" />
     </div>
   );
 }

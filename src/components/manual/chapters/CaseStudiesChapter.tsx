@@ -5,7 +5,6 @@ import { Lightbulb, AlertTriangle, CheckCircle, XCircle, Euro, Clock, Truck, Map
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
 import { Quiz } from "../Quiz";
-import { quizzes } from "@/data/quizData";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import caseStudyImg from "@/assets/chapters/case-study-analysis.jpg";
@@ -588,9 +587,7 @@ export function CaseStudiesChapter() {
       <MultiModalContent chapterId="case-studies" />
 
       {/* Quiz */}
-      {quizzes["case-studies"] && (
-        <Quiz title={ct("quizTitle")} questions={quizzes["case-studies"]} chapterId="case-studies" />
-      )}
+      <Quiz title={ct("quizTitle")} chapterId="case-studies" />
     </div>
   );
 }
