@@ -287,6 +287,7 @@ export function getTranslatedQuiz(chapterId: string, language: Language): { ques
 }
 
 // Raw question counts for chapters that have language-tagged questions (48 total, not 16 consolidated)
+// This ensures accurate reporting even though questions are stored with language tags
 const rawQuestionCounts: Record<string, number> = {
   'stress-management': 48,
   'sustainability': 48,
@@ -295,9 +296,12 @@ const rawQuestionCounts: Record<string, number> = {
   'european-countries': 48,
   'express-transport': 48,
   'high-value-goods': 48,
-  'intermodal': 48,
+  'intermodal': 48, // 48 questions (16 per language)
   'networking': 48,
   'professional-development': 48,
+  // Additional chapters with language-tagged format
+  'translogica': 30, // 10 per language
+  'checklists': 48, // 16 per language
 };
 
 // Get question count for a specific chapter

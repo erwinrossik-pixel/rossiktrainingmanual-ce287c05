@@ -25,9 +25,9 @@ export function ExchangesChapter() {
       {/* Main Exchanges */}
       <div className="grid md:grid-cols-2 gap-6">
         {/* TIMOCOM */}
-        <div className="info-card border-t-4 border-t-blue-500">
+        <div className="info-card border-t-4 border-t-info">
           <div className="flex items-center gap-3 mb-4">
-            <div className="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center text-white font-bold">
+            <div className="w-12 h-12 bg-info rounded-lg flex items-center justify-center text-info-foreground font-bold">
               TC
             </div>
             <div>
@@ -55,9 +55,9 @@ export function ExchangesChapter() {
         </div>
 
         {/* Trans.eu */}
-        <div className="info-card border-t-4 border-t-green-500">
+        <div className="info-card border-t-4 border-t-success">
           <div className="flex items-center gap-3 mb-4">
-            <div className="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center text-white font-bold">
+            <div className="w-12 h-12 bg-success rounded-lg flex items-center justify-center text-success-foreground font-bold">
               T.eu
             </div>
             <div>

@@ -25,20 +25,20 @@ export function SubscriptionCard() {
       return <Badge variant="destructive">Expirat</Badge>;
     }
     if (isTrialing) {
-      return <Badge className="bg-blue-500">Trial - {trialDaysRemaining} zile rămase</Badge>;
+      return <Badge className="bg-info text-info-foreground">Trial - {trialDaysRemaining} zile rămase</Badge>;
     }
     if (isActive) {
-      return <Badge className="bg-green-500">Activ</Badge>;
+      return <Badge className="bg-success text-success-foreground">Activ</Badge>;
     }
     return <Badge variant="secondary">Inactiv</Badge>;
   };
 
   const getPlanIcon = () => {
     switch (currentPlan) {
-      case 'enterprise': return <Crown className="h-6 w-6 text-amber-500" />;
-      case 'professional': return <Crown className="h-6 w-6 text-purple-500" />;
-      case 'starter': return <Crown className="h-6 w-6 text-blue-500" />;
-      default: return <Crown className="h-6 w-6 text-gray-400" />;
+      case 'enterprise': return <Crown className="h-6 w-6 text-warning" />;
+      case 'professional': return <Crown className="h-6 w-6 text-primary" />;
+      case 'starter': return <Crown className="h-6 w-6 text-info" />;
+      default: return <Crown className="h-6 w-6 text-muted-foreground" />;
     }
   };
 
@@ -49,10 +49,10 @@ export function SubscriptionCard() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className={`p-2 rounded-lg ${
-                currentPlan === 'enterprise' ? 'bg-amber-100' :
-                currentPlan === 'professional' ? 'bg-purple-100' :
-                currentPlan === 'starter' ? 'bg-blue-100' :
-                'bg-gray-100'
+                currentPlan === 'enterprise' ? 'bg-warning/20' :
+                currentPlan === 'professional' ? 'bg-primary/20' :
+                currentPlan === 'starter' ? 'bg-info/20' :
+                'bg-muted'
               }`}>
                 {getPlanIcon()}
               </div>
@@ -75,7 +75,7 @@ export function SubscriptionCard() {
             </span>
             <span className="text-muted-foreground">/lună</span>
             {subscription?.billing_cycle === 'yearly' && (
-              <Badge variant="outline" className="ml-2 bg-green-50 text-green-700">
+              <Badge variant="outline" className="ml-2 bg-success/10 text-success">
                 Facturat anual
               </Badge>
             )}
@@ -194,10 +194,10 @@ function FeatureItem({
 }) {
   return (
     <div className={`flex items-center gap-2 p-2 rounded-lg ${
-      enabled ? 'bg-green-50' : 'bg-gray-50'
+      enabled ? 'bg-success/10' : 'bg-muted'
     }`}>
-      <Icon className={`h-4 w-4 ${enabled ? 'text-green-600' : 'text-gray-400'}`} />
-      <span className={`text-sm ${enabled ? '' : 'text-gray-400'}`}>
+      <Icon className={`h-4 w-4 ${enabled ? 'text-success' : 'text-muted-foreground'}`} />
+      <span className={`text-sm ${enabled ? '' : 'text-muted-foreground'}`}>
         {value !== undefined ? (
           <span className="font-medium">{value} {label}</span>
         ) : (
@@ -206,8 +206,8 @@ function FeatureItem({
       </span>
       {value === undefined && (
         enabled 
-          ? <Check className="h-3 w-3 text-green-600 ml-auto" />
-          : <X className="h-3 w-3 text-gray-400 ml-auto" />
+          ? <Check className="h-3 w-3 text-success ml-auto" />
+          : <X className="h-3 w-3 text-muted-foreground ml-auto" />
       )}
     </div>
   );
