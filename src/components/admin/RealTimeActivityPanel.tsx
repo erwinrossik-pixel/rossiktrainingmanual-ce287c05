@@ -214,7 +214,7 @@ const RealTimeActivityPanel: React.FC = () => {
             description: `Vizualizare: ${pageName}`,
             timestamp: newView.created_at,
             icon: <Eye className="h-4 w-4" />,
-            color: 'text-blue-500'
+            color: 'text-info'
           });
           calculateStats();
         }
@@ -309,11 +309,11 @@ const RealTimeActivityPanel: React.FC = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">{t('admin.realtime.viewsToday')}</p>
-                <p className="text-3xl font-bold text-blue-600">{stats.totalPageViews}</p>
+                <p className="text-3xl font-bold text-info">{stats.totalPageViews}</p>
                 <p className="text-xs text-muted-foreground">{t('admin.realtime.pagesVisited')}</p>
               </div>
-              <div className="h-12 w-12 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
-                <Eye className="h-6 w-6 text-blue-600" />
+              <div className="h-12 w-12 rounded-full bg-info/10 flex items-center justify-center">
+                <Eye className="h-6 w-6 text-info" />
               </div>
             </div>
           </CardContent>

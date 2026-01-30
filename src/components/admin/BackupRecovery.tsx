@@ -151,8 +151,8 @@ export function BackupRecovery() {
                     : t('admin.backup.never')}
                 </p>
               </div>
-              <div className="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center">
-                <Database className="h-6 w-6 text-blue-400" />
+              <div className="w-12 h-12 rounded-full bg-info/20 flex items-center justify-center">
+                <Database className="h-6 w-6 text-info" />
               </div>
             </div>
           </CardContent>
@@ -303,15 +303,15 @@ export function BackupRecovery() {
                 <div key={backup.id} className="flex items-center justify-between p-4 bg-background/50 rounded-lg">
                   <div className="flex items-center gap-4">
                     <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-                      backup.status === 'completed' ? 'bg-green-500/20' :
-                      backup.status === 'failed' ? 'bg-red-500/20' : 'bg-blue-500/20'
+                      backup.status === 'completed' ? 'bg-success/20' :
+                      backup.status === 'failed' ? 'bg-destructive/20' : 'bg-info/20'
                     }`}>
                       {backup.status === 'completed' ? (
-                        <CheckCircle className="h-5 w-5 text-green-400" />
+                        <CheckCircle className="h-5 w-5 text-success" />
                       ) : backup.status === 'failed' ? (
-                        <XCircle className="h-5 w-5 text-red-400" />
+                        <XCircle className="h-5 w-5 text-destructive" />
                       ) : (
-                        <RefreshCw className="h-5 w-5 text-blue-400 animate-spin" />
+                        <RefreshCw className="h-5 w-5 text-info animate-spin" />
                       )}
                     </div>
                     <div>

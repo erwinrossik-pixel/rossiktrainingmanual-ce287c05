@@ -333,7 +333,7 @@ export function EnterpriseMonitoring() {
                           </div>
                         </div>
                         {error.resolved_at && (
-                          <Badge className="mt-2 bg-green-500/20 text-green-400">{t('admin.monitor.resolved')}</Badge>
+                          <Badge className="mt-2 bg-success/20 text-success">{t('admin.monitor.resolved')}</Badge>
                         )}
                       </CardContent>
                     </Card>
@@ -362,12 +362,12 @@ export function EnterpriseMonitoring() {
                       <p className="text-sm text-muted-foreground">{sla.description}</p>
                     </div>
                     <div className="text-right">
-                      <p className="text-lg font-bold text-green-400">
+                      <p className="text-lg font-bold text-success">
                         {t('admin.monitor.target')}: {sla.target_value}{sla.unit === 'percent' ? '%' : sla.unit}
                       </p>
                       <div className="flex gap-2 text-xs text-muted-foreground">
-                        <span className="text-yellow-400">{t('admin.monitor.warning')}: {sla.warning_threshold}</span>
-                        <span className="text-red-400">{t('admin.monitor.critical')}: {sla.critical_threshold}</span>
+                        <span className="text-warning">{t('admin.monitor.warning')}: {sla.warning_threshold}</span>
+                        <span className="text-destructive">{t('admin.monitor.critical')}: {sla.critical_threshold}</span>
                       </div>
                     </div>
                   </div>
@@ -465,7 +465,7 @@ export function EnterpriseMonitoring() {
                 <div className="space-y-3">
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">{t('admin.cron.status')}</span>
-                    <Badge className="bg-green-500/20 text-green-400 border-green-500/30">{t('admin.backup.active')}</Badge>
+                    <Badge className="bg-success/20 text-success border-success/30">{t('admin.backup.active')}</Badge>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">{t('admin.monitor.functions')}</span>
