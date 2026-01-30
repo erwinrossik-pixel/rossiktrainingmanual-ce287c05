@@ -1,8 +1,96 @@
-import { GraduationCap, Calculator, Search, Settings, FileText, Target, Clock, Users, BookOpen, Award, CheckCircle, AlertTriangle, Briefcase, TrendingUp, Lightbulb } from "lucide-react";
+import { GraduationCap, Calculator, Search, Settings, FileText, Target, Clock, Users, BookOpen, Award, CheckCircle, AlertTriangle, Briefcase, TrendingUp, Lightbulb, HelpCircle, ThumbsUp, ThumbsDown } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
 import { Quiz } from "../Quiz";
 import { quizzes } from "@/data/quizData";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+
+// Formative Assessment Component - Quick knowledge checks
+function FormativeCheck({
+  question,
+  options,
+  correctIndex,
+  explanation,
+  hint
+}: {
+  question: string;
+  options: string[];
+  correctIndex: number;
+  explanation: string;
+  hint?: string;
+}) {
+  const [selected, setSelected] = useState<number | null>(null);
+  const [showHint, setShowHint] = useState(false);
+  const [attempts, setAttempts] = useState(0);
+
+  const handleSelect = (index: number) => {
+    setSelected(index);
+    setAttempts(prev => prev + 1);
+  };
+
+  const isCorrect = selected === correctIndex;
+  const showResult = selected !== null;
+
+  return (
+    <div className="bg-muted/30 border border-border rounded-lg p-4">
+      <div className="flex items-start gap-3 mb-3">
+        <HelpCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+        <p className="font-medium text-sm">{question}</p>
+      </div>
+
+      <div className="space-y-2 ml-8">
+        {options.map((opt, i) => (
+          <button
+            key={i}
+            onClick={() => !showResult && handleSelect(i)}
+            disabled={showResult}
+            className={`w-full text-left p-3 text-sm rounded-lg border transition-all ${
+              showResult
+                ? i === correctIndex
+                  ? 'bg-success/20 border-success'
+                  : i === selected
+                    ? 'bg-destructive/20 border-destructive'
+                    : 'bg-muted/30 border-border opacity-50'
+                : 'bg-card border-border hover:border-primary/50'
+            }`}
+          >
+            <span className="font-mono mr-2">{String.fromCharCode(65 + i)}.</span>
+            {opt}
+          </button>
+        ))}
+      </div>
+
+      {!showResult && hint && attempts === 0 && (
+        <div className="ml-8 mt-3">
+          <button 
+            onClick={() => setShowHint(true)}
+            className="text-xs text-primary hover:underline"
+          >
+            Need a hint?
+          </button>
+          {showHint && (
+            <p className="text-xs text-muted-foreground mt-1 italic">💡 {hint}</p>
+          )}
+        </div>
+      )}
+
+      {showResult && (
+        <div className={`ml-8 mt-3 p-3 rounded-lg text-sm ${isCorrect ? 'bg-success/10' : 'bg-warning/10'}`}>
+          <div className="flex items-center gap-2 mb-1">
+            {isCorrect ? (
+              <><ThumbsUp className="w-4 h-4 text-success" /><span className="font-medium text-success">Correct!</span></>
+            ) : (
+              <><ThumbsDown className="w-4 h-4 text-warning" /><span className="font-medium text-warning">Not quite</span></>
+            )}
+          </div>
+          <p className="text-muted-foreground">{explanation}</p>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export function TrainingChapter() {
   const { ct } = useChapterTranslation("training");
   
@@ -550,8 +638,84 @@ export function TrainingChapter() {
         </div>
       </section>
 
+      {/* Formative Knowledge Checks */}
+      <section className="info-card">
+        <h2 className="section-title flex items-center gap-2 mb-4">
+          <HelpCircle className="w-6 h-6 text-primary" />
+          {ct("knowledgeCheckTitle") || "Knowledge Checks"}
+        </h2>
+        <p className="text-muted-foreground mb-6">
+          {ct("knowledgeCheckDesc") || "Validate your understanding before the final quiz. These formative checks help identify areas that need review."}
+        </p>
+
+        <div className="space-y-4">
+          <FormativeCheck
+            question={ct("check1Question") || "What is the maximum daily driving time under EU regulations?"}
+            options={[
+              ct("check1OptionA") || "8 hours",
+              ct("check1OptionB") || "9 hours (10h twice per week)",
+              ct("check1OptionC") || "11 hours",
+              ct("check1OptionD") || "12 hours with breaks",
+            ]}
+            correctIndex={1}
+            explanation={ct("check1Explanation") || "EU Regulation 561/2006 sets the standard daily driving limit at 9 hours, which can be extended to 10 hours twice per week."}
+            hint={ct("check1Hint") || "Think about the 9h/10h rule you learned in the regulations module."}
+          />
+
+          <FormativeCheck
+            question={ct("check2Question") || "What does CMR stand for in international transport?"}
+            options={[
+              ct("check2OptionA") || "Central Motor Registry",
+              ct("check2OptionB") || "Convention relative au contrat de transport international de Marchandises par Route",
+              ct("check2OptionC") || "Commercial Movement Record",
+              ct("check2OptionD") || "Cargo Management Report",
+            ]}
+            correctIndex={1}
+            explanation={ct("check2Explanation") || "CMR is the French acronym for the international road transport convention. It's the primary transport document and liability framework for European road freight."}
+            hint={ct("check2Hint") || "This convention was established in Geneva in 1956."}
+          />
+
+          <FormativeCheck
+            question={ct("check3Question") || "When should you NOT sign a clean POD (Proof of Delivery)?"}
+            options={[
+              ct("check3OptionA") || "When delivery is on time",
+              ct("check3OptionB") || "When all pallets are accounted for",
+              ct("check3OptionC") || "When there is visible damage to the cargo",
+              ct("check3OptionD") || "When the consignee is present",
+            ]}
+            correctIndex={2}
+            explanation={ct("check3Explanation") || "Never sign a clean POD when there is ANY visible damage. Always note reservations on the CMR/POD to protect your liability position."}
+          />
+
+          <FormativeCheck
+            question={ct("check4Question") || "What is the standard liability limit under CMR per kilogram?"}
+            options={[
+              ct("check4OptionA") || "8.33 SDR/kg (approx. €10/kg)",
+              ct("check4OptionB") || "25 EUR/kg",
+              ct("check4OptionC") || "Full invoice value",
+              ct("check4OptionD") || "5 SDR/kg",
+            ]}
+            correctIndex={0}
+            explanation={ct("check4Explanation") || "CMR limits carrier liability to 8.33 SDR (Special Drawing Rights) per kg of gross weight lost or damaged, which is approximately €10/kg. For high-value goods, additional insurance is essential."}
+            hint={ct("check4Hint") || "Remember the '8.33' number from the insurance chapter."}
+          />
+
+          <FormativeCheck
+            question={ct("check5Question") || "A standard semi-trailer (13.6m) can fit how many EUR pallets crosswise?"}
+            options={[
+              ct("check5OptionA") || "26 pallets",
+              ct("check5OptionB") || "30 pallets",
+              ct("check5OptionC") || "33 pallets",
+              ct("check5OptionD") || "36 pallets",
+            ]}
+            correctIndex={2}
+            explanation={ct("check5Explanation") || "A standard 13.6m trailer fits 33 EUR pallets (800x1200mm) when loaded crosswise in 3 rows. This equals 13.6 LDM (Loading Meters)."}
+          />
+        </div>
+      </section>
+
       {/* Quiz */}
-      <Quiz title="Training Quiz" questions={quizzes.training} />
+      <Quiz title="Training Quiz" questions={quizzes.training} chapterId="training" />
     </div>
   );
 }
