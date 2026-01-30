@@ -263,7 +263,45 @@ Dacă o problemă poate fi rezolvată automat, pune autoFixable: true și specif
           const errorText = await aiResponse.text();
           console.error("AI Gateway error:", aiResponse.status, errorText);
           
-          // Update record with error
+          // Handle specific error codes gracefully
+          if (aiResponse.status === 402) {
+            // Insufficient credits - mark as skipped, not failed
+            await supabase
+              .from("content_visual_analysis")
+              .update({ 
+                status: "skipped", 
+                error_message: "AI credits insufficient - will retry later"
+              })
+              .eq("id", analysisRecord.id);
+            
+            // Log to cron_job_logs for visibility
+            await supabase
+              .from("cron_job_logs")
+              .insert({
+                job_name: "content_visual_analyzer",
+                status: "skipped",
+                started_at: new Date().toISOString(),
+                completed_at: new Date().toISOString(),
+                result_summary: "Skipped due to insufficient AI credits",
+                execution_type: is_cron ? "scheduled" : "manual",
+              });
+            
+            continue;
+          }
+          
+          if (aiResponse.status === 429) {
+            // Rate limited - mark as pending for retry
+            await supabase
+              .from("content_visual_analysis")
+              .update({ 
+                status: "pending", 
+                error_message: "Rate limited - will retry"
+              })
+              .eq("id", analysisRecord.id);
+            continue;
+          }
+          
+          // Other errors - mark as failed
           await supabase
             .from("content_visual_analysis")
             .update({ 
