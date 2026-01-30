@@ -221,6 +221,20 @@ export const introTranslations = {
     contactITAvail: "L-V 8:00-20:00",
     contactITDesc: "Probleme sistem, acces, probleme tehnice",
     
+    // Quick Start Guide
+    quickStartTitle: "⚡ Ghid Rapid de Start",
+    quickStartSubtitle: "Primii 5 pași pentru a începe corect",
+    quickStartStep1Title: "Explorează Capitolele",
+    quickStartStep1Desc: "Navighează prin meniu și familiarizează-te cu structura celor 50 de capitole",
+    quickStartStep2Title: "Completează Quiz-urile",
+    quickStartStep2Desc: "După fiecare capitol, testează-ți cunoștințele cu quiz-ul dedicat",
+    quickStartStep3Title: "Urmărește Progresul",
+    quickStartStep3Desc: "Folosește dashboard-ul pentru a vedea ce ai completat și ce urmează",
+    quickStartStep4Title: "Câștigă XP și Badge-uri",
+    quickStartStep4Desc: "Sistemul de gamificare te recompensează pentru consistență",
+    quickStartStep5Title: "Promovează Examenul Final",
+    quickStartStep5Desc: "După toate capitolele, susține examenul și obține certificatul",
+    
     readyTitle: "Pregătit să Începi?",
     readyText: "Acum ești pregătit să-ți începi călătoria pentru a deveni un freight forwarder profesionist. Următorul capitol va explora mentalitatea și abilitățile de care ai nevoie pentru a excela în acest rol solicitant, dar plin de satisfacții.",
     tipTitle: "Sfat de Amintit",
@@ -450,6 +464,20 @@ export const introTranslations = {
     contactITAvail: "Mo-Fr 8:00-20:00",
     contactITDesc: "Systemprobleme, Zugang, technische Probleme",
     
+    // Quick Start Guide
+    quickStartTitle: "⚡ Schnellstart-Anleitung",
+    quickStartSubtitle: "Die ersten 5 Schritte für einen guten Start",
+    quickStartStep1Title: "Kapitel erkunden",
+    quickStartStep1Desc: "Navigieren Sie durch das Menü und machen Sie sich mit den 50 Kapiteln vertraut",
+    quickStartStep2Title: "Quiz absolvieren",
+    quickStartStep2Desc: "Nach jedem Kapitel testen Sie Ihr Wissen mit dem zugehörigen Quiz",
+    quickStartStep3Title: "Fortschritt verfolgen",
+    quickStartStep3Desc: "Nutzen Sie das Dashboard, um zu sehen, was Sie abgeschlossen haben",
+    quickStartStep4Title: "XP und Abzeichen verdienen",
+    quickStartStep4Desc: "Das Gamification-System belohnt Sie für Konsistenz",
+    quickStartStep5Title: "Abschlussprüfung bestehen",
+    quickStartStep5Desc: "Nach allen Kapiteln legen Sie die Prüfung ab und erhalten das Zertifikat",
+    
     readyTitle: "Bereit zum Start?",
     readyText: "Sie sind jetzt bereit, Ihre Reise zu beginnen, um ein professioneller Spediteur zu werden. Das nächste Kapitel wird die Denkweise und Fähigkeiten erkunden, die Sie benötigen, um in dieser anspruchsvollen, aber lohnenden Rolle zu glänzen.",
     tipTitle: "Tipp zum Merken",
@@ -678,6 +706,20 @@ export const introTranslations = {
     contactIT: "IT Support",
     contactITAvail: "Mon-Fri 8:00-20:00",
     contactITDesc: "System issues, access, technical problems",
+    
+    // Quick Start Guide
+    quickStartTitle: "⚡ Quick Start Guide",
+    quickStartSubtitle: "The first 5 steps to get started right",
+    quickStartStep1Title: "Explore Chapters",
+    quickStartStep1Desc: "Navigate through the menu and familiarize yourself with all 50 chapters",
+    quickStartStep2Title: "Complete Quizzes",
+    quickStartStep2Desc: "After each chapter, test your knowledge with the dedicated quiz",
+    quickStartStep3Title: "Track Progress",
+    quickStartStep3Desc: "Use the dashboard to see what you've completed and what's next",
+    quickStartStep4Title: "Earn XP & Badges",
+    quickStartStep4Desc: "The gamification system rewards you for consistency",
+    quickStartStep5Title: "Pass Final Exam",
+    quickStartStep5Desc: "After all chapters, take the exam and get your certificate",
     
     readyTitle: "Ready to Start?",
     readyText: "You are now ready to begin your journey to becoming a professional freight forwarder. The next chapter will explore the mindset and skills you need to excel in this demanding but rewarding role.",
