@@ -1,4 +1,5 @@
 import { InfoCard } from "../InfoCard";
+import { MultiModalContent } from "../MultiModalContent";
 import { Lightbulb, AlertTriangle, CheckCircle, XCircle, Euro, Clock, Truck, MapPin, Thermometer, FileText, Users, TrendingUp, Target, HelpCircle, Route, Scale } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
@@ -572,6 +573,9 @@ export function CaseStudiesChapter() {
           <div className="flex items-start gap-2"><CheckCircle className="w-4 h-4 text-success mt-1 flex-shrink-0" /><span className="text-sm">{ct("takeaway8")}</span></div>
         </div>
       </section>
+
+      {/* Multi-Modal Content */}
+      <MultiModalContent chapterId="case-studies" />
 
       {/* Quiz */}
       {quizzes["case-studies"] && (

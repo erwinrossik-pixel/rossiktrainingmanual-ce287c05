@@ -1,5 +1,6 @@
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
+import { MultiModalContent } from "../MultiModalContent";
 import { quizzes } from "@/data/quizData";
 import { AlertTriangle, FileText, Truck, Shield, Book, CheckCircle, XCircle, Flame } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
@@ -316,6 +317,9 @@ export function ADRChapter() {
           </p>
         </div>
       </section>
+
+      {/* Multi-Modal Content */}
+      <MultiModalContent chapterId="adr" />
 
       {/* Quiz */}
       {quizzes.adr && (

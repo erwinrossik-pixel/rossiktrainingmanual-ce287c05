@@ -1,5 +1,6 @@
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
+import { MultiModalContent } from "../MultiModalContent";
 import { FlowDiagram, ProcessMap } from "../FlowDiagram";
 import { quizzes } from "@/data/quizData";
 import { Truck, Ruler, Weight, Package, Shield, CheckCircle2, AlertTriangle, Settings, Globe, Gauge, Book, Wrench, List } from "lucide-react";
@@ -504,6 +505,9 @@ export function VehicleChapter() {
           ))}
         </div>
       </section>
+
+      {/* Multi-Modal Content */}
+      <MultiModalContent chapterId="vehicle" />
 
       {/* Quiz */}
       {quizzes.vehicle && (

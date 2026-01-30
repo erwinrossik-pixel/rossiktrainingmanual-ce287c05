@@ -2,6 +2,7 @@ import { Checklist } from "../Checklist";
 import { DataTable } from "../DataTable";
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
+import { MultiModalContent } from "../MultiModalContent";
 import { quizzes } from "@/data/quizData";
 import { 
   Thermometer, Snowflake, AlertTriangle, CheckCircle, FileText, Clock, Truck,
@@ -537,6 +538,9 @@ export function ReeferChapter() {
           ]}
         />
       </div>
+
+      {/* Multi-Modal Content */}
+      <MultiModalContent chapterId="reefer" />
 
       {/* Quiz */}
       {quizzes.reefer && (

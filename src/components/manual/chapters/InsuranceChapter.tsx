@@ -1,5 +1,6 @@
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
+import { MultiModalContent } from "../MultiModalContent";
 import { quizzes } from "@/data/quizData";
 import { Shield, FileText, Euro, AlertTriangle, CheckCircle, Truck, Package, Scale } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
@@ -266,6 +267,9 @@ export function InsuranceChapter() {
           </div>
         </div>
       </section>
+
+      {/* Multi-Modal Content */}
+      <MultiModalContent chapterId="insurance" />
 
       {/* Quiz */}
       {quizzes.insurance && (

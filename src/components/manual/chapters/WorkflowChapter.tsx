@@ -1,6 +1,7 @@
 import { InfoCard } from "../InfoCard";
 import { DataTable } from "../DataTable";
 import { Quiz } from "../Quiz";
+import { MultiModalContent } from "../MultiModalContent";
 import { FlowDiagram, ProcessMap, DecisionDiagram } from "../FlowDiagram";
 import { Checklist } from "../Checklist";
 import { ChapterHero } from "../ChapterHero";
@@ -661,6 +662,9 @@ export function WorkflowChapter() {
           ]}
         />
       </div>
+
+      {/* Multi-Modal Content */}
+      <MultiModalContent chapterId="workflow" />
 
       {/* Quiz */}
       <Quiz title={ct("quizTitle")} questions={quizzes.workflow} chapterId="workflow" />

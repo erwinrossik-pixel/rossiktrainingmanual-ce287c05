@@ -1,6 +1,7 @@
 import { DataTable } from "../DataTable";
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
+import { MultiModalContent } from "../MultiModalContent";
 import { PriceCalculator } from "../PriceCalculator";
 import { quizzes } from "@/data/quizData";
 import { Calculator, Euro, Route, TrendingUp, Calendar, AlertTriangle, Percent, MapPin, Fuel, Clock, Truck, ArrowRight, CheckCircle2, XCircle, Info, Zap, Shield } from "lucide-react";
@@ -807,6 +808,9 @@ export function PricingChapter() {
           </div>
         </div>
       </div>
+
+      {/* Multi-Modal Content */}
+      <MultiModalContent chapterId="pricing" />
 
       {/* Quiz */}
       <Quiz title={ct("quizTitle")} questions={quizzes.pricing} chapterId="pricing" />

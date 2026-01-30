@@ -1,5 +1,6 @@
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
+import { MultiModalContent } from "../MultiModalContent";
 import { ChapterHero } from "../ChapterHero";
 import {
   GraduationCap, TrendingUp, Award, BookOpen, Globe,
@@ -687,6 +688,9 @@ export function ProfessionalDevelopmentChapter() {
           ))}
         </div>
       </section>
+
+      {/* Multi-Modal Content */}
+      <MultiModalContent chapterId="professional-development" />
 
       {/* Quiz */}
       <Quiz title="Quiz" chapterId="professional-development" />

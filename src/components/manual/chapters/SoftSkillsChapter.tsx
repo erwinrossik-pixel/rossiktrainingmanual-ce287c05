@@ -1,6 +1,7 @@
 import { DataTable } from "../DataTable";
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
+import { MultiModalContent } from "../MultiModalContent";
 import { ChapterHero } from "../ChapterHero";
 import { quizzes } from "@/data/quizData";
 import { Brain, MessageSquare, Clock, Users, Target, Lightbulb, Heart, Shield, Zap, CheckCircle2, AlertTriangle, Volume2, Ear, PenTool, Euro } from "lucide-react";
@@ -674,6 +675,9 @@ export function SoftSkillsChapter() {
           </div>
         </div>
       </div>
+
+      {/* Multi-Modal Content */}
+      <MultiModalContent chapterId="soft-skills" />
 
       {/* Quiz */}
       {quizzes["soft-skills"] && (
