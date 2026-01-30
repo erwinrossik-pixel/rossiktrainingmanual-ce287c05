@@ -389,6 +389,79 @@ export function IntroChapter() {
         </div>
       </section>
 
+      {/* Quick Start Guide */}
+      <section className="content-section">
+        <div className="bg-gradient-to-br from-info/10 to-info/5 border-2 border-info/30 rounded-2xl p-6">
+          <h2 className="text-xl font-bold text-info mb-2 flex items-center gap-2">
+            <Zap className="w-6 h-6" />
+            {ct("quickStartTitle")}
+          </h2>
+          <p className="text-muted-foreground mb-6">{ct("quickStartSubtitle")}</p>
+          
+          <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
+            {/* Step 1 */}
+            <div className="bg-background rounded-xl p-4 border border-border relative">
+              <div className="absolute -top-3 -left-2 w-8 h-8 bg-info text-info-foreground rounded-full flex items-center justify-center font-bold text-sm shadow-lg">1</div>
+              <div className="pt-2">
+                <h3 className="font-semibold text-sm mb-1 flex items-center gap-2">
+                  <BookOpen className="w-4 h-4 text-info" />
+                  {ct("quickStartStep1Title")}
+                </h3>
+                <p className="text-xs text-muted-foreground">{ct("quickStartStep1Desc")}</p>
+              </div>
+            </div>
+            
+            {/* Step 2 */}
+            <div className="bg-background rounded-xl p-4 border border-border relative">
+              <div className="absolute -top-3 -left-2 w-8 h-8 bg-info text-info-foreground rounded-full flex items-center justify-center font-bold text-sm shadow-lg">2</div>
+              <div className="pt-2">
+                <h3 className="font-semibold text-sm mb-1 flex items-center gap-2">
+                  <Target className="w-4 h-4 text-info" />
+                  {ct("quickStartStep2Title")}
+                </h3>
+                <p className="text-xs text-muted-foreground">{ct("quickStartStep2Desc")}</p>
+              </div>
+            </div>
+            
+            {/* Step 3 */}
+            <div className="bg-background rounded-xl p-4 border border-border relative">
+              <div className="absolute -top-3 -left-2 w-8 h-8 bg-info text-info-foreground rounded-full flex items-center justify-center font-bold text-sm shadow-lg">3</div>
+              <div className="pt-2">
+                <h3 className="font-semibold text-sm mb-1 flex items-center gap-2">
+                  <TrendingUp className="w-4 h-4 text-info" />
+                  {ct("quickStartStep3Title")}
+                </h3>
+                <p className="text-xs text-muted-foreground">{ct("quickStartStep3Desc")}</p>
+              </div>
+            </div>
+            
+            {/* Step 4 */}
+            <div className="bg-background rounded-xl p-4 border border-border relative">
+              <div className="absolute -top-3 -left-2 w-8 h-8 bg-info text-info-foreground rounded-full flex items-center justify-center font-bold text-sm shadow-lg">4</div>
+              <div className="pt-2">
+                <h3 className="font-semibold text-sm mb-1 flex items-center gap-2">
+                  <Star className="w-4 h-4 text-info" />
+                  {ct("quickStartStep4Title")}
+                </h3>
+                <p className="text-xs text-muted-foreground">{ct("quickStartStep4Desc")}</p>
+              </div>
+            </div>
+            
+            {/* Step 5 */}
+            <div className="bg-background rounded-xl p-4 border border-border relative">
+              <div className="absolute -top-3 -left-2 w-8 h-8 bg-success text-success-foreground rounded-full flex items-center justify-center font-bold text-sm shadow-lg">5</div>
+              <div className="pt-2">
+                <h3 className="font-semibold text-sm mb-1 flex items-center gap-2">
+                  <Award className="w-4 h-4 text-success" />
+                  {ct("quickStartStep5Title")}
+                </h3>
+                <p className="text-xs text-muted-foreground">{ct("quickStartStep5Desc")}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Ready to Start */}
       <div className="info-card bg-gradient-to-br from-primary/5 to-primary/10 border-primary/20">
         <h2 className="section-title flex items-center gap-3">
