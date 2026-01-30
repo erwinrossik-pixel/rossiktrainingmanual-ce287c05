@@ -43,13 +43,15 @@ export const expressTransportTranslations = {
     
     checklistTitle: "Checklist Pre-Confirmare Express",
     checklistItems: "1. Camion confirmat 100% disponibil? | 2. Șofer cu ore de condus suficiente? | 3. Adresele verificate și complete? | 4. Contacte funcționale la ambele capete? | 5. Restricții de acces verificate? | 6. Plan B identificat? | 7. Client informat despre preț final? | 8. Rută și timp realistic calculat?",
-    
+
+    bestPracticesTitle: "Bune Practici",
     bestPractice1: "Confirmă capacitatea și disponibilitatea 100% înainte de a promite clientului",
     bestPractice2: "Comunică proactiv orice risc sau actualizare - clientul preferă vești proaste devreme",
     bestPractice3: "Documentează totul: ore, confirmări, conversații - protecție în caz de dispute",
     bestPractice4: "Menține relații cu 3-5 transportatori de încredere pentru capacitate rapidă",
     bestPractice5: "Calculează prețul corect de la început - nu negociezi în timp ce ceasul ticăie",
     
+    commonMistakesTitle: "Greșeli Frecvente",
     commonMistake1: "Acceptarea comenzii fără capacitate confirmată 100% ('găsim noi ceva')",
     commonMistake2: "Subestimarea timpului de tranzit - nu include pauze, trafic, verificări",
     commonMistake3: "Lipsa planului B - când unica opțiune eșuează, eșuezi și tu",
@@ -123,13 +125,15 @@ export const expressTransportTranslations = {
     
     checklistTitle: "Pre-Bestätigungs-Checkliste Express",
     checklistItems: "1. Lkw 100% bestätigt verfügbar? | 2. Fahrer mit ausreichend Lenkzeit? | 3. Adressen verifiziert und vollständig? | 4. Funktionierende Kontakte an beiden Enden? | 5. Zugangsbeschränkungen geprüft? | 6. Plan B identifiziert? | 7. Kunde über Endpreis informiert? | 8. Route und realistische Zeit berechnet?",
-    
+
+    bestPracticesTitle: "Best Practices",
     bestPractice1: "Kapazität und Verfügbarkeit 100% bestätigen bevor Sie dem Kunden zusagen",
     bestPractice2: "Proaktiv jedes Risiko oder Update kommunizieren - der Kunde bevorzugt schlechte Nachrichten früh",
     bestPractice3: "Alles dokumentieren: Zeiten, Bestätigungen, Gespräche - Schutz bei Streitigkeiten",
     bestPractice4: "Beziehungen zu 3-5 zuverlässigen Spediteuren für schnelle Kapazität pflegen",
     bestPractice5: "Preis von Anfang an korrekt kalkulieren - nicht verhandeln während die Uhr tickt",
     
+    commonMistakesTitle: "Häufige Fehler",
     commonMistake1: "Auftragsannahme ohne 100% bestätigte Kapazität ('wir finden schon was')",
     commonMistake2: "Unterschätzung der Transitzeit - Pausen, Verkehr, Kontrollen nicht einbezogen",
     commonMistake3: "Fehlender Plan B - wenn die einzige Option scheitert, scheitern Sie auch",
@@ -203,13 +207,15 @@ export const expressTransportTranslations = {
     
     checklistTitle: "Pre-Confirmation Express Checklist",
     checklistItems: "1. Truck 100% confirmed available? | 2. Driver with sufficient driving hours? | 3. Addresses verified and complete? | 4. Functional contacts at both ends? | 5. Access restrictions verified? | 6. Plan B identified? | 7. Client informed about final price? | 8. Route and realistic time calculated?",
-    
+
+    bestPracticesTitle: "Best Practices",
     bestPractice1: "Confirm capacity and availability 100% before promising the client",
     bestPractice2: "Proactively communicate any risk or update - client prefers bad news early",
     bestPractice3: "Document everything: times, confirmations, conversations - protection in case of disputes",
     bestPractice4: "Maintain relationships with 3-5 reliable carriers for quick capacity",
     bestPractice5: "Calculate price correctly from the start - don't negotiate while the clock is ticking",
     
+    commonMistakesTitle: "Common Mistakes",
     commonMistake1: "Accepting order without 100% confirmed capacity ('we'll find something')",
     commonMistake2: "Underestimating transit time - not including breaks, traffic, inspections",
     commonMistake3: "Lack of plan B - when the only option fails, you fail too",

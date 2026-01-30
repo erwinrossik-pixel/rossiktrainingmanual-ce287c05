@@ -125,7 +125,7 @@ export function StressManagementChapter() {
           <div className="bg-success/10 border border-success/30 rounded-xl p-6">
             <h3 className="font-semibold mb-3 flex items-center gap-2 text-success">
               <CheckCircle className="w-5 h-5" />
-              Best Practices
+              {ct('bestPracticesTitle')}
             </h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>• {ct('bestPractice1')}</li>
@@ -136,7 +136,7 @@ export function StressManagementChapter() {
           <div className="bg-destructive/10 border border-destructive/30 rounded-xl p-6">
             <h3 className="font-semibold mb-3 flex items-center gap-2 text-destructive">
               <AlertTriangle className="w-5 h-5" />
-              Common Mistakes
+              {ct('commonMistakesTitle')}
             </h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>• {ct('commonMistake1')}</li>

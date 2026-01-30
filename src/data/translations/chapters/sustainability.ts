@@ -136,12 +136,14 @@ export const sustainabilityTranslations = {
     glossaryTerm9: "tCO2e - Tone CO2 echivalent, unitate standard pentru emisii GHG",
     glossaryTerm10: "Carbon Offset - Compensare emisii prin credite din proiecte certificate",
 
+    bestPracticesTitle: "Bune Practici",
     bestPractice1: "Implementează un sistem de monitorizare și raportare CO2 pe fiecare transport",
     bestPractice2: "Oferă proactiv rapoarte de emisii clienților - devino partener în obiectivele lor de sustenabilitate",
     bestPractice3: "Investește în training eco-driving pentru transportatorii parteneri - beneficii reciproce",
     bestPractice4: "Construiește portofoliu de opțiuni verzi (intermodal, LNG, HVO) pentru a răspunde cerințelor diverse",
     bestPractice5: "Stabilește obiective de reducere pe 3-5 ani și comunică-le transparent clienților",
 
+    commonMistakesTitle: "Greșeli Frecvente",
     commonMistake1: "Ignorarea cerințelor de sustenabilitate ale clienților până când e prea târziu pentru licitații",
     commonMistake2: "Raportări inexacte sau greenwashing - distruge încrederea și expune la riscuri de reputație",
     commonMistake3: "Lipsa strategiei pe termen lung pentru tranziția către flotă verde",
@@ -285,12 +287,14 @@ export const sustainabilityTranslations = {
     glossaryTerm9: "tCO2e - Tonnen CO2-Äquivalent, Standardeinheit für THG-Emissionen",
     glossaryTerm10: "Carbon Offset - Emissionskompensation durch Credits aus zertifizierten Projekten",
 
+    bestPracticesTitle: "Best Practices",
     bestPractice1: "Implementieren Sie ein CO2-Überwachungs- und Berichtssystem für jeden Transport",
     bestPractice2: "Bieten Sie Kunden proaktiv Emissionsberichte an - werden Sie Partner in ihren Nachhaltigkeitszielen",
     bestPractice3: "Investieren Sie in Eco-Driving-Training für Partnerflotten - gegenseitiger Nutzen",
     bestPractice4: "Bauen Sie ein Portfolio grüner Optionen auf (Intermodal, LNG, HVO) um diverse Anforderungen zu erfüllen",
     bestPractice5: "Setzen Sie 3-5-Jahres-Reduktionsziele und kommunizieren Sie diese transparent an Kunden",
 
+    commonMistakesTitle: "Häufige Fehler",
     commonMistake1: "Ignorieren der Nachhaltigkeitsanforderungen von Kunden, bis es für Ausschreibungen zu spät ist",
     commonMistake2: "Ungenaue Berichte oder Greenwashing - zerstört Vertrauen und setzt Reputationsrisiken aus",
     commonMistake3: "Fehlende langfristige Strategie für die Transition zur grünen Flotte",
@@ -443,5 +447,19 @@ export const sustainabilityTranslations = {
     glossaryDef9: "Complete emission analysis including fuel production and combustion.",
     glossaryTerm10: "EcoVadis",
     glossaryDef10: "ESG supplier rating platform widely used in supply chain.",
+    
+    bestPracticesTitle: "Best Practices",
+    bestPractice1: "Implement a CO2 monitoring and reporting system for each transport",
+    bestPractice2: "Proactively offer emission reports to clients - become a partner in their sustainability goals",
+    bestPractice3: "Invest in eco-driving training for partner carriers - mutual benefits",
+    bestPractice4: "Build a portfolio of green options (intermodal, LNG, HVO) to meet diverse requirements",
+    bestPractice5: "Set 3-5 year reduction targets and communicate them transparently to clients",
+
+    commonMistakesTitle: "Common Mistakes",
+    commonMistake1: "Ignoring customer sustainability requirements until it's too late for tenders",
+    commonMistake2: "Inaccurate reporting or greenwashing - destroys trust and exposes to reputation risks",
+    commonMistake3: "Lack of long-term strategy for transition to green fleet",
+    commonMistake4: "Underestimating the financial impact of ETS2 and climate requirements",
+    commonMistake5: "Treating sustainability as cost, not as differentiation and value opportunity",
   },
 };

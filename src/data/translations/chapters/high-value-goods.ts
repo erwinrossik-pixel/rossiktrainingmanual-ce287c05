@@ -1030,12 +1030,14 @@ KPI-uri pentru Transportatori High-Value:
 • Respectare rute: >98%`,
 
     // Best Practices și Common Mistakes
+    bestPracticesTitle: "Bune Practici",
     bestPractice1: "Folosește exclusiv parcări TAPA certificate sau echivalent pentru opriri lungi",
     bestPractice2: "Verifică și fotografiază sigiliile la fiecare oprire, oricât de scurtă",
     bestPractice3: "Menține comunicare constantă cu dispeceratul pe tot parcursul transportului",
     bestPractice4: "Asigură valoarea completă a mărfii, nu te baza doar pe CMR standard",
     bestPractice5: "Selectează transportatori cu experiență dovedită în high-value și certificări TAPA",
     
+    commonMistakesTitle: "Greșeli Frecvente",
     commonMistake1: "Parcarea în locuri nesupravegheate 'doar pentru câteva minute' - majoritatea furturilor durează sub 5 minute",
     commonMistake2: "Asigurarea insuficientă - CMR standard acoperă maxim 10€/kg, electronicele valorează 50-200€/kg",
     commonMistake3: "Dezvăluirea conținutului încărcăturii către terți - șoferi, personalul benzinăriilor, etc.",
@@ -1632,12 +1634,14 @@ Vorteile:
 • Gemeinsames Training
 • Vorhersehbare Preise`,
 
+    bestPracticesTitle: "Best Practices",
     bestPractice1: "Nutzen Sie ausschließlich TAPA-zertifizierte oder gleichwertige Parkplätze für lange Stopps",
     bestPractice2: "Prüfen und fotografieren Sie Siegel bei jedem Stopp, egal wie kurz",
     bestPractice3: "Halten Sie während des gesamten Transports ständige Kommunikation mit der Disposition",
     bestPractice4: "Versichern Sie den vollen Warenwert, verlassen Sie sich nicht nur auf Standard-CMR",
     bestPractice5: "Wählen Sie Frachtführer mit nachgewiesener High-Value-Erfahrung und TAPA-Zertifizierungen",
     
+    commonMistakesTitle: "Häufige Fehler",
     commonMistake1: "Parken an unbeaufsichtigten Orten 'nur für ein paar Minuten' - die meisten Diebstähle dauern unter 5 Minuten",
     commonMistake2: "Unzureichende Versicherung - Standard-CMR deckt maximal 10€/kg, Elektronik ist 50-200€/kg wert",
     commonMistake3: "Preisgabe des Ladungsinhalts an Dritte - Fahrer, Tankstellenpersonal, etc.",
@@ -2232,12 +2236,14 @@ Advantages:
 • Joint training
 • Predictable prices`,
 
+    bestPracticesTitle: "Best Practices",
     bestPractice1: "Use exclusively TAPA certified or equivalent parking for long stops",
     bestPractice2: "Check and photograph seals at every stop, no matter how short",
     bestPractice3: "Maintain constant communication with dispatch throughout transport",
     bestPractice4: "Insure full cargo value, do not rely solely on standard CMR",
     bestPractice5: "Select carriers with proven high-value experience and TAPA certifications",
     
+    commonMistakesTitle: "Common Mistakes",
     commonMistake1: "Parking in unsupervised areas 'just for a few minutes' - most thefts take under 5 minutes",
     commonMistake2: "Insufficient insurance - standard CMR covers max €10/kg, electronics are worth €50-200/kg",
     commonMistake3: "Disclosing cargo contents to third parties - drivers, gas station staff, etc.",
