@@ -205,13 +205,6 @@ export function GlossaryChapter() {
         variant="glossary"
       />
 
-      {/* Glossary Image */}
-      <ChapterImage
-        src={glossaryImg}
-        alt="Freight forwarding terminology glossary"
-        variant="inline"
-        className="mb-6"
-      />
 
       {/* Search and Filter */}
       <section className="sticky top-0 z-10 bg-background py-4 border-b border-border">
@@ -246,6 +239,13 @@ export function GlossaryChapter() {
 
       {/* Glossary Terms */}
       <section>
+        {/* Glossary Reference Image - contextual before terms list */}
+        <ChapterImage
+          src={glossaryImg}
+          alt="Comprehensive freight forwarding terminology reference"
+          variant="float-right"
+          className="mb-4"
+        />
         <div className="space-y-4">
           {filteredTerms.map((item, index) => (
             <div key={index} className="bg-card border border-border rounded-xl p-4 hover:shadow-md transition-shadow">

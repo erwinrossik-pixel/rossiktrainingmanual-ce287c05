@@ -19,13 +19,6 @@ export function InsuranceChapter() {
         variant="insurance"
       />
 
-      {/* Insurance Claim Image */}
-      <ChapterImage
-        src={insuranceClaimImg}
-        alt="Insurance claim document with truck"
-        variant="inline"
-        className="mb-6"
-      />
 
       {/* Insurance Types Overview */}
       <section>
@@ -83,6 +76,14 @@ export function InsuranceChapter() {
               <p className="text-sm text-success mt-2">{ct("oneHundredPercentProtected")}</p>
             </div>
           </div>
+          
+          {/* Insurance Claim Image - contextual after liability gap example */}
+          <ChapterImage
+            src={insuranceClaimImg}
+            alt="Insurance claim documentation and processing"
+            variant="float-right"
+            className="mt-4"
+          />
           <div className="mt-4 p-4 bg-destructive/10 border border-destructive/30 rounded-lg">
             <p className="text-sm font-medium text-destructive flex items-center gap-2">
               <AlertTriangle className="w-4 h-4" />
