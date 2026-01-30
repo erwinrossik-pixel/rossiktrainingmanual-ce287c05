@@ -110,13 +110,13 @@ export function BackupRecovery() {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'completed':
-        return <Badge className="bg-green-500/20 text-green-400 border-green-500/30">{t('admin.backup.completed')}</Badge>;
+        return <Badge className="bg-success/20 text-success border-success/30">{t('admin.backup.completed')}</Badge>;
       case 'running':
-        return <Badge className="bg-blue-500/20 text-blue-400 border-blue-500/30">{t('admin.backup.statusRunning')}</Badge>;
+        return <Badge className="bg-info/20 text-info border-info/30">{t('admin.backup.statusRunning')}</Badge>;
       case 'failed':
-        return <Badge className="bg-red-500/20 text-red-400 border-red-500/30">{t('admin.backup.statusFailed')}</Badge>;
+        return <Badge className="bg-destructive/20 text-destructive border-destructive/30">{t('admin.backup.statusFailed')}</Badge>;
       case 'pending':
-        return <Badge className="bg-yellow-500/20 text-yellow-400 border-yellow-500/30">{t('admin.backup.statusPending')}</Badge>;
+        return <Badge className="bg-warning/20 text-warning border-warning/30">{t('admin.backup.statusPending')}</Badge>;
       default:
         return <Badge variant="secondary">{status}</Badge>;
     }
