@@ -8,7 +8,7 @@ import {
   Lock, FileText, Zap, GraduationCap, CheckCircle, AlertTriangle, Book
 } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
-import digitalizationImg from "@/assets/chapters/digitalization-control-center.jpg";
+import digitalizationImg from "@/assets/chapters/digitalization-ai-analytics.jpg";
 
 export function DigitalizationChapter() {
   const { ct } = useChapterTranslation('digitalization');
@@ -22,13 +22,6 @@ export function DigitalizationChapter() {
         variant="digitalization"
       />
 
-      {/* Digitalization Control Center Image */}
-      <ChapterImage
-        src={digitalizationImg}
-        alt="Digital logistics control center with AI"
-        variant="inline"
-        className="mb-6"
-      />
 
       {/* Introduction */}
       <div className="info-card">
@@ -68,6 +61,14 @@ export function DigitalizationChapter() {
             <p className="text-muted-foreground">{ct('section3Content')}</p>
           </InfoCard>
         </div>
+        
+        {/* AI Control Center Image - contextual placement */}
+        <ChapterImage
+          src={digitalizationImg}
+          alt="Digital logistics control center with AI-powered analytics dashboard"
+          variant="float-right"
+          className="mt-4"
+        />
       </section>
 
       {/* ML for Pricing */}
