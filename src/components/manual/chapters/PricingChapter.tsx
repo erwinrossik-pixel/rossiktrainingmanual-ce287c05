@@ -2,11 +2,13 @@ import { DataTable } from "../DataTable";
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { MultiModalContent } from "../MultiModalContent";
+import { ChapterImage } from "../ChapterImage";
 import { PriceCalculator } from "../PriceCalculator";
 import { quizzes } from "@/data/quizData";
 import { Calculator, Euro, Route, TrendingUp, Calendar, AlertTriangle, Percent, MapPin, Fuel, Clock, Truck, ArrowRight, CheckCircle2, XCircle, Info, Zap, Shield } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
+import pricingImg from "@/assets/chapters/pricing-calculation.jpg";
 
 export function PricingChapter() {
   const { ct } = useChapterTranslation("pricing");
@@ -18,6 +20,15 @@ export function PricingChapter() {
         description={ct('heroDescription')}
         icon={Calculator}
         variant="pricing"
+      />
+
+      {/* Pricing Calculation Image */}
+      <ChapterImage
+        src={pricingImg}
+        alt="Freight rate calculation spreadsheet"
+        caption={ct('pricingCalculationCaption') || "Calculația tarifelor de transport - analiză costuri"}
+        variant="inline"
+        className="mb-6"
       />
 
       {/* Main Formula - Enhanced */}

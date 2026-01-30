@@ -2,11 +2,13 @@ import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { ChapterHero } from "../ChapterHero";
 import { MultiModalContent } from "../MultiModalContent";
+import { ChapterImage } from "../ChapterImage";
 import {
   Diamond, Shield, Lock, Eye, Truck, MapPin,
   FileText, AlertTriangle, Phone, Users, CheckCircle, Book
 } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
+import highValueSecurityImg from "@/assets/chapters/high-value-security.jpg";
 
 export function HighValueGoodsChapter() {
   const { ct } = useChapterTranslation('high-value-goods');
@@ -18,6 +20,15 @@ export function HighValueGoodsChapter() {
         description={ct("heroDescription")}
         icon={Diamond}
         variant="high-value-goods"
+      />
+
+      {/* High Value Security Image */}
+      <ChapterImage
+        src={highValueSecurityImg}
+        alt="High security transport truck"
+        caption={ct('highValueSecurityCaption') || "Transport securizat pentru mărfuri de mare valoare"}
+        variant="inline"
+        className="mb-6"
       />
 
       {/* Introduction */}

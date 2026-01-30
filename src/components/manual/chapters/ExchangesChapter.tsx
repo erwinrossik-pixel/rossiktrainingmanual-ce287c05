@@ -2,11 +2,13 @@ import { DataTable } from "../DataTable";
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { MultiModalContent } from "../MultiModalContent";
+import { ChapterImage } from "../ChapterImage";
 import { quizzes } from "@/data/quizData";
 import { Globe, Shield, MessageSquare, Search, Star, CreditCard } from "lucide-react";
 import { Badge } from "../Badge";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
+import exchangeImg from "@/assets/chapters/freight-exchange-platform.jpg";
 
 export function ExchangesChapter() {
   const { ct } = useChapterTranslation("exchanges");
@@ -18,6 +20,15 @@ export function ExchangesChapter() {
         description={ct('heroDescription')}
         icon={Globe}
         variant="exchanges"
+      />
+
+      {/* Freight Exchange Platform Image */}
+      <ChapterImage
+        src={exchangeImg}
+        alt="Freight exchange platform interface"
+        caption={ct('exchangePlatformCaption') || "Platformă bursă de marfă - interfață oferte transport"}
+        variant="inline"
+        className="mb-6"
       />
 
       {/* Main Exchanges */}

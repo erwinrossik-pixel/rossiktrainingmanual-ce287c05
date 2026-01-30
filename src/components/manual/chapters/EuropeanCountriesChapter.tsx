@@ -2,11 +2,13 @@ import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { ChapterHero } from "../ChapterHero";
 import { MultiModalContent } from "../MultiModalContent";
+import { ChapterImage } from "../ChapterImage";
 import {
   Globe, MapPin, Truck, Clock, Shield, AlertTriangle,
   CheckCircle, Mountain, Ship, Snowflake, Building2, Book
 } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
+import europeanMapImg from "@/assets/chapters/european-countries-map.jpg";
 
 export function EuropeanCountriesChapter() {
   const { ct } = useChapterTranslation('european-countries');
@@ -18,6 +20,15 @@ export function EuropeanCountriesChapter() {
         description={ct("heroDescription")}
         icon={Globe}
         variant="european-countries"
+      />
+
+      {/* European Countries Map Image */}
+      <ChapterImage
+        src={europeanMapImg}
+        alt="European countries transport map"
+        caption={ct('europeanMapCaption') || "Harta țărilor europene cu hub-uri logistice principale"}
+        variant="inline"
+        className="mb-6"
       />
 
       {/* Introduction */}

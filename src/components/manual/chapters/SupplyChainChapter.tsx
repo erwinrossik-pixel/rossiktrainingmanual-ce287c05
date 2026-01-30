@@ -2,10 +2,12 @@ import { DataTable } from "../DataTable";
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { MultiModalContent } from "../MultiModalContent";
+import { ChapterImage } from "../ChapterImage";
 import { quizzes } from "@/data/quizData";
 import { Link, Factory, Truck, Package, BarChart3, Users, Globe, TrendingUp, CheckCircle2, AlertTriangle, ArrowRight, Zap, Target } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
+import supplyChainImg from "@/assets/chapters/supply-chain-network.jpg";
 
 export function SupplyChainChapter() {
   const { ct } = useChapterTranslation("supply-chain");
@@ -17,6 +19,15 @@ export function SupplyChainChapter() {
         description={ct('heroDescription')}
         icon={Link}
         variant="supplychain"
+      />
+
+      {/* Supply Chain Network Image */}
+      <ChapterImage
+        src={supplyChainImg}
+        alt="Global supply chain network visualization"
+        caption={ct('supplyChainNetworkCaption') || "Rețea globală de supply chain cu noduri logistice interconectate"}
+        variant="inline"
+        className="mb-6"
       />
 
       {/* Introduction */}
