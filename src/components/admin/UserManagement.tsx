@@ -952,7 +952,7 @@ export function UserManagement() {
                               ) : (
                                 <span className="text-muted-foreground text-sm">
                                   {up.progress_percentage >= 100 ? (
-                                    <Badge variant="outline" className="text-amber-600 border-amber-600">
+                                    <Badge variant="outline" className="text-warning border-warning">
                                       {language === 'ro' ? 'Eligibil' : language === 'de' ? 'Berechtigt' : 'Eligible'}
                                     </Badge>
                                   ) : (

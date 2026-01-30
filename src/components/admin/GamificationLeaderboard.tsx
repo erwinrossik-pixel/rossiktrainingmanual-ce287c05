@@ -188,48 +188,48 @@ export function GamificationLeaderboard() {
     <div className="space-y-6">
       {/* Header Stats */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-        <Card className="bg-gradient-to-br from-violet-500 to-purple-600 text-white border-0">
+        <Card className="bg-gradient-to-br from-primary to-primary/80 text-primary-foreground border-0">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-white/80 flex items-center gap-2">
+            <CardTitle className="text-sm font-medium text-primary-foreground/80 flex items-center gap-2">
               <Users className="h-4 w-4" />
               {t('admin.gamification.activeUsers')}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold">{leaderboard.length}</div>
-            <p className="text-xs text-white/70">{t('admin.gamification.inGamification')}</p>
+            <p className="text-xs text-primary-foreground/70">{t('admin.gamification.inGamification')}</p>
           </CardContent>
         </Card>
 
-        <Card className="bg-gradient-to-br from-amber-500 to-orange-600 text-white border-0">
+        <Card className="bg-gradient-to-br from-warning to-warning/80 text-warning-foreground border-0">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-white/80 flex items-center gap-2">
+            <CardTitle className="text-sm font-medium text-warning-foreground/80 flex items-center gap-2">
               <Gamepad2 className="h-4 w-4" />
               {t('admin.gamification.simCompleted')}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold">{simulationStats?.total_attempts || 0}</div>
-            <p className="text-xs text-white/70">{t('admin.gamification.totalAttempts')}</p>
+            <p className="text-xs text-warning-foreground/70">{t('admin.gamification.totalAttempts')}</p>
           </CardContent>
         </Card>
 
-        <Card className="bg-gradient-to-br from-emerald-500 to-green-600 text-white border-0">
+        <Card className="bg-gradient-to-br from-success to-success/80 text-success-foreground border-0">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-white/80 flex items-center gap-2">
+            <CardTitle className="text-sm font-medium text-success-foreground/80 flex items-center gap-2">
               <TrendingUp className="h-4 w-4" />
               {t('admin.gamification.avgScore')}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold">{simulationStats?.avg_score.toFixed(0) || 0}%</div>
-            <p className="text-xs text-white/70">{t('admin.gamification.onSimulations')}</p>
+            <p className="text-xs text-success-foreground/70">{t('admin.gamification.onSimulations')}</p>
           </CardContent>
         </Card>
 
-        <Card className="bg-gradient-to-br from-rose-500 to-pink-600 text-white border-0">
+        <Card className="bg-gradient-to-br from-destructive to-destructive/80 text-destructive-foreground border-0">
           <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-white/80 flex items-center gap-2">
+            <CardTitle className="text-sm font-medium text-destructive-foreground/80 flex items-center gap-2">
               <Zap className="h-4 w-4" />
               {t('admin.gamification.totalXP')}
             </CardTitle>
@@ -238,7 +238,7 @@ export function GamificationLeaderboard() {
             <div className="text-3xl font-bold">
               {leaderboard.reduce((sum, l) => sum + l.total_xp, 0).toLocaleString()}
             </div>
-            <p className="text-xs text-white/70">{t('admin.gamification.xpTotal')}</p>
+            <p className="text-xs text-destructive-foreground/70">{t('admin.gamification.xpTotal')}</p>
           </CardContent>
         </Card>
       </div>
@@ -265,7 +265,7 @@ export function GamificationLeaderboard() {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Trophy className="h-5 w-5 text-amber-500" />
+                <Trophy className="h-5 w-5 text-warning" />
                 {t('admin.kpi.topPerformers')}
               </CardTitle>
               <CardDescription>
@@ -352,7 +352,7 @@ export function GamificationLeaderboard() {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Award className="h-5 w-5 text-purple-500" />
+                <Award className="h-5 w-5 text-primary" />
                 {t('admin.gamification.systemAchievements')}
               </CardTitle>
               <CardDescription>
@@ -364,7 +364,7 @@ export function GamificationLeaderboard() {
                 {ACHIEVEMENTS.map((achievement) => (
                   <div 
                     key={achievement.id}
-                    className="p-4 rounded-xl bg-gradient-to-br from-slate-50 to-slate-100 border hover:shadow-md transition-all"
+                    className="p-4 rounded-xl bg-gradient-to-br from-muted to-muted/50 border hover:shadow-md transition-all"
                   >
                     <div className="flex items-start gap-3">
                       <div className="text-4xl">{achievement.icon}</div>
@@ -376,7 +376,7 @@ export function GamificationLeaderboard() {
                           {achievement.description[language as keyof typeof achievement.description] || achievement.description.en}
                         </p>
                         {achievement.xpReward > 0 && (
-                          <Badge variant="secondary" className="mt-2 bg-amber-100 text-amber-700">
+                          <Badge variant="secondary" className="mt-2 bg-warning/20 text-warning">
                             +{achievement.xpReward} XP
                           </Badge>
                         )}
@@ -395,7 +395,7 @@ export function GamificationLeaderboard() {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Target className="h-5 w-5 text-blue-500" />
+                  <Target className="h-5 w-5 text-info" />
                   {t('admin.gamification.topPerformers')}
                 </CardTitle>
               </CardHeader>
