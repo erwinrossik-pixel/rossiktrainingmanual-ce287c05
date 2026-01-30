@@ -8,7 +8,7 @@ const corsHeaders = {
 };
 
 interface NotificationRequest {
-  type: "critical_change" | "job_completed" | "job_failed" | "ai_kpi_analysis";
+  type: "critical_change" | "job_completed" | "job_failed" | "ai_kpi_analysis" | "system_alert" | "critical_error";
   data: {
     // For critical_change
     change_title?: string;
@@ -28,6 +28,11 @@ interface NotificationRequest {
     problematic_chapters?: number;
     analyzed_at?: string;
     priority_actions?: string[];
+    // For system_alert and critical_error
+    title?: string;
+    message?: string;
+    error_type?: string;
+    page_url?: string;
   };
 }
 
@@ -217,6 +222,43 @@ serve(async (req: Request): Promise<Response> => {
               <p style="color: #6b7280; margin: 0; font-size: 14px;">
                 Accesează <strong>Admin Dashboard → Learning KPI → AI Feedback</strong> pentru detalii complete.
               </p>
+            </div>
+          </div>
+        `;
+        break;
+
+      case "system_alert":
+        subject = `ℹ️ Alertă Sistem - ${data.title || 'Notificare'}`;
+        htmlContent = `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+            <div style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); padding: 20px; border-radius: 8px 8px 0 0;">
+              <h1 style="color: white; margin: 0; font-size: 24px;">ℹ️ Alertă Sistem</h1>
+            </div>
+            <div style="background: #eff6ff; padding: 20px; border: 1px solid #bfdbfe;">
+              <h2 style="color: #1e40af; margin-top: 0;">${data.title || 'Notificare Sistem'}</h2>
+              <p style="color: #1e3a8a;">${data.message || ''}</p>
+            </div>
+            <div style="background: #f3f4f6; padding: 15px; border-radius: 0 0 8px 8px; text-align: center;">
+              <p style="color: #6b7280; margin: 0; font-size: 14px;">Rossik Training Platform</p>
+            </div>
+          </div>
+        `;
+        break;
+
+      case "critical_error":
+        subject = `🚨 EROARE CRITICĂ - ${data.error_type || 'Sistem'}`;
+        htmlContent = `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+            <div style="background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%); padding: 20px; border-radius: 8px 8px 0 0;">
+              <h1 style="color: white; margin: 0; font-size: 24px;">🚨 Eroare Critică Detectată</h1>
+            </div>
+            <div style="background: #fef2f2; padding: 20px; border: 1px solid #fecaca;">
+              <h2 style="color: #991b1b; margin-top: 0;">${data.error_type || 'Eroare Necunoscută'}</h2>
+              <p style="color: #7f1d1d;"><strong>Mesaj:</strong> ${data.error_message || 'N/A'}</p>
+              ${data.page_url ? `<p style="color: #7f1d1d;"><strong>Pagină:</strong> ${data.page_url}</p>` : ''}
+            </div>
+            <div style="background: #f3f4f6; padding: 15px; border-radius: 0 0 8px 8px; text-align: center;">
+              <p style="color: #6b7280; margin: 0; font-size: 14px;">Verifică Admin Dashboard pentru detalii complete.</p>
             </div>
           </div>
         `;

@@ -13,7 +13,9 @@ serve(async (req) => {
   }
 
   try {
-    const { code } = await req.json();
+    const body = await req.json();
+    // Support both 'code' and 'certificate_code' parameters
+    const code = body.code || body.certificate_code;
 
     if (!code || typeof code !== "string") {
       return new Response(
