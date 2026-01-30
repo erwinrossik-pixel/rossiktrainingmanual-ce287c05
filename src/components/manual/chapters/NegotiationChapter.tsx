@@ -20,13 +20,6 @@ export function NegotiationChapter() {
         variant="negotiation"
       />
 
-      {/* Negotiation Image */}
-      <ChapterImage
-        src={negotiationHandshakeImg}
-        alt="Professional Business Negotiation"
-        variant="inline"
-        className="mb-6"
-      />
 
       {/* Introduction */}
       <div className="info-card bg-gradient-to-br from-primary/5 to-primary/10">
@@ -54,6 +47,14 @@ export function NegotiationChapter() {
             <p className="text-xs text-muted-foreground">{ct("problemResolutionDesc")}</p>
           </div>
         </div>
+        
+        {/* Negotiation Handshake Image - contextual after introduction */}
+        <ChapterImage
+          src={negotiationHandshakeImg}
+          alt="Professional business negotiation handshake"
+          variant="float-right"
+          className="mt-4"
+        />
       </div>
 
       {/* Negotiation Fundamentals */}

@@ -26,13 +26,6 @@ export function LicensesOversizeChapter() {
         variant="licenses"
       />
 
-      {/* Licenses & Oversize Image */}
-      <ChapterImage
-        src={licensesOversizeImg}
-        alt="Oversize transport with special permits"
-        variant="inline"
-        className="mb-6"
-      />
 
       {/* Quick Reference Cheat Sheet - AI Recommendation Implementation */}
       <section className="content-section">
@@ -142,6 +135,14 @@ export function LicensesOversizeChapter() {
               <span className="font-medium">{ct('cheatSheetNote') || 'Pro Tip: Save this cheat sheet! These are the most frequently needed reference values for daily operations.'}</span>
             </p>
           </div>
+          
+          {/* Licenses & Oversize Image - contextual after quick reference */}
+          <ChapterImage
+            src={licensesOversizeImg}
+            alt="Oversize transport convoy with special permit escort"
+            variant="float-right"
+            className="mt-4"
+          />
         </div>
       </section>
 

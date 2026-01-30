@@ -22,13 +22,6 @@ export function EuropeanCountriesChapter() {
         variant="european-countries"
       />
 
-      {/* European Countries Map Image */}
-      <ChapterImage
-        src={europeanMapImg}
-        alt="European countries transport map"
-        variant="inline"
-        className="mb-6"
-      />
 
       {/* Introduction */}
       <div className="info-card">
@@ -95,6 +88,14 @@ export function EuropeanCountriesChapter() {
         <div className="info-card bg-warning/5 border-warning/30">
           <p className="text-muted-foreground">{ct('section6Content')}</p>
         </div>
+        
+        {/* European Countries Map Image - contextual after UK section */}
+        <ChapterImage
+          src={europeanMapImg}
+          alt="European transport map showing different country regulations"
+          variant="float-right"
+          className="mt-4"
+        />
       </section>
 
       {/* Austria & Switzerland */}

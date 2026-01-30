@@ -21,13 +21,6 @@ export function DrivingTimeChapter() {
         variant="drivingtime"
       />
 
-      {/* Tachograph Image */}
-      <ChapterImage
-        src={tachographImg}
-        alt="Digital tachograph device"
-        variant="inline"
-        className="mb-6"
-      />
 
       {/* Key Definitions */}
       <div className="grid md:grid-cols-2 gap-6">
@@ -69,6 +62,14 @@ export function DrivingTimeChapter() {
               <Badge variant="warning">21h</Badge>
             </div>
           </div>
+          
+          {/* Tachograph Image - contextual after driving/shift time limits */}
+          <ChapterImage
+            src={tachographImg}
+            alt="Digital tachograph showing driving time compliance"
+            variant="float-right"
+            className="mt-4"
+          />
         </div>
       </div>
 

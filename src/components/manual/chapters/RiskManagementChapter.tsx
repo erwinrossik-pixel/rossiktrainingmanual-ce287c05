@@ -21,13 +21,6 @@ export function RiskManagementChapter() {
         variant="risk"
       />
 
-      {/* Risk Management Image */}
-      <ChapterImage
-        src={riskManagementImg}
-        alt="Risk management - analysis dashboard"
-        variant="inline"
-        className="mb-6"
-      />
 
       {/* Introduction */}
       <div className="info-card bg-gradient-to-br from-primary/5 to-primary/10">
@@ -79,6 +72,14 @@ export function RiskManagementChapter() {
             [ct("market"), ct("marketExamples"), ct("marketImpact"), ct("marketMitigation")],
             [ct("reputational"), ct("reputationalExamples"), ct("reputationalImpact"), ct("reputationalMitigation")],
           ]}
+        />
+        
+        {/* Risk Management Image - contextual after risk categories table */}
+        <ChapterImage
+          src={riskManagementImg}
+          alt="Risk management analysis dashboard with mitigation strategies"
+          variant="float-right"
+          className="mt-4"
         />
       </div>
 

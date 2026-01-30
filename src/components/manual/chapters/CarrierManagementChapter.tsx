@@ -21,13 +21,6 @@ export function CarrierManagementChapter() {
         variant="carrier"
       />
 
-      {/* Carrier Partnership Image */}
-      <ChapterImage
-        src={carrierPartnershipImg}
-        alt="Fleet manager reviewing carrier performance"
-        variant="inline"
-        className="mb-6"
-      />
 
       {/* Introduction */}
       <div className="info-card bg-gradient-to-br from-primary/5 to-primary/10">
@@ -52,6 +45,14 @@ export function CarrierManagementChapter() {
             <p className="text-sm text-muted-foreground">{ct("backupCarriersStat")}</p>
           </div>
         </div>
+        
+        {/* Carrier Partnership Image - contextual after strategic importance */}
+        <ChapterImage
+          src={carrierPartnershipImg}
+          alt="Fleet manager reviewing carrier performance metrics"
+          variant="float-right"
+          className="mt-4"
+        />
       </div>
 
       {/* Carrier Types */}

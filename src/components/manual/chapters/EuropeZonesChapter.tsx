@@ -20,13 +20,6 @@ export function EuropeZonesChapter() {
         variant="europezones"
       />
 
-      {/* Europe Freight Corridors Image */}
-      <ChapterImage
-        src={europeCorridorsImg}
-        alt="European freight transport corridors map"
-        variant="inline"
-        className="mb-6"
-      />
 
       {/* Overview Map */}
       <div className="info-card bg-gradient-to-br from-primary/5 to-primary/10">
@@ -55,6 +48,14 @@ export function EuropeZonesChapter() {
             <p className="text-sm text-muted-foreground">{ct("freightByRoad")}</p>
           </div>
         </div>
+        
+        {/* Europe Freight Corridors Image - contextual after market overview */}
+        <ChapterImage
+          src={europeCorridorsImg}
+          alt="Map of European freight transport corridors and zones"
+          variant="float-right"
+          className="mt-4"
+        />
       </div>
 
       {/* DACH Region */}

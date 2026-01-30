@@ -19,13 +19,6 @@ export function CommunicationChapter() {
         variant="communication"
       />
 
-      {/* Communication Team Image */}
-      <ChapterImage
-        src={communicationImg}
-        alt="Professional logistics team meeting"
-        variant="inline"
-        className="mb-6"
-      />
 
       {/* Communication Channels */}
       <section>
@@ -62,6 +55,14 @@ export function CommunicationChapter() {
             </ul>
           </InfoCard>
         </div>
+        
+        {/* Communication Team Image - contextual after channels section */}
+        <ChapterImage
+          src={communicationImg}
+          alt="Professional logistics team in a collaborative meeting"
+          variant="float-right"
+          className="mt-4"
+        />
       </section>
 
       {/* Professional Email Templates */}

@@ -20,13 +20,6 @@ export function ComplianceChapter() {
         variant="compliance"
       />
 
-      {/* Compliance Checklist Image */}
-      <ChapterImage
-        src={complianceImg}
-        alt="EU transport compliance checklist"
-        variant="inline"
-        className="mb-6"
-      />
 
       {/* Why Compliance Matters */}
       <div className="info-card bg-gradient-to-br from-primary/5 to-primary/10">
@@ -86,6 +79,14 @@ export function ComplianceChapter() {
             <span><strong>Important:</strong> {ct('importantNote')}</span>
           </p>
         </div>
+        
+        {/* Compliance Checklist Image - contextual after driving time limits */}
+        <ChapterImage
+          src={complianceImg}
+          alt="EU transport compliance documentation and tachograph checklist"
+          variant="float-right"
+          className="mt-4"
+        />
       </div>
 
       {/* Visual Explanation Cards */}
