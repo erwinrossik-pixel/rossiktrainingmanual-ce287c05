@@ -346,7 +346,7 @@ export function GovernanceDashboard() {
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium flex items-center gap-2">
-              <Shield className="h-4 w-4 text-amber-500" />
+              <Shield className="h-4 w-4 text-warning" />
               {t('admin.governance.operational')}
             </CardTitle>
           </CardHeader>
@@ -359,7 +359,7 @@ export function GovernanceDashboard() {
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium flex items-center gap-2">
-              <Lock className="h-4 w-4 text-blue-500" />
+              <Lock className="h-4 w-4 text-info" />
               {t('admin.governance.blocked')}
             </CardTitle>
           </CardHeader>
@@ -372,7 +372,7 @@ export function GovernanceDashboard() {
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium flex items-center gap-2">
-              <FileText className="h-4 w-4 text-yellow-500" />
+              <FileText className="h-4 w-4 text-warning" />
               {t('admin.governance.pending')}
             </CardTitle>
           </CardHeader>

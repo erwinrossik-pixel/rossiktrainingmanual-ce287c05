@@ -165,8 +165,8 @@ export function BackupRecovery() {
                 <p className="text-sm text-muted-foreground">{t('admin.backup.backups30d')}</p>
                 <p className="text-2xl font-bold">{backupStatus?.last30Days?.total || 0}</p>
               </div>
-              <div className="w-12 h-12 rounded-full bg-green-500/20 flex items-center justify-center">
-                <HardDrive className="h-6 w-6 text-green-400" />
+              <div className="w-12 h-12 rounded-full bg-success/20 flex items-center justify-center">
+                <HardDrive className="h-6 w-6 text-success" />
               </div>
             </div>
           </CardContent>
@@ -177,14 +177,14 @@ export function BackupRecovery() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">{t('admin.backup.successRate')}</p>
-                <p className="text-2xl font-bold text-green-400">
+                <p className="text-2xl font-bold text-success">
                   {backupStatus?.last30Days?.total 
                     ? Math.round((backupStatus.last30Days.completed / backupStatus.last30Days.total) * 100)
                     : 100}%
                 </p>
               </div>
-              <div className="w-12 h-12 rounded-full bg-green-500/20 flex items-center justify-center">
-                <CheckCircle className="h-6 w-6 text-green-400" />
+              <div className="w-12 h-12 rounded-full bg-success/20 flex items-center justify-center">
+                <CheckCircle className="h-6 w-6 text-success" />
               </div>
             </div>
           </CardContent>
@@ -197,8 +197,8 @@ export function BackupRecovery() {
                 <p className="text-sm text-muted-foreground">{t('admin.backup.nextScheduled')}</p>
                 <p className="text-sm font-medium">{backupStatus?.nextScheduled || dailyAtLabel}</p>
               </div>
-              <div className="w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center">
-                <Clock className="h-6 w-6 text-purple-400" />
+              <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center">
+                <Clock className="h-6 w-6 text-primary" />
               </div>
             </div>
           </CardContent>

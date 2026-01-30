@@ -248,21 +248,21 @@ export function CertificatesDashboard() {
     switch (status) {
       case "active":
         return (
-          <Badge className="bg-green-500 hover:bg-green-600">
+          <Badge className="bg-success hover:bg-success/90">
             <CheckCircle2 className="w-3 h-3 mr-1" />
             {t('admin.certificates.active')}
           </Badge>
         );
       case "expired":
         return (
-          <Badge className="bg-yellow-500 hover:bg-yellow-600">
+          <Badge className="bg-warning hover:bg-warning/90">
             <Clock className="w-3 h-3 mr-1" />
             {t('admin.certificates.expired')}
           </Badge>
         );
       case "revoked":
         return (
-          <Badge className="bg-red-500 hover:bg-red-600">
+          <Badge className="bg-destructive hover:bg-destructive/90">
             <XCircle className="w-3 h-3 mr-1" />
             {t('admin.certificates.revoked')}
           </Badge>
@@ -297,10 +297,10 @@ export function CertificatesDashboard() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium">{t('admin.certificates.active')}</CardTitle>
-            <CheckCircle2 className="h-4 w-4 text-green-500" />
+            <CheckCircle2 className="h-4 w-4 text-success" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-green-600">{stats.active}</div>
+            <div className="text-2xl font-bold text-success">{stats.active}</div>
             <p className="text-xs text-muted-foreground mt-1">
               {stats.total > 0 ? Math.round((stats.active / stats.total) * 100) : 0}% {t('admin.certificates.ofTotal')}
             </p>
@@ -309,10 +309,10 @@ export function CertificatesDashboard() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium">{t('admin.certificates.expired')}</CardTitle>
-            <Clock className="h-4 w-4 text-yellow-500" />
+            <Clock className="h-4 w-4 text-warning" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-yellow-600">{stats.expired}</div>
+            <div className="text-2xl font-bold text-warning">{stats.expired}</div>
             <p className="text-xs text-muted-foreground mt-1">
               {stats.total > 0 ? Math.round((stats.expired / stats.total) * 100) : 0}% {t('admin.certificates.ofTotal')}
             </p>
@@ -321,10 +321,10 @@ export function CertificatesDashboard() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium">{t('admin.certificates.revoked')}</CardTitle>
-            <XCircle className="h-4 w-4 text-red-500" />
+            <XCircle className="h-4 w-4 text-destructive" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-red-600">{stats.revoked}</div>
+            <div className="text-2xl font-bold text-destructive">{stats.revoked}</div>
             <p className="text-xs text-muted-foreground mt-1">
               {stats.total > 0 ? Math.round((stats.revoked / stats.total) * 100) : 0}% {t('admin.certificates.ofTotal')}
             </p>
