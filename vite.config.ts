@@ -22,9 +22,11 @@ export default defineConfig(({ mode }) => ({
         manualChunks: {
           // Vendor chunks for better caching
           'react-vendor': ['react', 'react-dom', 'react-router-dom'],
-          'ui-vendor': ['@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu', '@radix-ui/react-tabs'],
+          'ui-vendor': ['@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu', '@radix-ui/react-tabs', '@radix-ui/react-accordion', '@radix-ui/react-scroll-area'],
+          'icons': ['lucide-react'],
           'chart-vendor': ['recharts'],
           'supabase': ['@supabase/supabase-js'],
+          'utils': ['date-fns', 'clsx', 'tailwind-merge'],
         },
       },
     },
