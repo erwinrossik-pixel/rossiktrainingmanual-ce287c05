@@ -48,12 +48,14 @@ export const intermodalTranslations = {
     operatorTableHeaders: "Operator | Specializare | Rute Principale | Contact TMS",
     operatorTableRows: "Hupac | Container/Swap Body | CH-IT-DE-NL-BE | EDI direct | Kombiverkehr | Semiremorci | DE-IT, DE-ES, DE-PL | Online booking | Rail Cargo Group | Full service CEE | AT-HU-RO-CZ-SK | EDI/API | TX Logistik | Corridor Nord-Sud | IT-DE-Scandinavia | Via agent | METRANS | Containere maritime | Hamburg-CEE | Online portal",
 
+    bestPracticesTitle: "Bune Practici",
     bestPractice1: "Planifică cu minim 72h în avans - trenurile nu pot fi improvizate",
     bestPractice2: "Confirmă întotdeauna disponibilitatea slot-urilor la terminale înainte de a promite clientului",
     bestPractice3: "Menține relații cu transportatori rutieri de încredere pentru pre/on-carriage",
     bestPractice4: "Investește timp în înțelegerea schedule-urilor regulate - majoritatea operatorilor au trenuri fixe",
     bestPractice5: "Comunică proactiv despre specificul intermodal - clienții trebuie să înțeleagă diferențele",
 
+    commonMistakesTitle: "Greșeli Frecvente",
     commonMistake1: "Subestimarea timpului de tranzit total (incluzi și transbordările, nu doar timpul pe tren)",
     commonMistake2: "Neglijarea cut-off times la terminale - ratezi trenul, aștepți încă 24-48h",
     commonMistake3: "Lipsa planului B rutier - dacă trenul e anulat, trebuie să ai alternativă",
@@ -131,12 +133,14 @@ export const intermodalTranslations = {
     operatorTableHeaders: "Operateur | Spezialisierung | Hauptrouten | TMS-Kontakt",
     operatorTableRows: "Hupac | Container/Wechselbrücke | CH-IT-DE-NL-BE | EDI direkt | Kombiverkehr | Auflieger | DE-IT, DE-ES, DE-PL | Online-Buchung | Rail Cargo Group | Full Service CEE | AT-HU-RO-CZ-SK | EDI/API | TX Logistik | Korridor Nord-Süd | IT-DE-Skandinavien | Via Agent | METRANS | Seecontainer | Hamburg-CEE | Online-Portal",
 
+    bestPracticesTitle: "Best Practices",
     bestPractice1: "Mindestens 72h im Voraus planen - Züge können nicht improvisiert werden",
     bestPractice2: "Terminal-Slot-Verfügbarkeit immer bestätigen bevor Sie dem Kunden zusagen",
     bestPractice3: "Beziehungen zu zuverlässigen Straßenspeditionen für Vor-/Nachlauf pflegen",
     bestPractice4: "Zeit in das Verständnis regelmäßiger Fahrpläne investieren - die meisten Betreiber haben feste Züge",
     bestPractice5: "Proaktiv über intermodale Besonderheiten kommunizieren - Kunden müssen die Unterschiede verstehen",
 
+    commonMistakesTitle: "Häufige Fehler",
     commonMistake1: "Unterschätzung der Gesamttransitzeit (Umschläge einbeziehen, nicht nur Zugzeit)",
     commonMistake2: "Vernachlässigung der Cut-off-Zeiten an Terminals - Zug verpasst, weitere 24-48h warten",
     commonMistake3: "Fehlender Straßen-Plan B - wenn der Zug ausfällt, brauchen Sie eine Alternative",
@@ -214,12 +218,14 @@ export const intermodalTranslations = {
     operatorTableHeaders: "Operator | Specialization | Main Routes | TMS Contact",
     operatorTableRows: "Hupac | Container/Swap Body | CH-IT-DE-NL-BE | EDI direct | Kombiverkehr | Semi-trailers | DE-IT, DE-ES, DE-PL | Online booking | Rail Cargo Group | Full service CEE | AT-HU-RO-CZ-SK | EDI/API | TX Logistik | Corridor North-South | IT-DE-Scandinavia | Via agent | METRANS | Sea containers | Hamburg-CEE | Online portal",
 
+    bestPracticesTitle: "Best Practices",
     bestPractice1: "Plan at least 72h in advance - trains cannot be improvised",
     bestPractice2: "Always confirm terminal slot availability before promising the customer",
     bestPractice3: "Maintain relationships with reliable road carriers for pre/on-carriage",
     bestPractice4: "Invest time in understanding regular schedules - most operators have fixed trains",
     bestPractice5: "Proactively communicate about intermodal specifics - customers need to understand the differences",
 
+    commonMistakesTitle: "Common Mistakes",
     commonMistake1: "Underestimating total transit time (include transshipments, not just train time)",
     commonMistake2: "Neglecting cut-off times at terminals - miss the train, wait another 24-48h",
     commonMistake3: "Lack of road plan B - if the train is cancelled, you need an alternative",
