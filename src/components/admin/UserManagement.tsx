@@ -16,6 +16,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { Progress } from '@/components/ui/progress';
 import { format } from 'date-fns';
 import { ro, de, enUS } from 'date-fns/locale';
+import { logger } from '@/utils/logger';
 
 interface Company {
   id: string;
@@ -333,9 +334,9 @@ export function UserManagement() {
       await supabase.functions.invoke('send-user-notification', {
         body: { type, userId, data: additionalData }
       });
-      console.log(`Email notification sent: ${type}`);
+      logger.debug(`Email notification sent: ${type}`);
     } catch (error) {
-      console.error('Failed to send notification email:', error);
+      logger.error('Failed to send notification email:', error);
     }
   };
 
