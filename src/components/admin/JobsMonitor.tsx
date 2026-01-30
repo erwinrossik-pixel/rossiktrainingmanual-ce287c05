@@ -165,13 +165,13 @@ export function JobsMonitor() {
       case 'queued':
         return <Clock className="h-4 w-4 text-muted-foreground" />;
       case 'processing':
-        return <Loader2 className="h-4 w-4 text-blue-500 animate-spin" />;
+        return <Loader2 className="h-4 w-4 text-info animate-spin" />;
       case 'completed':
-        return <CheckCircle2 className="h-4 w-4 text-green-500" />;
+        return <CheckCircle2 className="h-4 w-4 text-success" />;
       case 'failed':
-        return <XCircle className="h-4 w-4 text-red-500" />;
+        return <XCircle className="h-4 w-4 text-destructive" />;
       case 'partial':
-        return <AlertTriangle className="h-4 w-4 text-orange-500" />;
+        return <AlertTriangle className="h-4 w-4 text-warning" />;
       default:
         return <Clock className="h-4 w-4" />;
     }
@@ -182,13 +182,13 @@ export function JobsMonitor() {
       case 'queued':
         return <Badge variant="secondary">În coadă</Badge>;
       case 'processing':
-        return <Badge className="bg-blue-500 hover:bg-blue-600 animate-pulse">Procesare...</Badge>;
+        return <Badge className="bg-info text-info-foreground hover:bg-info/90 animate-pulse">Procesare...</Badge>;
       case 'completed':
-        return <Badge className="bg-green-500 hover:bg-green-600">Finalizat</Badge>;
+        return <Badge className="bg-success text-success-foreground hover:bg-success/90">Finalizat</Badge>;
       case 'failed':
         return <Badge variant="destructive">Eșuat</Badge>;
       case 'partial':
-        return <Badge className="bg-orange-500 hover:bg-orange-600">Parțial</Badge>;
+        return <Badge className="bg-warning text-warning-foreground hover:bg-warning/90">Parțial</Badge>;
       default:
         return <Badge variant="outline">{status}</Badge>;
     }
@@ -277,15 +277,15 @@ export function JobsMonitor() {
       </Card>
 
       {/* Active Jobs */}
-      <Card className={activeJobs.length > 0 ? 'border-blue-500 shadow-lg' : ''}>
+      <Card className={activeJobs.length > 0 ? 'border-info shadow-lg' : ''}>
         <CardHeader className="pb-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Zap className={`h-5 w-5 ${activeJobs.length > 0 ? 'text-blue-500' : 'text-muted-foreground'}`} />
+              <Zap className={`h-5 w-5 ${activeJobs.length > 0 ? 'text-info' : 'text-muted-foreground'}`} />
               <CardTitle className="text-lg">Job-uri Active</CardTitle>
             </div>
             {activeJobs.length > 0 && (
-              <Badge className="bg-blue-500 animate-pulse">{activeJobs.length} activ(e)</Badge>
+              <Badge className="bg-info text-info-foreground animate-pulse">{activeJobs.length} activ(e)</Badge>
             )}
           </div>
           <CardDescription>Monitorizare în timp real a regenerării conținutului</CardDescription>
@@ -293,7 +293,7 @@ export function JobsMonitor() {
         <CardContent>
           {activeJobs.length === 0 ? (
             <div className="text-center py-8 text-muted-foreground">
-              <CheckCircle2 className="h-12 w-12 mx-auto mb-3 text-green-500/50" />
+              <CheckCircle2 className="h-12 w-12 mx-auto mb-3 text-success/50" />
               <p>Nu există job-uri active în acest moment</p>
             </div>
           ) : (

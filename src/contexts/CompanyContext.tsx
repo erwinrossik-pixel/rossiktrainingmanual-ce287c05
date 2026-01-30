@@ -171,7 +171,7 @@ export function CompanyProvider({ children }: { children: ReactNode }) {
       .from('company_subscriptions')
       .select(`*, plan:subscription_plans(*)`)
       .eq('company_id', companyId)
-      .single();
+      .maybeSingle();
 
     if (subscriptionRes) {
       const sub = subscriptionRes as any;
