@@ -34,9 +34,9 @@ export const AdminUsersTable = memo(function AdminUsersTable({
 
   return (
     <Card className="border-2 shadow-lg">
-      <CardHeader className="bg-gradient-to-r from-blue-50 to-indigo-50 border-b">
+      <CardHeader className="bg-gradient-to-r from-primary/5 to-primary/10 border-b">
         <CardTitle className="text-2xl font-bold flex items-center gap-2">
-          <Users className="h-6 w-6 text-blue-600" />
+          <Users className="h-6 w-6 text-primary" />
           {t('admin.profiles.title')}
         </CardTitle>
         <CardDescription className="text-base">{t('admin.profiles.subtitle')}</CardDescription>
@@ -58,18 +58,18 @@ export const AdminUsersTable = memo(function AdminUsersTable({
             {users.map((userItem) => {
               const progressPercent = (userItem.chaptersCompleted / userItem.totalChapters) * 100;
               const scoreColor = userItem.averageScore >= 9 
-                ? 'text-green-700 bg-green-100 border-green-300' 
+                ? 'text-success bg-success/10 border-success/30' 
                 : userItem.averageScore >= 7 
-                  ? 'text-amber-700 bg-amber-100 border-amber-300' 
-                  : 'text-red-700 bg-red-100 border-red-300';
+                  ? 'text-warning bg-warning/10 border-warning/30' 
+                  : 'text-destructive bg-destructive/10 border-destructive/30';
               const progressBarColor = progressPercent >= 80 
-                ? '[&>div]:bg-green-500' 
+                ? '[&>div]:bg-success' 
                 : progressPercent >= 40 
-                  ? '[&>div]:bg-amber-500' 
-                  : '[&>div]:bg-red-500';
+                  ? '[&>div]:bg-warning' 
+                  : '[&>div]:bg-destructive';
               
               return (
-                <TableRow key={userItem.id} className="hover:bg-blue-50/50 border-b-2">
+                <TableRow key={userItem.id} className="hover:bg-primary/5 border-b-2">
                   <TableCell className="font-semibold text-base py-4">
                     {userItem.first_name || userItem.last_name 
                       ? `${userItem.first_name || ''} ${userItem.last_name || ''}`.trim()
@@ -79,8 +79,8 @@ export const AdminUsersTable = memo(function AdminUsersTable({
                   <TableCell>
                     <Badge 
                       className={userItem.role === 'admin' 
-                        ? 'bg-red-600 text-white font-bold px-3 py-1 text-sm shadow-md' 
-                        : 'bg-blue-600 text-white font-bold px-3 py-1 text-sm shadow-md'}
+                        ? 'bg-destructive text-destructive-foreground font-bold px-3 py-1 text-sm shadow-md' 
+                        : 'bg-primary text-primary-foreground font-bold px-3 py-1 text-sm shadow-md'}
                     >
                       {userItem.role === 'admin' ? t('admin.profiles.roleAdmin') : t('admin.profiles.roleUser')}
                     </Badge>
@@ -93,10 +93,10 @@ export const AdminUsersTable = memo(function AdminUsersTable({
                       />
                       <span className={`font-bold text-sm px-2 py-1 rounded border ${
                         progressPercent >= 80 
-                          ? 'text-green-700 bg-green-100 border-green-300' 
+                          ? 'text-success bg-success/10 border-success/30' 
                           : progressPercent >= 40 
-                            ? 'text-amber-700 bg-amber-100 border-amber-300' 
-                            : 'text-red-700 bg-red-100 border-red-300'
+                            ? 'text-warning bg-warning/10 border-warning/30' 
+                            : 'text-destructive bg-destructive/10 border-destructive/30'
                       }`}>
                         {userItem.chaptersCompleted}/{userItem.totalChapters}
                       </span>
@@ -117,7 +117,7 @@ export const AdminUsersTable = memo(function AdminUsersTable({
                       variant="outline" 
                       size="sm" 
                       onClick={() => onViewDetails(userItem)}
-                      className="bg-blue-600 text-white hover:bg-blue-700 border-blue-600 font-semibold shadow-md"
+                      className="bg-primary text-primary-foreground hover:bg-primary/90 border-primary font-semibold shadow-md"
                     >
                       <Eye className="h-4 w-4 mr-1" />
                       {t('admin.table.details')}
