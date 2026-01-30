@@ -156,6 +156,7 @@ export const networkingTranslations = {
     checklistQuarterlyItems: "1. Am evaluat performanța parteneriatelor strategice? | 2. Am organizat cel puțin o întâlnire față-în-față cu un contact important? | 3. Am identificat 3-5 contacte noi de adăugat la rețea? | 4. Am cerut 2-3 recomandări LinkedIn? | 5. Am revizuit și actualizat strategia de networking? | 6. Am măsurat ROI-ul activităților de networking (afaceri generate)?",
 
     // BEST PRACTICES
+    bestPracticesTitle: "Bune Practici",
     bestPractice1: "Participă activ la evenimente de industrie - minimum 2-3 pe an, inclusiv Transport Logistic",
     bestPractice2: "Oferă valoare înainte de a cere - partajează informații, fă introduceri, ajută dezinteresat",
     bestPractice3: "Menține contactul regulat cu rețeaua - un mesaj la 2-3 luni pentru cele mai importante relații",
@@ -166,6 +167,7 @@ export const networkingTranslations = {
     bestPractice8: "Dezvoltă parteneriate strategice pentru extindere geografică",
 
     // COMMON MISTAKES
+    commonMistakesTitle: "Greșeli Frecvente",
     commonMistake1: "Networking doar când ai nevoie de ceva - oamenii simt și evită relațiile tranzacționale",
     commonMistake2: "Lipsa follow-up-ului după întâlniri și evenimente - contactele se răcesc rapid",
     commonMistake3: "Neglijarea contactelor existente pentru cele noi - cele vechi sunt de obicei mai valoroase",
@@ -365,6 +367,7 @@ export const networkingTranslations = {
     checklistQuarterlyItems: "1. Habe ich die Leistung strategischer Partnerschaften bewertet? | 2. Habe ich mindestens ein persönliches Treffen mit einem wichtigen Kontakt organisiert? | 3. Habe ich 3-5 neue Kontakte zum Netzwerk hinzugefügt? | 4. Habe ich 2-3 LinkedIn-Empfehlungen angefordert? | 5. Habe ich die Networking-Strategie überprüft und aktualisiert? | 6. Habe ich den ROI der Networking-Aktivitäten gemessen (generiertes Geschäft)?",
 
     // BEST PRACTICES
+    bestPracticesTitle: "Best Practices",
     bestPractice1: "Aktiv an Branchenevents teilnehmen - mindestens 2-3 pro Jahr, einschließlich Transport Logistic",
     bestPractice2: "Wert bieten bevor Sie etwas verlangen - Informationen teilen, Vorstellungen machen, selbstlos helfen",
     bestPractice3: "Regelmäßigen Kontakt mit dem Netzwerk pflegen - eine Nachricht alle 2-3 Monate für die wichtigsten Beziehungen",
@@ -375,6 +378,7 @@ export const networkingTranslations = {
     bestPractice8: "Strategische Partnerschaften für geografische Erweiterung entwickeln",
 
     // COMMON MISTAKES
+    commonMistakesTitle: "Häufige Fehler",
     commonMistake1: "Networking nur wenn Sie etwas brauchen - Menschen spüren und vermeiden transaktionale Beziehungen",
     commonMistake2: "Fehlendes Follow-up nach Meetings und Events - Kontakte kühlen schnell ab",
     commonMistake3: "Vernachlässigung bestehender Kontakte für neue - die alten sind meist wertvoller",
@@ -574,6 +578,7 @@ export const networkingTranslations = {
     checklistQuarterlyItems: "1. Have I evaluated strategic partnership performance? | 2. Have I organized at least one face-to-face meeting with an important contact? | 3. Have I identified 3-5 new contacts to add to the network? | 4. Have I requested 2-3 LinkedIn recommendations? | 5. Have I reviewed and updated the networking strategy? | 6. Have I measured networking activity ROI (business generated)?",
 
     // BEST PRACTICES
+    bestPracticesTitle: "Best Practices",
     bestPractice1: "Actively participate in industry events - minimum 2-3 per year, including Transport Logistic",
     bestPractice2: "Offer value before asking - share information, make introductions, help selflessly",
     bestPractice3: "Maintain regular contact with the network - a message every 2-3 months for the most important relationships",
@@ -584,6 +589,7 @@ export const networkingTranslations = {
     bestPractice8: "Develop strategic partnerships for geographic expansion",
 
     // COMMON MISTAKES
+    commonMistakesTitle: "Common Mistakes",
     commonMistake1: "Networking only when you need something - people sense and avoid transactional relationships",
     commonMistake2: "Lack of follow-up after meetings and events - contacts cool down quickly",
     commonMistake3: "Neglecting existing contacts for new ones - old ones are usually more valuable",

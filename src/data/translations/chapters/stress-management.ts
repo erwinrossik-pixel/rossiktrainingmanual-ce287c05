@@ -137,6 +137,7 @@ export const stressManagementTranslations = {
     checklistCrisisTitle: "Checklist pentru Momente de Criză",
     checklistCrisisItems: "1. Respiră: 4-7-8 sau box breathing | 2. Grounding: unde ești fizic acum? | 3. Prioritizare: ce e cu adevărat urgent? | 4. Ajutor: cine te poate sprijini? | 5. Perspective: va conta asta peste o săptămână? | 6. Self-compassion: ești uman, greșelile se întâmplă",
     
+    bestPracticesTitle: "Bune Practici",
     bestPractice1: "Ia pauze regulate de 5-10 minute la fiecare 90 minute de muncă intensă",
     bestPractice2: "Prioritizează dimineața și acceptă că nu poți rezolva totul într-o zi",
     bestPractice3: "Menține conexiuni sociale pozitive cu colegii - ajută la gestionarea presiunii",
@@ -146,6 +147,7 @@ export const stressManagementTranslations = {
     bestPractice7: "Dezvoltă o practică de mindfulness, chiar și 5 minute pe zi",
     bestPractice8: "Documentează realizările și succesele pentru zilele dificile",
     
+    commonMistakesTitle: "Greșeli Frecvente",
     commonMistake1: "Ignorarea semnelor de stres și burnout până e prea târziu",
     commonMistake2: "Supraîncărcarea constantă fără să ceri ajutor sau să renegociezi termene",
     commonMistake3: "Verificarea compulsivă a emailurilor în afara programului",
@@ -325,6 +327,7 @@ export const stressManagementTranslations = {
     checklistCrisisTitle: "Checkliste für Krisenmomente",
     checklistCrisisItems: "1. Atmen: 4-7-8 oder Box Breathing | 2. Grounding: Wo bin ich physisch gerade? | 3. Priorisieren: Was ist wirklich dringend? | 4. Hilfe: Wer kann mich unterstützen? | 5. Perspektive: Wird das in einer Woche wichtig sein? | 6. Selbstmitgefühl: Ich bin menschlich, Fehler passieren",
     
+    bestPracticesTitle: "Best Practices",
     bestPractice1: "Regelmäßige 5-10 Minuten Pausen alle 90 Minuten intensiver Arbeit nehmen",
     bestPractice2: "Morgens priorisieren und akzeptieren, dass nicht alles an einem Tag erledigt werden kann",
     bestPractice3: "Positive soziale Verbindungen mit Kollegen pflegen - hilft bei Druckbewältigung",
@@ -334,6 +337,7 @@ export const stressManagementTranslations = {
     bestPractice7: "Eine Achtsamkeitspraxis entwickeln, auch nur 5 Minuten täglich",
     bestPractice8: "Erfolge und Leistungen für schwierige Tage dokumentieren",
     
+    commonMistakesTitle: "Häufige Fehler",
     commonMistake1: "Stress- und Burnout-Symptome ignorieren bis es zu spät ist",
     commonMistake2: "Ständige Überlastung ohne um Hilfe zu bitten oder Fristen neu zu verhandeln",
     commonMistake3: "Zwanghaftes E-Mail-Checken außerhalb der Arbeitszeit",
@@ -513,6 +517,7 @@ export const stressManagementTranslations = {
     checklistCrisisTitle: "Crisis Moments Checklist",
     checklistCrisisItems: "1. Breathe: 4-7-8 or box breathing | 2. Grounding: where am I physically now? | 3. Prioritize: what's truly urgent? | 4. Help: who can support me? | 5. Perspective: will this matter in a week? | 6. Self-compassion: I'm human, mistakes happen",
     
+    bestPracticesTitle: "Best Practices",
     bestPractice1: "Take regular 5-10 minute breaks every 90 minutes of intense work",
     bestPractice2: "Prioritize in the morning and accept you can't solve everything in one day",
     bestPractice3: "Maintain positive social connections with colleagues - helps with pressure management",
@@ -522,6 +527,7 @@ export const stressManagementTranslations = {
     bestPractice7: "Develop a mindfulness practice, even just 5 minutes a day",
     bestPractice8: "Document achievements and successes for difficult days",
     
+    commonMistakesTitle: "Common Mistakes",
     commonMistake1: "Ignoring stress and burnout signs until it's too late",
     commonMistake2: "Constant overload without asking for help or renegotiating deadlines",
     commonMistake3: "Compulsive email checking outside work hours",

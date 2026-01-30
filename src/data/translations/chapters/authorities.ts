@@ -211,12 +211,14 @@ export const authoritiesTranslations = {
     phraseCopy: "Pot primi o copie a acestui document?",
 
     // BEST PRACTICES & COMMON MISTAKES - Expanded
+    bestPracticesTitle: "Bune Practici",
     bestPractice1: "Menține toate documentele organizate într-un dosar accesibil și verifică-le săptămânal",
     bestPractice2: "Rămâi calm și politicos în orice situație de control - profesionalismul contează",
     bestPractice3: "Documentează orice neregulă sau comportament inadecvat al agentului (oră, nume, circumstanțe)",
     bestPractice4: "Contactează imediat dispeceratul la orice problemă serioasă - nu lua decizii majore singur",
     bestPractice5: "Citește complet procesul verbal înainte de semnare și notează observații dacă nu ești de acord",
     
+    commonMistakesTitle: "Greșeli Frecvente",
     commonMistake1: "Reacții defensive sau agresive la control - escaladează situația și atrage sancțiuni suplimentare",
     commonMistake2: "Semnarea documentelor fără a le citi sau înțelege - renunți la dreptul de contestație",
     commonMistake3: "Lipsa copiilor documentelor importante - nu poți dovedi conformitatea",
@@ -459,12 +461,14 @@ export const authoritiesTranslations = {
     phraseCopy: "Kann ich eine Kopie dieses Dokuments erhalten?",
 
     // BEST PRACTICES & COMMON MISTAKES - Expanded
+    bestPracticesTitle: "Best Practices",
     bestPractice1: "Alle Dokumente in zugänglicher Mappe organisieren und wöchentlich prüfen",
     bestPractice2: "In jeder Kontrollsituation ruhig und höflich bleiben - Professionalität zählt",
     bestPractice3: "Jede Unregelmäßigkeit oder unangemessenes Verhalten des Beamten dokumentieren (Zeit, Name, Umstände)",
     bestPractice4: "Bei jedem ernsthaften Problem sofort die Disposition kontaktieren - keine großen Entscheidungen allein treffen",
     bestPractice5: "Protokoll vor Unterschrift vollständig lesen und Anmerkungen notieren bei Meinungsverschiedenheiten",
     
+    commonMistakesTitle: "Häufige Fehler",
     commonMistake1: "Defensive oder aggressive Reaktionen bei Kontrollen - eskaliert die Situation und zieht zusätzliche Sanktionen nach sich",
     commonMistake2: "Dokumente unterschreiben ohne sie zu lesen oder zu verstehen - Verzicht auf Anfechtungsrecht",
     commonMistake3: "Fehlende Kopien wichtiger Dokumente - Konformität nicht nachweisbar",
@@ -697,12 +701,14 @@ export const authoritiesTranslations = {
     phraseCopy: "Can I receive a copy of this document?",
 
     // BEST PRACTICES & COMMON MISTAKES - Expanded
+    bestPracticesTitle: "Best Practices",
     bestPractice1: "Keep all documents organized in an accessible folder and check them weekly",
     bestPractice2: "Stay calm and polite in any control situation - professionalism counts",
     bestPractice3: "Document any irregularity or inappropriate behavior by the officer (time, name, circumstances)",
     bestPractice4: "Immediately contact dispatch at any serious problem - don't make major decisions alone",
     bestPractice5: "Read the official report completely before signing and note observations if you disagree",
     
+    commonMistakesTitle: "Common Mistakes",
     commonMistake1: "Defensive or aggressive reactions at controls - escalates the situation and attracts additional sanctions",
     commonMistake2: "Signing documents without reading or understanding them - waiving right to contest",
     commonMistake3: "Lack of copies of important documents - cannot prove compliance",
