@@ -3,6 +3,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
 import { toast } from '@/hooks/use-toast';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { logger } from '@/utils/logger';
 
 export interface BookmarkedQuestion {
   id: string;
@@ -53,7 +54,7 @@ export function useBookmarks() {
       setBookmarks(formattedData);
       setBookmarkedQuestionTexts(new Set(formattedData.map(b => `${b.chapter_id}:${b.question_text}`)));
     } catch (error) {
-      console.error('Error fetching bookmarks:', error);
+      logger.error('Error fetching bookmarks:', error);
     } finally {
       setLoading(false);
     }
@@ -114,7 +115,7 @@ export function useBookmarks() {
       await fetchBookmarks();
       return true;
     } catch (error) {
-      console.error('Error adding bookmark:', error);
+      logger.error('Error adding bookmark:', error);
       toast({
         title: labels.error,
         variant: "destructive",
@@ -150,7 +151,7 @@ export function useBookmarks() {
       await fetchBookmarks();
       return true;
     } catch (error) {
-      console.error('Error removing bookmark:', error);
+      logger.error('Error removing bookmark:', error);
       return false;
     }
   }, [user, fetchBookmarks, labels]);
@@ -186,7 +187,7 @@ export function useBookmarks() {
       await fetchBookmarks();
       return true;
     } catch (error) {
-      console.error('Error updating notes:', error);
+      logger.error('Error updating notes:', error);
       return false;
     }
   }, [user, fetchBookmarks]);

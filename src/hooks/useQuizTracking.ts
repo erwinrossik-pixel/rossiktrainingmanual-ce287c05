@@ -1,6 +1,7 @@
 import { useCallback, useRef } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from './useAuth';
+import { logger } from '@/utils/logger';
 
 interface QuestionPerformance {
   questionText: string;
@@ -46,14 +47,14 @@ export function useQuizTracking() {
         .single();
 
       if (error) {
-        console.error('Error starting quiz session:', error);
+        logger.error('Error starting quiz session:', error);
         return null;
       }
 
       currentSessionId.current = data.id;
       return data.id;
     } catch (err) {
-      console.error('Failed to start quiz session:', err);
+      logger.error('Failed to start quiz session:', err);
       return null;
     }
   }, [user]);
@@ -74,7 +75,7 @@ export function useQuizTracking() {
         })
         .eq('id', id);
     } catch (err) {
-      console.error('Failed to complete quiz session:', err);
+      logger.error('Failed to complete quiz session:', err);
     }
   }, [user]);
 
@@ -105,10 +106,10 @@ export function useQuizTracking() {
         .insert(records);
 
       if (error) {
-        console.error('Error recording question performance:', error);
+        logger.error('Error recording question performance:', error);
       }
     } catch (err) {
-      console.error('Failed to record question performance:', err);
+      logger.error('Failed to record question performance:', err);
     }
   }, [user]);
 
@@ -154,7 +155,7 @@ export function useQuizTracking() {
         correctAnswers: performance?.filter(p => p.was_correct).length || 0,
       };
     } catch (err) {
-      console.error('Failed to get chapter quiz analytics:', err);
+      logger.error('Failed to get chapter quiz analytics:', err);
       return null;
     }
   }, [user]);
@@ -249,7 +250,7 @@ export function useQuizTracking() {
         recentSessions: sessions?.slice(0, 50) || [],
       };
     } catch (err) {
-      console.error('Failed to get admin quiz analytics:', err);
+      logger.error('Failed to get admin quiz analytics:', err);
       return null;
     }
   }, []);

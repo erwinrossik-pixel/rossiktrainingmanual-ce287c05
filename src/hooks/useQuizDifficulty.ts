@@ -2,6 +2,7 @@ import { useCallback } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from './useAuth';
+import { logger } from '@/utils/logger';
 
 export interface DifficultyConfig {
   level: number;
@@ -77,7 +78,7 @@ export function useQuizDifficulty(chapterId?: string) {
         .maybeSingle();
 
       if (error) {
-        console.error('Error fetching difficulty:', error);
+        logger.error('Error fetching difficulty:', error);
         return { difficulty: 1, resetCount: 0, userRestartCount: 0, config: DIFFICULTY_CONFIGS[1] };
       }
 
@@ -147,7 +148,7 @@ export function useQuizDifficulty(chapterId?: string) {
         });
 
       if (error) {
-        console.error('Error recording user restart:', error);
+        logger.error('Error recording user restart:', error);
         return { newDifficulty: currentDifficulty };
       }
 
@@ -157,7 +158,7 @@ export function useQuizDifficulty(chapterId?: string) {
 
       return { newDifficulty };
     } catch (err) {
-      console.error('Error in recordUserRestart:', err);
+      logger.error('Error in recordUserRestart:', err);
       return { newDifficulty: 1 };
     }
   }, [user, chapterId, queryClient]);
