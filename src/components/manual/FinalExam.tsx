@@ -12,6 +12,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { logger } from "@/utils/logger";
 
 interface QuizQuestion {
   question: string;
@@ -191,7 +192,7 @@ export function FinalExam({ onComplete, onBack }: FinalExamProps) {
   // Function to auto-generate certificate when user passes the exam
   const generateCertificateForPassedExam = async (userId: string, examPercentage: number, timeSpentSeconds: number) => {
     try {
-      console.log('Auto-generating certificate for passed exam...');
+      logger.certificate('Auto-generating certificate for passed exam...');
       
       // Check if user already has a valid certificate
       const { data: existingCert } = await supabase
@@ -205,7 +206,7 @@ export function FinalExam({ onComplete, onBack }: FinalExamProps) {
         .maybeSingle();
       
       if (existingCert) {
-        console.log('User already has a valid certificate:', existingCert.certificate_code);
+        logger.certificate('User already has a valid certificate:', existingCert.certificate_code);
         return;
       }
       
@@ -245,7 +246,7 @@ export function FinalExam({ onComplete, onBack }: FinalExamProps) {
       const { data: codeData, error: codeError } = await supabase.rpc('generate_certificate_code');
       
       if (codeError || !codeData) {
-        console.error('Failed to generate certificate code:', codeError);
+        logger.error('Failed to generate certificate code:', codeError);
         return;
       }
       
@@ -283,11 +284,11 @@ export function FinalExam({ onComplete, onBack }: FinalExamProps) {
         });
       
       if (insertError) {
-        console.error('Failed to create certificate:', insertError);
+        logger.error('Failed to create certificate:', insertError);
         return;
       }
       
-      console.log('Certificate auto-generated successfully:', certificateCode);
+      logger.certificate('Certificate auto-generated successfully:', certificateCode);
       toast({
         title: language === 'ro' ? '🎓 Certificat generat!' : language === 'de' ? '🎓 Zertifikat erstellt!' : '🎓 Certificate generated!',
         description: language === 'ro' 
@@ -297,21 +298,21 @@ export function FinalExam({ onComplete, onBack }: FinalExamProps) {
             : `Congratulations! Your certificate (${certificateCode}) has been automatically created.`,
       });
     } catch (error) {
-      console.error('Error generating certificate:', error);
+      logger.error('Error generating certificate:', error);
     }
   };
 
   // Centralized save function to ensure exam data is always saved
   const saveExamResult = async (finalScore: number, finalWrongAnswers: typeof wrongAnswers) => {
     if (!user || hasSaved || savedRef.current) {
-      console.log('Save skipped: no user or already saved');
+      logger.debug('Save skipped: no user or already saved');
       return;
     }
 
     // Guard against double-submit while a save is already in-flight.
     // IMPORTANT: we must allow retries if a save failed.
     if (saveAttemptedRef.current) {
-      console.log('Save skipped: save already in progress');
+      logger.debug('Save skipped: save already in progress');
       return;
     }
     
@@ -322,7 +323,7 @@ export function FinalExam({ onComplete, onBack }: FinalExamProps) {
     const hasPassed = finalPercentage >= PASSING_SCORE;
     const timeSpent = Math.floor((new Date().getTime() - startTime.getTime()) / 1000);
     
-    console.log('Saving final exam result:', { 
+    logger.debug('Saving final exam result:', { 
       userId: user.id, 
       score: finalScore, 
       percentage: finalPercentage, 
@@ -354,7 +355,7 @@ export function FinalExam({ onComplete, onBack }: FinalExamProps) {
           });
           
         if (attemptError) {
-          console.error(`Attempt ${attempts} failed:`, attemptError);
+          logger.error(`Attempt ${attempts} failed:`, attemptError);
           lastError = attemptError as unknown as Error;
           // Wait before retry
           if (attempts < maxAttempts) {
@@ -364,7 +365,7 @@ export function FinalExam({ onComplete, onBack }: FinalExamProps) {
           saved = true;
           savedRef.current = true;
           setHasSaved(true);
-          console.log('Final exam result saved successfully');
+          logger.debug('Final exam result saved successfully');
           
           // Auto-generate certificate if user passed the exam
           if (hasPassed) {
@@ -547,7 +548,7 @@ export function FinalExam({ onComplete, onBack }: FinalExamProps) {
       // Capture current wrong answers before any state changes
       const finalWrongAnswers = [...wrongAnswers];
       
-      console.log('Exam completed - Final score:', finalScore, 'of', examQuestions.length);
+      logger.debug('Exam completed - Final score:', { score: finalScore, total: examQuestions.length });
       
       setExamCompleted(true);
       

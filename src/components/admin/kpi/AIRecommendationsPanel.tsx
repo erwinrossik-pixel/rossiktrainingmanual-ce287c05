@@ -7,6 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { logger } from '@/utils/logger';
 import {
   Brain,
   RefreshCw,
@@ -321,10 +322,10 @@ export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
 
                     if (result.success && result.verified) {
                       totalImplemented++;
-                      console.log(`✓ Implemented: ${result.title}`);
+                      logger.debug(`✓ Implemented: ${result.title}`);
                     } else {
                       totalFailed++;
-                      console.warn(`✗ Failed: ${result.title} - ${result.message}`);
+                      logger.warn(`✗ Failed: ${result.title} - ${result.message}`);
                       toast.warning(`${result.title}: ${result.message}`);
                     }
                   }
