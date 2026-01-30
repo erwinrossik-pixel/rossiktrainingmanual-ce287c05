@@ -1,10 +1,12 @@
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { MultiModalContent } from "../MultiModalContent";
+import { ChapterImage } from "../ChapterImage";
 import { quizzes } from "@/data/quizData";
 import { Shield, FileText, Euro, AlertTriangle, CheckCircle, Truck, Package, Scale } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
+import insuranceClaimImg from "@/assets/chapters/insurance-claim-document.jpg";
 
 export function InsuranceChapter() {
   const { ct } = useChapterTranslation("insurance");
@@ -16,6 +18,15 @@ export function InsuranceChapter() {
         description={ct('heroDescription')}
         icon={Shield}
         variant="insurance"
+      />
+
+      {/* Insurance Claim Image */}
+      <ChapterImage
+        src={insuranceClaimImg}
+        alt="Insurance claim document with truck"
+        caption={ct('insuranceClaimCaption') || "Documentație asigurare și cerere de despăgubire pentru transport"}
+        variant="inline"
+        className="mb-6"
       />
 
       {/* Insurance Types Overview */}

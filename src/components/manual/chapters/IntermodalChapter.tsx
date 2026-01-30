@@ -2,11 +2,13 @@ import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { ChapterHero } from "../ChapterHero";
 import { MultiModalContent } from "../MultiModalContent";
+import { ChapterImage } from "../ChapterImage";
 import {
   Train, Truck, Ship, Package, FileText, Users,
   Clock, AlertTriangle, Laptop, TrendingUp, CheckCircle, Leaf
 } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
+import intermodalImg from "@/assets/chapters/intermodal-transport.jpg";
 
 export function IntermodalChapter() {
   const { ct } = useChapterTranslation('intermodal');
@@ -18,6 +20,15 @@ export function IntermodalChapter() {
         description={ct("heroDescription")}
         icon={Train}
         variant="intermodal"
+      />
+
+      {/* Intermodal Transport Image */}
+      <ChapterImage
+        src={intermodalImg}
+        alt="Intermodal transport - truck, train, ship"
+        caption={ct('intermodalCaption') || "Transport intermodal: combinația eficientă de moduri de transport"}
+        variant="inline"
+        className="mb-6"
       />
 
       {/* Introduction */}

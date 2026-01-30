@@ -2,6 +2,7 @@ import { InfoCard } from "../InfoCard";
 import { DataTable } from "../DataTable";
 import { Quiz } from "../Quiz";
 import { MultiModalContent } from "../MultiModalContent";
+import { ChapterImage } from "../ChapterImage";
 import { quizzes } from "@/data/quizData";
 import {
   Monitor, Users, Truck, Package, CalendarDays, FileText, 
@@ -11,6 +12,7 @@ import {
 } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
+import tmsInterfaceImg from "@/assets/chapters/translogica-tms-interface.jpg";
 
 export function TranslogicaChapter() {
   const { ct } = useChapterTranslation("translogica");
@@ -22,6 +24,15 @@ export function TranslogicaChapter() {
         description={ct("heroDescription")}
         icon={Monitor}
         variant="translogica"
+      />
+
+      {/* TMS Interface Image */}
+      <ChapterImage
+        src={tmsInterfaceImg}
+        alt="TMS Transport Management System Interface"
+        caption={ct('tmsInterfaceCaption') || "Interfață TMS modernă pentru gestionarea transporturilor"}
+        variant="inline"
+        className="mb-6"
       />
 
       {/* Introduction */}
