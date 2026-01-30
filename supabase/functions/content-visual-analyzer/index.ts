@@ -310,14 +310,14 @@ Dacă o problemă poate fi rezolvată automat, pune autoFixable: true și specif
           }
         }
 
-        // Update analysis record with results
+        // Update analysis record with results - ROUND scores to integers
         const { error: updateError } = await supabase
           .from("content_visual_analysis")
           .update({
-            visual_score: analysisResult.visual_score || 0,
-            text_score: analysisResult.text_score || 0,
-            translation_score: analysisResult.translation_score || 0,
-            overall_score: analysisResult.overall_score || 0,
+            visual_score: Math.round(analysisResult.visual_score || 0),
+            text_score: Math.round(analysisResult.text_score || 0),
+            translation_score: Math.round(analysisResult.translation_score || 0),
+            overall_score: Math.round(analysisResult.overall_score || 0),
             missing_translations: analysisResult.missing_translations || [],
             broken_graphics: analysisResult.broken_graphics || [],
             text_issues: analysisResult.text_issues || [],
@@ -339,7 +339,7 @@ Dacă o problemă poate fi rezolvată automat, pune autoFixable: true și specif
 
         results.push({
           chapter_id: chapterId,
-          overall_score: analysisResult.overall_score,
+          overall_score: Math.round(analysisResult.overall_score || 0),
           fixes_applied: fixesApplied,
           issues_found: 
             (analysisResult.missing_translations?.length || 0) +
