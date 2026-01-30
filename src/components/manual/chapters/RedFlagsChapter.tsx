@@ -2,6 +2,7 @@ import { AlertTriangle, Lightbulb, X, Check, Shield, Eye, Clock, Euro, Users, Fi
 import { Quiz } from "../Quiz";
 import { DataTable } from "../DataTable";
 import { InfoCard } from "../InfoCard";
+import { MultiModalContent } from "../MultiModalContent";
 import { quizzes } from "@/data/quizData";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
@@ -401,6 +402,9 @@ export function RedFlagsChapter() {
           </div>
         </div>
       </div>
+
+      {/* Multi-Modal Content */}
+      <MultiModalContent chapterId="red-flags" />
 
       {/* Quiz */}
       {quizzes["red-flags"] && (

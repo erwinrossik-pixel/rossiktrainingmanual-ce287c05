@@ -1,6 +1,7 @@
 import { DataTable } from "../DataTable";
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
+import { MultiModalContent } from "../MultiModalContent";
 import { quizzes } from "@/data/quizData";
 import { Clock, Users, AlertTriangle, Gauge, Car, Ban } from "lucide-react";
 import { Badge } from "../Badge";
@@ -208,6 +209,9 @@ export function DrivingTimeChapter() {
           </div>
         </div>
       </div>
+
+      {/* Multi-Modal Content */}
+      <MultiModalContent chapterId="driving-time" />
 
       {/* Quiz */}
       <Quiz title={ct("knowledgeCheck")} questions={quizzes["driving-time"]} chapterId="driving-time" />

@@ -1,6 +1,7 @@
 import { DataTable } from "../DataTable";
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
+import { MultiModalContent } from "../MultiModalContent";
 import { quizzes } from "@/data/quizData";
 import { Cpu, Smartphone, Cloud, Globe, BarChart3, Zap, Shield, TrendingUp, CheckCircle2, AlertTriangle, Bot, Wifi, Database, MapPin, Link, Users, Package, FileText, Workflow } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
@@ -643,6 +644,9 @@ export function TechnologyChapter() {
           </div>
         </div>
       </div>
+
+      {/* Multi-Modal Content */}
+      <MultiModalContent chapterId="technology" />
 
       {/* Quiz */}
       {quizzes["technology"] && (
