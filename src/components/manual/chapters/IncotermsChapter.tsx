@@ -2,7 +2,7 @@ import { DataTable } from "../DataTable";
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { quizzes } from "@/data/quizData";
-import { FileText, Ship, Truck, Plane, Package, AlertTriangle, CheckCircle2, ArrowRight, Scale, Euro, MapPin } from "lucide-react";
+import { FileText, Ship, Truck, Plane, Package, AlertTriangle, CheckCircle2, ArrowRight, Scale, Euro, MapPin, Target, Lightbulb, Zap } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
 
@@ -472,6 +472,158 @@ export function IncotermsChapter() {
             </span>
           </div>
           <p className="text-sm text-muted-foreground mt-3 italic">{ct("riskReminder")}</p>
+        </div>
+      </div>
+
+      {/* AI Recommendation: Mini Knowledge Check by Category */}
+      <div className="info-card bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-950/20 dark:to-purple-950/20 border-2 border-indigo-200 dark:border-indigo-800">
+        <h2 className="section-title flex items-center gap-3 text-indigo-800 dark:text-indigo-200">
+          <Target className="w-6 h-6" />
+          {ct("miniCheckTitle") || "Knowledge Check: Incoterms by Risk Level"}
+        </h2>
+        <p className="text-muted-foreground mb-6">{ct("miniCheckSubtitle") || "Master Incoterms by understanding the progression of seller responsibility from minimal (E) to maximum (D)."}</p>
+
+        {/* E Terms */}
+        <div className="mb-4 p-4 bg-background rounded-xl border">
+          <div className="flex items-center gap-3 mb-3">
+            <div className="w-10 h-10 rounded-full bg-destructive text-destructive-foreground flex items-center justify-center font-bold">E</div>
+            <div>
+              <h3 className="font-semibold">{ct("eGroupTitle") || "E Group: Ex Works (Minimum Seller Obligation)"}</h3>
+              <p className="text-xs text-muted-foreground">{ct("eGroupDesc") || "Seller makes goods available at their premises. Buyer bears ALL risks."}</p>
+            </div>
+          </div>
+          <div className="grid md:grid-cols-2 gap-3">
+            <div className="p-3 bg-muted/50 rounded-lg">
+              <p className="text-sm font-mono font-bold text-destructive">EXW</p>
+              <p className="text-xs text-muted-foreground">{ct("exwMiniDesc") || "Ex Works - Buyer does everything from seller's door"}</p>
+            </div>
+            <div className="p-3 bg-amber-50 dark:bg-amber-900/20 rounded-lg border border-amber-200">
+              <p className="text-xs font-medium text-amber-800 dark:text-amber-200 flex items-center gap-1">
+                <Lightbulb className="w-3 h-3" /> {ct("hint") || "Hint:"}
+              </p>
+              <p className="text-xs text-muted-foreground">{ct("exwHint") || "Think 'EX' = 'EXIT from seller's responsibility'. Buyer picks up at factory gate."}</p>
+            </div>
+          </div>
+        </div>
+
+        {/* F Terms */}
+        <div className="mb-4 p-4 bg-background rounded-xl border">
+          <div className="flex items-center gap-3 mb-3">
+            <div className="w-10 h-10 rounded-full bg-warning text-warning-foreground flex items-center justify-center font-bold">F</div>
+            <div>
+              <h3 className="font-semibold">{ct("fGroupTitle") || "F Group: Free Carrier (Seller Handles Export)"}</h3>
+              <p className="text-xs text-muted-foreground">{ct("fGroupDesc") || "Seller delivers to carrier, handles export. Buyer pays main carriage."}</p>
+            </div>
+          </div>
+          <div className="grid md:grid-cols-2 gap-3">
+            <div className="space-y-2">
+              <div className="p-2 bg-muted/50 rounded-lg">
+                <span className="text-sm font-mono font-bold text-warning">FCA</span> - Free Carrier
+              </div>
+              <div className="p-2 bg-muted/50 rounded-lg">
+                <span className="text-sm font-mono font-bold text-warning">FAS</span> - Free Alongside Ship
+              </div>
+              <div className="p-2 bg-muted/50 rounded-lg">
+                <span className="text-sm font-mono font-bold text-warning">FOB</span> - Free On Board
+              </div>
+            </div>
+            <div className="p-3 bg-amber-50 dark:bg-amber-900/20 rounded-lg border border-amber-200">
+              <p className="text-xs font-medium text-amber-800 dark:text-amber-200 flex items-center gap-1">
+                <Lightbulb className="w-3 h-3" /> {ct("hint") || "Hint:"}
+              </p>
+              <p className="text-xs text-muted-foreground">{ct("fGroupHint") || "F = 'Free to...' - Seller is FREE of responsibility after handing to carrier. Use FCA for road freight (most recommended)!"}</p>
+            </div>
+          </div>
+        </div>
+
+        {/* C Terms */}
+        <div className="mb-4 p-4 bg-background rounded-xl border">
+          <div className="flex items-center gap-3 mb-3">
+            <div className="w-10 h-10 rounded-full bg-info text-info-foreground flex items-center justify-center font-bold">C</div>
+            <div>
+              <h3 className="font-semibold">{ct("cGroupTitle") || "C Group: Cost/Carriage (Seller Pays Transport, Buyer Bears Risk)"}</h3>
+              <p className="text-xs text-muted-foreground">{ct("cGroupDesc") || "Seller pays for carriage but risk transfers when goods handed to first carrier."}</p>
+            </div>
+          </div>
+          <div className="grid md:grid-cols-2 gap-3">
+            <div className="space-y-2">
+              <div className="p-2 bg-muted/50 rounded-lg">
+                <span className="text-sm font-mono font-bold text-info">CPT</span> - Carriage Paid To
+              </div>
+              <div className="p-2 bg-muted/50 rounded-lg">
+                <span className="text-sm font-mono font-bold text-info">CIP</span> - Carriage & Insurance Paid
+              </div>
+              <div className="p-2 bg-muted/50 rounded-lg">
+                <span className="text-sm font-mono font-bold text-info">CFR/CIF</span> - Cost & Freight (sea only)
+              </div>
+            </div>
+            <div className="p-3 bg-amber-50 dark:bg-amber-900/20 rounded-lg border border-amber-200">
+              <p className="text-xs font-medium text-amber-800 dark:text-amber-200 flex items-center gap-1">
+                <Lightbulb className="w-3 h-3" /> {ct("hint") || "Hint:"}
+              </p>
+              <p className="text-xs text-muted-foreground">{ct("cGroupHint") || "C = 'Cost paid by seller'. Key trap: Cost ≠ Risk! Seller PAYS for transport but RISK transfers early. Watch out for this in questions!"}</p>
+            </div>
+          </div>
+        </div>
+
+        {/* D Terms */}
+        <div className="mb-4 p-4 bg-background rounded-xl border">
+          <div className="flex items-center gap-3 mb-3">
+            <div className="w-10 h-10 rounded-full bg-success text-success-foreground flex items-center justify-center font-bold">D</div>
+            <div>
+              <h3 className="font-semibold">{ct("dGroupTitle") || "D Group: Delivered (Maximum Seller Obligation)"}</h3>
+              <p className="text-xs text-muted-foreground">{ct("dGroupDesc") || "Seller bears all costs AND risks until destination. Best protection for buyer."}</p>
+            </div>
+          </div>
+          <div className="grid md:grid-cols-2 gap-3">
+            <div className="space-y-2">
+              <div className="p-2 bg-muted/50 rounded-lg">
+                <span className="text-sm font-mono font-bold text-success">DAP</span> - Delivered At Place
+              </div>
+              <div className="p-2 bg-muted/50 rounded-lg">
+                <span className="text-sm font-mono font-bold text-success">DPU</span> - Delivered Place Unloaded
+              </div>
+              <div className="p-2 bg-muted/50 rounded-lg">
+                <span className="text-sm font-mono font-bold text-success">DDP</span> - Delivered Duty Paid
+              </div>
+            </div>
+            <div className="p-3 bg-amber-50 dark:bg-amber-900/20 rounded-lg border border-amber-200">
+              <p className="text-xs font-medium text-amber-800 dark:text-amber-200 flex items-center gap-1">
+                <Lightbulb className="w-3 h-3" /> {ct("hint") || "Hint:"}
+              </p>
+              <p className="text-xs text-muted-foreground">{ct("dGroupHint") || "D = 'Delivered'. DAP (most common for road) = seller delivers, buyer unloads. DDP = seller does EVERYTHING including import duties."}</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Quick Memory Aid */}
+        <div className="p-4 bg-primary/10 rounded-lg border border-primary/20">
+          <h4 className="font-semibold flex items-center gap-2 mb-3">
+            <Zap className="w-5 h-5 text-primary" />
+            {ct("memoryAid") || "Memory Aid: The Seller Responsibility Ladder"}
+          </h4>
+          <div className="flex items-center justify-between text-sm">
+            <div className="text-center">
+              <div className="w-12 h-12 rounded-full bg-destructive/20 flex items-center justify-center mx-auto mb-1 font-bold">E</div>
+              <p className="text-xs">{ct("minimum") || "Minimum"}</p>
+            </div>
+            <div className="flex-1 h-1 bg-gradient-to-r from-destructive via-warning via-info to-success mx-2 rounded" />
+            <div className="text-center">
+              <div className="w-12 h-12 rounded-full bg-warning/20 flex items-center justify-center mx-auto mb-1 font-bold">F</div>
+              <p className="text-xs">{ct("exportOnly") || "+Export"}</p>
+            </div>
+            <div className="flex-1 h-1 bg-gradient-to-r from-warning via-info to-success mx-2 rounded" />
+            <div className="text-center">
+              <div className="w-12 h-12 rounded-full bg-info/20 flex items-center justify-center mx-auto mb-1 font-bold">C</div>
+              <p className="text-xs">{ct("paysCarriage") || "+Carriage"}</p>
+            </div>
+            <div className="flex-1 h-1 bg-gradient-to-r from-info to-success mx-2 rounded" />
+            <div className="text-center">
+              <div className="w-12 h-12 rounded-full bg-success/20 flex items-center justify-center mx-auto mb-1 font-bold">D</div>
+              <p className="text-xs">{ct("maximum") || "Maximum"}</p>
+            </div>
+          </div>
+          <p className="text-xs text-center text-muted-foreground mt-3">{ct("ladderExplanation") || "Remember: As you move E→F→C→D, seller responsibility INCREASES"}</p>
         </div>
       </div>
 
