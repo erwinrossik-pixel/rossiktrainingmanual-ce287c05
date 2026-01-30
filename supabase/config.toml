@@ -56,3 +56,6 @@ verify_jwt = false
 
 [functions.content-visual-analyzer]
 verify_jwt = false
+
+[functions.implement-ai-recommendations]
+verify_jwt = false

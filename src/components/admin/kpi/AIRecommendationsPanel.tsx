@@ -267,60 +267,85 @@ export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
           </p>
         </div>
         <div className="flex items-center gap-3">
-          {/* Implement All Applied Button */}
+          {/* Implement All Applied Button - Uses edge function for real implementation */}
           <Button
             onClick={async () => {
               setImplementing(true);
+              let totalImplemented = 0;
+              let totalFailed = 0;
+              
               try {
-                // Fetch all applied recommendations
-                const { data: appliedRecs, error: fetchError } = await supabase
+                // First, get the count of applied recommendations
+                const { count: appliedCount } = await supabase
                   .from('ai_recommendations')
-                  .select('id, title')
-                  .eq('status', 'applied')
-                  .order('created_at', { ascending: true });
+                  .select('id', { count: 'exact', head: true })
+                  .eq('status', 'applied');
 
-                if (fetchError) throw fetchError;
-                if (!appliedRecs || appliedRecs.length === 0) {
+                if (!appliedCount || appliedCount === 0) {
                   toast.info(t('admin.ai.noAppliedToImplement'));
                   setImplementing(false);
                   return;
                 }
 
-                setImplementProgress({ current: 0, total: appliedRecs.length, currentTitle: '' });
+                setImplementProgress({ current: 0, total: appliedCount, currentTitle: t('admin.ai.startingImplementation') });
+                toast.info(`${t('admin.ai.startingImplementation')} (${appliedCount} ${t('admin.ai.recommendations').toLowerCase()})`);
 
-                // Process each one sequentially
-                let successCount = 0;
-                for (let i = 0; i < appliedRecs.length; i++) {
-                  const rec = appliedRecs[i];
-                  setImplementProgress({ 
-                    current: i + 1, 
-                    total: appliedRecs.length, 
-                    currentTitle: rec.title 
+                // Process one at a time for accurate tracking
+                let hasMore = true;
+                let processedCount = 0;
+
+                while (hasMore) {
+                  // Call edge function to implement ONE recommendation
+                  const { data, error } = await supabase.functions.invoke('implement-ai-recommendations', {
+                    body: { 
+                      implementAll: true,
+                      batchSize: 1 // Process one at a time for accurate progress
+                    }
                   });
 
-                  try {
-                    const { error: updateError } = await supabase
-                      .from('ai_recommendations')
-                      .update({ 
-                        status: 'completed', 
-                        updated_at: new Date().toISOString() 
-                      })
-                      .eq('id', rec.id);
-
-                    if (updateError) {
-                      console.error(`Error implementing ${rec.id}:`, updateError);
-                    } else {
-                      successCount++;
-                    }
-                  } catch (err) {
-                    console.error(`Error implementing ${rec.id}:`, err);
+                  if (error) {
+                    console.error('Implementation error:', error);
+                    totalFailed++;
+                    break;
                   }
 
-                  // Small delay for visual feedback
-                  await new Promise(resolve => setTimeout(resolve, 150));
+                  if (data.results && data.results.length > 0) {
+                    const result = data.results[0];
+                    processedCount++;
+                    
+                    setImplementProgress({ 
+                      current: processedCount, 
+                      total: appliedCount, 
+                      currentTitle: result.title 
+                    });
+
+                    if (result.success && result.verified) {
+                      totalImplemented++;
+                      console.log(`✓ Implemented: ${result.title}`);
+                    } else {
+                      totalFailed++;
+                      console.warn(`✗ Failed: ${result.title} - ${result.message}`);
+                      toast.warning(`${result.title}: ${result.message}`);
+                    }
+                  }
+
+                  hasMore = data.hasMore && data.remaining > 0;
+                  
+                  // Small delay between iterations for UI feedback
+                  await new Promise(resolve => setTimeout(resolve, 300));
                 }
 
-                toast.success(t('admin.ai.implementComplete').replace('{count}', String(successCount)));
+                // Final summary
+                if (totalImplemented > 0) {
+                  toast.success(
+                    t('admin.ai.implementComplete')
+                      .replace('{count}', String(totalImplemented)) + 
+                    (totalFailed > 0 ? ` (${totalFailed} ${t('admin.ai.failed')})` : '')
+                  );
+                } else if (totalFailed > 0) {
+                  toast.error(`${t('admin.ai.implementFailed')}: ${totalFailed}`);
+                }
+
                 await fetchRecommendations();
               } catch (error) {
                 console.error('Error implementing recommendations:', error);
