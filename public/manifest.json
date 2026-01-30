@@ -1,12 +1,13 @@
 {
-  "name": "Training Manual",
-  "short_name": "Training",
-  "description": "Complete freight forwarding training platform with quizzes, simulations, and certifications",
+  "name": "ROSSIK Training Manual",
+  "short_name": "ROSSIK Training",
+  "description": "Complete freight forwarding training platform with quizzes, simulations, and certifications. Learn logistics, customs, ADR, and more.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#8B5CF6",
   "orientation": "portrait-primary",
+  "scope": "/",
   "icons": [
     {
       "src": "/favicon.ico",
@@ -26,7 +27,24 @@
       "purpose": "any maskable"
     }
   ],
-  "categories": ["education", "business"],
+  "categories": ["education", "business", "productivity"],
   "lang": "en",
-  "prefer_related_applications": false
+  "dir": "ltr",
+  "prefer_related_applications": false,
+  "shortcuts": [
+    {
+      "name": "Continue Training",
+      "short_name": "Training",
+      "description": "Resume your training progress",
+      "url": "/",
+      "icons": [{ "src": "/favicon.ico", "sizes": "64x64" }]
+    },
+    {
+      "name": "Final Exam",
+      "short_name": "Exam",
+      "description": "Take the final certification exam",
+      "url": "/final-exam",
+      "icons": [{ "src": "/favicon.ico", "sizes": "64x64" }]
+    }
+  ]
 }
