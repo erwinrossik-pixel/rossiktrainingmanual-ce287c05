@@ -2,10 +2,12 @@ import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { MultiModalContent } from "../MultiModalContent";
 import { FlowDiagram, ProcessMap } from "../FlowDiagram";
+import { ChapterImage } from "../ChapterImage";
 import { quizzes } from "@/data/quizData";
 import { Truck, Ruler, Weight, Package, Shield, CheckCircle2, AlertTriangle, Settings, Globe, Gauge, Book, Wrench, List } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
+import truckComparisonImg from "@/assets/chapters/vehicle-truck-comparison.jpg";
 
 export function VehicleChapter() {
   const { ct } = useChapterTranslation('vehicle');
@@ -69,7 +71,16 @@ export function VehicleChapter() {
           <Gauge className="w-6 h-6 text-primary" />
           {ct('visualGuideTitle')}
         </h2>
-        <p className="text-muted-foreground mb-6">{ct('visualGuideDesc')}</p>
+        <p className="text-muted-foreground mb-4">{ct('visualGuideDesc')}</p>
+        
+        {/* Truck Comparison Image */}
+        <ChapterImage
+          src={truckComparisonImg}
+          alt="Comparație între trailer standard și mega trailer"
+          caption={ct('truckComparisonCaption') || "Standard 13.6m trailer vs Mega trailer - diferența de înălțime"}
+          variant="inline"
+          className="mb-6"
+        />
         
         <div className="grid md:grid-cols-2 gap-6">
           {/* Height Comparison */}

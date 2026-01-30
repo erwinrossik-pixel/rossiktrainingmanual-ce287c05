@@ -2,10 +2,12 @@ import { DataTable } from "../DataTable";
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { MultiModalContent } from "../MultiModalContent";
+import { ChapterImage } from "../ChapterImage";
 import { quizzes } from "@/data/quizData";
 import { Users, Target, MessageSquare, CheckCircle2, XCircle, AlertTriangle, Zap, Scale, TrendingUp, Handshake, Shield, Euro } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
+import negotiationHandshakeImg from "@/assets/chapters/negotiation-handshake.jpg";
 
 export function NegotiationChapter() {
   const { ct } = useChapterTranslation("negotiation");
@@ -17,6 +19,15 @@ export function NegotiationChapter() {
         description={ct('heroDescription')}
         icon={Handshake}
         variant="negotiation"
+      />
+
+      {/* Negotiation Image */}
+      <ChapterImage
+        src={negotiationHandshakeImg}
+        alt="Professional Business Negotiation"
+        caption={ct('negotiationImageCaption') || "Negociere profesională în domeniul logistic"}
+        variant="inline"
+        className="mb-6"
       />
 
       {/* Introduction */}

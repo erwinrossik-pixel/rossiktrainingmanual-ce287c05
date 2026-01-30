@@ -4,6 +4,7 @@ import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { MultiModalContent } from "../MultiModalContent";
 import { FlowDiagram, DecisionDiagram } from "../FlowDiagram";
+import { ChapterImage } from "../ChapterImage";
 import { quizzes } from "@/data/quizData";
 import { 
   Package, Camera, FileText, AlertTriangle, Shield, Truck, 
@@ -12,6 +13,7 @@ import {
 } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
+import loadingDiagramImg from "@/assets/chapters/loading-diagram.jpg";
 
 export function LoadingChapter() {
   const { ct } = useChapterTranslation('loading');
@@ -23,6 +25,15 @@ export function LoadingChapter() {
         description={ct('heroDescription')}
         icon={Package}
         variant="loading"
+      />
+
+      {/* Loading Diagram Image */}
+      <ChapterImage
+        src={loadingDiagramImg}
+        alt="Cargo Loading Weight Distribution"
+        caption={ct('loadingDiagramCaption') || "Distribuția corectă a greutății în trailer - 60% față, 40% spate"}
+        variant="inline"
+        className="mb-6"
       />
 
       {/* Introduction */}

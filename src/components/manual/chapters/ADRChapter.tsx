@@ -1,10 +1,12 @@
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { MultiModalContent } from "../MultiModalContent";
+import { ChapterImage } from "../ChapterImage";
 import { quizzes } from "@/data/quizData";
 import { AlertTriangle, FileText, Truck, Shield, Book, CheckCircle, XCircle, Flame } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
+import adrHazardSymbolsImg from "@/assets/chapters/adr-hazard-symbols.jpg";
 
 export function ADRChapter() {
   const { ct } = useChapterTranslation('adr');
@@ -51,6 +53,15 @@ export function ADRChapter() {
           <AlertTriangle className="w-6 h-6 text-primary" />
           {ct('adrHazardClasses')}
         </h2>
+        
+        {/* ADR Hazard Symbols Image */}
+        <ChapterImage
+          src={adrHazardSymbolsImg}
+          alt="ADR Hazard Warning Symbols"
+          caption={ct('hazardSymbolsCaption') || "Simboluri de avertizare ADR pentru mărfuri periculoase"}
+          variant="inline"
+          className="mb-6"
+        />
         <div className="overflow-x-auto">
           <table className="w-full border-collapse">
             <thead>

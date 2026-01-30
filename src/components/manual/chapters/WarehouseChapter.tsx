@@ -2,10 +2,12 @@ import { DataTable } from "../DataTable";
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { MultiModalContent } from "../MultiModalContent";
+import { ChapterImage } from "../ChapterImage";
 import { quizzes } from "@/data/quizData";
 import { Warehouse, Package, ArrowRight, Clock, Truck, CheckCircle2, AlertTriangle, Zap, BarChart3, MapPin, Users, RefreshCw, Book, FileText } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
+import warehouseInteriorImg from "@/assets/chapters/warehouse-interior.jpg";
 
 export function WarehouseChapter() {
   const { ct } = useChapterTranslation("warehouse");
@@ -17,6 +19,15 @@ export function WarehouseChapter() {
         description={ct('heroDescription')}
         icon={Warehouse}
         variant="warehouse"
+      />
+
+      {/* Warehouse Interior Image */}
+      <ChapterImage
+        src={warehouseInteriorImg}
+        alt="Modern Warehouse Interior"
+        caption={ct('warehouseInteriorCaption') || "Depozit modern cu rafturi și stivuitoare"}
+        variant="inline"
+        className="mb-6"
       />
 
       {/* Introduction */}
