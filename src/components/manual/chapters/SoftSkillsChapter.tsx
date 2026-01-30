@@ -21,13 +21,6 @@ export function SoftSkillsChapter() {
         variant="softskills"
       />
 
-      {/* Team Collaboration Image */}
-      <ChapterImage
-        src={softSkillsTeamImg}
-        alt="Professional team collaboration meeting"
-        variant="inline"
-        className="mb-6"
-      />
 
       {/* Introduction */}
       <div className="info-card bg-gradient-to-br from-primary/5 to-primary/10">
@@ -60,6 +53,14 @@ export function SoftSkillsChapter() {
             <p className="text-xs text-muted-foreground">{ct("solutionsOriented")}</p>
           </div>
         </div>
+        
+        {/* Team Collaboration Image - contextual after introduction */}
+        <ChapterImage
+          src={softSkillsTeamImg}
+          alt="Professional team collaboration in logistics environment"
+          variant="float-right"
+          className="mt-4"
+        />
       </div>
 
       {/* Communication */}

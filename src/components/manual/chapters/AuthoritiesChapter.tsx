@@ -23,13 +23,6 @@ export function AuthoritiesChapter() {
         variant="authorities"
       />
 
-      {/* Authorities Control Image */}
-      <ChapterImage
-        src={authoritiesControlImg}
-        alt="Transport authorities roadside control"
-        variant="inline"
-        className="mb-6"
-      />
 
       {/* Introduction */}
       <div className="info-card">
@@ -80,6 +73,14 @@ export function AuthoritiesChapter() {
         <div className="info-card">
           <p className="text-muted-foreground">{ct('section4Content')}</p>
         </div>
+        
+        {/* Authorities Control Image - contextual after standard procedure */}
+        <ChapterImage
+          src={authoritiesControlImg}
+          alt="Transport authorities conducting roadside control inspection"
+          variant="float-right"
+          className="mt-4"
+        />
       </section>
 
       {/* Rights */}

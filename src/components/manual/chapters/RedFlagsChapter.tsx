@@ -81,13 +81,6 @@ export function RedFlagsChapter() {
         variant="redflags"
       />
 
-      {/* Red Flags Investigation Image */}
-      <ChapterImage
-        src={redFlagsImg}
-        alt="Fraud investigation and document verification"
-        variant="inline"
-        className="mb-6"
-      />
 
       {/* Why Red Flags Matter */}
       <div className="info-card bg-gradient-to-br from-primary/5 to-primary/10">
@@ -120,6 +113,14 @@ export function RedFlagsChapter() {
             <p className="text-xs text-muted-foreground">{ct("preventableIssues")}</p>
           </div>
         </div>
+        
+        {/* Red Flags Investigation Image - contextual after statistics */}
+        <ChapterImage
+          src={redFlagsImg}
+          alt="Fraud investigation and document verification process"
+          variant="float-right"
+          className="mt-4"
+        />
       </div>
 
       {/* Critical Red Flags - Carriers */}

@@ -21,13 +21,6 @@ export function ExchangesChapter() {
         variant="exchanges"
       />
 
-      {/* Freight Exchange Platform Image */}
-      <ChapterImage
-        src={exchangeImg}
-        alt="Freight exchange platform interface"
-        variant="inline"
-        className="mb-6"
-      />
 
       {/* Main Exchanges */}
       <div className="grid md:grid-cols-2 gap-6">
@@ -150,6 +143,14 @@ export function ExchangesChapter() {
             </div>
           </div>
         </div>
+        
+        {/* Freight Exchange Platform Image - contextual after platforms grid */}
+        <ChapterImage
+          src={exchangeImg}
+          alt="Modern freight exchange platform interface showing load matching"
+          variant="float-right"
+          className="mt-4"
+        />
       </div>
 
       {/* Comparison Table */}

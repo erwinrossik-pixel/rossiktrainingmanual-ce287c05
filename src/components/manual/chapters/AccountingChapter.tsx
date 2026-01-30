@@ -20,13 +20,6 @@ export function AccountingChapter() {
         variant="accounting"
       />
 
-      {/* Accounting Financial Image */}
-      <ChapterImage
-        src={accountingImg}
-        alt="Transport accounting and financial documents"
-        variant="inline"
-        className="mb-6"
-      />
 
       {/* Introduction */}
       <div className="info-card bg-gradient-to-br from-primary/5 to-primary/10">
@@ -59,6 +52,14 @@ export function AccountingChapter() {
             <p className="text-xs text-muted-foreground">{ct("profitTracking")}</p>
           </div>
         </div>
+        
+        {/* Accounting Financial Image - contextual after financial overview */}
+        <ChapterImage
+          src={accountingImg}
+          alt="Transport accounting and financial documentation"
+          variant="float-right"
+          className="mt-4"
+        />
       </div>
 
       {/* Client Invoicing */}

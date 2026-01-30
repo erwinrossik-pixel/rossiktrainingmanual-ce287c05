@@ -22,13 +22,6 @@ export function NetworkingChapter() {
         variant="networking"
       />
 
-      {/* Networking Event Image */}
-      <ChapterImage
-        src={networkingEventImg}
-        alt="Professional logistics networking event"
-        variant="inline"
-        className="mb-6"
-      />
 
       {/* Introduction */}
       <div className="info-card">
@@ -95,6 +88,14 @@ export function NetworkingChapter() {
         <div className="info-card">
           <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">{ct('section6Content')}</p>
         </div>
+        
+        {/* Networking Event Image - contextual after partnerships section */}
+        <ChapterImage
+          src={networkingEventImg}
+          alt="Professional logistics networking event with industry partners"
+          variant="float-right"
+          className="mt-4"
+        />
       </section>
 
       {/* Client Management & Crisis */}

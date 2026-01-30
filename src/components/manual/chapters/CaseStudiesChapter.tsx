@@ -123,13 +123,6 @@ export function CaseStudiesChapter() {
         variant="casestudies"
       />
 
-      {/* Case Study Analysis Image */}
-      <ChapterImage
-        src={caseStudyImg}
-        alt="Case study analysis meeting"
-        variant="inline"
-        className="mb-6"
-      />
 
       {/* Introduction */}
       <section className="info-card">
@@ -138,6 +131,14 @@ export function CaseStudiesChapter() {
           {ct("introTitle")}
         </h2>
         <p className="text-muted-foreground">{ct("introDesc")}</p>
+        
+        {/* Case Study Analysis Image - contextual after introduction */}
+        <ChapterImage
+          src={caseStudyImg}
+          alt="Professional case study analysis session"
+          variant="float-right"
+          className="mt-4"
+        />
       </section>
 
       {/* Case Study 1 */}

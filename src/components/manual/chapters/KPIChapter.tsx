@@ -20,13 +20,6 @@ export function KPIChapter() {
         variant="kpi"
       />
 
-      {/* KPI Dashboard Image */}
-      <ChapterImage
-        src={kpiDashboardImg}
-        alt="KPI Dashboard - Performance metrics"
-        variant="inline"
-        className="mb-6"
-      />
 
       {/* Introduction */}
       <div className="info-card bg-gradient-to-br from-primary/5 to-primary/10">
@@ -55,6 +48,14 @@ export function KPIChapter() {
             <p className="text-sm font-medium">{ct("rewardSuccess")}</p>
           </div>
         </div>
+        
+        {/* KPI Dashboard Image - contextual after introduction */}
+        <ChapterImage
+          src={kpiDashboardImg}
+          alt="KPI performance metrics dashboard with analytics"
+          variant="float-right"
+          className="mt-4"
+        />
       </div>
 
       {/* Trainee KPIs */}

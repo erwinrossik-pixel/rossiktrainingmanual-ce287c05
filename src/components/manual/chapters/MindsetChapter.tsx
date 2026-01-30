@@ -27,13 +27,6 @@ export function MindsetChapter() {
         variant="mindset"
       />
 
-      {/* Dispatcher Image */}
-      <ChapterImage
-        src={mindsetDispatcherImg}
-        alt="Freight forwarder dispatcher at work"
-        variant="inline"
-        className="mb-6"
-      />
 
       {/* Introduction */}
       <div className="info-card">
@@ -60,6 +53,14 @@ export function MindsetChapter() {
                 <p className="text-muted-foreground">25% {ct('ofSuccess')}</p>
               </div>
             </div>
+            
+            {/* Dispatcher Mindset Image - contextual after success factors */}
+            <ChapterImage
+              src={mindsetDispatcherImg}
+              alt="Focused freight forwarder dispatcher managing operations"
+              variant="float-right"
+              className="mt-4"
+            />
           </div>
         </div>
       </div>

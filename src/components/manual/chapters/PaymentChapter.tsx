@@ -20,13 +20,6 @@ export function PaymentChapter() {
         variant="payment"
       />
 
-      {/* Payment Transaction Image */}
-      <ChapterImage
-        src={paymentImg}
-        alt="Payment and credit management"
-        variant="inline"
-        className="mb-6"
-      />
 
       {/* Payment Terms */}
       <section>
@@ -44,6 +37,14 @@ export function PaymentChapter() {
             [ct("net45_60"), ct("net45_60Desc"), ct("net45_60Use")],
             [ct("eomPlus30"), ct("eomPlus30Desc"), ct("eomPlus30Use")],
           ]}
+        />
+        
+        {/* Payment Transaction Image - contextual after payment terms table */}
+        <ChapterImage
+          src={paymentImg}
+          alt="Payment and credit management process"
+          variant="float-right"
+          className="mt-4"
         />
       </section>
 

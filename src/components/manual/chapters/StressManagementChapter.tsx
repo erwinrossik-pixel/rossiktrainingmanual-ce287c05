@@ -22,13 +22,6 @@ export function StressManagementChapter() {
         variant="stress-management"
       />
 
-      {/* Stress Management Driver Image */}
-      <ChapterImage
-        src={stressDriverImg}
-        alt="Driver managing stress in truck cabin"
-        variant="inline"
-        className="mb-6"
-      />
 
       {/* Introduction */}
       <div className="info-card">
@@ -111,6 +104,14 @@ export function StressManagementChapter() {
             <p className="text-muted-foreground">{ct('section8Content')}</p>
           </InfoCard>
         </div>
+        
+        {/* Stress Management Driver Image - contextual after work-life balance section */}
+        <ChapterImage
+          src={stressDriverImg}
+          alt="Driver practicing stress management techniques in truck cabin"
+          variant="float-right"
+          className="mt-4"
+        />
       </section>
 
       {/* Support & Resilience */}

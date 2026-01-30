@@ -20,13 +20,6 @@ export function ClientsChapter() {
         variant="clients"
       />
 
-      {/* Clients Meeting Image */}
-      <ChapterImage
-        src={clientsMeetingImg}
-        alt="Business meeting with logistics client"
-        variant="inline"
-        className="mb-6"
-      />
 
       {/* Client Sources */}
       <section>
@@ -48,6 +41,14 @@ export function ClientsChapter() {
             </div>
           ))}
         </div>
+        
+        {/* Clients Meeting Image - contextual after acquisition channels */}
+        <ChapterImage
+          src={clientsMeetingImg}
+          alt="Professional business meeting with logistics client"
+          variant="float-right"
+          className="mt-4"
+        />
       </section>
 
       {/* Industry Sectors */}

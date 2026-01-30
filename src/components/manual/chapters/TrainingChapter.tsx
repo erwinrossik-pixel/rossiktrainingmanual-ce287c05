@@ -105,13 +105,6 @@ export function TrainingChapter() {
         variant="training"
       />
 
-      {/* Training Session Image */}
-      <ChapterImage
-        src={trainingSessionImg}
-        alt="Professional logistics training session"
-        variant="inline"
-        className="mb-6"
-      />
 
       {/* Training Overview */}
       <section className="info-card">
@@ -151,6 +144,14 @@ export function TrainingChapter() {
                 <div className="flex-1 p-2 bg-success/20 rounded text-center text-xs">{ct("durationPractical")}</div>
               </div>
             </div>
+            
+            {/* Training Session Image - contextual after program overview */}
+            <ChapterImage
+              src={trainingSessionImg}
+              alt="Professional logistics training session in action"
+              variant="float-right"
+              className="mt-4"
+            />
           </div>
         </div>
       </section>
