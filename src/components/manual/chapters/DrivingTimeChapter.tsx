@@ -2,11 +2,13 @@ import { DataTable } from "../DataTable";
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { MultiModalContent } from "../MultiModalContent";
+import { ChapterImage } from "../ChapterImage";
 import { quizzes } from "@/data/quizData";
 import { Clock, Users, AlertTriangle, Gauge, Car, Ban } from "lucide-react";
 import { Badge } from "../Badge";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
+import tachographImg from "@/assets/chapters/driving-time-tachograph.jpg";
 
 export function DrivingTimeChapter() {
   const { ct } = useChapterTranslation("driving-time");
@@ -18,6 +20,15 @@ export function DrivingTimeChapter() {
         description={ct('heroDescription')}
         icon={Clock}
         variant="drivingtime"
+      />
+
+      {/* Tachograph Image */}
+      <ChapterImage
+        src={tachographImg}
+        alt="Digital tachograph device"
+        caption={ct('tachographCaption') || "Tahograf digital pentru înregistrarea timpului de conducere"}
+        variant="inline"
+        className="mb-6"
       />
 
       {/* Key Definitions */}

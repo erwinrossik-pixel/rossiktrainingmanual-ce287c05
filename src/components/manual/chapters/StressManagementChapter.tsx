@@ -2,11 +2,13 @@ import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { ChapterHero } from "../ChapterHero";
 import { MultiModalContent } from "../MultiModalContent";
+import { ChapterImage } from "../ChapterImage";
 import {
   Brain, Zap, AlertTriangle, Clock, MessageSquare,
   Users, Heart, Shield, Phone, TrendingUp, CheckCircle
 } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
+import stressDriverImg from "@/assets/chapters/stress-management-driver.jpg";
 
 export function StressManagementChapter() {
   const { ct } = useChapterTranslation('stress-management');
@@ -18,6 +20,15 @@ export function StressManagementChapter() {
         description={ct("heroDescription")}
         icon={Brain}
         variant="stress-management"
+      />
+
+      {/* Stress Management Driver Image */}
+      <ChapterImage
+        src={stressDriverImg}
+        alt="Driver managing stress in truck cabin"
+        caption={ct('driverStressCaption') || "Gestionarea stresului la volan - mindfulness pentru șoferi profesioniști"}
+        variant="inline"
+        className="mb-6"
       />
 
       {/* Introduction */}
