@@ -3,16 +3,107 @@ import { Quiz } from "../Quiz";
 import { ChapterHero } from "../ChapterHero";
 import { MultiModalContent } from "../MultiModalContent";
 import { ChapterImage } from "../ChapterImage";
+import { DataTable } from "../DataTable";
+import { FlowDiagram, ProcessMap } from "../FlowDiagram";
 import {
   Train, Truck, Ship, Package, FileText, Users,
-  Clock, AlertTriangle, Laptop, TrendingUp, CheckCircle, Leaf
+  Clock, AlertTriangle, Laptop, TrendingUp, CheckCircle, Leaf, MapPin, DollarSign
 } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import intermodalImg from "@/assets/chapters/intermodal-transport.jpg";
 
 export function IntermodalChapter() {
   const { ct } = useChapterTranslation('intermodal');
-  
+
+  // Mode comparison table
+  const modeComparisonHeaders = [
+    ct('modeHeader') || "Mode",
+    ct('costPerKmHeader') || "Cost/km",
+    ct('co2Header') || "CO₂/ton-km",
+    ct('speedHeader') || "Speed",
+    ct('bestForHeader') || "Best For"
+  ];
+
+  const modeComparisonRows = [
+    [
+      <span className="font-semibold flex items-center gap-2"><Truck className="w-4 h-4 text-primary" /> Road</span>,
+      "€1.20-1.80",
+      "62g",
+      ct('speedFast') || "Fast",
+      ct('roadBestFor') || "Short distances, flexibility"
+    ],
+    [
+      <span className="font-semibold flex items-center gap-2"><Train className="w-4 h-4 text-success" /> Rail</span>,
+      "€0.25-0.45",
+      "22g",
+      ct('speedMedium') || "Medium",
+      ct('railBestFor') || "Long distance, heavy loads"
+    ],
+    [
+      <span className="font-semibold flex items-center gap-2"><Ship className="w-4 h-4 text-info" /> Barge</span>,
+      "€0.15-0.30",
+      "16g",
+      ct('speedSlow') || "Slow",
+      ct('bargeBestFor') || "Bulk, non-urgent"
+    ],
+    [
+      <span className="font-semibold flex items-center gap-2"><Package className="w-4 h-4 text-warning" /> Short Sea</span>,
+      "€0.20-0.40",
+      "18g",
+      ct('speedVariable') || "Variable",
+      ct('shortSeaBestFor') || "Coastal routes, RoRo"
+    ]
+  ];
+
+  // Intermodal process flow
+  const intermodalProcessSteps = [
+    { id: "1", label: ct('processPreHaul') || "Pre-Haul", description: ct('processPreHaulDesc') || "Road to terminal", color: "primary" as const },
+    { id: "2", label: ct('processTerminal1') || "Terminal 1", description: ct('processTerminal1Desc') || "Loading/transfer", color: "warning" as const },
+    { id: "3", label: ct('processMainHaul') || "Main Haul", description: ct('processMainHaulDesc') || "Rail/Barge", color: "success" as const },
+    { id: "4", label: ct('processTerminal2') || "Terminal 2", description: ct('processTerminal2Desc') || "Unloading", color: "warning" as const },
+    { id: "5", label: ct('processLastMile') || "Last Mile", description: ct('processLastMileDesc') || "Road delivery", color: "primary" as const }
+  ];
+
+  // European corridors
+  const corridorsData = [
+    {
+      name: ct('corridorRhine') || "Rhine-Alpine",
+      color: "info" as const,
+      steps: [
+        "Rotterdam → Basel → Genoa",
+        ct('corridorRhineNote1') || "Highest volume corridor",
+        ct('corridorRhineNote2') || "Rail + Barge options"
+      ]
+    },
+    {
+      name: ct('corridorNorthSea') || "North Sea-Baltic",
+      color: "primary" as const,
+      steps: [
+        "Antwerp → Hamburg → Gdańsk",
+        ct('corridorNorthSeaNote1') || "Container shuttle services",
+        ct('corridorNorthSeaNote2') || "Strong rail frequency"
+      ]
+    },
+    {
+      name: ct('corridorAtlantic') || "Atlantic",
+      color: "success" as const,
+      steps: [
+        "Le Havre → Paris → Mannheim",
+        ct('corridorAtlanticNote1') || "Growing capacity",
+        ct('corridorAtlanticNote2') || "Combined rail services"
+      ]
+    },
+    {
+      name: ct('corridorMed') || "Mediterranean",
+      color: "warning" as const,
+      steps: [
+        "Valencia → Lyon → Milano",
+        ct('corridorMedNote1') || "Short sea + rail",
+        ct('corridorMedNote2') || "RoRo connections"
+      ]
+    }
+  ];
+
   return (
     <div className="space-y-6 sm:space-y-8 animate-fade-in">
       <ChapterHero
@@ -21,7 +112,6 @@ export function IntermodalChapter() {
         icon={Train}
         variant="intermodal"
       />
-
 
       {/* Introduction */}
       <div className="info-card">
@@ -47,6 +137,28 @@ export function IntermodalChapter() {
         </div>
       </section>
 
+      {/* Intermodal Process Flow - NEW */}
+      <section>
+        <h2 className="section-title flex items-center gap-2 sm:gap-3">
+          <MapPin className="w-5 h-5 sm:w-6 sm:h-6 text-primary flex-shrink-0" />
+          <span>{ct('processFlowTitle') || "Intermodal Transport Chain"}</span>
+        </h2>
+        <FlowDiagram 
+          title="" 
+          steps={intermodalProcessSteps} 
+          direction="horizontal" 
+        />
+      </section>
+
+      {/* Mode Comparison Table - NEW */}
+      <section>
+        <h2 className="section-title flex items-center gap-2 sm:gap-3">
+          <DollarSign className="w-5 h-5 sm:w-6 sm:h-6 text-primary flex-shrink-0" />
+          <span>{ct('modeComparisonTitle') || "Transport Mode Comparison"}</span>
+        </h2>
+        <DataTable headers={modeComparisonHeaders} rows={modeComparisonRows} />
+      </section>
+
       {/* Types & Benefits */}
       <section>
         <h2 className="section-title flex items-center gap-2 sm:gap-3">
@@ -68,6 +180,42 @@ export function IntermodalChapter() {
           <InfoCard title={ct('section3Title')} variant="success" icon={Leaf}>
             <p className="text-muted-foreground">{ct('section3Content')}</p>
           </InfoCard>
+        </div>
+      </section>
+
+      {/* European Corridors - NEW */}
+      <section>
+        <h2 className="section-title flex items-center gap-2 sm:gap-3">
+          <MapPin className="w-5 h-5 sm:w-6 sm:h-6 text-primary flex-shrink-0" />
+          <span>{ct('corridorsTitle') || "Key European Corridors"}</span>
+        </h2>
+        <ProcessMap 
+          title="" 
+          phases={corridorsData} 
+        />
+      </section>
+
+      {/* CO2 Savings Card - NEW */}
+      <section>
+        <div className="bg-success/10 border border-success/30 rounded-xl p-4 sm:p-6">
+          <h3 className="font-semibold mb-3 flex items-center gap-2 text-success">
+            <Leaf className="w-5 h-5" />
+            {ct('co2SavingsTitle') || "Environmental Benefits"}
+          </h3>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div className="bg-card rounded-lg p-4 text-center border border-border">
+              <p className="text-3xl font-bold text-success">-65%</p>
+              <p className="text-sm text-muted-foreground">{ct('co2Reduction') || "CO₂ vs Road"}</p>
+            </div>
+            <div className="bg-card rounded-lg p-4 text-center border border-border">
+              <p className="text-3xl font-bold text-info">-40%</p>
+              <p className="text-sm text-muted-foreground">{ct('costReduction') || "Cost Savings 500km+"}</p>
+            </div>
+            <div className="bg-card rounded-lg p-4 text-center border border-border">
+              <p className="text-3xl font-bold text-warning">+24h</p>
+              <p className="text-sm text-muted-foreground">{ct('timeAddition') || "Additional Transit"}</p>
+            </div>
+          </div>
         </div>
       </section>
 
