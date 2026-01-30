@@ -69,6 +69,32 @@ type HeroVariant =
   | "sustainability"
   | "default";
 
+// Import chapter hero images
+import introHero from "@/assets/chapters/intro-hero.jpg";
+import mindsetHero from "@/assets/chapters/mindset-hero.jpg";
+import softSkillsHero from "@/assets/chapters/soft-skills-hero.jpg";
+import stressManagementHero from "@/assets/chapters/stress-management-hero.jpg";
+import workflowHero from "@/assets/chapters/workflow-hero.jpg";
+import vehicleHero from "@/assets/chapters/vehicle-hero.jpg";
+import loadingHero from "@/assets/chapters/loading-hero.jpg";
+import reeferHero from "@/assets/chapters/reefer-hero.jpg";
+import expressTransportHero from "@/assets/chapters/express-transport-hero.jpg";
+import intermodalHero from "@/assets/chapters/intermodal-hero.jpg";
+
+// Map variants to hero images
+const heroImages: Partial<Record<HeroVariant, string>> = {
+  intro: introHero,
+  mindset: mindsetHero,
+  softskills: softSkillsHero,
+  "stress-management": stressManagementHero,
+  workflow: workflowHero,
+  vehicle: vehicleHero,
+  loading: loadingHero,
+  reefer: reeferHero,
+  "express-transport": expressTransportHero,
+  intermodal: intermodalHero,
+};
+
 // Map variant to chapter ID for number calculation
 const variantToChapterId: Record<HeroVariant, string> = {
   intro: "intro",
@@ -130,14 +156,17 @@ interface ChapterHeroProps {
   description: string;
   icon: LucideIcon;
   variant?: HeroVariant;
+  showImage?: boolean;
 }
 
 export function ChapterHero({ 
   title, 
   description, 
   icon: Icon,
-  variant = "default" 
+  variant = "default",
+  showImage = true 
 }: ChapterHeroProps) {
+  const heroImage = heroImages[variant];
   const { language } = useLanguage();
   const [contentLevel, setContentLevel] = useState<ContentLevel>('informational');
   
@@ -232,7 +261,19 @@ export function ChapterHero({
 
   return (
     <div className="space-y-3 sm:space-y-4">
-      <div className={cn("hero-section text-primary-foreground", variantClasses[variant])}>
+      <div className={cn("hero-section text-primary-foreground relative overflow-hidden", variantClasses[variant])}>
+        {/* Background Image */}
+        {showImage && heroImage && (
+          <div className="absolute inset-0 z-0">
+            <img 
+              src={heroImage} 
+              alt="" 
+              className="w-full h-full object-cover opacity-20"
+              loading="eager"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-current/80 to-transparent" />
+          </div>
+        )}
         <div className="relative z-10">
           <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
             <div className="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-xl sm:rounded-2xl bg-white/25 backdrop-blur-sm flex items-center justify-center shadow-lg flex-shrink-0">
@@ -255,6 +296,18 @@ export function ChapterHero({
           </p>
         </div>
       </div>
+      
+      {/* Hero Image Preview (when available) */}
+      {showImage && heroImage && (
+        <div className="rounded-xl overflow-hidden shadow-lg">
+          <img 
+            src={heroImage} 
+            alt={title}
+            className="w-full h-48 md:h-64 object-cover"
+            loading="lazy"
+          />
+        </div>
+      )}
       
       {/* Version Info */}
       <VersionInfo chapterId={chapterId} />

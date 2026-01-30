@@ -1,0 +1,107 @@
+import { useState } from 'react';
+import { cn } from '@/lib/utils';
+import { ZoomIn, X } from 'lucide-react';
+
+interface ChapterImageProps {
+  src: string;
+  alt: string;
+  caption?: string;
+  className?: string;
+  variant?: 'hero' | 'inline' | 'gallery';
+}
+
+export function ChapterImage({ src, alt, caption, className, variant = 'inline' }: ChapterImageProps) {
+  const [isZoomed, setIsZoomed] = useState(false);
+
+  const baseStyles = {
+    hero: 'w-full h-48 md:h-64 object-cover rounded-xl shadow-lg',
+    inline: 'w-full max-w-lg mx-auto rounded-lg shadow-md',
+    gallery: 'w-full h-40 object-cover rounded-lg cursor-pointer hover:opacity-90 transition-opacity',
+  };
+
+  return (
+    <>
+      <figure className={cn('relative group', className)}>
+        <div className="relative overflow-hidden rounded-xl">
+          <img
+            src={src}
+            alt={alt}
+            className={cn(baseStyles[variant], 'transition-transform duration-300')}
+            loading="lazy"
+          />
+          {variant !== 'hero' && (
+            <button
+              onClick={() => setIsZoomed(true)}
+              className="absolute top-2 right-2 p-2 bg-black/50 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+              aria-label="Zoom image"
+            >
+              <ZoomIn className="w-4 h-4 text-white" />
+            </button>
+          )}
+        </div>
+        {caption && (
+          <figcaption className="text-center text-sm text-muted-foreground mt-2 italic">
+            {caption}
+          </figcaption>
+        )}
+      </figure>
+
+      {/* Lightbox */}
+      {isZoomed && (
+        <div
+          className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center p-4"
+          onClick={() => setIsZoomed(false)}
+        >
+          <button
+            onClick={() => setIsZoomed(false)}
+            className="absolute top-4 right-4 p-2 bg-white/10 rounded-full hover:bg-white/20 transition-colors"
+            aria-label="Close"
+          >
+            <X className="w-6 h-6 text-white" />
+          </button>
+          <img
+            src={src}
+            alt={alt}
+            className="max-w-full max-h-[90vh] object-contain rounded-lg"
+          />
+          {caption && (
+            <p className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white text-sm bg-black/50 px-4 py-2 rounded-full">
+              {caption}
+            </p>
+          )}
+        </div>
+      )}
+    </>
+  );
+}
+
+interface ImageGalleryProps {
+  images: Array<{
+    src: string;
+    alt: string;
+    caption?: string;
+  }>;
+  columns?: 2 | 3 | 4;
+}
+
+export function ImageGallery({ images, columns = 3 }: ImageGalleryProps) {
+  const gridCols = {
+    2: 'grid-cols-1 md:grid-cols-2',
+    3: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
+    4: 'grid-cols-2 md:grid-cols-3 lg:grid-cols-4',
+  };
+
+  return (
+    <div className={cn('grid gap-4', gridCols[columns])}>
+      {images.map((image, index) => (
+        <ChapterImage
+          key={index}
+          src={image.src}
+          alt={image.alt}
+          caption={image.caption}
+          variant="gallery"
+        />
+      ))}
+    </div>
+  );
+}
