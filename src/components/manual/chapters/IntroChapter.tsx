@@ -136,20 +136,20 @@ export function IntroChapter() {
         </h2>
         <p className="text-muted-foreground mb-4">{ct("typicalDaySubtitle")}</p>
         <div className="grid md:grid-cols-2 gap-4">
-          <div className="info-card border-l-4 border-l-blue-500">
-            <h3 className="font-semibold text-blue-600 mb-2">{ct("dayMorning")}</h3>
+          <div className="info-card border-l-4 border-l-info">
+            <h3 className="font-semibold text-info mb-2">{ct("dayMorning")}</h3>
             <p className="text-sm text-muted-foreground">{ct("dayMorningTasks")}</p>
           </div>
-          <div className="info-card border-l-4 border-l-yellow-500">
-            <h3 className="font-semibold text-yellow-600 mb-2">{ct("dayMidday")}</h3>
+          <div className="info-card border-l-4 border-l-warning">
+            <h3 className="font-semibold text-warning mb-2">{ct("dayMidday")}</h3>
             <p className="text-sm text-muted-foreground">{ct("dayMiddayTasks")}</p>
           </div>
-          <div className="info-card border-l-4 border-l-orange-500">
-            <h3 className="font-semibold text-orange-600 mb-2">{ct("dayAfternoon")}</h3>
+          <div className="info-card border-l-4 border-l-primary">
+            <h3 className="font-semibold text-primary mb-2">{ct("dayAfternoon")}</h3>
             <p className="text-sm text-muted-foreground">{ct("dayAfternoonTasks")}</p>
           </div>
-          <div className="info-card border-l-4 border-l-purple-500">
-            <h3 className="font-semibold text-purple-600 mb-2">{ct("dayEvening")}</h3>
+          <div className="info-card border-l-4 border-l-accent-foreground">
+            <h3 className="font-semibold text-accent-foreground mb-2">{ct("dayEvening")}</h3>
             <p className="text-sm text-muted-foreground">{ct("dayEveningTasks")}</p>
           </div>
         </div>
@@ -208,20 +208,20 @@ export function IntroChapter() {
         </h2>
         <p className="text-muted-foreground mb-4">{ct("first90Subtitle")}</p>
         <div className="space-y-4">
-          <div className="info-card bg-blue-50 dark:bg-blue-950/20 border-blue-200 dark:border-blue-800">
-            <h3 className="font-semibold text-blue-700 dark:text-blue-400">{ct("first30Title")}</h3>
+          <div className="info-card bg-info/10 border-info/30">
+            <h3 className="font-semibold text-info">{ct("first30Title")}</h3>
             <p className="text-sm text-muted-foreground mt-2">{ct("first30Tasks")}</p>
-            <p className="text-sm font-medium text-blue-600 dark:text-blue-400 mt-2">{ct("first30Goal")}</p>
+            <p className="text-sm font-medium text-info mt-2">{ct("first30Goal")}</p>
           </div>
-          <div className="info-card bg-yellow-50 dark:bg-yellow-950/20 border-yellow-200 dark:border-yellow-800">
-            <h3 className="font-semibold text-yellow-700 dark:text-yellow-400">{ct("first60Title")}</h3>
+          <div className="info-card bg-warning/10 border-warning/30">
+            <h3 className="font-semibold text-warning">{ct("first60Title")}</h3>
             <p className="text-sm text-muted-foreground mt-2">{ct("first60Tasks")}</p>
-            <p className="text-sm font-medium text-yellow-600 dark:text-yellow-400 mt-2">{ct("first60Goal")}</p>
+            <p className="text-sm font-medium text-warning mt-2">{ct("first60Goal")}</p>
           </div>
-          <div className="info-card bg-green-50 dark:bg-green-950/20 border-green-200 dark:border-green-800">
-            <h3 className="font-semibold text-green-700 dark:text-green-400">{ct("first90Title2")}</h3>
+          <div className="info-card bg-success/10 border-success/30">
+            <h3 className="font-semibold text-success">{ct("first90Title2")}</h3>
             <p className="text-sm text-muted-foreground mt-2">{ct("first90Tasks")}</p>
-            <p className="text-sm font-medium text-green-600 dark:text-green-400 mt-2">{ct("first90Goal")}</p>
+            <p className="text-sm font-medium text-success mt-2">{ct("first90Goal")}</p>
           </div>
         </div>
       </section>

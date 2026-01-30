@@ -15,12 +15,12 @@ import careerDevelopmentImg from "@/assets/chapters/career-development.jpg";
 
 // Career stages data structure
 const careerStages = [
-  { level: 1, years: "0-1", color: "from-blue-500 to-blue-600" },
-  { level: 2, years: "1-3", color: "from-cyan-500 to-cyan-600" },
-  { level: 3, years: "3-5", color: "from-teal-500 to-teal-600" },
-  { level: 4, years: "5-7", color: "from-green-500 to-green-600" },
-  { level: 5, years: "7-10", color: "from-yellow-500 to-yellow-600" },
-  { level: 6, years: "10+", color: "from-orange-500 to-orange-600" },
+  { level: 1, years: "0-1", colorClass: "bg-info" },
+  { level: 2, years: "1-3", colorClass: "bg-info/80" },
+  { level: 3, years: "3-5", colorClass: "bg-success/80" },
+  { level: 4, years: "5-7", colorClass: "bg-success" },
+  { level: 5, years: "7-10", colorClass: "bg-warning" },
+  { level: 6, years: "10+", colorClass: "bg-primary" },
 ];
 
 export function ProfessionalDevelopmentChapter() {
@@ -316,7 +316,7 @@ export function ProfessionalDevelopmentChapter() {
               {careerStages.map((stage, idx) => (
                 <div key={idx} className="flex items-center gap-4 relative">
                   {/* Stage number circle */}
-                  <div className={`w-12 h-12 rounded-full bg-gradient-to-br ${stage.color} flex items-center justify-center text-white font-bold shadow-lg z-10`}>
+                  <div className={`w-12 h-12 rounded-full ${stage.colorClass} flex items-center justify-center text-white font-bold shadow-lg z-10`}>
                     {stage.level}
                   </div>
                   

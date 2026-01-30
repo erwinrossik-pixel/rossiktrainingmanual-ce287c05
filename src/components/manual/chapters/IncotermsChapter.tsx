@@ -101,9 +101,9 @@ function IncotermsSimulator({ ct }: { ct: (key: string) => string }) {
   const selectedTermData = incoterms.find(term => term.code === selectedIncoterm);
 
   return (
-    <div className="bg-gradient-to-br from-purple-500/5 to-indigo-500/10 border-2 border-purple-200 dark:border-purple-800 rounded-xl p-6">
+    <div className="bg-gradient-to-br from-primary/5 to-accent/10 border-2 border-primary/20 rounded-xl p-6">
       <h3 className="text-xl font-bold flex items-center gap-2 mb-2">
-        <Calculator className="w-6 h-6 text-purple-600" />
+        <Calculator className="w-6 h-6 text-primary" />
         {t.title}
       </h3>
       <p className="text-muted-foreground mb-6">{t.subtitle}</p>
@@ -116,8 +116,8 @@ function IncotermsSimulator({ ct }: { ct: (key: string) => string }) {
             onClick={() => { setSelectedIncoterm(term.code); setShowResults(true); }}
             className={`px-4 py-2 rounded-lg font-mono font-bold transition-all ${
               selectedIncoterm === term.code
-                ? 'bg-purple-600 text-white shadow-lg scale-105'
-                : 'bg-muted hover:bg-purple-100 dark:hover:bg-purple-900/30'
+                ? 'bg-primary text-primary-foreground shadow-lg scale-105'
+                : 'bg-muted hover:bg-accent'
             }`}
           >
             {term.code}
@@ -132,21 +132,21 @@ function IncotermsSimulator({ ct }: { ct: (key: string) => string }) {
             <p className="text-sm font-medium mb-2">{t.costBreakdown} ({selectedIncoterm})</p>
             <div className="flex h-8 rounded-lg overflow-hidden">
               <div 
-                className="bg-green-500 flex items-center justify-center text-white text-xs font-medium transition-all"
+                className="bg-success flex items-center justify-center text-success-foreground text-xs font-medium transition-all"
                 style={{ width: `${selectedTermData.sellerCost}%` }}
               >
                 {selectedTermData.sellerCost > 10 && `${t.sellerPays}: €${costs.seller}`}
               </div>
               <div 
-                className="bg-blue-500 flex items-center justify-center text-white text-xs font-medium transition-all"
+                className="bg-info flex items-center justify-center text-info-foreground text-xs font-medium transition-all"
                 style={{ width: `${selectedTermData.buyerCost}%` }}
               >
                 {selectedTermData.buyerCost > 10 && `${t.buyerPays}: €${costs.buyer}`}
               </div>
             </div>
             <div className="flex justify-between text-xs text-muted-foreground mt-1">
-              <span className="text-green-600">{t.sellerPays}</span>
-              <span className="text-blue-600">{t.buyerPays}</span>
+              <span className="text-success">{t.sellerPays}</span>
+              <span className="text-info">{t.buyerPays}</span>
             </div>
           </div>
 
@@ -155,14 +155,14 @@ function IncotermsSimulator({ ct }: { ct: (key: string) => string }) {
             <p className="text-sm font-medium mb-2">{t.riskTransferPoint}</p>
             <div className="relative h-6 bg-muted rounded-lg">
               <div 
-                className="absolute top-0 left-0 h-full bg-gradient-to-r from-green-500 to-green-400 rounded-l-lg transition-all"
+                className="absolute top-0 left-0 h-full bg-success rounded-l-lg transition-all"
                 style={{ width: `${selectedTermData.riskTransfer}%` }}
               />
               <div 
-                className="absolute top-0 h-full w-4 bg-yellow-500 rounded transition-all flex items-center justify-center"
+                className="absolute top-0 h-full w-4 bg-warning rounded transition-all flex items-center justify-center"
                 style={{ left: `calc(${selectedTermData.riskTransfer}% - 8px)` }}
               >
-                <div className="w-2 h-2 bg-white rounded-full" />
+                <div className="w-2 h-2 bg-background rounded-full" />
               </div>
             </div>
             <div className="flex justify-between text-xs mt-1">
@@ -173,13 +173,13 @@ function IncotermsSimulator({ ct }: { ct: (key: string) => string }) {
 
           {/* Summary Cards */}
           <div className="grid grid-cols-2 gap-3">
-            <div className="bg-green-50 dark:bg-green-900/20 p-3 rounded-lg border border-green-200 dark:border-green-800">
+            <div className="bg-success/10 p-3 rounded-lg border border-success/30">
               <p className="text-xs text-muted-foreground">{t.sellerPays}</p>
-              <p className="text-2xl font-bold text-green-600">€{costs.seller.toLocaleString()}</p>
+              <p className="text-2xl font-bold text-success">€{costs.seller.toLocaleString()}</p>
             </div>
-            <div className="bg-blue-50 dark:bg-blue-900/20 p-3 rounded-lg border border-blue-200 dark:border-blue-800">
+            <div className="bg-info/10 p-3 rounded-lg border border-info/30">
               <p className="text-xs text-muted-foreground">{t.buyerPays}</p>
-              <p className="text-2xl font-bold text-blue-600">€{costs.buyer.toLocaleString()}</p>
+              <p className="text-2xl font-bold text-info">€{costs.buyer.toLocaleString()}</p>
             </div>
           </div>
 
