@@ -38,32 +38,32 @@ interface UserKPIPanelProps {
 
 // Score is on a 10-point scale (0-10), thresholds: Green ≥9, Amber ≥7, Red <7
 const getScoreColor = (score: number) => {
-  if (score >= 9) return 'text-emerald-600 dark:text-emerald-400 font-bold';
-  if (score >= 7) return 'text-amber-600 dark:text-amber-400 font-semibold';
-  if (score >= 5) return 'text-orange-600 dark:text-orange-400 font-semibold';
-  return 'text-red-600 dark:text-red-400 font-bold';
+  if (score >= 9) return 'text-success font-bold';
+  if (score >= 7) return 'text-warning font-semibold';
+  if (score >= 5) return 'text-warning font-semibold';
+  return 'text-destructive font-bold';
 };
 
 // Score is on a 10-point scale (0-10), thresholds: Green ≥9, Amber ≥7, Red <7
 const getScoreBg = (score: number) => {
-  if (score >= 9) return 'bg-emerald-100 dark:bg-emerald-900/30 border-emerald-300 dark:border-emerald-700';
-  if (score >= 7) return 'bg-amber-100 dark:bg-amber-900/30 border-amber-300 dark:border-amber-700';
-  if (score >= 5) return 'bg-orange-100 dark:bg-orange-900/30 border-orange-300 dark:border-orange-700';
-  return 'bg-red-100 dark:bg-red-900/30 border-red-300 dark:border-red-700';
+  if (score >= 9) return 'bg-success/10 border-success/30';
+  if (score >= 7) return 'bg-warning/10 border-warning/30';
+  if (score >= 5) return 'bg-warning/10 border-warning/30';
+  return 'bg-destructive/10 border-destructive/30';
 };
 
 const getProgressColor = (progress: number) => {
-  if (progress >= 80) return 'bg-emerald-500';
-  if (progress >= 50) return 'bg-blue-500';
-  if (progress >= 25) return 'bg-amber-500';
-  return 'bg-red-500';
+  if (progress >= 80) return 'bg-success';
+  if (progress >= 50) return 'bg-info';
+  if (progress >= 25) return 'bg-warning';
+  return 'bg-destructive';
 };
 
 const getEfficiencyBadge = (efficiency: number, t: (key: string) => string) => {
-  if (efficiency >= 5) return { label: t('admin.kpi.efficiencyExcellent'), variant: 'default' as const, color: 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/30' };
-  if (efficiency >= 3) return { label: t('admin.kpi.efficiencyGood'), variant: 'secondary' as const, color: 'bg-blue-500 text-white shadow-lg shadow-blue-500/30' };
-  if (efficiency >= 1) return { label: t('admin.kpi.efficiencyMedium'), variant: 'outline' as const, color: 'bg-amber-500 text-white shadow-lg shadow-amber-500/30' };
-  return { label: t('admin.kpi.efficiencySlow'), variant: 'destructive' as const, color: 'bg-red-500 text-white shadow-lg shadow-red-500/30' };
+  if (efficiency >= 5) return { label: t('admin.kpi.efficiencyExcellent'), variant: 'default' as const, color: 'bg-success text-success-foreground shadow-lg' };
+  if (efficiency >= 3) return { label: t('admin.kpi.efficiencyGood'), variant: 'secondary' as const, color: 'bg-info text-info-foreground shadow-lg' };
+  if (efficiency >= 1) return { label: t('admin.kpi.efficiencyMedium'), variant: 'outline' as const, color: 'bg-warning text-warning-foreground shadow-lg' };
+  return { label: t('admin.kpi.efficiencySlow'), variant: 'destructive' as const, color: 'bg-destructive text-destructive-foreground shadow-lg' };
 };
 
 export const UserKPIPanel = memo(function UserKPIPanel({ 
@@ -189,31 +189,31 @@ export const UserKPIPanel = memo(function UserKPIPanel({
       {/* Top Performers & Need Support */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Top Performers */}
-        <Card className="border-2 border-emerald-200 dark:border-emerald-800 bg-gradient-to-br from-emerald-50/50 to-green-50/50 dark:from-emerald-950/30 dark:to-green-950/30 shadow-xl">
-          <CardHeader className="border-b border-emerald-200 dark:border-emerald-800 bg-emerald-100/50 dark:bg-emerald-900/30">
-            <CardTitle className="text-xl flex items-center gap-3 text-emerald-800 dark:text-emerald-200">
-              <div className="p-2 bg-gradient-to-br from-yellow-400 to-amber-500 rounded-lg shadow-lg shadow-amber-500/40">
-                <Award className="h-6 w-6 text-white" />
+        <Card className="border-2 border-success/20 bg-gradient-to-br from-success/5 to-success/10 shadow-xl">
+          <CardHeader className="border-b border-success/20 bg-success/10">
+            <CardTitle className="text-xl flex items-center gap-3 text-success">
+              <div className="p-2 bg-gradient-to-br from-warning to-warning/80 rounded-lg shadow-lg">
+                <Award className="h-6 w-6 text-warning-foreground" />
               </div>
               {t('admin.kpi.topPerformers')}
             </CardTitle>
-            <CardDescription className="text-emerald-700 dark:text-emerald-300 font-medium">{t('admin.kpi.mostEfficient')}</CardDescription>
+            <CardDescription className="text-success/80 font-medium">{t('admin.kpi.mostEfficient')}</CardDescription>
           </CardHeader>
           <CardContent className="pt-4">
             <div className="space-y-3">
                   {topPerformers.map((user, idx) => {
                     const effBadge = getEfficiencyBadge(user.efficiency, t);
                     const medalColors = [
-                  'bg-gradient-to-br from-yellow-400 to-amber-500 text-white shadow-lg shadow-amber-500/40',
-                  'bg-gradient-to-br from-gray-300 to-gray-400 text-white shadow-lg shadow-gray-400/40',
-                  'bg-gradient-to-br from-amber-600 to-amber-700 text-white shadow-lg shadow-amber-600/40',
-                  'bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-300',
-                  'bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-300',
+                  'bg-gradient-to-br from-warning to-warning/80 text-warning-foreground shadow-lg',
+                  'bg-gradient-to-br from-muted to-muted/80 text-muted-foreground shadow-lg',
+                  'bg-gradient-to-br from-warning/80 to-warning/60 text-warning-foreground shadow-lg',
+                  'bg-success/10 text-success',
+                  'bg-success/10 text-success',
                 ];
                 return (
                   <div 
                     key={user.userId} 
-                    className="flex items-center justify-between p-4 bg-white dark:bg-emerald-900/20 rounded-xl cursor-pointer hover:bg-emerald-100 dark:hover:bg-emerald-800/30 transition-all duration-200 border border-emerald-200 dark:border-emerald-700 shadow-sm hover:shadow-md"
+                    className="flex items-center justify-between p-4 bg-card rounded-xl cursor-pointer hover:bg-success/10 transition-all duration-200 border border-success/20 shadow-sm hover:shadow-md"
                     onClick={() => setSelectedUser(user)}
                   >
                     <div className="flex items-center gap-4">
@@ -226,7 +226,7 @@ export const UserKPIPanel = memo(function UserKPIPanel({
                       </div>
                     </div>
                     <div className="text-right flex flex-col items-end gap-2">
-                      <p className="font-extrabold text-lg text-emerald-700 dark:text-emerald-300">{user.chaptersCompleted}/{user.totalChapters}</p>
+                      <p className="font-extrabold text-lg text-success">{user.chaptersCompleted}/{user.totalChapters}</p>
                       <Badge className={`${effBadge.color} font-semibold`}>{effBadge.label}</Badge>
                     </div>
                   </div>
@@ -252,10 +252,10 @@ export const UserKPIPanel = memo(function UserKPIPanel({
               <div className="space-y-3 pr-4">
                 {needingSupport.length === 0 ? (
                   <div className="flex flex-col items-center justify-center py-12 text-center">
-                    <div className="p-4 bg-emerald-100 dark:bg-emerald-900/50 rounded-full mb-4">
-                      <Award className="h-8 w-8 text-emerald-600 dark:text-emerald-400" />
+                    <div className="p-4 bg-success/10 rounded-full mb-4">
+                      <Award className="h-8 w-8 text-success" />
                     </div>
-                    <p className="text-emerald-700 dark:text-emerald-300 font-semibold text-lg">{t('admin.kpi.excellent')}</p>
+                    <p className="text-success font-semibold text-lg">{t('admin.kpi.excellent')}</p>
                     <p className="text-muted-foreground">{t('admin.kpi.noUsersNeedSupport')}</p>
                   </div>
                 ) : (

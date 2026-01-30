@@ -245,8 +245,8 @@ export function GamificationLeaderboard() {
 
       {/* Tabs */}
       <Tabs value={activeTab} onValueChange={setActiveTab}>
-        <TabsList className="bg-slate-100 p-1">
-          <TabsTrigger value="leaderboard" className="data-[state=active]:bg-white">
+        <TabsList className="bg-muted p-1">
+          <TabsTrigger value="leaderboard" className="data-[state=active]:bg-background">
             <Trophy className="h-4 w-4 mr-2" />
             {t('admin.gamification.leaderboard')}
           </TabsTrigger>
@@ -287,8 +287,8 @@ export function GamificationLeaderboard() {
                         key={entry.user_id}
                         className={`flex items-center gap-4 p-4 rounded-xl transition-all ${
                           rank <= 3 
-                            ? 'bg-gradient-to-r from-amber-50 to-orange-50 border border-amber-200' 
-                            : 'bg-slate-50 hover:bg-slate-100'
+                            ? 'bg-gradient-to-r from-warning/10 to-warning/5 border border-warning/20' 
+                            : 'bg-muted/50 hover:bg-muted'
                         }`}
                       >
                         <div className="w-10 flex justify-center">
