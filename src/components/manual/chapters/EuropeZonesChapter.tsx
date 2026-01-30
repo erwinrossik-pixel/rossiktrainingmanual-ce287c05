@@ -2,9 +2,11 @@ import { DataTable } from "../DataTable";
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { MultiModalContent } from "../MultiModalContent";
+import { ChapterImage } from "../ChapterImage";
 import { Map, Building2, Truck, Euro, Clock, AlertTriangle, CheckCircle2, Route, Factory, Ship, Calendar } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
+import europeCorridorsImg from "@/assets/chapters/europe-freight-corridors.jpg";
 
 export function EuropeZonesChapter() {
   const { ct } = useChapterTranslation("europe-zones");
@@ -16,6 +18,14 @@ export function EuropeZonesChapter() {
         description={ct('heroDescription')}
         icon={Map}
         variant="europezones"
+      />
+
+      {/* Europe Freight Corridors Image */}
+      <ChapterImage
+        src={europeCorridorsImg}
+        alt="European freight transport corridors map"
+        variant="inline"
+        className="mb-6"
       />
 
       {/* Overview Map */}

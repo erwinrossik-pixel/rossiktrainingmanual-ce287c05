@@ -3,11 +3,13 @@ import { DataTable } from "../DataTable";
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { MultiModalContent } from "../MultiModalContent";
+import { ChapterImage } from "../ChapterImage";
 import { FileText, Ship, Truck, Plane, Package, AlertTriangle, CheckCircle2, ArrowRight, Scale, Euro, MapPin, Target, Lightbulb, Zap, Calculator, Play, RefreshCw } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
+import incotermsChartImg from "@/assets/chapters/incoterms-chart.jpg";
 
 // Interactive Risk/Cost Simulator Component
 function IncotermsSimulator({ ct }: { ct: (key: string) => string }) {
@@ -206,6 +208,14 @@ export function IncotermsChapter() {
         description={ct('heroDescription')}
         icon={FileText}
         variant="incoterms"
+      />
+
+      {/* Incoterms Chart Image */}
+      <ChapterImage
+        src={incotermsChartImg}
+        alt="Incoterms 2020 responsibility chart"
+        variant="inline"
+        className="mb-6"
       />
 
       {/* Introduction */}

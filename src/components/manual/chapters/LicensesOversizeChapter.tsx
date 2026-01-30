@@ -9,8 +9,10 @@ import { DataTable } from "../DataTable";
 import { Checklist } from "../Checklist";
 import { Quiz } from "../Quiz";
 import { MultiModalContent } from "../MultiModalContent";
+import { ChapterImage } from "../ChapterImage";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
+import licensesOversizeImg from "@/assets/chapters/licenses-oversize-hero.jpg";
 
 export function LicensesOversizeChapter() {
   const { ct } = useChapterTranslation('licenses-oversize');
@@ -22,6 +24,14 @@ export function LicensesOversizeChapter() {
         description={ct('heroDescription')}
         icon={Award}
         variant="licenses"
+      />
+
+      {/* Licenses & Oversize Image */}
+      <ChapterImage
+        src={licensesOversizeImg}
+        alt="Oversize transport with special permits"
+        variant="inline"
+        className="mb-6"
       />
 
       {/* Quick Reference Cheat Sheet - AI Recommendation Implementation */}
