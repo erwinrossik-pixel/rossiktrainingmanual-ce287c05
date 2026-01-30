@@ -52,6 +52,15 @@ import { highValueGoodsQuestions } from './quizBanks/highValueGoodsQuestions';
 import { intermodalQuestions } from './quizBanks/intermodalQuestions';
 import { networkingQuestions } from './quizBanks/networkingQuestions';
 import { professionalDevelopmentQuestions } from './quizBanks/professionalDevelopmentQuestions';
+// Advanced questions for increased difficulty
+import { 
+  advancedAccountingQuestions,
+  advancedEmergencyQuestions,
+  advancedSustainabilityQuestions,
+  advancedMindsetQuestions,
+  advancedInsuranceQuestions,
+  advancedChecklistsQuestions
+} from './quizBanks/advancedQuestions';
 
 export interface TranslatedQuizQuestion {
   question: Record<Language, string>;
@@ -170,12 +179,21 @@ function ensureTranslatedFormat(data: unknown): TranslatedQuizQuestion[] {
   return [];
 }
 
+// Helper to combine base questions with advanced questions
+function combineWithAdvanced(
+  baseQuestions: TranslatedQuizQuestion[], 
+  advancedQuestions: TranslatedQuizQuestion[]
+): TranslatedQuizQuestion[] {
+  return [...baseQuestions, ...advancedQuestions];
+}
+
 // Map all quiz banks to chapter IDs
 // Each bank contains 30+ questions in all 3 languages
+// Advanced questions are added to chapters with 100% pass rate for increased difficulty
 // Note: Intro chapter has no quiz - it's an introductory chapter without examination
 export const quizTranslations: Record<string, TranslatedQuizQuestion[]> = {
   // Foundation module (2-5) - Intro has no quiz
-  mindset: ensureTranslatedFormat(mindsetQuestions),
+  mindset: combineWithAdvanced(ensureTranslatedFormat(mindsetQuestions), advancedMindsetQuestions),
   'soft-skills': ensureTranslatedFormat(softSkillsQuestions),
   'stress-management': ensureTranslatedFormat(stressManagementQuestions),
   workflow: ensureTranslatedFormat(workflowQuestions),
@@ -202,7 +220,7 @@ export const quizTranslations: Record<string, TranslatedQuizQuestion[]> = {
   'europe-zones': ensureTranslatedFormat(europeZonesQuestions),
   'european-countries': ensureTranslatedFormat(europeanCountriesQuestions),
   environment: ensureTranslatedFormat(environmentQuestions),
-  sustainability: ensureTranslatedFormat(sustainabilityQuestions),
+  sustainability: combineWithAdvanced(ensureTranslatedFormat(sustainabilityQuestions), advancedSustainabilityQuestions),
   'supply-chain': ensureTranslatedFormat(supplyChainQuestions),
   
   // Commercial module (25-33)
@@ -224,19 +242,19 @@ export const quizTranslations: Record<string, TranslatedQuizQuestion[]> = {
   
   // Finance module (38-43)
   'risk-management': ensureTranslatedFormat(riskManagementQuestions),
-  insurance: ensureTranslatedFormat(insuranceQuestions),
+  insurance: combineWithAdvanced(ensureTranslatedFormat(insuranceQuestions), advancedInsuranceQuestions),
   'high-value-goods': ensureTranslatedFormat(highValueGoodsQuestions),
   claims: ensureTranslatedFormat(claimsQuestions),
   payment: ensureTranslatedFormat(paymentQuestions),
-  accounting: ensureTranslatedFormat(accountingQuestions),
+  accounting: combineWithAdvanced(ensureTranslatedFormat(accountingQuestions), advancedAccountingQuestions),
   
   // Practical module (44-50)
   training: ensureTranslatedFormat(trainingQuestions),
   'professional-development': ensureTranslatedFormat(professionalDevelopmentQuestions),
   'case-studies': ensureTranslatedFormat(caseStudiesQuestions),
-  emergency: ensureTranslatedFormat(emergencyQuestions),
+  emergency: combineWithAdvanced(ensureTranslatedFormat(emergencyQuestions), advancedEmergencyQuestions),
   'red-flags': ensureTranslatedFormat(redFlagsQuestions),
-  checklists: ensureTranslatedFormat(checklistsQuestions),
+  checklists: combineWithAdvanced(ensureTranslatedFormat(checklistsQuestions), advancedChecklistsQuestions),
   glossary: ensureTranslatedFormat(glossaryQuestions),
 };
 
