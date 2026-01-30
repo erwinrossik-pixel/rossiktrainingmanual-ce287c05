@@ -7,6 +7,7 @@ import { AuthProvider } from "@/hooks/useAuth";
 import { CompanyProvider } from "@/contexts/CompanyContext";
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { lazy, Suspense } from "react";
+import ErrorBoundary from "@/components/ErrorBoundary";
 import Index from "./pages/Index";
 
 // Lazy load non-critical pages
@@ -37,59 +38,61 @@ const PageLoader = () => (
 );
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <AuthProvider>
-      <CompanyProvider>
-        <LanguageProvider>
-          <TooltipProvider>
-            <Toaster />
-            <Sonner />
-            <BrowserRouter>
-              <Routes>
-                <Route path="/" element={<Index />} />
-                <Route path="/auth" element={
-                  <Suspense fallback={<PageLoader />}>
-                    <Auth />
-                  </Suspense>
-                } />
-                <Route path="/admin" element={
-                  <Suspense fallback={<PageLoader />}>
-                    <AdminDashboard />
-                  </Suspense>
-                } />
-                <Route path="/profile" element={
-                  <Suspense fallback={<PageLoader />}>
-                    <Profile />
-                  </Suspense>
-                } />
-                <Route path="/verify" element={
-                  <Suspense fallback={<PageLoader />}>
-                    <VerifyCertificate />
-                  </Suspense>
-                } />
-                <Route path="/verify/:code" element={
-                  <Suspense fallback={<PageLoader />}>
-                    <VerifyCertificate />
-                  </Suspense>
-                } />
-                <Route path="/final-exam" element={
-                  <Suspense fallback={<PageLoader />}>
-                    <FinalExamPage />
-                  </Suspense>
-                } />
-                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-                <Route path="*" element={
-                  <Suspense fallback={<PageLoader />}>
-                    <NotFound />
-                  </Suspense>
-                } />
-              </Routes>
-            </BrowserRouter>
-          </TooltipProvider>
-        </LanguageProvider>
-      </CompanyProvider>
-    </AuthProvider>
-  </QueryClientProvider>
+  <ErrorBoundary>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <CompanyProvider>
+          <LanguageProvider>
+            <TooltipProvider>
+              <Toaster />
+              <Sonner />
+              <BrowserRouter>
+                <Routes>
+                  <Route path="/" element={<Index />} />
+                  <Route path="/auth" element={
+                    <Suspense fallback={<PageLoader />}>
+                      <Auth />
+                    </Suspense>
+                  } />
+                  <Route path="/admin" element={
+                    <Suspense fallback={<PageLoader />}>
+                      <AdminDashboard />
+                    </Suspense>
+                  } />
+                  <Route path="/profile" element={
+                    <Suspense fallback={<PageLoader />}>
+                      <Profile />
+                    </Suspense>
+                  } />
+                  <Route path="/verify" element={
+                    <Suspense fallback={<PageLoader />}>
+                      <VerifyCertificate />
+                    </Suspense>
+                  } />
+                  <Route path="/verify/:code" element={
+                    <Suspense fallback={<PageLoader />}>
+                      <VerifyCertificate />
+                    </Suspense>
+                  } />
+                  <Route path="/final-exam" element={
+                    <Suspense fallback={<PageLoader />}>
+                      <FinalExamPage />
+                    </Suspense>
+                  } />
+                  {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                  <Route path="*" element={
+                    <Suspense fallback={<PageLoader />}>
+                      <NotFound />
+                    </Suspense>
+                  } />
+                </Routes>
+              </BrowserRouter>
+            </TooltipProvider>
+          </LanguageProvider>
+        </CompanyProvider>
+      </AuthProvider>
+    </QueryClientProvider>
+  </ErrorBoundary>
 );
 
 export default App;
