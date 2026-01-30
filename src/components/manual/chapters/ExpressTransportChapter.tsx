@@ -22,12 +22,12 @@ export function ExpressTransportChapter() {
         variant="express-transport"
       />
 
-      {/* Express Delivery Fleet Image */}
+      {/* Express Delivery Fleet Image - Full width */}
       <ChapterImage
         src={expressImg}
         alt="Express transport delivery fleet"
         caption={ct('expressFleetCaption') || "Flotă transport express - livrări time-sensitive"}
-        variant="inline"
+        variant="full"
         className="mb-6"
       />
 

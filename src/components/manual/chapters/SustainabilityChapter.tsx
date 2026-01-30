@@ -22,12 +22,12 @@ export function SustainabilityChapter() {
         variant="sustainability"
       />
 
-      {/* Sustainability Image */}
+      {/* Sustainability Image - Right aligned */}
       <ChapterImage
         src={sustainabilityImg}
         alt="Green logistics - sustainable transport"
         caption={ct('sustainabilityCaption') || "Transport sustenabil - logistică verde cu energie regenerabilă"}
-        variant="inline"
+        variant="right"
         className="mb-6"
       />
 

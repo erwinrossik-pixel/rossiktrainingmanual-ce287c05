@@ -21,12 +21,12 @@ export function CustomsChapter() {
         variant="customs"
       />
 
-      {/* Customs Process Flow Image */}
+      {/* Customs Process Flow Image - Full width */}
       <ChapterImage
         src={customsProcessFlowImg}
         alt="European Customs Clearance Process"
         caption={ct('customsProcessCaption') || "Fluxul procedurilor vamale UE pentru import/export"}
-        variant="inline"
+        variant="full"
         className="mb-6"
       />
 

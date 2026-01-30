@@ -73,12 +73,12 @@ export function VehicleChapter() {
         </h2>
         <p className="text-muted-foreground mb-4">{ct('visualGuideDesc')}</p>
         
-        {/* Truck Comparison Image */}
+        {/* Truck Comparison Image - Right aligned */}
         <ChapterImage
           src={truckComparisonImg}
           alt="Comparație între trailer standard și mega trailer"
           caption={ct('truckComparisonCaption') || "Standard 13.6m trailer vs Mega trailer - diferența de înălțime"}
-          variant="inline"
+          variant="right"
           className="mb-6"
         />
         
