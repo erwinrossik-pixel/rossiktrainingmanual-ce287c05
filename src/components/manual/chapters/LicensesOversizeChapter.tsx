@@ -1061,6 +1061,97 @@ export function LicensesOversizeChapter() {
         </div>
       </section>
 
+      {/* AI Recommendation: Country Comparison Table */}
+      <section className="content-section">
+        <div className="info-card bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-950/20 dark:to-indigo-950/20 border-2 border-blue-200 dark:border-blue-800">
+          <h2 className="section-title flex items-center gap-3 text-blue-800 dark:text-blue-200">
+            <Globe className="w-7 h-7" />
+            {ct('countryComparisonTitle') || 'Country Regulation Comparison'}
+          </h2>
+          <p className="text-muted-foreground mb-6">{ct('countryComparisonSubtitle') || 'Key differences in oversize transport regulations across major European countries'}</p>
+
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm border-collapse">
+              <thead>
+                <tr className="bg-muted/50">
+                  <th className="border p-3 text-left font-semibold">{ct('countryCol') || 'Country'}</th>
+                  <th className="border p-3 text-center font-semibold">{ct('maxHeightCol') || 'Max Height'}</th>
+                  <th className="border p-3 text-center font-semibold">{ct('maxWeightCol') || 'Max Weight'}</th>
+                  <th className="border p-3 text-center font-semibold">{ct('nightTransportCol') || 'Night Transport'}</th>
+                  <th className="border p-3 text-center font-semibold">{ct('permitTimeCol') || 'Permit Time'}</th>
+                  <th className="border p-3 text-center font-semibold">{ct('escortFromCol') || 'Escort From'}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="hover:bg-muted/30">
+                  <td className="border p-3 font-medium">🇩🇪 {ct('germany') || 'Germany'}</td>
+                  <td className="border p-3 text-center">4.00m</td>
+                  <td className="border p-3 text-center">40t (44t eco)</td>
+                  <td className="border p-3 text-center text-destructive">{ct('restricted') || 'Restricted'}</td>
+                  <td className="border p-3 text-center">2-4 {ct('weeks') || 'weeks'}</td>
+                  <td className="border p-3 text-center">&gt; 3.0m {ct('widthShort') || 'width'}</td>
+                </tr>
+                <tr className="hover:bg-muted/30">
+                  <td className="border p-3 font-medium">🇫🇷 {ct('france') || 'France'}</td>
+                  <td className="border p-3 text-center">4.00m</td>
+                  <td className="border p-3 text-center">40t</td>
+                  <td className="border p-3 text-center text-success">{ct('allowed') || 'Allowed'}</td>
+                  <td className="border p-3 text-center">1-3 {ct('weeks') || 'weeks'}</td>
+                  <td className="border p-3 text-center">&gt; 3.0m {ct('widthShort') || 'width'}</td>
+                </tr>
+                <tr className="hover:bg-muted/30">
+                  <td className="border p-3 font-medium">🇮🇹 {ct('italy') || 'Italy'}</td>
+                  <td className="border p-3 text-center">4.00m</td>
+                  <td className="border p-3 text-center">44t</td>
+                  <td className="border p-3 text-center text-warning">{ct('limited') || 'Limited'}</td>
+                  <td className="border p-3 text-center">3-6 {ct('weeks') || 'weeks'}</td>
+                  <td className="border p-3 text-center">&gt; 2.55m {ct('widthShort') || 'width'}</td>
+                </tr>
+                <tr className="hover:bg-muted/30">
+                  <td className="border p-3 font-medium">🇪🇸 {ct('spain') || 'Spain'}</td>
+                  <td className="border p-3 text-center">4.00m</td>
+                  <td className="border p-3 text-center">40t</td>
+                  <td className="border p-3 text-center text-success">{ct('allowed') || 'Allowed'}</td>
+                  <td className="border p-3 text-center">1-2 {ct('weeks') || 'weeks'}</td>
+                  <td className="border p-3 text-center">&gt; 3.0m {ct('widthShort') || 'width'}</td>
+                </tr>
+                <tr className="hover:bg-muted/30">
+                  <td className="border p-3 font-medium">🇵🇱 {ct('poland') || 'Poland'}</td>
+                  <td className="border p-3 text-center">4.00m</td>
+                  <td className="border p-3 text-center">40t</td>
+                  <td className="border p-3 text-center text-success">{ct('allowed') || 'Allowed'}</td>
+                  <td className="border p-3 text-center">1-2 {ct('weeks') || 'weeks'}</td>
+                  <td className="border p-3 text-center">&gt; 3.2m {ct('widthShort') || 'width'}</td>
+                </tr>
+                <tr className="hover:bg-muted/30">
+                  <td className="border p-3 font-medium">🇳🇱 {ct('netherlands') || 'Netherlands'}</td>
+                  <td className="border p-3 text-center">4.00m</td>
+                  <td className="border p-3 text-center">50t</td>
+                  <td className="border p-3 text-center text-success">{ct('allowed') || 'Allowed'}</td>
+                  <td className="border p-3 text-center">1-2 {ct('weeks') || 'weeks'}</td>
+                  <td className="border p-3 text-center">&gt; 3.5m {ct('widthShort') || 'width'}</td>
+                </tr>
+                <tr className="hover:bg-muted/30">
+                  <td className="border p-3 font-medium">🇦🇹 {ct('austria') || 'Austria'}</td>
+                  <td className="border p-3 text-center">4.00m</td>
+                  <td className="border p-3 text-center">40t (44t eco)</td>
+                  <td className="border p-3 text-center text-destructive">{ct('restricted') || 'Restricted'}</td>
+                  <td className="border p-3 text-center">2-4 {ct('weeks') || 'weeks'}</td>
+                  <td className="border p-3 text-center">&gt; 3.0m {ct('widthShort') || 'width'}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div className="mt-4 p-3 bg-info/10 rounded-lg border border-info/20">
+            <p className="text-sm flex items-start gap-2">
+              <Info className="w-4 h-4 text-info mt-0.5 flex-shrink-0" />
+              <span>{ct('countryComparisonNote') || 'Note: Regulations change frequently. Always verify current requirements with national transport authorities before planning oversize transports.'}</span>
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Quiz Section */}
       {quizzes["licenses-oversize"] && (
         <section className="content-section">
