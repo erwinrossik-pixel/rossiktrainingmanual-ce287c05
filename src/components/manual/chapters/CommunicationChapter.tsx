@@ -1,10 +1,12 @@
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { MultiModalContent } from "../MultiModalContent";
+import { ChapterImage } from "../ChapterImage";
 import { quizzes } from "@/data/quizData";
 import { MessageSquare, Phone, Mail, Users, Clock, CheckCircle, AlertTriangle, FileText } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
+import communicationImg from "@/assets/chapters/communication-team.jpg";
 
 export function CommunicationChapter() {
   const { ct } = useChapterTranslation("communication");
@@ -16,6 +18,15 @@ export function CommunicationChapter() {
         description={ct('heroDescription')}
         icon={MessageSquare}
         variant="communication"
+      />
+
+      {/* Communication Team Image */}
+      <ChapterImage
+        src={communicationImg}
+        alt="Professional logistics team meeting"
+        caption={ct('communicationTeamCaption') || "Comunicare profesională în echipa de logistică"}
+        variant="inline"
+        className="mb-6"
       />
 
       {/* Communication Channels */}

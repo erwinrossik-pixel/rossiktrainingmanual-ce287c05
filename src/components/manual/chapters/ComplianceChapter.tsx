@@ -2,10 +2,12 @@ import { DataTable } from "../DataTable";
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { MultiModalContent } from "../MultiModalContent";
+import { ChapterImage } from "../ChapterImage";
 import { quizzes } from "@/data/quizData";
 import { Clock, AlertTriangle, Moon, Calendar, Shield, FileText, Truck, CheckCircle2, XCircle, Scale, Timer, Coffee, Bed, MapPin, Ban, Euro, Calculator, Eye } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
+import complianceImg from "@/assets/chapters/compliance-checklist.jpg";
 
 export function ComplianceChapter() {
   const { ct } = useChapterTranslation('compliance');
@@ -17,6 +19,15 @@ export function ComplianceChapter() {
         description={ct('heroDescription')}
         icon={Scale}
         variant="compliance"
+      />
+
+      {/* Compliance Checklist Image */}
+      <ChapterImage
+        src={complianceImg}
+        alt="EU transport compliance checklist"
+        caption={ct('complianceChecklistCaption') || "Checklist conformitate - cerințe legale transport EU"}
+        variant="inline"
+        className="mb-6"
       />
 
       {/* Why Compliance Matters */}
