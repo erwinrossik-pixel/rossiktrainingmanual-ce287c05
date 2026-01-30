@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { logger } from '@/utils/logger';
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -64,7 +65,7 @@ export function CertificatesDashboard() {
       .order("issued_at", { ascending: false });
 
     if (error) {
-      console.error("Error fetching certificates:", error);
+      logger.error("Error fetching certificates:", error);
       toast.error(t('admin.certificates.errorLoading'));
     } else {
       setCertificates(data || []);
@@ -183,7 +184,7 @@ export function CertificatesDashboard() {
       .eq("id", selectedCertificate.id);
 
     if (error) {
-      console.error("Error revoking certificate:", error);
+      logger.error("Error revoking certificate:", error);
       toast.error(t('admin.certificates.errorRevoke'));
     } else {
       toast.success(t('admin.certificates.revokeSuccess').replace('{code}', selectedCertificate.certificate_code));

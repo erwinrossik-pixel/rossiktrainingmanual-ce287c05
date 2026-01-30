@@ -1,4 +1,5 @@
 import React, { memo, useState, useCallback } from 'react';
+import { logger } from '@/utils/logger';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -149,7 +150,7 @@ export const CompanyReportGenerator = memo(function CompanyReportGenerator() {
         chapterCompletion,
       };
     } catch (error) {
-      console.error('Error generating report data:', error);
+      logger.error('Error generating report data:', error);
       throw error;
     }
   }, [company, startDate, endDate]);
@@ -176,7 +177,7 @@ export const CompanyReportGenerator = memo(function CompanyReportGenerator() {
 
       toast.success(t('admin.reports.success'));
     } catch (error) {
-      console.error('Error generating report:', error);
+      logger.error('Error generating report:', error);
       toast.error(t('admin.reports.error'));
     } finally {
       setLoading(false);
@@ -244,7 +245,7 @@ export const CompanyReportGenerator = memo(function CompanyReportGenerator() {
       doc.save(`${t('admin.tab.reports').toLowerCase()}-${reportType}-${format(new Date(), 'yyyy-MM-dd')}.pdf`);
       toast.success(t('admin.reports.pdfSuccess'));
     } catch (error) {
-      console.error('Error exporting PDF:', error);
+      logger.error('Error exporting PDF:', error);
       toast.error(t('admin.reports.pdfError'));
     }
   };

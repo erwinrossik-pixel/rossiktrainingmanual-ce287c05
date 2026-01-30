@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { logger } from '@/utils/logger';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -161,7 +162,7 @@ export function QuizAnalyticsDashboard() {
       });
 
     } catch (err) {
-      console.error('Failed to fetch quiz analytics:', err);
+      logger.error('Failed to fetch quiz analytics:', err);
     }
 
     setLoading(false);

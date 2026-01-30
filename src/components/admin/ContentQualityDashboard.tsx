@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+import { logger } from '@/utils/logger';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -195,7 +196,7 @@ export function ContentQualityDashboard() {
       }
       toast.success(t('admin.quality.allComplete'));
     } catch (error) {
-      console.error("Error analyzing all chapters:", error);
+      logger.error("Error analyzing all chapters:", error);
     } finally {
       setIsAnalyzing(false);
       setAnalyzingChapter(null);

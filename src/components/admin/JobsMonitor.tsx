@@ -116,7 +116,7 @@ export function JobsMonitor() {
       .limit(20);
 
     if (error) {
-      console.error('Error fetching jobs:', error);
+      logger.error('Error fetching jobs:', error);
     } else {
       setJobs((data as RegenerationJob[]) || []);
     }
@@ -130,7 +130,7 @@ export function JobsMonitor() {
       .order('order_index');
 
     if (error) {
-      console.error('Error fetching chapters:', error);
+      logger.error('Error fetching chapters:', error);
     } else {
       setChapters((data as Chapter[]) || []);
     }
@@ -153,7 +153,7 @@ export function JobsMonitor() {
       toast.success(`${t('admin.jobs.regenerationStarted')} "${selectedChapter}"`);
       setSelectedChapter('');
     } catch (error) {
-      console.error('Error starting regeneration:', error);
+      logger.error('Error starting regeneration:', error);
       toast.error(t('admin.jobs.startError'));
     } finally {
       setRegenerating(false);

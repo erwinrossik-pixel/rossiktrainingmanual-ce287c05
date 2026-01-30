@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
+import { logger } from '@/utils/logger';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -30,7 +31,7 @@ export function CompanySelector({ onCompanyFound }: CompanySelectorProps) {
         .rpc('verify_registration_code', { p_code: registrationCode.trim() });
 
       if (error) {
-        console.error('Error verifying code:', error);
+        logger.error('Error verifying code:', error);
         toast({ 
           title: 'Eroare', 
           description: 'A apărut o eroare la verificare. Încearcă din nou.', 
@@ -65,7 +66,7 @@ export function CompanySelector({ onCompanyFound }: CompanySelectorProps) {
         is_active: companyResult.is_active
       });
     } catch (error) {
-      console.error('Error finding company:', error);
+      logger.error('Error finding company:', error);
       toast({ title: 'Eroare', description: 'A apărut o eroare. Încearcă din nou.', variant: 'destructive' });
     } finally {
       setLoading(false);

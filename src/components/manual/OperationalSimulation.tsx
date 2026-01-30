@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { logger } from '@/utils/logger';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -294,7 +295,7 @@ const OperationalSimulation: React.FC = () => {
         );
         setXpEarned(result.xpEarned);
       } catch (error) {
-        console.error('Error saving simulation:', error);
+        logger.error('Error saving simulation:', error);
       }
     }
   }, [selectedSimulation, state, user, recordSimulationAttempt]);

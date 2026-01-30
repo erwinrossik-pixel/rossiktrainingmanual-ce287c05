@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { logger } from '@/utils/logger';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
@@ -77,7 +78,7 @@ export function ContentGovernorDashboard() {
       if (error) throw error;
       setIncidents((data as GovernanceIncident[]) || []);
     } catch (error) {
-      console.error('Error fetching governance incidents:', error);
+      logger.error('Error fetching governance incidents:', error);
       toast.error(t('admin.governor.errorLoad'));
     } finally {
       setLoading(false);
@@ -105,7 +106,7 @@ export function ContentGovernorDashboard() {
       setResolutionNote('');
       fetchIncidents();
     } catch (error) {
-      console.error('Error resolving incident:', error);
+      logger.error('Error resolving incident:', error);
       toast.error(t('admin.governor.errorResolve'));
     }
   };

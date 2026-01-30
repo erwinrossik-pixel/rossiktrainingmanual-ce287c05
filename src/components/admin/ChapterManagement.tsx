@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
+import { logger } from '@/utils/logger';
 import { useCompany } from '@/contexts/CompanyContext';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -72,7 +73,7 @@ export function ChapterManagement() {
 
       setChapterStatuses(statusMap);
     } catch (error) {
-      console.error('Error fetching chapter statuses:', error);
+      logger.error('Error fetching chapter statuses:', error);
       toast({ title: t('admin.general.error'), description: t('admin.chapters.loadError'), variant: 'destructive' });
     } finally {
       setLoading(false);

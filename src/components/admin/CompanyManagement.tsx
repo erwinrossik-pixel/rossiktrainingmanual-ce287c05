@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { supabase } from '@/integrations/supabase/client';
+import { logger } from '@/utils/logger';
 import { useCompany, Company, CompanyBranding, CompanySettings, CompanySubscription } from '@/contexts/CompanyContext';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -80,7 +81,7 @@ export function CompanyManagement() {
 
       setCompanies(enrichedCompanies);
     } catch (error) {
-      console.error('Error fetching companies:', error);
+      logger.error('Error fetching companies:', error);
       toast({ title: t('admin.general.error'), description: t('admin.company.loadError'), variant: 'destructive' });
     } finally {
       setLoading(false);
@@ -743,7 +744,7 @@ function LogoUpload({
       
       toast({ title: t('admin.company.logoUploaded'), description: t('admin.company.logoUploadedDesc') });
     } catch (error: any) {
-      console.error('Upload error:', error);
+      logger.error('Upload error:', error);
       toast({
         title: t('admin.company.uploadError'),
         description: error.message || t('admin.company.uploadErrorDesc'),
@@ -765,7 +766,7 @@ function LogoUpload({
       onLogoChange('');
       toast({ title: 'Logo șters', description: 'Logo-ul a fost eliminat' });
     } catch (error) {
-      console.error('Delete error:', error);
+      logger.error('Delete error:', error);
     }
   };
 
