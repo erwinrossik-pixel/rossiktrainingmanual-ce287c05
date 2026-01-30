@@ -265,6 +265,32 @@ export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
           </p>
         </div>
         <div className="flex items-center gap-3">
+          {/* Implement All Applied Button */}
+          <Button
+            onClick={async () => {
+              try {
+                const { data, error } = await supabase
+                  .from('ai_recommendations')
+                  .update({ 
+                    status: 'completed', 
+                    updated_at: new Date().toISOString() 
+                  })
+                  .eq('status', 'applied');
+                if (error) throw error;
+                toast.success(t('admin.ai.allMarkedImplemented'));
+                await fetchRecommendations();
+              } catch (error) {
+                console.error('Error marking all as implemented:', error);
+                toast.error(t('admin.general.error'));
+              }
+            }}
+            disabled={allCounts.applied === 0}
+            className="bg-purple-500 hover:bg-purple-600"
+          >
+            <Sparkles className="h-4 w-4 mr-2" />
+            {t('admin.ai.implementAll')} ({allCounts.applied})
+          </Button>
+
           {/* Apply All Button */}
           <Button
             onClick={applyAllApproved}
@@ -277,7 +303,7 @@ export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
             ) : (
               <Play className="h-4 w-4 mr-2" />
             )}
-            Apply All ({allCounts.pending})
+            {t('admin.ai.applyAll')} ({allCounts.pending})
           </Button>
           
           <Button 
