@@ -3386,6 +3386,54 @@ export type Database = {
         }
         Relationships: []
       }
+      translation_overrides: {
+        Row: {
+          applied_at: string | null
+          applied_by: string | null
+          chapter_id: string
+          corrected_value: string
+          created_at: string | null
+          fix_source: string | null
+          id: string
+          is_active: boolean | null
+          language: string
+          original_value: string | null
+          rollback_at: string | null
+          translation_key: string
+          updated_at: string | null
+        }
+        Insert: {
+          applied_at?: string | null
+          applied_by?: string | null
+          chapter_id: string
+          corrected_value: string
+          created_at?: string | null
+          fix_source?: string | null
+          id?: string
+          is_active?: boolean | null
+          language?: string
+          original_value?: string | null
+          rollback_at?: string | null
+          translation_key: string
+          updated_at?: string | null
+        }
+        Update: {
+          applied_at?: string | null
+          applied_by?: string | null
+          chapter_id?: string
+          corrected_value?: string
+          created_at?: string | null
+          fix_source?: string | null
+          id?: string
+          is_active?: boolean | null
+          language?: string
+          original_value?: string | null
+          rollback_at?: string | null
+          translation_key?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       update_audit_log: {
         Row: {
           action: string

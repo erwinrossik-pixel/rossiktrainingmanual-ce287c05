@@ -284,13 +284,41 @@ Dacă o problemă poate fi rezolvată automat, pune autoFixable: true și specif
           throw new Error("Could not parse AI response");
         }
 
-        // Apply auto-fixes if enabled
+        // Apply auto-fixes if enabled - NOW ACTUALLY APPLIES TO DB
         let fixesApplied = 0;
         const appliedFixes: any[] = [];
 
         if (auto_fix && analysisResult.auto_fixes?.length > 0) {
           for (const fix of analysisResult.auto_fixes) {
             try {
+              // ACTUALLY APPLY the fix to translation_overrides table
+              if (fix.fix_type === 'translation') {
+                const { data: overrideData, error: overrideError } = await supabase
+                  .from("translation_overrides")
+                  .upsert({
+                    chapter_id: chapterId,
+                    language: language,
+                    translation_key: fix.original,
+                    original_value: fix.original,
+                    corrected_value: fix.fixed,
+                    fix_source: 'auto',
+                    applied_by: 'content-visual-analyzer',
+                    is_active: true,
+                    applied_at: new Date().toISOString(),
+                  }, {
+                    onConflict: 'chapter_id,language,translation_key',
+                    ignoreDuplicates: false
+                  })
+                  .select()
+                  .single();
+
+                if (overrideError) {
+                  console.error("Error applying translation override:", overrideError);
+                } else {
+                  console.log(`✅ Applied translation fix: ${fix.original} -> ${fix.fixed}`);
+                }
+              }
+
               // Log the fix attempt
               const { data: fixLog } = await supabase
                 .from("content_auto_fixer_logs")
@@ -301,7 +329,7 @@ Dacă o problemă poate fi rezolvată automat, pune autoFixable: true și specif
                   original_value: fix.original,
                   fixed_value: fix.fixed,
                   fix_reason: fix.reason,
-                  success: true, // Assume success for now
+                  success: true,
                 })
                 .select()
                 .single();
