@@ -29,11 +29,11 @@ const categoryIcons: Record<string, any> = {
 };
 
 const categoryColors: Record<string, string> = {
-  security: 'text-red-400',
-  performance: 'text-blue-400',
-  monitoring: 'text-green-400',
-  backup: 'text-purple-400',
-  documentation: 'text-yellow-400'
+  security: 'text-destructive',
+  performance: 'text-info',
+  monitoring: 'text-success',
+  backup: 'text-primary',
+  documentation: 'text-warning'
 };
 
 export function ProductionChecklist() {
@@ -116,19 +116,19 @@ export function ProductionChecklist() {
     <div className="space-y-6">
       {/* Status Overview */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Card className={`${isProductionReady ? 'bg-green-500/10 border-green-500/30' : 'bg-yellow-500/10 border-yellow-500/30'}`}>
+        <Card className={`${isProductionReady ? 'bg-success/10 border-success/30' : 'bg-warning/10 border-warning/30'}`}>
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">{t('admin.production.status')}</p>
-                <p className={`text-xl font-bold ${isProductionReady ? 'text-green-400' : 'text-yellow-400'}`}>
+                <p className={`text-xl font-bold ${isProductionReady ? 'text-success' : 'text-warning'}`}>
                   {isProductionReady ? t('admin.production.ready') : t('admin.production.notReady')}
                 </p>
               </div>
               {isProductionReady ? (
-                <CheckCircle className="h-10 w-10 text-green-400" />
+                <CheckCircle className="h-10 w-10 text-success" />
               ) : (
-                <AlertTriangle className="h-10 w-10 text-yellow-400" />
+                <AlertTriangle className="h-10 w-10 text-warning" />
               )}
             </div>
           </CardContent>
@@ -241,7 +241,7 @@ export function ProductionChecklist() {
                                     <Badge variant="destructive" className="text-xs">{t('admin.production.required')}</Badge>
                                   )}
                                   {item.is_completed && (
-                                    <CheckCircle className="h-4 w-4 text-green-400" />
+                                    <CheckCircle className="h-4 w-4 text-success" />
                                   )}
                                 </div>
                                 <p className="text-sm text-muted-foreground">{item.description}</p>
@@ -283,17 +283,17 @@ export function ProductionChecklist() {
       </Card>
 
       {/* Final Status */}
-      <Card className={`${isProductionReady ? 'bg-green-500/10 border-green-500/30' : 'bg-yellow-500/10 border-yellow-500/30'}`}>
+      <Card className={`${isProductionReady ? 'bg-success/10 border-success/30' : 'bg-warning/10 border-warning/30'}`}>
         <CardContent className="py-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               {isProductionReady ? (
-                <CheckCircle className="h-12 w-12 text-green-400" />
+                <CheckCircle className="h-12 w-12 text-success" />
               ) : (
-                <AlertTriangle className="h-12 w-12 text-yellow-400" />
+                <AlertTriangle className="h-12 w-12 text-warning" />
               )}
               <div>
-                <h3 className={`text-xl font-bold ${isProductionReady ? 'text-green-400' : 'text-yellow-400'}`}>
+                <h3 className={`text-xl font-bold ${isProductionReady ? 'text-success' : 'text-warning'}`}>
                   {isProductionReady ? t('admin.production.systemReady') : t('admin.production.completeRequired')}
                 </h3>
                 <p className="text-muted-foreground">
@@ -304,7 +304,7 @@ export function ProductionChecklist() {
               </div>
             </div>
             {isProductionReady && (
-              <Badge className="bg-green-500 text-white text-lg px-4 py-2">
+              <Badge className="bg-success text-success-foreground text-lg px-4 py-2">
                 {t('admin.production.validated')}
               </Badge>
             )}

@@ -239,7 +239,7 @@ export function AutoUpdateDashboard() {
       case 'critical':
         return <Badge variant="destructive">{t('admin.autoUpdate.severityCritical')}</Badge>;
       case 'major':
-        return <Badge className="bg-orange-500 hover:bg-orange-600">{t('admin.autoUpdate.severityMajor')}</Badge>;
+        return <Badge className="bg-warning hover:bg-warning/90 text-warning-foreground">{t('admin.autoUpdate.severityMajor')}</Badge>;
       case 'minor':
         return <Badge variant="secondary">{t('admin.autoUpdate.severityMinor')}</Badge>;
       default:
@@ -250,15 +250,15 @@ export function AutoUpdateDashboard() {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'pending':
-        return <Badge className="bg-yellow-500 hover:bg-yellow-600">{t('admin.autoUpdate.statusPending')}</Badge>;
+        return <Badge className="bg-warning hover:bg-warning/90 text-warning-foreground">{t('admin.autoUpdate.statusPending')}</Badge>;
       case 'approved':
-        return <Badge className="bg-blue-500 hover:bg-blue-600">{t('admin.autoUpdate.statusApproved')}</Badge>;
+        return <Badge className="bg-info hover:bg-info/90 text-info-foreground">{t('admin.autoUpdate.statusApproved')}</Badge>;
       case 'applied':
-        return <Badge className="bg-green-500 hover:bg-green-600">{t('admin.autoUpdate.statusApplied')}</Badge>;
+        return <Badge className="bg-success hover:bg-success/90 text-success-foreground">{t('admin.autoUpdate.statusApplied')}</Badge>;
       case 'rejected':
         return <Badge variant="destructive">{t('admin.autoUpdate.statusRejected')}</Badge>;
       case 'rolled_back':
-        return <Badge className="bg-purple-500 hover:bg-purple-600">{t('admin.autoUpdate.statusRolledBack')}</Badge>;
+        return <Badge className="bg-primary hover:bg-primary/90 text-primary-foreground">{t('admin.autoUpdate.statusRolledBack')}</Badge>;
       case 'failed':
         return <Badge variant="destructive">{t('admin.autoUpdate.statusFailed')}</Badge>;
       default:

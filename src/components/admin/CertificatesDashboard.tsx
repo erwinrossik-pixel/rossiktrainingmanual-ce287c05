@@ -485,9 +485,9 @@ export function CertificatesDashboard() {
                 topPerformers.map((cert, index) => (
                   <div key={cert.id} className="flex items-center gap-3">
                     <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
-                      index === 0 ? 'bg-yellow-100 text-yellow-700' :
-                      index === 1 ? 'bg-gray-100 text-gray-700' :
-                      index === 2 ? 'bg-orange-100 text-orange-700' :
+                      index === 0 ? 'bg-warning/20 text-warning' :
+                      index === 1 ? 'bg-muted text-muted-foreground' :
+                      index === 2 ? 'bg-warning/30 text-warning' :
                       'bg-muted text-muted-foreground'
                     }`}>
                       {index + 1}

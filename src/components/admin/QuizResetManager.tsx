@@ -273,11 +273,11 @@ export function QuizResetManager() {
 
   const getDifficultyBadge = (level: number) => {
     const colors: Record<number, string> = {
-      1: 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200 border-green-300',
-      2: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200 border-yellow-300',
-      3: 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200 border-orange-300',
-      4: 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200 border-red-300',
-      5: 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200 border-purple-300'
+      1: 'bg-success/10 text-success border-success/30',
+      2: 'bg-warning/10 text-warning border-warning/30',
+      3: 'bg-warning/20 text-warning border-warning/40',
+      4: 'bg-destructive/10 text-destructive border-destructive/30',
+      5: 'bg-primary/10 text-primary border-primary/30'
     };
     return (
       <Badge className={`${colors[level] || colors[1]} font-medium border`}>
