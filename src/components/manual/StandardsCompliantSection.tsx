@@ -11,26 +11,26 @@ interface StandardsCompliantSectionProps {
 const standardsConfig = {
   FIATA: { 
     icon: Globe, 
-    color: 'bg-blue-500', 
-    textColor: 'text-blue-700',
+    color: 'bg-info', 
+    textColor: 'text-info',
     name: 'FIATA Model Rules' 
   },
   IATA: { 
     icon: Shield, 
-    color: 'bg-purple-500', 
-    textColor: 'text-purple-700',
+    color: 'bg-primary', 
+    textColor: 'text-primary',
     name: 'IATA Cargo Framework' 
   },
   ISO9001: { 
     icon: Award, 
-    color: 'bg-green-500', 
-    textColor: 'text-green-700',
+    color: 'bg-success', 
+    textColor: 'text-success',
     name: 'ISO 9001:2015' 
   },
   ISO28000: { 
     icon: Lock, 
-    color: 'bg-orange-500', 
-    textColor: 'text-orange-700',
+    color: 'bg-warning', 
+    textColor: 'text-warning',
     name: 'ISO 28000:2022' 
   }
 };
@@ -81,7 +81,7 @@ export function StandardsCompliantSection({ standards, variant = 'compact' }: St
               key={std}
               className="bg-background rounded-lg p-4 border border-border flex items-start gap-3"
             >
-              <div className={`p-2 rounded-lg ${config.color} text-white`}>
+              <div className={`p-2 rounded-lg ${config.color} text-${config.color.replace('bg-', '')}-foreground`}>
                 <Icon className="w-5 h-5" />
               </div>
               <div>
@@ -117,38 +117,38 @@ export function SecurityComplianceSection() {
   return (
     <section className="space-y-4">
       <h2 className="section-title flex items-center gap-3">
-        <Lock className="w-6 h-6 text-orange-600" />
+        <Lock className="w-6 h-6 text-warning" />
         {t.securityManagementTitle}
       </h2>
       
-      <div className="info-card border-orange-500/30 bg-orange-50/50 dark:bg-orange-950/20">
+      <div className="info-card border-warning/30 bg-warning/5 dark:bg-warning/10">
         <p className="text-muted-foreground">{t.securityManagementIntro}</p>
       </div>
       
       <div className="grid md:grid-cols-2 gap-4">
         <div className="info-card">
-          <h3 className="font-semibold text-orange-700 mb-2">{t.threatAssessmentTitle}</h3>
+          <h3 className="font-semibold text-warning mb-2">{t.threatAssessmentTitle}</h3>
           <p className="text-sm text-muted-foreground">{t.threatAssessmentContent}</p>
         </div>
         <div className="info-card">
-          <h3 className="font-semibold text-orange-700 mb-2">{t.physicalSecurityTitle}</h3>
+          <h3 className="font-semibold text-warning mb-2">{t.physicalSecurityTitle}</h3>
           <p className="text-sm text-muted-foreground">{t.physicalSecurityContent}</p>
         </div>
         <div className="info-card">
-          <h3 className="font-semibold text-orange-700 mb-2">{t.personnelSecurityTitle}</h3>
+          <h3 className="font-semibold text-warning mb-2">{t.personnelSecurityTitle}</h3>
           <p className="text-sm text-muted-foreground">{t.personnelSecurityContent}</p>
         </div>
         <div className="info-card">
-          <h3 className="font-semibold text-orange-700 mb-2">{t.informationSecurityTitle}</h3>
+          <h3 className="font-semibold text-warning mb-2">{t.informationSecurityTitle}</h3>
           <p className="text-sm text-muted-foreground">{t.informationSecurityContent}</p>
         </div>
       </div>
       
-      <div className="bg-orange-100/50 dark:bg-orange-950/30 border border-orange-300/50 rounded-xl p-4">
+      <div className="bg-warning/10 dark:bg-warning/5 border border-warning/30 rounded-xl p-4">
         <div className="flex items-start gap-3">
-          <AlertTriangle className="w-5 h-5 text-orange-600 mt-0.5" />
+          <AlertTriangle className="w-5 h-5 text-warning mt-0.5" />
           <div>
-            <h4 className="font-semibold text-orange-700">{t.incidentResponseTitle}</h4>
+            <h4 className="font-semibold text-warning">{t.incidentResponseTitle}</h4>
             <p className="text-sm text-muted-foreground">{t.incidentResponseContent}</p>
           </div>
         </div>
@@ -165,29 +165,29 @@ export function QualityComplianceSection() {
   return (
     <section className="space-y-4">
       <h2 className="section-title flex items-center gap-3">
-        <Award className="w-6 h-6 text-green-600" />
+        <Award className="w-6 h-6 text-success" />
         {t.qualityManagementTitle}
       </h2>
       
-      <div className="info-card border-green-500/30 bg-green-50/50 dark:bg-green-950/20">
+      <div className="info-card border-success/30 bg-success/5 dark:bg-success/10">
         <p className="text-muted-foreground">{t.qualityManagementIntro}</p>
       </div>
       
       <div className="grid md:grid-cols-2 gap-4">
         <div className="info-card">
-          <h3 className="font-semibold text-green-700 mb-2">{t.customerFocusTitle}</h3>
+          <h3 className="font-semibold text-success mb-2">{t.customerFocusTitle}</h3>
           <p className="text-sm text-muted-foreground">{t.customerFocusContent}</p>
         </div>
         <div className="info-card">
-          <h3 className="font-semibold text-green-700 mb-2">{t.processApproachTitle}</h3>
+          <h3 className="font-semibold text-success mb-2">{t.processApproachTitle}</h3>
           <p className="text-sm text-muted-foreground">{t.processApproachContent}</p>
         </div>
         <div className="info-card">
-          <h3 className="font-semibold text-green-700 mb-2">{t.riskBasedThinkingTitle}</h3>
+          <h3 className="font-semibold text-success mb-2">{t.riskBasedThinkingTitle}</h3>
           <p className="text-sm text-muted-foreground">{t.riskBasedThinkingContent}</p>
         </div>
         <div className="info-card">
-          <h3 className="font-semibold text-green-700 mb-2">{t.continualImprovementTitle}</h3>
+          <h3 className="font-semibold text-success mb-2">{t.continualImprovementTitle}</h3>
           <p className="text-sm text-muted-foreground">{t.continualImprovementContent}</p>
         </div>
       </div>
@@ -203,29 +203,29 @@ export function MultimodalComplianceSection() {
   return (
     <section className="space-y-4">
       <h2 className="section-title flex items-center gap-3">
-        <Shield className="w-6 h-6 text-purple-600" />
+        <Shield className="w-6 h-6 text-primary" />
         {t.multimodalIntegrationTitle}
       </h2>
       
-      <div className="info-card border-purple-500/30 bg-purple-50/50 dark:bg-purple-950/20">
+      <div className="info-card border-primary/30 bg-primary/5 dark:bg-primary/10">
         <p className="text-muted-foreground">{t.multimodalIntegrationContent}</p>
       </div>
       
       <div className="grid md:grid-cols-2 gap-4">
         <div className="info-card">
-          <h3 className="font-semibold text-purple-700 mb-2">{t.airCargoBasicsTitle}</h3>
+          <h3 className="font-semibold text-primary mb-2">{t.airCargoBasicsTitle}</h3>
           <p className="text-sm text-muted-foreground">{t.airCargoBasicsContent}</p>
         </div>
         <div className="info-card">
-          <h3 className="font-semibold text-purple-700 mb-2">{t.temperatureControlStandardsTitle}</h3>
+          <h3 className="font-semibold text-primary mb-2">{t.temperatureControlStandardsTitle}</h3>
           <p className="text-sm text-muted-foreground">{t.temperatureControlStandardsContent}</p>
         </div>
         <div className="info-card">
-          <h3 className="font-semibold text-purple-700 mb-2">{t.dangerousGoodsMultimodalTitle}</h3>
+          <h3 className="font-semibold text-primary mb-2">{t.dangerousGoodsMultimodalTitle}</h3>
           <p className="text-sm text-muted-foreground">{t.dangerousGoodsMultimodalContent}</p>
         </div>
         <div className="info-card">
-          <h3 className="font-semibold text-purple-700 mb-2">{t.expressServicesStandardsTitle}</h3>
+          <h3 className="font-semibold text-primary mb-2">{t.expressServicesStandardsTitle}</h3>
           <p className="text-sm text-muted-foreground">{t.expressServicesStandardsContent}</p>
         </div>
       </div>
@@ -241,21 +241,21 @@ export function FIATAComplianceSection() {
   return (
     <section className="space-y-4">
       <h2 className="section-title flex items-center gap-3">
-        <Globe className="w-6 h-6 text-blue-600" />
+        <Globe className="w-6 h-6 text-info" />
         {t.fiataRulesTitle}
       </h2>
       
-      <div className="info-card border-blue-500/30 bg-blue-50/50 dark:bg-blue-950/20">
+      <div className="info-card border-info/30 bg-info/5 dark:bg-info/10">
         <p className="text-muted-foreground">{t.fiataRulesContent}</p>
       </div>
       
       <div className="grid md:grid-cols-2 gap-4">
         <div className="info-card">
-          <h3 className="font-semibold text-blue-700 mb-2">{t.liabilityFrameworkTitle}</h3>
+          <h3 className="font-semibold text-info mb-2">{t.liabilityFrameworkTitle}</h3>
           <p className="text-sm text-muted-foreground">{t.liabilityFrameworkContent}</p>
         </div>
         <div className="info-card">
-          <h3 className="font-semibold text-blue-700 mb-2">{t.claimsManagementTitle}</h3>
+          <h3 className="font-semibold text-info mb-2">{t.claimsManagementTitle}</h3>
           <p className="text-sm text-muted-foreground">{t.claimsManagementContent}</p>
         </div>
       </div>

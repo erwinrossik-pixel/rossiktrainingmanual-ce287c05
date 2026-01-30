@@ -141,12 +141,12 @@ export const ContentKPIPanel = memo(function ContentKPIPanel({
         <Card>
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-medium flex items-center gap-2">
-              <TrendingUp className="h-4 w-4 text-green-600" />
+              <TrendingUp className="h-4 w-4 text-success" />
               {t('admin.kpi.easyChapters')}
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-green-600">{veryEasyChapters.length}</div>
+            <div className="text-2xl font-bold text-success">{veryEasyChapters.length}</div>
             <p className="text-xs text-muted-foreground">{t('admin.kpi.canBeExpanded')}</p>
           </CardContent>
         </Card>

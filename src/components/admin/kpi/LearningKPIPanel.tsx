@@ -250,7 +250,7 @@ export const LearningKPIPanel = memo(function LearningKPIPanel({
         <Card>
           <CardHeader>
             <CardTitle className="text-lg flex items-center gap-2">
-              <TrendingDown className="h-5 w-5 text-orange-500" />
+              <TrendingDown className="h-5 w-5 text-warning" />
               {t('admin.kpi.mostFailedQuestions')}
             </CardTitle>
             <CardDescription>{t('admin.kpi.questionsFail')}</CardDescription>

@@ -24,8 +24,8 @@ export function PendingApproval() {
             </div>
           )}
           <div className="flex justify-center mb-4">
-            <div className="h-16 w-16 rounded-full bg-amber-100 flex items-center justify-center">
-              <Clock className="h-8 w-8 text-amber-600" />
+            <div className="h-16 w-16 rounded-full bg-warning/10 flex items-center justify-center">
+              <Clock className="h-8 w-8 text-warning" />
             </div>
           </div>
           <CardTitle className="text-xl">Cont în Așteptare</CardTitle>

@@ -178,11 +178,11 @@ export function ContentGovernorDashboard() {
     <div className="space-y-6">
       {/* Header Stats */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4">
-        <Card className="bg-gradient-to-br from-purple-500/10 to-purple-600/5 border-purple-500/20">
+        <Card className="bg-gradient-to-br from-primary/10 to-primary/5 border-primary/20">
           <CardContent className="pt-6">
             <div className="flex items-center gap-3">
-              <div className="p-2 bg-purple-500/20 rounded-lg">
-                <Lock className="h-5 w-5 text-purple-500" />
+              <div className="p-2 bg-primary/20 rounded-lg">
+                <Lock className="h-5 w-5 text-primary" />
               </div>
               <div>
                 <p className="text-2xl font-bold">{stats.lockedTerms}</p>
@@ -192,11 +192,11 @@ export function ContentGovernorDashboard() {
           </CardContent>
         </Card>
 
-        <Card className="bg-gradient-to-br from-blue-500/10 to-blue-600/5 border-blue-500/20">
+        <Card className="bg-gradient-to-br from-info/10 to-info/5 border-info/20">
           <CardContent className="pt-6">
             <div className="flex items-center gap-3">
-              <div className="p-2 bg-blue-500/20 rounded-lg">
-                <BookOpen className="h-5 w-5 text-blue-500" />
+              <div className="p-2 bg-info/20 rounded-lg">
+                <BookOpen className="h-5 w-5 text-info" />
               </div>
               <div>
                 <p className="text-2xl font-bold">{stats.lockedConcepts}</p>
@@ -206,11 +206,11 @@ export function ContentGovernorDashboard() {
           </CardContent>
         </Card>
 
-        <Card className="bg-gradient-to-br from-amber-500/10 to-amber-600/5 border-amber-500/20">
+        <Card className="bg-gradient-to-br from-warning/10 to-warning/5 border-warning/20">
           <CardContent className="pt-6">
             <div className="flex items-center gap-3">
-              <div className="p-2 bg-amber-500/20 rounded-lg">
-                <Shield className="h-5 w-5 text-amber-500" />
+              <div className="p-2 bg-warning/20 rounded-lg">
+                <Shield className="h-5 w-5 text-warning" />
               </div>
               <div>
                 <p className="text-2xl font-bold">{stats.activeRules}</p>
@@ -375,7 +375,7 @@ export function ContentGovernorDashboard() {
                             </div>
                           </div>
                           <div className="text-right space-y-1">
-                            <Badge className="bg-amber-500/20 text-amber-500 border-amber-500/30">
+                            <Badge className="bg-warning/20 text-warning border-warning/30">
                               <Lock className="h-3 w-3 mr-1" />
                               {t('admin.governor.protected')}
                             </Badge>
@@ -618,7 +618,7 @@ export function ContentGovernorDashboard() {
                       <div className="space-y-2 mb-4">
                         <h4 className="text-sm font-medium text-destructive">Încălcări:</h4>
                         {testResult.violations.map((v, i) => (
-                          <div key={i} className="text-sm p-2 bg-red-500/10 rounded">
+                          <div key={i} className="text-sm p-2 bg-destructive/10 rounded">
                             {v.description}
                           </div>
                         ))}
@@ -627,9 +627,9 @@ export function ContentGovernorDashboard() {
 
                     {testResult.warnings.length > 0 && (
                       <div className="space-y-2">
-                        <h4 className="text-sm font-medium text-amber-500">Avertizări:</h4>
+                        <h4 className="text-sm font-medium text-warning">Avertizări:</h4>
                         {testResult.warnings.map((w, i) => (
-                          <div key={i} className="text-sm p-2 bg-amber-500/10 rounded">
+                          <div key={i} className="text-sm p-2 bg-warning/10 rounded">
                             {w}
                           </div>
                         ))}
