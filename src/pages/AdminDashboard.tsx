@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { useCompany } from '@/contexts/CompanyContext';
@@ -12,11 +12,23 @@ import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { ArrowLeft, Users, BookOpen, Trophy, Clock, Eye, Download, BarChart3, RefreshCw, RotateCcw, Unlock, Shield, Activity, Timer, TrendingUp, Calendar, TimerReset, FileSearch, Award, Bell, BellOff, Radio, Building2, CreditCard, Server, Database, AlertTriangle, CheckCircle, Lock, Target, Network, Gamepad2, Globe, Zap, GraduationCap } from 'lucide-react';
+import { 
+  ArrowLeft, Users, BookOpen, Trophy, Clock, Eye, Download, BarChart3, 
+  RefreshCw, RotateCcw, Unlock, Shield, Activity, Timer, TrendingUp, 
+  Calendar, TimerReset, FileSearch, Award, Bell, BellOff, Radio, 
+  Building2, CreditCard, Server, Database, AlertTriangle, CheckCircle, 
+  Lock, Target, Network, Gamepad2, Globe, Zap, GraduationCap,
+  FileBarChart, HelpCircle 
+} from 'lucide-react';
 import { toast } from 'sonner';
-import { GovernanceDashboard } from '@/components/admin/GovernanceDashboard';
 import { format, subDays } from 'date-fns';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import NotificationCenter from '@/components/NotificationCenter';
+
+// Admin Components - refactored
 import { AdminCharts } from '@/components/admin/AdminCharts';
+import { GovernanceDashboard } from '@/components/admin/GovernanceDashboard';
 import { AutoUpdateDashboard } from '@/components/admin/AutoUpdateDashboard';
 import { UsageAnalytics } from '@/components/admin/UsageAnalytics';
 import { TrainingTimeAnalytics } from '@/components/admin/TrainingTimeAnalytics';
@@ -40,7 +52,6 @@ import { GamificationLeaderboard } from '@/components/admin/GamificationLeaderbo
 import { CompanyReportGenerator } from '@/components/admin/CompanyReportGenerator';
 import { CompetencyMatrix } from '@/components/admin/CompetencyMatrix';
 import { RetentionDashboard } from '@/components/admin/RetentionDashboard';
-import { SubscriptionCard } from '@/components/subscription';
 import { StandardsComplianceDashboard } from '@/components/admin/StandardsComplianceDashboard';
 import { ContentGovernorDashboard } from '@/components/admin/ContentGovernorDashboard';
 import { QuizAnalyticsDashboard } from '@/components/admin/QuizAnalyticsDashboard';
@@ -48,10 +59,6 @@ import { FinalExamResults } from '@/components/admin/FinalExamResults';
 import { QuizResetManager } from '@/components/admin/QuizResetManager';
 import { UserProgressExamPanel } from '@/components/admin/UserProgressExamPanel';
 import { ContentVisualAnalyzer } from '@/components/admin/ContentVisualAnalyzer';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
-import NotificationCenter from '@/components/NotificationCenter';
-import { FileBarChart, HelpCircle } from 'lucide-react';
 
 interface UserWithProgress {
   id: string;
