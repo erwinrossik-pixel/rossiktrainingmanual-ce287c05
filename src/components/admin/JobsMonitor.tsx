@@ -337,7 +337,7 @@ export function JobsMonitor() {
                         <Badge 
                           key={chapter}
                           variant={isCompleted ? 'default' : isFailed ? 'destructive' : 'outline'}
-                          className={`${isProcessing ? 'animate-pulse border-blue-500' : ''} ${isCompleted ? 'bg-green-500' : ''}`}
+                          className={`${isProcessing ? 'animate-pulse border-info' : ''} ${isCompleted ? 'bg-success' : ''}`}
                         >
                           {isCompleted && <CheckCircle2 className="h-3 w-3 mr-1" />}
                           {isFailed && <XCircle className="h-3 w-3 mr-1" />}

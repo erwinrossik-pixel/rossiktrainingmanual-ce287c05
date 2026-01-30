@@ -141,10 +141,10 @@ export function UpgradeModal({ open, onOpenChange, highlightPlan }: UpgradeModal
   const getPlanStyle = (planType: PlanType, isHighlighted: boolean) => {
     const base = isHighlighted ? 'ring-2 ring-offset-2' : '';
     switch (planType) {
-      case 'free': return `${base} bg-gray-50 ${isHighlighted ? 'ring-gray-400' : ''}`;
-      case 'starter': return `${base} bg-blue-50 ${isHighlighted ? 'ring-blue-500' : ''}`;
-      case 'professional': return `${base} bg-purple-50 ${isHighlighted ? 'ring-purple-500' : ''}`;
-      case 'enterprise': return `${base} bg-gradient-to-br from-amber-50 to-orange-50 ${isHighlighted ? 'ring-amber-500' : ''}`;
+      case 'free': return `${base} bg-muted ${isHighlighted ? 'ring-muted-foreground' : ''}`;
+      case 'starter': return `${base} bg-info/10 ${isHighlighted ? 'ring-info' : ''}`;
+      case 'professional': return `${base} bg-primary/10 ${isHighlighted ? 'ring-primary' : ''}`;
+      case 'enterprise': return `${base} bg-gradient-to-br from-warning/20 to-warning/10 ${isHighlighted ? 'ring-warning' : ''}`;
     }
   };
 
@@ -174,7 +174,7 @@ export function UpgradeModal({ open, onOpenChange, highlightPlan }: UpgradeModal
             onCheckedChange={(checked) => setBillingCycle(checked ? 'yearly' : 'monthly')}
           />
           <Label className={billingCycle === 'yearly' ? 'font-bold' : 'text-muted-foreground'}>
-            Anual <Badge variant="secondary" className="ml-1 bg-green-100 text-green-700">-17%</Badge>
+            Anual <Badge variant="secondary" className="ml-1 bg-success/20 text-success">-17%</Badge>
           </Label>
         </div>
 
@@ -202,10 +202,10 @@ export function UpgradeModal({ open, onOpenChange, highlightPlan }: UpgradeModal
                   
                   <CardHeader className="pb-2 text-center">
                     <div className={`mx-auto p-3 rounded-full mb-2 ${
-                      plan.plan_type === 'enterprise' ? 'bg-amber-100 text-amber-600' :
-                      plan.plan_type === 'professional' ? 'bg-purple-100 text-purple-600' :
-                      plan.plan_type === 'starter' ? 'bg-blue-100 text-blue-600' :
-                      'bg-gray-100 text-gray-600'
+                      plan.plan_type === 'enterprise' ? 'bg-warning/20 text-warning' :
+                      plan.plan_type === 'professional' ? 'bg-primary/20 text-primary' :
+                      plan.plan_type === 'starter' ? 'bg-info/20 text-info' :
+                      'bg-muted text-muted-foreground'
                     }`}>
                       {getPlanIcon(plan.plan_type)}
                     </div>
@@ -220,7 +220,7 @@ export function UpgradeModal({ open, onOpenChange, highlightPlan }: UpgradeModal
                       )}
                     </div>
                     {plan.trial_days > 0 && !isCurrentPlan && (
-                      <Badge variant="outline" className="mt-2 bg-green-50 text-green-700 border-green-300">
+                      <Badge variant="outline" className="mt-2 bg-success/10 text-success border-success/30">
                         {plan.trial_days} zile trial gratuit
                       </Badge>
                     )}
@@ -276,9 +276,9 @@ export function UpgradeModal({ open, onOpenChange, highlightPlan }: UpgradeModal
 function FeatureRow({ icon: Icon, enabled, label }: { icon: any; enabled: boolean; label: string }) {
   return (
     <div className="flex items-center gap-2">
-      <Icon className={`h-4 w-4 ${enabled ? 'text-green-600' : 'text-gray-300'}`} />
-      <span className={enabled ? '' : 'text-gray-400'}>{label}</span>
-      {enabled && <Check className="h-3 w-3 text-green-600 ml-auto" />}
+      <Icon className={`h-4 w-4 ${enabled ? 'text-success' : 'text-muted-foreground/50'}`} />
+      <span className={enabled ? '' : 'text-muted-foreground'}>{label}</span>
+      {enabled && <Check className="h-3 w-3 text-success ml-auto" />}
     </div>
   );
 }

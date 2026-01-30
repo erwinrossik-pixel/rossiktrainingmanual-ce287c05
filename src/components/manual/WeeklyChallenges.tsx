@@ -92,7 +92,7 @@ export function WeeklyChallenges() {
             <div
               key={challenge.id}
               className={`p-4 rounded-lg border ${
-                challenge.is_completed ? 'bg-green-500/10 border-green-500/30' : 'bg-card'
+                challenge.is_completed ? 'bg-success/10 border-success/30' : 'bg-card'
               }`}
             >
               <div className="flex items-start justify-between gap-4">

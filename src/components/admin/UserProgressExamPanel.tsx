@@ -807,7 +807,7 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
                           {up.best_exam ? (
                             <div className="flex items-center gap-2">
                               {up.best_exam.passed ? (
-                                <Badge className="bg-green-500">
+                                <Badge className="bg-success text-success-foreground">
                                   <Trophy className="h-3 w-3 mr-1" />
                                   {up.best_exam.percentage}%
                                 </Badge>
@@ -826,7 +826,7 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
                         {/* Expand indicator */}
                         <div className="flex items-center justify-end gap-2">
                           {up.certificate && (
-                            <Award className="h-5 w-5 text-amber-500" />
+                            <Award className="h-5 w-5 text-warning" />
                           )}
                           {expandedUsers.has(up.user_id) ? (
                             <ChevronDown className="h-5 w-5 text-muted-foreground" />
@@ -844,7 +844,7 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
                       {/* Summary stats - 2 rows */}
                       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-2 p-3 bg-card rounded-lg">
                         <div className="text-center">
-                          <p className="text-2xl font-bold text-green-600">{formatTime(up.total_training_seconds)}</p>
+                          <p className="text-2xl font-bold text-success">{formatTime(up.total_training_seconds)}</p>
                           <p className="text-xs text-muted-foreground">{t.totalAppTime}</p>
                         </div>
                         <div className="text-center">
@@ -882,13 +882,13 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
                           <p className="text-xs text-muted-foreground">{t.totalFailed}</p>
                         </div>
                         <div className="text-center">
-                          <p className="text-2xl font-bold text-green-600">
+                          <p className="text-2xl font-bold text-success">
                             {up.chapter_details.reduce((sum, cd) => sum + cd.passed_count, 0)}
                           </p>
                           <p className="text-xs text-muted-foreground">{t.totalPassed}</p>
                         </div>
                         <div className="text-center">
-                          <p className="text-2xl font-bold text-sky-600">
+                          <p className="text-2xl font-bold text-info">
                             {up.chapter_details.filter(cd => cd.reset_count > 0).length}
                           </p>
                           <p className="text-xs text-muted-foreground">{t.resets}</p>
@@ -1029,7 +1029,7 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
                                 {/* Passed */}
                                 <TableCell className="text-center">
                                   {cd.passed_count > 0 ? (
-                                    <Badge className="text-xs bg-green-500">
+                                    <Badge className="text-xs bg-success text-success-foreground">
                                       <Check className="h-3 w-3 mr-1" />
                                       {cd.passed_count}
                                       {cd.first_pass_score !== null && (
@@ -1071,7 +1071,7 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
                                     <Button
                                       size="sm"
                                       variant="outline"
-                                      className="h-7 px-2 text-xs border-green-500 text-green-600 hover:bg-green-50 hover:text-green-700"
+                                      className="h-7 px-2 text-xs border-success text-success hover:bg-success/10 hover:text-success"
                                       onClick={(e) => {
                                         e.stopPropagation();
                                         handleUnlockChapter(up.user_id, cd.chapter_id);
@@ -1088,7 +1088,7 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
                                       )}
                                     </Button>
                                   ) : cd.consecutive_fails > 0 && cd.consecutive_fails < 3 ? (
-                                    <span className="text-xs text-amber-600">
+                                    <span className="text-xs text-warning">
                                       {cd.consecutive_fails}/3 eșecuri
                                     </span>
                                   ) : (
@@ -1161,7 +1161,7 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
                                 </TableCell>
                                 <TableCell className="text-center">
                                   {totals.passed > 0 ? (
-                                    <Badge className="text-xs bg-green-600 font-bold">
+                                    <Badge className="text-xs bg-success text-success-foreground font-bold">
                                       <Check className="h-3 w-3 mr-1" />
                                       {totals.passed}
                                     </Badge>
@@ -1199,12 +1199,12 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
 
                       {/* Certificate info */}
                       {up.certificate && (
-                        <div className="mt-4 p-3 bg-amber-50 dark:bg-amber-950 rounded-lg border border-amber-200">
+                        <div className="mt-4 p-3 bg-warning/10 dark:bg-warning/20 rounded-lg border border-warning/30">
                           <div className="flex items-center gap-2">
-                            <Award className="h-5 w-5 text-amber-500" />
-                            <span className="font-medium text-amber-800 dark:text-amber-200">{t.certificate}: {up.certificate.certificate_code}</span>
+                            <Award className="h-5 w-5 text-warning" />
+                            <span className="font-medium text-warning">{t.certificate}: {up.certificate.certificate_code}</span>
                           </div>
-                          <div className="mt-1 text-sm text-amber-700 dark:text-amber-300 flex gap-4">
+                          <div className="mt-1 text-sm text-warning/80 flex gap-4">
                             <span>{t.issued} {format(new Date(up.certificate.issued_at), 'dd MMM yyyy', { locale: dateLocale })}</span>
                             <span>{t.expires} {format(new Date(up.certificate.expires_at), 'dd MMM yyyy', { locale: dateLocale })}</span>
                           </div>
