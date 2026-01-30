@@ -1211,6 +1211,113 @@ export type Database = {
         }
         Relationships: []
       }
+      content_analyzer_schedule: {
+        Row: {
+          auto_fix_enabled: boolean | null
+          chapters_per_run: number | null
+          created_at: string
+          cron_expression: string
+          failed_runs: number | null
+          id: string
+          is_active: boolean | null
+          job_name: string
+          languages: string[] | null
+          last_run_at: string | null
+          next_run_at: string | null
+          successful_runs: number | null
+          total_fixes_applied: number | null
+          total_runs: number | null
+          updated_at: string
+        }
+        Insert: {
+          auto_fix_enabled?: boolean | null
+          chapters_per_run?: number | null
+          created_at?: string
+          cron_expression: string
+          failed_runs?: number | null
+          id?: string
+          is_active?: boolean | null
+          job_name: string
+          languages?: string[] | null
+          last_run_at?: string | null
+          next_run_at?: string | null
+          successful_runs?: number | null
+          total_fixes_applied?: number | null
+          total_runs?: number | null
+          updated_at?: string
+        }
+        Update: {
+          auto_fix_enabled?: boolean | null
+          chapters_per_run?: number | null
+          created_at?: string
+          cron_expression?: string
+          failed_runs?: number | null
+          id?: string
+          is_active?: boolean | null
+          job_name?: string
+          languages?: string[] | null
+          last_run_at?: string | null
+          next_run_at?: string | null
+          successful_runs?: number | null
+          total_fixes_applied?: number | null
+          total_runs?: number | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      content_auto_fixer_logs: {
+        Row: {
+          analysis_id: string | null
+          applied_at: string
+          chapter_id: string
+          error_message: string | null
+          fix_reason: string | null
+          fix_type: string
+          fixed_value: string | null
+          id: string
+          original_value: string | null
+          rollback_at: string | null
+          rolled_back: boolean | null
+          success: boolean | null
+        }
+        Insert: {
+          analysis_id?: string | null
+          applied_at?: string
+          chapter_id: string
+          error_message?: string | null
+          fix_reason?: string | null
+          fix_type: string
+          fixed_value?: string | null
+          id?: string
+          original_value?: string | null
+          rollback_at?: string | null
+          rolled_back?: boolean | null
+          success?: boolean | null
+        }
+        Update: {
+          analysis_id?: string | null
+          applied_at?: string
+          chapter_id?: string
+          error_message?: string | null
+          fix_reason?: string | null
+          fix_type?: string
+          fixed_value?: string | null
+          id?: string
+          original_value?: string | null
+          rollback_at?: string | null
+          rolled_back?: boolean | null
+          success?: boolean | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "content_auto_fixer_logs_analysis_id_fkey"
+            columns: ["analysis_id"]
+            isOneToOne: false
+            referencedRelation: "content_visual_analysis"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       content_difficulty_analysis: {
         Row: {
           avg_attempts_to_pass: number | null
@@ -1403,6 +1510,84 @@ export type Database = {
           source_type?: Database["public"]["Enums"]["source_type"]
           updated_at?: string
           url?: string
+        }
+        Relationships: []
+      }
+      content_visual_analysis: {
+        Row: {
+          ai_model_used: string | null
+          analysis_type: string
+          analyzed_at: string | null
+          auto_fixed: boolean | null
+          broken_graphics: Json | null
+          chapter_id: string
+          color_issues: Json | null
+          corrections_applied: Json | null
+          corrections_count: number | null
+          created_at: string
+          error_message: string | null
+          fixed_at: string | null
+          id: string
+          language: string
+          layout_issues: Json | null
+          missing_translations: Json | null
+          overall_score: number | null
+          status: string
+          text_issues: Json | null
+          text_score: number | null
+          translation_score: number | null
+          updated_at: string
+          visual_score: number | null
+        }
+        Insert: {
+          ai_model_used?: string | null
+          analysis_type?: string
+          analyzed_at?: string | null
+          auto_fixed?: boolean | null
+          broken_graphics?: Json | null
+          chapter_id: string
+          color_issues?: Json | null
+          corrections_applied?: Json | null
+          corrections_count?: number | null
+          created_at?: string
+          error_message?: string | null
+          fixed_at?: string | null
+          id?: string
+          language?: string
+          layout_issues?: Json | null
+          missing_translations?: Json | null
+          overall_score?: number | null
+          status?: string
+          text_issues?: Json | null
+          text_score?: number | null
+          translation_score?: number | null
+          updated_at?: string
+          visual_score?: number | null
+        }
+        Update: {
+          ai_model_used?: string | null
+          analysis_type?: string
+          analyzed_at?: string | null
+          auto_fixed?: boolean | null
+          broken_graphics?: Json | null
+          chapter_id?: string
+          color_issues?: Json | null
+          corrections_applied?: Json | null
+          corrections_count?: number | null
+          created_at?: string
+          error_message?: string | null
+          fixed_at?: string | null
+          id?: string
+          language?: string
+          layout_issues?: Json | null
+          missing_translations?: Json | null
+          overall_score?: number | null
+          status?: string
+          text_issues?: Json | null
+          text_score?: number | null
+          translation_score?: number | null
+          updated_at?: string
+          visual_score?: number | null
         }
         Relationships: []
       }
