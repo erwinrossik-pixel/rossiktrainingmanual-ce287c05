@@ -4,7 +4,6 @@ import { DataTable } from "../DataTable";
 import { InfoCard } from "../InfoCard";
 import { MultiModalContent } from "../MultiModalContent";
 import { ChapterImage } from "../ChapterImage";
-import { quizzes } from "@/data/quizData";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
 import redFlagsImg from "@/assets/chapters/red-flags-investigation.jpg";
@@ -417,14 +416,7 @@ export function RedFlagsChapter() {
       <MultiModalContent chapterId="red-flags" />
 
       {/* Quiz */}
-      {quizzes["red-flags"] && (
-        <Quiz
-          title={ct("knowledgeCheck")}
-          questions={quizzes["red-flags"]}
-          chapterId="red-flags"
-          questionsPerRound={10}
-        />
-      )}
+      <Quiz title={ct("quizTitle")} chapterId="red-flags" />
     </div>
   );
 }

@@ -3,7 +3,6 @@ import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { MultiModalContent } from "../MultiModalContent";
 import { ChapterImage } from "../ChapterImage";
-import { quizzes } from "@/data/quizData";
 import { Euro, TrendingUp, Users, Target, MessageSquare, Mail, FileText, CheckCircle2, AlertTriangle, Clock, Briefcase, Star, Building2 } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
@@ -432,14 +431,7 @@ export function CommercialChapter() {
       <MultiModalContent chapterId="commercial" />
 
       {/* Quiz */}
-      {quizzes["commercial"] && (
-        <Quiz
-          title={ct("quizTitle")}
-          questions={quizzes["commercial"]}
-          chapterId="commercial"
-          questionsPerRound={10}
-        />
-      )}
+      <Quiz title={ct("quizTitle")} chapterId="commercial" />
     </div>
   );
 }

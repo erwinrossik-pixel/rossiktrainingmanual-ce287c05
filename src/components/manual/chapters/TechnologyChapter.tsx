@@ -3,7 +3,6 @@ import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { MultiModalContent } from "../MultiModalContent";
 import { ChapterImage } from "../ChapterImage";
-import { quizzes } from "@/data/quizData";
 import { Cpu, Smartphone, Cloud, Globe, BarChart3, Zap, Shield, TrendingUp, CheckCircle2, AlertTriangle, Bot, Wifi, Database, MapPin, Link, Users, Package, FileText, Workflow } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
@@ -659,14 +658,7 @@ export function TechnologyChapter() {
       <MultiModalContent chapterId="technology" />
 
       {/* Quiz */}
-      {quizzes["technology"] && (
-        <Quiz
-          title={ct("quizTitle")}
-          questions={quizzes["technology"]}
-          chapterId="technology"
-          questionsPerRound={10}
-        />
-      )}
+      <Quiz title={ct("quizTitle")} chapterId="technology" />
     </div>
   );
 }

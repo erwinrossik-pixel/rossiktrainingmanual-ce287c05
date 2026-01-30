@@ -3,7 +3,6 @@ import { DataTable } from "../DataTable";
 import { Quiz } from "../Quiz";
 import { MultiModalContent } from "../MultiModalContent";
 import { ChapterImage } from "../ChapterImage";
-import { quizzes } from "@/data/quizData";
 import { CreditCard, FileText, AlertTriangle, CheckCircle, Clock, Shield, Calculator, Users } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
@@ -309,9 +308,7 @@ export function PaymentChapter() {
       <MultiModalContent chapterId="payment" />
 
       {/* Quiz */}
-      {quizzes.payment && (
-        <Quiz title={ct("quizTitle")} questions={quizzes.payment} chapterId="payment" />
-      )}
+      <Quiz title={ct("quizTitle")} chapterId="payment" />
     </div>
   );
 }

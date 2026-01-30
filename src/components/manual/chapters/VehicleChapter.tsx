@@ -3,7 +3,6 @@ import { Quiz } from "../Quiz";
 import { MultiModalContent } from "../MultiModalContent";
 import { FlowDiagram, ProcessMap } from "../FlowDiagram";
 import { ChapterImage } from "../ChapterImage";
-import { quizzes } from "@/data/quizData";
 import { Truck, Ruler, Weight, Package, Shield, CheckCircle2, AlertTriangle, Settings, Globe, Gauge, Book, Wrench, List } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
@@ -520,9 +519,7 @@ export function VehicleChapter() {
       <MultiModalContent chapterId="vehicle" />
 
       {/* Quiz */}
-      {quizzes.vehicle && (
-        <Quiz title={ct('quizTitle')} questions={quizzes.vehicle} chapterId="vehicle" />
-      )}
+      <Quiz title={ct('quizTitle')} chapterId="vehicle" />
     </div>
   );
 }

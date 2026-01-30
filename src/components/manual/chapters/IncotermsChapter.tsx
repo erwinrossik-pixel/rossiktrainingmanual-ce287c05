@@ -3,7 +3,6 @@ import { DataTable } from "../DataTable";
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
 import { MultiModalContent } from "../MultiModalContent";
-import { quizzes } from "@/data/quizData";
 import { FileText, Ship, Truck, Plane, Package, AlertTriangle, CheckCircle2, ArrowRight, Scale, Euro, MapPin, Target, Lightbulb, Zap, Calculator, Play, RefreshCw } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
@@ -825,14 +824,7 @@ export function IncotermsChapter() {
       <MultiModalContent chapterId="incoterms" />
 
       {/* Quiz */}
-      {quizzes["incoterms"] && (
-        <Quiz
-          title={ct("quizTitle")}
-          questions={quizzes["incoterms"]}
-          chapterId="incoterms"
-          questionsPerRound={10}
-        />
-      )}
+      <Quiz title={ct("quizTitle")} chapterId="incoterms" />
     </div>
   );
 }

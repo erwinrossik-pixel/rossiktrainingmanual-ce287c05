@@ -9,7 +9,6 @@ import { DataTable } from "../DataTable";
 import { Checklist } from "../Checklist";
 import { Quiz } from "../Quiz";
 import { MultiModalContent } from "../MultiModalContent";
-import { quizzes } from "@/data/quizData";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
 
@@ -1268,11 +1267,9 @@ export function LicensesOversizeChapter() {
       <MultiModalContent chapterId="licenses-oversize" />
 
       {/* Quiz Section */}
-      {quizzes["licenses-oversize"] && (
-        <section className="content-section">
-          <Quiz title={ct('quizTitle')} questions={quizzes["licenses-oversize"]} chapterId="licenses-oversize" />
-        </section>
-      )}
+      <section className="content-section">
+        <Quiz title={ct('quizTitle')} chapterId="licenses-oversize" />
+      </section>
     </div>
   );
 }

@@ -4,7 +4,6 @@ import { Checklist } from "../Checklist";
 import { Quiz } from "../Quiz";
 import { MultiModalContent } from "../MultiModalContent";
 import { ChapterImage } from "../ChapterImage";
-import { quizzes } from "@/data/quizData";
 import { Users, Shield, FileCheck, AlertTriangle, CheckCircle2, Star, Handshake, Scale, TrendingUp, Clock, Euro, Phone, BadgeCheck } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
@@ -527,14 +526,7 @@ export function CarrierManagementChapter() {
       <MultiModalContent chapterId="carrier-management" />
 
       {/* Quiz */}
-      {quizzes["carrier-management"] && (
-        <Quiz
-          title={ct("quizTitle")}
-          questions={quizzes["carrier-management"]}
-          chapterId="carrier-management"
-          questionsPerRound={10}
-        />
-      )}
+      <Quiz title={ct("quizTitle")} chapterId="carrier-management" />
     </div>
   );
 }

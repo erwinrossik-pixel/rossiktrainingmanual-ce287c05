@@ -6,7 +6,6 @@ import { ChapterImage } from "../ChapterImage";
 import { FlowDiagram, ProcessMap, DecisionDiagram } from "../FlowDiagram";
 import { Checklist } from "../Checklist";
 import { ChapterHero } from "../ChapterHero";
-import { quizzes } from "@/data/quizData";
 import {
   ClipboardList, Search, Calculator, Play, Package, 
   ArrowRight, CheckCircle2, AlertCircle, Clock, Phone,
@@ -677,7 +676,7 @@ export function WorkflowChapter() {
       <MultiModalContent chapterId="workflow" />
 
       {/* Quiz */}
-      <Quiz title={ct("quizTitle")} questions={quizzes.workflow} chapterId="workflow" />
+      <Quiz title={ct("quizTitle")} chapterId="workflow" />
     </div>
   );
 }

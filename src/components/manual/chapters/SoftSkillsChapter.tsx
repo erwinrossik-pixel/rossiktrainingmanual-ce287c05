@@ -4,7 +4,6 @@ import { Quiz } from "../Quiz";
 import { MultiModalContent } from "../MultiModalContent";
 import { ChapterHero } from "../ChapterHero";
 import { ChapterImage } from "../ChapterImage";
-import { quizzes } from "@/data/quizData";
 import { Brain, MessageSquare, Clock, Users, Target, Lightbulb, Heart, Shield, Zap, CheckCircle2, AlertTriangle, Volume2, Ear, PenTool, Euro } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import softSkillsTeamImg from "@/assets/chapters/soft-skills-team.jpg";
@@ -690,14 +689,7 @@ export function SoftSkillsChapter() {
       <MultiModalContent chapterId="soft-skills" />
 
       {/* Quiz */}
-      {quizzes["soft-skills"] && (
-        <Quiz
-          title={ct("quizTitle")}
-          questions={quizzes["soft-skills"]}
-          chapterId="soft-skills"
-          questionsPerRound={10}
-        />
-      )}
+      <Quiz title={ct("quizTitle")} chapterId="soft-skills" />
     </div>
   );
 }
