@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { logger } from '@/utils/logger';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -78,7 +79,7 @@ export function JobsMonitor() {
           table: 'regeneration_jobs'
         },
         (payload) => {
-          console.log('[REALTIME] Job update:', payload);
+          logger.realtime('Job update:', payload);
           
           if (payload.eventType === 'INSERT') {
             const newJob = payload.new as RegenerationJob;

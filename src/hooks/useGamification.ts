@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from './useAuth';
+import { logger } from '@/utils/logger';
 
 // Helper to create notification in DB
 const createNotificationInDB = async (
@@ -229,11 +230,11 @@ export function useGamification() {
     timeSpent: number
   ): Promise<{ xpEarned: number; newAchievements: Achievement[]; levelUp: boolean }> => {
     if (!user) {
-      console.warn('[Gamification] No user, cannot record simulation attempt');
+      logger.warn('No user, cannot record simulation attempt', undefined, { tag: 'Gamification' });
       return { xpEarned: 0, newAchievements: [], levelUp: false };
     }
 
-    console.log('[Gamification] Recording simulation attempt:', { simulationId, score, maxScore, timeSpent });
+    logger.gamification('Recording simulation attempt:', { simulationId, score, maxScore, timeSpent });
 
     // Record the attempt in simulation_attempts table
     const { data: attemptData, error: attemptError } = await supabase.from('simulation_attempts').insert({
@@ -246,9 +247,9 @@ export function useGamification() {
     }).select().single();
 
     if (attemptError) {
-      console.error('[Gamification] Error inserting simulation attempt:', attemptError);
+      logger.error('Error inserting simulation attempt:', attemptError, { tag: 'Gamification' });
     } else {
-      console.log('[Gamification] Simulation attempt saved:', attemptData?.id);
+      logger.gamification('Simulation attempt saved:', attemptData?.id);
     }
 
     // Calculate XP earned based on performance
@@ -313,9 +314,9 @@ export function useGamification() {
       .eq('user_id', user.id);
 
     if (updateError) {
-      console.error('[Gamification] Error updating gamification:', updateError);
+      logger.error('Error updating gamification:', updateError, { tag: 'Gamification' });
     } else {
-      console.log('[Gamification] Updated gamification: +' + xpEarned + ' XP, Level ' + newLevel + ', Streak ' + newStreak);
+      logger.gamification('Updated gamification: +' + xpEarned + ' XP, Level ' + newLevel + ', Streak ' + newStreak);
       
       // Create level-up notification
       if (levelUp) {
@@ -389,9 +390,9 @@ export function useGamification() {
         });
         
         if (achError) {
-          console.error('[Gamification] Error inserting achievement:', achievement.id, achError);
+          logger.error('Error inserting achievement: ' + achievement.id, achError, { tag: 'Gamification' });
         } else {
-          console.log('[Gamification] Achievement unlocked:', achievement.id);
+          logger.gamification('Achievement unlocked:', achievement.id);
           newAchievements.push(achievement);
           
           // Create achievement notification
