@@ -27,12 +27,12 @@ export function LoadingChapter() {
         variant="loading"
       />
 
-      {/* Loading Diagram Image */}
+      {/* Loading Diagram Image - Left aligned */}
       <ChapterImage
         src={loadingDiagramImg}
         alt="Cargo Loading Weight Distribution"
         caption={ct('loadingDiagramCaption') || "Distribuția corectă a greutății în trailer - 60% față, 40% spate"}
-        variant="inline"
+        variant="left"
         className="mb-6"
       />
 

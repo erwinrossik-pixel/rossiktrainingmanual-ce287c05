@@ -22,12 +22,12 @@ export function NetworkingChapter() {
         variant="networking"
       />
 
-      {/* Networking Event Image */}
+      {/* Networking Event Image - Full width */}
       <ChapterImage
         src={networkingEventImg}
         alt="Professional logistics networking event"
         caption={ct('networkingCaption') || "Eveniment de networking - dezvoltarea rețelei profesionale în transport"}
-        variant="inline"
+        variant="full"
         className="mb-6"
       />
 

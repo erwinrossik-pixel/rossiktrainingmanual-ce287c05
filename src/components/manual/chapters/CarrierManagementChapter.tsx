@@ -22,12 +22,12 @@ export function CarrierManagementChapter() {
         variant="carrier"
       />
 
-      {/* Carrier Partnership Image */}
+      {/* Carrier Partnership Image - Full width */}
       <ChapterImage
         src={carrierPartnershipImg}
         alt="Fleet manager reviewing carrier performance"
         caption={ct('partnershipCaption') || "Managementul transportatorilor - evaluarea performanței partenerilor"}
-        variant="inline"
+        variant="full"
         className="mb-6"
       />
 

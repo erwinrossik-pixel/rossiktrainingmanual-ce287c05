@@ -26,12 +26,12 @@ export function ReeferChapter() {
         variant="reefer"
       />
 
-      {/* Reefer Temperature Zones Image */}
+      {/* Reefer Temperature Zones Image - Right aligned */}
       <ChapterImage
         src={reeferTemperatureImg}
         alt="Refrigerated Trailer Temperature Zones"
         caption={ct('temperatureZonesCaption') || "Zone de temperatură pentru transport frigorific"}
-        variant="inline"
+        variant="right"
         className="mb-6"
       />
 

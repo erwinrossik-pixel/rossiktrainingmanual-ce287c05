@@ -22,12 +22,12 @@ export function HighValueGoodsChapter() {
         variant="high-value-goods"
       />
 
-      {/* High Value Security Image */}
+      {/* High Value Security Image - Full width */}
       <ChapterImage
         src={highValueSecurityImg}
         alt="High security transport truck"
         caption={ct('highValueSecurityCaption') || "Transport securizat pentru mărfuri de mare valoare"}
-        variant="inline"
+        variant="full"
         className="mb-6"
       />
 
