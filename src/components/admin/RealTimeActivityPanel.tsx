@@ -294,11 +294,11 @@ const RealTimeActivityPanel: React.FC = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">{t('admin.realtime.activeUsers')}</p>
-                <p className="text-3xl font-bold text-green-600">{stats.activeUsers}</p>
+                <p className="text-3xl font-bold text-success">{stats.activeUsers}</p>
                 <p className="text-xs text-muted-foreground">{t('admin.realtime.inLast5Min')}</p>
               </div>
-              <div className="h-12 w-12 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
-                <Users className="h-6 w-6 text-green-600" />
+              <div className="h-12 w-12 rounded-full bg-success/10 flex items-center justify-center">
+                <Users className="h-6 w-6 text-success" />
               </div>
             </div>
           </CardContent>
@@ -324,11 +324,11 @@ const RealTimeActivityPanel: React.FC = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">{t('admin.realtime.avgSessionDuration')}</p>
-                <p className="text-3xl font-bold text-purple-600">{stats.avgSessionDuration}m</p>
+                <p className="text-3xl font-bold text-primary">{stats.avgSessionDuration}m</p>
                 <p className="text-xs text-muted-foreground">{t('admin.realtime.minutesPerSession')}</p>
               </div>
-              <div className="h-12 w-12 rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center">
-                <Clock className="h-6 w-6 text-purple-600" />
+              <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center">
+                <Clock className="h-6 w-6 text-primary" />
               </div>
             </div>
           </CardContent>
@@ -339,11 +339,11 @@ const RealTimeActivityPanel: React.FC = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">{t('admin.realtime.peakHour')}</p>
-                <p className="text-3xl font-bold text-orange-600">{stats.peakHour}</p>
+                <p className="text-3xl font-bold text-warning">{stats.peakHour}</p>
                 <p className="text-xs text-muted-foreground">{t('admin.realtime.mostActiveTime')}</p>
               </div>
-              <div className="h-12 w-12 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center">
-                <TrendingUp className="h-6 w-6 text-orange-600" />
+              <div className="h-12 w-12 rounded-full bg-warning/10 flex items-center justify-center">
+                <TrendingUp className="h-6 w-6 text-warning" />
               </div>
             </div>
           </CardContent>
@@ -357,7 +357,7 @@ const RealTimeActivityPanel: React.FC = () => {
             <CardTitle className="flex items-center gap-2">
               <Activity className="h-5 w-5 text-primary" />
               {t('admin.realtime.liveActivity')}
-              <Badge variant="outline" className="ml-auto animate-pulse bg-green-50 text-green-700 border-green-200">
+              <Badge variant="outline" className="ml-auto animate-pulse bg-success/10 text-success border-success/30">
                 LIVE
               </Badge>
             </CardTitle>

@@ -336,7 +336,7 @@ export function CertificatesDashboard() {
             <TrendingUp className={`h-4 w-4 ${growthRate >= 0 ? 'text-green-500' : 'text-red-500'}`} />
           </CardHeader>
           <CardContent>
-            <div className={`text-2xl font-bold ${growthRate >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+            <div className={`text-2xl font-bold ${growthRate >= 0 ? 'text-success' : 'text-destructive'}`}>
               {growthRate >= 0 ? '+' : ''}{growthRate}%
             </div>
             <p className="text-xs text-muted-foreground mt-1">
@@ -472,7 +472,7 @@ export function CertificatesDashboard() {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <Award className="h-5 w-5 text-yellow-500" />
+              <Award className="h-5 w-5 text-warning" />
               Top Performeri
             </CardTitle>
             <CardDescription>Cele mai mari scoruri</CardDescription>
@@ -596,7 +596,7 @@ export function CertificatesDashboard() {
                             setDiplomaDialogOpen(true);
                           }}
                           title={language === 'ro' ? 'Printează Diplomă' : language === 'de' ? 'Diplom drucken' : 'Print Diploma'}
-                          className="text-amber-600 hover:text-amber-700 hover:bg-amber-50"
+                          className="text-warning hover:text-warning/80 hover:bg-warning/10"
                         >
                           <Printer className="h-4 w-4" />
                         </Button>
@@ -612,7 +612,7 @@ export function CertificatesDashboard() {
                           <Button
                             variant="ghost"
                             size="sm"
-                            className="text-red-600 hover:text-red-700 hover:bg-red-100"
+                            className="text-destructive hover:text-destructive/80 hover:bg-destructive/10"
                             onClick={() => openRevokeDialog(cert)}
                             title={t('admin.certificates.revoke')}
                           >
@@ -633,7 +633,7 @@ export function CertificatesDashboard() {
       <Dialog open={revokeDialogOpen} onOpenChange={setRevokeDialogOpen}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle className="flex items-center gap-2 text-red-600">
+            <DialogTitle className="flex items-center gap-2 text-destructive">
               <AlertTriangle className="h-5 w-5" />
               Revocare Certificat
             </DialogTitle>
@@ -726,9 +726,9 @@ export function CertificatesDashboard() {
               </div>
 
               {selectedCertificate.is_revoked && (
-                <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
-                  <p className="text-sm text-red-600 font-semibold">Revocat la: {format(new Date(selectedCertificate.revoked_at!), "dd.MM.yyyy HH:mm")}</p>
-                  <p className="text-sm text-red-600 mt-1">Motiv: {selectedCertificate.revoke_reason}</p>
+                <div className="p-4 bg-destructive/10 border border-destructive/30 rounded-lg">
+                  <p className="text-sm text-destructive font-semibold">Revocat la: {format(new Date(selectedCertificate.revoked_at!), "dd.MM.yyyy HH:mm")}</p>
+                  <p className="text-sm text-destructive mt-1">Motiv: {selectedCertificate.revoke_reason}</p>
                 </div>
               )}
 

@@ -374,23 +374,23 @@ export function ContentVisualAnalyzer() {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'completed':
-        return <Badge className="bg-green-500/10 text-green-600"><CheckCircle className="h-3 w-3 mr-1" />{tr.completed}</Badge>;
+        return <Badge className="bg-success/10 text-success"><CheckCircle className="h-3 w-3 mr-1" />{tr.completed}</Badge>;
       case 'auto_fixed':
-        return <Badge className="bg-blue-500/10 text-blue-600"><Wrench className="h-3 w-3 mr-1" />{tr.autoFixed}</Badge>;
+        return <Badge className="bg-info/10 text-info"><Wrench className="h-3 w-3 mr-1" />{tr.autoFixed}</Badge>;
       case 'failed':
         return <Badge variant="destructive"><XCircle className="h-3 w-3 mr-1" />{tr.failed}</Badge>;
       case 'analyzing':
-        return <Badge className="bg-yellow-500/10 text-yellow-600"><RefreshCw className="h-3 w-3 mr-1 animate-spin" />{tr.analyzing}</Badge>;
+        return <Badge className="bg-warning/10 text-warning"><RefreshCw className="h-3 w-3 mr-1 animate-spin" />{tr.analyzing}</Badge>;
       default:
         return <Badge variant="secondary"><Clock className="h-3 w-3 mr-1" />{tr.pending}</Badge>;
     }
   };
 
   const getScoreColor = (score: number) => {
-    if (score >= 90) return 'text-green-600';
-    if (score >= 75) return 'text-blue-600';
-    if (score >= 60) return 'text-yellow-600';
-    return 'text-red-600';
+    if (score >= 90) return 'text-success';
+    if (score >= 75) return 'text-info';
+    if (score >= 60) return 'text-warning';
+    return 'text-destructive';
   };
 
   const getCronLabel = (cron: string) => {
@@ -442,7 +442,7 @@ export function ContentVisualAnalyzer() {
           </CardContent>
         </Card>
 
-        <Card className="bg-green-500/5 border-green-500/20">
+        <Card className="bg-success/5 border-success/20">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm flex items-center gap-2">
               <TrendingUp className="h-4 w-4" />
@@ -456,7 +456,7 @@ export function ContentVisualAnalyzer() {
           </CardContent>
         </Card>
 
-        <Card className="bg-blue-500/5 border-blue-500/20">
+        <Card className="bg-info/5 border-info/20">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm flex items-center gap-2">
               <Wrench className="h-4 w-4" />
@@ -464,11 +464,11 @@ export function ContentVisualAnalyzer() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-3xl font-bold text-blue-600">{stats.totalFixes}</p>
+            <p className="text-3xl font-bold text-info">{stats.totalFixes}</p>
           </CardContent>
         </Card>
 
-        <Card className="bg-orange-500/5 border-orange-500/20">
+        <Card className="bg-warning/5 border-warning/20">
           <CardHeader className="pb-2">
             <CardTitle className="text-sm flex items-center gap-2">
               <AlertTriangle className="h-4 w-4" />
@@ -476,7 +476,7 @@ export function ContentVisualAnalyzer() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-3xl font-bold text-orange-600">{stats.issuesFound}</p>
+            <p className="text-3xl font-bold text-warning">{stats.issuesFound}</p>
           </CardContent>
         </Card>
 
@@ -609,16 +609,16 @@ export function ContentVisualAnalyzer() {
                             </TableCell>
                             <TableCell className="text-center">
                               {issueCount > 0 ? (
-                                <Badge variant="outline" className="bg-orange-500/10 text-orange-600">
+                                <Badge variant="outline" className="bg-warning/10 text-warning">
                                   {issueCount}
                                 </Badge>
                               ) : (
-                                <CheckCircle className="h-4 w-4 text-green-500 mx-auto" />
+                                <CheckCircle className="h-4 w-4 text-success mx-auto" />
                               )}
                             </TableCell>
                             <TableCell className="text-center">
                               {analysis.corrections_count > 0 ? (
-                                <Badge className="bg-blue-500/10 text-blue-600">
+                                <Badge className="bg-info/10 text-info">
                                   {analysis.corrections_count}
                                 </Badge>
                               ) : '-'}
@@ -640,7 +640,7 @@ export function ContentVisualAnalyzer() {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Zap className="h-5 w-5 text-yellow-500" />
+                <Zap className="h-5 w-5 text-warning" />
                 {tr.schedules}
               </CardTitle>
               <CardDescription>
@@ -671,7 +671,7 @@ export function ContentVisualAnalyzer() {
                       <TableCell className="text-center">{schedule.chapters_per_run}</TableCell>
                       <TableCell className="text-center">
                         {schedule.auto_fix_enabled ? (
-                          <CheckCircle className="h-4 w-4 text-green-500 mx-auto" />
+                          <CheckCircle className="h-4 w-4 text-success mx-auto" />
                         ) : (
                           <XCircle className="h-4 w-4 text-muted-foreground mx-auto" />
                         )}
@@ -735,7 +735,7 @@ export function ContentVisualAnalyzer() {
                             {analysis.overall_score}/100
                           </p>
                           {analysis.corrections_count > 0 && (
-                            <p className="text-xs text-blue-600">
+                            <p className="text-xs text-info">
                               {analysis.corrections_count} fixes
                             </p>
                           )}
@@ -755,7 +755,7 @@ export function ContentVisualAnalyzer() {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Wrench className="h-5 w-5 text-blue-500" />
+                <Wrench className="h-5 w-5 text-info" />
                 {tr.fixes}
               </CardTitle>
               <CardDescription>
@@ -788,7 +788,7 @@ export function ContentVisualAnalyzer() {
                           <TableCell className="max-w-[150px] truncate text-muted-foreground">
                             {log.original_value}
                           </TableCell>
-                          <TableCell className="max-w-[150px] truncate text-green-600">
+                          <TableCell className="max-w-[150px] truncate text-success">
                             {log.fixed_value}
                           </TableCell>
                           <TableCell className="max-w-[200px] truncate">

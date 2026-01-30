@@ -194,7 +194,7 @@ export function RetentionDashboard() {
       case 'churned':
         return <Badge className="bg-destructive/20 text-destructive">{t('admin.status.locked')}</Badge>;
       case 're_engaged':
-        return <Badge className="bg-blue-500/20 text-blue-700">{t('admin.retention.returned')}</Badge>;
+        return <Badge className="bg-info/20 text-info">{t('admin.retention.returned')}</Badge>;
       default:
         return <Badge variant="secondary">{status}</Badge>;
     }
@@ -241,8 +241,8 @@ export function RetentionDashboard() {
         <Card>
           <CardContent className="pt-6">
             <div className="flex items-center gap-3">
-              <div className="p-3 rounded-full bg-green-500/10">
-                <UserCheck className="h-6 w-6 text-green-600" />
+              <div className="p-3 rounded-full bg-success/10">
+                <UserCheck className="h-6 w-6 text-success" />
               </div>
               <div>
                 <p className="text-2xl font-bold">{stats?.active || 0}</p>
@@ -269,8 +269,8 @@ export function RetentionDashboard() {
         <Card>
           <CardContent className="pt-6">
             <div className="flex items-center gap-3">
-              <div className="p-3 rounded-full bg-red-500/10">
-                <UserX className="h-6 w-6 text-red-600" />
+              <div className="p-3 rounded-full bg-destructive/10">
+                <UserX className="h-6 w-6 text-destructive" />
               </div>
               <div>
                 <p className="text-2xl font-bold">{(stats?.inactive || 0) + (stats?.churned || 0)}</p>
@@ -283,8 +283,8 @@ export function RetentionDashboard() {
         <Card>
           <CardContent className="pt-6">
             <div className="flex items-center gap-3">
-              <div className="p-3 rounded-full bg-blue-500/10">
-                <TrendingUp className="h-6 w-6 text-blue-600" />
+              <div className="p-3 rounded-full bg-info/10">
+                <TrendingUp className="h-6 w-6 text-info" />
               </div>
               <div>
                 <p className="text-2xl font-bold">{reEngagementRate}%</p>
