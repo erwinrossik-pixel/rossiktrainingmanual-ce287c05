@@ -220,11 +220,11 @@ export function ContentGovernorDashboard() {
           </CardContent>
         </Card>
 
-        <Card className="bg-gradient-to-br from-cyan-500/10 to-cyan-600/5 border-cyan-500/20">
+        <Card className="bg-gradient-to-br from-info/10 to-info/5 border-info/20">
           <CardContent className="pt-6">
             <div className="flex items-center gap-3">
-              <div className="p-2 bg-cyan-500/20 rounded-lg">
-                <AlertTriangle className="h-5 w-5 text-cyan-500" />
+              <div className="p-2 bg-info/20 rounded-lg">
+                <AlertTriangle className="h-5 w-5 text-info" />
               </div>
               <div>
                 <p className="text-2xl font-bold">{stats.criticalRules}</p>

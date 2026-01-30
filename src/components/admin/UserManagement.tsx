@@ -592,30 +592,30 @@ export function UserManagement() {
 
   const getRoleBadge = (role: string | undefined, profileRole?: string) => {
     if (role === 'super_admin') {
-      return <Badge className="bg-purple-500">{t('admin.users.superAdmin')}</Badge>;
+      return <Badge className="bg-primary">{t('admin.users.superAdmin')}</Badge>;
     }
     if (role === 'company_admin') {
-      return <Badge className="bg-blue-500">{t('admin.users.admin')}</Badge>;
+      return <Badge className="bg-info">{t('admin.users.admin')}</Badge>;
     }
     if (profileRole === 'admin') {
-      return <Badge className="bg-indigo-500">{t('admin.users.legacyAdmin')}</Badge>;
+      return <Badge className="bg-primary/80">{t('admin.users.legacyAdmin')}</Badge>;
     }
     return <Badge variant="secondary">{t('admin.users.user')}</Badge>;
   };
 
   const getStatusBadge = (status: string | undefined, hasCompany: boolean) => {
     if (!hasCompany) {
-      return <Badge variant="outline" className="text-orange-600 border-orange-600"><AlertCircle className="h-3 w-3 mr-1" />{t('admin.users.noCompanyStatus')}</Badge>;
+      return <Badge variant="outline" className="text-warning border-warning"><AlertCircle className="h-3 w-3 mr-1" />{t('admin.users.noCompanyStatus')}</Badge>;
     }
     switch (status) {
       case 'approved':
-        return <Badge variant="outline" className="text-green-600 border-green-600"><Check className="h-3 w-3 mr-1" />{t('admin.users.activeStatus')}</Badge>;
+        return <Badge variant="outline" className="text-success border-success"><Check className="h-3 w-3 mr-1" />{t('admin.users.activeStatus')}</Badge>;
       case 'pending':
-        return <Badge variant="outline" className="text-yellow-600 border-yellow-600"><Clock className="h-3 w-3 mr-1" />{t('admin.users.pendingStatus')}</Badge>;
+        return <Badge variant="outline" className="text-warning border-warning"><Clock className="h-3 w-3 mr-1" />{t('admin.users.pendingStatus')}</Badge>;
       case 'rejected':
-        return <Badge variant="outline" className="text-red-600 border-red-600"><X className="h-3 w-3 mr-1" />{t('admin.users.rejectedStatus')}</Badge>;
+        return <Badge variant="outline" className="text-destructive border-destructive"><X className="h-3 w-3 mr-1" />{t('admin.users.rejectedStatus')}</Badge>;
       case 'suspended':
-        return <Badge variant="outline" className="text-gray-600 border-gray-600"><AlertCircle className="h-3 w-3 mr-1" />{t('admin.users.suspendedStatus')}</Badge>;
+        return <Badge variant="outline" className="text-muted-foreground border-muted-foreground"><AlertCircle className="h-3 w-3 mr-1" />{t('admin.users.suspendedStatus')}</Badge>;
       default:
         return <Badge variant="secondary">{t('admin.users.unknown')}</Badge>;
     }
