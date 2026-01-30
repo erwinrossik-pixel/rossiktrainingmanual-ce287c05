@@ -59,7 +59,22 @@ import {
   advancedSustainabilityQuestions,
   advancedMindsetQuestions,
   advancedInsuranceQuestions,
-  advancedChecklistsQuestions
+  advancedChecklistsQuestions,
+  advancedTrainingQuestions,
+  advancedPricingQuestions,
+  advancedIncotermsQuestions,
+  advancedClaimsQuestions,
+  advancedADRQuestions,
+  advancedDrivingTimeQuestions,
+  advancedFleetQuestions,
+  advancedReeferQuestions,
+  advancedLoadingQuestions,
+  advancedNegotiationQuestions,
+  advancedCarrierManagementQuestions,
+  advancedRedFlagsQuestions,
+  advancedGlossaryQuestions,
+  advancedCaseStudiesQuestions,
+  advancedProfessionalDevelopmentQuestions
 } from './quizBanks/advancedQuestions';
 
 export interface TranslatedQuizQuestion {
@@ -200,20 +215,20 @@ export const quizTranslations: Record<string, TranslatedQuizQuestion[]> = {
   
   // Equipment module (6-12)
   vehicle: vehicleExtendedQuestions,
-  loading: ensureTranslatedFormat(loadingQuestions),
-  reefer: ensureTranslatedFormat(reeferQuestions),
+  loading: combineWithAdvanced(ensureTranslatedFormat(loadingQuestions), advancedLoadingQuestions),
+  reefer: combineWithAdvanced(ensureTranslatedFormat(reeferQuestions), advancedReeferQuestions),
   'express-transport': ensureTranslatedFormat(expressTransportQuestions),
   intermodal: ensureTranslatedFormat(intermodalQuestions),
   warehouse: ensureTranslatedFormat(warehouseQuestions),
-  adr: ensureTranslatedFormat(adrQuestions),
+  adr: combineWithAdvanced(ensureTranslatedFormat(adrQuestions), advancedADRQuestions),
   
   // Documents module (13-19)
   documents: ensureTranslatedFormat(documentsQuestions),
-  incoterms: ensureTranslatedFormat(incotermsQuestions),
+  incoterms: combineWithAdvanced(ensureTranslatedFormat(incotermsQuestions), advancedIncotermsQuestions),
   customs: ensureTranslatedFormat(customsQuestions),
   authorities: ensureTranslatedFormat(authoritiesQuestions),
   compliance: ensureTranslatedFormat(complianceQuestions),
-  'driving-time': ensureTranslatedFormat(drivingTimeQuestions),
+  'driving-time': combineWithAdvanced(ensureTranslatedFormat(drivingTimeQuestions), advancedDrivingTimeQuestions),
   'licenses-oversize': ensureTranslatedFormat(licensesOversizeQuestions),
   
   // Geography module (20-24)
@@ -224,11 +239,11 @@ export const quizTranslations: Record<string, TranslatedQuizQuestion[]> = {
   'supply-chain': ensureTranslatedFormat(supplyChainQuestions),
   
   // Commercial module (25-33)
-  pricing: ensureTranslatedFormat(pricingQuestions),
+  pricing: combineWithAdvanced(ensureTranslatedFormat(pricingQuestions), advancedPricingQuestions),
   commercial: ensureTranslatedFormat(commercialQuestions),
-  negotiation: ensureTranslatedFormat(negotiationQuestions),
+  negotiation: combineWithAdvanced(ensureTranslatedFormat(negotiationQuestions), advancedNegotiationQuestions),
   clients: ensureTranslatedFormat(clientsQuestions),
-  'carrier-management': ensureTranslatedFormat(carrierManagementQuestions),
+  'carrier-management': combineWithAdvanced(ensureTranslatedFormat(carrierManagementQuestions), advancedCarrierManagementQuestions),
   exchanges: ensureTranslatedFormat(exchangesQuestions),
   communication: ensureTranslatedFormat(communicationQuestions),
   networking: ensureTranslatedFormat(networkingQuestions),
@@ -236,7 +251,7 @@ export const quizTranslations: Record<string, TranslatedQuizQuestion[]> = {
   
   // Technology module (34-37)
   translogica: ensureTranslatedFormat(translogicaQuestions),
-  fleet: ensureTranslatedFormat(fleetQuestions),
+  fleet: combineWithAdvanced(ensureTranslatedFormat(fleetQuestions), advancedFleetQuestions),
   technology: ensureTranslatedFormat(technologyQuestions),
   digitalization: ensureTranslatedFormat(digitalizationQuestions),
   
@@ -244,18 +259,18 @@ export const quizTranslations: Record<string, TranslatedQuizQuestion[]> = {
   'risk-management': ensureTranslatedFormat(riskManagementQuestions),
   insurance: combineWithAdvanced(ensureTranslatedFormat(insuranceQuestions), advancedInsuranceQuestions),
   'high-value-goods': ensureTranslatedFormat(highValueGoodsQuestions),
-  claims: ensureTranslatedFormat(claimsQuestions),
+  claims: combineWithAdvanced(ensureTranslatedFormat(claimsQuestions), advancedClaimsQuestions),
   payment: ensureTranslatedFormat(paymentQuestions),
   accounting: combineWithAdvanced(ensureTranslatedFormat(accountingQuestions), advancedAccountingQuestions),
   
   // Practical module (44-50)
-  training: ensureTranslatedFormat(trainingQuestions),
-  'professional-development': ensureTranslatedFormat(professionalDevelopmentQuestions),
-  'case-studies': ensureTranslatedFormat(caseStudiesQuestions),
+  training: combineWithAdvanced(ensureTranslatedFormat(trainingQuestions), advancedTrainingQuestions),
+  'professional-development': combineWithAdvanced(ensureTranslatedFormat(professionalDevelopmentQuestions), advancedProfessionalDevelopmentQuestions),
+  'case-studies': combineWithAdvanced(ensureTranslatedFormat(caseStudiesQuestions), advancedCaseStudiesQuestions),
   emergency: combineWithAdvanced(ensureTranslatedFormat(emergencyQuestions), advancedEmergencyQuestions),
-  'red-flags': ensureTranslatedFormat(redFlagsQuestions),
+  'red-flags': combineWithAdvanced(ensureTranslatedFormat(redFlagsQuestions), advancedRedFlagsQuestions),
   checklists: combineWithAdvanced(ensureTranslatedFormat(checklistsQuestions), advancedChecklistsQuestions),
-  glossary: ensureTranslatedFormat(glossaryQuestions),
+  glossary: combineWithAdvanced(ensureTranslatedFormat(glossaryQuestions), advancedGlossaryQuestions),
 };
 
 // Helper function to get translated quiz questions for a chapter

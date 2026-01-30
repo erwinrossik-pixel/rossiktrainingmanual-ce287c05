@@ -434,3 +434,405 @@ export const advancedChecklistsQuestions: TranslatedQuizQuestion[] = [
     }
   }
 ];
+
+// Advanced Training Questions
+export const advancedTrainingQuestions: TranslatedQuizQuestion[] = [
+  {
+    question: {
+      ro: "Care metodă de evaluare a învățării oferă cea mai bună predicție a performanței reale la locul de muncă?",
+      de: "Welche Methode zur Lernbewertung bietet die beste Vorhersage der tatsächlichen Arbeitsleistung?",
+      en: "Which learning assessment method provides the best prediction of actual job performance?"
+    },
+    options: {
+      ro: ["Teste scrise multiple choice", "Simulări practice și studii de caz", "Evaluare orală teoretică", "Prezență la cursuri"],
+      de: ["Schriftliche Multiple-Choice-Tests", "Praktische Simulationen und Fallstudien", "Mündliche theoretische Prüfung", "Kurspräsenz"],
+      en: ["Written multiple choice tests", "Practical simulations and case studies", "Oral theoretical assessment", "Course attendance"]
+    },
+    correctIndex: 1,
+    explanation: {
+      ro: "Simulările și studiile de caz replică situații reale, oferind o evaluare mai precisă a competențelor practice.",
+      de: "Simulationen und Fallstudien replizieren reale Situationen und bieten eine genauere Bewertung praktischer Kompetenzen.",
+      en: "Simulations and case studies replicate real situations, providing more accurate assessment of practical competencies."
+    }
+  },
+  {
+    question: {
+      ro: "În modelul de învățare 70-20-10, ce procent din cunoștințe provine din experiența practică la locul de muncă?",
+      de: "Im 70-20-10-Lernmodell, welcher Prozentsatz des Wissens stammt aus praktischer Erfahrung am Arbeitsplatz?",
+      en: "In the 70-20-10 learning model, what percentage of knowledge comes from practical on-the-job experience?"
+    },
+    options: {
+      ro: ["50%", "60%", "70%", "80%"],
+      de: ["50%", "60%", "70%", "80%"],
+      en: ["50%", "60%", "70%", "80%"]
+    },
+    correctIndex: 2,
+    explanation: {
+      ro: "70% din învățare vine din experiență practică, 20% din mentorat/feedback, 10% din cursuri formale.",
+      de: "70% des Lernens kommt aus praktischer Erfahrung, 20% aus Mentoring/Feedback, 10% aus formellen Kursen.",
+      en: "70% of learning comes from practical experience, 20% from mentoring/feedback, 10% from formal courses."
+    }
+  }
+];
+
+// Advanced Pricing Questions
+export const advancedPricingQuestions: TranslatedQuizQuestion[] = [
+  {
+    question: {
+      ro: "Un transport de 850 km are costuri totale de 1.275 EUR. Clientul acceptă max 1.50 EUR/km. Care este marja reală?",
+      de: "Ein Transport von 850 km hat Gesamtkosten von 1.275 EUR. Der Kunde akzeptiert max 1,50 EUR/km. Wie hoch ist die tatsächliche Marge?",
+      en: "An 850 km transport has total costs of €1,275. Client accepts max €1.50/km. What is the actual margin?"
+    },
+    options: {
+      ro: ["0% (break-even)", "5%", "10%", "-5% (pierdere)"],
+      de: ["0% (Break-even)", "5%", "10%", "-5% (Verlust)"],
+      en: ["0% (break-even)", "5%", "10%", "-5% (loss)"]
+    },
+    correctIndex: 0,
+    explanation: {
+      ro: "Venit: 850 × 1.50 = 1.275 EUR = Costuri. Marja este 0%. Transportul nu generează profit.",
+      de: "Umsatz: 850 × 1,50 = 1.275 EUR = Kosten. Die Marge ist 0%. Der Transport generiert keinen Gewinn.",
+      en: "Revenue: 850 × 1.50 = €1,275 = Costs. Margin is 0%. The transport generates no profit."
+    }
+  },
+  {
+    question: {
+      ro: "Care factor are cel mai mare impact asupra costului per km pentru transportul pe distanțe lungi (>1000km)?",
+      de: "Welcher Faktor hat den größten Einfluss auf die Kosten pro km für Langstreckentransporte (>1000km)?",
+      en: "Which factor has the greatest impact on cost per km for long-distance transport (>1000km)?"
+    },
+    options: {
+      ro: ["Taxele de drum", "Consumul de combustibil", "Costul șoferului", "Amortizarea vehiculului"],
+      de: ["Mautgebühren", "Kraftstoffverbrauch", "Fahrerkosten", "Fahrzeugabschreibung"],
+      en: ["Road tolls", "Fuel consumption", "Driver cost", "Vehicle depreciation"]
+    },
+    correctIndex: 1,
+    explanation: {
+      ro: "Combustibilul reprezintă 30-40% din costul total pe distanțe lungi, fiind cel mai mare factor variabil.",
+      de: "Kraftstoff macht 30-40% der Gesamtkosten auf Langstrecken aus und ist der größte variable Faktor.",
+      en: "Fuel represents 30-40% of total cost on long distances, being the largest variable factor."
+    }
+  }
+];
+
+// Advanced Incoterms Questions
+export const advancedIncotermsQuestions: TranslatedQuizQuestion[] = [
+  {
+    question: {
+      ro: "În EXW (Ex Works), cine este responsabil pentru încărcarea mărfii în vehiculul cumpărătorului?",
+      de: "Bei EXW (Ab Werk), wer ist für das Verladen der Ware in das Fahrzeug des Käufers verantwortlich?",
+      en: "In EXW (Ex Works), who is responsible for loading the goods into the buyer's vehicle?"
+    },
+    options: {
+      ro: ["Vânzătorul", "Cumpărătorul", "Ambii în mod egal", "Transportatorul"],
+      de: ["Verkäufer", "Käufer", "Beide gleichermaßen", "Spediteur"],
+      en: ["Seller", "Buyer", "Both equally", "Carrier"]
+    },
+    correctIndex: 1,
+    explanation: {
+      ro: "EXW = obligația minimă a vânzătorului. Cumpărătorul preia marfa de la sediu și este responsabil de încărcare.",
+      de: "EXW = minimale Verpflichtung des Verkäufers. Käufer übernimmt Ware am Werk und ist für Verladung verantwortlich.",
+      en: "EXW = minimal seller obligation. Buyer takes over goods at premises and is responsible for loading."
+    }
+  },
+  {
+    question: {
+      ro: "Care Incoterm este recomandat pentru transport container multimodal?",
+      de: "Welcher Incoterm wird für multimodalen Containertransport empfohlen?",
+      en: "Which Incoterm is recommended for multimodal container transport?"
+    },
+    options: {
+      ro: ["FOB", "CIF", "FCA sau CPT", "DDP"],
+      de: ["FOB", "CIF", "FCA oder CPT", "DDP"],
+      en: ["FOB", "CIF", "FCA or CPT", "DDP"]
+    },
+    correctIndex: 2,
+    explanation: {
+      ro: "FCA și CPT sunt potrivite pentru orice mod de transport, inclusiv multimodal. FOB/CIF sunt doar pentru transport maritim.",
+      de: "FCA und CPT sind für jeden Transportmodus geeignet, inkl. multimodal. FOB/CIF sind nur für Seetransport.",
+      en: "FCA and CPT are suitable for any mode of transport, including multimodal. FOB/CIF are only for sea transport."
+    }
+  }
+];
+
+// Advanced Claims Questions
+export const advancedClaimsQuestions: TranslatedQuizQuestion[] = [
+  {
+    question: {
+      ro: "Care este termenul maxim pentru depunerea unei reclamații pentru daune vizibile conform CMR?",
+      de: "Was ist die maximale Frist für die Einreichung eines Anspruchs wegen sichtbarer Schäden gemäß CMR?",
+      en: "What is the maximum deadline for filing a claim for visible damages under CMR?"
+    },
+    options: {
+      ro: ["Imediat la livrare (pe CMR)", "7 zile de la livrare", "14 zile de la livrare", "30 zile de la livrare"],
+      de: ["Sofort bei Lieferung (auf CMR)", "7 Tage nach Lieferung", "14 Tage nach Lieferung", "30 Tage nach Lieferung"],
+      en: ["Immediately at delivery (on CMR)", "7 days from delivery", "14 days from delivery", "30 days from delivery"]
+    },
+    correctIndex: 0,
+    explanation: {
+      ro: "Daunele vizibile trebuie notate pe CMR la livrare. Altfel, marfa este considerată primită în stare bună.",
+      de: "Sichtbare Schäden müssen bei Lieferung auf dem CMR vermerkt werden. Sonst gilt die Ware als in gutem Zustand empfangen.",
+      en: "Visible damages must be noted on CMR at delivery. Otherwise, goods are considered received in good condition."
+    }
+  },
+  {
+    question: {
+      ro: "Care situație NU exonerează transportatorul de răspundere conform CMR?",
+      de: "Welche Situation befreit den Frachtführer gemäß CMR NICHT von der Haftung?",
+      en: "Which situation does NOT exonerate the carrier from liability under CMR?"
+    },
+    options: {
+      ro: ["Instrucțiuni greșite ale expeditorului", "Defect ascuns al ambalajului", "Furtul mărfii din parcare nesupravegheată", "Forță majoră"],
+      de: ["Falsche Anweisungen des Absenders", "Versteckter Verpackungsmangel", "Diebstahl von unbewachtem Parkplatz", "Höhere Gewalt"],
+      en: ["Sender's wrong instructions", "Hidden packaging defect", "Cargo theft from unsupervised parking", "Force majeure"]
+    },
+    correctIndex: 2,
+    explanation: {
+      ro: "Transportatorul trebuie să asigure securitatea mărfii. Parcarea nesupravegheată nu este forță majoră.",
+      de: "Der Frachtführer muss die Sicherheit der Fracht gewährleisten. Unbewachtes Parken ist keine höhere Gewalt.",
+      en: "Carrier must ensure cargo security. Unsupervised parking is not force majeure."
+    }
+  }
+];
+
+// Advanced ADR Questions
+export const advancedADRQuestions: TranslatedQuizQuestion[] = [
+  {
+    question: {
+      ro: "Care categorie de tunel este cea mai restrictivă pentru mărfuri periculoase?",
+      de: "Welche Tunnelkategorie ist am restriktivsten für Gefahrgüter?",
+      en: "Which tunnel category is most restrictive for dangerous goods?"
+    },
+    options: {
+      ro: ["Categoria A", "Categoria B", "Categoria C", "Categoria E"],
+      de: ["Kategorie A", "Kategorie B", "Kategorie C", "Kategorie E"],
+      en: ["Category A", "Category B", "Category C", "Category E"]
+    },
+    correctIndex: 3,
+    explanation: {
+      ro: "Categoria E interzice practic toate mărfurile periculoase. A = fără restricții, E = restricție maximă.",
+      de: "Kategorie E verbietet praktisch alle Gefahrgüter. A = keine Einschränkungen, E = maximale Einschränkung.",
+      en: "Category E prohibits practically all dangerous goods. A = no restrictions, E = maximum restriction."
+    }
+  }
+];
+
+// Advanced Driving Time Questions  
+export const advancedDrivingTimeQuestions: TranslatedQuizQuestion[] = [
+  {
+    question: {
+      ro: "Care este durata minimă a pauzei de 45 min dacă este împărțită în două părți?",
+      de: "Was ist die Mindestdauer der 45-Min-Pause, wenn sie in zwei Teile aufgeteilt wird?",
+      en: "What is the minimum duration of the 45-min break if split into two parts?"
+    },
+    options: {
+      ro: ["15 + 30 minute", "20 + 25 minute", "10 + 35 minute", "22.5 + 22.5 minute"],
+      de: ["15 + 30 Minuten", "20 + 25 Minuten", "10 + 35 Minuten", "22,5 + 22,5 Minuten"],
+      en: ["15 + 30 minutes", "20 + 25 minutes", "10 + 35 minutes", "22.5 + 22.5 minutes"]
+    },
+    correctIndex: 0,
+    explanation: {
+      ro: "Pauza poate fi împărțită: prima parte min 15 min, a doua parte min 30 min (în această ordine).",
+      de: "Pause kann geteilt werden: erster Teil min 15 Min, zweiter Teil min 30 Min (in dieser Reihenfolge).",
+      en: "Break can be split: first part min 15 min, second part min 30 min (in this order)."
+    }
+  }
+];
+
+// Advanced Fleet Questions
+export const advancedFleetQuestions: TranslatedQuizQuestion[] = [
+  {
+    question: {
+      ro: "Care indicator KPI reflectă cel mai bine eficiența utilizării flotei?",
+      de: "Welcher KPI spiegelt die Flottennutzungseffizienz am besten wider?",
+      en: "Which KPI indicator best reflects fleet utilization efficiency?"
+    },
+    options: {
+      ro: ["Numărul de vehicule", "Rata de utilizare a capacității (km încărcați / km totali)", "Vârsta medie a flotei", "Numărul de șoferi"],
+      de: ["Anzahl der Fahrzeuge", "Kapazitätsnutzungsrate (beladene km / Gesamt-km)", "Durchschnittsalter der Flotte", "Anzahl der Fahrer"],
+      en: ["Number of vehicles", "Capacity utilization rate (loaded km / total km)", "Average fleet age", "Number of drivers"]
+    },
+    correctIndex: 1,
+    explanation: {
+      ro: "Rata de utilizare a capacității arată cât de eficient sunt folosite vehiculele. Sub 80% indică ineficiență.",
+      de: "Kapazitätsnutzungsrate zeigt, wie effizient die Fahrzeuge genutzt werden. Unter 80% deutet auf Ineffizienz hin.",
+      en: "Capacity utilization rate shows how efficiently vehicles are used. Below 80% indicates inefficiency."
+    }
+  }
+];
+
+// Advanced Reefer Questions
+export const advancedReeferQuestions: TranslatedQuizQuestion[] = [
+  {
+    question: {
+      ro: "Care este toleranța maximă acceptabilă pentru fluctuația temperaturii în transportul de produse farmaceutice (2-8°C)?",
+      de: "Was ist die maximal akzeptable Toleranz für Temperaturschwankungen beim Transport von Pharmazeutika (2-8°C)?",
+      en: "What is the maximum acceptable tolerance for temperature fluctuation in pharmaceutical transport (2-8°C)?"
+    },
+    options: {
+      ro: ["±0.5°C", "±1°C", "±2°C", "±3°C"],
+      de: ["±0,5°C", "±1°C", "±2°C", "±3°C"],
+      en: ["±0.5°C", "±1°C", "±2°C", "±3°C"]
+    },
+    correctIndex: 0,
+    explanation: {
+      ro: "GDP (Good Distribution Practice) pentru farmaceutice cere toleranță de ±0.5°C în intervalul 2-8°C.",
+      de: "GDP (Gute Vertriebspraxis) für Pharmazeutika erfordert eine Toleranz von ±0,5°C im Bereich 2-8°C.",
+      en: "GDP (Good Distribution Practice) for pharmaceuticals requires ±0.5°C tolerance in the 2-8°C range."
+    }
+  }
+];
+
+// Advanced Loading Questions
+export const advancedLoadingQuestions: TranslatedQuizQuestion[] = [
+  {
+    question: {
+      ro: "Pentru o marfă de 8 tone plasată în jumătatea din față a remorcii de 13.6m, unde se deplasează centrul de greutate față de centrul geometric?",
+      de: "Für eine 8-Tonnen-Last im vorderen Teil eines 13,6m-Anhängers, wohin verschiebt sich der Schwerpunkt gegenüber dem geometrischen Zentrum?",
+      en: "For an 8-ton cargo placed in the front half of a 13.6m trailer, where does the center of gravity shift compared to geometric center?"
+    },
+    options: {
+      ro: ["Spre față (supra-sarcină pe osie față)", "Spre spate", "Rămâne centrat", "Depinde de înălțimea mărfii"],
+      de: ["Nach vorne (Überlastung Vorderachse)", "Nach hinten", "Bleibt zentriert", "Hängt von der Ladehöhe ab"],
+      en: ["Toward front (front axle overload)", "Toward rear", "Stays centered", "Depends on cargo height"]
+    },
+    correctIndex: 0,
+    explanation: {
+      ro: "Marfa plasată în față deplasează centrul de greutate spre față, putând supraîncărca osia tractorului.",
+      de: "Vorne platzierte Last verschiebt den Schwerpunkt nach vorne, kann zur Überlastung der Zugmaschinenachse führen.",
+      en: "Cargo placed at front shifts center of gravity forward, potentially overloading tractor axle."
+    }
+  }
+];
+
+// Advanced Negotiation Questions
+export const advancedNegotiationQuestions: TranslatedQuizQuestion[] = [
+  {
+    question: {
+      ro: "În negocierea tarifelor, care strategie este cea mai eficientă când clientul compară prețul tău cu cel mai mic de pe piață?",
+      de: "In Tarifverhandlungen, welche Strategie ist am effektivsten, wenn der Kunde deinen Preis mit dem niedrigsten am Markt vergleicht?",
+      en: "In rate negotiations, which strategy is most effective when the client compares your price to the lowest on the market?"
+    },
+    options: {
+      ro: ["Reduc imediat la nivelul concurenței", "Evidențiez valoarea adăugată și diferențiatorii", "Refuz să negociez", "Ofer un discount secret"],
+      de: ["Sofort auf Konkurrenzniveau reduzieren", "Mehrwert und Unterscheidungsmerkmale hervorheben", "Verhandlung ablehnen", "Geheimen Rabatt anbieten"],
+      en: ["Immediately reduce to competitor level", "Highlight added value and differentiators", "Refuse to negotiate", "Offer a secret discount"]
+    },
+    correctIndex: 1,
+    explanation: {
+      ro: "Evidențierea valorii (fiabilitate, tracking, asigurare) justifică prețul premium și construiește relații pe termen lung.",
+      de: "Hervorhebung von Wert (Zuverlässigkeit, Tracking, Versicherung) rechtfertigt Premiumpreise und baut langfristige Beziehungen auf.",
+      en: "Highlighting value (reliability, tracking, insurance) justifies premium pricing and builds long-term relationships."
+    }
+  }
+];
+
+// Advanced Carrier Management Questions
+export const advancedCarrierManagementQuestions: TranslatedQuizQuestion[] = [
+  {
+    question: {
+      ro: "Care indicator este cel mai important în evaluarea performanței unui transportator subcontractat?",
+      de: "Welcher Indikator ist am wichtigsten bei der Leistungsbewertung eines Subunternehmers?",
+      en: "Which indicator is most important in evaluating a subcontracted carrier's performance?"
+    },
+    options: {
+      ro: ["Prețul pe km", "Rata de livrare la timp (OTD - On Time Delivery)", "Numărul de vehicule disponibile", "Vârsta flotei"],
+      de: ["Preis pro km", "Pünktlichkeitsrate (OTD - On Time Delivery)", "Anzahl verfügbarer Fahrzeuge", "Flottenalter"],
+      en: ["Price per km", "On Time Delivery rate (OTD)", "Number of available vehicles", "Fleet age"]
+    },
+    correctIndex: 1,
+    explanation: {
+      ro: "OTD (>95% target) este esențial pentru satisfacția clienților. Prețul ieftin cu livrări întârziate costă mai mult.",
+      de: "OTD (>95% Ziel) ist entscheidend für Kundenzufriedenheit. Günstige Preise mit Verspätungen kosten mehr.",
+      en: "OTD (>95% target) is crucial for customer satisfaction. Cheap price with delayed deliveries costs more."
+    }
+  }
+];
+
+// Advanced Red Flags Questions
+export const advancedRedFlagsQuestions: TranslatedQuizQuestion[] = [
+  {
+    question: {
+      ro: "Care combinație de factori indică cel mai puternic o potențială fraudă de transport?",
+      de: "Welche Faktorenkombination deutet am stärksten auf einen möglichen Transportbetrug hin?",
+      en: "Which combination of factors most strongly indicates potential transport fraud?"
+    },
+    options: {
+      ro: ["Client nou + Plată în avans + Transport pe rută cunoscută", "Client nou + Cerință de urgență + Plată prin companie terță", "Client vechi + Transport urgent + Sumă mare", "Client recomandat + Marfă standard + Rută internă"],
+      de: ["Neuer Kunde + Vorauszahlung + Bekannte Route", "Neuer Kunde + Dringlichkeit + Zahlung über Drittfirma", "Alter Kunde + Eilauftrag + Großer Betrag", "Empfohlener Kunde + Standardfracht + Inlandsroute"],
+      en: ["New client + Advance payment + Known route", "New client + Urgency requirement + Third-party payment", "Old client + Urgent transport + Large amount", "Referred client + Standard cargo + Domestic route"]
+    },
+    correctIndex: 1,
+    explanation: {
+      ro: "Client nou + urgență + plată prin terți = triada clasică a fraudei. Urgența împiedică verificările.",
+      de: "Neuer Kunde + Dringlichkeit + Zahlung über Dritte = klassische Betrugsdreieck. Dringlichkeit verhindert Prüfungen.",
+      en: "New client + urgency + third-party payment = classic fraud triangle. Urgency prevents verification checks."
+    }
+  }
+];
+
+// Advanced Glossary Questions
+export const advancedGlossaryQuestions: TranslatedQuizQuestion[] = [
+  {
+    question: {
+      ro: "Care termen descrie transportul mărfii cu multiple moduri de transport sub un singur contract?",
+      de: "Welcher Begriff beschreibt den Gütertransport mit mehreren Verkehrsträgern unter einem einzigen Vertrag?",
+      en: "Which term describes cargo transport using multiple modes under a single contract?"
+    },
+    options: {
+      ro: ["Transport combinat", "Transport multimodal", "Transport intermodal", "Transport co-modal"],
+      de: ["Kombinierter Verkehr", "Multimodaler Transport", "Intermodaler Transport", "Co-modaler Transport"],
+      en: ["Combined transport", "Multimodal transport", "Intermodal transport", "Co-modal transport"]
+    },
+    correctIndex: 1,
+    explanation: {
+      ro: "Multimodal = un contract, un operator, multiple moduri. Intermodal = aceeași unitate de încărcare, dar contracte separate posibile.",
+      de: "Multimodal = ein Vertrag, ein Betreiber, mehrere Modi. Intermodal = gleiche Ladeeinheit, aber separate Verträge möglich.",
+      en: "Multimodal = one contract, one operator, multiple modes. Intermodal = same loading unit, but separate contracts possible."
+    }
+  }
+];
+
+// Advanced Case Studies Questions
+export const advancedCaseStudiesQuestions: TranslatedQuizQuestion[] = [
+  {
+    question: {
+      ro: "Un client refuză marfa la destinație din cauza unei întârzieri de 2 zile. Ce trebuie să faci prima dată conform CMR?",
+      de: "Ein Kunde lehnt die Ware am Zielort wegen einer 2-tägigen Verspätung ab. Was musst du zuerst gemäß CMR tun?",
+      en: "A client refuses cargo at destination due to a 2-day delay. What must you do first according to CMR?"
+    },
+    options: {
+      ro: ["Returnez marfa la expeditor", "Solicit instrucțiuni scrise de la persoana cu drept de dispoziție asupra mărfii", "Depozitez marfa pe cheltuiala mea", "Vând marfa pentru a recupera costurile"],
+      de: ["Ware an Absender zurückschicken", "Schriftliche Anweisungen vom Verfügungsberechtigten anfordern", "Ware auf eigene Kosten lagern", "Ware verkaufen um Kosten zu decken"],
+      en: ["Return cargo to sender", "Request written instructions from the party entitled to dispose of goods", "Store cargo at my expense", "Sell cargo to recover costs"]
+    },
+    correctIndex: 1,
+    explanation: {
+      ro: "CMR Art. 14-15: la refuz sau impediment, transportatorul cere instrucțiuni. Nu poate decide singur soarta mărfii.",
+      de: "CMR Art. 14-15: Bei Verweigerung oder Hindernis fordert der Frachtführer Anweisungen an. Kann nicht selbst über die Ware entscheiden.",
+      en: "CMR Art. 14-15: upon refusal or hindrance, carrier requests instructions. Cannot decide cargo's fate alone."
+    }
+  }
+];
+
+// Advanced Professional Development Questions
+export const advancedProfessionalDevelopmentQuestions: TranslatedQuizQuestion[] = [
+  {
+    question: {
+      ro: "Care competență este cea mai valoroasă pentru avansarea în management în industria de freight forwarding?",
+      de: "Welche Kompetenz ist am wertvollsten für den Aufstieg ins Management in der Speditionsbranche?",
+      en: "Which competency is most valuable for advancement to management in the freight forwarding industry?"
+    },
+    options: {
+      ro: ["Cunoștințe tehnice de rutare", "Abilități de leadership și management al echipei", "Fluență într-o singură limbă străină", "Memorizarea tuturor codurilor vamale"],
+      de: ["Technische Routenkenntnisse", "Führungs- und Teammanagement-Fähigkeiten", "Fließend in einer Fremdsprache", "Auswendiglernen aller Zollcodes"],
+      en: ["Technical routing knowledge", "Leadership and team management skills", "Fluency in one foreign language", "Memorizing all customs codes"]
+    },
+    correctIndex: 1,
+    explanation: {
+      ro: "Leadership-ul și managementul echipei diferențiază specialiștii de manageri. Restul pot fi învățate sau delegate.",
+      de: "Führung und Teammanagement unterscheiden Spezialisten von Managern. Der Rest kann gelernt oder delegiert werden.",
+      en: "Leadership and team management differentiate specialists from managers. The rest can be learned or delegated."
+    }
+  }
+];
