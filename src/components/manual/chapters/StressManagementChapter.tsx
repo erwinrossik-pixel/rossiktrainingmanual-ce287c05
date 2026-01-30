@@ -22,12 +22,11 @@ export function StressManagementChapter() {
         variant="stress-management"
       />
 
-      {/* Stress Management Driver Image - Right aligned */}
+      {/* Stress Management Driver Image */}
       <ChapterImage
         src={stressDriverImg}
         alt="Driver managing stress in truck cabin"
-        caption={ct('driverStressCaption') || "Gestionarea stresului la volan - mindfulness pentru șoferi profesioniști"}
-        variant="right"
+        variant="inline"
         className="mb-6"
       />
 

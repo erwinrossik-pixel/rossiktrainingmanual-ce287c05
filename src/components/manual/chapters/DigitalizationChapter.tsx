@@ -22,12 +22,11 @@ export function DigitalizationChapter() {
         variant="digitalization"
       />
 
-      {/* Digitalization Control Center Image - Left aligned */}
+      {/* Digitalization Control Center Image */}
       <ChapterImage
         src={digitalizationImg}
         alt="Digital logistics control center with AI"
-        caption={ct('digitalizationControlCaption') || "Centru de comandă digital cu analize AI pentru logistică"}
-        variant="left"
+        variant="inline"
         className="mb-6"
       />
 

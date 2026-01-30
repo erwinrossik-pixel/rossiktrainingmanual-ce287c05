@@ -23,12 +23,11 @@ export function AuthoritiesChapter() {
         variant="authorities"
       />
 
-      {/* Authorities Control Image - Right aligned */}
+      {/* Authorities Control Image */}
       <ChapterImage
         src={authoritiesControlImg}
         alt="Transport authorities roadside control"
-        caption={ct('controlCaption') || "Control rutier - verificarea documentelor de transport"}
-        variant="right"
+        variant="inline"
         className="mb-6"
       />
 

@@ -22,12 +22,11 @@ export function EuropeanCountriesChapter() {
         variant="european-countries"
       />
 
-      {/* European Countries Map Image - Full width */}
+      {/* European Countries Map Image */}
       <ChapterImage
         src={europeanMapImg}
         alt="European countries transport map"
-        caption={ct('europeanMapCaption') || "Harta țărilor europene cu hub-uri logistice principale"}
-        variant="full"
+        variant="inline"
         className="mb-6"
       />
 

@@ -21,12 +21,11 @@ export function ClientsChapter() {
         variant="clients"
       />
 
-      {/* Clients Meeting Image - Right aligned */}
+      {/* Clients Meeting Image */}
       <ChapterImage
         src={clientsMeetingImg}
         alt="Business meeting with logistics client"
-        caption={ct('clientsMeetingCaption') || "Întâlnire cu clientul - dezvoltarea relațiilor de afaceri în transport"}
-        variant="right"
+        variant="inline"
         className="mb-6"
       />
 

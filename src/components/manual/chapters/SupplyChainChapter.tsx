@@ -21,12 +21,11 @@ export function SupplyChainChapter() {
         variant="supplychain"
       />
 
-      {/* Supply Chain Network Image - Full width */}
+      {/* Supply Chain Network Image */}
       <ChapterImage
         src={supplyChainImg}
         alt="Global supply chain network visualization"
-        caption={ct('supplyChainNetworkCaption') || "Rețea globală de supply chain cu noduri logistice interconectate"}
-        variant="full"
+        variant="inline"
         className="mb-6"
       />
 

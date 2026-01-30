@@ -21,12 +21,11 @@ export function AccountingChapter() {
         variant="accounting"
       />
 
-      {/* Accounting Financial Image - Right aligned */}
+      {/* Accounting Financial Image */}
       <ChapterImage
         src={accountingImg}
         alt="Transport accounting and financial documents"
-        caption={ct('accountingCaption') || "Gestiune financiară în transport - facturi și documente contabile"}
-        variant="right"
+        variant="inline"
         className="mb-6"
       />
 

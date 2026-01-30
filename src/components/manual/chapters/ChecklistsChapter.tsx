@@ -21,12 +21,11 @@ export function ChecklistsChapter() {
         variant="checklists"
       />
 
-      {/* Checklist Verification Image - Right aligned */}
+      {/* Checklist Verification Image */}
       <ChapterImage
         src={checklistImg}
         alt="Dispatcher using checklist at warehouse"
-        caption={ct('checklistCaption') || "Verificarea checklist-ului operațional - controlul calității în transport"}
-        variant="right"
+        variant="inline"
         className="mb-6"
       />
 

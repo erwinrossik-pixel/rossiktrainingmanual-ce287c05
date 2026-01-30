@@ -21,12 +21,11 @@ export function ClaimsChapter() {
         variant="claims"
       />
 
-      {/* Claims Inspection Image - Full width */}
+      {/* Claims Inspection Image */}
       <ChapterImage
         src={claimsInspectionImg}
         alt="Cargo claims inspection at warehouse"
-        caption={ct('inspectionCaption') || "Inspecția mărfurilor - documentarea reclamațiilor de transport"}
-        variant="full"
+        variant="inline"
         className="mb-6"
       />
 

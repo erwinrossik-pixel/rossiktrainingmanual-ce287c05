@@ -26,12 +26,11 @@ export function TranslogicaChapter() {
         variant="translogica"
       />
 
-      {/* TMS Interface Image - Left aligned */}
+      {/* TMS Interface Image */}
       <ChapterImage
         src={tmsInterfaceImg}
         alt="TMS Transport Management System Interface"
-        caption={ct('tmsInterfaceCaption') || "Interfață TMS modernă pentru gestionarea transporturilor"}
-        variant="left"
+        variant="inline"
         className="mb-6"
       />
 

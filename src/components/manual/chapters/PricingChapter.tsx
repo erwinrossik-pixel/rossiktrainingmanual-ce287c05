@@ -22,12 +22,11 @@ export function PricingChapter() {
         variant="pricing"
       />
 
-      {/* Pricing Calculation Image - Right aligned */}
+      {/* Pricing Calculation Image */}
       <ChapterImage
         src={pricingImg}
         alt="Freight rate calculation spreadsheet"
-        caption={ct('pricingCalculationCaption') || "Calculația tarifelor de transport - analiză costuri"}
-        variant="right"
+        variant="inline"
         className="mb-6"
       />
 

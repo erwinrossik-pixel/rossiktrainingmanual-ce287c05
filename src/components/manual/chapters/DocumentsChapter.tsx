@@ -20,12 +20,11 @@ export function DocumentsChapter() {
         variant="documents"
       />
 
-      {/* CMR Documents Image - Full width hero style */}
+      {/* CMR Documents Image */}
       <ChapterImage
         src={documentsImg}
         alt="CMR consignment note and transport documents"
-        caption={ct('cmrDocumentsCaption') || "Scrisoarea de transport CMR - documentul principal în transport"}
-        variant="full"
+        variant="inline"
         className="mb-6"
       />
 

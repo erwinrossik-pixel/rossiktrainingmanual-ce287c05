@@ -22,12 +22,11 @@ export function IntermodalChapter() {
         variant="intermodal"
       />
 
-      {/* Intermodal Transport Image - Full width */}
+      {/* Intermodal Transport Image */}
       <ChapterImage
         src={intermodalImg}
         alt="Intermodal transport - truck, train, ship"
-        caption={ct('intermodalCaption') || "Transport intermodal: combinația eficientă de moduri de transport"}
-        variant="full"
+        variant="inline"
         className="mb-6"
       />
 

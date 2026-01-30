@@ -22,12 +22,11 @@ export function SoftSkillsChapter() {
         variant="softskills"
       />
 
-      {/* Team Collaboration Image - Full width */}
+      {/* Team Collaboration Image */}
       <ChapterImage
         src={softSkillsTeamImg}
         alt="Professional team collaboration meeting"
-        caption={ct('teamCaption') || "Colaborare profesională în echipă - competențe esențiale în transport"}
-        variant="full"
+        variant="inline"
         className="mb-6"
       />
 
