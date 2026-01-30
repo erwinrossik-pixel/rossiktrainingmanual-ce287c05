@@ -1,6 +1,7 @@
 import { InfoCard } from "../InfoCard";
 import { DataTable } from "../DataTable";
 import { Quiz } from "../Quiz";
+import { MultiModalContent } from "../MultiModalContent";
 import { quizzes } from "@/data/quizData";
 import { CreditCard, FileText, AlertTriangle, CheckCircle, Clock, Shield, Calculator, Users } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
@@ -293,6 +294,9 @@ export function PaymentChapter() {
           ]}
         />
       </section>
+
+      {/* Multi-Modal Content */}
+      <MultiModalContent chapterId="payment" />
 
       {/* Quiz */}
       {quizzes.payment && (

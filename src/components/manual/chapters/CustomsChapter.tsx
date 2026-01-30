@@ -1,6 +1,7 @@
 import { InfoCard } from "../InfoCard";
 import { DataTable } from "../DataTable";
 import { Quiz } from "../Quiz";
+import { MultiModalContent } from "../MultiModalContent";
 import { quizzes } from "@/data/quizData";
 import { Globe, FileText, AlertTriangle, CheckCircle, Clock, MapPin, Shield } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
@@ -248,6 +249,9 @@ export function CustomsChapter() {
           </div>
         </InfoCard>
       </section>
+
+      {/* Multi-Modal Content */}
+      <MultiModalContent chapterId="customs" />
 
       {/* Quiz */}
       {quizzes.customs && (

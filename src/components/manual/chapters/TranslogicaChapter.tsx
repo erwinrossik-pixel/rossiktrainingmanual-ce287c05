@@ -1,6 +1,7 @@
 import { InfoCard } from "../InfoCard";
 import { DataTable } from "../DataTable";
 import { Quiz } from "../Quiz";
+import { MultiModalContent } from "../MultiModalContent";
 import { quizzes } from "@/data/quizData";
 import {
   Monitor, Users, Truck, Package, CalendarDays, FileText, 
@@ -532,6 +533,9 @@ export function TranslogicaChapter() {
           ))}
         </div>
       </div>
+
+      {/* Multi-Modal Content */}
+      <MultiModalContent chapterId="translogica" />
 
       {/* Quiz */}
       <Quiz title={`🎯 ${ct("knowledgeCheck")}`} questions={quizzes.translogica} chapterId="translogica" />

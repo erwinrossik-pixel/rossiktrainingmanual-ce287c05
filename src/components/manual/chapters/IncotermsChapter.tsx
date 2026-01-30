@@ -2,6 +2,7 @@ import { useState } from "react";
 import { DataTable } from "../DataTable";
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
+import { MultiModalContent } from "../MultiModalContent";
 import { quizzes } from "@/data/quizData";
 import { FileText, Ship, Truck, Plane, Package, AlertTriangle, CheckCircle2, ArrowRight, Scale, Euro, MapPin, Target, Lightbulb, Zap, Calculator, Play, RefreshCw } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
@@ -819,6 +820,9 @@ export function IncotermsChapter() {
           <p className="text-xs text-center text-muted-foreground mt-3">{ct("ladderExplanation") || "Remember: As you move E→F→C→D, seller responsibility INCREASES"}</p>
         </div>
       </div>
+
+      {/* Multi-Modal Content */}
+      <MultiModalContent chapterId="incoterms" />
 
       {/* Quiz */}
       {quizzes["incoterms"] && (

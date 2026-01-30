@@ -1,6 +1,7 @@
 import { DataTable } from "../DataTable";
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
+import { MultiModalContent } from "../MultiModalContent";
 import { quizzes } from "@/data/quizData";
 import { Warehouse, Package, ArrowRight, Clock, Truck, CheckCircle2, AlertTriangle, Zap, BarChart3, MapPin, Users, RefreshCw, Book, FileText } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
@@ -388,6 +389,9 @@ export function WarehouseChapter() {
           ))}
         </div>
       </section>
+
+      {/* Multi-Modal Content */}
+      <MultiModalContent chapterId="warehouse" />
 
       {/* Quiz */}
       {quizzes["warehouse"] && (

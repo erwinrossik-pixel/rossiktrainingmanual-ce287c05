@@ -1,6 +1,7 @@
 import { InfoCard } from "../InfoCard";
 import { DataTable } from "../DataTable";
 import { Quiz } from "../Quiz";
+import { MultiModalContent } from "../MultiModalContent";
 import { quizzes } from "@/data/quizData";
 import { MapPin, Truck, BarChart3, Shield, Fuel, Settings, AlertTriangle, Monitor, Database, Navigation, Calendar, Users, FileText } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
@@ -257,6 +258,9 @@ export function FleetChapter() {
           </div>
         </div>
       </section>
+
+      {/* Multi-Modal Content */}
+      <MultiModalContent chapterId="fleet" />
 
       {/* Quiz */}
       {quizzes.fleet && (

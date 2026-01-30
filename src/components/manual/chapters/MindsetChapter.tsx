@@ -1,6 +1,7 @@
 import { InfoCard } from "../InfoCard";
 import { DataTable } from "../DataTable";
 import { Quiz } from "../Quiz";
+import { MultiModalContent } from "../MultiModalContent";
 import { Checklist } from "../Checklist";
 import { ChapterHero } from "../ChapterHero";
 import { quizzes } from "@/data/quizData";
@@ -449,6 +450,9 @@ export function MindsetChapter() {
           ct('postProblemItem6'),
         ]}
       />
+
+      {/* Multi-Modal Content */}
+      <MultiModalContent chapterId="mindset" />
 
       {/* Quiz */}
       {quizzes.mindset && (

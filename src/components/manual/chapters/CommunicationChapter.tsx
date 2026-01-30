@@ -1,5 +1,6 @@
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
+import { MultiModalContent } from "../MultiModalContent";
 import { quizzes } from "@/data/quizData";
 import { MessageSquare, Phone, Mail, Users, Clock, CheckCircle, AlertTriangle, FileText } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
@@ -307,6 +308,9 @@ export function CommunicationChapter() {
           </div>
         </div>
       </section>
+
+      {/* Multi-Modal Content */}
+      <MultiModalContent chapterId="communication" />
 
       {/* Quiz */}
       {quizzes.communication && (

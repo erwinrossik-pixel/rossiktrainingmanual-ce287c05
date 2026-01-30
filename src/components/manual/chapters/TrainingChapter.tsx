@@ -2,6 +2,7 @@ import { GraduationCap, Calculator, Search, Settings, FileText, Target, Clock, U
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
 import { Quiz } from "../Quiz";
+import { MultiModalContent } from "../MultiModalContent";
 import { quizzes } from "@/data/quizData";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -713,6 +714,9 @@ export function TrainingChapter() {
           />
         </div>
       </section>
+
+      {/* Multi-Modal Content */}
+      <MultiModalContent chapterId="training" />
 
       {/* Quiz */}
       <Quiz title="Training Quiz" questions={quizzes.training} chapterId="training" />

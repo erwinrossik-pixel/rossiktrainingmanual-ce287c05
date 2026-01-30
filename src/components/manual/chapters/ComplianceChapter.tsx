@@ -1,6 +1,7 @@
 import { DataTable } from "../DataTable";
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
+import { MultiModalContent } from "../MultiModalContent";
 import { quizzes } from "@/data/quizData";
 import { Clock, AlertTriangle, Moon, Calendar, Shield, FileText, Truck, CheckCircle2, XCircle, Scale, Timer, Coffee, Bed, MapPin, Ban, Euro, Calculator, Eye } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
@@ -457,6 +458,9 @@ export function ComplianceChapter() {
           </p>
         </div>
       </div>
+
+      {/* Multi-Modal Content */}
+      <MultiModalContent chapterId="compliance" />
 
       {/* Quiz */}
       <Quiz title={ct('quizTitle')} questions={quizzes.compliance} chapterId="compliance" />

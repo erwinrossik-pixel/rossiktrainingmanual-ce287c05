@@ -2,6 +2,7 @@ import { Checklist } from "../Checklist";
 import { DataTable } from "../DataTable";
 import { InfoCard } from "../InfoCard";
 import { Quiz } from "../Quiz";
+import { MultiModalContent } from "../MultiModalContent";
 import { FlowDiagram, DecisionDiagram } from "../FlowDiagram";
 import { quizzes } from "@/data/quizData";
 import { 
@@ -463,6 +464,9 @@ export function LoadingChapter() {
           ct('postLoadingItem8'),
         ]}
       />
+
+      {/* Multi-Modal Content */}
+      <MultiModalContent chapterId="loading" />
 
       {/* Quiz */}
       {quizzes.loading && (
