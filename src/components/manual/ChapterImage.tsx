@@ -5,17 +5,16 @@ import { ZoomIn, X } from 'lucide-react';
 interface ChapterImageProps {
   src: string;
   alt: string;
-  caption?: string;
   className?: string;
   variant?: 'hero' | 'inline' | 'gallery' | 'left' | 'right' | 'full' | 'float-left' | 'float-right';
 }
 
-export function ChapterImage({ src, alt, caption, className, variant = 'inline' }: ChapterImageProps) {
+export function ChapterImage({ src, alt, className, variant = 'inline' }: ChapterImageProps) {
   const [isZoomed, setIsZoomed] = useState(false);
 
   const baseStyles = {
     hero: 'w-full h-48 md:h-64 object-cover rounded-xl shadow-lg',
-    inline: 'w-full max-w-lg mx-auto rounded-lg shadow-md',
+    inline: 'w-full max-w-2xl mx-auto rounded-lg shadow-md',
     gallery: 'w-full h-40 object-cover rounded-lg cursor-pointer hover:opacity-90 transition-opacity',
     left: 'w-full md:w-1/2 rounded-lg shadow-md',
     right: 'w-full md:w-1/2 ml-auto rounded-lg shadow-md',
@@ -55,11 +54,6 @@ export function ChapterImage({ src, alt, caption, className, variant = 'inline' 
             </button>
           )}
         </div>
-        {caption && (
-          <figcaption className="text-center text-sm text-muted-foreground mt-2 italic">
-            {caption}
-          </figcaption>
-        )}
       </figure>
 
       {/* Lightbox */}
@@ -80,11 +74,6 @@ export function ChapterImage({ src, alt, caption, className, variant = 'inline' 
             alt={alt}
             className="max-w-full max-h-[90vh] object-contain rounded-lg"
           />
-          {caption && (
-            <p className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white text-sm bg-black/50 px-4 py-2 rounded-full">
-              {caption}
-            </p>
-          )}
         </div>
       )}
     </>
@@ -95,7 +84,6 @@ interface ImageGalleryProps {
   images: Array<{
     src: string;
     alt: string;
-    caption?: string;
   }>;
   columns?: 2 | 3 | 4;
 }
@@ -114,7 +102,6 @@ export function ImageGallery({ images, columns = 3 }: ImageGalleryProps) {
           key={index}
           src={image.src}
           alt={image.alt}
-          caption={image.caption}
           variant="gallery"
         />
       ))}
