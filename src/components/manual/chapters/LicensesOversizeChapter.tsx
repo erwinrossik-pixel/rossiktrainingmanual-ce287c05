@@ -25,6 +25,117 @@ export function LicensesOversizeChapter() {
         variant="licenses"
       />
 
+      {/* Quick Reference Cheat Sheet - AI Recommendation Implementation */}
+      <section className="content-section">
+        <div className="bg-gradient-to-br from-primary/10 to-primary/5 border-2 border-primary/30 rounded-2xl p-6">
+          <h2 className="text-xl font-bold text-primary mb-4 flex items-center gap-2">
+            <Zap className="w-6 h-6" />
+            {ct('quickReferenceTitle') || '⚡ Quick Reference Cheat Sheet'}
+          </h2>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {/* License Types Quick Card */}
+            <div className="bg-background rounded-xl p-4 border border-border">
+              <h3 className="font-semibold text-sm mb-3 flex items-center gap-2">
+                <FileText className="w-4 h-4 text-primary" />
+                {ct('licenseTypesQuick') || 'License Types'}
+              </h3>
+              <ul className="space-y-1 text-xs">
+                <li className="flex justify-between">
+                  <span className="font-medium">{ct('communityLicense')}</span>
+                  <span className="text-muted-foreground">EU/EEA</span>
+                </li>
+                <li className="flex justify-between">
+                  <span className="font-medium">{ct('nationalLicense')}</span>
+                  <span className="text-muted-foreground">{ct('domestic') || 'Domestic'}</span>
+                </li>
+                <li className="flex justify-between">
+                  <span className="font-medium">CEMT</span>
+                  <span className="text-muted-foreground">Non-EU</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Financial Capacity Quick Card */}
+            <div className="bg-background rounded-xl p-4 border border-border">
+              <h3 className="font-semibold text-sm mb-3 flex items-center gap-2">
+                <Euro className="w-4 h-4 text-primary" />
+                {ct('financialCapQuick') || 'Financial Capacity'}
+              </h3>
+              <ul className="space-y-1 text-xs">
+                <li className="flex justify-between">
+                  <span>{ct('firstVehicleShort') || '1st vehicle'} (&gt;3.5t)</span>
+                  <span className="font-bold text-success">€9,000</span>
+                </li>
+                <li className="flex justify-between">
+                  <span>{ct('additionalVehicleShort') || 'Each additional'}</span>
+                  <span className="font-bold text-success">€5,000</span>
+                </li>
+                <li className="flex justify-between">
+                  <span>{ct('lightVehicleShort') || 'Light (2.5-3.5t)'}</span>
+                  <span className="font-bold text-success">€1,800</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Standard Dimensions Quick Card */}
+            <div className="bg-background rounded-xl p-4 border border-border">
+              <h3 className="font-semibold text-sm mb-3 flex items-center gap-2">
+                <Ruler className="w-4 h-4 text-primary" />
+                {ct('standardDimsQuick') || 'EU Standard Limits'}
+              </h3>
+              <ul className="space-y-1 text-xs">
+                <li className="flex justify-between">
+                  <span>{ct('maxHeight') || 'Height'}</span>
+                  <span className="font-bold">4.00m</span>
+                </li>
+                <li className="flex justify-between">
+                  <span>{ct('maxWidth') || 'Width'}</span>
+                  <span className="font-bold">2.55m</span>
+                </li>
+                <li className="flex justify-between">
+                  <span>{ct('maxLength') || 'Length'}</span>
+                  <span className="font-bold">16.50m</span>
+                </li>
+                <li className="flex justify-between">
+                  <span>{ct('maxWeight') || 'Weight'}</span>
+                  <span className="font-bold">40t / 44t</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Permit Timeline Quick Card */}
+            <div className="bg-background rounded-xl p-4 border border-border">
+              <h3 className="font-semibold text-sm mb-3 flex items-center gap-2">
+                <Timer className="w-4 h-4 text-primary" />
+                {ct('permitTimelineQuick') || 'Permit Timeline'}
+              </h3>
+              <ul className="space-y-1 text-xs">
+                <li className="flex justify-between">
+                  <span>{ct('singleCountry') || 'Single country'}</span>
+                  <span className="font-bold text-info">1-2 {ct('weeksShort') || 'wks'}</span>
+                </li>
+                <li className="flex justify-between">
+                  <span>{ct('multiCountry') || 'Multi-country'}</span>
+                  <span className="font-bold text-warning">3-4 {ct('weeksShort') || 'wks'}</span>
+                </li>
+                <li className="flex justify-between">
+                  <span>{ct('complexOversizeShort') || 'Complex oversize'}</span>
+                  <span className="font-bold text-destructive">4-6 {ct('weeksShort') || 'wks'}</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="mt-4 p-3 bg-warning/10 rounded-lg border border-warning/20">
+            <p className="text-xs flex items-center gap-2">
+              <AlertTriangle className="w-4 h-4 text-warning flex-shrink-0" />
+              <span className="font-medium">{ct('cheatSheetNote') || 'Pro Tip: Save this cheat sheet! These are the most frequently needed reference values for daily operations.'}</span>
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Section 1: Introduction to Transport Licenses */}
       <section className="content-section">
         <h2 className="section-title flex items-center gap-3">
