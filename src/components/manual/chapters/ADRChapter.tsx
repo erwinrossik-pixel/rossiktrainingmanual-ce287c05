@@ -6,6 +6,7 @@ import { AlertTriangle, FileText, Truck, Shield, Book, CheckCircle, XCircle, Fla
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
 import adrHazardSymbolsImg from "@/assets/chapters/adr-hazard-symbols.jpg";
+import adrLoadingSafetyImg from "@/assets/chapters/adr-loading-safety.jpg";
 
 export function ADRChapter() {
   const { ct } = useChapterTranslation('adr');
@@ -223,6 +224,14 @@ export function ADRChapter() {
             </div>
           </div>
         </div>
+        
+        {/* ADR Loading Safety Image - contextual after documents section */}
+        <ChapterImage
+          src={adrLoadingSafetyImg}
+          alt="ADR dangerous goods loading safety procedures with hazmat placards"
+          variant="float-right"
+          className="mt-4"
+        />
       </section>
 
       {/* Limited Quantities Exception */}

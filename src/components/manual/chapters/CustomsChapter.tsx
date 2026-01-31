@@ -12,6 +12,7 @@ import {
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
 import customsProcessFlowImg from "@/assets/chapters/customs-process-flow.jpg";
+import customsBorderImg from "@/assets/chapters/customs-border-checkpoint.jpg";
 
 export function CustomsChapter() {
   const { ct } = useChapterTranslation('customs');
@@ -203,6 +204,14 @@ export function CustomsChapter() {
             </div>
           </div>
         </div>
+        
+        {/* Border Checkpoint Image - contextual after UK Post-Brexit section */}
+        <ChapterImage
+          src={customsBorderImg}
+          alt="EU-UK border checkpoint with customs officers inspecting documents"
+          variant="float-right"
+          className="mt-4"
+        />
       </section>
 
       {/* Case Study */}

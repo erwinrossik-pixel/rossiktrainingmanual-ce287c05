@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import authoritiesControlImg from "@/assets/chapters/authorities-control.jpg";
+import authoritiesTachographImg from "@/assets/chapters/authorities-tachograph-check.jpg";
 
 export function AuthoritiesChapter() {
   const { ct } = useChapterTranslation('authorities');
@@ -257,6 +258,14 @@ export function AuthoritiesChapter() {
             "Aplicație traducere instalată (Google Translate)",
             "Cash pentru amenzi mici (unele țări cer plata pe loc)"
           ]}
+        />
+        
+        {/* Tachograph Check Image - contextual after pre-control checklist */}
+        <ChapterImage
+          src={authoritiesTachographImg}
+          alt="Digital tachograph inspection device during transport control"
+          variant="float-right"
+          className="mt-4"
         />
       </section>
 

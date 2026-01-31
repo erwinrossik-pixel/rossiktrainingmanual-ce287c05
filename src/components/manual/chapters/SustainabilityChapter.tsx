@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import sustainabilityImg from "@/assets/chapters/sustainability-green-logistics.jpg";
+import sustainabilityChargingImg from "@/assets/chapters/sustainability-electric-charging.jpg";
 
 export function SustainabilityChapter() {
   const { ct } = useChapterTranslation('sustainability');
@@ -224,6 +225,14 @@ export function SustainabilityChapter() {
             </div>
           </div>
         </div>
+        
+        {/* Electric Charging Station Image - contextual after case study */}
+        <ChapterImage
+          src={sustainabilityChargingImg}
+          alt="Electric truck fleet at solar-powered charging station"
+          variant="float-right"
+          className="mt-4"
+        />
       </section>
 
       {/* Carbon Offsetting */}
