@@ -80,6 +80,18 @@ export default function Auth() {
     }
 
     try {
+      // Use proper typing for the joined query response
+      interface CompanySettingsResponse {
+        company_id: string;
+        require_approval: boolean;
+        companies: {
+          id: string;
+          name: string;
+          slug: string;
+          is_active: boolean;
+        };
+      }
+
       const { data, error } = await supabase
         .from('company_settings')
         .select('company_id, require_approval, companies!inner(id, name, slug, is_active)')
@@ -95,7 +107,8 @@ export default function Auth() {
         return;
       }
 
-      const companyData = (data as any).companies;
+      const typedData = data as unknown as CompanySettingsResponse;
+      const companyData = typedData.companies;
       if (!companyData.is_active) {
         toast({ 
           title: 'Companie inactivă', 
@@ -230,8 +243,8 @@ export default function Auth() {
         <Card className="w-full max-w-md">
           <CardHeader className="text-center">
             <div className="flex justify-center mb-4">
-              <div className="p-4 rounded-full bg-green-100">
-                <Check className="w-10 h-10 text-green-600" />
+              <div className="p-4 rounded-full bg-accent/20">
+                <Check className="w-10 h-10 text-accent" />
               </div>
             </div>
             <CardTitle className="text-2xl">Cont Creat cu Succes!</CardTitle>
@@ -441,7 +454,7 @@ export default function Auth() {
                   </div>
 
                   {selectedCompany?.require_approval && (
-                    <p className="text-xs text-muted-foreground bg-amber-50 dark:bg-amber-950/30 p-2 rounded border border-amber-200 dark:border-amber-800">
+                    <p className="text-xs text-muted-foreground bg-muted p-2 rounded border border-border">
                       ⚠️ Această companie necesită aprobare. După înregistrare, un administrator va revizui cererea ta.
                     </p>
                   )}
