@@ -13,6 +13,7 @@ import {
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
 import loadingDiagramImg from "@/assets/chapters/loading-diagram.jpg";
+import cargoSecuringImg from "@/assets/chapters/cargo-securing.jpg";
 
 export function LoadingChapter() {
   const { ct } = useChapterTranslation('loading');
@@ -328,6 +329,14 @@ export function LoadingChapter() {
             </div>
           </div>
         </div>
+        
+        {/* Cargo Securing Image - contextual after Code XL section */}
+        <ChapterImage
+          src={cargoSecuringImg}
+          alt="Secure cargo strapping and lashing in trailer"
+          variant="float-right"
+          className="mt-4"
+        />
       </section>
 
       {/* Photo Documentation */}

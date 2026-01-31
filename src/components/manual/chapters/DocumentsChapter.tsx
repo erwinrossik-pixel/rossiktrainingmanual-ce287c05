@@ -6,6 +6,7 @@ import { FileText, Truck, Globe, CheckCircle, AlertTriangle, Package, Shield, St
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
 import documentsImg from "@/assets/chapters/documents-cmr.jpg";
+import cmrVerificationImg from "@/assets/chapters/cmr-verification.jpg";
 
 export function DocumentsChapter() {
   const { ct } = useChapterTranslation('documents');
@@ -271,6 +272,14 @@ export function DocumentsChapter() {
             </div>
           </div>
         </div>
+        
+        {/* CMR Verification Image - contextual after export/import documents */}
+        <ChapterImage
+          src={cmrVerificationImg}
+          alt="CMR consignment note document verification process"
+          variant="float-right"
+          className="mt-4"
+        />
       </section>
 
       {/* POD Best Practices */}

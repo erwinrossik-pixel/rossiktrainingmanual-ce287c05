@@ -7,6 +7,7 @@ import { Map, Building2, Truck, Euro, Clock, AlertTriangle, CheckCircle2, Route,
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
 import europeCorridorsImg from "@/assets/chapters/europe-freight-corridors.jpg";
+import tollingSystemImg from "@/assets/chapters/tolling-system.jpg";
 
 export function EuropeZonesChapter() {
   const { ct } = useChapterTranslation("europe-zones");
@@ -391,6 +392,14 @@ export function EuropeZonesChapter() {
             <strong>Iberian Tip:</strong> {ct("iberianTip")}
           </p>
         </div>
+        
+        {/* Tolling System Image - contextual after Iberian zone */}
+        <ChapterImage
+          src={tollingSystemImg}
+          alt="European MAUT electronic tolling system on highway"
+          variant="float-right"
+          className="mt-4"
+        />
       </div>
 
       {/* CEE */}

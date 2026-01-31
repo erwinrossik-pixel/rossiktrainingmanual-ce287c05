@@ -7,6 +7,7 @@ import { MultiModalContent } from "../MultiModalContent";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import trainingSessionImg from "@/assets/chapters/training-session.jpg";
+import trainingElearningImg from "@/assets/chapters/training-elearning.jpg";
 
 // Formative Assessment Component - Quick knowledge checks
 function FormativeCheck({
@@ -569,6 +570,14 @@ export function TrainingChapter() {
             </div>
           </div>
         </div>
+        
+        {/* E-Learning Image - contextual after evaluation */}
+        <ChapterImage
+          src={trainingElearningImg}
+          alt="Interactive e-learning platform with logistics quiz on tablet"
+          variant="float-right"
+          className="mt-4"
+        />
       </section>
 
       {/* Mentorship */}
