@@ -10,10 +10,12 @@ interface Profile {
   first_name: string | null;
   last_name: string | null;
   avatar_url: string | null;
-  role: 'admin' | 'user';
+  role: 'admin' | 'user'; // DEPRECATED: kept for backwards compatibility
   created_at: string;
   updated_at: string;
 }
+
+type AppRole = 'admin' | 'user';
 
 interface AuthContextType {
   user: User | null;
@@ -33,6 +35,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [profile, setProfile] = useState<Profile | null>(null);
+  const [userRoles, setUserRoles] = useState<AppRole[]>([]);
   const [loading, setLoading] = useState(true);
   const { toast } = useToast();
 
@@ -50,6 +53,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return data as Profile;
   };
 
+  // Fetch roles from the secure user_roles table (source of truth for authorization)
+  const fetchUserRoles = async (userId: string): Promise<AppRole[]> => {
+    const { data, error } = await supabase
+      .from('user_roles')
+      .select('role')
+      .eq('user_id', userId);
+    
+    if (error) {
+      logger.error('Error fetching user roles:', error);
+      return [];
+    }
+    return (data || []).map(r => r.role as AppRole);
+  };
+
   useEffect(() => {
     // Set up auth state listener FIRST
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
@@ -57,13 +74,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setSession(session);
         setUser(session?.user ?? null);
         
-        // Defer profile fetch with setTimeout to prevent deadlock
+        // Defer profile and roles fetch with setTimeout to prevent deadlock
         if (session?.user) {
           setTimeout(() => {
             fetchProfile(session.user.id).then(setProfile);
+            fetchUserRoles(session.user.id).then(setUserRoles);
           }, 0);
         } else {
           setProfile(null);
+          setUserRoles([]);
         }
       }
     );
@@ -74,8 +93,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setUser(session?.user ?? null);
       
       if (session?.user) {
-        fetchProfile(session.user.id).then((profileData) => {
+        Promise.all([
+          fetchProfile(session.user.id),
+          fetchUserRoles(session.user.id)
+        ]).then(([profileData, roles]) => {
           setProfile(profileData);
+          setUserRoles(roles);
           setLoading(false);
         });
       } else {
@@ -148,6 +171,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(null);
     setSession(null);
     setProfile(null);
+    setUserRoles([]);
     toast({
       title: "Deconectat",
       description: "Ai fost deconectat cu succes.",
@@ -182,7 +206,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return { error: null };
   };
 
-  const isAdmin = profile?.role === 'admin';
+  // SECURITY: Use user_roles table as the source of truth for authorization
+  // profile.role is DEPRECATED and kept only for backwards compatibility display
+  const isAdmin = userRoles.includes('admin');
 
   return (
     <AuthContext.Provider value={{
