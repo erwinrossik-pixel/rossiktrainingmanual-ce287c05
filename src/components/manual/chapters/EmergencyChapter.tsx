@@ -9,6 +9,7 @@ import { ChapterHero } from "../ChapterHero";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import emergencyResponseImg from "@/assets/chapters/emergency-response.jpg";
+import emergencyCrisisImg from "@/assets/chapters/emergency-crisis-team.jpg";
 
 // Interactive "What's Missing?" Scenario Component
 function WhatsMissingScenario({ 
@@ -358,6 +359,14 @@ export function EmergencyChapter() {
             </ol>
           </InfoCard>
         </div>
+        
+        {/* Crisis Team Image - contextual after breakdown protocols */}
+        <ChapterImage
+          src={emergencyCrisisImg}
+          alt="Logistics crisis management team coordinating emergency response"
+          variant="float-right"
+          className="mt-4"
+        />
       </section>
 
       {/* Cargo Damage */}

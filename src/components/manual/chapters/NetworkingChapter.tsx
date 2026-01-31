@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import networkingEventImg from "@/assets/chapters/networking-event.jpg";
+import networkingConferenceImg from "@/assets/chapters/networking-conference.jpg";
 
 export function NetworkingChapter() {
   const { ct } = useChapterTranslation('networking');
@@ -295,6 +296,14 @@ export function NetworkingChapter() {
             <p className="text-muted-foreground">{ct('section10Content')}</p>
           </InfoCard>
         </div>
+        
+        {/* Conference Image - contextual after reciprocity section */}
+        <ChapterImage
+          src={networkingConferenceImg}
+          alt="Logistics conference networking event with professionals exchanging ideas"
+          variant="float-right"
+          className="mt-4"
+        />
       </section>
 
       {/* Best Practices & Common Mistakes */}
