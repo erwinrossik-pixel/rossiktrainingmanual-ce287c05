@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { cn } from "@/lib/utils";
 import { LucideIcon } from "lucide-react";
 
@@ -9,7 +10,7 @@ interface InfoCardProps {
   className?: string;
 }
 
-export function InfoCard({ title, children, icon: Icon, variant = "default", className }: InfoCardProps) {
+export const InfoCard = memo(function InfoCard({ title, children, icon: Icon, variant = "default", className }: InfoCardProps) {
   const variants = {
     default: "bg-card border-border",
     highlight: "bg-accent border-primary/10",
@@ -58,4 +59,4 @@ export function InfoCard({ title, children, icon: Icon, variant = "default", cla
       </div>
     </div>
   );
-}
+});

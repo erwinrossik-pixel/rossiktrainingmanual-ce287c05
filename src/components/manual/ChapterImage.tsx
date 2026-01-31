@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, memo } from 'react';
 import { cn } from '@/lib/utils';
 import { ZoomIn, X } from 'lucide-react';
 
@@ -9,7 +9,7 @@ interface ChapterImageProps {
   variant?: 'hero' | 'inline' | 'gallery' | 'left' | 'right' | 'full' | 'float-left' | 'float-right';
 }
 
-export function ChapterImage({ src, alt, className, variant = 'inline' }: ChapterImageProps) {
+export const ChapterImage = memo(function ChapterImage({ src, alt, className, variant = 'inline' }: ChapterImageProps) {
   const [isZoomed, setIsZoomed] = useState(false);
 
   const baseStyles = {
@@ -78,7 +78,7 @@ export function ChapterImage({ src, alt, className, variant = 'inline' }: Chapte
       )}
     </>
   );
-}
+});
 
 interface ImageGalleryProps {
   images: Array<{
@@ -88,7 +88,7 @@ interface ImageGalleryProps {
   columns?: 2 | 3 | 4;
 }
 
-export function ImageGallery({ images, columns = 3 }: ImageGalleryProps) {
+export const ImageGallery = memo(function ImageGallery({ images, columns = 3 }: ImageGalleryProps) {
   const gridCols = {
     2: 'grid-cols-1 md:grid-cols-2',
     3: 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3',
@@ -107,4 +107,4 @@ export function ImageGallery({ images, columns = 3 }: ImageGalleryProps) {
       ))}
     </div>
   );
-}
+});

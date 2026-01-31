@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { cn } from "@/lib/utils";
 
 interface DataTableProps {
@@ -6,7 +7,7 @@ interface DataTableProps {
   className?: string;
 }
 
-export function DataTable({ headers, rows, className }: DataTableProps) {
+export const DataTable = memo(function DataTable({ headers, rows, className }: DataTableProps) {
   return (
     <div className={cn("overflow-hidden rounded-2xl border border-border/50 shadow-sm bg-card", className)}>
       <div className="overflow-x-auto">
@@ -44,4 +45,4 @@ export function DataTable({ headers, rows, className }: DataTableProps) {
       </div>
     </div>
   );
-}
+});

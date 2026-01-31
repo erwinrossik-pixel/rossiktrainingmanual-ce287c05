@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, memo } from 'react';
 import { useSubscription } from '@/hooks/useSubscription';
 import { useCompany } from '@/contexts/CompanyContext';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -65,7 +65,7 @@ const translations = {
   }
 };
 
-export function TrialBanner() {
+export const TrialBanner = memo(function TrialBanner() {
   const { isTrialing, trialDaysRemaining, isExpired, currentPlan } = useSubscription();
   const { subscription } = useCompany();
   const { language } = useLanguage();
@@ -161,4 +161,4 @@ export function TrialBanner() {
       <UpgradeModal open={showUpgrade} onOpenChange={setShowUpgrade} />
     </>
   );
-}
+});
