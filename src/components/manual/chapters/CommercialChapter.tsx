@@ -7,6 +7,7 @@ import { Euro, TrendingUp, Users, Target, MessageSquare, Mail, FileText, CheckCi
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
 import commercialImg from "@/assets/chapters/commercial-hero.jpg";
+import commercialNegotiationImg from "@/assets/chapters/commercial-negotiation.jpg";
 
 export function CommercialChapter() {
   const { ct } = useChapterTranslation("commercial");
@@ -425,6 +426,14 @@ export function CommercialChapter() {
             ["DSO (Days Sales Outstanding)", "<45 days", "Average time to collect payment"],
             ["Bad Debt Rate", "<1%", "Uncollectable invoices as % of revenue"],
           ]}
+        />
+        
+        {/* Commercial Negotiation Image - contextual after KPIs */}
+        <ChapterImage
+          src={commercialNegotiationImg}
+          alt="Freight forwarder in commercial negotiation meeting with customer"
+          variant="float-right"
+          className="mt-4"
         />
       </div>
 

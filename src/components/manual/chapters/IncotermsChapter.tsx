@@ -10,6 +10,7 @@ import { ChapterHero } from "../ChapterHero";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 import incotermsChartImg from "@/assets/chapters/incoterms-chart.jpg";
+import incotermsRiskImg from "@/assets/chapters/incoterms-risk-transfer.jpg";
 
 // Interactive Risk/Cost Simulator Component
 function IncotermsSimulator({ ct }: { ct: (key: string) => string }) {
@@ -829,6 +830,14 @@ export function IncotermsChapter() {
           </div>
           <p className="text-xs text-center text-muted-foreground mt-3">{ct("ladderExplanation") || "Remember: As you move E→F→C→D, seller responsibility INCREASES"}</p>
         </div>
+        
+        {/* Risk Transfer Image - contextual after groups explanation */}
+        <ChapterImage
+          src={incotermsRiskImg}
+          alt="Incoterms 2020 risk transfer visualization"
+          variant="float-right"
+          className="mt-4"
+        />
       </div>
 
       {/* Multi-Modal Content */}

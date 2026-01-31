@@ -8,6 +8,7 @@ import { Quiz } from "../Quiz";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import caseStudyImg from "@/assets/chapters/case-study-analysis.jpg";
+import caseStudyAnalysisImg from "@/assets/chapters/case-studies-analysis.jpg";
 
 // Interactive Decision Scenario Component
 function DecisionScenario({
@@ -582,6 +583,14 @@ export function CaseStudiesChapter() {
           <div className="flex items-start gap-2"><CheckCircle className="w-4 h-4 text-success mt-1 flex-shrink-0" /><span className="text-sm">{ct("takeaway7")}</span></div>
           <div className="flex items-start gap-2"><CheckCircle className="w-4 h-4 text-success mt-1 flex-shrink-0" /><span className="text-sm">{ct("takeaway8")}</span></div>
         </div>
+        
+        {/* Case Study Analysis Image - contextual after takeaways */}
+        <ChapterImage
+          src={caseStudyAnalysisImg}
+          alt="Case study whiteboard presentation with logistics flowcharts"
+          variant="float-right"
+          className="mt-4"
+        />
       </section>
 
       {/* Multi-Modal Content */}

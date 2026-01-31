@@ -8,6 +8,7 @@ import { Calculator, Euro, Route, TrendingUp, Calendar, AlertTriangle, Percent, 
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
 import pricingImg from "@/assets/chapters/pricing-calculation.jpg";
+import pricingAnalysisImg from "@/assets/chapters/pricing-analysis-software.jpg";
 
 export function PricingChapter() {
   const { ct } = useChapterTranslation("pricing");
@@ -747,6 +748,14 @@ export function PricingChapter() {
             <span><strong>{ct("fuelClauseImportant")}</strong></span>
           </p>
         </div>
+        
+        {/* Pricing Analysis Software Image - contextual after fuel surcharge */}
+        <ChapterImage
+          src={pricingAnalysisImg}
+          alt="Freight pricing calculator software with cost breakdown analysis"
+          variant="float-right"
+          className="mt-4"
+        />
       </div>
 
       {/* Pro Tips Enhanced */}

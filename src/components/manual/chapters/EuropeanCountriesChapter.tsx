@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import europeanMapImg from "@/assets/chapters/european-countries-map.jpg";
+import europeanCorridorsImg from "@/assets/chapters/european-transport-corridors.jpg";
 
 export function EuropeanCountriesChapter() {
   const { ct } = useChapterTranslation('european-countries');
@@ -156,6 +157,14 @@ export function EuropeanCountriesChapter() {
             </ul>
           </div>
         </div>
+        
+        {/* European Transport Corridors Image - contextual after best practices */}
+        <ChapterImage
+          src={europeanCorridorsImg}
+          alt="European highway network and major transport corridors"
+          variant="float-right"
+          className="mt-4"
+        />
       </section>
 
       {/* Glossary */}
