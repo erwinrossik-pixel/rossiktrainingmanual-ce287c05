@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, memo } from 'react';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -53,7 +53,7 @@ const translations = {
   }
 };
 
-export function PaywallOverlay({ 
+export const PaywallOverlay = memo(function PaywallOverlay({ 
   requiredPlan, 
   featureName = 'acest conținut',
   children,
@@ -152,4 +152,4 @@ export function PaywallOverlay({
       />
     </>
   );
-}
+});

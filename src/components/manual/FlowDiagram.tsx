@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { cn } from "@/lib/utils";
 import { ArrowDown, ArrowRight } from "lucide-react";
 
@@ -31,7 +32,7 @@ const borderColorMap = {
   info: "border-info/30",
 };
 
-export function FlowDiagram({ title, steps, direction = "horizontal", className }: FlowDiagramProps) {
+export const FlowDiagram = memo(function FlowDiagram({ title, steps, direction = "horizontal", className }: FlowDiagramProps) {
   const isHorizontal = direction === "horizontal";
 
   return (
@@ -78,7 +79,7 @@ export function FlowDiagram({ title, steps, direction = "horizontal", className 
       </div>
     </div>
   );
-}
+});
 
 interface DecisionDiagramProps {
   title: string;
@@ -88,7 +89,7 @@ interface DecisionDiagramProps {
   className?: string;
 }
 
-export function DecisionDiagram({ title, question, yesPath, noPath, className }: DecisionDiagramProps) {
+export const DecisionDiagram = memo(function DecisionDiagram({ title, question, yesPath, noPath, className }: DecisionDiagramProps) {
   return (
     <div className={cn("bg-card border border-border rounded-xl p-6", className)}>
       <h3 className="text-lg font-semibold mb-6 text-center">{title}</h3>
@@ -123,7 +124,7 @@ export function DecisionDiagram({ title, question, yesPath, noPath, className }:
       </div>
     </div>
   );
-}
+});
 
 interface ProcessMapProps {
   title: string;
@@ -135,7 +136,7 @@ interface ProcessMapProps {
   className?: string;
 }
 
-export function ProcessMap({ title, phases, className }: ProcessMapProps) {
+export const ProcessMap = memo(function ProcessMap({ title, phases, className }: ProcessMapProps) {
   return (
     <div className={cn("bg-card border border-border rounded-xl p-6", className)}>
       <h3 className="text-lg font-semibold mb-6 text-center">{title}</h3>
@@ -172,4 +173,4 @@ export function ProcessMap({ title, phases, className }: ProcessMapProps) {
       </div>
     </div>
   );
-}
+});

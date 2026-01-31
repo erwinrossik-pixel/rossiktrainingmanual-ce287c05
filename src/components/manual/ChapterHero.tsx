@@ -1,3 +1,4 @@
+import { memo, useState, useEffect } from "react";
 import { LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { getChapterNumber } from "@/hooks/useChapterNumber";
@@ -5,7 +6,6 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { ContentLevelBadge, ContentLevel } from "./ContentLevelBadge";
 import { ContentDisclaimer } from "./ContentDisclaimer";
 import { VersionInfo } from "./VersionInfo";
-import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 
 type HeroVariant = 
@@ -242,7 +242,7 @@ interface ChapterHeroProps {
   showImage?: boolean;
 }
 
-export function ChapterHero({ 
+export const ChapterHero = memo(function ChapterHero({ 
   title, 
   description, 
   icon: Icon,
@@ -399,4 +399,4 @@ export function ChapterHero({
       <ContentDisclaimer level={contentLevel} />
     </div>
   );
-}
+});
