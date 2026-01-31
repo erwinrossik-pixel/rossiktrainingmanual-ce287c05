@@ -7,6 +7,7 @@ import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
 import { ChapterImage } from "../ChapterImage";
 import environmentEmissionsImg from "@/assets/chapters/environment-emissions-check.jpg";
+import environmentElectricImg from "@/assets/chapters/environment-electric-truck.jpg";
 
 export function EnvironmentChapter() {
   const { ct } = useChapterTranslation("environment");
@@ -226,6 +227,14 @@ export function EnvironmentChapter() {
             </div>
           </div>
         </InfoCard>
+        
+        {/* Electric Truck Image - contextual after eco-driving */}
+        <ChapterImage
+          src={environmentElectricImg}
+          alt="Electric truck charging at sustainable logistics station"
+          variant="float-right"
+          className="mt-4"
+        />
       </section>
 
       {/* Future Trends */}

@@ -6,6 +6,7 @@ import { ChapterImage } from "../ChapterImage";
 import { Quiz } from "../Quiz";
 import { MultiModalContent } from "../MultiModalContent";
 import glossaryImg from "@/assets/chapters/glossary-hero.jpg";
+import glossaryStudyImg from "@/assets/chapters/glossary-study.jpg";
 interface GlossaryTerm {
   termKey: string;
   term: string;
@@ -262,6 +263,14 @@ export function GlossaryChapter() {
             </div>
           ))}
         </div>
+        
+        {/* Glossary Study Image - contextual after terms list */}
+        <ChapterImage
+          src={glossaryStudyImg}
+          alt="Logistics terminology handbook with study notes"
+          variant="float-right"
+          className="mt-4"
+        />
       </section>
 
       {/* No Results */}

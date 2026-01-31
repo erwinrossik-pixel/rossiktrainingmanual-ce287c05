@@ -8,6 +8,7 @@ import { Shield, AlertTriangle, CheckCircle2, XCircle, Eye, TrendingUp, FileText
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
 import riskManagementImg from "@/assets/chapters/risk-management-hero.jpg";
+import riskAssessmentMatrixImg from "@/assets/chapters/risk-assessment-matrix.jpg";
 
 export function RiskManagementChapter() {
   const { ct } = useChapterTranslation("risk-management");
@@ -251,6 +252,14 @@ export function RiskManagementChapter() {
           <Scale className="w-6 h-6 text-primary" />
           {ct("riskAssessmentMatrix")}
         </h2>
+        
+        {/* Risk Assessment Matrix Image - contextual before matrix */}
+        <ChapterImage
+          src={riskAssessmentMatrixImg}
+          alt="Risk assessment matrix evaluation meeting"
+          variant="float-right"
+          className="mb-4"
+        />
 
         <p className="text-muted-foreground mb-4">
           {ct("riskAssessmentDesc")}
