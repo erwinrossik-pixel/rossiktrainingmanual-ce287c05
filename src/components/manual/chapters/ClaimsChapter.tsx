@@ -7,6 +7,7 @@ import { FileText, AlertTriangle, Shield, Clock, Euro, CheckCircle, Scale, Camer
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
 import claimsInspectionImg from "@/assets/chapters/claims-inspection.jpg";
+import claimsDocumentationImg from "@/assets/chapters/claims-documentation.jpg";
 
 export function ClaimsChapter() {
   const { ct } = useChapterTranslation("claims");
@@ -318,6 +319,14 @@ export function ClaimsChapter() {
             </ul>
           </div>
         </InfoCard>
+        
+        {/* Claims Documentation Image - contextual after exemptions */}
+        <ChapterImage
+          src={claimsDocumentationImg}
+          alt="Claims inspector documenting cargo damage with digital tablet"
+          variant="float-right"
+          className="mt-4"
+        />
       </section>
 
       {/* Claim Prevention Tips */}

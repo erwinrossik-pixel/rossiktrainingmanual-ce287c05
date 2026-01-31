@@ -12,6 +12,7 @@ import {
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { useLanguage } from "@/contexts/LanguageContext";
 import careerDevelopmentImg from "@/assets/chapters/career-development.jpg";
+import professionalMentoringImg from "@/assets/chapters/professional-mentoring.jpg";
 
 // Career stages data structure
 const careerStages = [
@@ -626,6 +627,14 @@ export function ProfessionalDevelopmentChapter() {
               {ct('caseStudyLesson')}
             </p>
           </div>
+          
+          {/* Professional Mentoring Image - contextual after case study */}
+          <ChapterImage
+            src={professionalMentoringImg}
+            alt="Senior professional mentoring junior colleague in logistics office"
+            variant="float-right"
+            className="mt-4"
+          />
         </div>
       </section>
 

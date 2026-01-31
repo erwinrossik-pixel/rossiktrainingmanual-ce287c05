@@ -7,6 +7,7 @@ import { Clock, AlertTriangle, Moon, Calendar, Shield, FileText, Truck, CheckCir
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
 import complianceImg from "@/assets/chapters/compliance-checklist.jpg";
+import complianceDocumentsImg from "@/assets/chapters/compliance-documents.jpg";
 
 export function ComplianceChapter() {
   const { ct } = useChapterTranslation('compliance');
@@ -571,6 +572,14 @@ export function ComplianceChapter() {
             </a>
           </div>
         </div>
+        
+        {/* Compliance Documents Image - contextual after resources */}
+        <ChapterImage
+          src={complianceDocumentsImg}
+          alt="Legal compliance certificates and regulation documents stack"
+          variant="float-right"
+          className="mt-4"
+        />
       </div>
 
       {/* Multi-Modal Content */}

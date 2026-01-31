@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import mindsetDispatcherImg from "@/assets/chapters/mindset-dispatcher.jpg";
+import mindsetCoordinationImg from "@/assets/chapters/mindset-coordination.jpg";
 
 export function MindsetChapter() {
   const { ct } = useChapterTranslation('mindset');
@@ -459,6 +460,14 @@ export function MindsetChapter() {
           ct('postProblemItem5'),
           ct('postProblemItem6'),
         ]}
+      />
+      
+      {/* Coordination Image - contextual after checklists */}
+      <ChapterImage
+        src={mindsetCoordinationImg}
+        alt="Freight dispatcher coordinating shipments with headset at multi-monitor workstation"
+        variant="float-right"
+        className="mt-4"
       />
 
       {/* Multi-Modal Content */}
