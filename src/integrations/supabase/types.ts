@@ -4255,6 +4255,7 @@ export type Database = {
         }
         Returns: number
       }
+      cleanup_old_operational_data: { Args: never; Returns: Json }
       determine_risk_level: {
         Args: { p_days_inactive: number; p_engagement_score: number }
         Returns: string
