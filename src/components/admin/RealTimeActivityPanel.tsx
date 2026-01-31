@@ -55,6 +55,14 @@ interface ActivityEvent {
   color: string;
 }
 
+interface QuizAttemptPayload {
+  id: string;
+  chapter_id: string;
+  passed: boolean;
+  score: number;
+  created_at: string;
+}
+
 const RealTimeActivityPanel: React.FC = () => {
   const { t, language } = useLanguage();
   const dateLocale = language === 'ro' ? ro : language === 'de' ? de : enUS;
@@ -231,7 +239,7 @@ const RealTimeActivityPanel: React.FC = () => {
           table: 'quiz_attempts'
         },
         (payload) => {
-          const quiz = payload.new as any;
+          const quiz = payload.new as QuizAttemptPayload;
           addActivityEvent({
             id: `quiz-${quiz.id}`,
             type: 'quiz_attempt',

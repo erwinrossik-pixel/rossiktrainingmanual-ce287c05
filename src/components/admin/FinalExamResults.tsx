@@ -15,6 +15,14 @@ import {
 } from 'lucide-react';
 import { format } from 'date-fns';
 
+interface WrongAnswer {
+  questionIndex?: number;
+  chapterName?: string;
+  question?: string;
+  userAnswer?: string;
+  correctAnswer?: string;
+}
+
 interface FinalExamAttempt {
   id: string;
   user_id: string;
@@ -23,7 +31,7 @@ interface FinalExamAttempt {
   percentage: number;
   passed: boolean;
   time_spent_seconds: number | null;
-  wrong_answers: unknown;
+  wrong_answers: WrongAnswer[] | null;
   started_at: string;
   completed_at: string;
   created_at: string;
@@ -87,9 +95,10 @@ export function FinalExamResults() {
 
         const profileMap = new Map(profiles?.map(p => [p.id, p]) || []);
         
-        const attemptsWithProfiles = data.map(attempt => ({
+        const attemptsWithProfiles: FinalExamAttempt[] = data.map(attempt => ({
           ...attempt,
-          profile: profileMap.get(attempt.user_id) || null
+          wrong_answers: attempt.wrong_answers as WrongAnswer[] | null,
+          profile: profileMap.get(attempt.user_id) || undefined
         }));
         
         setAttempts(attemptsWithProfiles);
@@ -335,7 +344,7 @@ export function FinalExamResults() {
                                 </h4>
                                 <ScrollArea className="h-[300px] border rounded-lg">
                                   <div className="p-4 space-y-4">
-                                    {(attempt.wrong_answers as any[]).map((wrong: any, idx: number) => (
+                                    {attempt.wrong_answers.map((wrong, idx) => (
                                       <div key={idx} className="p-3 bg-destructive/5 rounded-lg border border-destructive/20">
                                         <div className="flex justify-between items-start mb-2">
                                           <Badge variant="outline" className="text-xs">
