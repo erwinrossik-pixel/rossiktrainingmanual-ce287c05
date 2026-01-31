@@ -7,6 +7,7 @@ import { ChapterImage } from "../ChapterImage";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
 import redFlagsImg from "@/assets/chapters/red-flags-investigation.jpg";
+import redFlagsPreventionImg from "@/assets/chapters/red-flags-prevention.jpg";
 
 export function RedFlagsChapter() {
   const { ct } = useChapterTranslation('red-flags');
@@ -344,6 +345,14 @@ export function RedFlagsChapter() {
             </ul>
           </div>
         </div>
+        
+        {/* Fraud Prevention Image - contextual after daily habits */}
+        <ChapterImage
+          src={redFlagsPreventionImg}
+          alt="Fraud prevention team analyzing suspicious documents"
+          variant="float-right"
+          className="mt-4"
+        />
       </div>
 
       {/* Golden Rules */}

@@ -7,6 +7,7 @@ import { CreditCard, FileText, AlertTriangle, CheckCircle, Clock, Shield, Calcul
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
 import paymentImg from "@/assets/chapters/payment-transaction.jpg";
+import paymentVerificationImg from "@/assets/chapters/payment-verification.jpg";
 
 export function PaymentChapter() {
   const { ct } = useChapterTranslation("payment");
@@ -255,6 +256,14 @@ export function PaymentChapter() {
             </div>
           </div>
         </InfoCard>
+        
+        {/* Payment Verification Image - contextual after self-billing */}
+        <ChapterImage
+          src={paymentVerificationImg}
+          alt="Invoice verification and payment processing documentation"
+          variant="float-right"
+          className="mt-4"
+        />
       </section>
 
       {/* Carrier Payments */}

@@ -7,6 +7,7 @@ import { Truck, Ruler, Weight, Package, Shield, CheckCircle2, AlertTriangle, Set
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
 import truckComparisonImg from "@/assets/chapters/vehicle-truck-comparison.jpg";
+import vehicleLoadImg from "@/assets/chapters/vehicle-load-distribution.jpg";
 
 export function VehicleChapter() {
   const { ct } = useChapterTranslation('vehicle');
@@ -337,6 +338,14 @@ export function VehicleChapter() {
             <p className="text-xs text-muted-foreground">{ct('threeAxleGroup')}</p>
           </div>
         </div>
+        
+        {/* Load Distribution Image - contextual after axle limits */}
+        <ChapterImage
+          src={vehicleLoadImg}
+          alt="Truck with weight distribution diagram at loading bay"
+          variant="float-right"
+          className="mt-4"
+        />
       </section>
 
       {/* Pallet Configurations */}

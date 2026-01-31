@@ -7,6 +7,7 @@ import { Cpu, Smartphone, Cloud, Globe, BarChart3, Zap, Shield, TrendingUp, Chec
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
 import technologyControlRoomImg from "@/assets/chapters/technology-control-room.jpg";
+import tmsDashboardImg from "@/assets/chapters/tms-dashboard.jpg";
 
 export function TechnologyChapter() {
   const { ct } = useChapterTranslation("technology");
@@ -422,6 +423,14 @@ export function TechnologyChapter() {
             [ct("palletModule"), ct("palletFeatures"), ct("palletValue")],
             [ct("reportingModule"), ct("reportingFeatures"), ct("reportingValue")],
           ]}
+        />
+        
+        {/* TMS Dashboard Image - contextual after TMS modules table */}
+        <ChapterImage
+          src={tmsDashboardImg}
+          alt="TMS transport management system dashboard with shipment tracking"
+          variant="float-right"
+          className="mt-4"
         />
       </div>
 
