@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, useCallback, useMemo, ReactNode } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
 
@@ -193,7 +193,7 @@ export function CompanyProvider({ children }: { children: ReactNode }) {
     if (data) setCompanyUser(data as CompanyUser);
   };
 
-  const refreshCompany = async () => {
+  const refreshCompany = useCallback(async () => {
     setLoading(true);
     try {
       const detectedCompany = await detectCompanyFromDomain();
@@ -208,11 +208,11 @@ export function CompanyProvider({ children }: { children: ReactNode }) {
     } finally {
       setLoading(false);
     }
-  };
+  }, [user]);
 
   useEffect(() => {
     refreshCompany();
-  }, [user]);
+  }, [refreshCompany]);
 
   // Apply branding to CSS variables
   useEffect(() => {
@@ -281,11 +281,23 @@ export function CompanyProvider({ children }: { children: ReactNode }) {
     }
   }, [branding]);
 
-  const isSuperAdmin = companyUser?.role === 'super_admin' && companyUser?.status === 'approved';
-  const isCompanyAdmin = (companyUser?.role === 'company_admin' || companyUser?.role === 'super_admin') && companyUser?.status === 'approved';
-  const isPendingApproval = companyUser?.status === 'pending';
+  // Memoize computed values to prevent unnecessary re-renders
+  const isSuperAdmin = useMemo(() => 
+    companyUser?.role === 'super_admin' && companyUser?.status === 'approved', 
+    [companyUser?.role, companyUser?.status]
+  );
+  
+  const isCompanyAdmin = useMemo(() => 
+    (companyUser?.role === 'company_admin' || companyUser?.role === 'super_admin') && companyUser?.status === 'approved',
+    [companyUser?.role, companyUser?.status]
+  );
+  
+  const isPendingApproval = useMemo(() => 
+    companyUser?.status === 'pending',
+    [companyUser?.status]
+  );
 
-  const hasFeature = (feature: 'certificates' | 'ai_tutor' | 'analytics' | 'custom_branding'): boolean => {
+  const hasFeature = useCallback((feature: 'certificates' | 'ai_tutor' | 'analytics' | 'custom_branding'): boolean => {
     if (!subscription?.plan) return false;
     
     switch (feature) {
@@ -295,7 +307,7 @@ export function CompanyProvider({ children }: { children: ReactNode }) {
       case 'custom_branding': return subscription.plan.has_custom_branding;
       default: return false;
     }
-  };
+  }, [subscription?.plan]);
 
   return (
     <CompanyContext.Provider value={{
