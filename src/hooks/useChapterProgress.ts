@@ -3,6 +3,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from './useAuth';
 import { logger } from '@/utils/logger';
+import type { Json } from '@/integrations/supabase/types';
 
 interface ChapterProgress {
   chapter_id: string;
@@ -111,7 +112,7 @@ export function useChapterProgress() {
     chapterId: string, 
     score: number, 
     language: string,
-    questionsAnswered?: object
+    questionsAnswered?: Json
   ): Promise<boolean> => {
     if (!user) return false;
 
@@ -127,7 +128,7 @@ export function useChapterProgress() {
         score,
         total_questions: TOTAL_QUESTIONS,
         passed,
-        questions_answered: questionsAnswered as any,
+        questions_answered: questionsAnswered,
       }]);
 
     if (attemptError) {

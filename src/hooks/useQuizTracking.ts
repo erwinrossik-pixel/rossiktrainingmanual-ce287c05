@@ -163,11 +163,25 @@ export function useQuizTracking() {
   // Get admin-level analytics (all users)
   const getAdminQuizAnalytics = useCallback(async () => {
     try {
+      // Define the joined response type
+      interface SessionWithProfile {
+        id: string;
+        user_id: string;
+        chapter_id: string;
+        was_completed: boolean;
+        started_at: string;
+        profiles: {
+          email: string;
+          first_name: string | null;
+          last_name: string | null;
+        };
+      }
+
       // Get all sessions
       const { data: sessions } = await supabase
         .from('quiz_sessions')
         .select('*, profiles!inner(email, first_name, last_name)')
-        .order('started_at', { ascending: false });
+        .order('started_at', { ascending: false }) as { data: SessionWithProfile[] | null };
 
       // Get all question performance
       const { data: performance } = await supabase
@@ -222,7 +236,7 @@ export function useQuizTracking() {
       }> = {};
 
       sessions?.forEach(s => {
-        const profile = (s as any).profiles;
+        const { profiles: profile } = s;
         if (!userStats[s.user_id]) {
           userStats[s.user_id] = {
             email: profile?.email || 'Unknown',
