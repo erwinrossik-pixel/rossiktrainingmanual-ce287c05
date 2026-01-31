@@ -7,6 +7,7 @@ import { MapPin, Truck, BarChart3, Shield, Fuel, Settings, AlertTriangle, Monito
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
 import fleetDashboardImg from "@/assets/chapters/fleet-management-dashboard.jpg";
+import fleetMaintenanceImg from "@/assets/chapters/fleet-maintenance-workshop.jpg";
 
 export function FleetChapter() {
   const { ct } = useChapterTranslation("fleet");
@@ -267,6 +268,14 @@ export function FleetChapter() {
             </div>
           </div>
         </div>
+        
+        {/* Maintenance Workshop Image - contextual after fuel management */}
+        <ChapterImage
+          src={fleetMaintenanceImg}
+          alt="Fleet maintenance workshop with trucks being serviced"
+          variant="float-right"
+          className="mt-4"
+        />
       </section>
 
       {/* Multi-Modal Content */}

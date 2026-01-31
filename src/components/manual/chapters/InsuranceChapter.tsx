@@ -12,6 +12,7 @@ import {
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
 import insuranceClaimImg from "@/assets/chapters/insurance-claim-document.jpg";
+import insuranceDamageImg from "@/assets/chapters/insurance-damage-inspection.jpg";
 
 export function InsuranceChapter() {
   const { ct } = useChapterTranslation("insurance");
@@ -241,6 +242,14 @@ export function InsuranceChapter() {
             ["Balcani", "🟡 Mediu", "Furt, corupție", "Documentație completă"],
             ["Spania/Portugalia", "🟢 Scăzut", "Furt ocazional", "Măsuri standard"],
           ]}
+        />
+        
+        {/* Damage Inspection Image - contextual after high risk areas */}
+        <ChapterImage
+          src={insuranceDamageImg}
+          alt="Insurance surveyor inspecting damaged cargo with tablet"
+          variant="float-right"
+          className="mt-4"
         />
       </section>
 

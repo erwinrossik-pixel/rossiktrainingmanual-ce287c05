@@ -7,6 +7,7 @@ import { ChapterImage } from "../ChapterImage";
 import { Brain, MessageSquare, Clock, Users, Target, Lightbulb, Heart, Shield, Zap, CheckCircle2, AlertTriangle, Volume2, Ear, PenTool, Euro } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import softSkillsTeamImg from "@/assets/chapters/soft-skills-team.jpg";
+import softSkillsCollaborationImg from "@/assets/chapters/soft-skills-collaboration.jpg";
 
 export function SoftSkillsChapter() {
   const { ct } = useChapterTranslation("soft-skills");
@@ -365,6 +366,14 @@ export function SoftSkillsChapter() {
             [ct("important"), ct("doFirst"), ct("schedule")],
             [ct("notImportant"), ct("delegate"), ct("eliminate")],
           ]}
+        />
+        
+        {/* Collaboration Image - contextual after time management */}
+        <ChapterImage
+          src={softSkillsCollaborationImg}
+          alt="Professional freight forwarder team collaborating in modern office"
+          variant="float-right"
+          className="mt-4"
         />
 
         <div className="grid md:grid-cols-2 gap-4 mt-6">

@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import intermodalImg from "@/assets/chapters/intermodal-transport.jpg";
+import intermodalCraneImg from "@/assets/chapters/intermodal-crane-transfer.jpg";
 
 export function IntermodalChapter() {
   const { ct } = useChapterTranslation('intermodal');
@@ -276,6 +277,14 @@ export function IntermodalChapter() {
             <p className="text-muted-foreground">{ct('section10Content')}</p>
           </InfoCard>
         </div>
+        
+        {/* Crane Transfer Image - contextual after TMS integration */}
+        <ChapterImage
+          src={intermodalCraneImg}
+          alt="Intermodal container crane transfer at rail terminal"
+          variant="float-right"
+          className="mt-4"
+        />
       </section>
 
       {/* Best Practices & Common Mistakes */}

@@ -8,6 +8,7 @@ import { Badge } from "../Badge";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
 import tachographImg from "@/assets/chapters/driving-time-tachograph.jpg";
+import restAreaImg from "@/assets/chapters/driving-time-rest-area.jpg";
 
 export function DrivingTimeChapter() {
   const { ct } = useChapterTranslation("driving-time");
@@ -194,6 +195,14 @@ export function DrivingTimeChapter() {
           * Italy: Trucks to unloading point may continue 4h after ban starts. 
           Trucks leaving Italy may start 2h before ban ends.
         </p>
+        
+        {/* Rest Area Image - contextual after driving bans table */}
+        <ChapterImage
+          src={restAreaImg}
+          alt="Professional truck rest area with parking and time management"
+          variant="float-right"
+          className="mt-4"
+        />
       </div>
 
       {/* Tirol Restrictions */}

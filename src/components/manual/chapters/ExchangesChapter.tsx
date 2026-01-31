@@ -14,6 +14,7 @@ import { Badge } from "../Badge";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
 import exchangeImg from "@/assets/chapters/freight-exchange-platform.jpg";
+import exchangeDispatcherImg from "@/assets/chapters/exchanges-dispatcher-analysis.jpg";
 
 export function ExchangesChapter() {
   const { ct } = useChapterTranslation("exchanges");
@@ -372,6 +373,14 @@ export function ExchangesChapter() {
             "Păstrează evidența tuturor comunicărilor",
             "Verifică prețul pieței înainte de a accepta"
           ]}
+        />
+        
+        {/* Dispatcher Analysis Image - contextual after best practices checklist */}
+        <ChapterImage
+          src={exchangeDispatcherImg}
+          alt="Freight dispatcher analyzing transport exchange platform data on multiple monitors"
+          variant="float-right"
+          className="mt-4"
         />
       </section>
 

@@ -5,6 +5,8 @@ import { MultiModalContent } from "../MultiModalContent";
 import { Leaf, Truck, BarChart3, FileText, Globe, Fuel, TrendingDown, Award } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
+import { ChapterImage } from "../ChapterImage";
+import environmentEmissionsImg from "@/assets/chapters/environment-emissions-check.jpg";
 
 export function EnvironmentChapter() {
   const { ct } = useChapterTranslation("environment");
@@ -154,6 +156,14 @@ export function EnvironmentChapter() {
             ]}
           />
         </div>
+        
+        {/* Emissions Check Image - contextual after CO2 classes */}
+        <ChapterImage
+          src={environmentEmissionsImg}
+          alt="Environmental officer checking truck emission standards"
+          variant="float-right"
+          className="mt-4"
+        />
       </section>
 
       {/* Customer Requirements */}

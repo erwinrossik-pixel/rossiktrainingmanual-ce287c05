@@ -12,6 +12,7 @@ import {
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
 import reeferTemperatureImg from "@/assets/chapters/reefer-temperature-zones.jpg";
+import reeferPanelImg from "@/assets/chapters/reefer-temperature-panel.jpg";
 
 export function ReeferChapter() {
   const { ct } = useChapterTranslation('reefer');
@@ -318,6 +319,14 @@ export function ReeferChapter() {
             [ct('chocolate'), "+12°C to +18°C", "50-65%", ct('avoidCondensation'), "CMR, (ATP optional)"],
             [ct('wine'), "+10°C to +16°C", "60-70%", ct('protectVibration'), "CMR, (ATP optional)"],
           ]}
+        />
+        
+        {/* Temperature Panel Image - contextual after product requirements */}
+        <ChapterImage
+          src={reeferPanelImg}
+          alt="Reefer temperature control panel with cold chain monitoring"
+          variant="float-right"
+          className="mt-4"
         />
       </section>
 
