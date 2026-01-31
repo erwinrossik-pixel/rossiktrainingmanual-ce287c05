@@ -6,6 +6,7 @@ import { MessageSquare, Phone, Mail, Users, Clock, CheckCircle, AlertTriangle, F
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
 import communicationImg from "@/assets/chapters/communication-team.jpg";
+import communicationDispatcherImg from "@/assets/chapters/communication-dispatcher.jpg";
 
 export function CommunicationChapter() {
   const { ct } = useChapterTranslation("communication");
@@ -210,6 +211,14 @@ export function CommunicationChapter() {
             </div>
           </div>
         </div>
+        
+        {/* Dispatcher Communication Image - contextual after dos/donts */}
+        <ChapterImage
+          src={communicationDispatcherImg}
+          alt="Dispatcher on phone call providing customer service"
+          variant="float-right"
+          className="mt-4"
+        />
       </section>
 
       {/* Handling Difficult Conversations */}

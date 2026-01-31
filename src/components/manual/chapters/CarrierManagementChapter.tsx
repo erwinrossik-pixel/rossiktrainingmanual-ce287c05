@@ -8,6 +8,7 @@ import { Users, Shield, FileCheck, AlertTriangle, CheckCircle2, Star, Handshake,
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
 import carrierPartnershipImg from "@/assets/chapters/carrier-partnership.jpg";
+import carrierAuditImg from "@/assets/chapters/carrier-audit.jpg";
 
 export function CarrierManagementChapter() {
   const { ct } = useChapterTranslation("carrier-management");
@@ -361,6 +362,14 @@ export function CarrierManagementChapter() {
             </ul>
           </InfoCard>
         </div>
+        
+        {/* Carrier Audit Image - contextual after communication section */}
+        <ChapterImage
+          src={carrierAuditImg}
+          alt="Carrier fleet audit with vehicle inspection checklist"
+          variant="float-right"
+          className="mt-4"
+        />
       </div>
 
       {/* Performance Management */}

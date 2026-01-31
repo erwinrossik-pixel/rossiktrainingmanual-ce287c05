@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import digitalizationImg from "@/assets/chapters/digitalization-ai-analytics.jpg";
+import digitalizationAutomationImg from "@/assets/chapters/digitalization-automation.jpg";
 
 export function DigitalizationChapter() {
   const { ct } = useChapterTranslation('digitalization');
@@ -209,6 +210,14 @@ export function DigitalizationChapter() {
             </div>
           </div>
         </div>
+        
+        {/* Automation Image - contextual after digital adoption checklist */}
+        <ChapterImage
+          src={digitalizationAutomationImg}
+          alt="Digitalization workflow on multiple screens showing paperless logistics automation"
+          variant="float-right"
+          className="mt-4"
+        />
       </section>
 
       {/* ML for Pricing */}

@@ -7,6 +7,7 @@ import { FileText, Euro, Calendar, CreditCard, Calculator, CheckCircle2, AlertTr
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
 import accountingImg from "@/assets/chapters/accounting-financial.jpg";
+import accountingReconciliationImg from "@/assets/chapters/accounting-reconciliation.jpg";
 
 export function AccountingChapter() {
   const { ct } = useChapterTranslation("accounting");
@@ -243,6 +244,14 @@ export function AccountingChapter() {
             {ct("invoiceMustState")}
           </p>
         </div>
+        
+        {/* Accounting Reconciliation Image - contextual after VAT section */}
+        <ChapterImage
+          src={accountingReconciliationImg}
+          alt="Finance team reconciling freight invoices on spreadsheet"
+          variant="float-right"
+          className="mt-4"
+        />
       </div>
 
       {/* Dispute Resolution */}

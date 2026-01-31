@@ -7,6 +7,7 @@ import { Building2, Search, FileText, BarChart3, Target, Handshake, Phone, Mail,
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
 import clientsMeetingImg from "@/assets/chapters/clients-meeting.jpg";
+import clientsCrmImg from "@/assets/chapters/clients-crm.jpg";
 
 export function ClientsChapter() {
   const { ct } = useChapterTranslation("clients");
@@ -220,6 +221,14 @@ export function ClientsChapter() {
             </ul>
           </div>
         </div>
+        
+        {/* CRM Dashboard Image - contextual after client profiles */}
+        <ChapterImage
+          src={clientsCrmImg}
+          alt="Customer relationship management CRM dashboard with client data"
+          variant="float-right"
+          className="mt-4"
+        />
       </div>
 
       {/* Client Segmentation */}
