@@ -119,8 +119,8 @@ export default function FinalExamPage() {
     return (
       <div className="min-h-screen bg-background">
         <FinalExam 
-          onComplete={(score, total, passed) => {
-            console.log('Exam completed:', { score, total, passed });
+          onComplete={() => {
+            // Exam completion is handled internally by FinalExam component
           }}
           onBack={() => setStartExam(false)}
         />
