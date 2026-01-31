@@ -282,7 +282,7 @@ export const ContentKPIPanel = memo(function ContentKPIPanel({
                   <SelectItem value="very_hard">{t('admin.kpi.veryHard')}</SelectItem>
                 </SelectContent>
               </Select>
-              <Select value={sortBy} onValueChange={(v) => setSortBy(v as any)}>
+              <Select value={sortBy} onValueChange={(v) => setSortBy(v as 'passRate' | 'bounceRate' | 'difficulty')}>
                 <SelectTrigger className="w-[140px]">
                   <ArrowUpDown className="h-4 w-4 mr-2" />
                   <SelectValue placeholder={t('admin.kpi.sort')} />
