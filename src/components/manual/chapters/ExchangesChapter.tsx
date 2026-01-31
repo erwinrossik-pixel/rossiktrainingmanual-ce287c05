@@ -223,12 +223,11 @@ export function ExchangesChapter() {
         </h2>
         <ProcessMap
           title="Proces Verificare Partener"
-          steps={[
-            { icon: "🔍", label: "Caută Compania", description: "Folosește funcția de search pe platformă" },
-            { icon: "⭐", label: "Check Rating", description: "Minim 80% rating pozitiv" },
-            { icon: "📄", label: "Verifică Documente", description: "Licență, asigurare CMR, IDD" },
-            { icon: "📞", label: "Sună-i Direct", description: "Confirmă detalii verbal" },
-            { icon: "✅", label: "Start Mic", description: "Prima comandă - valoare mică" }
+          phases={[
+            { name: "Caută Compania", color: "info", steps: ["Folosește funcția de search pe platformă", "Verifică denumirea exactă", "Notează ID-ul companiei"] },
+            { name: "Check Rating", color: "warning", steps: ["Minim 80% rating pozitiv", "Verifică numărul de evaluări", "Citește comentariile recente"] },
+            { name: "Verifică Documente", color: "primary", steps: ["Licență de transport validă", "Asigurare CMR activă", "IDD - istoric plăți"] },
+            { name: "Contact Direct", color: "success", steps: ["Sună la telefon fix/mobil", "Confirmă detalii verbal", "Prima comandă - valoare mică"] }
           ]}
         />
       </section>

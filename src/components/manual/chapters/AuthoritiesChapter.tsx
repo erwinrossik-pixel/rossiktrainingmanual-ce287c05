@@ -106,12 +106,11 @@ export function AuthoritiesChapter() {
         </h2>
         <ProcessMap
           title="Etapele unui Control Rutier"
-          steps={[
-            { icon: "🚔", label: "Semnal Oprire", description: "Urmează indicațiile siguranței" },
-            { icon: "🪪", label: "Documente", description: "Prezintă: permis, CMR, tahograf" },
-            { icon: "🔍", label: "Verificare", description: "Inspectorii verifică totul" },
-            { icon: "📝", label: "Proces-Verbal", description: "Semnezi doar ce înțelegi" },
-            { icon: "✅", label: "Finalizare", description: "Primești copie documente" }
+          phases={[
+            { name: "Semnal Oprire", color: "warning", steps: ["Urmează indicațiile siguranței", "Parcați în loc sigur", "Oprește motorul"] },
+            { name: "Documente", color: "info", steps: ["Prezintă permisul", "CMR și scrisoare transport", "Card tahograf"] },
+            { name: "Verificare", color: "primary", steps: ["Inspectorii verifică totul", "Control vizual vehicul", "Verificare greutate"] },
+            { name: "Finalizare", color: "success", steps: ["Semnezi proces-verbal", "Primești copie", "Continuă călătoria"] }
           ]}
         />
         <ChapterImage
