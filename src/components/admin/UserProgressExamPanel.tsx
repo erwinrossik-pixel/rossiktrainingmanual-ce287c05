@@ -522,12 +522,12 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
 
           return {
             chapter_id: chapterId,
-            status: (progress as any)?.is_locked_out ? 'locked_out' : (progress?.status || 'locked'),
+            status: progress?.is_locked_out ? 'locked_out' : (progress?.status || 'locked'),
             best_score: progress?.best_score || 0,
             attempts_count: actualAttemptsCount,
             reset_count: progress?.reset_count || chapterResets.length || 0,
             restart_count: restartCount, // calculated from time intervals
-            user_restart_count: (progress as any)?.user_restart_count || 0, // official DB count
+            user_restart_count: progress?.user_restart_count || 0, // official DB count
             failed_count: failedCount,
             passed_count: passedCount,
             first_pass_score: firstPassScore,
@@ -544,8 +544,8 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
                 was_restart: wasRestart
               };
             }),
-            is_locked_out: (progress as any)?.is_locked_out || false,
-            consecutive_fails: (progress as any)?.consecutive_fails || 0,
+            is_locked_out: progress?.is_locked_out || false,
+            consecutive_fails: progress?.consecutive_fails || 0,
           };
         });
 

@@ -92,7 +92,7 @@ export function useQuizDifficulty(chapterId?: string) {
 
       const difficulty = data?.difficulty_level || 1;
       const resetCount = data?.reset_count || 0;
-      const userRestartCount = (restartData as any)?.user_restart_count || 0;
+      const userRestartCount = restartData?.user_restart_count || 0;
 
       return {
         difficulty,
@@ -129,7 +129,7 @@ export function useQuizDifficulty(chapterId?: string) {
         .maybeSingle();
 
       const currentDifficulty = currentProgress?.difficulty_level || 1;
-      const currentRestartCount = (restartData as any)?.user_restart_count || 0;
+      const currentRestartCount = restartData?.user_restart_count || 0;
       
       // Calculate new difficulty (increase by 1, max 5)
       const newDifficulty = Math.min(currentDifficulty + 1, 5);
@@ -299,12 +299,14 @@ export function useAdminQuizReset() {
       queryClient.invalidateQueries({ queryKey: ['chapterProgress'] });
       queryClient.invalidateQueries({ queryKey: ['quizResetHistory'] });
 
+      const result = data as { new_difficulty?: number } | null;
       return { 
         success: true, 
-        newDifficulty: (data as any)?.new_difficulty 
+        newDifficulty: result?.new_difficulty 
       };
-    } catch (err: any) {
-      return { success: false, error: err.message };
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : 'Unknown error';
+      return { success: false, error: errorMessage };
     }
   }, [queryClient]);
 
