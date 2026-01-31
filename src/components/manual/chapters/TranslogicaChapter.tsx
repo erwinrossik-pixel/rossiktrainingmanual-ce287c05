@@ -12,6 +12,7 @@ import {
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
 import tmsInterfaceImg from "@/assets/chapters/translogica-tms-interface.jpg";
+import tmsMobileImg from "@/assets/chapters/translogica-mobile.jpg";
 
 export function TranslogicaChapter() {
   const { ct } = useChapterTranslation("translogica");
@@ -358,6 +359,14 @@ export function TranslogicaChapter() {
             [ct("routeArchive"), ct("routeArchiveDesc"), ct("routeArchiveBenefit")],
             [ct("drivingInstructions"), ct("drivingInstructionsDesc"), ct("drivingInstructionsBenefit")],
           ]}
+        />
+        
+        {/* TMS Mobile App Image - contextual after route planning */}
+        <ChapterImage
+          src={tmsMobileImg}
+          alt="TMS mobile application on tablet for logistics dispatch"
+          variant="float-right"
+          className="mt-4"
         />
       </div>
 

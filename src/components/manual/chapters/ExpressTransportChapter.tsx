@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import expressImg from "@/assets/chapters/express-delivery-fleet.jpg";
+import expressVanImg from "@/assets/chapters/express-delivery-van.jpg";
 
 export function ExpressTransportChapter() {
   const { ct } = useChapterTranslation('express-transport');
@@ -283,6 +284,14 @@ export function ExpressTransportChapter() {
             <p className="text-muted-foreground">{ct('section10Content')}</p>
           </InfoCard>
         </div>
+        
+        {/* Express Delivery Van Image - contextual after KPIs */}
+        <ChapterImage
+          src={expressVanImg}
+          alt="Express courier van speeding on highway for urgent delivery"
+          variant="float-right"
+          className="mt-4"
+        />
       </section>
 
       {/* Best Practices & Common Mistakes */}

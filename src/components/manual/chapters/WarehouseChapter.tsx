@@ -7,6 +7,7 @@ import { Warehouse, Package, ArrowRight, Clock, Truck, CheckCircle2, AlertTriang
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
 import warehouseInteriorImg from "@/assets/chapters/warehouse-interior.jpg";
+import warehouseInventoryImg from "@/assets/chapters/warehouse-inventory.jpg";
 
 export function WarehouseChapter() {
   const { ct } = useChapterTranslation("warehouse");
@@ -237,6 +238,14 @@ export function WarehouseChapter() {
             </ul>
           </div>
         </div>
+        
+        {/* Warehouse Inventory Image - contextual after consolidation/deconsolidation */}
+        <ChapterImage
+          src={warehouseInventoryImg}
+          alt="Warehouse inventory stocktaking with barcode scanner"
+          variant="float-right"
+          className="mt-4"
+        />
       </div>
 
       {/* Warehouse KPIs */}

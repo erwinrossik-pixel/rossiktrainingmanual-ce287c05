@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import stressDriverImg from "@/assets/chapters/stress-management-driver.jpg";
+import stressRelaxationImg from "@/assets/chapters/stress-relaxation.jpg";
 
 export function StressManagementChapter() {
   const { ct } = useChapterTranslation('stress-management');
@@ -315,6 +316,14 @@ export function StressManagementChapter() {
             <p className="text-muted-foreground">{ct('section10Content')}</p>
           </InfoCard>
         </div>
+        
+        {/* Relaxation Zone Image - contextual after support section */}
+        <ChapterImage
+          src={stressRelaxationImg}
+          alt="Office relaxation corner with wellness elements"
+          variant="float-right"
+          className="mt-4"
+        />
       </section>
 
       {/* Best Practices & Common Mistakes */}

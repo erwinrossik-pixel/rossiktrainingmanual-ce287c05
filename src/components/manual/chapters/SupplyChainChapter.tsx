@@ -7,6 +7,7 @@ import { Link, Factory, Truck, Package, BarChart3, Users, Globe, TrendingUp, Che
 import { useChapterTranslation } from "@/hooks/useChapterTranslation";
 import { ChapterHero } from "../ChapterHero";
 import supplyChainImg from "@/assets/chapters/supply-chain-network.jpg";
+import supplyChainWarehouseImg from "@/assets/chapters/supply-chain-warehouse.jpg";
 
 export function SupplyChainChapter() {
   const { ct } = useChapterTranslation("supply-chain");
@@ -248,6 +249,14 @@ export function SupplyChainChapter() {
             </ul>
           </InfoCard>
         </div>
+        
+        {/* Supply Chain Warehouse Image - contextual after visibility section */}
+        <ChapterImage
+          src={supplyChainWarehouseImg}
+          alt="Modern distribution center warehouse with automated systems"
+          variant="float-right"
+          className="mt-4"
+        />
       </div>
 
       {/* Supply Chain Disruptions */}
