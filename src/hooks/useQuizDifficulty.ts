@@ -7,45 +7,41 @@ import { logger } from '@/utils/logger';
 export interface DifficultyConfig {
   level: number;
   twoOptionQuestions: number; // percentage of questions with only 2 options
-  multiCorrectQuestions: number; // percentage of questions requiring 2 correct answers
   stricterPassing: boolean; // require 10/10 for highest difficulty
   description: string;
 }
 
 // Define difficulty configurations
+// Note: multiCorrectQuestions was removed as it caused issues where wrong answers
+// were being artificially marked as "correct", confusing users
 const DIFFICULTY_CONFIGS: Record<number, DifficultyConfig> = {
   1: {
     level: 1,
     twoOptionQuestions: 0,
-    multiCorrectQuestions: 0,
     stricterPassing: false,
     description: 'Normal - 4 options, 1 correct answer'
   },
   2: {
     level: 2,
     twoOptionQuestions: 30, // 30% of questions have only 2 options (harder to guess)
-    multiCorrectQuestions: 0,
     stricterPassing: false,
     description: 'Harder - Some questions have only 2 options'
   },
   3: {
     level: 3,
-    twoOptionQuestions: 20,
-    multiCorrectQuestions: 30, // 30% require 2 correct answers
+    twoOptionQuestions: 40,
     stricterPassing: false,
-    description: 'Hard - Some questions require multiple correct answers'
+    description: 'Hard - More 2-option questions, less room for guessing'
   },
   4: {
     level: 4,
-    twoOptionQuestions: 40,
-    multiCorrectQuestions: 40,
+    twoOptionQuestions: 50,
     stricterPassing: false,
-    description: 'Very Hard - Mixed difficulty with multiple answer types'
+    description: 'Very Hard - Half the questions have only 2 options'
   },
   5: {
     level: 5,
-    twoOptionQuestions: 50,
-    multiCorrectQuestions: 50,
+    twoOptionQuestions: 60,
     stricterPassing: true, // must score 10/10
     description: 'Expert - Maximum difficulty, requires perfect score'
   }
@@ -164,6 +160,8 @@ export function useQuizDifficulty(chapterId?: string) {
   }, [user, chapterId, queryClient]);
 
   // Apply difficulty transformations to questions
+  // IMPORTANT: We do NOT create artificial "multi-correct" answers from wrong answers
+  // This was causing confusion as wrong answers were being marked as "correct"
   const applyDifficulty = useCallback((
     questions: Array<{
       question: string;
@@ -186,9 +184,10 @@ export function useQuizDifficulty(chapterId?: string) {
     return questions.map((q, index) => {
       const seed = index % 100;
       
-      // Determine if this question should be modified
+      // At higher difficulty levels, we use 2-option questions to make guessing harder
+      // We NO LONGER create fake "multi-correct" questions as this was causing issues
+      // where wrong answers appeared to be marked as correct
       const shouldBeTwoOption = seed < config.twoOptionQuestions;
-      const shouldBeMultiCorrect = !shouldBeTwoOption && seed < (config.twoOptionQuestions + config.multiCorrectQuestions);
 
       if (shouldBeTwoOption) {
         // Convert to 2-option question - keep correct answer and one random wrong answer
@@ -215,25 +214,8 @@ export function useQuizDifficulty(chapterId?: string) {
         };
       }
 
-      if (shouldBeMultiCorrect && q.options.length >= 4) {
-        // Create a multi-correct question by selecting 2 options as correct
-        // We keep original correct + add one "also acceptable" answer
-        const correctIndices = [q.correctIndex];
-        
-        // Find another index to mark as also correct (simulate multiple correct answers)
-        let secondCorrect = (q.correctIndex + 2) % q.options.length;
-        correctIndices.push(secondCorrect);
-
-        return {
-          ...q,
-          isMultiCorrect: true,
-          correctIndices: correctIndices.sort((a, b) => a - b),
-          originalOptions: q.options,
-          difficultyModifier: 'multi_correct'
-        };
-      }
-
-      // Normal question
+      // Normal question - no artificial modifications
+      // This ensures only the actual correct answer is marked as correct
       return {
         ...q,
         isMultiCorrect: false,
