@@ -279,12 +279,12 @@ export function IncotermsChapter() {
           </div>
         </div>
         
-        {/* Incoterms Chart Image - contextual after incoterms classification */}
+        {/* Incoterms Chart Image - centered and visible */}
         <ChapterImage
           src={incotermsChartImg}
           alt="Incoterms 2020 risk and cost distribution chart"
-          variant="float-right"
-          className="mt-4"
+          variant="inline"
+          className="my-6"
         />
       </div>
 
@@ -831,12 +831,12 @@ export function IncotermsChapter() {
           <p className="text-xs text-center text-muted-foreground mt-3">{ct("ladderExplanation") || "Remember: As you move E→F→C→D, seller responsibility INCREASES"}</p>
         </div>
         
-        {/* Risk Transfer Image - contextual after groups explanation */}
+        {/* Risk Transfer Image - centered and visible */}
         <ChapterImage
           src={incotermsRiskImg}
           alt="Incoterms 2020 risk transfer visualization"
-          variant="float-right"
-          className="mt-4"
+          variant="inline"
+          className="my-6"
         />
       </div>
 

@@ -80,12 +80,12 @@ export function PricingChapter() {
         </InfoCard>
       </div>
       
-      {/* Pricing Calculation Image - contextual after key rates */}
+      {/* Pricing Calculation Image - centered and visible */}
       <ChapterImage
         src={pricingImg}
         alt="Freight rate calculation spreadsheet with cost breakdown"
-        variant="float-right"
-        className="mt-4"
+        variant="inline"
+        className="my-6"
       />
 
       {/* Cost Components Breakdown */}

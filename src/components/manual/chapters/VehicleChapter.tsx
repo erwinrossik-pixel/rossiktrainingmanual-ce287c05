@@ -74,11 +74,12 @@ export function VehicleChapter() {
         <p className="text-muted-foreground mb-4">{ct('visualGuideDesc')}</p>
         
         {/* Truck Comparison Image */}
+        {/* Truck Comparison Image - centered and visible */}
         <ChapterImage
           src={truckComparisonImg}
           alt="Comparație între trailer standard și mega trailer"
-          variant="float-right"
-          className="mb-6"
+          variant="inline"
+          className="my-6"
         />
         
         <div className="grid md:grid-cols-2 gap-6">
@@ -340,11 +341,12 @@ export function VehicleChapter() {
         </div>
         
         {/* Load Distribution Image - contextual after axle limits */}
+        {/* Load Distribution Image - centered and visible */}
         <ChapterImage
           src={vehicleLoadImg}
           alt="Truck with weight distribution diagram at loading bay"
-          variant="float-right"
-          className="mt-4"
+          variant="inline"
+          className="my-6"
         />
       </section>
 

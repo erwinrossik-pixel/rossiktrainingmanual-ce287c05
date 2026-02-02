@@ -91,16 +91,16 @@ export function IntroChapter() {
               <span>{ct("audienceSupport")}</span>
             </li>
           </ul>
-          
-          {/* European Transport Image - contextual after audience section */}
-          <ChapterImage
-            src={introTransportImg}
-            alt="European freight transport convoy on highway"
-            variant="float-right"
-            className="mt-4"
-          />
         </div>
       </div>
+      
+      {/* European Transport Image - centered and visible */}
+      <ChapterImage
+        src={introTransportImg}
+        alt="European freight transport convoy on highway"
+        variant="inline"
+        className="my-6"
+      />
 
       {/* Industry Statistics */}
       <section>

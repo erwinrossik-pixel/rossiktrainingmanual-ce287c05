@@ -91,12 +91,12 @@ export function LoadingChapter() {
           {ct('loadingProcessStepByStep')}
         </h2>
         
-        {/* Loading Diagram Image - contextual before loading steps */}
+        {/* Loading Diagram Image - centered and visible */}
         <ChapterImage
           src={loadingDiagramImg}
           alt="Cargo weight distribution diagram for proper truck loading"
-          variant="float-right"
-          className="mb-4"
+          variant="inline"
+          className="my-6"
         />
         <div className="space-y-4">
           {[
@@ -330,12 +330,12 @@ export function LoadingChapter() {
           </div>
         </div>
         
-        {/* Cargo Securing Image - contextual after Code XL section */}
+        {/* Cargo Securing Image - centered and visible */}
         <ChapterImage
           src={cargoSecuringImg}
           alt="Secure cargo strapping and lashing in trailer"
-          variant="float-right"
-          className="mt-4"
+          variant="inline"
+          className="my-6"
         />
       </section>
 

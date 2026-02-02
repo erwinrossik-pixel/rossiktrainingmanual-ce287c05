@@ -14,24 +14,24 @@ export const ChapterImage = memo(function ChapterImage({ src, alt, className, va
 
   const baseStyles = {
     hero: 'w-full h-48 md:h-64 object-cover rounded-xl shadow-lg',
-    inline: 'w-full max-w-2xl mx-auto rounded-lg shadow-md',
+    inline: 'w-full max-w-3xl mx-auto rounded-lg shadow-md',
     gallery: 'w-full h-40 object-cover rounded-lg cursor-pointer hover:opacity-90 transition-opacity',
     left: 'w-full md:w-1/2 rounded-lg shadow-md',
     right: 'w-full md:w-1/2 ml-auto rounded-lg shadow-md',
     full: 'w-full rounded-xl shadow-lg object-cover h-64 md:h-80',
-    'float-left': 'w-full sm:w-64 sm:float-left sm:mr-6 mb-4 rounded-lg shadow-md',
-    'float-right': 'w-full sm:w-64 sm:float-right sm:ml-6 mb-4 rounded-lg shadow-md',
+    'float-left': 'w-full max-w-3xl mx-auto rounded-lg shadow-md',
+    'float-right': 'w-full max-w-3xl mx-auto rounded-lg shadow-md',
   };
 
   const containerStyles = {
     hero: '',
-    inline: 'flex justify-center',
+    inline: 'flex justify-center my-6',
     gallery: '',
     left: 'flex justify-start',
     right: 'flex justify-end',
     full: '',
-    'float-left': 'clear-both',
-    'float-right': 'clear-both',
+    'float-left': 'flex justify-center my-6',
+    'float-right': 'flex justify-center my-6',
   };
 
   return (
