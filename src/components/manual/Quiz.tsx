@@ -18,6 +18,7 @@ interface QuizQuestion {
   options: string[];
   correctIndex: number;
   explanation: string;
+  difficultyLevel?: number;
 }
 
 interface EnhancedQuizQuestion extends QuizQuestion {
@@ -25,6 +26,7 @@ interface EnhancedQuizQuestion extends QuizQuestion {
   correctIndices: number[];
   originalOptions: string[];
   difficultyModifier: string | null;
+  questionDifficultyLevel: number; // The actual difficulty level of the question
 }
 
 interface QuizProps {
@@ -42,6 +44,94 @@ function shuffleArray<T>(array: T[]): T[] {
     [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
   }
   return shuffled;
+}
+
+/**
+ * Selects questions based on user's difficulty level.
+ * At level N, questions alternate between levels N, N+1, and N+2.
+ * This creates a progressive, balanced quiz experience.
+ * 
+ * @param questions - All available questions with difficultyLevel
+ * @param userDifficulty - User's current difficulty level (1-5)
+ * @param count - Number of questions to select
+ */
+function selectQuestionsByDifficulty<T extends { difficultyLevel?: number }>(
+  questions: T[],
+  userDifficulty: number,
+  count: number
+): T[] {
+  // Determine the target difficulty levels: N, N+1, N+2 (capped at 5)
+  const targetLevels = [
+    userDifficulty,
+    Math.min(userDifficulty + 1, 5),
+    Math.min(userDifficulty + 2, 5)
+  ];
+
+  // Group questions by their difficulty level
+  const questionsByLevel: Record<number, T[]> = { 1: [], 2: [], 3: [], 4: [], 5: [] };
+  questions.forEach(q => {
+    const level = q.difficultyLevel || 1;
+    if (questionsByLevel[level]) {
+      questionsByLevel[level].push(q);
+    }
+  });
+
+  // Shuffle each group
+  Object.keys(questionsByLevel).forEach(level => {
+    questionsByLevel[Number(level)] = shuffleArray(questionsByLevel[Number(level)]);
+  });
+
+  // Calculate how many questions to take from each level
+  // Distribute evenly with slight preference for lower levels
+  const questionsPerLevel = Math.ceil(count / 3);
+  const selected: T[] = [];
+  
+  // Collect questions alternating between levels
+  let levelIndex = 0;
+  const usedIndices: Record<number, number> = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+
+  while (selected.length < count) {
+    const currentLevel = targetLevels[levelIndex % 3];
+    const levelQuestions = questionsByLevel[currentLevel];
+    const usedCount = usedIndices[currentLevel];
+
+    if (usedCount < levelQuestions.length) {
+      selected.push(levelQuestions[usedCount]);
+      usedIndices[currentLevel]++;
+    } else {
+      // If current level is exhausted, try to find questions from adjacent levels
+      const adjacentLevels = [currentLevel - 1, currentLevel + 1].filter(l => l >= 1 && l <= 5);
+      let found = false;
+      
+      for (const adjLevel of adjacentLevels) {
+        if (usedIndices[adjLevel] < questionsByLevel[adjLevel].length) {
+          selected.push(questionsByLevel[adjLevel][usedIndices[adjLevel]]);
+          usedIndices[adjLevel]++;
+          found = true;
+          break;
+        }
+      }
+      
+      // If still not found, take from any available level
+      if (!found) {
+        for (let l = 1; l <= 5; l++) {
+          if (usedIndices[l] < questionsByLevel[l].length) {
+            selected.push(questionsByLevel[l][usedIndices[l]]);
+            usedIndices[l]++;
+            break;
+          }
+        }
+      }
+    }
+    
+    levelIndex++;
+    
+    // Safety check to prevent infinite loop
+    if (levelIndex > count * 5) break;
+  }
+
+  // Final shuffle to avoid predictable ordering
+  return shuffleArray(selected);
 }
 
 const DEFAULT_PASSING_SCORE = 9;
@@ -65,16 +155,18 @@ export function Quiz({ title, questions, chapterId, questionsPerRound = QUESTION
   }>>([]);
   
   // Get translated questions if available, otherwise use passed questions
+  // Include difficultyLevel for progressive difficulty selection
   const translatedQuestions = useMemo(() => {
     if (chapterId && quizTranslations[chapterId]) {
       return quizTranslations[chapterId].map((q: TranslatedQuizQuestion) => ({
         question: q.question[language] || q.question.en,
         options: q.options[language] || q.options.en,
         correctIndex: q.correctIndex,
-        explanation: q.explanation[language] || q.explanation.en
+        explanation: q.explanation[language] || q.explanation.en,
+        difficultyLevel: q.difficultyLevel || 1
       }));
     }
-    return questions || [];
+    return (questions || []).map(q => ({ ...q, difficultyLevel: 1 }));
   }, [chapterId, language, questions]);
   
   // Use 10 questions per round (or less if not enough available)
@@ -88,22 +180,30 @@ export function Quiz({ title, questions, chapterId, questionsPerRound = QUESTION
   const [quizRound, setQuizRound] = useState(0);
   
   // Start a quiz session when questions are shuffled
+  // Uses progressive difficulty selection: at level N, questions alternate between N, N+1, N+2
   useEffect(() => {
-    const baseShuffled = shuffleArray(translatedQuestions).slice(0, actualQuestionsPerRound);
-    const enhanced = applyDifficulty(baseShuffled, config);
+    // Select questions based on user's current difficulty level
+    // This creates a balanced, progressive quiz experience
+    const selectedQuestions = selectQuestionsByDifficulty(
+      translatedQuestions,
+      difficulty,
+      actualQuestionsPerRound
+    );
+    
+    const enhanced = applyDifficulty(selectedQuestions, config);
     setShuffledQuestions(enhanced);
     
     // Reset tracking for new round
     questionsAnsweredRef.current = [];
     
     // Start session tracking for logged-in users
-    if (user && chapterId && baseShuffled.length > 0) {
-      const questionTexts = baseShuffled.map(q => q.question);
+    if (user && chapterId && selectedQuestions.length > 0) {
+      const questionTexts = selectedQuestions.map(q => q.question);
       startQuizSession(chapterId, language, questionTexts).then(id => {
         sessionIdRef.current = id;
       });
     }
-  }, [translatedQuestions, actualQuestionsPerRound, quizRound, user, chapterId, language, startQuizSession, config, applyDifficulty]);
+  }, [translatedQuestions, actualQuestionsPerRound, quizRound, user, chapterId, language, startQuizSession, config, applyDifficulty, difficulty]);
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState<number[]>([]);
@@ -613,8 +713,21 @@ export function Quiz({ title, questions, chapterId, questionsPerRound = QUESTION
         />
       </div>
 
-      {/* Question */}
-      <p className="text-lg font-medium mb-6">{question.question}</p>
+      {/* Question with difficulty indicator */}
+      <div className="flex items-start gap-2 mb-6">
+        <p className="text-lg font-medium flex-1">{question.question}</p>
+        <Badge 
+          variant="outline" 
+          className={cn(
+            "text-xs flex-shrink-0",
+            question.questionDifficultyLevel <= 2 ? "border-success/50 text-success" :
+            question.questionDifficultyLevel <= 3 ? "border-warning/50 text-warning" :
+            "border-destructive/50 text-destructive"
+          )}
+        >
+          L{question.questionDifficultyLevel}
+        </Badge>
+      </div>
 
       {/* Options */}
       <div className="space-y-3 mb-6">

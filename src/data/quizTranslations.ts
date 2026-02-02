@@ -82,6 +82,9 @@ export interface TranslatedQuizQuestion {
   options: Record<Language, string[]>;
   correctIndex: number;
   explanation: Record<Language, string>;
+  // Difficulty level 1-5: 1=easy, 2=medium, 3=hard, 4=very hard, 5=expert
+  // Questions without explicit level are auto-assigned based on position in bank
+  difficultyLevel?: 1 | 2 | 3 | 4 | 5;
 }
 
 // Type for questions with language field
@@ -194,12 +197,67 @@ function ensureTranslatedFormat(data: unknown): TranslatedQuizQuestion[] {
   return [];
 }
 
+/**
+ * Assigns difficulty levels to questions automatically based on their position.
+ * Questions in the first third get levels 1-2, middle third gets 2-3, last third gets 3-4.
+ * This creates a natural progression within each question bank.
+ */
+function assignDifficultyLevels(
+  questions: TranslatedQuizQuestion[],
+  isAdvanced: boolean = false
+): TranslatedQuizQuestion[] {
+  const totalQuestions = questions.length;
+  if (totalQuestions === 0) return questions;
+
+  return questions.map((q, index) => {
+    // If question already has a difficulty level, keep it
+    if (q.difficultyLevel) return q;
+
+    // Calculate position ratio (0 to 1)
+    const positionRatio = index / totalQuestions;
+
+    let level: 1 | 2 | 3 | 4 | 5;
+    
+    if (isAdvanced) {
+      // Advanced questions: levels 3-5
+      if (positionRatio < 0.33) {
+        level = 3;
+      } else if (positionRatio < 0.66) {
+        level = 4;
+      } else {
+        level = 5;
+      }
+    } else {
+      // Base questions: levels 1-3
+      if (positionRatio < 0.33) {
+        level = 1;
+      } else if (positionRatio < 0.66) {
+        level = 2;
+      } else {
+        level = 3;
+      }
+    }
+
+    return { ...q, difficultyLevel: level };
+  });
+}
+
 // Helper to combine base questions with advanced questions
+// Also assigns difficulty levels automatically
 function combineWithAdvanced(
   baseQuestions: TranslatedQuizQuestion[], 
   advancedQuestions: TranslatedQuizQuestion[]
 ): TranslatedQuizQuestion[] {
-  return [...baseQuestions, ...advancedQuestions];
+  const baseWithLevels = assignDifficultyLevels(baseQuestions, false);
+  const advancedWithLevels = assignDifficultyLevels(advancedQuestions, true);
+  return [...baseWithLevels, ...advancedWithLevels];
+}
+
+// For chapters without advanced questions, still assign difficulty levels
+function ensureWithDifficultyLevels(
+  questions: TranslatedQuizQuestion[]
+): TranslatedQuizQuestion[] {
+  return assignDifficultyLevels(questions, false);
 }
 
 // Map all quiz banks to chapter IDs
@@ -209,58 +267,58 @@ function combineWithAdvanced(
 export const quizTranslations: Record<string, TranslatedQuizQuestion[]> = {
   // Foundation module (2-5) - Intro has no quiz
   mindset: combineWithAdvanced(ensureTranslatedFormat(mindsetQuestions), advancedMindsetQuestions),
-  'soft-skills': ensureTranslatedFormat(softSkillsQuestions),
-  'stress-management': ensureTranslatedFormat(stressManagementQuestions),
-  workflow: ensureTranslatedFormat(workflowQuestions),
+  'soft-skills': ensureWithDifficultyLevels(ensureTranslatedFormat(softSkillsQuestions)),
+  'stress-management': ensureWithDifficultyLevels(ensureTranslatedFormat(stressManagementQuestions)),
+  workflow: ensureWithDifficultyLevels(ensureTranslatedFormat(workflowQuestions)),
   
   // Equipment module (6-12)
-  vehicle: vehicleExtendedQuestions,
+  vehicle: ensureWithDifficultyLevels(vehicleExtendedQuestions),
   loading: combineWithAdvanced(ensureTranslatedFormat(loadingQuestions), advancedLoadingQuestions),
   reefer: combineWithAdvanced(ensureTranslatedFormat(reeferQuestions), advancedReeferQuestions),
-  'express-transport': ensureTranslatedFormat(expressTransportQuestions),
-  intermodal: ensureTranslatedFormat(intermodalQuestions),
-  warehouse: ensureTranslatedFormat(warehouseQuestions),
+  'express-transport': ensureWithDifficultyLevels(ensureTranslatedFormat(expressTransportQuestions)),
+  intermodal: ensureWithDifficultyLevels(ensureTranslatedFormat(intermodalQuestions)),
+  warehouse: ensureWithDifficultyLevels(ensureTranslatedFormat(warehouseQuestions)),
   adr: combineWithAdvanced(ensureTranslatedFormat(adrQuestions), advancedADRQuestions),
   
   // Documents module (13-19)
-  documents: ensureTranslatedFormat(documentsQuestions),
+  documents: ensureWithDifficultyLevels(ensureTranslatedFormat(documentsQuestions)),
   incoterms: combineWithAdvanced(ensureTranslatedFormat(incotermsQuestions), advancedIncotermsQuestions),
-  customs: ensureTranslatedFormat(customsQuestions),
-  authorities: ensureTranslatedFormat(authoritiesQuestions),
-  compliance: ensureTranslatedFormat(complianceQuestions),
+  customs: ensureWithDifficultyLevels(ensureTranslatedFormat(customsQuestions)),
+  authorities: ensureWithDifficultyLevels(ensureTranslatedFormat(authoritiesQuestions)),
+  compliance: ensureWithDifficultyLevels(ensureTranslatedFormat(complianceQuestions)),
   'driving-time': combineWithAdvanced(ensureTranslatedFormat(drivingTimeQuestions), advancedDrivingTimeQuestions),
-  'licenses-oversize': ensureTranslatedFormat(licensesOversizeQuestions),
+  'licenses-oversize': ensureWithDifficultyLevels(ensureTranslatedFormat(licensesOversizeQuestions)),
   
   // Geography module (20-24)
-  'europe-zones': ensureTranslatedFormat(europeZonesQuestions),
-  'european-countries': ensureTranslatedFormat(europeanCountriesQuestions),
-  environment: ensureTranslatedFormat(environmentQuestions),
+  'europe-zones': ensureWithDifficultyLevels(ensureTranslatedFormat(europeZonesQuestions)),
+  'european-countries': ensureWithDifficultyLevels(ensureTranslatedFormat(europeanCountriesQuestions)),
+  environment: ensureWithDifficultyLevels(ensureTranslatedFormat(environmentQuestions)),
   sustainability: combineWithAdvanced(ensureTranslatedFormat(sustainabilityQuestions), advancedSustainabilityQuestions),
-  'supply-chain': ensureTranslatedFormat(supplyChainQuestions),
+  'supply-chain': ensureWithDifficultyLevels(ensureTranslatedFormat(supplyChainQuestions)),
   
   // Commercial module (25-33)
   pricing: combineWithAdvanced(ensureTranslatedFormat(pricingQuestions), advancedPricingQuestions),
-  commercial: ensureTranslatedFormat(commercialQuestions),
+  commercial: ensureWithDifficultyLevels(ensureTranslatedFormat(commercialQuestions)),
   negotiation: combineWithAdvanced(ensureTranslatedFormat(negotiationQuestions), advancedNegotiationQuestions),
-  clients: ensureTranslatedFormat(clientsQuestions),
+  clients: ensureWithDifficultyLevels(ensureTranslatedFormat(clientsQuestions)),
   'carrier-management': combineWithAdvanced(ensureTranslatedFormat(carrierManagementQuestions), advancedCarrierManagementQuestions),
-  exchanges: ensureTranslatedFormat(exchangesQuestions),
-  communication: ensureTranslatedFormat(communicationQuestions),
-  networking: ensureTranslatedFormat(networkingQuestions),
-  kpi: ensureTranslatedFormat(kpiQuestions),
+  exchanges: ensureWithDifficultyLevels(ensureTranslatedFormat(exchangesQuestions)),
+  communication: ensureWithDifficultyLevels(ensureTranslatedFormat(communicationQuestions)),
+  networking: ensureWithDifficultyLevels(ensureTranslatedFormat(networkingQuestions)),
+  kpi: ensureWithDifficultyLevels(ensureTranslatedFormat(kpiQuestions)),
   
   // Technology module (34-37)
-  translogica: ensureTranslatedFormat(translogicaQuestions),
+  translogica: ensureWithDifficultyLevels(ensureTranslatedFormat(translogicaQuestions)),
   fleet: combineWithAdvanced(ensureTranslatedFormat(fleetQuestions), advancedFleetQuestions),
-  technology: ensureTranslatedFormat(technologyQuestions),
-  digitalization: ensureTranslatedFormat(digitalizationQuestions),
+  technology: ensureWithDifficultyLevels(ensureTranslatedFormat(technologyQuestions)),
+  digitalization: ensureWithDifficultyLevels(ensureTranslatedFormat(digitalizationQuestions)),
   
   // Finance module (38-43)
-  'risk-management': ensureTranslatedFormat(riskManagementQuestions),
+  'risk-management': ensureWithDifficultyLevels(ensureTranslatedFormat(riskManagementQuestions)),
   insurance: combineWithAdvanced(ensureTranslatedFormat(insuranceQuestions), advancedInsuranceQuestions),
-  'high-value-goods': ensureTranslatedFormat(highValueGoodsQuestions),
+  'high-value-goods': ensureWithDifficultyLevels(ensureTranslatedFormat(highValueGoodsQuestions)),
   claims: combineWithAdvanced(ensureTranslatedFormat(claimsQuestions), advancedClaimsQuestions),
-  payment: ensureTranslatedFormat(paymentQuestions),
+  payment: ensureWithDifficultyLevels(ensureTranslatedFormat(paymentQuestions)),
   accounting: combineWithAdvanced(ensureTranslatedFormat(accountingQuestions), advancedAccountingQuestions),
   
   // Practical module (44-50)
