@@ -94,13 +94,45 @@ serve(async (req) => {
     const results: ImplementationResult[] = [];
     let implementedCount = 0;
     let failedCount = 0;
+    let skippedCount = 0;
 
     for (const rec of recommendations as Recommendation[]) {
       console.log(`\n=== Implementing: ${rec.title} (${rec.id}) ===`);
       
       try {
+        // Step 0: Validate that target chapter exists
+        const chapterValidation = await validateChapterExists(supabase, rec.target_entity);
+        
+        if (!chapterValidation.exists) {
+          // Skip this recommendation - chapter doesn't exist
+          await supabase
+            .from('ai_recommendations')
+            .update({
+              status: 'dismissed',
+              dismissed_reason: `Target chapter "${rec.target_entity}" does not exist. Matched slug: ${chapterValidation.matchedSlug || 'none'}`,
+              updated_at: new Date().toISOString()
+            })
+            .eq('id', rec.id);
+          
+          results.push({
+            id: rec.id,
+            title: rec.title,
+            success: false,
+            message: `Chapter "${rec.target_entity}" not found`,
+            action_taken: 'skipped_invalid_chapter',
+            verified: false
+          });
+          
+          skippedCount++;
+          console.warn(`⚠ Skipped: ${rec.title} - chapter does not exist`);
+          continue;
+        }
+
+        // Use the validated chapter ID for implementation
+        const validatedRec = { ...rec, target_entity: chapterValidation.chapterId };
+        
         // Step 1: Execute the actual implementation
-        const implementResult = await executeImplementation(supabase, rec, lovableApiKey);
+        const implementResult = await executeImplementation(supabase, validatedRec, lovableApiKey);
         
         // Step 2: Verify the implementation was successful
         const verificationResult = await verifyImplementation(supabase, rec, implementResult);
@@ -190,12 +222,12 @@ serve(async (req) => {
       .insert({
         job_name: 'implement-ai-recommendations',
         execution_type: implementAll ? 'batch' : 'manual',
-        status: failedCount === 0 ? 'success' : (implementedCount > 0 ? 'partial' : 'failed'),
+        status: failedCount === 0 && skippedCount === 0 ? 'success' : (implementedCount > 0 ? 'partial' : 'failed'),
         started_at: new Date().toISOString(),
         completed_at: new Date().toISOString(),
         items_processed: implementedCount,
-        items_failed: failedCount,
-        result_summary: `Implemented ${implementedCount}, Failed ${failedCount}, Remaining ${(remainingCount || 0) - recommendations.length}`,
+        items_failed: failedCount + skippedCount,
+        result_summary: `Implemented ${implementedCount}, Failed ${failedCount}, Skipped (invalid chapter) ${skippedCount}, Remaining ${(remainingCount || 0) - recommendations.length}`,
         execution_details: { results }
       });
 
@@ -203,9 +235,10 @@ serve(async (req) => {
 
     return new Response(JSON.stringify({
       success: true,
-      message: `Implemented ${implementedCount} recommendations`,
+      message: `Implemented ${implementedCount} recommendations (${skippedCount} skipped - invalid chapters)`,
       implemented: implementedCount,
       failed: failedCount,
+      skipped: skippedCount,
       remaining,
       hasMore: remaining > 0,
       results
@@ -224,6 +257,123 @@ serve(async (req) => {
     });
   }
 });
+
+// Helper function to validate chapter exists
+async function validateChapterExists(
+  supabase: any,
+  targetEntity: string
+): Promise<{ exists: boolean; chapterId: string; matchedSlug?: string }> {
+  // Normalize the target entity - replace spaces with hyphens, lowercase
+  const normalizedTarget = targetEntity.toLowerCase().replace(/\s+/g, '-');
+  
+  // First try exact match by ID
+  const { data: byId } = await supabase
+    .from('chapters')
+    .select('id, slug')
+    .eq('id', targetEntity)
+    .limit(1);
+
+  if (byId && byId.length > 0) {
+    return { exists: true, chapterId: byId[0].id, matchedSlug: byId[0].slug };
+  }
+
+  // Try match by slug (original)
+  const { data: bySlug } = await supabase
+    .from('chapters')
+    .select('id, slug')
+    .eq('slug', targetEntity)
+    .limit(1);
+
+  if (bySlug && bySlug.length > 0) {
+    return { exists: true, chapterId: bySlug[0].id, matchedSlug: bySlug[0].slug };
+  }
+
+  // Try match by normalized slug (e.g., "soft skills" -> "soft-skills")
+  if (normalizedTarget !== targetEntity) {
+    const { data: byNormalized } = await supabase
+      .from('chapters')
+      .select('id, slug')
+      .eq('slug', normalizedTarget)
+      .limit(1);
+
+    if (byNormalized && byNormalized.length > 0) {
+      console.log(`Normalized match "${targetEntity}" -> "${byNormalized[0].slug}"`);
+      return { exists: true, chapterId: byNormalized[0].id, matchedSlug: byNormalized[0].slug };
+    }
+  }
+
+  // Known mappings for composite target entities
+  const knownMappings: Record<string, string> = {
+    'training_case-studies': 'case-studies',
+    'training_glossary_checklists': 'glossary',
+    'glossary_checklists': 'glossary',
+    'emergency_red-flags_checklists': 'checklists',
+    'emergency_red-flags_glossary': 'glossary',
+    'payment_accounting_area': 'payment',
+    'pricing_negotiation_workflow': 'pricing',
+    'pricing_negotiation_commercial': 'pricing',
+    'commercial_negotiation_pricing': 'commercial',
+    'adr_customs_compliance': 'compliance',
+    'incoterms_customs_adr': 'incoterms',
+    'incoterms_oversize': 'incoterms',
+    'compliance_pricing_commercial': 'compliance',
+    'operational_block': 'workflow',
+    'operational_modules_group': 'workflow',
+    'technical_chapters_group': 'vehicle',
+    'technical_operational_modules': 'workflow',
+    'complex_topics_group': 'adr',
+    'multiple_chapters_easy': 'intro'
+  };
+
+  if (knownMappings[targetEntity]) {
+    const mappedSlug = knownMappings[targetEntity];
+    const { data: byMapped } = await supabase
+      .from('chapters')
+      .select('id, slug')
+      .eq('slug', mappedSlug)
+      .limit(1);
+
+    if (byMapped && byMapped.length > 0) {
+      console.log(`Known mapping "${targetEntity}" -> "${byMapped[0].slug}"`);
+      return { exists: true, chapterId: byMapped[0].id, matchedSlug: byMapped[0].slug };
+    }
+  }
+
+  // Try fuzzy match - extract potential chapter slug from composite target
+  // e.g., "training_case-studies" -> try "case-studies", "training"
+  const parts = targetEntity.split(/[_\s]+/).filter(p => p.length > 3);
+  
+  // Sort parts by length descending - longer parts are more specific
+  parts.sort((a, b) => b.length - a.length);
+  
+  for (const part of parts) {
+    // First try exact slug match on the part
+    const { data: exactPart } = await supabase
+      .from('chapters')
+      .select('id, slug')
+      .eq('slug', part)
+      .limit(1);
+
+    if (exactPart && exactPart.length > 0) {
+      console.log(`Exact part match "${targetEntity}" -> "${exactPart[0].slug}"`);
+      return { exists: true, chapterId: exactPart[0].id, matchedSlug: exactPart[0].slug };
+    }
+    
+    // Then try fuzzy
+    const { data: fuzzyMatch } = await supabase
+      .from('chapters')
+      .select('id, slug')
+      .ilike('slug', `%${part}%`)
+      .limit(1);
+
+    if (fuzzyMatch && fuzzyMatch.length > 0) {
+      console.log(`Fuzzy matched "${targetEntity}" -> "${fuzzyMatch[0].slug}"`);
+      return { exists: true, chapterId: fuzzyMatch[0].id, matchedSlug: fuzzyMatch[0].slug };
+    }
+  }
+
+  return { exists: false, chapterId: '', matchedSlug: undefined };
+}
 
 async function executeImplementation(
   supabase: any,
