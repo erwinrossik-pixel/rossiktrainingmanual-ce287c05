@@ -168,6 +168,7 @@ export function useQuizDifficulty(chapterId?: string) {
       options: string[];
       correctIndex: number;
       explanation: string;
+      difficultyLevel?: number;
     }>,
     config: DifficultyConfig
   ) => {
@@ -177,7 +178,8 @@ export function useQuizDifficulty(chapterId?: string) {
         isMultiCorrect: false,
         correctIndices: [q.correctIndex],
         originalOptions: q.options,
-        difficultyModifier: null as string | null
+        difficultyModifier: null as string | null,
+        questionDifficultyLevel: q.difficultyLevel || 1
       }));
     }
 
@@ -210,7 +212,8 @@ export function useQuizDifficulty(chapterId?: string) {
           isMultiCorrect: false,
           correctIndices: [newCorrectIndex],
           originalOptions: q.options,
-          difficultyModifier: 'two_options'
+          difficultyModifier: 'two_options',
+          questionDifficultyLevel: q.difficultyLevel || 1
         };
       }
 
@@ -221,7 +224,8 @@ export function useQuizDifficulty(chapterId?: string) {
         isMultiCorrect: false,
         correctIndices: [q.correctIndex],
         originalOptions: q.options,
-        difficultyModifier: null as string | null
+        difficultyModifier: null as string | null,
+        questionDifficultyLevel: q.difficultyLevel || 1
       };
     });
   }, []);
