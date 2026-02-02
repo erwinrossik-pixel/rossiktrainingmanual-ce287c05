@@ -564,12 +564,58 @@ export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
                           </div>
                         )}
                         
-                        <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                        <div className="flex items-center gap-4 text-xs text-muted-foreground flex-wrap">
                           <span>{t('admin.ai.target')}: {rec.target_entity}</span>
-                          <span>
-                            {new Date(rec.created_at).toLocaleDateString('ro-RO')}
+                          <span className="flex items-center gap-1">
+                            <Clock className="h-3 w-3" />
+                            {t('admin.ai.created')}: {new Date(rec.created_at).toLocaleString('ro-RO', { 
+                              day: '2-digit', 
+                              month: '2-digit', 
+                              year: 'numeric',
+                              hour: '2-digit',
+                              minute: '2-digit'
+                            })}
                           </span>
+                          {rec.applied_at && (
+                            <span className="flex items-center gap-1 text-success font-medium">
+                              <CheckCircle2 className="h-3 w-3" />
+                              {t('admin.ai.implementedAt')}: {new Date(rec.applied_at).toLocaleString('ro-RO', { 
+                                day: '2-digit', 
+                                month: '2-digit', 
+                                year: 'numeric',
+                                hour: '2-digit',
+                                minute: '2-digit'
+                              })}
+                            </span>
+                          )}
                         </div>
+
+                        {/* Status Timeline */}
+                        {(rec.status === 'completed' || rec.status === 'applied') && rec.applied_at && (
+                          <div className="mt-2 p-2 bg-success/10 rounded-md border border-success/20">
+                            <div className="flex items-center gap-2 text-xs">
+                              <Sparkles className="h-3 w-3 text-success" />
+                              <span className="font-medium text-success">
+                                {rec.status === 'completed' ? t('admin.ai.fullyImplemented') : t('admin.ai.awaitingVerification')}
+                              </span>
+                              <span className="text-muted-foreground">•</span>
+                              <span className="text-muted-foreground">
+                                {(() => {
+                                  const appliedDate = new Date(rec.applied_at);
+                                  const now = new Date();
+                                  const diffMs = now.getTime() - appliedDate.getTime();
+                                  const diffMins = Math.floor(diffMs / 60000);
+                                  const diffHours = Math.floor(diffMs / 3600000);
+                                  const diffDays = Math.floor(diffMs / 86400000);
+                                  
+                                  if (diffMins < 60) return `${diffMins} ${t('admin.ai.minutesAgo')}`;
+                                  if (diffHours < 24) return `${diffHours} ${t('admin.ai.hoursAgo')}`;
+                                  return `${diffDays} ${t('admin.ai.daysAgo')}`;
+                                })()}
+                              </span>
+                            </div>
+                          </div>
+                        )}
 
                         {rec.dismissed_reason && (
                           <p className="text-sm text-orange-600 mt-2">
