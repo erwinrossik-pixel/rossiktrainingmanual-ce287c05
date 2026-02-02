@@ -60,14 +60,15 @@ export function DocumentsChapter() {
           <CheckCircle className="w-6 h-6 text-primary" />
           {ct('cmrFieldsCheck')}
         </h2>
+        {/* CMR Documents Image - centered and visible */}
+        <ChapterImage
+          src={documentsImg}
+          alt="CMR consignment note showing essential transport documentation"
+          variant="inline"
+          className="my-6"
+        />
+        
         <div className="bg-card border border-border rounded-xl p-6">
-          {/* CMR Documents Image - contextual within fields section */}
-          <ChapterImage
-            src={documentsImg}
-            alt="CMR consignment note showing essential transport documentation"
-            variant="float-right"
-            className="mb-4"
-          />
           <div className="overflow-x-auto">
             <table className="w-full border-collapse">
               <thead>
@@ -273,12 +274,12 @@ export function DocumentsChapter() {
           </div>
         </div>
         
-        {/* CMR Verification Image - contextual after export/import documents */}
+        {/* CMR Verification Image - centered and visible */}
         <ChapterImage
           src={cmrVerificationImg}
           alt="CMR consignment note document verification process"
-          variant="float-right"
-          className="mt-4"
+          variant="inline"
+          className="my-6"
         />
       </section>
 

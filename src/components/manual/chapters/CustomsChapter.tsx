@@ -87,11 +87,12 @@ export function CustomsChapter() {
           ]}
         />
         
+        {/* Customs Process Flow Image - centered and visible */}
         <ChapterImage
           src={customsProcessFlowImg}
           alt="European customs clearance process flow diagram"
-          variant="float-right"
-          className="mt-4"
+          variant="inline"
+          className="my-6"
         />
       </section>
 
@@ -205,12 +206,12 @@ export function CustomsChapter() {
           </div>
         </div>
         
-        {/* Border Checkpoint Image - contextual after UK Post-Brexit section */}
+        {/* Border Checkpoint Image - centered and visible */}
         <ChapterImage
           src={customsBorderImg}
           alt="EU-UK border checkpoint with customs officers inspecting documents"
-          variant="float-right"
-          className="mt-4"
+          variant="inline"
+          className="my-6"
         />
       </section>
 
