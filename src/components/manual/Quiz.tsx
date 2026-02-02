@@ -163,23 +163,9 @@ export function Quiz({ title, questions, chapterId, questionsPerRound = QUESTION
   const handleAnswer = (index: number) => {
     if (!question || answeredQuestions[currentQuestion]) return;
     
-    if (question.isMultiCorrect) {
-      // Multi-select mode
-      setSelectedAnswers(prev => {
-        if (prev.includes(index)) {
-          return prev.filter(i => i !== index);
-        }
-        // Max 2 selections for multi-correct
-        if (prev.length >= 2) {
-          return [...prev.slice(1), index];
-        }
-        return [...prev, index];
-      });
-    } else {
-      // Single select mode - submit immediately
-      setSelectedAnswers([index]);
-      submitAnswer([index]);
-    }
+    // Single select mode - submit immediately
+    setSelectedAnswers([index]);
+    submitAnswer([index]);
   };
 
   const submitAnswer = (answers: number[]) => {
@@ -191,17 +177,7 @@ export function Quiz({ title, questions, chapterId, questionsPerRound = QUESTION
     newAnswered[currentQuestion] = true;
     setAnsweredQuestions(newAnswered);
     
-    let isCorrect = false;
-    
-    if (question.isMultiCorrect) {
-      // Check if selected answers match all correct indices
-      const sortedSelected = [...answers].sort((a, b) => a - b);
-      const sortedCorrect = [...question.correctIndices].sort((a, b) => a - b);
-      isCorrect = sortedSelected.length === sortedCorrect.length &&
-        sortedSelected.every((val, idx) => val === sortedCorrect[idx]);
-    } else {
-      isCorrect = answers[0] === question.correctIndex;
-    }
+    const isCorrect = answers[0] === question.correctIndex;
     
     // Track answer for analytics
     questionsAnsweredRef.current.push({
@@ -215,12 +191,8 @@ export function Quiz({ title, questions, chapterId, questionsPerRound = QUESTION
       setScore(prev => prev + 1);
     } else {
       // Track wrong answer for UI display
-      const userAnswerText = question.isMultiCorrect
-        ? answers.map(i => question.options[i]).join(', ')
-        : question.options[answers[0]];
-      const correctAnswerText = question.isMultiCorrect
-        ? question.correctIndices.map(i => question.options[i]).join(', ')
-        : question.options[question.correctIndex];
+      const userAnswerText = question.options[answers[0]];
+      const correctAnswerText = question.options[question.correctIndex];
       
       setWrongAnswers(prev => [...prev, {
         question: question.question,
@@ -229,12 +201,6 @@ export function Quiz({ title, questions, chapterId, questionsPerRound = QUESTION
         explanation: question.explanation,
         questionIndex: currentQuestion + 1
       }]);
-    }
-  };
-
-  const handleSubmitMultiCorrect = () => {
-    if (question?.isMultiCorrect && selectedAnswers.length > 0) {
-      submitAnswer(selectedAnswers);
     }
   };
 
@@ -396,8 +362,6 @@ export function Quiz({ title, questions, chapterId, questionsPerRound = QUESTION
     allCorrect: language === 'ro' ? 'Felicitări! Ai răspuns corect la toate întrebările!' : language === 'de' ? 'Herzlichen Glückwunsch! Du hast alle Fragen richtig beantwortet!' : 'Congratulations! You answered all questions correctly!',
     bookmark: language === 'ro' ? 'Salvează întrebarea' : language === 'de' ? 'Frage speichern' : 'Bookmark question',
     bookmarked: language === 'ro' ? 'Întrebare salvată' : language === 'de' ? 'Frage gespeichert' : 'Question bookmarked',
-    selectMultiple: language === 'ro' ? 'Selectează 2 răspunsuri corecte' : language === 'de' ? 'Wähle 2 richtige Antworten' : 'Select 2 correct answers',
-    submitAnswers: language === 'ro' ? 'Trimite Răspunsurile' : language === 'de' ? 'Antworten Senden' : 'Submit Answers',
     difficultyLevel: language === 'ro' ? 'Nivel Dificultate' : language === 'de' ? 'Schwierigkeitsgrad' : 'Difficulty Level',
     resetCount: language === 'ro' ? 'Resetări' : language === 'de' ? 'Resets' : 'Resets'
   };
@@ -581,13 +545,9 @@ export function Quiz({ title, questions, chapterId, questionsPerRound = QUESTION
     );
   }
 
-  // Check if current answer is correct for multi-correct
-  const checkMultiCorrectAnswer = () => {
-    if (!question?.isMultiCorrect) return false;
-    const sortedSelected = [...selectedAnswers].sort((a, b) => a - b);
-    const sortedCorrect = [...question.correctIndices].sort((a, b) => a - b);
-    return sortedSelected.length === sortedCorrect.length &&
-      sortedSelected.every((val, idx) => val === sortedCorrect[idx]);
+  // Simple check if answer is correct
+  const isAnswerCorrect = () => {
+    return selectedAnswers[0] === question.correctIndex;
   };
 
   return (
@@ -612,11 +572,15 @@ export function Quiz({ title, questions, chapterId, questionsPerRound = QUESTION
         {labels.passingRequirement}
       </div>
 
-      {/* Multi-correct indicator */}
-      {question.isMultiCorrect && (
-        <div className="mb-4 p-3 bg-primary/10 border border-primary/20 rounded-lg flex items-center gap-2">
-          <AlertTriangle className="w-4 h-4 text-primary" />
-          <span className="text-sm font-medium text-primary">{labels.selectMultiple}</span>
+      {/* Two-option question indicator (for higher difficulty) */}
+      {question.difficultyModifier === 'two_options' && (
+        <div className="mb-4 p-3 bg-warning/10 border border-warning/20 rounded-lg flex items-center gap-2">
+          <AlertTriangle className="w-4 h-4 text-warning" />
+          <span className="text-sm font-medium text-warning">
+            {language === 'ro' ? 'Întrebare cu 2 opțiuni - Gândește cu atenție!' 
+              : language === 'de' ? '2-Optionen-Frage - Denke sorgfältig nach!' 
+              : '2-option question - Think carefully!'}
+          </span>
         </div>
       )}
 
@@ -656,9 +620,7 @@ export function Quiz({ title, questions, chapterId, questionsPerRound = QUESTION
       <div className="space-y-3 mb-6">
         {question.options.map((option, index) => {
           const isSelected = selectedAnswers.includes(index);
-          const isCorrect = question.isMultiCorrect 
-            ? question.correctIndices.includes(index)
-            : index === question.correctIndex;
+          const isCorrect = index === question.correctIndex;
           const showCorrectness = showResult;
 
           return (
@@ -692,35 +654,22 @@ export function Quiz({ title, questions, chapterId, questionsPerRound = QUESTION
                 )}
               </span>
               <span className="flex-1">{option}</span>
-              {question.isMultiCorrect && isSelected && !showCorrectness && (
-                <CheckCircle2 className="w-5 h-5 text-primary" />
-              )}
             </button>
           );
         })}
       </div>
 
-      {/* Submit button for multi-correct questions */}
-      {question.isMultiCorrect && !showResult && selectedAnswers.length > 0 && (
-        <Button
-          onClick={handleSubmitMultiCorrect}
-          className="w-full mb-4"
-          disabled={selectedAnswers.length < 2}
-        >
-          {labels.submitAnswers} ({selectedAnswers.length}/2)
-        </Button>
-      )}
 
       {/* Feedback */}
       {showResult && (
         <div className={cn(
           "p-4 rounded-xl mb-6 animate-fade-in",
-          (question.isMultiCorrect ? checkMultiCorrectAnswer() : selectedAnswers[0] === question.correctIndex)
+          isAnswerCorrect()
             ? "bg-success/10 border border-success/20" 
             : "bg-destructive/10 border border-destructive/20"
         )}>
           <div className="flex items-start gap-3">
-            {(question.isMultiCorrect ? checkMultiCorrectAnswer() : selectedAnswers[0] === question.correctIndex) ? (
+            {isAnswerCorrect() ? (
               <CheckCircle2 className="w-5 h-5 text-success flex-shrink-0 mt-0.5" />
             ) : (
               <XCircle className="w-5 h-5 text-destructive flex-shrink-0 mt-0.5" />
@@ -728,13 +677,9 @@ export function Quiz({ title, questions, chapterId, questionsPerRound = QUESTION
             <div className="flex-1">
               <p className={cn(
                 "font-medium mb-1",
-                (question.isMultiCorrect ? checkMultiCorrectAnswer() : selectedAnswers[0] === question.correctIndex)
-                  ? "text-success" 
-                  : "text-destructive"
+                isAnswerCorrect() ? "text-success" : "text-destructive"
               )}>
-                {(question.isMultiCorrect ? checkMultiCorrectAnswer() : selectedAnswers[0] === question.correctIndex)
-                  ? labels.correct 
-                  : labels.incorrect}
+                {isAnswerCorrect() ? labels.correct : labels.incorrect}
               </p>
               <p className="text-sm text-muted-foreground">{question.explanation}</p>
             </div>
