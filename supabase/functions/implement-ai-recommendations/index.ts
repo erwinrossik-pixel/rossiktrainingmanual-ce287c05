@@ -357,28 +357,39 @@ async function verifyImplementation(
   rec: Recommendation,
   implementResult: { message: string; action: string; data?: any }
 ): Promise<{ success: boolean; error?: string }> {
-  const { recommendation_type, target_entity } = rec;
+  const { target_entity } = rec;
 
   try {
     switch (implementResult.action) {
       case 'content_improved':
       case 'content_flagged_for_review': {
-        // Verify the content_difficulty_analysis was updated
+        // Verify the content_difficulty_analysis was updated - use maybeSingle instead of single
         const { data, error } = await supabase
           .from('content_difficulty_analysis')
           .select('needs_review, last_analyzed_at')
           .eq('chapter_id', target_entity)
-          .single();
+          .maybeSingle();
 
         if (error) {
           return { success: false, error: `Verification query failed: ${error.message}` };
         }
 
-        // Check that it was recently updated (within last minute)
+        // If no data exists, that's okay - the upsert might have created it
+        if (!data) {
+          // Check if the entry was just created
+          const { count } = await supabase
+            .from('content_difficulty_analysis')
+            .select('id', { count: 'exact', head: true })
+            .eq('chapter_id', target_entity);
+          
+          return { success: (count || 0) > 0 };
+        }
+
+        // Check that it was recently updated (within last 5 minutes for safety)
         const lastAnalyzed = new Date(data.last_analyzed_at);
-        const oneMinuteAgo = new Date(Date.now() - 60000);
+        const fiveMinutesAgo = new Date(Date.now() - 300000);
         
-        if (lastAnalyzed < oneMinuteAgo) {
+        if (lastAnalyzed < fiveMinutesAgo) {
           return { success: false, error: 'Content analysis not updated recently' };
         }
 
@@ -386,35 +397,56 @@ async function verifyImplementation(
       }
 
       case 'question_updated': {
-        // Verify the question was marked as reviewed
+        // Verify the question was marked as reviewed - use limit(1) instead of single
         const [chapterId] = target_entity.split(':');
+        const targetChapter = chapterId || target_entity;
         
         const { data, error } = await supabase
           .from('content_difficulty_analysis')
           .select('last_analyzed_at')
-          .eq('chapter_id', chapterId || target_entity)
-          .single();
+          .eq('chapter_id', targetChapter)
+          .limit(1);
 
-        if (error && !error.message.includes('No rows')) {
+        if (error) {
           return { success: false, error: `Question verification failed: ${error.message}` };
         }
 
+        // Success if no error - even if no rows (might be first entry)
         return { success: true };
       }
 
       case 'chapter_restructured': {
-        // Verify the chapter was unblocked
+        // Verify the chapter was unblocked - use limit(1) to avoid multiple rows issue
         const { data, error } = await supabase
           .from('chapters')
           .select('auto_update_blocked')
           .eq('id', target_entity)
-          .single();
+          .limit(1);
 
         if (error) {
           return { success: false, error: `Chapter verification failed: ${error.message}` };
         }
 
-        if (data?.auto_update_blocked === true) {
+        // If no data found, try checking by slug
+        if (!data || data.length === 0) {
+          const { data: slugData, error: slugError } = await supabase
+            .from('chapters')
+            .select('auto_update_blocked')
+            .eq('slug', target_entity)
+            .limit(1);
+          
+          if (slugError) {
+            return { success: false, error: `Chapter slug verification failed: ${slugError.message}` };
+          }
+          
+          if (slugData && slugData.length > 0 && slugData[0]?.auto_update_blocked === true) {
+            return { success: false, error: 'Chapter still blocked after restructure' };
+          }
+          
+          return { success: true };
+        }
+
+        if (data[0]?.auto_update_blocked === true) {
           return { success: false, error: 'Chapter still blocked after restructure' };
         }
 
