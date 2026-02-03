@@ -25,3 +25,7 @@ export { europeanCountriesComprehensiveQuestions } from './europeanCountriesComp
 export { environmentComprehensiveQuestions } from './environmentComprehensiveQuestions';
 export { sustainabilityComprehensiveQuestions } from './sustainabilityComprehensiveQuestions';
 export { supplyChainComprehensiveQuestions } from './supplyChainComprehensiveQuestions';
+export { commercialComprehensiveQuestions } from './commercialComprehensiveQuestions';
+export { negotiationComprehensiveQuestions } from './negotiationComprehensiveQuestions';
+export { clientsComprehensiveQuestions } from './clientsComprehensiveQuestions';
+export { carrierManagementComprehensiveQuestions } from './carrierManagementComprehensiveQuestions';
