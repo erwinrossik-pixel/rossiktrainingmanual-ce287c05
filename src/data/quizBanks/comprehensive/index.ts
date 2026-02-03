@@ -29,3 +29,7 @@ export { commercialComprehensiveQuestions } from './commercialComprehensiveQuest
 export { negotiationComprehensiveQuestions } from './negotiationComprehensiveQuestions';
 export { clientsComprehensiveQuestions } from './clientsComprehensiveQuestions';
 export { carrierManagementComprehensiveQuestions } from './carrierManagementComprehensiveQuestions';
+export { exchangesComprehensiveQuestions } from './exchangesComprehensiveQuestions';
+export { communicationComprehensiveQuestions } from './communicationComprehensiveQuestions';
+export { networkingComprehensiveQuestions } from './networkingComprehensiveQuestions';
+export { kpiComprehensiveQuestions } from './kpiComprehensiveQuestions';
