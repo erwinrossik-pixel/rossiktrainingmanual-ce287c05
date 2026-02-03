@@ -3,7 +3,6 @@ import { TranslatedQuizQuestion } from "@/data/quizTranslations";
 export const incotermsComprehensiveQuestions: TranslatedQuizQuestion[] = [
   // Level 3 Questions (10)
   {
-    id: "incoterms_comp_1",
     difficultyLevel: 3,
     question: {
       ro: "Ce sunt Incoterms și cine le publică?",
@@ -23,7 +22,6 @@ export const incotermsComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
-    id: "incoterms_comp_2",
     difficultyLevel: 3,
     question: {
       ro: "Care este cea mai recentă versiune a Incoterms și câți termeni conține?",
@@ -43,7 +41,6 @@ export const incotermsComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
-    id: "incoterms_comp_3",
     difficultyLevel: 3,
     question: {
       ro: "Ce înseamnă EXW (Ex Works)?",
@@ -63,7 +60,6 @@ export const incotermsComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
-    id: "incoterms_comp_4",
     difficultyLevel: 3,
     question: {
       ro: "Ce înseamnă DAP (Delivered at Place)?",
@@ -83,7 +79,6 @@ export const incotermsComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
-    id: "incoterms_comp_5",
     difficultyLevel: 3,
     question: {
       ro: "Ce înseamnă DDP (Delivered Duty Paid)?",
@@ -103,7 +98,6 @@ export const incotermsComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
-    id: "incoterms_comp_6",
     difficultyLevel: 3,
     question: {
       ro: "Care Incoterms sunt exclusiv pentru transport maritim?",
@@ -123,7 +117,6 @@ export const incotermsComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
-    id: "incoterms_comp_7",
     difficultyLevel: 3,
     question: {
       ro: "Ce înseamnă FOB (Free On Board)?",
@@ -143,7 +136,6 @@ export const incotermsComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
-    id: "incoterms_comp_8",
     difficultyLevel: 3,
     question: {
       ro: "Ce înseamnă FCA (Free Carrier)?",
@@ -163,7 +155,6 @@ export const incotermsComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
-    id: "incoterms_comp_9",
     difficultyLevel: 3,
     question: {
       ro: "Ce diferențiază CIF de CFR?",
@@ -183,7 +174,6 @@ export const incotermsComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
-    id: "incoterms_comp_10",
     difficultyLevel: 3,
     question: {
       ro: "Ce este DPU (Delivered at Place Unloaded)?",
@@ -205,7 +195,6 @@ export const incotermsComprehensiveQuestions: TranslatedQuizQuestion[] = [
   
   // Level 4 Questions (10)
   {
-    id: "incoterms_comp_11",
     difficultyLevel: 4,
     question: {
       ro: "Cum afectează alegerea Incoterm costul total al mărfii pentru cumpărător?",
@@ -225,7 +214,6 @@ export const incotermsComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
-    id: "incoterms_comp_12",
     difficultyLevel: 4,
     question: {
       ro: "De ce FOB nu e recomandat pentru transport containerizat?",
@@ -245,7 +233,6 @@ export const incotermsComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
-    id: "incoterms_comp_13",
     difficultyLevel: 4,
     question: {
       ro: "Care sunt riscurile pentru vânzător când acceptă DDP pentru export în țări cu proceduri vamale complexe?",
@@ -265,7 +252,6 @@ export const incotermsComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
-    id: "incoterms_comp_14",
     difficultyLevel: 4,
     question: {
       ro: "Cum afectează alegerea Incoterm obligațiile de asigurare?",
@@ -285,7 +271,6 @@ export const incotermsComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
-    id: "incoterms_comp_15",
     difficultyLevel: 4,
     question: {
       ro: "Care este diferența între CPT și CIP?",
@@ -305,7 +290,6 @@ export const incotermsComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
-    id: "incoterms_comp_16",
     difficultyLevel: 4,
     question: {
       ro: "Cum se aplică Incoterms în contractele de vânzare interne (nu internaționale)?",
@@ -325,7 +309,6 @@ export const incotermsComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
-    id: "incoterms_comp_17",
     difficultyLevel: 4,
     question: {
       ro: "Care sunt modificările principale în Incoterms 2020 față de 2010?",
@@ -345,7 +328,6 @@ export const incotermsComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
-    id: "incoterms_comp_18",
     difficultyLevel: 4,
     question: {
       ro: "Când e mai avantajos pentru cumpărător să aleagă EXW vs FCA?",
@@ -365,7 +347,6 @@ export const incotermsComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
-    id: "incoterms_comp_19",
     difficultyLevel: 4,
     question: {
       ro: "Cum afectează Incoterms determinarea momentului transferului de proprietate?",
@@ -385,7 +366,6 @@ export const incotermsComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
-    id: "incoterms_comp_20",
     difficultyLevel: 4,
     question: {
       ro: "Ce trebuie specificat în contract pe lângă termenul Incoterm?",
@@ -407,7 +387,6 @@ export const incotermsComprehensiveQuestions: TranslatedQuizQuestion[] = [
   
   // Level 5 Questions (10)
   {
-    id: "incoterms_comp_21",
     difficultyLevel: 5,
     question: {
       ro: "Scenariu: Client din SUA vrea să cumpere cu DDP din România. Care sunt riscurile pentru exportatorul român?",
@@ -427,7 +406,6 @@ export const incotermsComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
-    id: "incoterms_comp_22",
     difficultyLevel: 5,
     question: {
       ro: "Cum negociezi modificări la termenii Incoterms standard în contracte complexe?",
@@ -447,7 +425,6 @@ export const incotermsComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
-    id: "incoterms_comp_23",
     difficultyLevel: 5,
     question: {
       ro: "Care sunt implicațiile TVA/fiscale ale diferitelor Incoterms în tranzacții intra-UE vs extra-UE?",
@@ -467,7 +444,6 @@ export const incotermsComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
-    id: "incoterms_comp_24",
     difficultyLevel: 5,
     question: {
       ro: "Cum gestionezi o situație unde Incoterm-ul contractual nu mai corespunde realității operaționale?",
@@ -487,7 +463,6 @@ export const incotermsComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
-    id: "incoterms_comp_25",
     difficultyLevel: 5,
     question: {
       ro: "Care sunt considerentele pentru alegerea Incoterm în lanțuri de aprovizionare cu multiple puncte de origine?",
@@ -507,7 +482,6 @@ export const incotermsComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
-    id: "incoterms_comp_26",
     difficultyLevel: 5,
     question: {
       ro: "Cum afectează Letter of Credit (L/C) alegerea și aplicarea Incoterms?",
@@ -527,7 +501,6 @@ export const incotermsComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
-    id: "incoterms_comp_27",
     difficultyLevel: 5,
     question: {
       ro: "Scenariu: Marfă FOB deteriorată în timpul încărcării pe navă (moment ambiguu al trecerii riscului). Cine e responsabil?",
@@ -547,7 +520,6 @@ export const incotermsComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
-    id: "incoterms_comp_28",
     difficultyLevel: 5,
     question: {
       ro: "Cum integrezi cerințele de sustenabilitate/ESG în alegerea Incoterms?",
@@ -567,7 +539,6 @@ export const incotermsComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
-    id: "incoterms_comp_29",
     difficultyLevel: 5,
     question: {
       ro: "Care sunt implicațiile Incoterms pentru vânzarea de bunuri digitale sau servicii?",
@@ -587,7 +558,6 @@ export const incotermsComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
-    id: "incoterms_comp_30",
     difficultyLevel: 5,
     question: {
       ro: "Scenariu strategic: Negociezi un contract de aprovizionare pe 3 ani cu furnizor din Asia. Cum alegi și structurezi Incoterms?",
