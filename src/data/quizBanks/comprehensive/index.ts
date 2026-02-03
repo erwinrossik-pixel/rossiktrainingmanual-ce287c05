@@ -17,3 +17,7 @@ export { intermodalComprehensiveQuestions } from './intermodalComprehensiveQuest
 export { warehouseComprehensiveQuestions } from './warehouseComprehensiveQuestions';
 export { adrComprehensiveQuestions } from './adrComprehensiveQuestions';
 export { documentsComprehensiveQuestions } from './documentsComprehensiveQuestions';
+export { authoritiesComprehensiveQuestions } from './authoritiesComprehensiveQuestions';
+export { complianceComprehensiveQuestions } from './complianceComprehensiveQuestions';
+export { licensesOversizeComprehensiveQuestions } from './licensesOversizeComprehensiveQuestions';
+export { europeZonesComprehensiveQuestions } from './europeZonesComprehensiveQuestions';
