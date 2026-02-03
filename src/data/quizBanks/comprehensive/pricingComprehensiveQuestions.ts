@@ -3,7 +3,6 @@ import { TranslatedQuizQuestion } from "@/data/quizTranslations";
 export const pricingComprehensiveQuestions: TranslatedQuizQuestion[] = [
   // Level 3 Questions (10)
   {
-    id: "pricing_comp_1",
     difficultyLevel: 3,
     question: {
       ro: "Care sunt componentele principale ale unui preț de transport rutier?",
@@ -23,7 +22,6 @@ export const pricingComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
-    id: "pricing_comp_2",
     difficultyLevel: 3,
     question: {
       ro: "Ce înseamnă 'spot rate' în transportul de marfă?",
@@ -43,7 +41,6 @@ export const pricingComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
-    id: "pricing_comp_3",
     difficultyLevel: 3,
     question: {
       ro: "Ce este 'fuel surcharge' (suprataxă combustibil) și cum funcționează?",
@@ -63,7 +60,6 @@ export const pricingComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
-    id: "pricing_comp_4",
     difficultyLevel: 3,
     question: {
       ro: "Ce înseamnă 'FTL' și 'LTL' în tarifare?",
@@ -83,7 +79,6 @@ export const pricingComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
-    id: "pricing_comp_5",
     difficultyLevel: 3,
     question: {
       ro: "Ce este 'metrul liniar' (loading meter) și cum se calculează?",
@@ -103,7 +98,6 @@ export const pricingComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
-    id: "pricing_comp_6",
     difficultyLevel: 3,
     question: {
       ro: "Ce este 'greutatea taxabilă' (chargeable weight)?",
@@ -123,7 +117,6 @@ export const pricingComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
-    id: "pricing_comp_7",
     difficultyLevel: 3,
     question: {
       ro: "Ce sunt 'accessorial charges' (costuri suplimentare)?",
@@ -143,7 +136,6 @@ export const pricingComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
-    id: "pricing_comp_8",
     difficultyLevel: 3,
     question: {
       ro: "Ce este 'demurrage' în transport?",
@@ -163,7 +155,6 @@ export const pricingComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
-    id: "pricing_comp_9",
     difficultyLevel: 3,
     question: {
       ro: "Ce factori influențează prețul unui transport internațional?",
@@ -183,7 +174,6 @@ export const pricingComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
-    id: "pricing_comp_10",
     difficultyLevel: 3,
     question: {
       ro: "Ce este un contract de tarifare pe termen lung și ce avantaje oferă?",
@@ -205,7 +195,6 @@ export const pricingComprehensiveQuestions: TranslatedQuizQuestion[] = [
   
   // Level 4 Questions (10)
   {
-    id: "pricing_comp_11",
     difficultyLevel: 4,
     question: {
       ro: "Cum calculezi profitabilitatea unei curse de transport?",
@@ -225,7 +214,6 @@ export const pricingComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
-    id: "pricing_comp_12",
     difficultyLevel: 4,
     question: {
       ro: "Cum influențează cererea și oferta sezoniera prețurile de transport?",
@@ -245,7 +233,6 @@ export const pricingComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
-    id: "pricing_comp_13",
     difficultyLevel: 4,
     question: {
       ro: "Cum structurezi o ofertă de preț pentru un client nou cu volume regulate?",
@@ -265,7 +252,6 @@ export const pricingComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
-    id: "pricing_comp_14",
     difficultyLevel: 4,
     question: {
       ro: "Ce este 'lane pricing' și cum diferă de tarifarea generală?",
@@ -285,7 +271,6 @@ export const pricingComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
-    id: "pricing_comp_15",
     difficultyLevel: 4,
     question: {
       ro: "Cum gestionezi o cerere de reducere de preț de la un client important?",
@@ -305,7 +290,6 @@ export const pricingComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
-    id: "pricing_comp_16",
     difficultyLevel: 4,
     question: {
       ro: "Cum calculezi impactul curselor de retur goale asupra profitabilității?",
@@ -325,7 +309,6 @@ export const pricingComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
-    id: "pricing_comp_17",
     difficultyLevel: 4,
     question: {
       ro: "Care sunt metodele de stabilire a prețului pentru transport frigorific vs standard?",
@@ -345,7 +328,6 @@ export const pricingComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
-    id: "pricing_comp_18",
     difficultyLevel: 4,
     question: {
       ro: "Cum influențează digitalizarea și platformele de freight prețurile din piață?",
@@ -365,7 +347,6 @@ export const pricingComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
-    id: "pricing_comp_19",
     difficultyLevel: 4,
     question: {
       ro: "Ce este 'dead freight' și când se aplică?",
@@ -385,7 +366,6 @@ export const pricingComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
-    id: "pricing_comp_20",
     difficultyLevel: 4,
     question: {
       ro: "Cum gestionezi tarifarea pentru transport de mărfuri periculoase (ADR)?",
@@ -407,7 +387,6 @@ export const pricingComprehensiveQuestions: TranslatedQuizQuestion[] = [
   
   // Level 5 Questions (10)
   {
-    id: "pricing_comp_21",
     difficultyLevel: 5,
     question: {
       ro: "Scenariu: Client solicită tarif fix pe 1 an pentru 200 curse/lună Germania-România. Cum structurezi oferta?",
@@ -427,7 +406,6 @@ export const pricingComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
-    id: "pricing_comp_22",
     difficultyLevel: 5,
     question: {
       ro: "Cum calculezi 'break-even' pentru o relație de transport nouă?",
@@ -447,7 +425,6 @@ export const pricingComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
-    id: "pricing_comp_23",
     difficultyLevel: 5,
     question: {
       ro: "Care sunt strategiile de pricing pentru a crește utilizarea în perioadele de cerere scăzută?",
@@ -467,7 +444,6 @@ export const pricingComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
-    id: "pricing_comp_24",
     difficultyLevel: 5,
     question: {
       ro: "Cum negociezi tarifele cu subcontractorii pentru a menține marja proprie?",
@@ -487,7 +463,6 @@ export const pricingComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
-    id: "pricing_comp_25",
     difficultyLevel: 5,
     question: {
       ro: "Scenariu: Prețul combustibilului crește brusc cu 30%. Contractele tale nu au clauză FSC. Ce faci?",
@@ -507,7 +482,6 @@ export const pricingComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
-    id: "pricing_comp_26",
     difficultyLevel: 5,
     question: {
       ro: "Cum evaluezi dacă să accepți o comandă mare la un preț sub costul normal?",
@@ -527,7 +501,6 @@ export const pricingComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
-    id: "pricing_comp_27",
     difficultyLevel: 5,
     question: {
       ro: "Care sunt riscurile și oportunitățile tarifării bazate pe performanță (gain-sharing)?",
@@ -547,7 +520,6 @@ export const pricingComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
-    id: "pricing_comp_28",
     difficultyLevel: 5,
     question: {
       ro: "Cum integrezi costurile de sustenabilitate/ESG în prețuri?",
@@ -567,7 +539,6 @@ export const pricingComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
-    id: "pricing_comp_29",
     difficultyLevel: 5,
     question: {
       ro: "Scenariu: Concurentul principal reduce prețurile cu 20% pe relația ta principală. Strategia ta?",
@@ -587,7 +558,6 @@ export const pricingComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
-    id: "pricing_comp_30",
     difficultyLevel: 5,
     question: {
       ro: "Care sunt tendințele viitoare în tarifarea transportului și cum te pregătești?",
