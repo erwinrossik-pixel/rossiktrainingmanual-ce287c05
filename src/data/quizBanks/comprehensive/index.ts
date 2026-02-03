@@ -33,3 +33,7 @@ export { exchangesComprehensiveQuestions } from './exchangesComprehensiveQuestio
 export { communicationComprehensiveQuestions } from './communicationComprehensiveQuestions';
 export { networkingComprehensiveQuestions } from './networkingComprehensiveQuestions';
 export { kpiComprehensiveQuestions } from './kpiComprehensiveQuestions';
+export { translogicaComprehensiveQuestions } from './translogicaComprehensiveQuestions';
+export { technologyComprehensiveQuestions } from './technologyComprehensiveQuestions';
+export { digitalizationComprehensiveQuestions } from './digitalizationComprehensiveQuestions';
+export { drivingTimeComprehensiveQuestions } from './drivingTimeComprehensiveQuestions';
