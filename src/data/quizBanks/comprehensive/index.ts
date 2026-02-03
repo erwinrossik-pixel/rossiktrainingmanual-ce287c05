@@ -21,3 +21,7 @@ export { authoritiesComprehensiveQuestions } from './authoritiesComprehensiveQue
 export { complianceComprehensiveQuestions } from './complianceComprehensiveQuestions';
 export { licensesOversizeComprehensiveQuestions } from './licensesOversizeComprehensiveQuestions';
 export { europeZonesComprehensiveQuestions } from './europeZonesComprehensiveQuestions';
+export { europeanCountriesComprehensiveQuestions } from './europeanCountriesComprehensiveQuestions';
+export { environmentComprehensiveQuestions } from './environmentComprehensiveQuestions';
+export { sustainabilityComprehensiveQuestions } from './sustainabilityComprehensiveQuestions';
+export { supplyChainComprehensiveQuestions } from './supplyChainComprehensiveQuestions';
