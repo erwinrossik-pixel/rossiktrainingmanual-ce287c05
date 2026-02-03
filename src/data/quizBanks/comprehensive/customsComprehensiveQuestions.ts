@@ -3,6 +3,7 @@ import { TranslatedQuizQuestion } from "@/data/quizTranslations";
 export const customsComprehensiveQuestions: TranslatedQuizQuestion[] = [
   // Level 3 Questions (10)
   {
+    id: "customs_comp_1",
     difficultyLevel: 3,
     question: {
       ro: "Ce este codul tarifar vamal (HS Code) și care este structura sa?",
@@ -22,6 +23,7 @@ export const customsComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
+    id: "customs_comp_2",
     difficultyLevel: 3,
     question: {
       ro: "Ce este valoarea în vamă și pe ce bază se calculează taxele vamale?",
@@ -41,6 +43,7 @@ export const customsComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
+    id: "customs_comp_3",
     difficultyLevel: 3,
     question: {
       ro: "Ce este EORI și de ce este necesar?",
@@ -60,6 +63,7 @@ export const customsComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
+    id: "customs_comp_4",
     difficultyLevel: 3,
     question: {
       ro: "Ce este o declarație vamală și ce informații conține?",
@@ -79,6 +83,7 @@ export const customsComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
+    id: "customs_comp_5",
     difficultyLevel: 3,
     question: {
       ro: "Ce este regimul de tranzit vamal T1?",
@@ -98,6 +103,7 @@ export const customsComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
+    id: "customs_comp_6",
     difficultyLevel: 3,
     question: {
       ro: "Ce documente sunt necesare pentru vămuirea de import în UE?",
@@ -117,6 +123,7 @@ export const customsComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
+    id: "customs_comp_7",
     difficultyLevel: 3,
     question: {
       ro: "Ce este un agent vamal (broker vamal) și ce rol are?",
@@ -136,6 +143,7 @@ export const customsComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
+    id: "customs_comp_8",
     difficultyLevel: 3,
     question: {
       ro: "Ce este certificatul de origine și când este necesar?",
@@ -155,6 +163,7 @@ export const customsComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
+    id: "customs_comp_9",
     difficultyLevel: 3,
     question: {
       ro: "Ce tipuri de taxe se plătesc la importul în UE?",
@@ -174,6 +183,7 @@ export const customsComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
+    id: "customs_comp_10",
     difficultyLevel: 3,
     question: {
       ro: "Ce este depozitul vamal și care sunt avantajele sale?",
@@ -195,6 +205,7 @@ export const customsComprehensiveQuestions: TranslatedQuizQuestion[] = [
   
   // Level 4 Questions (10)
   {
+    id: "customs_comp_11",
     difficultyLevel: 4,
     question: {
       ro: "Cum se determină originea preferențială pentru a beneficia de tarife reduse?",
@@ -214,6 +225,7 @@ export const customsComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
+    id: "customs_comp_12",
     difficultyLevel: 4,
     question: {
       ro: "Ce este AEO (Authorized Economic Operator) și ce avantaje oferă?",
@@ -233,6 +245,7 @@ export const customsComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
+    id: "customs_comp_13",
     difficultyLevel: 4,
     question: {
       ro: "Cum afectează Incoterms procedurile de vămuire?",
@@ -252,6 +265,7 @@ export const customsComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
+    id: "customs_comp_14",
     difficultyLevel: 4,
     question: {
       ro: "Ce este regimul de perfecționare activă și când se folosește?",
@@ -271,6 +285,7 @@ export const customsComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
+    id: "customs_comp_15",
     difficultyLevel: 4,
     question: {
       ro: "Cum gestionezi o situație când marfa este oprită la vamă pentru verificări suplimentare?",
@@ -290,6 +305,7 @@ export const customsComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
+    id: "customs_comp_16",
     difficultyLevel: 4,
     question: {
       ro: "Care sunt diferențele între reprezentarea directă și indirectă în vămuire?",
@@ -309,6 +325,7 @@ export const customsComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
+    id: "customs_comp_17",
     difficultyLevel: 4,
     question: {
       ro: "Ce sunt măsurile de apărare comercială și cum afectează importurile?",
@@ -328,6 +345,7 @@ export const customsComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
+    id: "customs_comp_18",
     difficultyLevel: 4,
     question: {
       ro: "Cum se calculează corect valoarea în vamă pentru import?",
@@ -347,6 +365,7 @@ export const customsComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
+    id: "customs_comp_19",
     difficultyLevel: 4,
     question: {
       ro: "Ce este ICS (Import Control System) și de ce este important?",
@@ -366,6 +385,7 @@ export const customsComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
+    id: "customs_comp_20",
     difficultyLevel: 4,
     question: {
       ro: "Care sunt consecințele clasificării tarifare greșite?",
@@ -387,6 +407,7 @@ export const customsComprehensiveQuestions: TranslatedQuizQuestion[] = [
   
   // Level 5 Questions (10)
   {
+    id: "customs_comp_21",
     difficultyLevel: 5,
     question: {
       ro: "Scenariu: Import de componente electronice din China cu preț sub valoarea de piață. Ce riscuri vamale există?",
@@ -406,6 +427,7 @@ export const customsComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
+    id: "customs_comp_22",
     difficultyLevel: 5,
     question: {
       ro: "Cum optimizezi legal costurile vamale pentru o companie cu import regulat din țări terțe?",
@@ -425,6 +447,7 @@ export const customsComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
+    id: "customs_comp_23",
     difficultyLevel: 5,
     question: {
       ro: "Care sunt implicațiile post-Brexit pentru transportul de mărfuri UE-UK?",
@@ -444,6 +467,7 @@ export const customsComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
+    id: "customs_comp_24",
     difficultyLevel: 5,
     question: {
       ro: "Cum gestionezi un control vamal care descoperă discrepanțe între documente și marfa fizică?",
@@ -463,6 +487,7 @@ export const customsComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
+    id: "customs_comp_25",
     difficultyLevel: 5,
     question: {
       ro: "Care sunt considerentele pentru structurarea unui lanț de aprovizionare cu hub de distribuție în UE pentru mărfuri din Asia?",
@@ -482,6 +507,7 @@ export const customsComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
+    id: "customs_comp_26",
     difficultyLevel: 5,
     question: {
       ro: "Cum afectează sancțiunile internaționale și controalele la export operațiunile vamale?",
@@ -501,6 +527,7 @@ export const customsComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
+    id: "customs_comp_27",
     difficultyLevel: 5,
     question: {
       ro: "Scenariu: Ai un lot de mărfuri reținut de vamă pentru suspiciune de încălcare proprietate intelectuală. Pașii?",
@@ -520,6 +547,7 @@ export const customsComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
+    id: "customs_comp_28",
     difficultyLevel: 5,
     question: {
       ro: "Cum gestionezi importul de mărfuri reglementate (produse chimice REACH, dispozitive medicale, alimente)?",
@@ -539,6 +567,7 @@ export const customsComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
+    id: "customs_comp_29",
     difficultyLevel: 5,
     question: {
       ro: "Care sunt tendințele în digitalizarea procedurilor vamale și cum afectează operațiunile?",
@@ -558,6 +587,7 @@ export const customsComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
+    id: "customs_comp_30",
     difficultyLevel: 5,
     question: {
       ro: "Scenariu complex: Import de echipament industrial din Japonia cu componente din China și SUA, asamblat în Vietnam. Cum determini originea și taxele?",

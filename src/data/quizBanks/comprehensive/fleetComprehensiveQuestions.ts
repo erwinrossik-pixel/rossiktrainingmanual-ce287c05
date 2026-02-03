@@ -3,6 +3,7 @@ import { TranslatedQuizQuestion } from "@/data/quizTranslations";
 export const fleetComprehensiveQuestions: TranslatedQuizQuestion[] = [
   // Level 3 Questions (10)
   {
+    id: "fleet_comp_1",
     difficultyLevel: 3,
     question: {
       ro: "Care sunt principalele tipuri de vehicule în flota de transport marfă?",
@@ -22,6 +23,7 @@ export const fleetComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
+    id: "fleet_comp_2",
     difficultyLevel: 3,
     question: {
       ro: "Ce este 'utilizarea flotei' și de ce este importantă?",
@@ -41,6 +43,7 @@ export const fleetComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
+    id: "fleet_comp_3",
     difficultyLevel: 3,
     question: {
       ro: "Ce documente trebuie să aibă la bord un vehicul de transport marfă internațional?",
@@ -60,6 +63,7 @@ export const fleetComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
+    id: "fleet_comp_4",
     difficultyLevel: 3,
     question: {
       ro: "Ce este GPS tracking-ul și care sunt beneficiile sale pentru managementul flotei?",
@@ -79,6 +83,7 @@ export const fleetComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
+    id: "fleet_comp_5",
     difficultyLevel: 3,
     question: {
       ro: "Care sunt normele de emisii Euro și ce restricții implică?",
@@ -98,6 +103,7 @@ export const fleetComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
+    id: "fleet_comp_6",
     difficultyLevel: 3,
     question: {
       ro: "Ce este planul de mentenanță preventivă și de ce este esențial?",
@@ -117,6 +123,7 @@ export const fleetComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
+    id: "fleet_comp_7",
     difficultyLevel: 3,
     question: {
       ro: "Care sunt avantajele și dezavantajele leasingului vs cumpărarea vehiculelor?",
@@ -136,6 +143,7 @@ export const fleetComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
+    id: "fleet_comp_8",
     difficultyLevel: 3,
     question: {
       ro: "Ce este tahograful digital și ce înregistrează?",
@@ -155,6 +163,7 @@ export const fleetComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
+    id: "fleet_comp_9",
     difficultyLevel: 3,
     question: {
       ro: "Care sunt cerințele pentru transportul frigorific (ATP)?",
@@ -174,6 +183,7 @@ export const fleetComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
+    id: "fleet_comp_10",
     difficultyLevel: 3,
     question: {
       ro: "Ce este TCO (Total Cost of Ownership) pentru un vehicul de flotă?",
@@ -195,6 +205,7 @@ export const fleetComprehensiveQuestions: TranslatedQuizQuestion[] = [
   
   // Level 4 Questions (10)
   {
+    id: "fleet_comp_11",
     difficultyLevel: 4,
     question: {
       ro: "Cum optimizezi compoziția flotei pentru cerințele de business?",
@@ -214,6 +225,7 @@ export const fleetComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
+    id: "fleet_comp_12",
     difficultyLevel: 4,
     question: {
       ro: "Cum calculezi momentul optim de înlocuire a vehiculului?",
@@ -233,6 +245,7 @@ export const fleetComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
+    id: "fleet_comp_13",
     difficultyLevel: 4,
     question: {
       ro: "Care sunt strategiile de reducere a consumului de combustibil în flotă?",
@@ -252,6 +265,7 @@ export const fleetComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
+    id: "fleet_comp_14",
     difficultyLevel: 4,
     question: {
       ro: "Cum gestionezi planificarea întreținerii pentru o flotă mare?",
@@ -271,6 +285,7 @@ export const fleetComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
+    id: "fleet_comp_15",
     difficultyLevel: 4,
     question: {
       ro: "Care sunt considerentele pentru alegerea între Euro 6 diesel și vehicule alternative (LNG, electric)?",
@@ -290,6 +305,7 @@ export const fleetComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
+    id: "fleet_comp_16",
     difficultyLevel: 4,
     question: {
       ro: "Cum implementezi un program de siguranță pentru flotă?",
@@ -309,6 +325,7 @@ export const fleetComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
+    id: "fleet_comp_17",
     difficultyLevel: 4,
     question: {
       ro: "Care sunt beneficiile și provocările subcontractării parțiale a flotei?",
@@ -328,6 +345,7 @@ export const fleetComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
+    id: "fleet_comp_18",
     difficultyLevel: 4,
     question: {
       ro: "Cum gestionezi alocarea vehiculelor și șoferilor pentru eficiență maximă?",
@@ -347,6 +365,7 @@ export const fleetComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
+    id: "fleet_comp_19",
     difficultyLevel: 4,
     question: {
       ro: "Care sunt cerințele pentru transportul de mărfuri periculoase în termeni de vehicul?",
@@ -366,6 +385,7 @@ export const fleetComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
+    id: "fleet_comp_20",
     difficultyLevel: 4,
     question: {
       ro: "Cum monitorizezi și îmbunătățești performanța șoferilor?",
@@ -387,6 +407,7 @@ export const fleetComprehensiveQuestions: TranslatedQuizQuestion[] = [
   
   // Level 5 Questions (10)
   {
+    id: "fleet_comp_21",
     difficultyLevel: 5,
     question: {
       ro: "Scenariu: Ai o flotă de 50 vehicule cu vârsta medie de 5 ani. Cum planifici reînnoirea pe următorii 3 ani?",
@@ -406,6 +427,7 @@ export const fleetComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
+    id: "fleet_comp_22",
     difficultyLevel: 5,
     question: {
       ro: "Cum evaluezi ROI-ul investiției în telematică avansată pentru flotă?",
@@ -425,6 +447,7 @@ export const fleetComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
+    id: "fleet_comp_23",
     difficultyLevel: 5,
     question: {
       ro: "Care sunt considerentele strategice pentru electrificarea flotei de marfă?",
@@ -444,6 +467,7 @@ export const fleetComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
+    id: "fleet_comp_24",
     difficultyLevel: 5,
     question: {
       ro: "Cum gestionezi o criză de capacitate (lipsa șoferilor sau vehiculelor) în perioadă de vârf?",
@@ -463,6 +487,7 @@ export const fleetComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
+    id: "fleet_comp_25",
     difficultyLevel: 5,
     question: {
       ro: "Cum implementezi un program de reducere a amprentei de carbon pentru flotă?",
@@ -482,6 +507,7 @@ export const fleetComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
+    id: "fleet_comp_26",
     difficultyLevel: 5,
     question: {
       ro: "Scenariu: Un vehicul cheie se defectează grav pe traseu cu marfă urgentă. Procesul tău de gestionare a crizei?",
@@ -501,6 +527,7 @@ export const fleetComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
+    id: "fleet_comp_27",
     difficultyLevel: 5,
     question: {
       ro: "Care sunt implicațiile juridice și de asigurare ale unui accident grav în flotă?",
@@ -520,6 +547,7 @@ export const fleetComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
+    id: "fleet_comp_28",
     difficultyLevel: 5,
     question: {
       ro: "Cum optimizezi alocarea costurilor fixe vs variabile în managementul flotei?",
@@ -539,6 +567,7 @@ export const fleetComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
+    id: "fleet_comp_29",
     difficultyLevel: 5,
     question: {
       ro: "Care sunt tendințele în automatizarea și vehiculele autonome pentru transport de marfă?",
@@ -558,6 +587,7 @@ export const fleetComprehensiveQuestions: TranslatedQuizQuestion[] = [
     }
   },
   {
+    id: "fleet_comp_30",
     difficultyLevel: 5,
     question: {
       ro: "Cum construiești un business case pentru investiție majoră în flotă (10+ vehicule)?",
