@@ -76,6 +76,8 @@ import {
   advancedCaseStudiesQuestions,
   advancedProfessionalDevelopmentQuestions
 } from './quizBanks/advancedQuestions';
+// Comprehensive questions (30 questions per chapter, levels 3-5)
+import { comprehensiveQuestions } from './quizBanks/comprehensiveIntegration';
 
 export interface TranslatedQuizQuestion {
   question: Record<Language, string>;
@@ -253,6 +255,28 @@ function combineWithAdvanced(
   return [...baseWithLevels, ...advancedWithLevels];
 }
 
+// Helper to combine base + advanced + comprehensive questions
+// Comprehensive questions already have difficulty levels assigned (3-5)
+function combineAllQuestions(
+  baseQuestions: TranslatedQuizQuestion[], 
+  advancedQuestions: TranslatedQuizQuestion[],
+  comprehensiveQs: TranslatedQuizQuestion[]
+): TranslatedQuizQuestion[] {
+  const baseWithLevels = assignDifficultyLevels(baseQuestions, false);
+  const advancedWithLevels = assignDifficultyLevels(advancedQuestions, true);
+  // Comprehensive questions already have difficultyLevel set
+  return [...baseWithLevels, ...advancedWithLevels, ...comprehensiveQs];
+}
+
+// For chapters without advanced questions, combine base with comprehensive
+function combineWithComprehensive(
+  baseQuestions: TranslatedQuizQuestion[],
+  comprehensiveQs: TranslatedQuizQuestion[]
+): TranslatedQuizQuestion[] {
+  const baseWithLevels = assignDifficultyLevels(baseQuestions, false);
+  return [...baseWithLevels, ...comprehensiveQs];
+}
+
 // For chapters without advanced questions, still assign difficulty levels
 function ensureWithDifficultyLevels(
   questions: TranslatedQuizQuestion[]
@@ -261,74 +285,74 @@ function ensureWithDifficultyLevels(
 }
 
 // Map all quiz banks to chapter IDs
-// Each bank contains 30+ questions in all 3 languages
-// Advanced questions are added to chapters with 100% pass rate for increased difficulty
+// Each bank now combines: base questions + advanced questions + comprehensive questions
+// Total: 60-90+ questions per chapter across difficulty levels 1-5
 // Note: Intro chapter has no quiz - it's an introductory chapter without examination
 export const quizTranslations: Record<string, TranslatedQuizQuestion[]> = {
   // Foundation module (2-5) - Intro has no quiz
-  mindset: combineWithAdvanced(ensureTranslatedFormat(mindsetQuestions), advancedMindsetQuestions),
-  'soft-skills': ensureWithDifficultyLevels(ensureTranslatedFormat(softSkillsQuestions)),
-  'stress-management': ensureWithDifficultyLevels(ensureTranslatedFormat(stressManagementQuestions)),
-  workflow: ensureWithDifficultyLevels(ensureTranslatedFormat(workflowQuestions)),
+  mindset: combineAllQuestions(ensureTranslatedFormat(mindsetQuestions), advancedMindsetQuestions, comprehensiveQuestions.mindset),
+  'soft-skills': combineWithComprehensive(ensureTranslatedFormat(softSkillsQuestions), comprehensiveQuestions['soft-skills']),
+  'stress-management': combineWithComprehensive(ensureTranslatedFormat(stressManagementQuestions), comprehensiveQuestions['stress-management']),
+  workflow: combineWithComprehensive(ensureTranslatedFormat(workflowQuestions), comprehensiveQuestions.workflow),
   
   // Equipment module (6-12)
-  vehicle: ensureWithDifficultyLevels(vehicleExtendedQuestions),
-  loading: combineWithAdvanced(ensureTranslatedFormat(loadingQuestions), advancedLoadingQuestions),
-  reefer: combineWithAdvanced(ensureTranslatedFormat(reeferQuestions), advancedReeferQuestions),
-  'express-transport': ensureWithDifficultyLevels(ensureTranslatedFormat(expressTransportQuestions)),
-  intermodal: ensureWithDifficultyLevels(ensureTranslatedFormat(intermodalQuestions)),
-  warehouse: ensureWithDifficultyLevels(ensureTranslatedFormat(warehouseQuestions)),
-  adr: combineWithAdvanced(ensureTranslatedFormat(adrQuestions), advancedADRQuestions),
+  vehicle: combineWithComprehensive(vehicleExtendedQuestions, comprehensiveQuestions.vehicle),
+  loading: combineAllQuestions(ensureTranslatedFormat(loadingQuestions), advancedLoadingQuestions, comprehensiveQuestions.loading),
+  reefer: combineAllQuestions(ensureTranslatedFormat(reeferQuestions), advancedReeferQuestions, comprehensiveQuestions.reefer),
+  'express-transport': combineWithComprehensive(ensureTranslatedFormat(expressTransportQuestions), comprehensiveQuestions['express-transport']),
+  intermodal: combineWithComprehensive(ensureTranslatedFormat(intermodalQuestions), comprehensiveQuestions.intermodal),
+  warehouse: combineWithComprehensive(ensureTranslatedFormat(warehouseQuestions), comprehensiveQuestions.warehouse),
+  adr: combineAllQuestions(ensureTranslatedFormat(adrQuestions), advancedADRQuestions, comprehensiveQuestions.adr),
   
   // Documents module (13-19)
-  documents: ensureWithDifficultyLevels(ensureTranslatedFormat(documentsQuestions)),
-  incoterms: combineWithAdvanced(ensureTranslatedFormat(incotermsQuestions), advancedIncotermsQuestions),
-  customs: ensureWithDifficultyLevels(ensureTranslatedFormat(customsQuestions)),
-  authorities: ensureWithDifficultyLevels(ensureTranslatedFormat(authoritiesQuestions)),
-  compliance: ensureWithDifficultyLevels(ensureTranslatedFormat(complianceQuestions)),
-  'driving-time': combineWithAdvanced(ensureTranslatedFormat(drivingTimeQuestions), advancedDrivingTimeQuestions),
-  'licenses-oversize': ensureWithDifficultyLevels(ensureTranslatedFormat(licensesOversizeQuestions)),
+  documents: combineWithComprehensive(ensureTranslatedFormat(documentsQuestions), comprehensiveQuestions.documents),
+  incoterms: combineAllQuestions(ensureTranslatedFormat(incotermsQuestions), advancedIncotermsQuestions, comprehensiveQuestions.incoterms),
+  customs: combineWithComprehensive(ensureTranslatedFormat(customsQuestions), comprehensiveQuestions.customs),
+  authorities: combineWithComprehensive(ensureTranslatedFormat(authoritiesQuestions), comprehensiveQuestions.authorities),
+  compliance: combineWithComprehensive(ensureTranslatedFormat(complianceQuestions), comprehensiveQuestions.compliance),
+  'driving-time': combineAllQuestions(ensureTranslatedFormat(drivingTimeQuestions), advancedDrivingTimeQuestions, comprehensiveQuestions['driving-time']),
+  'licenses-oversize': combineWithComprehensive(ensureTranslatedFormat(licensesOversizeQuestions), comprehensiveQuestions['licenses-oversize']),
   
   // Geography module (20-24)
-  'europe-zones': ensureWithDifficultyLevels(ensureTranslatedFormat(europeZonesQuestions)),
-  'european-countries': ensureWithDifficultyLevels(ensureTranslatedFormat(europeanCountriesQuestions)),
-  environment: ensureWithDifficultyLevels(ensureTranslatedFormat(environmentQuestions)),
-  sustainability: combineWithAdvanced(ensureTranslatedFormat(sustainabilityQuestions), advancedSustainabilityQuestions),
-  'supply-chain': ensureWithDifficultyLevels(ensureTranslatedFormat(supplyChainQuestions)),
+  'europe-zones': combineWithComprehensive(ensureTranslatedFormat(europeZonesQuestions), comprehensiveQuestions['europe-zones']),
+  'european-countries': combineWithComprehensive(ensureTranslatedFormat(europeanCountriesQuestions), comprehensiveQuestions['european-countries']),
+  environment: combineWithComprehensive(ensureTranslatedFormat(environmentQuestions), comprehensiveQuestions.environment),
+  sustainability: combineAllQuestions(ensureTranslatedFormat(sustainabilityQuestions), advancedSustainabilityQuestions, comprehensiveQuestions.sustainability),
+  'supply-chain': combineWithComprehensive(ensureTranslatedFormat(supplyChainQuestions), comprehensiveQuestions['supply-chain']),
   
   // Commercial module (25-33)
-  pricing: combineWithAdvanced(ensureTranslatedFormat(pricingQuestions), advancedPricingQuestions),
-  commercial: ensureWithDifficultyLevels(ensureTranslatedFormat(commercialQuestions)),
-  negotiation: combineWithAdvanced(ensureTranslatedFormat(negotiationQuestions), advancedNegotiationQuestions),
-  clients: ensureWithDifficultyLevels(ensureTranslatedFormat(clientsQuestions)),
-  'carrier-management': combineWithAdvanced(ensureTranslatedFormat(carrierManagementQuestions), advancedCarrierManagementQuestions),
-  exchanges: ensureWithDifficultyLevels(ensureTranslatedFormat(exchangesQuestions)),
-  communication: ensureWithDifficultyLevels(ensureTranslatedFormat(communicationQuestions)),
-  networking: ensureWithDifficultyLevels(ensureTranslatedFormat(networkingQuestions)),
-  kpi: ensureWithDifficultyLevels(ensureTranslatedFormat(kpiQuestions)),
+  pricing: combineAllQuestions(ensureTranslatedFormat(pricingQuestions), advancedPricingQuestions, comprehensiveQuestions.pricing),
+  commercial: combineWithComprehensive(ensureTranslatedFormat(commercialQuestions), comprehensiveQuestions.commercial),
+  negotiation: combineAllQuestions(ensureTranslatedFormat(negotiationQuestions), advancedNegotiationQuestions, comprehensiveQuestions.negotiation),
+  clients: combineWithComprehensive(ensureTranslatedFormat(clientsQuestions), comprehensiveQuestions.clients),
+  'carrier-management': combineAllQuestions(ensureTranslatedFormat(carrierManagementQuestions), advancedCarrierManagementQuestions, comprehensiveQuestions['carrier-management']),
+  exchanges: combineWithComprehensive(ensureTranslatedFormat(exchangesQuestions), comprehensiveQuestions.exchanges),
+  communication: combineWithComprehensive(ensureTranslatedFormat(communicationQuestions), comprehensiveQuestions.communication),
+  networking: combineWithComprehensive(ensureTranslatedFormat(networkingQuestions), comprehensiveQuestions.networking),
+  kpi: combineWithComprehensive(ensureTranslatedFormat(kpiQuestions), comprehensiveQuestions.kpi),
   
   // Technology module (34-37)
-  translogica: ensureWithDifficultyLevels(ensureTranslatedFormat(translogicaQuestions)),
-  fleet: combineWithAdvanced(ensureTranslatedFormat(fleetQuestions), advancedFleetQuestions),
-  technology: ensureWithDifficultyLevels(ensureTranslatedFormat(technologyQuestions)),
-  digitalization: ensureWithDifficultyLevels(ensureTranslatedFormat(digitalizationQuestions)),
+  translogica: combineWithComprehensive(ensureTranslatedFormat(translogicaQuestions), comprehensiveQuestions.translogica),
+  fleet: combineAllQuestions(ensureTranslatedFormat(fleetQuestions), advancedFleetQuestions, comprehensiveQuestions.fleet),
+  technology: combineWithComprehensive(ensureTranslatedFormat(technologyQuestions), comprehensiveQuestions.technology),
+  digitalization: combineWithComprehensive(ensureTranslatedFormat(digitalizationQuestions), comprehensiveQuestions.digitalization),
   
   // Finance module (38-43)
-  'risk-management': ensureWithDifficultyLevels(ensureTranslatedFormat(riskManagementQuestions)),
-  insurance: combineWithAdvanced(ensureTranslatedFormat(insuranceQuestions), advancedInsuranceQuestions),
-  'high-value-goods': ensureWithDifficultyLevels(ensureTranslatedFormat(highValueGoodsQuestions)),
-  claims: combineWithAdvanced(ensureTranslatedFormat(claimsQuestions), advancedClaimsQuestions),
-  payment: ensureWithDifficultyLevels(ensureTranslatedFormat(paymentQuestions)),
-  accounting: combineWithAdvanced(ensureTranslatedFormat(accountingQuestions), advancedAccountingQuestions),
+  'risk-management': combineWithComprehensive(ensureTranslatedFormat(riskManagementQuestions), comprehensiveQuestions['risk-management']),
+  insurance: combineAllQuestions(ensureTranslatedFormat(insuranceQuestions), advancedInsuranceQuestions, comprehensiveQuestions.insurance),
+  'high-value-goods': combineWithComprehensive(ensureTranslatedFormat(highValueGoodsQuestions), comprehensiveQuestions['high-value-goods']),
+  claims: combineAllQuestions(ensureTranslatedFormat(claimsQuestions), advancedClaimsQuestions, comprehensiveQuestions.claims),
+  payment: combineWithComprehensive(ensureTranslatedFormat(paymentQuestions), comprehensiveQuestions.payment),
+  accounting: combineAllQuestions(ensureTranslatedFormat(accountingQuestions), advancedAccountingQuestions, comprehensiveQuestions.accounting),
   
   // Practical module (44-50)
-  training: combineWithAdvanced(ensureTranslatedFormat(trainingQuestions), advancedTrainingQuestions),
-  'professional-development': combineWithAdvanced(ensureTranslatedFormat(professionalDevelopmentQuestions), advancedProfessionalDevelopmentQuestions),
-  'case-studies': combineWithAdvanced(ensureTranslatedFormat(caseStudiesQuestions), advancedCaseStudiesQuestions),
-  emergency: combineWithAdvanced(ensureTranslatedFormat(emergencyQuestions), advancedEmergencyQuestions),
-  'red-flags': combineWithAdvanced(ensureTranslatedFormat(redFlagsQuestions), advancedRedFlagsQuestions),
-  checklists: combineWithAdvanced(ensureTranslatedFormat(checklistsQuestions), advancedChecklistsQuestions),
-  glossary: combineWithAdvanced(ensureTranslatedFormat(glossaryQuestions), advancedGlossaryQuestions),
+  training: combineAllQuestions(ensureTranslatedFormat(trainingQuestions), advancedTrainingQuestions, comprehensiveQuestions.training),
+  'professional-development': combineAllQuestions(ensureTranslatedFormat(professionalDevelopmentQuestions), advancedProfessionalDevelopmentQuestions, comprehensiveQuestions['professional-development']),
+  'case-studies': combineAllQuestions(ensureTranslatedFormat(caseStudiesQuestions), advancedCaseStudiesQuestions, comprehensiveQuestions['case-studies']),
+  emergency: combineAllQuestions(ensureTranslatedFormat(emergencyQuestions), advancedEmergencyQuestions, comprehensiveQuestions.emergency),
+  'red-flags': combineAllQuestions(ensureTranslatedFormat(redFlagsQuestions), advancedRedFlagsQuestions, comprehensiveQuestions['red-flags']),
+  checklists: combineAllQuestions(ensureTranslatedFormat(checklistsQuestions), advancedChecklistsQuestions, comprehensiveQuestions.checklists),
+  glossary: combineAllQuestions(ensureTranslatedFormat(glossaryQuestions), advancedGlossaryQuestions, comprehensiveQuestions.glossary),
 };
 
 // Helper function to get translated quiz questions for a chapter
