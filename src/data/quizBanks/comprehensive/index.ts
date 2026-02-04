@@ -37,3 +37,7 @@ export { translogicaComprehensiveQuestions } from './translogicaComprehensiveQue
 export { technologyComprehensiveQuestions } from './technologyComprehensiveQuestions';
 export { digitalizationComprehensiveQuestions } from './digitalizationComprehensiveQuestions';
 export { drivingTimeComprehensiveQuestions } from './drivingTimeComprehensiveQuestions';
+export { riskManagementComprehensiveQuestions } from './riskManagementComprehensiveQuestions';
+export { insuranceComprehensiveQuestions } from './insuranceComprehensiveQuestions';
+export { highValueGoodsComprehensiveQuestions } from './highValueGoodsComprehensiveQuestions';
+export { claimsComprehensiveQuestions } from './claimsComprehensiveQuestions';
