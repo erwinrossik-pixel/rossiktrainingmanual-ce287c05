@@ -45,3 +45,8 @@ export { paymentComprehensiveQuestions } from './paymentComprehensiveQuestions';
 export { accountingComprehensiveQuestions } from './accountingComprehensiveQuestions';
 export { trainingComprehensiveQuestions } from './trainingComprehensiveQuestions';
 export { professionalDevelopmentComprehensiveQuestions } from './professionalDevelopmentComprehensiveQuestions';
+export { caseStudiesComprehensiveQuestions } from './caseStudiesComprehensiveQuestions';
+export { emergencyComprehensiveQuestions } from './emergencyComprehensiveQuestions';
+export { redFlagsComprehensiveQuestions } from './redFlagsComprehensiveQuestions';
+export { checklistsComprehensiveQuestions } from './checklistsComprehensiveQuestions';
+export { glossaryComprehensiveQuestions } from './glossaryComprehensiveQuestions';
