@@ -41,3 +41,7 @@ export { riskManagementComprehensiveQuestions } from './riskManagementComprehens
 export { insuranceComprehensiveQuestions } from './insuranceComprehensiveQuestions';
 export { highValueGoodsComprehensiveQuestions } from './highValueGoodsComprehensiveQuestions';
 export { claimsComprehensiveQuestions } from './claimsComprehensiveQuestions';
+export { paymentComprehensiveQuestions } from './paymentComprehensiveQuestions';
+export { accountingComprehensiveQuestions } from './accountingComprehensiveQuestions';
+export { trainingComprehensiveQuestions } from './trainingComprehensiveQuestions';
+export { professionalDevelopmentComprehensiveQuestions } from './professionalDevelopmentComprehensiveQuestions';
