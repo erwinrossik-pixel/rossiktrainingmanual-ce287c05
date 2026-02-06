@@ -32,7 +32,7 @@ serve(async (req) => {
     // Query certificate by code using service role (bypasses RLS)
     const { data: certificate, error } = await supabase
       .from("certificates")
-      .select("certificate_code, trainee_name, issued_at, expires_at, is_revoked, revoke_reason, chapters_completed, quizzes_passed, average_score, total_training_hours")
+      .select("certificate_code, trainee_name, issued_at, expires_at, is_revoked, revoke_reason, chapters_completed, quizzes_passed, average_score, total_training_hours, final_exam_score, final_exam_passed_at")
       .eq("certificate_code", code.toUpperCase().trim())
       .single();
 
@@ -74,7 +74,9 @@ serve(async (req) => {
           chapters_completed: certificate.chapters_completed,
           quizzes_passed: certificate.quizzes_passed,
           average_score: certificate.average_score,
-          training_hours: certificate.total_training_hours
+          training_hours: certificate.total_training_hours,
+          final_exam_score: certificate.final_exam_score,
+          final_exam_passed_at: certificate.final_exam_passed_at
         }
       }),
       { headers: { ...corsHeaders, "Content-Type": "application/json" } }
