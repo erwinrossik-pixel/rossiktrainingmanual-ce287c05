@@ -565,7 +565,8 @@ export function CertificatesDashboard() {
                   <TableHead>Data Emitere</TableHead>
                   <TableHead>Data Expirare</TableHead>
                   <TableHead>Status</TableHead>
-                  <TableHead>Scor</TableHead>
+                  <TableHead>Scor Quiz</TableHead>
+                  <TableHead>Examen Final</TableHead>
                   <TableHead>Acțiuni</TableHead>
                 </TableRow>
               </TableHeader>
@@ -577,7 +578,18 @@ export function CertificatesDashboard() {
                     <TableCell>{format(new Date(cert.issued_at), "dd.MM.yyyy")}</TableCell>
                     <TableCell>{format(new Date(cert.expires_at), "dd.MM.yyyy")}</TableCell>
                     <TableCell>{getStatusBadge(cert)}</TableCell>
-                    <TableCell>{cert.average_score}%</TableCell>
+                    <TableCell>
+                      <span className="font-semibold">{Math.min(cert.average_score, 10).toFixed(1)}/10</span>
+                    </TableCell>
+                    <TableCell>
+                      {cert.final_exam_score ? (
+                        <Badge className="bg-success/20 text-success border-success/30">
+                          {Math.round(cert.final_exam_score)}%
+                        </Badge>
+                      ) : (
+                        <span className="text-muted-foreground text-sm">-</span>
+                      )}
+                    </TableCell>
                     <TableCell>
                       <div className="flex gap-1">
                         <Button
@@ -700,8 +712,8 @@ export function CertificatesDashboard() {
                   <p className="font-semibold">{selectedCertificate.trainee_name}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-muted-foreground">Scor Mediu</p>
-                  <p className="font-semibold">{selectedCertificate.average_score}%</p>
+                  <p className="text-sm text-muted-foreground">Scor Mediu Quiz</p>
+                  <p className="font-semibold">{Math.min(selectedCertificate.average_score, 10).toFixed(1)}/10</p>
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">Data Emitere</p>
@@ -713,16 +725,28 @@ export function CertificatesDashboard() {
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">Capitole Completate</p>
-                  <p className="font-semibold">{selectedCertificate.chapters_completed}</p>
+                  <p className="font-semibold">{selectedCertificate.chapters_completed}/50</p>
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">Quiz-uri Trecute</p>
-                  <p className="font-semibold">{selectedCertificate.quizzes_passed}</p>
+                  <p className="font-semibold">{selectedCertificate.quizzes_passed}/50</p>
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">Ore Training</p>
                   <p className="font-semibold">{Math.round(selectedCertificate.total_training_hours || 0)} ore</p>
                 </div>
+                {selectedCertificate.final_exam_score && (
+                  <div>
+                    <p className="text-sm text-muted-foreground">Examen Final</p>
+                    <p className="font-semibold text-success">{Math.round(selectedCertificate.final_exam_score)}%</p>
+                  </div>
+                )}
+                {selectedCertificate.final_exam_passed_at && (
+                  <div>
+                    <p className="text-sm text-muted-foreground">Data Examen</p>
+                    <p className="font-semibold">{format(new Date(selectedCertificate.final_exam_passed_at), "dd.MM.yyyy HH:mm")}</p>
+                  </div>
+                )}
               </div>
 
               {selectedCertificate.is_revoked && (

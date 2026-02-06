@@ -304,36 +304,36 @@ export function OfficialDiploma({ certificate, open, onOpenChange }: OfficialDip
 
           {/* Achievement Stats */}
           {(() => {
-            const totalQuizQuestions = certificate.total_quiz_questions || (certificate.quizzes_passed * 10);
-            const correctAnswers = Math.round((certificate.average_score / 10) * totalQuizQuestions);
-            const passRate = totalQuizQuestions > 0 ? Math.round((correctAnswers / totalQuizQuestions) * 100) : 0;
+            // Average score is stored as X.XX out of 10, cap at 10
+            const avgScoreNormalized = Math.min(certificate.average_score, 10);
+            const avgScorePercent = Math.round((avgScoreNormalized / 10) * 100);
             const finalExamPoints = certificate.final_exam_score ? Math.round(certificate.final_exam_score) : 0;
             
             return (
               <div className="flex justify-center gap-4 my-5 flex-wrap">
                 <div className="text-center px-4 py-2 bg-gradient-to-b from-amber-50 to-amber-100/50 rounded-lg border border-amber-200">
-                  <p className="text-2xl font-bold text-amber-700">50</p>
+                  <p className="text-2xl font-bold text-amber-700">{certificate.chapters_completed}/50</p>
                   <p className="text-[10px] text-gray-600 uppercase tracking-wide">
                     {language === 'ro' ? 'Capitole Parcurse' : language === 'de' ? 'Kapitel Abgeschlossen' : 'Chapters Completed'}
                   </p>
                 </div>
                 <div className="text-center px-4 py-2 bg-gradient-to-b from-green-50 to-green-100/50 rounded-lg border border-green-200">
-                  <p className="text-2xl font-bold text-green-700">{correctAnswers}/{totalQuizQuestions}</p>
+                  <p className="text-2xl font-bold text-green-700">{certificate.quizzes_passed}/50</p>
                   <p className="text-[10px] text-gray-600 uppercase tracking-wide">
-                    {language === 'ro' ? 'Întrebări Quiz Corecte' : language === 'de' ? 'Richtige Quiz-Antworten' : 'Correct Quiz Answers'}
+                    {language === 'ro' ? 'Quiz-uri Promovate' : language === 'de' ? 'Bestandene Quiz' : 'Quizzes Passed'}
                   </p>
                 </div>
                 <div className="text-center px-4 py-2 bg-gradient-to-b from-blue-50 to-blue-100/50 rounded-lg border border-blue-200">
-                  <p className="text-2xl font-bold text-blue-700">{passRate}%</p>
+                  <p className="text-2xl font-bold text-blue-700">{avgScoreNormalized.toFixed(1)}/10</p>
                   <p className="text-[10px] text-gray-600 uppercase tracking-wide">
-                    {language === 'ro' ? 'Rată Promovare' : language === 'de' ? 'Bestehensquote' : 'Pass Rate'}
+                    {language === 'ro' ? 'Scor Mediu Quiz' : language === 'de' ? 'Durchschnittliche Quiz-Punktzahl' : 'Average Quiz Score'}
                   </p>
                 </div>
                 {certificate.final_exam_score && (
                   <div className="text-center px-4 py-2 bg-gradient-to-b from-purple-50 to-purple-100/50 rounded-lg border border-purple-200">
-                    <p className="text-2xl font-bold text-purple-700">{finalExamPoints}/100</p>
+                    <p className="text-2xl font-bold text-purple-700">{finalExamPoints}%</p>
                     <p className="text-[10px] text-gray-600 uppercase tracking-wide">
-                      {language === 'ro' ? 'Puncte Examen Final' : language === 'de' ? 'Abschlussprüfung Punkte' : 'Final Exam Points'}
+                      {language === 'ro' ? 'Examen Final' : language === 'de' ? 'Abschlussprüfung' : 'Final Exam'}
                     </p>
                   </div>
                 )}
