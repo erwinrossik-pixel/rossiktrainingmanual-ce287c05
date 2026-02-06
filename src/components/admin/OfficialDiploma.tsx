@@ -170,7 +170,7 @@ export function OfficialDiploma({ certificate, open, onOpenChange }: OfficialDip
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-6xl max-h-[95vh] overflow-y-auto print:max-w-none print:h-auto print:overflow-visible">
+      <DialogContent className="max-w-[320mm] w-[320mm] max-h-[95vh] overflow-y-auto print:max-w-none print:w-full print:h-full print:overflow-visible print:p-0 print:m-0">
         <DialogHeader className="print:hidden">
           <DialogTitle className="flex items-center gap-2">
             <Award className="w-5 h-5 text-primary" />
@@ -192,11 +192,16 @@ export function OfficialDiploma({ certificate, open, onOpenChange }: OfficialDip
           </Button>
         </div>
 
-        {/* Diploma Content */}
+        {/* Diploma Content - A4 Landscape: 297mm x 210mm */}
         <div 
           ref={diplomaRef} 
-          className="bg-white p-8 aspect-[297/210] relative overflow-hidden print:p-12"
-          style={{ minHeight: "600px" }}
+          className="bg-white relative overflow-hidden mx-auto diploma-print-area"
+          style={{ 
+            width: "297mm", 
+            height: "210mm",
+            padding: "12mm 15mm",
+            boxSizing: "border-box"
+          }}
         >
           {/* Decorative Border */}
           <div className="absolute inset-4 border-4 border-double border-amber-600/30 rounded-lg pointer-events-none" />

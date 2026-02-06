@@ -780,3 +780,54 @@
 .level-up-animation {
   animation: level-up 0.5s ease-in-out;
 }
+
+/* Print styles for A4 Diploma */
+@media print {
+  @page {
+    size: A4 landscape;
+    margin: 0;
+  }
+  
+  body {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+  
+  /* Hide everything except diploma */
+  body > *:not(.diploma-print-container) {
+    display: none !important;
+  }
+  
+  /* Dialog print styles */
+  [role="dialog"] {
+    position: static !important;
+    transform: none !important;
+    max-width: none !important;
+    width: 100% !important;
+    height: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+  }
+  
+  /* Hide dialog overlay and close button */
+  [data-radix-dialog-overlay],
+  [data-radix-dialog-close],
+  .print\\:hidden {
+    display: none !important;
+  }
+  
+  /* Diploma container for print */
+  .diploma-print-area {
+    width: 297mm !important;
+    height: 210mm !important;
+    padding: 12mm 15mm !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+}
