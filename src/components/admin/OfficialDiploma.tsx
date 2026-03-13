@@ -25,6 +25,7 @@ interface OfficialDiplomaProps {
     final_exam_score?: number;
     final_exam_passed_at?: string;
     total_quiz_questions?: number;
+    total_quiz_attempts?: number;
     chapter_pass_rate?: number;
   };
   open: boolean;
