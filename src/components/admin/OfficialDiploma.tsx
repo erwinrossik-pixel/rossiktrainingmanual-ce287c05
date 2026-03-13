@@ -50,7 +50,7 @@ const COMPLIANCE_STANDARDS = [
 
 export function OfficialDiploma({ certificate, open, onOpenChange }: OfficialDiplomaProps) {
   const { language: appLanguage } = useLanguage();
-  const language = 'en' as const; // Diploma always in English
+  const language: string = 'en'; // Diploma always in English
   const diplomaRef = useRef<HTMLDivElement>(null);
   const [qrCodeDataUrl, setQrCodeDataUrl] = useState<string>("");
   const [isGenerating, setIsGenerating] = useState(false);
