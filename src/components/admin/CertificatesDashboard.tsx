@@ -69,9 +69,37 @@ export function CertificatesDashboard() {
     if (error) {
       logger.error("Error fetching certificates:", error);
       toast.error(t('admin.certificates.errorLoading'));
-    } else {
-      setCertificates(data || []);
+      setLoading(false);
+      return;
     }
+
+    // Fetch quiz attempt stats for each certificate user
+    const certs = data || [];
+    const userIds = [...new Set(certs.map(c => c.user_id))];
+    
+    const quizStatsMap: Record<string, { total_questions: number; total_attempts: number }> = {};
+    
+    for (const userId of userIds) {
+      const { data: attempts } = await supabase
+        .from("quiz_attempts")
+        .select("total_questions")
+        .eq("user_id", userId);
+      
+      if (attempts) {
+        quizStatsMap[userId] = {
+          total_questions: attempts.reduce((sum, a) => sum + (a.total_questions || 0), 0),
+          total_attempts: attempts.length,
+        };
+      }
+    }
+
+    const enrichedCerts = certs.map(c => ({
+      ...c,
+      total_quiz_questions: quizStatsMap[c.user_id]?.total_questions || 0,
+      total_quiz_attempts: quizStatsMap[c.user_id]?.total_attempts || 0,
+    }));
+
+    setCertificates(enrichedCerts);
     setLoading(false);
   };
 
