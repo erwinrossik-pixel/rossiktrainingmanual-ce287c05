@@ -49,12 +49,13 @@ const COMPLIANCE_STANDARDS = [
 ];
 
 export function OfficialDiploma({ certificate, open, onOpenChange }: OfficialDiplomaProps) {
-  const { language } = useLanguage();
+  const { language: appLanguage } = useLanguage();
+  const language = 'en' as const; // Diploma always in English
   const diplomaRef = useRef<HTMLDivElement>(null);
   const [qrCodeDataUrl, setQrCodeDataUrl] = useState<string>("");
   const [isGenerating, setIsGenerating] = useState(false);
 
-  const dateLocale = language === 'de' ? de : language === 'en' ? enUS : ro;
+  const dateLocale = enUS;
 
   const verificationUrl = typeof window !== "undefined" 
     ? `${window.location.origin}/verify/${certificate.certificate_code}` 
