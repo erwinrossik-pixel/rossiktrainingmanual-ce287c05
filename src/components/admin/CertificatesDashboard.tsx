@@ -34,6 +34,8 @@ interface Certificate {
   revoke_reason: string | null;
   final_exam_score?: number;
   final_exam_passed_at?: string;
+  total_quiz_questions?: number;
+  total_quiz_attempts?: number;
 }
 
 type FilterType = "all" | "active" | "expired" | "revoked";
