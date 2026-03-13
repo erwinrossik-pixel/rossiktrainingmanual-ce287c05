@@ -34,6 +34,8 @@ interface Certificate {
   revoke_reason: string | null;
   final_exam_score?: number;
   final_exam_passed_at?: string;
+  total_quiz_questions?: number;
+  total_quiz_attempts?: number;
 }
 
 type FilterType = "all" | "active" | "expired" | "revoked";
@@ -67,9 +69,37 @@ export function CertificatesDashboard() {
     if (error) {
       logger.error("Error fetching certificates:", error);
       toast.error(t('admin.certificates.errorLoading'));
-    } else {
-      setCertificates(data || []);
+      setLoading(false);
+      return;
     }
+
+    // Fetch quiz attempt stats for each certificate user
+    const certs = data || [];
+    const userIds = [...new Set(certs.map(c => c.user_id))];
+    
+    const quizStatsMap: Record<string, { total_questions: number; total_attempts: number }> = {};
+    
+    for (const userId of userIds) {
+      const { data: attempts } = await supabase
+        .from("quiz_attempts")
+        .select("total_questions")
+        .eq("user_id", userId);
+      
+      if (attempts) {
+        quizStatsMap[userId] = {
+          total_questions: attempts.reduce((sum, a) => sum + (a.total_questions || 0), 0),
+          total_attempts: attempts.length,
+        };
+      }
+    }
+
+    const enrichedCerts = certs.map(c => ({
+      ...c,
+      total_quiz_questions: quizStatsMap[c.user_id]?.total_questions || 0,
+      total_quiz_attempts: quizStatsMap[c.user_id]?.total_attempts || 0,
+    }));
+
+    setCertificates(enrichedCerts);
     setLoading(false);
   };
 
@@ -730,6 +760,14 @@ export function CertificatesDashboard() {
                 <div>
                   <p className="text-sm text-muted-foreground">Quiz-uri Trecute</p>
                   <p className="font-semibold">{selectedCertificate.quizzes_passed}/50</p>
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground">Întrebări Răspunse</p>
+                  <p className="font-semibold">{selectedCertificate.total_quiz_questions || 0} întrebări</p>
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground">Încercări Quiz</p>
+                  <p className="font-semibold">{selectedCertificate.total_quiz_attempts || 0} încercări</p>
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">Ore Training</p>
