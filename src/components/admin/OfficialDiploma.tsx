@@ -335,6 +335,14 @@ export function OfficialDiploma({ certificate, open, onOpenChange }: OfficialDip
                     {language === 'ro' ? 'Scor Mediu Quiz' : language === 'de' ? 'Durchschnittliche Quiz-Punktzahl' : 'Average Quiz Score'}
                   </p>
                 </div>
+                {certificate.total_quiz_questions ? (
+                  <div className="text-center px-4 py-2 bg-gradient-to-b from-teal-50 to-teal-100/50 rounded-lg border border-teal-200">
+                    <p className="text-2xl font-bold text-teal-700">{certificate.total_quiz_questions}</p>
+                    <p className="text-[10px] text-gray-600 uppercase tracking-wide">
+                      {language === 'ro' ? 'Întrebări Răspunse' : language === 'de' ? 'Beantwortete Fragen' : 'Questions Answered'}
+                    </p>
+                  </div>
+                ) : null}
                 {certificate.final_exam_score && (
                   <div className="text-center px-4 py-2 bg-gradient-to-b from-purple-50 to-purple-100/50 rounded-lg border border-purple-200">
                     <p className="text-2xl font-bold text-purple-700">{finalExamPoints}%</p>

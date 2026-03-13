@@ -762,6 +762,14 @@ export function CertificatesDashboard() {
                   <p className="font-semibold">{selectedCertificate.quizzes_passed}/50</p>
                 </div>
                 <div>
+                  <p className="text-sm text-muted-foreground">Întrebări Răspunse</p>
+                  <p className="font-semibold">{selectedCertificate.total_quiz_questions || 0} întrebări</p>
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground">Încercări Quiz</p>
+                  <p className="font-semibold">{selectedCertificate.total_quiz_attempts || 0} încercări</p>
+                </div>
+                <div>
                   <p className="text-sm text-muted-foreground">Ore Training</p>
                   <p className="font-semibold">{Math.round(selectedCertificate.total_training_hours || 0)} ore</p>
                 </div>
