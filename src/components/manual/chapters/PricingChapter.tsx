@@ -716,7 +716,7 @@ export function PricingChapter() {
           <div>
             <h3 className="font-semibold mb-3">{ct("dieselAdjustmentFormula")}</h3>
             <div className="bg-muted/50 p-4 rounded-lg font-mono text-sm mb-4">
-              <p>{ct("referencePrice")} €1.50/L</p>
+              <p>{ct("referencePrice")} €1.55/L</p>
               <p>{ct("averageConsumption")} 30L/100km</p>
               <p className="mt-2 border-t pt-2">
                 {ct("surchargeFormula")}
@@ -733,11 +733,11 @@ export function PricingChapter() {
             <DataTable
               headers={[ct("dieselPerL"), ct("adjustment"), ct("action")]}
               rows={[
-                ["< €1.40", "-3 to -5%", ct("canReducePrices")],
-                ["€1.40-1.55", "0%", ct("standardPrice")],
-                ["€1.55-1.70", "+3 to +5%", ct("addFuelSurcharge")],
-                ["€1.70-1.85", "+5 to +8%", ct("surchargeMandatory")],
-                ["> €1.85", "+8 to +12%", ct("renegotiateContracts")],
+                ["< €1.45", "-3 to -5%", ct("canReducePrices")],
+                ["€1.45-1.60", "0%", ct("standardPrice")],
+                ["€1.60-1.75", "+3 to +5%", ct("addFuelSurcharge")],
+                ["€1.75-1.90", "+5 to +8%", ct("surchargeMandatory")],
+                ["> €1.90", "+8 to +12%", ct("renegotiateContracts")],
               ]}
             />
           </div>
