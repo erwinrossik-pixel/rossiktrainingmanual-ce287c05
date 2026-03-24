@@ -124,7 +124,7 @@ export function PricingChapter() {
               </li>
               <li className="flex justify-between py-2 bg-muted/50 rounded px-2">
                 <span className="font-semibold">{ct("totalOperationalCost")}</span>
-                <span className="font-bold text-primary">€1.00-1.35/km</span>
+                <span className="font-bold text-primary">€1.05-1.40/km</span>
               </li>
             </ul>
           </div>
