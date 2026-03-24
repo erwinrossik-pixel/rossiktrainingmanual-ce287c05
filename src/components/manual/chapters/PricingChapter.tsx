@@ -578,7 +578,7 @@ export function PricingChapter() {
             <div className="space-y-2">
               <p className="text-muted-foreground">{ct("scenario")}</p>
               <div className="font-mono bg-muted/50 p-3 rounded space-y-1">
-                <p>{ct("totalCostLabel")} €1,211</p>
+                <p>{ct("totalCostLabel")} €1,259</p>
                 <p>{ct("baseMarginNewClient")} 15%</p>
                 <p>{ct("weekendAdjustment")} +7%</p>
                 <p className="border-t pt-2 mt-2">{ct("totalMargin")} 22%</p>
@@ -587,9 +587,9 @@ export function PricingChapter() {
             <div className="space-y-2">
               <p className="text-muted-foreground">{ct("finalCalculation")}</p>
               <div className="font-mono bg-success/10 p-3 rounded space-y-1">
-                <p>€1,211 × 1.22 = <strong>€1,477</strong></p>
-                <p>{ct("profit")} €266</p>
-                <p>{ct("profitPerKm")} €0.32</p>
+                <p>€1,259 × 1.22 = <strong>€1,536</strong></p>
+                <p>{ct("profit")} €277</p>
+                <p>{ct("profitPerKm")} €0.33</p>
                 <p className="text-success font-semibold">✓ {ct("marginHealthy")}</p>
               </div>
             </div>
