@@ -74,7 +74,7 @@ export function PricingChapter() {
         </InfoCard>
 
         <InfoCard title={ct("dieselReference")} icon={Fuel}>
-          <p className="text-3xl font-bold text-primary">€1.45-1.65</p>
+          <p className="text-3xl font-bold text-destructive">€1.55-1.85</p>
           <p className="text-xs text-muted-foreground mt-1">{ct("perLiter")}</p>
           <p className="text-xs text-muted-foreground">{ct("monitorWeekly")}</p>
         </InfoCard>
