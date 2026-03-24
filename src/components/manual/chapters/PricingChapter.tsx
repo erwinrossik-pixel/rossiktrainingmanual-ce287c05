@@ -439,31 +439,31 @@ export function PricingChapter() {
             </div>
             <div className="space-y-2 text-sm">
               <div className="flex justify-between py-2 border-b border-border">
-                <span>{ct("baseCost")} (1100 × €1.15)</span>
-                <span className="font-medium">€1,265</span>
+                <span>{ct("baseCost")} (1100 × €1.20)</span>
+                <span className="font-medium">€1,320</span>
               </div>
               <div className="flex justify-between py-2 border-b border-border text-muted-foreground">
-                <span>🇨🇿 CZ {ct("tollCost")} (100km × €0.26)</span>
-                <span>€26</span>
+                <span>🇨🇿 CZ {ct("tollCost")} (100km × €0.275)</span>
+                <span>€28</span>
               </div>
               <div className="flex justify-between py-2 border-b border-border text-muted-foreground">
                 <span>🇩🇪 DE {ct("tollCost")} (400km × €0.348)</span>
                 <span>€139</span>
               </div>
               <div className="flex justify-between py-2 border-b border-border text-muted-foreground">
-                <span>🇫🇷 FR {ct("tollCost")} (600km × €0.30)</span>
-                <span>€180</span>
+                <span>🇫🇷 FR {ct("tollCost")} (600km × €0.31)</span>
+                <span>€186</span>
               </div>
               <div className="flex justify-between py-2 border-b border-border bg-muted/50 px-2 rounded">
                 <span className="font-semibold">{ct("totalCost")}</span>
-                <span className="font-bold">€1,610</span>
+                <span className="font-bold">€1,673</span>
               </div>
               <div className="flex justify-between py-2 px-2 bg-secondary/10 rounded">
                 <span className="font-semibold">{ct("offerPrice")} (11%)</span>
-                <span className="font-bold">€1,787</span>
+                <span className="font-bold">€1,857</span>
               </div>
               <div className="text-xs text-muted-foreground mt-2">
-                {ct("costPerKmAllIn")} €1.62 | {ct("profit")} €177
+                {ct("costPerKmAllIn")} €1.69 | {ct("profit")} €184
               </div>
             </div>
           </div>
