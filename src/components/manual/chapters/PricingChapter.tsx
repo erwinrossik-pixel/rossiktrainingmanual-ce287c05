@@ -743,11 +743,49 @@ export function PricingChapter() {
           </div>
         </div>
 
-        <div className="bg-warning/10 border border-warning/30 p-4 rounded-lg mt-4">
+        <div className="bg-destructive/10 border border-destructive/30 p-4 rounded-lg mt-4">
           <p className="text-sm flex items-start gap-2">
-            <AlertTriangle className="w-4 h-4 mt-0.5 flex-shrink-0" />
+            <AlertTriangle className="w-4 h-4 mt-0.5 flex-shrink-0 text-destructive" />
             <span><strong>{ct("fuelClauseImportant")}</strong></span>
           </p>
+        </div>
+
+        {/* European Diesel Indexation */}
+        <div className="mt-6 bg-card border border-border rounded-xl p-6">
+          <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+            <TrendingUp className="w-5 h-5 text-primary" />
+            {ct("europeanDieselIndexation")}
+          </h3>
+          <p className="text-sm text-muted-foreground mb-4">{ct("indexationDescription")}</p>
+          
+          <div className="grid md:grid-cols-2 gap-6">
+            <div>
+              <h4 className="font-semibold mb-3">{ct("indexationMechanism")}</h4>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li>{ct("indexationStep1")}</li>
+                <li>{ct("indexationStep2")}</li>
+                <li>{ct("indexationStep3")}</li>
+                <li>{ct("indexationStep4")}</li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-semibold mb-3">{ct("indexationSources")}</h4>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li>{ct("indexSourceCNR")}</li>
+                <li>{ct("indexSourceBGL")}</li>
+                <li>{ct("indexSourceUETR")}</li>
+                <li>{ct("indexSourceEIA")}</li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="bg-destructive/10 border border-destructive/30 p-4 rounded-lg mt-4">
+            <h4 className="font-semibold text-destructive mb-2 flex items-center gap-2">
+              <AlertTriangle className="w-4 h-4" />
+              {ct("indexMarch2026")}
+            </h4>
+            <p className="text-sm">{ct("indexMarch2026Desc")}</p>
+          </div>
         </div>
         
         {/* Pricing Analysis Software Image - contextual after fuel surcharge */}
