@@ -862,7 +862,7 @@ export function PricingChapter() {
           </div>
           <div className="bg-primary-foreground/10 p-3 rounded-lg text-center">
             <p className="text-primary-foreground/70 text-xs">{ct("costAllInLabel")}</p>
-            <p className="text-xl font-bold">€1.50-1.70</p>
+            <p className="text-xl font-bold">€1.55-1.80</p>
           </div>
         </div>
       </div>
