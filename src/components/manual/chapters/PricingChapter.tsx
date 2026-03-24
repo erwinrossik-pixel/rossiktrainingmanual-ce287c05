@@ -104,7 +104,7 @@ export function PricingChapter() {
             <ul className="space-y-2 text-sm">
               <li className="flex justify-between py-2 border-b border-border">
                 <span>{ct("fuelConsumption")}</span>
-                <span className="font-medium">€0.42-0.53/km</span>
+                <span className="font-medium">€0.47-0.58/km</span>
               </li>
               <li className="flex justify-between py-2 border-b border-border">
                 <span>{ct("driverSalary")}</span>
