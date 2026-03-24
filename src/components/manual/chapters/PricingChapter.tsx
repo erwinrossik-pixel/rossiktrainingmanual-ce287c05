@@ -68,7 +68,7 @@ export function PricingChapter() {
         </InfoCard>
         
         <InfoCard title={ct("averageTotalCost")} icon={Truck}>
-          <p className="text-3xl font-bold text-primary">€1.35-1.60</p>
+          <p className="text-3xl font-bold text-primary">€1.45-1.75</p>
           <p className="text-xs text-muted-foreground mt-1">{ct("perKmAllIn")}</p>
           <p className="text-xs text-muted-foreground">{ct("includesTollsAccessories")}</p>
         </InfoCard>
