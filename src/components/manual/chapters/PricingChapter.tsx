@@ -363,16 +363,16 @@ export function PricingChapter() {
             </div>
             <div className="space-y-2 text-sm">
               <div className="flex justify-between py-2 border-b border-border">
-                <span>{ct("baseCost")} (1450 × €1.15)</span>
-                <span className="font-medium">€1,668</span>
+                <span>{ct("baseCost")} (1450 × €1.20)</span>
+                <span className="font-medium">€1,740</span>
               </div>
               <div className="flex justify-between py-2 border-b border-border text-muted-foreground">
                 <span>🇳🇱 NL + 🇧🇪 BE {ct("tollCost")} (300km)</span>
-                <span>€50</span>
+                <span>€58</span>
               </div>
               <div className="flex justify-between py-2 border-b border-border text-muted-foreground">
-                <span>🇫🇷 FR {ct("tollCost")} (850km × €0.30)</span>
-                <span>€255</span>
+                <span>🇫🇷 FR {ct("tollCost")} (850km × €0.31)</span>
+                <span>€264</span>
               </div>
               <div className="flex justify-between py-2 border-b border-border text-muted-foreground">
                 <span>🇪🇸 ES {ct("tollCost")} (300km × €0.29)</span>
@@ -380,14 +380,14 @@ export function PricingChapter() {
               </div>
               <div className="flex justify-between py-2 border-b border-border bg-muted/50 px-2 rounded">
                 <span className="font-semibold">{ct("totalCost")}</span>
-                <span className="font-bold">€2,060</span>
+                <span className="font-bold">€2,149</span>
               </div>
               <div className="flex justify-between py-2 px-2 bg-warning/10 rounded">
                 <span className="font-semibold">{ct("offerPrice")} (10%)</span>
-                <span className="font-bold text-warning">€2,266</span>
+                <span className="font-bold text-warning">€2,364</span>
               </div>
               <div className="text-xs text-muted-foreground mt-2">
-                {ct("costPerKmAllIn")} €1.56 | {ct("profit")} €206 | {ct("duration2Days")}
+                {ct("costPerKmAllIn")} €1.63 | {ct("profit")} €215 | {ct("duration2Days")}
               </div>
             </div>
           </div>
