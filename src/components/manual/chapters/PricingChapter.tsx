@@ -56,7 +56,7 @@ export function PricingChapter() {
       {/* Key Rates - Enhanced */}
       <div className="grid md:grid-cols-4 gap-4">
         <InfoCard title={ct("baseRate")} icon={Euro}>
-          <p className="text-3xl font-bold text-primary">€1.10-1.25</p>
+          <p className="text-3xl font-bold text-primary">€1.15-1.30</p>
           <p className="text-xs text-muted-foreground mt-1">{ct("perKm")}</p>
           <p className="text-xs text-muted-foreground">{ct("variesByFuel")}</p>
         </InfoCard>
@@ -68,13 +68,13 @@ export function PricingChapter() {
         </InfoCard>
         
         <InfoCard title={ct("averageTotalCost")} icon={Truck}>
-          <p className="text-3xl font-bold text-primary">€1.35-1.60</p>
+          <p className="text-3xl font-bold text-primary">€1.45-1.75</p>
           <p className="text-xs text-muted-foreground mt-1">{ct("perKmAllIn")}</p>
           <p className="text-xs text-muted-foreground">{ct("includesTollsAccessories")}</p>
         </InfoCard>
 
         <InfoCard title={ct("dieselReference")} icon={Fuel}>
-          <p className="text-3xl font-bold text-primary">€1.45-1.65</p>
+          <p className="text-3xl font-bold text-destructive">€1.55-1.85</p>
           <p className="text-xs text-muted-foreground mt-1">{ct("perLiter")}</p>
           <p className="text-xs text-muted-foreground">{ct("monitorWeekly")}</p>
         </InfoCard>
@@ -104,7 +104,7 @@ export function PricingChapter() {
             <ul className="space-y-2 text-sm">
               <li className="flex justify-between py-2 border-b border-border">
                 <span>{ct("fuelConsumption")}</span>
-                <span className="font-medium">€0.42-0.53/km</span>
+                <span className="font-medium">€0.47-0.58/km</span>
               </li>
               <li className="flex justify-between py-2 border-b border-border">
                 <span>{ct("driverSalary")}</span>
@@ -124,7 +124,7 @@ export function PricingChapter() {
               </li>
               <li className="flex justify-between py-2 bg-muted/50 rounded px-2">
                 <span className="font-semibold">{ct("totalOperationalCost")}</span>
-                <span className="font-bold text-primary">€1.00-1.35/km</span>
+                <span className="font-bold text-primary">€1.05-1.40/km</span>
               </li>
             </ul>
           </div>
@@ -182,17 +182,18 @@ export function PricingChapter() {
           headers={[ct("country"), ct("ratePerKm"), ct("system"), ct("importantNotes")]}
           rows={[
             [`🇩🇪 ${ct("germany")}`, "€0.348", "LKW-Maut", ct("germanyNotes")],
-            [`🇦🇹 ${ct("austria")}`, "€0.532", "GO-Maut", ct("austriaNotes")],
+            [`🇦🇹 ${ct("austria")}`, "€0.557", "GO-Maut", ct("austriaNotes")],
             [`🇨🇭 ${ct("switzerland")}`, "€0.55", "LSVA", ct("switzerlandNotes")],
-            [`🇭🇺 ${ct("hungary")}`, "€0.425", "HU-GO", ct("hungaryNotes")],
+            [`🇭🇺 ${ct("hungary")}`, "€0.445", "HU-GO", ct("hungaryNotes")],
             [`🇮🇹 ${ct("italy")}`, "€0.30", "Telepass", ct("italyNotes")],
-            [`🇫🇷 ${ct("france")}`, "€0.28-0.33", "Télépéage", ct("franceNotes")],
+            [`🇫🇷 ${ct("france")}`, "€0.29-0.34", "Télépéage", ct("franceNotes")],
             [`🇪🇸 ${ct("spain")}`, "€0.28-0.31", "Vía-T", ct("spainNotes")],
-            [`🇨🇿 ${ct("czechia")}`, "€0.26", "MYTO CZ", ct("czechiaNotes")],
+            [`🇨🇿 ${ct("czechia")}`, "€0.275", "MYTO CZ", ct("czechiaNotes")],
             [`🇸🇮 ${ct("slovenia")}`, "€0.24", "DarsGo", ct("sloveniaNotes")],
-            [`🇧🇪 ${ct("belgium")}`, "€0.171", "Viapass", ct("belgiumNotes")],
-            [`🇳🇱 ${ct("netherlands")}`, "€0.159", "Vrachtwagen", ct("netherlandsNotes")],
-            [`🇵🇱 ${ct("poland")}`, "€0.092", "e-TOLL", ct("polandNotes")],
+            [`🇧🇪 ${ct("belgium")}`, "€0.194", "Viapass", ct("belgiumNotes")],
+            [`🇳🇱 ${ct("netherlands")}`, "€0.191", "Vrachtwagenheffing", ct("netherlandsNotes")],
+            [`🇵🇱 ${ct("poland")}`, "€0.130", "e-TOLL", ct("polandNotes")],
+            [`🇷🇴 ${ct("romania")}`, "€0.035*", "TollRo", ct("romaniaNotes")],
           ]}
         />
 
@@ -286,27 +287,27 @@ export function PricingChapter() {
             </div>
             <div className="space-y-2 text-sm">
               <div className="flex justify-between py-2 border-b border-border">
-                <span>{ct("baseCost")} (830 × €1.15)</span>
-                <span className="font-medium">€955</span>
+                <span>{ct("baseCost")} (830 × €1.20)</span>
+                <span className="font-medium">€996</span>
               </div>
               <div className="flex justify-between py-2 border-b border-border text-muted-foreground">
                 <span>🇩🇪 DE {ct("tollCost")} (150km × €0.348)</span>
                 <span>€52</span>
               </div>
               <div className="flex justify-between py-2 border-b border-border text-muted-foreground">
-                <span>🇫🇷 FR {ct("tollCost")} (680km × €0.30)</span>
-                <span>€204</span>
+                <span>🇫🇷 FR {ct("tollCost")} (680km × €0.31)</span>
+                <span>€211</span>
               </div>
               <div className="flex justify-between py-2 border-b border-border bg-muted/50 px-2 rounded">
                 <span className="font-semibold">{ct("totalCost")}</span>
-                <span className="font-bold">€1,211</span>
+                <span className="font-bold">€1,259</span>
               </div>
               <div className="flex justify-between py-2 px-2 bg-primary/10 rounded">
                 <span className="font-semibold">{ct("offerPrice")} (12%)</span>
-                <span className="font-bold text-primary">€1,356</span>
+                <span className="font-bold text-primary">€1,410</span>
               </div>
               <div className="text-xs text-muted-foreground mt-2">
-                {ct("costPerKmAllIn")} €1.63 | {ct("profit")} €145
+                {ct("costPerKmAllIn")} €1.70 | {ct("profit")} €151
               </div>
             </div>
           </div>
@@ -322,12 +323,12 @@ export function PricingChapter() {
             </div>
             <div className="space-y-2 text-sm">
               <div className="flex justify-between py-2 border-b border-border">
-                <span>{ct("baseCost")} (810 × €1.15)</span>
-                <span className="font-medium">€932</span>
+                <span>{ct("baseCost")} (810 × €1.20)</span>
+                <span className="font-medium">€972</span>
               </div>
               <div className="flex justify-between py-2 border-b border-border text-muted-foreground">
-                <span>🇦🇹 AT {ct("tollCost")} (70km × €0.532)</span>
-                <span>€37</span>
+                <span>🇦🇹 AT {ct("tollCost")} (70km × €0.557)</span>
+                <span>€39</span>
               </div>
               <div className="flex justify-between py-2 border-b border-border text-muted-foreground">
                 <span>🇮🇹 IT {ct("tollCost")} (740km × €0.30)</span>
@@ -339,14 +340,14 @@ export function PricingChapter() {
               </div>
               <div className="flex justify-between py-2 border-b border-border bg-muted/50 px-2 rounded">
                 <span className="font-semibold">{ct("totalCost")}</span>
-                <span className="font-bold">€1,201</span>
+                <span className="font-bold">€1,243</span>
               </div>
               <div className="flex justify-between py-2 px-2 bg-success/10 rounded">
                 <span className="font-semibold">{ct("offerPrice")} (15%)</span>
-                <span className="font-bold text-success">€1,381</span>
+                <span className="font-bold text-success">€1,429</span>
               </div>
               <div className="text-xs text-muted-foreground mt-2">
-                {ct("costPerKmAllIn")} €1.70 | {ct("profit")} €180
+                {ct("costPerKmAllIn")} €1.76 | {ct("profit")} €186
               </div>
             </div>
           </div>
@@ -362,16 +363,16 @@ export function PricingChapter() {
             </div>
             <div className="space-y-2 text-sm">
               <div className="flex justify-between py-2 border-b border-border">
-                <span>{ct("baseCost")} (1450 × €1.15)</span>
-                <span className="font-medium">€1,668</span>
+                <span>{ct("baseCost")} (1450 × €1.20)</span>
+                <span className="font-medium">€1,740</span>
               </div>
               <div className="flex justify-between py-2 border-b border-border text-muted-foreground">
                 <span>🇳🇱 NL + 🇧🇪 BE {ct("tollCost")} (300km)</span>
-                <span>€50</span>
+                <span>€58</span>
               </div>
               <div className="flex justify-between py-2 border-b border-border text-muted-foreground">
-                <span>🇫🇷 FR {ct("tollCost")} (850km × €0.30)</span>
-                <span>€255</span>
+                <span>🇫🇷 FR {ct("tollCost")} (850km × €0.31)</span>
+                <span>€264</span>
               </div>
               <div className="flex justify-between py-2 border-b border-border text-muted-foreground">
                 <span>🇪🇸 ES {ct("tollCost")} (300km × €0.29)</span>
@@ -379,14 +380,14 @@ export function PricingChapter() {
               </div>
               <div className="flex justify-between py-2 border-b border-border bg-muted/50 px-2 rounded">
                 <span className="font-semibold">{ct("totalCost")}</span>
-                <span className="font-bold">€2,060</span>
+                <span className="font-bold">€2,149</span>
               </div>
               <div className="flex justify-between py-2 px-2 bg-warning/10 rounded">
                 <span className="font-semibold">{ct("offerPrice")} (10%)</span>
-                <span className="font-bold text-warning">€2,266</span>
+                <span className="font-bold text-warning">€2,364</span>
               </div>
               <div className="text-xs text-muted-foreground mt-2">
-                {ct("costPerKmAllIn")} €1.56 | {ct("profit")} €206 | {ct("duration2Days")}
+                {ct("costPerKmAllIn")} €1.63 | {ct("profit")} €215 | {ct("duration2Days")}
               </div>
             </div>
           </div>
@@ -402,27 +403,27 @@ export function PricingChapter() {
             </div>
             <div className="space-y-2 text-sm">
               <div className="flex justify-between py-2 border-b border-border">
-                <span>{ct("baseCost")} (680 × €1.15)</span>
-                <span className="font-medium">€782</span>
+                <span>{ct("baseCost")} (680 × €1.20)</span>
+                <span className="font-medium">€816</span>
               </div>
               <div className="flex justify-between py-2 border-b border-border text-muted-foreground">
                 <span>🇩🇪 DE {ct("tollCost")} (380km × €0.348)</span>
                 <span>€132</span>
               </div>
               <div className="flex justify-between py-2 border-b border-border text-muted-foreground">
-                <span>🇵🇱 PL {ct("tollCost")} (300km × €0.092)</span>
-                <span>€28</span>
+                <span>🇵🇱 PL {ct("tollCost")} (300km × €0.130)</span>
+                <span>€39</span>
               </div>
               <div className="flex justify-between py-2 border-b border-border bg-muted/50 px-2 rounded">
                 <span className="font-semibold">{ct("totalCost")}</span>
-                <span className="font-bold">€942</span>
+                <span className="font-bold">€987</span>
               </div>
               <div className="flex justify-between py-2 px-2 bg-info/10 rounded">
                 <span className="font-semibold">{ct("offerPrice")} (14%)</span>
-                <span className="font-bold text-info">€1,074</span>
+                <span className="font-bold text-info">€1,125</span>
               </div>
               <div className="text-xs text-muted-foreground mt-2">
-                {ct("costPerKmAllIn")} €1.58 | {ct("profit")} €132 | {ct("profitableRoute")}
+                {ct("costPerKmAllIn")} €1.65 | {ct("profit")} €138 | {ct("profitableRoute")}
               </div>
             </div>
           </div>
@@ -438,31 +439,31 @@ export function PricingChapter() {
             </div>
             <div className="space-y-2 text-sm">
               <div className="flex justify-between py-2 border-b border-border">
-                <span>{ct("baseCost")} (1100 × €1.15)</span>
-                <span className="font-medium">€1,265</span>
+                <span>{ct("baseCost")} (1100 × €1.20)</span>
+                <span className="font-medium">€1,320</span>
               </div>
               <div className="flex justify-between py-2 border-b border-border text-muted-foreground">
-                <span>🇨🇿 CZ {ct("tollCost")} (100km × €0.26)</span>
-                <span>€26</span>
+                <span>🇨🇿 CZ {ct("tollCost")} (100km × €0.275)</span>
+                <span>€28</span>
               </div>
               <div className="flex justify-between py-2 border-b border-border text-muted-foreground">
                 <span>🇩🇪 DE {ct("tollCost")} (400km × €0.348)</span>
                 <span>€139</span>
               </div>
               <div className="flex justify-between py-2 border-b border-border text-muted-foreground">
-                <span>🇫🇷 FR {ct("tollCost")} (600km × €0.30)</span>
-                <span>€180</span>
+                <span>🇫🇷 FR {ct("tollCost")} (600km × €0.31)</span>
+                <span>€186</span>
               </div>
               <div className="flex justify-between py-2 border-b border-border bg-muted/50 px-2 rounded">
                 <span className="font-semibold">{ct("totalCost")}</span>
-                <span className="font-bold">€1,610</span>
+                <span className="font-bold">€1,673</span>
               </div>
               <div className="flex justify-between py-2 px-2 bg-secondary/10 rounded">
                 <span className="font-semibold">{ct("offerPrice")} (11%)</span>
-                <span className="font-bold">€1,787</span>
+                <span className="font-bold">€1,857</span>
               </div>
               <div className="text-xs text-muted-foreground mt-2">
-                {ct("costPerKmAllIn")} €1.62 | {ct("profit")} €177
+                {ct("costPerKmAllIn")} €1.69 | {ct("profit")} €184
               </div>
             </div>
           </div>
@@ -478,35 +479,35 @@ export function PricingChapter() {
             </div>
             <div className="space-y-2 text-sm">
               <div className="flex justify-between py-2 border-b border-border">
-                <span>{ct("baseCost")} (1320 × €1.15)</span>
-                <span className="font-medium">€1,518</span>
+                <span>{ct("baseCost")} (1320 × €1.20)</span>
+                <span className="font-medium">€1,584</span>
               </div>
               <div className="flex justify-between py-2 border-b border-border text-muted-foreground">
-                <span>🇭🇺 HU {ct("tollCost")} (200km × €0.425)</span>
-                <span>€85</span>
+                <span>🇭🇺 HU {ct("tollCost")} (200km × €0.445)</span>
+                <span>€89</span>
               </div>
               <div className="flex justify-between py-2 border-b border-border text-muted-foreground">
-                <span>🇦🇹 AT {ct("tollCost")} (150km × €0.532)</span>
-                <span>€80</span>
+                <span>🇦🇹 AT {ct("tollCost")} (150km × €0.557)</span>
+                <span>€84</span>
               </div>
               <div className="flex justify-between py-2 border-b border-border text-muted-foreground">
                 <span>🇩🇪 DE {ct("tollCost")} (700km × €0.348)</span>
                 <span>€244</span>
               </div>
               <div className="flex justify-between py-2 border-b border-border text-muted-foreground">
-                <span>🇳🇱 NL {ct("tollCost")} (270km × €0.159)</span>
-                <span>€43</span>
+                <span>🇳🇱 NL {ct("tollCost")} (270km × €0.191)</span>
+                <span>€52</span>
               </div>
               <div className="flex justify-between py-2 border-b border-border bg-muted/50 px-2 rounded">
                 <span className="font-semibold">{ct("totalCost")}</span>
-                <span className="font-bold">€1,970</span>
+                <span className="font-bold">€2,053</span>
               </div>
               <div className="flex justify-between py-2 px-2 bg-destructive/10 rounded">
                 <span className="font-semibold">{ct("offerPrice")} (13%)</span>
-                <span className="font-bold text-destructive">€2,226</span>
+                <span className="font-bold text-destructive">€2,320</span>
               </div>
               <div className="text-xs text-muted-foreground mt-2">
-                {ct("costPerKmAllIn")} €1.69 | {ct("profit")} €256 | {ct("attentionATTolls")}
+                {ct("costPerKmAllIn")} €1.76 | {ct("profit")} €267 | {ct("attentionATTolls")}
               </div>
             </div>
           </div>
@@ -577,7 +578,7 @@ export function PricingChapter() {
             <div className="space-y-2">
               <p className="text-muted-foreground">{ct("scenario")}</p>
               <div className="font-mono bg-muted/50 p-3 rounded space-y-1">
-                <p>{ct("totalCostLabel")} €1,211</p>
+                <p>{ct("totalCostLabel")} €1,259</p>
                 <p>{ct("baseMarginNewClient")} 15%</p>
                 <p>{ct("weekendAdjustment")} +7%</p>
                 <p className="border-t pt-2 mt-2">{ct("totalMargin")} 22%</p>
@@ -586,9 +587,9 @@ export function PricingChapter() {
             <div className="space-y-2">
               <p className="text-muted-foreground">{ct("finalCalculation")}</p>
               <div className="font-mono bg-success/10 p-3 rounded space-y-1">
-                <p>€1,211 × 1.22 = <strong>€1,477</strong></p>
-                <p>{ct("profit")} €266</p>
-                <p>{ct("profitPerKm")} €0.32</p>
+                <p>€1,259 × 1.22 = <strong>€1,536</strong></p>
+                <p>{ct("profit")} €277</p>
+                <p>{ct("profitPerKm")} €0.33</p>
                 <p className="text-success font-semibold">✓ {ct("marginHealthy")}</p>
               </div>
             </div>
@@ -715,7 +716,7 @@ export function PricingChapter() {
           <div>
             <h3 className="font-semibold mb-3">{ct("dieselAdjustmentFormula")}</h3>
             <div className="bg-muted/50 p-4 rounded-lg font-mono text-sm mb-4">
-              <p>{ct("referencePrice")} €1.50/L</p>
+              <p>{ct("referencePrice")} €1.55/L</p>
               <p>{ct("averageConsumption")} 30L/100km</p>
               <p className="mt-2 border-t pt-2">
                 {ct("surchargeFormula")}
@@ -732,21 +733,59 @@ export function PricingChapter() {
             <DataTable
               headers={[ct("dieselPerL"), ct("adjustment"), ct("action")]}
               rows={[
-                ["< €1.40", "-3 to -5%", ct("canReducePrices")],
-                ["€1.40-1.55", "0%", ct("standardPrice")],
-                ["€1.55-1.70", "+3 to +5%", ct("addFuelSurcharge")],
-                ["€1.70-1.85", "+5 to +8%", ct("surchargeMandatory")],
-                ["> €1.85", "+8 to +12%", ct("renegotiateContracts")],
+                ["< €1.45", "-3 to -5%", ct("canReducePrices")],
+                ["€1.45-1.60", "0%", ct("standardPrice")],
+                ["€1.60-1.75", "+3 to +5%", ct("addFuelSurcharge")],
+                ["€1.75-1.90", "+5 to +8%", ct("surchargeMandatory")],
+                ["> €1.90", "+8 to +12%", ct("renegotiateContracts")],
               ]}
             />
           </div>
         </div>
 
-        <div className="bg-warning/10 border border-warning/30 p-4 rounded-lg mt-4">
+        <div className="bg-destructive/10 border border-destructive/30 p-4 rounded-lg mt-4">
           <p className="text-sm flex items-start gap-2">
-            <AlertTriangle className="w-4 h-4 mt-0.5 flex-shrink-0" />
+            <AlertTriangle className="w-4 h-4 mt-0.5 flex-shrink-0 text-destructive" />
             <span><strong>{ct("fuelClauseImportant")}</strong></span>
           </p>
+        </div>
+
+        {/* European Diesel Indexation */}
+        <div className="mt-6 bg-card border border-border rounded-xl p-6">
+          <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+            <TrendingUp className="w-5 h-5 text-primary" />
+            {ct("europeanDieselIndexation")}
+          </h3>
+          <p className="text-sm text-muted-foreground mb-4">{ct("indexationDescription")}</p>
+          
+          <div className="grid md:grid-cols-2 gap-6">
+            <div>
+              <h4 className="font-semibold mb-3">{ct("indexationMechanism")}</h4>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li>{ct("indexationStep1")}</li>
+                <li>{ct("indexationStep2")}</li>
+                <li>{ct("indexationStep3")}</li>
+                <li>{ct("indexationStep4")}</li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-semibold mb-3">{ct("indexationSources")}</h4>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                <li>{ct("indexSourceCNR")}</li>
+                <li>{ct("indexSourceBGL")}</li>
+                <li>{ct("indexSourceUETR")}</li>
+                <li>{ct("indexSourceEIA")}</li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="bg-destructive/10 border border-destructive/30 p-4 rounded-lg mt-4">
+            <h4 className="font-semibold text-destructive mb-2 flex items-center gap-2">
+              <AlertTriangle className="w-4 h-4" />
+              {ct("indexMarch2026")}
+            </h4>
+            <p className="text-sm">{ct("indexMarch2026Desc")}</p>
+          </div>
         </div>
         
         {/* Pricing Analysis Software Image - contextual after fuel surcharge */}
@@ -807,7 +846,7 @@ export function PricingChapter() {
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4 text-sm">
           <div className="bg-primary-foreground/10 p-3 rounded-lg text-center">
             <p className="text-primary-foreground/70 text-xs">{ct("baseRateLabel")}</p>
-            <p className="text-xl font-bold">€1.15/km</p>
+            <p className="text-xl font-bold">€1.20/km</p>
           </div>
           <div className="bg-primary-foreground/10 p-3 rounded-lg text-center">
             <p className="text-primary-foreground/70 text-xs">{ct("standardMarginLabel")}</p>
@@ -823,7 +862,7 @@ export function PricingChapter() {
           </div>
           <div className="bg-primary-foreground/10 p-3 rounded-lg text-center">
             <p className="text-primary-foreground/70 text-xs">{ct("costAllInLabel")}</p>
-            <p className="text-xl font-bold">€1.50-1.70</p>
+            <p className="text-xl font-bold">€1.55-1.80</p>
           </div>
         </div>
       </div>
