@@ -846,7 +846,7 @@ export function PricingChapter() {
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4 text-sm">
           <div className="bg-primary-foreground/10 p-3 rounded-lg text-center">
             <p className="text-primary-foreground/70 text-xs">{ct("baseRateLabel")}</p>
-            <p className="text-xl font-bold">€1.15/km</p>
+            <p className="text-xl font-bold">€1.20/km</p>
           </div>
           <div className="bg-primary-foreground/10 p-3 rounded-lg text-center">
             <p className="text-primary-foreground/70 text-xs">{ct("standardMarginLabel")}</p>
