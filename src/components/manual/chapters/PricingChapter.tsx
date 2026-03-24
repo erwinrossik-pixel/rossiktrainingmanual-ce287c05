@@ -182,17 +182,18 @@ export function PricingChapter() {
           headers={[ct("country"), ct("ratePerKm"), ct("system"), ct("importantNotes")]}
           rows={[
             [`🇩🇪 ${ct("germany")}`, "€0.348", "LKW-Maut", ct("germanyNotes")],
-            [`🇦🇹 ${ct("austria")}`, "€0.532", "GO-Maut", ct("austriaNotes")],
+            [`🇦🇹 ${ct("austria")}`, "€0.557", "GO-Maut", ct("austriaNotes")],
             [`🇨🇭 ${ct("switzerland")}`, "€0.55", "LSVA", ct("switzerlandNotes")],
-            [`🇭🇺 ${ct("hungary")}`, "€0.425", "HU-GO", ct("hungaryNotes")],
+            [`🇭🇺 ${ct("hungary")}`, "€0.445", "HU-GO", ct("hungaryNotes")],
             [`🇮🇹 ${ct("italy")}`, "€0.30", "Telepass", ct("italyNotes")],
-            [`🇫🇷 ${ct("france")}`, "€0.28-0.33", "Télépéage", ct("franceNotes")],
+            [`🇫🇷 ${ct("france")}`, "€0.29-0.34", "Télépéage", ct("franceNotes")],
             [`🇪🇸 ${ct("spain")}`, "€0.28-0.31", "Vía-T", ct("spainNotes")],
-            [`🇨🇿 ${ct("czechia")}`, "€0.26", "MYTO CZ", ct("czechiaNotes")],
+            [`🇨🇿 ${ct("czechia")}`, "€0.275", "MYTO CZ", ct("czechiaNotes")],
             [`🇸🇮 ${ct("slovenia")}`, "€0.24", "DarsGo", ct("sloveniaNotes")],
-            [`🇧🇪 ${ct("belgium")}`, "€0.171", "Viapass", ct("belgiumNotes")],
-            [`🇳🇱 ${ct("netherlands")}`, "€0.159", "Vrachtwagen", ct("netherlandsNotes")],
-            [`🇵🇱 ${ct("poland")}`, "€0.092", "e-TOLL", ct("polandNotes")],
+            [`🇧🇪 ${ct("belgium")}`, "€0.194", "Viapass", ct("belgiumNotes")],
+            [`🇳🇱 ${ct("netherlands")}`, "€0.191", "Vrachtwagenheffing", ct("netherlandsNotes")],
+            [`🇵🇱 ${ct("poland")}`, "€0.130", "e-TOLL", ct("polandNotes")],
+            [`🇷🇴 ${ct("romania")}`, "€0.035*", "TollRo", ct("romaniaNotes")],
           ]}
         />
 
