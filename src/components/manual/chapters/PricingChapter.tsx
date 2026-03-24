@@ -479,35 +479,35 @@ export function PricingChapter() {
             </div>
             <div className="space-y-2 text-sm">
               <div className="flex justify-between py-2 border-b border-border">
-                <span>{ct("baseCost")} (1320 × €1.15)</span>
-                <span className="font-medium">€1,518</span>
+                <span>{ct("baseCost")} (1320 × €1.20)</span>
+                <span className="font-medium">€1,584</span>
               </div>
               <div className="flex justify-between py-2 border-b border-border text-muted-foreground">
-                <span>🇭🇺 HU {ct("tollCost")} (200km × €0.425)</span>
-                <span>€85</span>
+                <span>🇭🇺 HU {ct("tollCost")} (200km × €0.445)</span>
+                <span>€89</span>
               </div>
               <div className="flex justify-between py-2 border-b border-border text-muted-foreground">
-                <span>🇦🇹 AT {ct("tollCost")} (150km × €0.532)</span>
-                <span>€80</span>
+                <span>🇦🇹 AT {ct("tollCost")} (150km × €0.557)</span>
+                <span>€84</span>
               </div>
               <div className="flex justify-between py-2 border-b border-border text-muted-foreground">
                 <span>🇩🇪 DE {ct("tollCost")} (700km × €0.348)</span>
                 <span>€244</span>
               </div>
               <div className="flex justify-between py-2 border-b border-border text-muted-foreground">
-                <span>🇳🇱 NL {ct("tollCost")} (270km × €0.159)</span>
-                <span>€43</span>
+                <span>🇳🇱 NL {ct("tollCost")} (270km × €0.191)</span>
+                <span>€52</span>
               </div>
               <div className="flex justify-between py-2 border-b border-border bg-muted/50 px-2 rounded">
                 <span className="font-semibold">{ct("totalCost")}</span>
-                <span className="font-bold">€1,970</span>
+                <span className="font-bold">€2,053</span>
               </div>
               <div className="flex justify-between py-2 px-2 bg-destructive/10 rounded">
                 <span className="font-semibold">{ct("offerPrice")} (13%)</span>
-                <span className="font-bold text-destructive">€2,226</span>
+                <span className="font-bold text-destructive">€2,320</span>
               </div>
               <div className="text-xs text-muted-foreground mt-2">
-                {ct("costPerKmAllIn")} €1.69 | {ct("profit")} €256 | {ct("attentionATTolls")}
+                {ct("costPerKmAllIn")} €1.76 | {ct("profit")} €267 | {ct("attentionATTolls")}
               </div>
             </div>
           </div>
