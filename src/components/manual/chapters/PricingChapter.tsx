@@ -56,7 +56,7 @@ export function PricingChapter() {
       {/* Key Rates - Enhanced */}
       <div className="grid md:grid-cols-4 gap-4">
         <InfoCard title={ct("baseRate")} icon={Euro}>
-          <p className="text-3xl font-bold text-primary">€1.10-1.25</p>
+          <p className="text-3xl font-bold text-primary">€1.15-1.30</p>
           <p className="text-xs text-muted-foreground mt-1">{ct("perKm")}</p>
           <p className="text-xs text-muted-foreground">{ct("variesByFuel")}</p>
         </InfoCard>
