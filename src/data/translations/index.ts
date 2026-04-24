@@ -118,49 +118,89 @@ const inflight: Record<string, Promise<ChapterTranslations | null>> = {};
 
 /**
  * Asynchronously load a chapter's translations. Cached after first load.
+ * Always also warms the English version in parallel so non-English users
+ * see readable English text as a graceful fallback while their language
+ * file is still being fetched (rather than raw keys).
  */
-export async function loadChapterTranslations(chapterId: string): Promise<ChapterTranslations | null> {
+export async function loadChapterTranslations(
+  chapterId: string,
+  language?: Language
+): Promise<ChapterTranslations | null> {
+  // Warm English fallback in the background (fire-and-forget) when the
+  // requested language isn't English and we haven't loaded it yet.
+  if (language && language !== 'en' && !cache[chapterId] && !inflight[`${chapterId}::en`]) {
+    inflight[`${chapterId}::en`] = doLoad(chapterId);
+    inflight[`${chapterId}::en`].finally(() => {
+      delete inflight[`${chapterId}::en`];
+    });
+  }
+
   if (cache[chapterId]) return cache[chapterId];
   if (inflight[chapterId]) return inflight[chapterId];
 
+  inflight[chapterId] = doLoad(chapterId).finally(() => {
+    delete inflight[chapterId];
+  });
+  return inflight[chapterId];
+}
+
+function doLoad(chapterId: string): Promise<ChapterTranslations | null> {
   const loader = chapterLoaders[chapterId];
   const exportName = exportNames[chapterId];
-  if (!loader || !exportName) return null;
+  if (!loader || !exportName) return Promise.resolve(null);
 
-  inflight[chapterId] = loader()
+  return loader()
     .then((mod: any) => {
       const translations = mod[exportName] as ChapterTranslations | undefined;
       if (translations) cache[chapterId] = translations;
       return translations ?? null;
     })
-    .catch(() => null)
-    .finally(() => {
-      delete inflight[chapterId];
-    });
-
-  return inflight[chapterId];
+    .catch(() => null);
 }
 
 /**
- * Synchronous lookup against the in-memory cache. Returns the key itself if
- * the chapter hasn't been loaded yet — callers should trigger
- * `loadChapterTranslations` and re-render once the promise resolves.
+ * Convert a camelCase / dot.notation key into a readable label, used as the
+ * very last fallback when neither the requested language nor English is
+ * available yet.
+ *   "chapterTitle"           -> "Chapter title"
+ *   "intro.welcomeMessage"   -> "Welcome message"
  */
-export function getChapterTranslation(chapterId: string, key: string, language: Language): string {
+function humanizeKey(key: string): string {
+  const last = key.split('.').pop() ?? key;
+  const spaced = last
+    .replace(/([a-z0-9])([A-Z])/g, '$1 $2')
+    .replace(/[_-]+/g, ' ')
+    .trim();
+  if (!spaced) return key;
+  return spaced.charAt(0).toUpperCase() + spaced.slice(1).toLowerCase();
+}
+
+/**
+ * Synchronous lookup against the in-memory cache.
+ * Resolution order:
+ *   1. Requested language for this chapter (if cached)
+ *   2. English for this chapter (if cached) — graceful fallback
+ *   3. Humanized version of the key — last-resort placeholder
+ */
+export function getChapterTranslation(
+  chapterId: string,
+  key: string,
+  language: Language
+): string {
   const chapterTranslations = cache[chapterId];
-  if (!chapterTranslations) {
-    return key;
+  if (chapterTranslations) {
+    const target = chapterTranslations[language]?.[key];
+    if (target) return target;
+
+    const english = chapterTranslations.en?.[key];
+    if (english) return english;
   }
 
-  const languageTranslations = chapterTranslations[language];
-  if (!languageTranslations) {
-    return chapterTranslations.en?.[key] || key;
-  }
-
-  return languageTranslations[key] || chapterTranslations.en?.[key] || key;
+  return humanizeKey(key);
 }
 
 /** Returns true if a chapter's translations are already in the cache. */
 export function hasChapterTranslations(chapterId: string): boolean {
   return Boolean(cache[chapterId]);
 }
+

@@ -36,7 +36,7 @@ export function TranslationLoadingBanner({ chapterId }: TranslationLoadingBanner
     }
 
     setIsLoading(true);
-    loadChapterTranslations(chapterId).finally(() => {
+    loadChapterTranslations(chapterId, language).finally(() => {
       if (!cancelled) setIsLoading(false);
     });
 
