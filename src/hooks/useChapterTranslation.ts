@@ -21,13 +21,13 @@ export function useChapterTranslation(chapterId: string) {
       return;
     }
     setLoaded(false);
-    loadChapterTranslations(chapterId).then(() => {
+    loadChapterTranslations(chapterId, language).then(() => {
       if (!cancelled) setLoaded(true);
     });
     return () => {
       cancelled = true;
     };
-  }, [chapterId]);
+  }, [chapterId, language]);
 
   // Create a map of overrides for fast lookup
   const overrideMap = useMemo(() => {
