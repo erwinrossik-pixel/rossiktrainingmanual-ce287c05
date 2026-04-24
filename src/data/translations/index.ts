@@ -121,6 +121,136 @@ const BASE_DELAY_MS = 400;
 
 const sleep = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
 
+// ─────────────────────────────────────────────────────────────────────────────
+// Performance metrics
+// Tracks per-chapter load times, cache hits, retries, and failures.
+// Exposed in dev via `window.__translationMetrics()` for ad-hoc inspection.
+// ─────────────────────────────────────────────────────────────────────────────
+interface ChapterMetric {
+  chapterId: string;
+  loads: number;          // successful network loads
+  cacheHits: number;      // calls served from in-memory cache
+  retries: number;        // retry attempts beyond the first try
+  failures: number;       // calls that exhausted all retries
+  totalLoadMs: number;    // sum of successful load durations
+  lastLoadMs: number;     // duration of most recent successful load
+  fastestMs: number;      // best successful load time
+  slowestMs: number;      // worst successful load time
+}
+
+const metrics: Record<string, ChapterMetric> = {};
+const isDev =
+  typeof import.meta !== 'undefined' && (import.meta as any)?.env?.DEV === true;
+
+function getMetric(chapterId: string): ChapterMetric {
+  if (!metrics[chapterId]) {
+    metrics[chapterId] = {
+      chapterId,
+      loads: 0,
+      cacheHits: 0,
+      retries: 0,
+      failures: 0,
+      totalLoadMs: 0,
+      lastLoadMs: 0,
+      fastestMs: Infinity,
+      slowestMs: 0,
+    };
+  }
+  return metrics[chapterId];
+}
+
+function recordCacheHit(chapterId: string) {
+  const m = getMetric(chapterId);
+  m.cacheHits += 1;
+  if (isDev) {
+    console.debug(
+      `%c[translations] cache hit%c ${chapterId} %c(${m.cacheHits} total)`,
+      'color:#16a34a;font-weight:bold',
+      'color:inherit',
+      'color:#9ca3af'
+    );
+  }
+}
+
+function recordLoadSuccess(chapterId: string, durationMs: number, attempt: number) {
+  const m = getMetric(chapterId);
+  m.loads += 1;
+  m.lastLoadMs = durationMs;
+  m.totalLoadMs += durationMs;
+  m.fastestMs = Math.min(m.fastestMs, durationMs);
+  m.slowestMs = Math.max(m.slowestMs, durationMs);
+  if (attempt > 1) m.retries += attempt - 1;
+
+  if (isDev) {
+    const color = durationMs < 100 ? '#16a34a' : durationMs < 500 ? '#f59e0b' : '#dc2626';
+    console.debug(
+      `%c[translations] loaded%c ${chapterId} %cin ${durationMs.toFixed(0)}ms` +
+        (attempt > 1 ? ` (after ${attempt} attempts)` : ''),
+      'color:#2563eb;font-weight:bold',
+      'color:inherit',
+      `color:${color}`
+    );
+  }
+}
+
+function recordFailure(chapterId: string) {
+  const m = getMetric(chapterId);
+  m.failures += 1;
+}
+
+/** Returns a snapshot of all collected translation-loading metrics. */
+export function getTranslationMetrics(): {
+  perChapter: ChapterMetric[];
+  totals: {
+    chaptersTracked: number;
+    totalLoads: number;
+    totalCacheHits: number;
+    totalRetries: number;
+    totalFailures: number;
+    avgLoadMs: number;
+  };
+} {
+  const perChapter = Object.values(metrics).map((m) => ({ ...m }));
+  const totalLoads = perChapter.reduce((s, m) => s + m.loads, 0);
+  const totalLoadMs = perChapter.reduce((s, m) => s + m.totalLoadMs, 0);
+  return {
+    perChapter,
+    totals: {
+      chaptersTracked: perChapter.length,
+      totalLoads,
+      totalCacheHits: perChapter.reduce((s, m) => s + m.cacheHits, 0),
+      totalRetries: perChapter.reduce((s, m) => s + m.retries, 0),
+      totalFailures: perChapter.reduce((s, m) => s + m.failures, 0),
+      avgLoadMs: totalLoads > 0 ? totalLoadMs / totalLoads : 0,
+    },
+  };
+}
+
+/** Pretty-print the metrics summary to the console. */
+export function printTranslationMetrics(): void {
+  const snap = getTranslationMetrics();
+  console.group('%c📊 Translation Loading Metrics', 'color:#2563eb;font-weight:bold;font-size:13px');
+  console.log('Totals:', snap.totals);
+  if (snap.perChapter.length > 0) {
+    // Sanitize Infinity for cleaner console table output
+    console.table(
+      snap.perChapter.map((m) => ({
+        ...m,
+        fastestMs: m.fastestMs === Infinity ? 0 : Math.round(m.fastestMs),
+        slowestMs: Math.round(m.slowestMs),
+        lastLoadMs: Math.round(m.lastLoadMs),
+        totalLoadMs: Math.round(m.totalLoadMs),
+      }))
+    );
+  }
+  console.groupEnd();
+}
+
+// Expose for in-browser debugging (no-op on server)
+if (typeof window !== 'undefined') {
+  (window as any).__translationMetrics = printTranslationMetrics;
+}
+
 /**
  * Asynchronously load a chapter's translations with automatic retries
  * (exponential backoff). Cached after first successful load.
@@ -155,7 +285,10 @@ export async function loadChapterTranslations(
     });
   }
 
-  if (cache[chapterId]) return cache[chapterId];
+  if (cache[chapterId]) {
+    recordCacheHit(chapterId);
+    return cache[chapterId];
+  }
   if (inflight[chapterId]) return inflight[chapterId];
 
   inflight[chapterId] = doLoadWithRetry(chapterId).finally(() => {
@@ -167,15 +300,20 @@ export async function loadChapterTranslations(
 async function doLoadWithRetry(
   chapterId: string
 ): Promise<ChapterTranslations | null> {
+  const startedAt = performance.now();
   for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
     try {
       const result = await doLoad(chapterId);
-      if (result) return result;
+      if (result) {
+        recordLoadSuccess(chapterId, performance.now() - startedAt, attempt);
+        return result;
+      }
       // No translations exported under the expected name — not a transient
       // error, no point retrying.
       return null;
     } catch (err) {
       if (attempt === MAX_ATTEMPTS) {
+        recordFailure(chapterId);
         console.error(
           `[translations] Failed to load chapter "${chapterId}" after ${MAX_ATTEMPTS} attempts`,
           err
@@ -183,6 +321,13 @@ async function doLoadWithRetry(
         return null;
       }
       const delay = BASE_DELAY_MS * Math.pow(2, attempt - 1);
+      if (isDev) {
+        console.warn(
+          `%c[translations] retry%c ${chapterId} attempt ${attempt + 1}/${MAX_ATTEMPTS} in ${delay}ms`,
+          'color:#f59e0b;font-weight:bold',
+          'color:inherit'
+        );
+      }
       await sleep(delay);
     }
   }
