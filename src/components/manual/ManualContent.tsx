@@ -8,6 +8,7 @@ import { ChapterNavigation } from "./ChapterNavigation";
 import { ChapterDiscussions } from "./ChapterDiscussions";
 import { MultiModalContent } from "./MultiModalContent";
 import { TranslationLoadingBanner } from "./TranslationLoadingBanner";
+import { useChapterPrefetch } from "@/hooks/useChapterPrefetch";
 
 // Helper: lazy-load a named export as default
 const lazyNamed = <T extends string>(
@@ -85,6 +86,7 @@ const ChapterLoader = () => (
 export function ManualContent({ activeChapter, onChapterChange }: ManualContentProps) {
   const { isChapterLocked, getChapterMinPlan } = usePremiumChapters();
   const { t } = useLanguage();
+  useChapterPrefetch(activeChapter);
   
   const chapters: Record<string, React.ReactNode> = {
     intro: <IntroChapter />,
