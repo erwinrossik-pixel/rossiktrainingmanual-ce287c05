@@ -163,6 +163,7 @@ export function ManualContent({ activeChapter, onChapterChange }: ManualContentP
               key={activeChapter}
               className="animate-chapter-enter space-y-6 sm:space-y-8"
             >
+              <TranslationLoadingBanner chapterId={activeChapter} />
               {isLocked && requiredPlan ? (
                 <PaywallOverlay 
                   requiredPlan={requiredPlan} 
