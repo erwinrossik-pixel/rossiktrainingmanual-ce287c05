@@ -113,24 +113,44 @@ const exportNames: Record<string, string> = {
 
 // Cache of loaded chapter translations
 const cache: Record<string, ChapterTranslations> = {};
-// In-flight promises to deduplicate concurrent loads
+// In-flight promises to deduplicate concurrent loads (resolves to null on failure)
 const inflight: Record<string, Promise<ChapterTranslations | null>> = {};
 
+const MAX_ATTEMPTS = 3;
+const BASE_DELAY_MS = 400;
+
+const sleep = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
+
 /**
- * Asynchronously load a chapter's translations. Cached after first load.
- * Always also warms the English version in parallel so non-English users
- * see readable English text as a graceful fallback while their language
- * file is still being fetched (rather than raw keys).
+ * Asynchronously load a chapter's translations with automatic retries
+ * (exponential backoff). Cached after first successful load.
+ *
+ * Resolves to `null` if all retry attempts fail — callers can detect this
+ * to display an error UI. The English version is also warmed in the
+ * background as a graceful fallback for non-English users.
+ *
+ * Pass `{ forceReload: true }` to bypass the cache and retry from scratch
+ * (e.g. when a user clicks a "Retry" button).
  */
 export async function loadChapterTranslations(
   chapterId: string,
-  language?: Language
+  language?: Language,
+  options?: { forceReload?: boolean }
 ): Promise<ChapterTranslations | null> {
-  // Warm English fallback in the background (fire-and-forget) when the
-  // requested language isn't English and we haven't loaded it yet.
-  if (language && language !== 'en' && !cache[chapterId] && !inflight[`${chapterId}::en`]) {
-    inflight[`${chapterId}::en`] = doLoad(chapterId);
-    inflight[`${chapterId}::en`].finally(() => {
+  if (options?.forceReload) {
+    delete cache[chapterId];
+    delete inflight[chapterId];
+  }
+
+  // Warm English fallback in the background when the requested language
+  // isn't English and we haven't loaded it yet.
+  if (
+    language &&
+    language !== 'en' &&
+    !cache[chapterId] &&
+    !inflight[`${chapterId}::en`]
+  ) {
+    inflight[`${chapterId}::en`] = doLoadWithRetry(chapterId).finally(() => {
       delete inflight[`${chapterId}::en`];
     });
   }
@@ -138,10 +158,35 @@ export async function loadChapterTranslations(
   if (cache[chapterId]) return cache[chapterId];
   if (inflight[chapterId]) return inflight[chapterId];
 
-  inflight[chapterId] = doLoad(chapterId).finally(() => {
+  inflight[chapterId] = doLoadWithRetry(chapterId).finally(() => {
     delete inflight[chapterId];
   });
   return inflight[chapterId];
+}
+
+async function doLoadWithRetry(
+  chapterId: string
+): Promise<ChapterTranslations | null> {
+  for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
+    try {
+      const result = await doLoad(chapterId);
+      if (result) return result;
+      // No translations exported under the expected name — not a transient
+      // error, no point retrying.
+      return null;
+    } catch (err) {
+      if (attempt === MAX_ATTEMPTS) {
+        console.error(
+          `[translations] Failed to load chapter "${chapterId}" after ${MAX_ATTEMPTS} attempts`,
+          err
+        );
+        return null;
+      }
+      const delay = BASE_DELAY_MS * Math.pow(2, attempt - 1);
+      await sleep(delay);
+    }
+  }
+  return null;
 }
 
 function doLoad(chapterId: string): Promise<ChapterTranslations | null> {
@@ -149,13 +194,13 @@ function doLoad(chapterId: string): Promise<ChapterTranslations | null> {
   const exportName = exportNames[chapterId];
   if (!loader || !exportName) return Promise.resolve(null);
 
-  return loader()
-    .then((mod: any) => {
-      const translations = mod[exportName] as ChapterTranslations | undefined;
-      if (translations) cache[chapterId] = translations;
-      return translations ?? null;
-    })
-    .catch(() => null);
+  // Note: deliberately NOT swallowing the error here so the retry loop
+  // above can detect and react to transient failures (network, chunk load).
+  return loader().then((mod: any) => {
+    const translations = mod[exportName] as ChapterTranslations | undefined;
+    if (translations) cache[chapterId] = translations;
+    return translations ?? null;
+  });
 }
 
 /**
