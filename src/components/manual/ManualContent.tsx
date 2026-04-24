@@ -7,6 +7,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { ChapterNavigation } from "./ChapterNavigation";
 import { ChapterDiscussions } from "./ChapterDiscussions";
 import { MultiModalContent } from "./MultiModalContent";
+import { TranslationLoadingBanner } from "./TranslationLoadingBanner";
 
 // Helper: lazy-load a named export as default
 const lazyNamed = <T extends string>(
