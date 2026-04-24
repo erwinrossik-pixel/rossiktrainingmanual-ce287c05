@@ -8,6 +8,7 @@ import { ChapterNavigation } from "./ChapterNavigation";
 import { ChapterDiscussions } from "./ChapterDiscussions";
 import { MultiModalContent } from "./MultiModalContent";
 import { TranslationLoadingBanner } from "./TranslationLoadingBanner";
+import { useChapterPrefetch } from "@/hooks/useChapterPrefetch";
 
 // Helper: lazy-load a named export as default
 const lazyNamed = <T extends string>(
