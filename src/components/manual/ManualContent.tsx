@@ -7,6 +7,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { ChapterNavigation } from "./ChapterNavigation";
 import { ChapterDiscussions } from "./ChapterDiscussions";
 import { MultiModalContent } from "./MultiModalContent";
+import { TranslationLoadingBanner } from "./TranslationLoadingBanner";
 
 // Helper: lazy-load a named export as default
 const lazyNamed = <T extends string>(
@@ -162,6 +163,7 @@ export function ManualContent({ activeChapter, onChapterChange }: ManualContentP
               key={activeChapter}
               className="animate-chapter-enter space-y-6 sm:space-y-8"
             >
+              <TranslationLoadingBanner chapterId={activeChapter} />
               {isLocked && requiredPlan ? (
                 <PaywallOverlay 
                   requiredPlan={requiredPlan} 
