@@ -86,6 +86,7 @@ const ChapterLoader = () => (
 export function ManualContent({ activeChapter, onChapterChange }: ManualContentProps) {
   const { isChapterLocked, getChapterMinPlan } = usePremiumChapters();
   const { t } = useLanguage();
+  useChapterPrefetch(activeChapter);
   
   const chapters: Record<string, React.ReactNode> = {
     intro: <IntroChapter />,
