@@ -28,17 +28,18 @@ export function useChapterPrefetch(activeChapter: string) {
     };
 
     // Defer to idle time so the active chapter takes priority
-    const ric: number =
-      typeof window !== "undefined" && "requestIdleCallback" in window
-        ? (window as any).requestIdleCallback(run, { timeout: 2000 })
-        : (window.setTimeout(run, 800) as unknown as number);
+    const w = typeof window !== "undefined" ? window : undefined;
+    const ric: number = w && "requestIdleCallback" in w
+      ? (w as any).requestIdleCallback(run, { timeout: 2000 })
+      : (w?.setTimeout(run, 800) as unknown as number) ?? 0;
 
     return () => {
       cancelled = true;
-      if (typeof window !== "undefined" && "cancelIdleCallback" in window) {
-        (window as any).cancelIdleCallback(ric);
+      if (!w) return;
+      if ("cancelIdleCallback" in w) {
+        (w as any).cancelIdleCallback(ric);
       } else {
-        window.clearTimeout(ric);
+        w.clearTimeout(ric);
       }
     };
   }, [activeChapter, language]);
