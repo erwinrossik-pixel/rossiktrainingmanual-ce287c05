@@ -1,66 +1,85 @@
-import { IntroChapter } from "./chapters/IntroChapter";
-import { MindsetChapter } from "./chapters/MindsetChapter";
-import { WorkflowChapter } from "./chapters/WorkflowChapter";
+import { lazy, Suspense } from "react";
 import { ReadingProgress } from "./ReadingProgress";
 import { AITutor } from "./AITutor";
-import { VehicleChapter } from "./chapters/VehicleChapter";
-import { LoadingChapter } from "./chapters/LoadingChapter";
-import { ReeferChapter } from "./chapters/ReeferChapter";
-import { ComplianceChapter } from "./chapters/ComplianceChapter";
-import { DrivingTimeChapter } from "./chapters/DrivingTimeChapter";
-import { PricingChapter } from "./chapters/PricingChapter";
-import { PaymentChapter } from "./chapters/PaymentChapter";
 import { PaywallOverlay } from "@/components/subscription/PaywallOverlay";
 import { usePremiumChapters } from "@/hooks/usePremiumChapters";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { ClientsChapter } from "./chapters/ClientsChapter";
-import { ExchangesChapter } from "./chapters/ExchangesChapter";
-import { TranslogicaChapter } from "./chapters/TranslogicaChapter";
-import { FleetChapter } from "./chapters/FleetChapter";
-import { CustomsChapter } from "./chapters/CustomsChapter";
-import { TrainingChapter } from "./chapters/TrainingChapter";
-import { RedFlagsChapter } from "./chapters/RedFlagsChapter";
-import { ChecklistsChapter } from "./chapters/ChecklistsChapter";
-import { EmergencyChapter } from "./chapters/EmergencyChapter";
-import { CommunicationChapter } from "./chapters/CommunicationChapter";
-import { ClaimsChapter } from "./chapters/ClaimsChapter";
-import { InsuranceChapter } from "./chapters/InsuranceChapter";
-import { ADRChapter } from "./chapters/ADRChapter";
-import { DocumentsChapter } from "./chapters/DocumentsChapter";
-import { EnvironmentChapter } from "./chapters/EnvironmentChapter";
-import { GlossaryChapter } from "./chapters/GlossaryChapter";
-import { CaseStudiesChapter } from "./chapters/CaseStudiesChapter";
-import { CarrierManagementChapter } from "./chapters/CarrierManagementChapter";
-import { CommercialChapter } from "./chapters/CommercialChapter";
-import { KPIChapter } from "./chapters/KPIChapter";
-import { SoftSkillsChapter } from "./chapters/SoftSkillsChapter";
-import { EuropeZonesChapter } from "./chapters/EuropeZonesChapter";
-import { IncotermsChapter } from "./chapters/IncotermsChapter";
-import { TechnologyChapter } from "./chapters/TechnologyChapter";
-import { SupplyChainChapter } from "./chapters/SupplyChainChapter";
-import { RiskManagementChapter } from "./chapters/RiskManagementChapter";
-import { AccountingChapter } from "./chapters/AccountingChapter";
-import { NegotiationChapter } from "./chapters/NegotiationChapter";
-import { WarehouseChapter } from "./chapters/WarehouseChapter";
-import { LicensesOversizeChapter } from "./chapters/LicensesOversizeChapter";
-import { StressManagementChapter } from "./chapters/StressManagementChapter";
-import { SustainabilityChapter } from "./chapters/SustainabilityChapter";
-import { AuthoritiesChapter } from "./chapters/AuthoritiesChapter";
-import { DigitalizationChapter } from "./chapters/DigitalizationChapter";
-import { EuropeanCountriesChapter } from "./chapters/EuropeanCountriesChapter";
-import { ExpressTransportChapter } from "./chapters/ExpressTransportChapter";
-import { HighValueGoodsChapter } from "./chapters/HighValueGoodsChapter";
-import { IntermodalChapter } from "./chapters/IntermodalChapter";
-import { NetworkingChapter } from "./chapters/NetworkingChapter";
-import { ProfessionalDevelopmentChapter } from "./chapters/ProfessionalDevelopmentChapter";
 import { ChapterNavigation } from "./ChapterNavigation";
 import { ChapterDiscussions } from "./ChapterDiscussions";
 import { MultiModalContent } from "./MultiModalContent";
+
+// Helper: lazy-load a named export as default
+const lazyNamed = <T extends string>(
+  loader: () => Promise<Record<T, React.ComponentType<any>>>,
+  name: T
+) => lazy(() => loader().then((m) => ({ default: m[name] })));
+
+// Lazy-loaded chapter components — each is fetched only when the user opens it
+const IntroChapter = lazyNamed(() => import("./chapters/IntroChapter"), "IntroChapter");
+const MindsetChapter = lazyNamed(() => import("./chapters/MindsetChapter"), "MindsetChapter");
+const WorkflowChapter = lazyNamed(() => import("./chapters/WorkflowChapter"), "WorkflowChapter");
+const VehicleChapter = lazyNamed(() => import("./chapters/VehicleChapter"), "VehicleChapter");
+const LoadingChapter = lazyNamed(() => import("./chapters/LoadingChapter"), "LoadingChapter");
+const ReeferChapter = lazyNamed(() => import("./chapters/ReeferChapter"), "ReeferChapter");
+const ComplianceChapter = lazyNamed(() => import("./chapters/ComplianceChapter"), "ComplianceChapter");
+const DrivingTimeChapter = lazyNamed(() => import("./chapters/DrivingTimeChapter"), "DrivingTimeChapter");
+const PricingChapter = lazyNamed(() => import("./chapters/PricingChapter"), "PricingChapter");
+const PaymentChapter = lazyNamed(() => import("./chapters/PaymentChapter"), "PaymentChapter");
+const ClientsChapter = lazyNamed(() => import("./chapters/ClientsChapter"), "ClientsChapter");
+const ExchangesChapter = lazyNamed(() => import("./chapters/ExchangesChapter"), "ExchangesChapter");
+const TranslogicaChapter = lazyNamed(() => import("./chapters/TranslogicaChapter"), "TranslogicaChapter");
+const FleetChapter = lazyNamed(() => import("./chapters/FleetChapter"), "FleetChapter");
+const CustomsChapter = lazyNamed(() => import("./chapters/CustomsChapter"), "CustomsChapter");
+const TrainingChapter = lazyNamed(() => import("./chapters/TrainingChapter"), "TrainingChapter");
+const RedFlagsChapter = lazyNamed(() => import("./chapters/RedFlagsChapter"), "RedFlagsChapter");
+const ChecklistsChapter = lazyNamed(() => import("./chapters/ChecklistsChapter"), "ChecklistsChapter");
+const EmergencyChapter = lazyNamed(() => import("./chapters/EmergencyChapter"), "EmergencyChapter");
+const CommunicationChapter = lazyNamed(() => import("./chapters/CommunicationChapter"), "CommunicationChapter");
+const ClaimsChapter = lazyNamed(() => import("./chapters/ClaimsChapter"), "ClaimsChapter");
+const InsuranceChapter = lazyNamed(() => import("./chapters/InsuranceChapter"), "InsuranceChapter");
+const ADRChapter = lazyNamed(() => import("./chapters/ADRChapter"), "ADRChapter");
+const DocumentsChapter = lazyNamed(() => import("./chapters/DocumentsChapter"), "DocumentsChapter");
+const EnvironmentChapter = lazyNamed(() => import("./chapters/EnvironmentChapter"), "EnvironmentChapter");
+const GlossaryChapter = lazyNamed(() => import("./chapters/GlossaryChapter"), "GlossaryChapter");
+const CaseStudiesChapter = lazyNamed(() => import("./chapters/CaseStudiesChapter"), "CaseStudiesChapter");
+const CarrierManagementChapter = lazyNamed(() => import("./chapters/CarrierManagementChapter"), "CarrierManagementChapter");
+const CommercialChapter = lazyNamed(() => import("./chapters/CommercialChapter"), "CommercialChapter");
+const KPIChapter = lazyNamed(() => import("./chapters/KPIChapter"), "KPIChapter");
+const SoftSkillsChapter = lazyNamed(() => import("./chapters/SoftSkillsChapter"), "SoftSkillsChapter");
+const EuropeZonesChapter = lazyNamed(() => import("./chapters/EuropeZonesChapter"), "EuropeZonesChapter");
+const IncotermsChapter = lazyNamed(() => import("./chapters/IncotermsChapter"), "IncotermsChapter");
+const TechnologyChapter = lazyNamed(() => import("./chapters/TechnologyChapter"), "TechnologyChapter");
+const SupplyChainChapter = lazyNamed(() => import("./chapters/SupplyChainChapter"), "SupplyChainChapter");
+const RiskManagementChapter = lazyNamed(() => import("./chapters/RiskManagementChapter"), "RiskManagementChapter");
+const AccountingChapter = lazyNamed(() => import("./chapters/AccountingChapter"), "AccountingChapter");
+const NegotiationChapter = lazyNamed(() => import("./chapters/NegotiationChapter"), "NegotiationChapter");
+const WarehouseChapter = lazyNamed(() => import("./chapters/WarehouseChapter"), "WarehouseChapter");
+const LicensesOversizeChapter = lazyNamed(() => import("./chapters/LicensesOversizeChapter"), "LicensesOversizeChapter");
+const StressManagementChapter = lazyNamed(() => import("./chapters/StressManagementChapter"), "StressManagementChapter");
+const SustainabilityChapter = lazyNamed(() => import("./chapters/SustainabilityChapter"), "SustainabilityChapter");
+const AuthoritiesChapter = lazyNamed(() => import("./chapters/AuthoritiesChapter"), "AuthoritiesChapter");
+const DigitalizationChapter = lazyNamed(() => import("./chapters/DigitalizationChapter"), "DigitalizationChapter");
+const EuropeanCountriesChapter = lazyNamed(() => import("./chapters/EuropeanCountriesChapter"), "EuropeanCountriesChapter");
+const ExpressTransportChapter = lazyNamed(() => import("./chapters/ExpressTransportChapter"), "ExpressTransportChapter");
+const HighValueGoodsChapter = lazyNamed(() => import("./chapters/HighValueGoodsChapter"), "HighValueGoodsChapter");
+const IntermodalChapter = lazyNamed(() => import("./chapters/IntermodalChapter"), "IntermodalChapter");
+const NetworkingChapter = lazyNamed(() => import("./chapters/NetworkingChapter"), "NetworkingChapter");
+const ProfessionalDevelopmentChapter = lazyNamed(() => import("./chapters/ProfessionalDevelopmentChapter"), "ProfessionalDevelopmentChapter");
 
 interface ManualContentProps {
   activeChapter: string;
   onChapterChange: (chapterId: string) => void;
 }
+
+// Loading skeleton shown while a chapter chunk is being downloaded
+const ChapterLoader = () => (
+  <div className="flex items-center justify-center min-h-[40vh]">
+    <div className="flex flex-col items-center gap-3">
+      <div className="w-10 h-10 border-4 border-primary border-t-transparent rounded-full animate-spin" />
+      <p className="text-sm text-muted-foreground">Loading chapter…</p>
+    </div>
+  </div>
+);
 
 export function ManualContent({ activeChapter, onChapterChange }: ManualContentProps) {
   const { isChapterLocked, getChapterMinPlan } = usePremiumChapters();
@@ -149,11 +168,15 @@ export function ManualContent({ activeChapter, onChapterChange }: ManualContentP
                   featureName={getChapterName(activeChapter)}
                   className="min-h-[60vh]"
                 >
-                  {chapters[activeChapter] || <IntroChapter />}
+                  <Suspense fallback={<ChapterLoader />}>
+                    {chapters[activeChapter] || <IntroChapter />}
+                  </Suspense>
                 </PaywallOverlay>
               ) : (
               <>
-                  {chapters[activeChapter] || <IntroChapter />}
+                  <Suspense fallback={<ChapterLoader />}>
+                    {chapters[activeChapter] || <IntroChapter />}
+                  </Suspense>
                   
                   {/* Multi-Modal Content: Audio, Video Scripts, Diagrams */}
                   <div className="mt-6 sm:mt-8">
