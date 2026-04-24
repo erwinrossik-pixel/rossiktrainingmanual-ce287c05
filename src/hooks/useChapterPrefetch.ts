@@ -13,7 +13,7 @@ export function useChapterPrefetch(activeChapter: string) {
   const { language } = useLanguage();
 
   useEffect(() => {
-    if (!activeChapter) return;
+    if (!activeChapter || typeof window === "undefined") return;
     const { prev, next } = getAdjacentChapters(activeChapter);
     const targets = [prev, next].filter((id): id is string => Boolean(id));
     if (targets.length === 0) return;
@@ -28,18 +28,26 @@ export function useChapterPrefetch(activeChapter: string) {
     };
 
     // Defer to idle time so the active chapter takes priority
-    const w = typeof window !== "undefined" ? window : undefined;
-    const ric: number = w && "requestIdleCallback" in w
-      ? (w as any).requestIdleCallback(run, { timeout: 2000 })
-      : (w?.setTimeout(run, 800) as unknown as number) ?? 0;
+    const w = window as Window & {
+      requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number;
+      cancelIdleCallback?: (handle: number) => void;
+    };
+
+    let handle: number;
+    let usingIdle = false;
+    if (typeof w.requestIdleCallback === "function") {
+      handle = w.requestIdleCallback(run, { timeout: 2000 });
+      usingIdle = true;
+    } else {
+      handle = window.setTimeout(run, 800);
+    }
 
     return () => {
       cancelled = true;
-      if (!w) return;
-      if ("cancelIdleCallback" in w) {
-        (w as any).cancelIdleCallback(ric);
+      if (usingIdle && typeof w.cancelIdleCallback === "function") {
+        w.cancelIdleCallback(handle);
       } else {
-        w.clearTimeout(ric);
+        window.clearTimeout(handle);
       }
     };
   }, [activeChapter, language]);
