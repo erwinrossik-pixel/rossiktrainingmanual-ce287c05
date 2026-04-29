@@ -78,6 +78,8 @@ import {
 } from './quizBanks/advancedQuestions';
 // Comprehensive questions (30 questions per chapter, levels 3-5)
 import { comprehensiveQuestions } from './quizBanks/comprehensiveIntegration';
+// Progressive ordering + deterministic correct-answer balancing
+import { processQuizBank, getAnswerDistribution } from './quizBalancer';
 
 export interface TranslatedQuizQuestion {
   question: Record<Language, string>;
