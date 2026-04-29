@@ -290,7 +290,7 @@ function ensureWithDifficultyLevels(
 // Each bank now combines: base questions + advanced questions + comprehensive questions
 // Total: 60-90+ questions per chapter across difficulty levels 1-5
 // Note: Intro chapter has no quiz - it's an introductory chapter without examination
-export const quizTranslations: Record<string, TranslatedQuizQuestion[]> = {
+const rawQuizTranslations: Record<string, TranslatedQuizQuestion[]> = {
   // Foundation module (2-5) - Intro has no quiz
   mindset: combineAllQuestions(ensureTranslatedFormat(mindsetQuestions), advancedMindsetQuestions, comprehensiveQuestions.mindset),
   'soft-skills': combineWithComprehensive(ensureTranslatedFormat(softSkillsQuestions), comprehensiveQuestions['soft-skills']),
