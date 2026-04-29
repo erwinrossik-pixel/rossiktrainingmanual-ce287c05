@@ -357,6 +357,35 @@ const rawQuizTranslations: Record<string, TranslatedQuizQuestion[]> = {
   glossary: combineAllQuestions(ensureTranslatedFormat(glossaryQuestions), advancedGlossaryQuestions, comprehensiveQuestions.glossary),
 };
 
+/**
+ * Final, consumer-facing quiz map.
+ *
+ * Each bank is post-processed to:
+ *   1. Order questions by `difficultyLevel` ascending (easy → hard mix).
+ *   2. Permute option positions deterministically so the correct answer is
+ *      balanced across A/B/C/D (~25% each) instead of clustering on B.
+ *
+ * Both transformations are seeded by question text — so the same question
+ * always gets the same option order across reloads, devices and users.
+ */
+export const quizTranslations: Record<string, TranslatedQuizQuestion[]> =
+  Object.fromEntries(
+    Object.entries(rawQuizTranslations).map(([chapterId, bank]) => [
+      chapterId,
+      processQuizBank(bank),
+    ])
+  );
+
+// Dev-only sanity check: log answer-position distribution per chapter once.
+if (typeof window !== 'undefined' && import.meta.env?.DEV) {
+  const distribution: Record<string, Record<number, number>> = {};
+  Object.entries(quizTranslations).forEach(([id, bank]) => {
+    distribution[id] = getAnswerDistribution(bank);
+  });
+  // eslint-disable-next-line no-console
+  console.debug('[quizBalancer] correctIndex distribution per chapter:', distribution);
+}
+
 // Helper function to get translated quiz questions for a chapter
 export function getTranslatedQuiz(chapterId: string, language: Language): { question: string; options: string[]; correctIndex: number; explanation: string; }[] | null {
   const chapter = quizTranslations[chapterId];
