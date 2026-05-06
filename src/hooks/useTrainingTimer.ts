@@ -374,6 +374,66 @@ export function useTrainingTimer() {
     }
   }, [user]);
 
+  // Persist any running timer when the tab is hidden or closed (prevents lost time)
+  useEffect(() => {
+    if (!user) return;
+
+    const flushRunningTime = () => {
+      const now = Date.now();
+      let needsFlush = false;
+      const updatedDays = { ...timerData.days };
+
+      Object.keys(updatedDays).forEach(key => {
+        const dayNum = parseInt(key);
+        const d = updatedDays[dayNum];
+        if (d.isRunning && d.lastStartTime) {
+          const elapsed = Math.floor((now - d.lastStartTime) / 1000);
+          if (elapsed > 0) {
+            updatedDays[dayNum] = {
+              ...d,
+              totalSeconds: d.totalSeconds + elapsed,
+              lastStartTime: now,
+            };
+            needsFlush = true;
+          }
+        }
+      });
+
+      if (!needsFlush) return;
+
+      // Synchronous-ish flush: write each running day immediately, no debounce
+      Object.entries(updatedDays).forEach(([dayNum, dayData]) => {
+        if (!dayData.isRunning) return;
+        // Fire-and-forget; on unload the browser will still send it
+        void supabase.from('training_time').upsert({
+          user_id: user.id,
+          day_number: parseInt(dayNum),
+          total_seconds: dayData.totalSeconds,
+          last_start_time: dayData.lastStartTime ? new Date(dayData.lastStartTime).toISOString() : null,
+          is_running: dayData.isRunning,
+          training_started_at: timerData.trainingStartedAt,
+        }, { onConflict: 'user_id,day_number' });
+      });
+
+      // Update local state too
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({ ...timerData, days: updatedDays }));
+    };
+
+    const onVisibility = () => {
+      if (document.visibilityState === 'hidden') flushRunningTime();
+    };
+
+    window.addEventListener('beforeunload', flushRunningTime);
+    window.addEventListener('pagehide', flushRunningTime);
+    document.addEventListener('visibilitychange', onVisibility);
+
+    return () => {
+      window.removeEventListener('beforeunload', flushRunningTime);
+      window.removeEventListener('pagehide', flushRunningTime);
+      document.removeEventListener('visibilitychange', onVisibility);
+    };
+  }, [user, timerData]);
+
   // Cleanup on unmount
   useEffect(() => {
     return () => {
