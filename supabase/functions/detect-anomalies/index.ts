@@ -119,6 +119,91 @@ Deno.serve(async (req) => {
       });
     }
 
+    // Anomaly 6+: AI cron health (ai-kpi-analyzer & apply-ai-recommendations)
+    const aiCrons = ["ai-kpi-analyzer", "apply-ai-recommendations"];
+    const expectedHours: Record<string, number> = {
+      "ai-kpi-analyzer": 36, // daily, alert if older than 36h
+      "apply-ai-recommendations": 60, // alert if older than 60h
+    };
+
+    for (const job of aiCrons) {
+      const { data: lastRun } = await supabase
+        .from("cron_job_logs")
+        .select("started_at, status, items_processed, error_message, duration_ms")
+        .eq("job_name", job)
+        .order("started_at", { ascending: false })
+        .limit(1)
+        .maybeSingle();
+
+      if (!lastRun) {
+        alerts.push({
+          alert_type: "ai_cron_never_ran",
+          severity: "critical",
+          user_id: null,
+          title: `Cron AI nu a rulat niciodată: ${job}`,
+          message: `Niciun log găsit pentru ${job}.`,
+          details: { job },
+          dedup_hash: `ai_cron_never_ran:${job}:${today}`,
+        });
+        continue;
+      }
+
+      const ageH = (Date.now() - new Date(lastRun.started_at).getTime()) / (3600 * 1000);
+      if (ageH > expectedHours[job]) {
+        alerts.push({
+          alert_type: "ai_cron_stale",
+          severity: "critical",
+          user_id: null,
+          title: `Cron AI nu a rulat recent: ${job}`,
+          message: `Ultima rulare acum ${ageH.toFixed(0)}h (limită: ${expectedHours[job]}h).`,
+          details: { job, last_run: lastRun.started_at, age_hours: Math.round(ageH) },
+          dedup_hash: `ai_cron_stale:${job}:${today}`,
+        });
+      }
+
+      if (lastRun.status === "failed" || lastRun.error_message) {
+        alerts.push({
+          alert_type: "ai_cron_failed",
+          severity: "critical",
+          user_id: null,
+          title: `Cron AI eșuat: ${job}`,
+          message: lastRun.error_message?.slice(0, 200) ?? "Status: failed",
+          details: { job, last_run: lastRun.started_at, error: lastRun.error_message },
+          dedup_hash: `ai_cron_failed:${job}:${lastRun.started_at}`,
+        });
+      }
+
+      if (job === "ai-kpi-analyzer" && (lastRun.items_processed ?? 0) === 0 && lastRun.status !== "failed") {
+        alerts.push({
+          alert_type: "ai_kpi_zero_items",
+          severity: "warning",
+          user_id: null,
+          title: "ai-kpi-analyzer: 0 items procesate",
+          message: "Ultima rulare nu a procesat niciun KPI.",
+          details: { job, last_run: lastRun.started_at },
+          dedup_hash: `ai_kpi_zero_items:${today}`,
+        });
+      }
+    }
+
+    // Anomaly: 0 recomandări AI generate în ultimele 7 zile
+    const last7d = new Date(Date.now() - 7 * 24 * 3600 * 1000).toISOString();
+    const { count: recRecent } = await supabase
+      .from("ai_recommendations")
+      .select("*", { count: "exact", head: true })
+      .gte("created_at", last7d);
+    if ((recRecent ?? 0) === 0) {
+      alerts.push({
+        alert_type: "ai_zero_recommendations",
+        severity: "warning",
+        user_id: null,
+        title: "Zero recomandări AI în 7 zile",
+        message: "ai-kpi-analyzer nu a generat nicio recomandare în ultimele 7 zile.",
+        details: { window_days: 7 },
+        dedup_hash: `ai_zero_recommendations:${today}`,
+      });
+    }
+
     let created = 0;
     for (const a of alerts) {
       const { error } = await supabase.from("admin_alerts").insert(a);
