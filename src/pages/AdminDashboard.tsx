@@ -18,7 +18,7 @@ import {
   Calendar, TimerReset, FileSearch, Award, Bell, BellOff, Radio, 
   Building2, CreditCard, Server, Database, AlertTriangle, CheckCircle, 
   Lock, Target, Network, Gamepad2, Globe, Zap, GraduationCap,
-  FileBarChart, HelpCircle 
+  FileBarChart, HelpCircle, Bug 
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { format, subDays } from 'date-fns';
