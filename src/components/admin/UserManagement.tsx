@@ -11,7 +11,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { useToast } from '@/hooks/use-toast';
-import { Users, Check, X, Clock, User as UserIcon, Mail, AlertCircle, Search, Building2, UserPlus, GraduationCap, BookOpen, Trophy, Target, Timer, FileText, RotateCcw, Award, Trash2 } from 'lucide-react';
+import { Users, Check, X, Clock, User as UserIcon, Mail, AlertCircle, Search, Building2, UserPlus, GraduationCap, BookOpen, Trophy, Target, Timer, FileText, RotateCcw, Award, Trash2, History } from 'lucide-react';
+import { UserTimeHistoryDialog } from './UserTimeHistoryDialog';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -111,6 +112,7 @@ export function UserManagement() {
   const [assignDialogOpen, setAssignDialogOpen] = useState(false);
   const [selectedUserForAssign, setSelectedUserForAssign] = useState<UserProfile | null>(null);
   const [selectedCompanyId, setSelectedCompanyId] = useState<string>('');
+  const [historyUser, setHistoryUser] = useState<{ id: string; label: string } | null>(null);
 
   const dateLocale = language === 'de' ? de : language === 'en' ? enUS : ro;
 
@@ -797,6 +799,17 @@ export function UserManagement() {
                                   </Button>
                                 </>
                               )}
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                title="Istoric timp în aplicație"
+                                onClick={() => setHistoryUser({
+                                  id: userProfile.id,
+                                  label: `${userProfile.first_name ?? ''} ${userProfile.last_name ?? ''} — ${userProfile.email}`.trim(),
+                                })}
+                              >
+                                <History className="h-4 w-4" />
+                              </Button>
                               {userProfile.id !== user?.id && (
                                 <AlertDialog>
                                   <AlertDialogTrigger asChild>
@@ -1284,6 +1297,13 @@ export function UserManagement() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      <UserTimeHistoryDialog
+        open={!!historyUser}
+        onOpenChange={(o) => !o && setHistoryUser(null)}
+        userId={historyUser?.id ?? null}
+        userLabel={historyUser?.label ?? ''}
+      />
     </div>
   );
 }
