@@ -54,25 +54,24 @@ export function AnalyticsExportPanel() {
     const fromIso = from.toISOString();
     const toIso = new Date(to.getTime() + 24 * 3600 * 1000).toISOString();
 
-    const tableMap: Record<DatasetKey, string> = {
-      page_views: 'page_views',
-      quiz_attempts: 'quiz_attempts',
-      training_time: 'training_sessions',
-      chapter_progress: 'chapter_progress',
-    };
     const dateColMap: Record<DatasetKey, string> = {
       page_views: 'created_at',
       quiz_attempts: 'created_at',
       training_time: 'started_at',
       chapter_progress: 'updated_at',
     };
-
-    const table = tableMap[dataset];
     const dateCol = dateColMap[dataset];
 
-    let query = supabase
-      .from(table)
-      .select('*')
+    const buildQuery = () => {
+      switch (dataset) {
+        case 'page_views': return supabase.from('page_views').select('*');
+        case 'quiz_attempts': return supabase.from('quiz_attempts').select('*');
+        case 'training_time': return supabase.from('training_sessions').select('*');
+        case 'chapter_progress': return supabase.from('chapter_progress').select('*');
+      }
+    };
+
+    let query = buildQuery()
       .gte(dateCol, fromIso)
       .lte(dateCol, toIso)
       .order(dateCol, { ascending: false })
