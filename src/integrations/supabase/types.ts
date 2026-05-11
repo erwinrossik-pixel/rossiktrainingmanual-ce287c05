@@ -14,6 +14,51 @@ export type Database = {
   }
   public: {
     Tables: {
+      admin_alerts: {
+        Row: {
+          acknowledged: boolean
+          acknowledged_at: string | null
+          acknowledged_by: string | null
+          alert_type: string
+          created_at: string
+          dedup_hash: string
+          details: Json | null
+          id: string
+          message: string
+          severity: string
+          title: string
+          user_id: string | null
+        }
+        Insert: {
+          acknowledged?: boolean
+          acknowledged_at?: string | null
+          acknowledged_by?: string | null
+          alert_type: string
+          created_at?: string
+          dedup_hash: string
+          details?: Json | null
+          id?: string
+          message: string
+          severity: string
+          title: string
+          user_id?: string | null
+        }
+        Update: {
+          acknowledged?: boolean
+          acknowledged_at?: string | null
+          acknowledged_by?: string | null
+          alert_type?: string
+          created_at?: string
+          dedup_hash?: string
+          details?: Json | null
+          id?: string
+          message?: string
+          severity?: string
+          title?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       ai_recommendations: {
         Row: {
           ai_confidence: number | null
