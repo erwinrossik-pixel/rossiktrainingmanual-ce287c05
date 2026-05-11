@@ -131,6 +131,10 @@ export function AnalyticsExportPanel() {
         toast.warning('Niciun rând pentru filtrele selectate');
         return;
       }
+      const [{ default: jsPDF }, { default: autoTable }] = await Promise.all([
+        import('jspdf'),
+        import('jspdf-autotable'),
+      ]);
       const doc = new jsPDF({ orientation: 'landscape', format: 'a4' });
       doc.setFontSize(14);
       doc.text(`Analytics Export — ${dataset}`, 14, 15);
