@@ -437,6 +437,7 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
         certificatesRes,
         companyUsersRes,
         pageViewsRes,
+        userSessionsRes,
         resetHistoryRes,
         chaptersRes
       ] = await Promise.all([
@@ -448,6 +449,7 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
         supabase.from('certificates').select('user_id, certificate_code, issued_at, expires_at, is_revoked, total_training_hours').eq('is_revoked', false),
         supabase.from('company_users').select('user_id, company_id, status'),
         supabase.from('page_views').select('user_id, chapter_id, duration_seconds'),
+        supabase.from('user_sessions').select('user_id, total_duration_seconds'),
         supabase.from('quiz_reset_history').select('user_id, chapter_id, reset_at'),
         supabase.from('chapters').select('id, order_index').order('order_index')
       ]);
@@ -460,6 +462,7 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
       const certificates = certificatesRes.data || [];
       const companyUsers = companyUsersRes.data || [];
       const pageViews = pageViewsRes.data || [];
+      const userSessions = userSessionsRes.data || [];
       const resetHistory = resetHistoryRes.data || [];
       const chapters = chaptersRes.data || [];
 
@@ -470,6 +473,7 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
         const userChapterProgress = chapterProgress.filter(cp => cp.user_id === profile.id);
         const userQuizAttempts = quizAttempts.filter(qa => qa.user_id === profile.id);
         const userPageViews = pageViews.filter(pv => pv.user_id === profile.id);
+        const userActiveSessions = userSessions.filter(session => session.user_id === profile.id);
         const userResets = resetHistory.filter(rh => rh.user_id === profile.id);
 
         // Build chapter details
@@ -558,13 +562,15 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
 
         const totalQuizAttempts = userQuizAttempts.length;
         
-        // Total app time from training_time table
+        // Total app time from active session duration; training_time remains a fallback only.
         const userTrainingTime = trainingTime.filter(tt => tt.user_id === profile.id);
-        const totalAppTimeSeconds = userTrainingTime.reduce((sum, tt) => sum + (tt.total_seconds || 0), 0);
+        const totalActiveSessionSeconds = userActiveSessions.reduce((sum, session) => sum + (session.total_duration_seconds || 0), 0);
+        const fallbackTrainingTimeSeconds = userTrainingTime.reduce((sum, tt) => sum + (tt.total_seconds || 0), 0);
+        const totalAppTimeSeconds = totalActiveSessionSeconds || fallbackTrainingTimeSeconds;
         
-        // Also sum time from page views as backup
+        // Chapter page durations are kept separate; historically they may be unavailable.
         const totalPageViewTime = chapterDetails.reduce((sum, cd) => sum + cd.total_time_seconds, 0);
-        const totalTrainingSeconds = Math.max(totalAppTimeSeconds, totalPageViewTime);
+        const totalTrainingSeconds = totalAppTimeSeconds;
 
         // Final exam
         const userExams = examAttempts
