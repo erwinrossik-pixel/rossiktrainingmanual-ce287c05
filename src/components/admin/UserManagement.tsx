@@ -464,6 +464,24 @@ export function UserManagement() {
     }
   };
 
+  const deleteUserAccount = async (userId: string, email: string) => {
+    try {
+      const { data, error } = await supabase.functions.invoke('admin-delete-user', {
+        body: { user_id: userId },
+      });
+      if (error) throw error;
+      if (data?.error) throw new Error(data.error);
+      toast({
+        title: 'Utilizator șters',
+        description: `Contul ${email} a fost șters definitiv.`,
+      });
+      fetchAllUsers();
+    } catch (error) {
+      const msg = error instanceof Error ? error.message : 'Eroare necunoscută';
+      toast({ title: 'Eroare la ștergere', description: msg, variant: 'destructive' });
+    }
+  };
+
   const updateUserRole = async (companyUserId: string, newRole: 'user' | 'company_admin') => {
     try {
       await supabase
