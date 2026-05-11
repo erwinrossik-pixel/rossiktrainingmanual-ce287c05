@@ -28,6 +28,7 @@ import NotificationCenter from '@/components/NotificationCenter';
 
 // Admin Components - refactored
 import { AdminCharts } from '@/components/admin/AdminCharts';
+import { MonthlyReportsDashboard } from '@/components/admin/MonthlyReportsDashboard';
 import { GovernanceDashboard } from '@/components/admin/GovernanceDashboard';
 import { AutoUpdateDashboard } from '@/components/admin/AutoUpdateDashboard';
 import { UsageAnalytics } from '@/components/admin/UsageAnalytics';
@@ -967,7 +968,8 @@ export default function AdminDashboard() {
             <RetentionDashboard />
           </TabsContent>
 
-          <TabsContent value="analytics" className="mt-6">
+          <TabsContent value="analytics" className="mt-6 space-y-6">
+            <MonthlyReportsDashboard />
             <AdminCharts 
               chapterStats={chapterStats}
               dailyActivity={dailyActivity}
