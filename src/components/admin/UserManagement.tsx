@@ -11,7 +11,18 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { useToast } from '@/hooks/use-toast';
-import { Users, Check, X, Clock, User as UserIcon, Mail, AlertCircle, Search, Building2, UserPlus, GraduationCap, BookOpen, Trophy, Target, Timer, FileText, RotateCcw, Award } from 'lucide-react';
+import { Users, Check, X, Clock, User as UserIcon, Mail, AlertCircle, Search, Building2, UserPlus, GraduationCap, BookOpen, Trophy, Target, Timer, FileText, RotateCcw, Award, Trash2 } from 'lucide-react';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/components/ui/alert-dialog';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Progress } from '@/components/ui/progress';
 import { format } from 'date-fns';
@@ -453,6 +464,24 @@ export function UserManagement() {
     }
   };
 
+  const deleteUserAccount = async (userId: string, email: string) => {
+    try {
+      const { data, error } = await supabase.functions.invoke('admin-delete-user', {
+        body: { user_id: userId },
+      });
+      if (error) throw error;
+      if (data?.error) throw new Error(data.error);
+      toast({
+        title: 'Utilizator șters',
+        description: `Contul ${email} a fost șters definitiv.`,
+      });
+      fetchAllUsers();
+    } catch (error) {
+      const msg = error instanceof Error ? error.message : 'Eroare necunoscută';
+      toast({ title: 'Eroare la ștergere', description: msg, variant: 'destructive' });
+    }
+  };
+
   const updateUserRole = async (companyUserId: string, newRole: 'user' | 'company_admin') => {
     try {
       await supabase
@@ -767,6 +796,39 @@ export function UserManagement() {
                                     <X className="h-4 w-4" />
                                   </Button>
                                 </>
+                              )}
+                              {userProfile.id !== user?.id && (
+                                <AlertDialog>
+                                  <AlertDialogTrigger asChild>
+                                    <Button
+                                      size="sm"
+                                      variant="outline"
+                                      className="text-destructive hover:bg-destructive hover:text-destructive-foreground"
+                                      title="Șterge utilizator"
+                                    >
+                                      <Trash2 className="h-4 w-4" />
+                                    </Button>
+                                  </AlertDialogTrigger>
+                                  <AlertDialogContent>
+                                    <AlertDialogHeader>
+                                      <AlertDialogTitle>Ștergi definitiv acest utilizator?</AlertDialogTitle>
+                                      <AlertDialogDescription>
+                                        Contul <strong>{userProfile.email}</strong> și toate datele asociate
+                                        (progres, quizuri, certificate, sesiuni, training time) vor fi șterse
+                                        ireversibil. Această acțiune nu poate fi anulată.
+                                      </AlertDialogDescription>
+                                    </AlertDialogHeader>
+                                    <AlertDialogFooter>
+                                      <AlertDialogCancel>Anulează</AlertDialogCancel>
+                                      <AlertDialogAction
+                                        className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                                        onClick={() => deleteUserAccount(userProfile.id, userProfile.email)}
+                                      >
+                                        Da, șterge
+                                      </AlertDialogAction>
+                                    </AlertDialogFooter>
+                                  </AlertDialogContent>
+                                </AlertDialog>
                               )}
                             </div>
                           )}
