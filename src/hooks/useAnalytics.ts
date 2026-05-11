@@ -1,4 +1,5 @@
 import { useEffect, useRef, useCallback } from 'react';
+import type { MutableRefObject } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
 import { logger } from '@/utils/logger';
@@ -6,6 +7,7 @@ import { logger } from '@/utils/logger';
 const SESSION_KEY = 'analytics_session_id';
 const ACTIVITY_UPDATE_INTERVAL = 30000; // 30 seconds minimum between updates
 const DURATION_UPDATE_INTERVAL = 10000; // Update duration every 10 seconds
+const MAX_ACTIVE_DELTA_SECONDS = 60; // never count long idle/background gaps as app time
 
 function generateSessionId(): string {
   return `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
@@ -30,14 +32,25 @@ function getBrowser(): string {
 
 export function useAnalytics() {
   const { user } = useAuth();
-  const pageStartTime = useRef<number>(Date.now());
   const currentPath = useRef<string>('');
   const currentPageViewId = useRef<string | null>(null);
   const sessionId = useRef<string>('');
   const lastActivityUpdate = useRef<number>(0);
+  const activeSessionSeconds = useRef<number>(0);
+  const activePageSeconds = useRef<number>(0);
+  const lastSessionTick = useRef<number>(Date.now());
+  const lastPageTick = useRef<number>(Date.now());
   const sessionInitialized = useRef<boolean>(false);
   const pendingUpdate = useRef<NodeJS.Timeout | null>(null);
   const durationUpdateInterval = useRef<NodeJS.Timeout | null>(null);
+
+  const collectActiveDelta = useCallback((lastTickRef: MutableRefObject<number>) => {
+    const now = Date.now();
+    const elapsed = Math.floor((now - lastTickRef.current) / 1000);
+    lastTickRef.current = now;
+    if (document.visibilityState !== 'visible' || elapsed <= 0) return 0;
+    return Math.min(elapsed, MAX_ACTIVE_DELTA_SECONDS);
+  }, []);
 
   // Initialize or get session
   useEffect(() => {
@@ -57,11 +70,13 @@ export function useAnalytics() {
       // Check if session already exists (could be created by another hook)
       const { data: existing } = await supabase
         .from('user_sessions')
-        .select('id')
+        .select('id, total_duration_seconds')
         .eq('session_id', sessionId.current)
         .maybeSingle();
 
       if (existing) {
+        activeSessionSeconds.current = existing.total_duration_seconds || 0;
+        lastSessionTick.current = Date.now();
         // Session already exists, just mark as initialized
         sessionInitialized.current = true;
         return;
@@ -108,10 +123,12 @@ export function useAnalytics() {
   }, [user]);
 
   // Throttled session activity update
-  const updateSessionActivity = useCallback(async (durationSeconds: number) => {
+  const updateSessionActivity = useCallback(async () => {
     if (!user || !sessionId.current) return;
     
     const now = Date.now();
+    activeSessionSeconds.current += collectActiveDelta(lastSessionTick);
+    const sessionDurationSeconds = activeSessionSeconds.current;
     // Throttle updates to once per 30 seconds
     if (now - lastActivityUpdate.current < ACTIVITY_UPDATE_INTERVAL) {
       // Schedule a delayed update instead
@@ -119,7 +136,7 @@ export function useAnalytics() {
         clearTimeout(pendingUpdate.current);
       }
       pendingUpdate.current = setTimeout(() => {
-        updateSessionActivity(durationSeconds);
+        updateSessionActivity();
       }, ACTIVITY_UPDATE_INTERVAL - (now - lastActivityUpdate.current));
       return;
     }
@@ -131,13 +148,13 @@ export function useAnalytics() {
         .from('user_sessions')
         .update({
           last_activity_at: new Date().toISOString(),
-          total_duration_seconds: durationSeconds,
+          total_duration_seconds: sessionDurationSeconds,
         })
         .eq('session_id', sessionId.current);
     } catch (error) {
       logger.error('Error updating session:', error);
     }
-  }, [user]);
+  }, [user, collectActiveDelta]);
 
   // Update page view duration
   const updatePageViewDuration = useCallback(async (pageViewId: string, durationSeconds: number) => {
@@ -159,7 +176,7 @@ export function useAnalytics() {
       const duration = Math.floor((Date.now() - pageStartTime.current) / 1000);
       if (duration > 0) {
         await updatePageViewDuration(currentPageViewId.current, duration);
-        updateSessionActivity(duration);
+        updateSessionActivity();
       }
     }
     
