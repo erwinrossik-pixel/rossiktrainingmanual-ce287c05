@@ -73,7 +73,9 @@ export function UserTimeHistoryDialog({ open, onOpenChange, userId, userLabel }:
         const rows: SessionRow[] = (data ?? []).map((s) => {
           const start = new Date(s.started_at).getTime();
           const end = new Date(s.last_activity_at).getTime();
-          const duration = Math.max(0, Math.round((end - start) / 1000));
+          // Plafon realist: max 2h per sesiune (elimină timpul cu tab deschis fără activitate)
+          const raw = Math.max(0, Math.round((end - start) / 1000));
+          const duration = Math.min(raw, 7200);
           return {
             id: s.id,
             started_at: s.started_at,
