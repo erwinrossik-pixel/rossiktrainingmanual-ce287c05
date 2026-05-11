@@ -10,8 +10,6 @@ import { CalendarIcon, Download, FileSpreadsheet, FileText, Loader2 } from 'luci
 import { format, subDays } from 'date-fns';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
-import jsPDF from 'jspdf';
-import autoTable from 'jspdf-autotable';
 
 type DatasetKey = 'page_views' | 'quiz_attempts' | 'training_time' | 'chapter_progress';
 
@@ -133,6 +131,10 @@ export function AnalyticsExportPanel() {
         toast.warning('Niciun rând pentru filtrele selectate');
         return;
       }
+      const [{ default: jsPDF }, { default: autoTable }] = await Promise.all([
+        import('jspdf'),
+        import('jspdf-autotable'),
+      ]);
       const doc = new jsPDF({ orientation: 'landscape', format: 'a4' });
       doc.setFontSize(14);
       doc.text(`Analytics Export — ${dataset}`, 14, 15);
