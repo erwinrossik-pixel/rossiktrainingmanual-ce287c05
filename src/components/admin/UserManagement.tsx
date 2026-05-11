@@ -799,6 +799,17 @@ export function UserManagement() {
                                   </Button>
                                 </>
                               )}
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                title="Istoric timp în aplicație"
+                                onClick={() => setHistoryUser({
+                                  id: userProfile.id,
+                                  label: `${userProfile.first_name ?? ''} ${userProfile.last_name ?? ''} — ${userProfile.email}`.trim(),
+                                })}
+                              >
+                                <History className="h-4 w-4" />
+                              </Button>
                               {userProfile.id !== user?.id && (
                                 <AlertDialog>
                                   <AlertDialogTrigger asChild>
