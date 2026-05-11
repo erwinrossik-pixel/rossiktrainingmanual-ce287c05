@@ -10,8 +10,6 @@ import { CalendarIcon, Download, FileSpreadsheet, FileText, Loader2 } from 'luci
 import { format, subDays } from 'date-fns';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
-import jsPDF from 'jspdf';
-import autoTable from 'jspdf-autotable';
 
 type DatasetKey = 'page_views' | 'quiz_attempts' | 'training_time' | 'chapter_progress';
 
