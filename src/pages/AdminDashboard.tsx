@@ -970,6 +970,7 @@ export default function AdminDashboard() {
           </TabsContent>
 
           <TabsContent value="analytics" className="mt-6 space-y-6">
+            <FunnelDashboard />
             <MonthlyReportsDashboard />
             <AdminCharts 
               chapterStats={chapterStats}
