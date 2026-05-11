@@ -28,6 +28,7 @@ import NotificationCenter from '@/components/NotificationCenter';
 
 // Admin Components - refactored
 import { AdminCharts } from '@/components/admin/AdminCharts';
+import { MonthlyReportsDashboard } from '@/components/admin/MonthlyReportsDashboard';
 import { GovernanceDashboard } from '@/components/admin/GovernanceDashboard';
 import { AutoUpdateDashboard } from '@/components/admin/AutoUpdateDashboard';
 import { UsageAnalytics } from '@/components/admin/UsageAnalytics';
