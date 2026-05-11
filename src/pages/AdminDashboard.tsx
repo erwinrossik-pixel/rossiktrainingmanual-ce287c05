@@ -1020,6 +1020,10 @@ export default function AdminDashboard() {
             <CronJobsMonitor />
           </TabsContent>
 
+          <TabsContent value="ai-crons" className="mt-6">
+            <AICronsDashboard />
+          </TabsContent>
+
           <TabsContent value="debug-events" className="mt-6">
             <DebugEventsPanel />
           </TabsContent>
