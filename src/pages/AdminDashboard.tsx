@@ -30,6 +30,7 @@ import NotificationCenter from '@/components/NotificationCenter';
 import { AdminCharts } from '@/components/admin/AdminCharts';
 import { MonthlyReportsDashboard } from '@/components/admin/MonthlyReportsDashboard';
 import { FunnelDashboard } from '@/components/admin/FunnelDashboard';
+import { AnalyticsExportPanel } from '@/components/admin/AnalyticsExportPanel';
 import { GovernanceDashboard } from '@/components/admin/GovernanceDashboard';
 import { AutoUpdateDashboard } from '@/components/admin/AutoUpdateDashboard';
 import { UsageAnalytics } from '@/components/admin/UsageAnalytics';
