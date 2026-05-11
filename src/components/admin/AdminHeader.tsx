@@ -39,6 +39,7 @@ export const AdminHeader = memo(function AdminHeader({
           </div>
         </div>
         <div className="flex items-center gap-3">
+          <AdminAlertsBell />
           <div className="bg-white/10 rounded-lg p-1">
             <NotificationCenter />
           </div>
