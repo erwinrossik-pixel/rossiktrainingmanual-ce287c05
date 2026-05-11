@@ -808,6 +808,10 @@ export default function AdminDashboard() {
               <Calendar className="h-4 w-4" />
               {t('admin.tab.cronJobs')}
             </TabsTrigger>
+            <TabsTrigger value="ai-crons" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-purple-700 data-[state=active]:border-b-2 data-[state=active]:border-purple-500">
+              <Brain className="h-4 w-4" />
+              AI Crons
+            </TabsTrigger>
             <TabsTrigger value="debug-events" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-zinc-700 data-[state=active]:border-b-2 data-[state=active]:border-zinc-500">
               <Bug className="h-4 w-4" />
               Debug Events
