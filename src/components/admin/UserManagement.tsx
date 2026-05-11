@@ -112,6 +112,7 @@ export function UserManagement() {
   const [assignDialogOpen, setAssignDialogOpen] = useState(false);
   const [selectedUserForAssign, setSelectedUserForAssign] = useState<UserProfile | null>(null);
   const [selectedCompanyId, setSelectedCompanyId] = useState<string>('');
+  const [historyUser, setHistoryUser] = useState<{ id: string; label: string } | null>(null);
 
   const dateLocale = language === 'de' ? de : language === 'en' ? enUS : ro;
 
