@@ -967,7 +967,8 @@ export default function AdminDashboard() {
             <RetentionDashboard />
           </TabsContent>
 
-          <TabsContent value="analytics" className="mt-6">
+          <TabsContent value="analytics" className="mt-6 space-y-6">
+            <MonthlyReportsDashboard />
             <AdminCharts 
               chapterStats={chapterStats}
               dailyActivity={dailyActivity}
