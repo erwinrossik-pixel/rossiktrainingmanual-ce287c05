@@ -5,6 +5,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 import { ArrowLeft, Bell, BellOff, Download } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import NotificationCenter from '@/components/NotificationCenter';
+import { AdminAlertsBell } from '@/components/admin/AdminAlertsBell';
 
 interface AdminHeaderProps {
   notificationsEnabled: boolean;
@@ -38,6 +39,7 @@ export const AdminHeader = memo(function AdminHeader({
           </div>
         </div>
         <div className="flex items-center gap-3">
+          <AdminAlertsBell />
           <div className="bg-white/10 rounded-lg p-1">
             <NotificationCenter />
           </div>
