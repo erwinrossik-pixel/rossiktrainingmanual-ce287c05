@@ -1297,6 +1297,13 @@ export function UserManagement() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      <UserTimeHistoryDialog
+        open={!!historyUser}
+        onOpenChange={(o) => !o && setHistoryUser(null)}
+        userId={historyUser?.id ?? null}
+        userLabel={historyUser?.label ?? ''}
+      />
     </div>
   );
 }
