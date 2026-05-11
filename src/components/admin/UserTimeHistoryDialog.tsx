@@ -25,6 +25,7 @@ interface SessionRow {
   device_type: string | null;
   browser: string | null;
   pages_visited: number | null;
+  total_duration_seconds: number | null;
   duration_seconds: number;
 }
 
@@ -61,7 +62,7 @@ export function UserTimeHistoryDialog({ open, onOpenChange, userId, userLabel }:
       setLoading(true);
       const { data, error } = await supabase
         .from('user_sessions')
-        .select('id, started_at, last_activity_at, device_type, browser, pages_visited')
+        .select('id, started_at, last_activity_at, device_type, browser, pages_visited, total_duration_seconds')
         .eq('user_id', userId)
         .order('started_at', { ascending: false })
         .limit(2000);
@@ -71,11 +72,7 @@ export function UserTimeHistoryDialog({ open, onOpenChange, userId, userLabel }:
         setSessions([]);
       } else {
         const rows: SessionRow[] = (data ?? []).map((s) => {
-          const start = new Date(s.started_at).getTime();
-          const end = new Date(s.last_activity_at).getTime();
-          // Plafon realist: max 2h per sesiune (elimină timpul cu tab deschis fără activitate)
-          const raw = Math.max(0, Math.round((end - start) / 1000));
-          const duration = Math.min(raw, 7200);
+          const duration = Math.max(0, s.total_duration_seconds ?? 0);
           return {
             id: s.id,
             started_at: s.started_at,
@@ -83,6 +80,7 @@ export function UserTimeHistoryDialog({ open, onOpenChange, userId, userLabel }:
             device_type: s.device_type,
             browser: s.browser,
             pages_visited: s.pages_visited,
+            total_duration_seconds: s.total_duration_seconds,
             duration_seconds: duration,
           };
         });
