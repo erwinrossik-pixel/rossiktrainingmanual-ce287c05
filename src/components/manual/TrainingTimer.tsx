@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { Play, Pause, Clock, Timer } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTrainingTimer } from "@/hooks/useTrainingTimer";
