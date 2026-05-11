@@ -1,4 +1,5 @@
 import { useEffect, useRef, useCallback } from 'react';
+import type { MutableRefObject } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
 import { logger } from '@/utils/logger';
@@ -31,7 +32,6 @@ function getBrowser(): string {
 
 export function useAnalytics() {
   const { user } = useAuth();
-  const pageStartTime = useRef<number>(Date.now());
   const currentPath = useRef<string>('');
   const currentPageViewId = useRef<string | null>(null);
   const sessionId = useRef<string>('');
@@ -44,7 +44,7 @@ export function useAnalytics() {
   const pendingUpdate = useRef<NodeJS.Timeout | null>(null);
   const durationUpdateInterval = useRef<NodeJS.Timeout | null>(null);
 
-  const collectActiveDelta = useCallback((lastTickRef: React.MutableRefObject<number>) => {
+  const collectActiveDelta = useCallback((lastTickRef: MutableRefObject<number>) => {
     const now = Date.now();
     const elapsed = Math.floor((now - lastTickRef.current) / 1000);
     lastTickRef.current = now;
