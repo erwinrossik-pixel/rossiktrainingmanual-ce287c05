@@ -2238,6 +2238,48 @@ export type Database = {
         }
         Relationships: []
       }
+      monthly_reports: {
+        Row: {
+          avg_quiz_score: number
+          chapters_completed: number
+          created_at: string
+          generated_at: string
+          id: string
+          period_end: string
+          period_start: string
+          total_page_views: number
+          total_quiz_attempts: number
+          total_visitors: number
+          weekly_trends: Json
+        }
+        Insert: {
+          avg_quiz_score?: number
+          chapters_completed?: number
+          created_at?: string
+          generated_at?: string
+          id?: string
+          period_end: string
+          period_start: string
+          total_page_views?: number
+          total_quiz_attempts?: number
+          total_visitors?: number
+          weekly_trends?: Json
+        }
+        Update: {
+          avg_quiz_score?: number
+          chapters_completed?: number
+          created_at?: string
+          generated_at?: string
+          id?: string
+          period_end?: string
+          period_start?: string
+          total_page_views?: number
+          total_quiz_attempts?: number
+          total_visitors?: number
+          weekly_trends?: Json
+        }
+        Relationships: []
+      }
       notifications: {
         Row: {
           created_at: string | null
