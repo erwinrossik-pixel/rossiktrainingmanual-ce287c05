@@ -1012,6 +1012,10 @@ export default function AdminDashboard() {
             <CronJobsMonitor />
           </TabsContent>
 
+          <TabsContent value="debug-events" className="mt-6">
+            <DebugEventsPanel />
+          </TabsContent>
+
           <TabsContent value="quality" className="mt-6">
             <ContentQualityDashboard />
           </TabsContent>
