@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { Play, Pause, Clock, Timer } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTrainingTimer } from "@/hooks/useTrainingTimer";
@@ -50,12 +51,41 @@ export function TrainingTimer({ currentPhase, variant = 'compact' }: TrainingTim
     isAnyTimerRunning,
     formatTime,
     currentActiveDay,
+    isLoading,
   } = useTrainingTimer();
 
   const t = translations[language] || translations.en;
   const isRunning = isAnyTimerRunning();
   const totalTime = getTotalTime();
   const phaseTime = getDayTime(currentPhase);
+  const autoStartedRef = useRef(false);
+
+  // Auto-start timer when user opens a chapter (or returns after forced close).
+  // Runs once per mount, after the hook finished loading from DB.
+  useEffect(() => {
+    if (isLoading) return;
+    if (autoStartedRef.current) return;
+    if (isRunning) {
+      autoStartedRef.current = true;
+      return;
+    }
+    if (!currentPhase) return;
+    startTraining(currentPhase);
+    autoStartedRef.current = true;
+  }, [isLoading, isRunning, currentPhase, startTraining]);
+
+  // Resume on tab visibility return if timer was paused due to forced close.
+  useEffect(() => {
+    const onVisibility = () => {
+      if (document.visibilityState !== 'visible') return;
+      if (isLoading) return;
+      if (isAnyTimerRunning()) return;
+      if (!currentPhase) return;
+      startTraining(currentPhase);
+    };
+    document.addEventListener('visibilitychange', onVisibility);
+    return () => document.removeEventListener('visibilitychange', onVisibility);
+  }, [isLoading, isAnyTimerRunning, currentPhase, startTraining]);
 
   const handleToggle = () => {
     if (isRunning) {
