@@ -5,6 +5,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 import { ArrowLeft, Bell, BellOff, Download } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import NotificationCenter from '@/components/NotificationCenter';
+import { AdminAlertsBell } from '@/components/admin/AdminAlertsBell';
 
 interface AdminHeaderProps {
   notificationsEnabled: boolean;
