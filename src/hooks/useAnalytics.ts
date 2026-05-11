@@ -35,6 +35,7 @@ export function useAnalytics() {
   const currentPageViewId = useRef<string | null>(null);
   const sessionId = useRef<string>('');
   const lastActivityUpdate = useRef<number>(0);
+  const sessionStartedAt = useRef<number>(Date.now());
   const sessionInitialized = useRef<boolean>(false);
   const pendingUpdate = useRef<NodeJS.Timeout | null>(null);
   const durationUpdateInterval = useRef<NodeJS.Timeout | null>(null);
@@ -108,10 +109,11 @@ export function useAnalytics() {
   }, [user]);
 
   // Throttled session activity update
-  const updateSessionActivity = useCallback(async (durationSeconds: number) => {
+  const updateSessionActivity = useCallback(async () => {
     if (!user || !sessionId.current) return;
     
     const now = Date.now();
+    const sessionDurationSeconds = Math.max(0, Math.floor((now - sessionStartedAt.current) / 1000));
     // Throttle updates to once per 30 seconds
     if (now - lastActivityUpdate.current < ACTIVITY_UPDATE_INTERVAL) {
       // Schedule a delayed update instead
@@ -119,7 +121,7 @@ export function useAnalytics() {
         clearTimeout(pendingUpdate.current);
       }
       pendingUpdate.current = setTimeout(() => {
-        updateSessionActivity(durationSeconds);
+        updateSessionActivity();
       }, ACTIVITY_UPDATE_INTERVAL - (now - lastActivityUpdate.current));
       return;
     }
@@ -131,7 +133,7 @@ export function useAnalytics() {
         .from('user_sessions')
         .update({
           last_activity_at: new Date().toISOString(),
-          total_duration_seconds: durationSeconds,
+          total_duration_seconds: sessionDurationSeconds,
         })
         .eq('session_id', sessionId.current);
     } catch (error) {
@@ -159,7 +161,7 @@ export function useAnalytics() {
       const duration = Math.floor((Date.now() - pageStartTime.current) / 1000);
       if (duration > 0) {
         await updatePageViewDuration(currentPageViewId.current, duration);
-        updateSessionActivity(duration);
+        updateSessionActivity();
       }
     }
     
