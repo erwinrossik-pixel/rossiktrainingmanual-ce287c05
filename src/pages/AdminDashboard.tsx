@@ -37,6 +37,7 @@ import { TrainingTimeAnalytics } from '@/components/admin/TrainingTimeAnalytics'
 import { LearningAnalyticsDashboard } from '@/components/admin/kpi/LearningAnalyticsDashboard';
 import { CronJobsMonitor } from '@/components/admin/CronJobsMonitor';
 import { ContentQualityDashboard } from '@/components/admin/ContentQualityDashboard';
+import { DebugEventsPanel } from '@/components/admin/DebugEventsPanel';
 import { CertificatesDashboard } from '@/components/admin/CertificatesDashboard';
 import RealTimeActivityPanel from '@/components/admin/RealTimeActivityPanel';
 import { CompanyManagement } from '@/components/admin/CompanyManagement';
