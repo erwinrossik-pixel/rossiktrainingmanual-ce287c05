@@ -18,7 +18,7 @@ import {
   Calendar, TimerReset, FileSearch, Award, Bell, BellOff, Radio, 
   Building2, CreditCard, Server, Database, AlertTriangle, CheckCircle, 
   Lock, Target, Network, Gamepad2, Globe, Zap, GraduationCap,
-  FileBarChart, HelpCircle, Bug 
+  FileBarChart, HelpCircle, Bug, Brain 
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { format, subDays } from 'date-fns';
@@ -39,6 +39,7 @@ import { LearningAnalyticsDashboard } from '@/components/admin/kpi/LearningAnaly
 import { CronJobsMonitor } from '@/components/admin/CronJobsMonitor';
 import { ContentQualityDashboard } from '@/components/admin/ContentQualityDashboard';
 import { DebugEventsPanel } from '@/components/admin/DebugEventsPanel';
+import { AICronsDashboard } from '@/components/admin/AICronsDashboard';
 import { CertificatesDashboard } from '@/components/admin/CertificatesDashboard';
 import RealTimeActivityPanel from '@/components/admin/RealTimeActivityPanel';
 import { CompanyManagement } from '@/components/admin/CompanyManagement';
@@ -808,6 +809,10 @@ export default function AdminDashboard() {
               <Calendar className="h-4 w-4" />
               {t('admin.tab.cronJobs')}
             </TabsTrigger>
+            <TabsTrigger value="ai-crons" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-purple-700 data-[state=active]:border-b-2 data-[state=active]:border-purple-500">
+              <Brain className="h-4 w-4" />
+              AI Crons
+            </TabsTrigger>
             <TabsTrigger value="debug-events" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-zinc-700 data-[state=active]:border-b-2 data-[state=active]:border-zinc-500">
               <Bug className="h-4 w-4" />
               Debug Events
@@ -1013,6 +1018,10 @@ export default function AdminDashboard() {
 
           <TabsContent value="cron-jobs" className="mt-6">
             <CronJobsMonitor />
+          </TabsContent>
+
+          <TabsContent value="ai-crons" className="mt-6">
+            <AICronsDashboard />
           </TabsContent>
 
           <TabsContent value="debug-events" className="mt-6">
