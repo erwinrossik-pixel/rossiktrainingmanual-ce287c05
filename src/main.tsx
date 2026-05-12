@@ -12,6 +12,12 @@ if (import.meta.env.PROD && 'serviceWorker' in navigator) {
         console.error('SW registration failed:', error);
       });
   });
+} else if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.getRegistrations().then((registrations) => {
+    registrations.forEach((registration) => {
+      void registration.unregister();
+    });
+  });
 }
 
 createRoot(document.getElementById("root")!).render(<App />);
