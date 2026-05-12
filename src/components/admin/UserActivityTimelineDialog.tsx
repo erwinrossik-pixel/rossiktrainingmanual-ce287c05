@@ -5,8 +5,12 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { Loader2, Activity, Eye, Timer, Calendar } from 'lucide-react';
-import { format, differenceInSeconds } from 'date-fns';
+import { Button } from '@/components/ui/button';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Calendar as CalendarUI } from '@/components/ui/calendar';
+import { Loader2, Activity, Eye, Timer, Calendar, X } from 'lucide-react';
+import { format, differenceInSeconds, startOfDay, endOfDay, subDays } from 'date-fns';
+import { cn } from '@/lib/utils';
 import { supabase } from '@/integrations/supabase/client';
 
 interface Props {
@@ -60,6 +64,41 @@ export function UserActivityTimelineDialog({ open, onOpenChange, userId, userLab
   const [sessions, setSessions] = useState<SessionRow[]>([]);
   const [pageViews, setPageViews] = useState<PageViewRow[]>([]);
   const [trainingTime, setTrainingTime] = useState<TrainingTimeRow[]>([]);
+  const [fromDate, setFromDate] = useState<Date | undefined>();
+  const [toDate, setToDate] = useState<Date | undefined>();
+
+  // Reset filter when switching user
+  useEffect(() => {
+    setFromDate(undefined);
+    setToDate(undefined);
+  }, [userId]);
+
+  const applyPreset = (days: number | 'all') => {
+    if (days === 'all') {
+      setFromDate(undefined);
+      setToDate(undefined);
+    } else {
+      setFromDate(startOfDay(subDays(new Date(), days - 1)));
+      setToDate(endOfDay(new Date()));
+    }
+  };
+
+  const inRange = (iso: string) => {
+    const d = new Date(iso).getTime();
+    if (fromDate && d < startOfDay(fromDate).getTime()) return false;
+    if (toDate && d > endOfDay(toDate).getTime()) return false;
+    return true;
+  };
+
+  const filteredSessions = useMemo(
+    () => (!fromDate && !toDate) ? sessions : sessions.filter(s => inRange(s.started_at)),
+    [sessions, fromDate, toDate]
+  );
+  const filteredPageViews = useMemo(
+    () => (!fromDate && !toDate) ? pageViews : pageViews.filter(p => inRange(p.created_at)),
+    [pageViews, fromDate, toDate]
+  );
+  const trainingTimerInRange = !fromDate && !toDate; // training_time is per-day index, not date
 
   useEffect(() => {
     if (!open || !userId) return;
@@ -103,22 +142,22 @@ export function UserActivityTimelineDialog({ open, onOpenChange, userId, userLab
   }, [open, userId]);
 
   const totals = useMemo(() => {
-    const appOpen = sessions.reduce((acc, s) =>
+    const appOpen = filteredSessions.reduce((acc, s) =>
       acc + Math.max(0, differenceInSeconds(new Date(s.last_activity_at), new Date(s.started_at))), 0);
-    const activeApp = sessions.reduce((acc, s) => acc + s.total_duration_seconds, 0);
-    const pageTime = pageViews.reduce((acc, p) => acc + p.duration_seconds, 0);
-    const trainingTimer = trainingTime.reduce((acc, t) => acc + (t.total_seconds ?? 0), 0);
-    const days = new Set(sessions.map(s => format(new Date(s.started_at), 'yyyy-MM-dd')));
+    const activeApp = filteredSessions.reduce((acc, s) => acc + s.total_duration_seconds, 0);
+    const pageTime = filteredPageViews.reduce((acc, p) => acc + p.duration_seconds, 0);
+    const trainingTimer = trainingTimerInRange ? trainingTime.reduce((acc, t) => acc + (t.total_seconds ?? 0), 0) : 0;
+    const days = new Set(filteredSessions.map(s => format(new Date(s.started_at), 'yyyy-MM-dd')));
     return {
-      sessionCount: sessions.length,
-      pageViewCount: pageViews.length,
+      sessionCount: filteredSessions.length,
+      pageViewCount: filteredPageViews.length,
       activeDays: days.size,
       appOpen,
       activeApp,
       pageTime,
       trainingTimer,
     };
-  }, [sessions, pageViews, trainingTime]);
+  }, [filteredSessions, filteredPageViews, trainingTime, trainingTimerInRange]);
 
   // Build per-day timeline grouping sessions and page views
   const timeline = useMemo(() => {
@@ -130,7 +169,7 @@ export function UserActivityTimelineDialog({ open, onOpenChange, userId, userLab
       activeApp: number;
       pageTime: number;
     }>();
-    for (const s of sessions) {
+    for (const s of filteredSessions) {
       const day = format(new Date(s.started_at), 'yyyy-MM-dd');
       const entry = byDay.get(day) ?? { day, sessions: [], pageViews: [], appOpen: 0, activeApp: 0, pageTime: 0 };
       entry.sessions.push(s);
@@ -138,7 +177,7 @@ export function UserActivityTimelineDialog({ open, onOpenChange, userId, userLab
       entry.activeApp += s.total_duration_seconds;
       byDay.set(day, entry);
     }
-    for (const p of pageViews) {
+    for (const p of filteredPageViews) {
       const day = format(new Date(p.created_at), 'yyyy-MM-dd');
       const entry = byDay.get(day) ?? { day, sessions: [], pageViews: [], appOpen: 0, activeApp: 0, pageTime: 0 };
       entry.pageViews.push(p);
@@ -146,7 +185,7 @@ export function UserActivityTimelineDialog({ open, onOpenChange, userId, userLab
       byDay.set(day, entry);
     }
     return Array.from(byDay.values()).sort((a, b) => b.day.localeCompare(a.day));
-  }, [sessions, pageViews]);
+  }, [filteredSessions, filteredPageViews]);
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -169,6 +208,52 @@ export function UserActivityTimelineDialog({ open, onOpenChange, userId, userLab
           </div>
         ) : (
           <ScrollArea className="h-[75vh] pr-4">
+            {/* Date range filter */}
+            <div className="flex flex-wrap items-center gap-2 mb-4 p-3 bg-muted/30 rounded-lg border">
+              <span className="text-xs font-semibold text-muted-foreground mr-1">Interval:</span>
+              <Button size="sm" variant={!fromDate && !toDate ? 'default' : 'outline'} onClick={() => applyPreset('all')}>Tot</Button>
+              <Button size="sm" variant="outline" onClick={() => applyPreset(7)}>7 zile</Button>
+              <Button size="sm" variant="outline" onClick={() => applyPreset(30)}>30 zile</Button>
+              <Button size="sm" variant="outline" onClick={() => applyPreset(90)}>90 zile</Button>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button size="sm" variant="outline" className={cn('font-normal', !fromDate && 'text-muted-foreground')}>
+                    <Calendar className="h-3 w-3 mr-1" />
+                    {fromDate ? format(fromDate, 'dd.MM.yyyy') : 'De la'}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0" align="start">
+                  <CalendarUI mode="single" selected={fromDate} onSelect={setFromDate} className={cn('p-3 pointer-events-auto')} />
+                </PopoverContent>
+              </Popover>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button size="sm" variant="outline" className={cn('font-normal', !toDate && 'text-muted-foreground')}>
+                    <Calendar className="h-3 w-3 mr-1" />
+                    {toDate ? format(toDate, 'dd.MM.yyyy') : 'Până la'}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0" align="start">
+                  <CalendarUI mode="single" selected={toDate} onSelect={setToDate} className={cn('p-3 pointer-events-auto')} />
+                </PopoverContent>
+              </Popover>
+              {(fromDate || toDate) && (
+                <Button size="sm" variant="ghost" onClick={() => applyPreset('all')}>
+                  <X className="h-3 w-3 mr-1" /> Resetează
+                </Button>
+              )}
+              {(fromDate || toDate) && (
+                <Badge variant="secondary" className="ml-auto">
+                  {fromDate ? format(fromDate, 'dd.MM.yyyy') : '…'} → {toDate ? format(toDate, 'dd.MM.yyyy') : '…'}
+                </Badge>
+              )}
+              {(fromDate || toDate) && (
+                <span className="text-[10px] text-muted-foreground w-full">
+                  Notă: training_timer este per-zi-de-curs (nu pe dată), deci se afișează doar la „Tot”.
+                </span>
+              )}
+            </div>
+
             {/* Totals */}
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3 mb-4">
               <Card>
@@ -204,8 +289,8 @@ export function UserActivityTimelineDialog({ open, onOpenChange, userId, userLab
             <Tabs defaultValue="timeline" className="w-full">
               <TabsList>
                 <TabsTrigger value="timeline"><Calendar className="h-4 w-4 mr-1" /> Cronologie pe zi</TabsTrigger>
-                <TabsTrigger value="sessions"><Activity className="h-4 w-4 mr-1" /> Sesiuni ({sessions.length})</TabsTrigger>
-                <TabsTrigger value="pageviews"><Eye className="h-4 w-4 mr-1" /> Page views ({pageViews.length})</TabsTrigger>
+                <TabsTrigger value="sessions"><Activity className="h-4 w-4 mr-1" /> Sesiuni ({filteredSessions.length})</TabsTrigger>
+                <TabsTrigger value="pageviews"><Eye className="h-4 w-4 mr-1" /> Page views ({filteredPageViews.length})</TabsTrigger>
                 <TabsTrigger value="timer"><Timer className="h-4 w-4 mr-1" /> Training timer</TabsTrigger>
               </TabsList>
 
@@ -262,7 +347,7 @@ export function UserActivityTimelineDialog({ open, onOpenChange, userId, userLab
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {[...sessions].reverse().map(s => {
+                    {[...filteredSessions].reverse().map(s => {
                       const open = Math.max(0, differenceInSeconds(new Date(s.last_activity_at), new Date(s.started_at)));
                       return (
                         <TableRow key={s.id}>
@@ -292,7 +377,7 @@ export function UserActivityTimelineDialog({ open, onOpenChange, userId, userLab
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {[...pageViews].reverse().slice(0, 1000).map(p => (
+                    {[...filteredPageViews].reverse().slice(0, 1000).map(p => (
                       <TableRow key={p.id}>
                         <TableCell className="font-mono text-xs">{format(new Date(p.created_at), 'dd.MM.yyyy HH:mm:ss')}</TableCell>
                         <TableCell className="text-xs max-w-xs truncate" title={p.page_path}>{p.page_path}</TableCell>
@@ -303,9 +388,9 @@ export function UserActivityTimelineDialog({ open, onOpenChange, userId, userLab
                     ))}
                   </TableBody>
                 </Table>
-                {pageViews.length > 1000 && (
+                {filteredPageViews.length > 1000 && (
                   <p className="text-xs text-muted-foreground text-center mt-2">
-                    Afișate primele 1000 din {pageViews.length} înregistrări
+                    Afișate primele 1000 din {filteredPageViews.length} înregistrări
                   </p>
                 )}
               </TabsContent>
