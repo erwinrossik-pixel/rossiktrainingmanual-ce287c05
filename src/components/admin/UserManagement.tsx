@@ -11,7 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { useToast } from '@/hooks/use-toast';
-import { Users, Check, X, Clock, User as UserIcon, Mail, AlertCircle, Search, Building2, UserPlus, GraduationCap, BookOpen, Trophy, Target, Timer, FileText, RotateCcw, Award, Trash2, History } from 'lucide-react';
+import { Users, Check, X, Clock, User as UserIcon, Mail, AlertCircle, Search, Building2, UserPlus, UserMinus, GraduationCap, BookOpen, Trophy, Target, Timer, FileText, RotateCcw, Award, Trash2, History } from 'lucide-react';
 import { UserTimeHistoryDialog } from './UserTimeHistoryDialog';
 import {
   AlertDialog,
@@ -511,36 +511,53 @@ export function UserManagement() {
     }
 
     try {
-      const { error } = await supabase.from('company_users').insert({
-        user_id: selectedUserForAssign.id,
-        company_id: selectedCompanyId,
-        role: 'user',
-        status: 'approved',
-        approved_by: user?.id,
-        approved_at: new Date().toISOString()
+      const { error } = await supabase.rpc('admin_assign_user_to_company', {
+        p_user_id: selectedUserForAssign.id,
+        p_company_id: selectedCompanyId,
+        p_role: 'user',
       });
 
       if (error) throw error;
 
-      // Send company assigned email
       const companyName = companies.find(c => c.id === selectedCompanyId)?.name;
       sendNotificationEmail('company_assigned', selectedUserForAssign.id, { companyName });
 
-      toast({ 
-        title: t('admin.users.assigned'), 
-        description: `${selectedUserForAssign.first_name} ${selectedUserForAssign.last_name} ${t('admin.users.assignedDesc')}` 
+      toast({
+        title: t('admin.users.assigned'),
+        description: `${selectedUserForAssign.first_name} ${selectedUserForAssign.last_name} ${t('admin.users.assignedDesc')}`
       });
-      
+
       setAssignDialogOpen(false);
       setSelectedUserForAssign(null);
       setSelectedCompanyId('');
       fetchAllUsers();
     } catch (error: any) {
       console.error('Error assigning user:', error);
-      toast({ 
-        title: t('admin.general.error'), 
-        description: error.message || t('admin.users.assignError'), 
-        variant: 'destructive' 
+      toast({
+        title: t('admin.general.error'),
+        description: error.message || t('admin.users.assignError'),
+        variant: 'destructive'
+      });
+    }
+  };
+
+  const removeUserFromCompany = async (userId: string, companyId: string, email: string) => {
+    try {
+      const { error } = await supabase.rpc('admin_remove_user_from_company', {
+        p_user_id: userId,
+        p_company_id: companyId,
+      });
+      if (error) throw error;
+      toast({
+        title: 'Scos din companie',
+        description: `${email} a fost scos din companie. Istoricul (progres, certificate) este păstrat.`,
+      });
+      fetchAllUsers();
+    } catch (error: any) {
+      toast({
+        title: t('admin.general.error'),
+        description: error.message || 'Nu s-a putut scoate utilizatorul din companie',
+        variant: 'destructive'
       });
     }
   };
@@ -798,6 +815,51 @@ export function UserManagement() {
                                     <X className="h-4 w-4" />
                                   </Button>
                                 </>
+                              )}
+                              {isSuperAdmin && (
+                                <Button
+                                  size="sm"
+                                  variant="outline"
+                                  title="Asociază la altă companie"
+                                  onClick={() => openAssignDialog(userProfile)}
+                                >
+                                  <UserPlus className="h-4 w-4" />
+                                </Button>
+                              )}
+                              {userProfile.company_user.status !== 'removed' && (
+                                <AlertDialog>
+                                  <AlertDialogTrigger asChild>
+                                    <Button
+                                      size="sm"
+                                      variant="outline"
+                                      title="Scoate din companie (păstrează istoricul)"
+                                    >
+                                      <UserMinus className="h-4 w-4" />
+                                    </Button>
+                                  </AlertDialogTrigger>
+                                  <AlertDialogContent>
+                                    <AlertDialogHeader>
+                                      <AlertDialogTitle>Scoți utilizatorul din companie?</AlertDialogTitle>
+                                      <AlertDialogDescription>
+                                        <strong>{userProfile.email}</strong> va fi scos din <strong>{userProfile.company_user?.company_name}</strong>.
+                                        Istoricul (progres, quizuri, certificate, training time) este păstrat.
+                                        Contul rămâne activ și poate fi reasociat oricând.
+                                      </AlertDialogDescription>
+                                    </AlertDialogHeader>
+                                    <AlertDialogFooter>
+                                      <AlertDialogCancel>Anulează</AlertDialogCancel>
+                                      <AlertDialogAction
+                                        onClick={() => removeUserFromCompany(
+                                          userProfile.id,
+                                          userProfile.company_user!.company_id,
+                                          userProfile.email
+                                        )}
+                                      >
+                                        Da, scoate din companie
+                                      </AlertDialogAction>
+                                    </AlertDialogFooter>
+                                  </AlertDialogContent>
+                                </AlertDialog>
                               )}
                               <Button
                                 size="sm"
