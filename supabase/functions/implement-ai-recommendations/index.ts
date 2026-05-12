@@ -135,7 +135,8 @@ serve(async (req) => {
         const implementResult = await executeImplementation(supabase, validatedRec, lovableApiKey);
         
         // Step 2: Verify the implementation was successful
-        const verificationResult = await verifyImplementation(supabase, rec, implementResult);
+        // IMPORTANT: pass validatedRec so verification queries use the resolved chapter ID
+        const verificationResult = await verifyImplementation(supabase, validatedRec, implementResult);
         
         if (verificationResult.success) {
           // Only mark as completed if verification passes
