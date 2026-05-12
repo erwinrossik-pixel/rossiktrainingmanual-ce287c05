@@ -845,6 +845,52 @@ export function UserManagement() {
                               )}
                             </div>
                           )}
+                          {!userProfile.company_user && userProfile.id !== user?.id && (
+                            <div className="flex justify-end gap-2">
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                title="Istoric timp în aplicație"
+                                onClick={() => setHistoryUser({
+                                  id: userProfile.id,
+                                  label: `${userProfile.first_name ?? ''} ${userProfile.last_name ?? ''} — ${userProfile.email}`.trim(),
+                                })}
+                              >
+                                <History className="h-4 w-4" />
+                              </Button>
+                              <AlertDialog>
+                                <AlertDialogTrigger asChild>
+                                  <Button
+                                    size="sm"
+                                    variant="outline"
+                                    className="text-destructive hover:bg-destructive hover:text-destructive-foreground"
+                                    title="Șterge utilizator"
+                                  >
+                                    <Trash2 className="h-4 w-4" />
+                                  </Button>
+                                </AlertDialogTrigger>
+                                <AlertDialogContent>
+                                  <AlertDialogHeader>
+                                    <AlertDialogTitle>Ștergi definitiv acest utilizator?</AlertDialogTitle>
+                                    <AlertDialogDescription>
+                                      Contul <strong>{userProfile.email}</strong> și toate datele asociate
+                                      (progres, quizuri, certificate, sesiuni, training time) vor fi șterse
+                                      ireversibil. Această acțiune nu poate fi anulată.
+                                    </AlertDialogDescription>
+                                  </AlertDialogHeader>
+                                  <AlertDialogFooter>
+                                    <AlertDialogCancel>Anulează</AlertDialogCancel>
+                                    <AlertDialogAction
+                                      className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                                      onClick={() => deleteUserAccount(userProfile.id, userProfile.email)}
+                                    >
+                                      Da, șterge
+                                    </AlertDialogAction>
+                                  </AlertDialogFooter>
+                                </AlertDialogContent>
+                              </AlertDialog>
+                            </div>
+                          )}
                         </TableCell>
                       </TableRow>
                     ))}
