@@ -115,6 +115,7 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
   const [expandedUsers, setExpandedUsers] = useState<Set<string>>(new Set());
   const [unlockingChapter, setUnlockingChapter] = useState<string | null>(null);
   const [resettingUser, setResettingUser] = useState<string | null>(null);
+  const [timelineUser, setTimelineUser] = useState<{ id: string; label: string; createdAt: string } | null>(null);
 
   const handleResetAllTraining = async (userId: string, userName: string) => {
     setResettingUser(userId);
