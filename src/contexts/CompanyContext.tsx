@@ -71,7 +71,7 @@ export interface CompanyUser {
   user_id: string;
   company_id: string;
   role: 'super_admin' | 'company_admin' | 'user';
-  status: 'pending' | 'approved' | 'rejected' | 'suspended';
+  status: 'pending' | 'approved' | 'rejected' | 'suspended' | 'removed';
   approved_by: string | null;
   approved_at: string | null;
   created_at: string;
@@ -188,7 +188,9 @@ export function CompanyProvider({ children }: { children: ReactNode }) {
       .select('*')
       .eq('user_id', userId)
       .eq('company_id', companyId)
-      .single();
+      .order('approved_at', { ascending: false, nullsFirst: false })
+      .limit(1)
+      .maybeSingle();
     
     if (data) setCompanyUser(data as CompanyUser);
   };

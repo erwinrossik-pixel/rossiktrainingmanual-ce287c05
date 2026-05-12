@@ -6,9 +6,10 @@ import { Building2 } from 'lucide-react';
 
 interface CompanyCodeStepProps {
   onCodeSubmit: (code: string) => Promise<void>;
+  onIndependentSelect: () => void;
 }
 
-export function CompanyCodeStep({ onCodeSubmit }: CompanyCodeStepProps) {
+export function CompanyCodeStep({ onCodeSubmit, onIndependentSelect }: CompanyCodeStepProps) {
   const [code, setCode] = useState('');
 
   const handleSubmit = () => {
@@ -41,12 +42,25 @@ export function CompanyCodeStep({ onCodeSubmit }: CompanyCodeStepProps) {
         />
       </div>
 
-      <Button onClick={handleSubmit} className="w-full">
+      <Button onClick={handleSubmit} className="w-full" disabled={!code.trim()}>
         Continuă
       </Button>
 
+      <div className="relative">
+        <div className="absolute inset-0 flex items-center">
+          <span className="w-full border-t" />
+        </div>
+        <div className="relative flex justify-center text-xs uppercase">
+          <span className="bg-card px-2 text-muted-foreground">sau</span>
+        </div>
+      </div>
+
+      <Button variant="outline" className="w-full" onClick={onIndependentSelect}>
+        Continuă fără cod (utilizator independent)
+      </Button>
+
       <p className="text-xs text-center text-muted-foreground">
-        Nu ai un cod? Contactează departamentul HR al companiei tale.
+        Nu ai un cod? Te poți înregistra ca utilizator independent și ai acces imediat.
       </p>
     </div>
   );

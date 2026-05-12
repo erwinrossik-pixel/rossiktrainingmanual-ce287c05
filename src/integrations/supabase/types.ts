@@ -4316,6 +4316,18 @@ export type Database = {
       }
     }
     Functions: {
+      admin_assign_user_to_company: {
+        Args: {
+          p_company_id: string
+          p_role?: Database["public"]["Enums"]["company_role"]
+          p_user_id: string
+        }
+        Returns: Json
+      }
+      admin_remove_user_from_company: {
+        Args: { p_company_id: string; p_user_id: string }
+        Returns: Json
+      }
       admin_reset_all_user_training: {
         Args: { p_user_id: string }
         Returns: Json
@@ -4413,6 +4425,7 @@ export type Database = {
           company_name: string
         }[]
       }
+      register_independent_user: { Args: never; Returns: Json }
       user_belongs_to_company: {
         Args: { _company_id: string; _user_id: string }
         Returns: boolean
@@ -4455,7 +4468,12 @@ export type Database = {
         | "applied"
         | "failed"
         | "rolled_back"
-      user_company_status: "pending" | "approved" | "rejected" | "suspended"
+      user_company_status:
+        | "pending"
+        | "approved"
+        | "rejected"
+        | "suspended"
+        | "removed"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -4597,7 +4615,13 @@ export const Constants = {
         "failed",
         "rolled_back",
       ],
-      user_company_status: ["pending", "approved", "rejected", "suspended"],
+      user_company_status: [
+        "pending",
+        "approved",
+        "rejected",
+        "suspended",
+        "removed",
+      ],
     },
   },
 } as const

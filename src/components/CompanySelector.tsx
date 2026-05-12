@@ -117,6 +117,34 @@ export function CompanySelector({ onCompanyFound }: CompanySelectorProps) {
           )}
           Continuă
         </Button>
+
+        <div className="relative">
+          <div className="absolute inset-0 flex items-center">
+            <span className="w-full border-t" />
+          </div>
+          <div className="relative flex justify-center text-xs uppercase">
+            <span className="bg-card px-2 text-muted-foreground">sau</span>
+          </div>
+        </div>
+
+        <Button
+          variant="outline"
+          className="w-full"
+          disabled={loading}
+          onClick={() => onCompanyFound({
+            id: '00000000-0000-0000-0000-000000000001',
+            name: 'Independent',
+            is_active: true,
+            require_approval: false,
+            independent: true,
+          })}
+        >
+          Continuă fără cod (utilizator independent)
+        </Button>
+
+        <p className="text-xs text-muted-foreground text-center">
+          Nu ai cod? Te poți înregistra ca utilizator independent și ai acces imediat la platformă.
+        </p>
       </CardContent>
     </Card>
   );

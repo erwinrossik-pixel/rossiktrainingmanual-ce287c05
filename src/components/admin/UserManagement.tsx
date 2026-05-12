@@ -47,7 +47,7 @@ interface UserProfile {
     id: string;
     company_id: string;
     role: 'super_admin' | 'company_admin' | 'user';
-    status: 'pending' | 'approved' | 'rejected' | 'suspended';
+    status: 'pending' | 'approved' | 'rejected' | 'suspended' | 'removed';
     company_name?: string;
   } | null;
 }
@@ -59,7 +59,7 @@ interface RegistrationRequest {
   email: string;
   first_name: string | null;
   last_name: string | null;
-  status: 'pending' | 'approved' | 'rejected' | 'suspended';
+  status: 'pending' | 'approved' | 'rejected' | 'suspended' | 'removed';
   created_at: string;
   company_name?: string;
 }
