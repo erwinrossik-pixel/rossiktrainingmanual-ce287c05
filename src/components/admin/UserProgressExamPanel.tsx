@@ -468,7 +468,7 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
         resetHistoryRes,
         chaptersRes
       ] = await Promise.all([
-        supabase.from('profiles').select('id, email, first_name, last_name'),
+        supabase.from('profiles').select('id, email, first_name, last_name, created_at'),
         supabase.from('chapter_progress').select('user_id, chapter_id, status, best_score, attempts_count, reset_count, difficulty_level, user_restart_count, is_locked_out, consecutive_fails'),
         supabase.from('quiz_attempts').select('user_id, chapter_id, score, passed, created_at').order('created_at', { ascending: true }),
         supabase.from('training_time').select('user_id, total_seconds'),
@@ -476,7 +476,7 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
         supabase.from('certificates').select('user_id, certificate_code, issued_at, expires_at, is_revoked, total_training_hours').eq('is_revoked', false),
         supabase.from('company_users').select('user_id, company_id, status'),
         supabase.from('page_views').select('user_id, chapter_id, duration_seconds'),
-        supabase.from('user_sessions').select('user_id, total_duration_seconds'),
+        supabase.from('user_sessions').select('user_id, started_at, last_activity_at, total_duration_seconds'),
         supabase.from('quiz_reset_history').select('user_id, chapter_id, reset_at'),
         supabase.from('chapters').select('id, order_index').order('order_index')
       ]);
@@ -564,7 +564,7 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
             first_pass_score: firstPassScore,
             difficulty_level: progress?.difficulty_level || 1,
             visit_count: chapterViews.length,
-            total_time_seconds: chapterViews.reduce((sum, v) => sum + (v.duration_seconds || 0), 0),
+            total_time_seconds: chapterViews.reduce((sum, v) => sum + Math.min(v.duration_seconds || 0, MAX_AUDITED_PAGE_VIEW_SECONDS), 0),
             quiz_history: chapterQuizzes.map((q, idx) => {
               const wasRestart = idx > 0 && 
                 (new Date(q.created_at).getTime() - new Date(chapterQuizzes[idx - 1].created_at).getTime()) < 5 * 60 * 1000;
@@ -592,8 +592,23 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
         // Total app time from active session duration; training_time remains a fallback only.
         const userTrainingTime = trainingTime.filter(tt => tt.user_id === profile.id);
         const totalActiveSessionSeconds = userActiveSessions.reduce((sum, session) => sum + (session.total_duration_seconds || 0), 0);
+        const totalAppOpenSeconds = userActiveSessions.reduce((sum, session) => {
+          const startedAt = new Date(session.started_at).getTime();
+          const lastActivityAt = new Date(session.last_activity_at).getTime();
+          if (!Number.isFinite(startedAt) || !Number.isFinite(lastActivityAt) || lastActivityAt <= startedAt) return sum;
+          return sum + Math.floor((lastActivityAt - startedAt) / 1000);
+        }, 0);
         const fallbackTrainingTimeSeconds = userTrainingTime.reduce((sum, tt) => sum + (tt.total_seconds || 0), 0);
         const totalAppTimeSeconds = totalActiveSessionSeconds || fallbackTrainingTimeSeconds;
+        const firstSessionAt = userActiveSessions.reduce<string | null>((earliest, session) => {
+          if (!session.started_at) return earliest;
+          return !earliest || new Date(session.started_at) < new Date(earliest) ? session.started_at : earliest;
+        }, null);
+        const lastActivityAt = userActiveSessions.reduce<string | null>((latest, session) => {
+          if (!session.last_activity_at) return latest;
+          return !latest || new Date(session.last_activity_at) > new Date(latest) ? session.last_activity_at : latest;
+        }, null);
+        const rawPageViewSeconds = userPageViews.reduce((sum, pv) => sum + (pv.duration_seconds || 0), 0);
         
         // Chapter page durations are kept separate; historically they may be unavailable.
         const totalPageViewTime = chapterDetails.reduce((sum, cd) => sum + cd.total_time_seconds, 0);
@@ -626,6 +641,14 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
           email: profile.email,
           first_name: profile.first_name,
           last_name: profile.last_name,
+          created_at: profile.created_at,
+          session_count: userActiveSessions.length,
+          first_session_at: firstSessionAt,
+          last_activity_at: lastActivityAt,
+          app_open_seconds: totalAppOpenSeconds,
+          active_app_seconds: totalActiveSessionSeconds,
+          training_timer_seconds: fallbackTrainingTimeSeconds,
+          page_view_seconds: rawPageViewSeconds,
           chapters_completed: completedChapters,
           total_chapters: TOTAL_CHAPTERS,
           progress_percentage: Math.round((completedChapters / TOTAL_CHAPTERS) * 100),
