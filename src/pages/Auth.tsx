@@ -119,7 +119,7 @@ export default function Auth() {
       id: '00000000-0000-0000-0000-000000000001',
       name: 'Independent',
       slug: 'public',
-      require_approval: false,
+      require_approval: true,
     });
     setRegistrationStep('details');
   };
