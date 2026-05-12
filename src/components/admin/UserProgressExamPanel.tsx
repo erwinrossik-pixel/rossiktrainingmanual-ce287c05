@@ -29,6 +29,7 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import { toast } from 'sonner';
+import { UserActivityTimelineDialog } from './UserActivityTimelineDialog';
 
 interface ExamAttempt {
   id: string;
