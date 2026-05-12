@@ -114,6 +114,16 @@ export default function Auth() {
     }
   };
 
+  const handleSelectIndependent = () => {
+    setSelectedCompany({
+      id: '00000000-0000-0000-0000-000000000001',
+      name: 'Independent',
+      slug: 'public',
+      require_approval: false,
+    });
+    setRegistrationStep('details');
+  };
+
   const handleSignup = async (email: string, password: string, firstName: string, lastName: string) => {
     if (!selectedCompany) {
       toast({ title: 'Eroare', description: 'Selectează mai întâi compania', variant: 'destructive' });
@@ -137,21 +147,28 @@ export default function Auth() {
     const { data: { user: newUser } } = await supabase.auth.getUser();
     
     if (newUser) {
-      const status = selectedCompany.require_approval ? 'pending' : 'approved';
-      
-      await supabase.from('company_users').insert({
-        user_id: newUser.id,
-        company_id: selectedCompany.id,
-        role: 'user',
-        status: status,
-        approved_at: status === 'approved' ? new Date().toISOString() : null
-      });
+      const isIndependent = selectedCompany.id === '00000000-0000-0000-0000-000000000001';
 
-      if (selectedCompany.require_approval) {
-        setRegistrationSuccess(true);
-      } else {
+      if (isIndependent) {
+        await supabase.rpc('register_independent_user');
         await refreshCompany();
         navigate('/');
+      } else {
+        const status = selectedCompany.require_approval ? 'pending' : 'approved';
+        await supabase.from('company_users').insert({
+          user_id: newUser.id,
+          company_id: selectedCompany.id,
+          role: 'user',
+          status: status,
+          approved_at: status === 'approved' ? new Date().toISOString() : null
+        });
+
+        if (selectedCompany.require_approval) {
+          setRegistrationSuccess(true);
+        } else {
+          await refreshCompany();
+          navigate('/');
+        }
       }
     }
     
@@ -210,7 +227,7 @@ export default function Auth() {
 
             <TabsContent value="signup">
               {registrationStep === 'company' ? (
-                <CompanyCodeStep onCodeSubmit={findCompanyByCode} />
+                <CompanyCodeStep onCodeSubmit={findCompanyByCode} onIndependentSelect={handleSelectIndependent} />
               ) : selectedCompany ? (
                 <SignupForm
                   selectedCompany={selectedCompany}
