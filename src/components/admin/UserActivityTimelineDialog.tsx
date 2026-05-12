@@ -64,6 +64,41 @@ export function UserActivityTimelineDialog({ open, onOpenChange, userId, userLab
   const [sessions, setSessions] = useState<SessionRow[]>([]);
   const [pageViews, setPageViews] = useState<PageViewRow[]>([]);
   const [trainingTime, setTrainingTime] = useState<TrainingTimeRow[]>([]);
+  const [fromDate, setFromDate] = useState<Date | undefined>();
+  const [toDate, setToDate] = useState<Date | undefined>();
+
+  // Reset filter when switching user
+  useEffect(() => {
+    setFromDate(undefined);
+    setToDate(undefined);
+  }, [userId]);
+
+  const applyPreset = (days: number | 'all') => {
+    if (days === 'all') {
+      setFromDate(undefined);
+      setToDate(undefined);
+    } else {
+      setFromDate(startOfDay(subDays(new Date(), days - 1)));
+      setToDate(endOfDay(new Date()));
+    }
+  };
+
+  const inRange = (iso: string) => {
+    const d = new Date(iso).getTime();
+    if (fromDate && d < startOfDay(fromDate).getTime()) return false;
+    if (toDate && d > endOfDay(toDate).getTime()) return false;
+    return true;
+  };
+
+  const filteredSessions = useMemo(
+    () => (!fromDate && !toDate) ? sessions : sessions.filter(s => inRange(s.started_at)),
+    [sessions, fromDate, toDate]
+  );
+  const filteredPageViews = useMemo(
+    () => (!fromDate && !toDate) ? pageViews : pageViews.filter(p => inRange(p.created_at)),
+    [pageViews, fromDate, toDate]
+  );
+  const trainingTimerInRange = !fromDate && !toDate; // training_time is per-day index, not date
 
   useEffect(() => {
     if (!open || !userId) return;
