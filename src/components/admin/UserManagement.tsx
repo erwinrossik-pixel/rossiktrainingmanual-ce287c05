@@ -511,41 +511,56 @@ export function UserManagement() {
     }
 
     try {
-      const { error } = await supabase.from('company_users').insert({
-        user_id: selectedUserForAssign.id,
-        company_id: selectedCompanyId,
-        role: 'user',
-        status: 'approved',
-        approved_by: user?.id,
-        approved_at: new Date().toISOString()
+      const { error } = await supabase.rpc('admin_assign_user_to_company', {
+        p_user_id: selectedUserForAssign.id,
+        p_company_id: selectedCompanyId,
+        p_role: 'user',
       });
 
       if (error) throw error;
 
-      // Send company assigned email
       const companyName = companies.find(c => c.id === selectedCompanyId)?.name;
       sendNotificationEmail('company_assigned', selectedUserForAssign.id, { companyName });
 
-      toast({ 
-        title: t('admin.users.assigned'), 
-        description: `${selectedUserForAssign.first_name} ${selectedUserForAssign.last_name} ${t('admin.users.assignedDesc')}` 
+      toast({
+        title: t('admin.users.assigned'),
+        description: `${selectedUserForAssign.first_name} ${selectedUserForAssign.last_name} ${t('admin.users.assignedDesc')}`
       });
-      
+
       setAssignDialogOpen(false);
       setSelectedUserForAssign(null);
       setSelectedCompanyId('');
       fetchAllUsers();
     } catch (error: any) {
       console.error('Error assigning user:', error);
-      toast({ 
-        title: t('admin.general.error'), 
-        description: error.message || t('admin.users.assignError'), 
-        variant: 'destructive' 
+      toast({
+        title: t('admin.general.error'),
+        description: error.message || t('admin.users.assignError'),
+        variant: 'destructive'
       });
     }
   };
 
-  const approveRequest = async (request: RegistrationRequest) => {
+  const removeUserFromCompany = async (userId: string, companyId: string, email: string) => {
+    try {
+      const { error } = await supabase.rpc('admin_remove_user_from_company', {
+        p_user_id: userId,
+        p_company_id: companyId,
+      });
+      if (error) throw error;
+      toast({
+        title: 'Scos din companie',
+        description: `${email} a fost scos din companie. Istoricul (progres, certificate) este păstrat.`,
+      });
+      fetchAllUsers();
+    } catch (error: any) {
+      toast({
+        title: t('admin.general.error'),
+        description: error.message || 'Nu s-a putut scoate utilizatorul din companie',
+        variant: 'destructive'
+      });
+    }
+  };
     try {
       if (request.user_id) {
         await supabase.from('company_users').insert({
