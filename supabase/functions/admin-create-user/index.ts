@@ -15,7 +15,6 @@ Deno.serve(async (req) => {
     const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
     const serviceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
 
-    // Authorize: caller must be platform admin
     const authHeader = req.headers.get('Authorization') ?? '';
     const anon = createClient(supabaseUrl, Deno.env.get('SUPABASE_ANON_KEY')!, {
       global: { headers: { Authorization: authHeader } },
@@ -40,19 +39,53 @@ Deno.serve(async (req) => {
       });
     }
 
+    // Try create; if exists, update existing
     const { data: created, error } = await admin.auth.admin.createUser({
       email,
       password,
       email_confirm: true,
       user_metadata: { first_name: first_name ?? null, last_name: last_name ?? null },
     });
+
+    let userId = created?.user?.id;
+
     if (error) {
-      return new Response(JSON.stringify({ error: error.message }), {
-        status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      const msg = error.message ?? '';
+      if (!/already.*register|already.*exist/i.test(msg)) {
+        return new Response(JSON.stringify({ error: msg }), {
+          status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        });
+      }
+      // List users and find by email
+      let foundId: string | null = null;
+      let page = 1;
+      while (page < 20 && !foundId) {
+        const { data: list, error: listErr } = await admin.auth.admin.listUsers({ page, perPage: 200 });
+        if (listErr) break;
+        const u = list.users.find((x) => (x.email ?? '').toLowerCase() === email.toLowerCase());
+        if (u) foundId = u.id;
+        if (list.users.length < 200) break;
+        page++;
+      }
+      if (!foundId) {
+        return new Response(JSON.stringify({ error: 'User exists but could not be located' }), {
+          status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        });
+      }
+      userId = foundId;
+      const { error: updErr } = await admin.auth.admin.updateUserById(foundId, {
+        password,
+        email_confirm: true,
+        user_metadata: { first_name: first_name ?? null, last_name: last_name ?? null },
       });
+      if (updErr) {
+        return new Response(JSON.stringify({ error: updErr.message }), {
+          status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        });
+      }
     }
 
-    return new Response(JSON.stringify({ success: true, user: created.user }), {
+    return new Response(JSON.stringify({ success: true, user_id: userId }), {
       status: 200, headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
   } catch (e) {
