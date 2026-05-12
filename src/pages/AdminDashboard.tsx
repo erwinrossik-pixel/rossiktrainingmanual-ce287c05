@@ -42,6 +42,7 @@ import { LearningAnalyticsDashboard } from '@/components/admin/kpi/LearningAnaly
 import { CronJobsMonitor } from '@/components/admin/CronJobsMonitor';
 import { ContentQualityDashboard } from '@/components/admin/ContentQualityDashboard';
 import { DebugEventsPanel } from '@/components/admin/DebugEventsPanel';
+import { RecordingHealthCheck } from '@/components/admin/RecordingHealthCheck';
 import { AICronsDashboard } from '@/components/admin/AICronsDashboard';
 import { CertificatesDashboard } from '@/components/admin/CertificatesDashboard';
 import RealTimeActivityPanel from '@/components/admin/RealTimeActivityPanel';
