@@ -174,10 +174,10 @@ export function useAnalytics() {
   // Save current page duration and cleanup interval
   const savePreviousPageDuration = useCallback(async () => {
     if (currentPageViewId.current && pageStartTime.current) {
-      const duration = Math.floor((Date.now() - pageStartTime.current) / 1000);
-      if (duration > 0) {
-        await updatePageViewDuration(currentPageViewId.current, duration);
-        updateSessionActivity();
+      activePageSeconds.current += collectActiveDelta(lastPageTick);
+      if (activePageSeconds.current > 0) {
+        await updatePageViewDuration(currentPageViewId.current, activePageSeconds.current);
+        await updateSessionActivity(true);
       }
     }
     
@@ -200,6 +200,8 @@ export function useAnalytics() {
 
     // Start tracking new page
     pageStartTime.current = Date.now();
+    lastPageTick.current = Date.now();
+    activePageSeconds.current = 0;
     currentPath.current = pagePath;
 
     try {
@@ -217,15 +219,16 @@ export function useAnalytics() {
         // Start interval to periodically update duration while on page
         durationUpdateInterval.current = setInterval(async () => {
           if (currentPageViewId.current) {
-            const duration = Math.floor((Date.now() - pageStartTime.current) / 1000);
-            await updatePageViewDuration(currentPageViewId.current, duration);
+            activePageSeconds.current += collectActiveDelta(lastPageTick);
+            await updatePageViewDuration(currentPageViewId.current, activePageSeconds.current);
+            await updateSessionActivity(true);
           }
         }, DURATION_UPDATE_INTERVAL);
       }
     } catch (error) {
       logger.error('Error tracking page view:', error);
     }
-  }, [user, savePreviousPageDuration, updatePageViewDuration]);
+  }, [user, savePreviousPageDuration, updatePageViewDuration, collectActiveDelta, updateSessionActivity]);
 
   // Track chapter visit - memoized
   const trackChapterVisit = useCallback((chapterId: string) => {
