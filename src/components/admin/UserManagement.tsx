@@ -816,6 +816,51 @@ export function UserManagement() {
                                   </Button>
                                 </>
                               )}
+                              {isSuperAdmin && (
+                                <Button
+                                  size="sm"
+                                  variant="outline"
+                                  title="Asociază la altă companie"
+                                  onClick={() => openAssignDialog(userProfile)}
+                                >
+                                  <UserPlus className="h-4 w-4" />
+                                </Button>
+                              )}
+                              {userProfile.company_user.status !== 'removed' && (
+                                <AlertDialog>
+                                  <AlertDialogTrigger asChild>
+                                    <Button
+                                      size="sm"
+                                      variant="outline"
+                                      title="Scoate din companie (păstrează istoricul)"
+                                    >
+                                      <UserMinus className="h-4 w-4" />
+                                    </Button>
+                                  </AlertDialogTrigger>
+                                  <AlertDialogContent>
+                                    <AlertDialogHeader>
+                                      <AlertDialogTitle>Scoți utilizatorul din companie?</AlertDialogTitle>
+                                      <AlertDialogDescription>
+                                        <strong>{userProfile.email}</strong> va fi scos din <strong>{userProfile.company_user?.company_name}</strong>.
+                                        Istoricul (progres, quizuri, certificate, training time) este păstrat.
+                                        Contul rămâne activ și poate fi reasociat oricând.
+                                      </AlertDialogDescription>
+                                    </AlertDialogHeader>
+                                    <AlertDialogFooter>
+                                      <AlertDialogCancel>Anulează</AlertDialogCancel>
+                                      <AlertDialogAction
+                                        onClick={() => removeUserFromCompany(
+                                          userProfile.id,
+                                          userProfile.company_user!.company_id,
+                                          userProfile.email
+                                        )}
+                                      >
+                                        Da, scoate din companie
+                                      </AlertDialogAction>
+                                    </AlertDialogFooter>
+                                  </AlertDialogContent>
+                                </AlertDialog>
+                              )}
                               <Button
                                 size="sm"
                                 variant="outline"
