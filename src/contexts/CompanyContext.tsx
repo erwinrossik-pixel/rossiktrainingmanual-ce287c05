@@ -188,7 +188,9 @@ export function CompanyProvider({ children }: { children: ReactNode }) {
       .select('*')
       .eq('user_id', userId)
       .eq('company_id', companyId)
-      .single();
+      .order('approved_at', { ascending: false, nullsFirst: false })
+      .limit(1)
+      .maybeSingle();
     
     if (data) setCompanyUser(data as CompanyUser);
   };
