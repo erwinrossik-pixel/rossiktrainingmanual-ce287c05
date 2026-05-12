@@ -40,15 +40,16 @@ export function useAnalytics() {
   const activePageSeconds = useRef<number>(0);
   const lastSessionTick = useRef<number>(Date.now());
   const lastPageTick = useRef<number>(Date.now());
+  const pageStartTime = useRef<number>(Date.now());
   const sessionInitialized = useRef<boolean>(false);
   const pendingUpdate = useRef<NodeJS.Timeout | null>(null);
   const durationUpdateInterval = useRef<NodeJS.Timeout | null>(null);
 
-  const collectActiveDelta = useCallback((lastTickRef: MutableRefObject<number>) => {
+  const collectActiveDelta = useCallback((lastTickRef: MutableRefObject<number>, forceVisible = false) => {
     const now = Date.now();
     const elapsed = Math.floor((now - lastTickRef.current) / 1000);
     lastTickRef.current = now;
-    if (document.visibilityState !== 'visible' || elapsed <= 0) return 0;
+    if ((!forceVisible && document.visibilityState !== 'visible') || elapsed <= 0) return 0;
     return Math.min(elapsed, MAX_ACTIVE_DELTA_SECONDS);
   }, []);
 
@@ -123,14 +124,14 @@ export function useAnalytics() {
   }, [user]);
 
   // Throttled session activity update
-  const updateSessionActivity = useCallback(async () => {
+  const updateSessionActivity = useCallback(async (force = false, forceVisible = false) => {
     if (!user || !sessionId.current) return;
     
     const now = Date.now();
-    activeSessionSeconds.current += collectActiveDelta(lastSessionTick);
+    activeSessionSeconds.current += collectActiveDelta(lastSessionTick, forceVisible);
     const sessionDurationSeconds = activeSessionSeconds.current;
     // Throttle updates to once per 30 seconds
-    if (now - lastActivityUpdate.current < ACTIVITY_UPDATE_INTERVAL) {
+    if (!force && now - lastActivityUpdate.current < ACTIVITY_UPDATE_INTERVAL) {
       // Schedule a delayed update instead
       if (pendingUpdate.current) {
         clearTimeout(pendingUpdate.current);
