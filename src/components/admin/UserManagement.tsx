@@ -1264,14 +1264,47 @@ export function UserManagement() {
                           {format(new Date(userProfile.created_at), 'dd MMM yyyy HH:mm', { locale: dateLocale })}
                         </TableCell>
                         <TableCell className="text-right">
-                          <Button
-                            size="sm"
-                            onClick={() => openAssignDialog(userProfile)}
-                            className="gap-1"
-                          >
-                            <UserPlus className="h-4 w-4" />
-                            {t('admin.users.assignToCompany')}
-                          </Button>
+                          <div className="flex justify-end gap-2">
+                            <Button
+                              size="sm"
+                              onClick={() => openAssignDialog(userProfile)}
+                              className="gap-1"
+                            >
+                              <UserPlus className="h-4 w-4" />
+                              {t('admin.users.assignToCompany')}
+                            </Button>
+                            {userProfile.id !== user?.id && (
+                              <AlertDialog>
+                                <AlertDialogTrigger asChild>
+                                  <Button
+                                    size="sm"
+                                    variant="outline"
+                                    className="text-destructive hover:bg-destructive hover:text-destructive-foreground"
+                                    title="Șterge utilizator"
+                                  >
+                                    <Trash2 className="h-4 w-4" />
+                                  </Button>
+                                </AlertDialogTrigger>
+                                <AlertDialogContent>
+                                  <AlertDialogHeader>
+                                    <AlertDialogTitle>Ștergi definitiv acest utilizator?</AlertDialogTitle>
+                                    <AlertDialogDescription>
+                                      Contul <strong>{userProfile.email}</strong> și toate datele asociate vor fi șterse ireversibil.
+                                    </AlertDialogDescription>
+                                  </AlertDialogHeader>
+                                  <AlertDialogFooter>
+                                    <AlertDialogCancel>Anulează</AlertDialogCancel>
+                                    <AlertDialogAction
+                                      className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                                      onClick={() => deleteUserAccount(userProfile.id, userProfile.email)}
+                                    >
+                                      Da, șterge
+                                    </AlertDialogAction>
+                                  </AlertDialogFooter>
+                                </AlertDialogContent>
+                              </AlertDialog>
+                            )}
+                          </div>
                         </TableCell>
                       </TableRow>
                     ))}
