@@ -258,7 +258,8 @@ export function useAnalytics() {
   useEffect(() => {
     const handleUnload = async () => {
       if (currentPageViewId.current && user) {
-        const duration = Math.floor((Date.now() - pageStartTime.current) / 1000);
+        activePageSeconds.current += collectActiveDelta(lastPageTick, true);
+        const duration = activePageSeconds.current;
         
         // Try to update with sendBeacon for reliability
         if (navigator.sendBeacon) {
@@ -266,6 +267,7 @@ export function useAnalytics() {
           // but we can at least try the regular update
           try {
             await updatePageViewDuration(currentPageViewId.current, duration);
+            await updateSessionActivity(true, true);
           } catch (e) {
             // Ignore errors on unload
           }
@@ -275,8 +277,9 @@ export function useAnalytics() {
 
     const handleVisibilityChange = async () => {
       if (document.visibilityState === 'hidden' && currentPageViewId.current) {
-        const duration = Math.floor((Date.now() - pageStartTime.current) / 1000);
-        await updatePageViewDuration(currentPageViewId.current, duration);
+        activePageSeconds.current += collectActiveDelta(lastPageTick, true);
+        await updatePageViewDuration(currentPageViewId.current, activePageSeconds.current);
+        await updateSessionActivity(true, true);
       }
     };
 
@@ -287,7 +290,7 @@ export function useAnalytics() {
       window.removeEventListener('beforeunload', handleUnload);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
-  }, [user, updatePageViewDuration]);
+  }, [user, updatePageViewDuration, collectActiveDelta, updateSessionActivity]);
 
   return {
     trackPageView,
