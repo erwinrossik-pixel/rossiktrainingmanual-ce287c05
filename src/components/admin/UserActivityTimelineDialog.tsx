@@ -289,8 +289,8 @@ export function UserActivityTimelineDialog({ open, onOpenChange, userId, userLab
             <Tabs defaultValue="timeline" className="w-full">
               <TabsList>
                 <TabsTrigger value="timeline"><Calendar className="h-4 w-4 mr-1" /> Cronologie pe zi</TabsTrigger>
-                <TabsTrigger value="sessions"><Activity className="h-4 w-4 mr-1" /> Sesiuni ({sessions.length})</TabsTrigger>
-                <TabsTrigger value="pageviews"><Eye className="h-4 w-4 mr-1" /> Page views ({pageViews.length})</TabsTrigger>
+                <TabsTrigger value="sessions"><Activity className="h-4 w-4 mr-1" /> Sesiuni ({filteredSessions.length})</TabsTrigger>
+                <TabsTrigger value="pageviews"><Eye className="h-4 w-4 mr-1" /> Page views ({filteredPageViews.length})</TabsTrigger>
                 <TabsTrigger value="timer"><Timer className="h-4 w-4 mr-1" /> Training timer</TabsTrigger>
               </TabsList>
 
@@ -347,7 +347,7 @@ export function UserActivityTimelineDialog({ open, onOpenChange, userId, userLab
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {[...sessions].reverse().map(s => {
+                    {[...filteredSessions].reverse().map(s => {
                       const open = Math.max(0, differenceInSeconds(new Date(s.last_activity_at), new Date(s.started_at)));
                       return (
                         <TableRow key={s.id}>
@@ -377,7 +377,7 @@ export function UserActivityTimelineDialog({ open, onOpenChange, userId, userLab
                     </TableRow>
                   </TableHeader>
                   <TableBody>
-                    {[...pageViews].reverse().slice(0, 1000).map(p => (
+                    {[...filteredPageViews].reverse().slice(0, 1000).map(p => (
                       <TableRow key={p.id}>
                         <TableCell className="font-mono text-xs">{format(new Date(p.created_at), 'dd.MM.yyyy HH:mm:ss')}</TableCell>
                         <TableCell className="text-xs max-w-xs truncate" title={p.page_path}>{p.page_path}</TableCell>
@@ -388,9 +388,9 @@ export function UserActivityTimelineDialog({ open, onOpenChange, userId, userLab
                     ))}
                   </TableBody>
                 </Table>
-                {pageViews.length > 1000 && (
+                {filteredPageViews.length > 1000 && (
                   <p className="text-xs text-muted-foreground text-center mt-2">
-                    Afișate primele 1000 din {pageViews.length} înregistrări
+                    Afișate primele 1000 din {filteredPageViews.length} înregistrări
                   </p>
                 )}
               </TabsContent>
