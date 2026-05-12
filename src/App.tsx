@@ -18,18 +18,6 @@ const NotFound = lazy(() => import("./pages/NotFound"));
 const VerifyCertificate = lazy(() => import("./pages/VerifyCertificate"));
 const FinalExamPage = lazy(() => import("./pages/FinalExamPage"));
 
-// Optimized QueryClient with caching
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: 5 * 60 * 1000, // 5 minutes
-      gcTime: 10 * 60 * 1000, // 10 minutes (formerly cacheTime)
-      refetchOnWindowFocus: false,
-      retry: 1,
-    },
-  },
-});
-
 // Loading fallback
 const PageLoader = () => (
   <div className="min-h-screen flex items-center justify-center bg-background">
@@ -37,62 +25,75 @@ const PageLoader = () => (
   </div>
 );
 
-const App = () => (
-  <ErrorBoundary>
-    <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <CompanyProvider>
-          <LanguageProvider>
-            <TooltipProvider>
-              <Toaster />
-              <Sonner />
-              <BrowserRouter>
-                <Routes>
-                  <Route path="/" element={<Index />} />
-                  <Route path="/auth" element={
-                    <Suspense fallback={<PageLoader />}>
-                      <Auth />
-                    </Suspense>
-                  } />
-                  <Route path="/admin" element={
-                    <Suspense fallback={<PageLoader />}>
-                      <AdminDashboard />
-                    </Suspense>
-                  } />
-                  <Route path="/profile" element={
-                    <Suspense fallback={<PageLoader />}>
-                      <Profile />
-                    </Suspense>
-                  } />
-                  <Route path="/verify" element={
-                    <Suspense fallback={<PageLoader />}>
-                      <VerifyCertificate />
-                    </Suspense>
-                  } />
-                  <Route path="/verify/:code" element={
-                    <Suspense fallback={<PageLoader />}>
-                      <VerifyCertificate />
-                    </Suspense>
-                  } />
-                  <Route path="/final-exam" element={
-                    <Suspense fallback={<PageLoader />}>
-                      <FinalExamPage />
-                    </Suspense>
-                  } />
-                  {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-                  <Route path="*" element={
-                    <Suspense fallback={<PageLoader />}>
-                      <NotFound />
-                    </Suspense>
-                  } />
-                </Routes>
-              </BrowserRouter>
-            </TooltipProvider>
-          </LanguageProvider>
-        </CompanyProvider>
-      </AuthProvider>
-    </QueryClientProvider>
-  </ErrorBoundary>
-);
+const App = () => {
+  // Create QueryClient inside component to ensure it's available before child providers
+  const [queryClient] = useState(() => new QueryClient({
+    defaultOptions: {
+      queries: {
+        staleTime: 5 * 60 * 1000,
+        gcTime: 10 * 60 * 1000,
+        refetchOnWindowFocus: false,
+        retry: 1,
+      },
+    },
+  }));
 
+  return (
+    <QueryClientProvider client={queryClient}>
+      <ErrorBoundary>
+        <AuthProvider>
+          <CompanyProvider>
+            <LanguageProvider>
+              <TooltipProvider>
+                <Toaster />
+                <Sonner />
+                <BrowserRouter>
+                  <Routes>
+                    <Route path="/" element={<Index />} />
+                    <Route path="/auth" element={
+                      <Suspense fallback={<PageLoader />}>
+                        <Auth />
+                      </Suspense>
+                    } />
+                    <Route path="/admin" element={
+                      <Suspense fallback={<PageLoader />}>
+                        <AdminDashboard />
+                      </Suspense>
+                    } />
+                    <Route path="/profile" element={
+                      <Suspense fallback={<PageLoader />}>
+                        <Profile />
+                      </Suspense>
+                    } />
+                    <Route path="/verify" element={
+                      <Suspense fallback={<PageLoader />}>
+                        <VerifyCertificate />
+                      </Suspense>
+                    } />
+                    <Route path="/verify/:code" element={
+                      <Suspense fallback={<PageLoader />}>
+                        <VerifyCertificate />
+                      </Suspense>
+                    } />
+                    <Route path="/final-exam" element={
+                      <Suspense fallback={<PageLoader />}>
+                        <FinalExamPage />
+                      </Suspense>
+                    } />
+                    {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                    <Route path="*" element={
+                      <Suspense fallback={<PageLoader />}>
+                        <NotFound />
+                      </Suspense>
+                    } />
+                  </Routes>
+                </BrowserRouter>
+              </TooltipProvider>
+            </LanguageProvider>
+          </CompanyProvider>
+        </AuthProvider>
+      </ErrorBoundary>
+    </QueryClientProvider>
+  );
+};
 export default App;
