@@ -208,6 +208,52 @@ export function UserActivityTimelineDialog({ open, onOpenChange, userId, userLab
           </div>
         ) : (
           <ScrollArea className="h-[75vh] pr-4">
+            {/* Date range filter */}
+            <div className="flex flex-wrap items-center gap-2 mb-4 p-3 bg-muted/30 rounded-lg border">
+              <span className="text-xs font-semibold text-muted-foreground mr-1">Interval:</span>
+              <Button size="sm" variant={!fromDate && !toDate ? 'default' : 'outline'} onClick={() => applyPreset('all')}>Tot</Button>
+              <Button size="sm" variant="outline" onClick={() => applyPreset(7)}>7 zile</Button>
+              <Button size="sm" variant="outline" onClick={() => applyPreset(30)}>30 zile</Button>
+              <Button size="sm" variant="outline" onClick={() => applyPreset(90)}>90 zile</Button>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button size="sm" variant="outline" className={cn('font-normal', !fromDate && 'text-muted-foreground')}>
+                    <Calendar className="h-3 w-3 mr-1" />
+                    {fromDate ? format(fromDate, 'dd.MM.yyyy') : 'De la'}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0" align="start">
+                  <CalendarUI mode="single" selected={fromDate} onSelect={setFromDate} className={cn('p-3 pointer-events-auto')} />
+                </PopoverContent>
+              </Popover>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button size="sm" variant="outline" className={cn('font-normal', !toDate && 'text-muted-foreground')}>
+                    <Calendar className="h-3 w-3 mr-1" />
+                    {toDate ? format(toDate, 'dd.MM.yyyy') : 'Până la'}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0" align="start">
+                  <CalendarUI mode="single" selected={toDate} onSelect={setToDate} className={cn('p-3 pointer-events-auto')} />
+                </PopoverContent>
+              </Popover>
+              {(fromDate || toDate) && (
+                <Button size="sm" variant="ghost" onClick={() => applyPreset('all')}>
+                  <X className="h-3 w-3 mr-1" /> Resetează
+                </Button>
+              )}
+              {(fromDate || toDate) && (
+                <Badge variant="secondary" className="ml-auto">
+                  {fromDate ? format(fromDate, 'dd.MM.yyyy') : '…'} → {toDate ? format(toDate, 'dd.MM.yyyy') : '…'}
+                </Badge>
+              )}
+              {(fromDate || toDate) && (
+                <span className="text-[10px] text-muted-foreground w-full">
+                  Notă: training_timer este per-zi-de-curs (nu pe dată), deci se afișează doar la „Tot”.
+                </span>
+              )}
+            </div>
+
             {/* Totals */}
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3 mb-4">
               <Card>
