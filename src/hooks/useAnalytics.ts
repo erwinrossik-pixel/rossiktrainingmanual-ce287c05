@@ -40,15 +40,16 @@ export function useAnalytics() {
   const activePageSeconds = useRef<number>(0);
   const lastSessionTick = useRef<number>(Date.now());
   const lastPageTick = useRef<number>(Date.now());
+  const pageStartTime = useRef<number>(Date.now());
   const sessionInitialized = useRef<boolean>(false);
   const pendingUpdate = useRef<NodeJS.Timeout | null>(null);
   const durationUpdateInterval = useRef<NodeJS.Timeout | null>(null);
 
-  const collectActiveDelta = useCallback((lastTickRef: MutableRefObject<number>) => {
+  const collectActiveDelta = useCallback((lastTickRef: MutableRefObject<number>, forceVisible = false) => {
     const now = Date.now();
     const elapsed = Math.floor((now - lastTickRef.current) / 1000);
     lastTickRef.current = now;
-    if (document.visibilityState !== 'visible' || elapsed <= 0) return 0;
+    if ((!forceVisible && document.visibilityState !== 'visible') || elapsed <= 0) return 0;
     return Math.min(elapsed, MAX_ACTIVE_DELTA_SECONDS);
   }, []);
 
@@ -123,14 +124,14 @@ export function useAnalytics() {
   }, [user]);
 
   // Throttled session activity update
-  const updateSessionActivity = useCallback(async () => {
+  const updateSessionActivity = useCallback(async (force = false, forceVisible = false) => {
     if (!user || !sessionId.current) return;
     
     const now = Date.now();
-    activeSessionSeconds.current += collectActiveDelta(lastSessionTick);
+    activeSessionSeconds.current += collectActiveDelta(lastSessionTick, forceVisible);
     const sessionDurationSeconds = activeSessionSeconds.current;
     // Throttle updates to once per 30 seconds
-    if (now - lastActivityUpdate.current < ACTIVITY_UPDATE_INTERVAL) {
+    if (!force && now - lastActivityUpdate.current < ACTIVITY_UPDATE_INTERVAL) {
       // Schedule a delayed update instead
       if (pendingUpdate.current) {
         clearTimeout(pendingUpdate.current);
@@ -173,10 +174,10 @@ export function useAnalytics() {
   // Save current page duration and cleanup interval
   const savePreviousPageDuration = useCallback(async () => {
     if (currentPageViewId.current && pageStartTime.current) {
-      const duration = Math.floor((Date.now() - pageStartTime.current) / 1000);
-      if (duration > 0) {
-        await updatePageViewDuration(currentPageViewId.current, duration);
-        updateSessionActivity();
+      activePageSeconds.current += collectActiveDelta(lastPageTick);
+      if (activePageSeconds.current > 0) {
+        await updatePageViewDuration(currentPageViewId.current, activePageSeconds.current);
+        await updateSessionActivity(true);
       }
     }
     
@@ -199,6 +200,8 @@ export function useAnalytics() {
 
     // Start tracking new page
     pageStartTime.current = Date.now();
+    lastPageTick.current = Date.now();
+    activePageSeconds.current = 0;
     currentPath.current = pagePath;
 
     try {
@@ -216,15 +219,16 @@ export function useAnalytics() {
         // Start interval to periodically update duration while on page
         durationUpdateInterval.current = setInterval(async () => {
           if (currentPageViewId.current) {
-            const duration = Math.floor((Date.now() - pageStartTime.current) / 1000);
-            await updatePageViewDuration(currentPageViewId.current, duration);
+            activePageSeconds.current += collectActiveDelta(lastPageTick);
+            await updatePageViewDuration(currentPageViewId.current, activePageSeconds.current);
+            await updateSessionActivity(true);
           }
         }, DURATION_UPDATE_INTERVAL);
       }
     } catch (error) {
       logger.error('Error tracking page view:', error);
     }
-  }, [user, savePreviousPageDuration, updatePageViewDuration]);
+  }, [user, savePreviousPageDuration, updatePageViewDuration, collectActiveDelta, updateSessionActivity]);
 
   // Track chapter visit - memoized
   const trackChapterVisit = useCallback((chapterId: string) => {
@@ -254,7 +258,8 @@ export function useAnalytics() {
   useEffect(() => {
     const handleUnload = async () => {
       if (currentPageViewId.current && user) {
-        const duration = Math.floor((Date.now() - pageStartTime.current) / 1000);
+        activePageSeconds.current += collectActiveDelta(lastPageTick, true);
+        const duration = activePageSeconds.current;
         
         // Try to update with sendBeacon for reliability
         if (navigator.sendBeacon) {
@@ -262,6 +267,7 @@ export function useAnalytics() {
           // but we can at least try the regular update
           try {
             await updatePageViewDuration(currentPageViewId.current, duration);
+            await updateSessionActivity(true, true);
           } catch (e) {
             // Ignore errors on unload
           }
@@ -271,8 +277,9 @@ export function useAnalytics() {
 
     const handleVisibilityChange = async () => {
       if (document.visibilityState === 'hidden' && currentPageViewId.current) {
-        const duration = Math.floor((Date.now() - pageStartTime.current) / 1000);
-        await updatePageViewDuration(currentPageViewId.current, duration);
+        activePageSeconds.current += collectActiveDelta(lastPageTick, true);
+        await updatePageViewDuration(currentPageViewId.current, activePageSeconds.current);
+        await updateSessionActivity(true, true);
       }
     };
 
@@ -283,7 +290,7 @@ export function useAnalytics() {
       window.removeEventListener('beforeunload', handleUnload);
       document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
-  }, [user, updatePageViewDuration]);
+  }, [user, updatePageViewDuration, collectActiveDelta, updateSessionActivity]);
 
   return {
     trackPageView,
