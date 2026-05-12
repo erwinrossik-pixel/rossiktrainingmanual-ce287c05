@@ -29,6 +29,7 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import { toast } from 'sonner';
+import { UserActivityTimelineDialog } from './UserActivityTimelineDialog';
 
 interface ExamAttempt {
   id: string;
@@ -114,6 +115,7 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
   const [expandedUsers, setExpandedUsers] = useState<Set<string>>(new Set());
   const [unlockingChapter, setUnlockingChapter] = useState<string | null>(null);
   const [resettingUser, setResettingUser] = useState<string | null>(null);
+  const [timelineUser, setTimelineUser] = useState<{ id: string; label: string; createdAt: string } | null>(null);
 
   const handleResetAllTraining = async (userId: string, userName: string) => {
     setResettingUser(userId);
@@ -916,34 +918,49 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
                           <p className="text-xs text-muted-foreground">{t.passedQuizzes}</p>
                         </div>
                       </div>
-                      <div className="grid grid-cols-2 md:grid-cols-6 gap-4 mb-4 p-3 bg-card rounded-lg border-l-4 border-l-info">
-                        <div className="text-center">
-                          <p className="text-sm font-semibold text-foreground">
-                            {format(new Date(up.created_at), 'dd.MM.yyyy')} → {up.last_activity_at ? format(new Date(up.last_activity_at), 'dd.MM.yyyy') : '-'}
-                          </p>
-                          <p className="text-xs text-muted-foreground">{t.auditPeriod}</p>
-                        </div>
-                        <div className="text-center">
-                          <p className="text-2xl font-bold text-info">{up.session_count}</p>
-                          <p className="text-xs text-muted-foreground">{t.sessions}</p>
-                        </div>
-                        <div className="text-center">
-                          <p className="text-2xl font-bold text-primary">{formatTime(up.app_open_seconds)}</p>
-                          <p className="text-xs text-muted-foreground">{t.appOpenTime}</p>
-                        </div>
-                        <div className="text-center">
-                          <p className="text-2xl font-bold text-success">{formatTime(up.total_app_time_seconds)}</p>
-                          <p className="text-xs text-muted-foreground">{t.activeAppTime}</p>
-                        </div>
-                        <div className="text-center">
-                          <p className="text-2xl font-bold text-warning">{formatTime(up.training_timer_seconds)}</p>
-                          <p className="text-xs text-muted-foreground">{t.timerRecorded}</p>
-                        </div>
-                        <div className="text-center">
-                          <p className="text-2xl font-bold text-muted-foreground">{formatTime(up.page_view_seconds)}</p>
-                          <p className="text-xs text-muted-foreground">{t.recordedPageTime}</p>
-                        </div>
-                      </div>
+                      <div className="grid grid-cols-2 md:grid-cols-6 gap-4 mb-4 p-3 bg-card rounded-lg border-l-4 border-l-info relative">
+                         <Button
+                           size="sm"
+                           variant="outline"
+                           className="absolute top-2 right-2 h-7 text-xs"
+                           onClick={(e) => {
+                             e.stopPropagation();
+                             setTimelineUser({
+                               id: up.user_id,
+                               label: `${up.first_name ?? ''} ${up.last_name ?? ''} — ${up.email}`.trim(),
+                               createdAt: up.created_at,
+                             });
+                           }}
+                         >
+                           <Eye className="h-3 w-3 mr-1" /> Cronologie
+                         </Button>
+                         <div className="text-center">
+                           <p className="text-sm font-semibold text-foreground">
+                             {format(new Date(up.created_at), 'dd.MM.yyyy')} → {up.last_activity_at ? format(new Date(up.last_activity_at), 'dd.MM.yyyy') : '-'}
+                           </p>
+                           <p className="text-xs text-muted-foreground">{t.auditPeriod}</p>
+                         </div>
+                         <div className="text-center">
+                           <p className="text-2xl font-bold text-info">{up.session_count}</p>
+                           <p className="text-xs text-muted-foreground">{t.sessions}</p>
+                         </div>
+                         <div className="text-center">
+                           <p className="text-2xl font-bold text-primary">{formatTime(up.app_open_seconds)}</p>
+                           <p className="text-xs text-muted-foreground">{t.appOpenTime}</p>
+                         </div>
+                         <div className="text-center">
+                           <p className="text-2xl font-bold text-success">{formatTime(up.total_app_time_seconds)}</p>
+                           <p className="text-xs text-muted-foreground">{t.activeAppTime}</p>
+                         </div>
+                         <div className="text-center">
+                           <p className="text-2xl font-bold text-warning">{formatTime(up.training_timer_seconds)}</p>
+                           <p className="text-xs text-muted-foreground">{t.timerRecorded}</p>
+                         </div>
+                         <div className="text-center">
+                           <p className="text-2xl font-bold text-muted-foreground">{formatTime(up.page_view_seconds)}</p>
+                           <p className="text-xs text-muted-foreground">{t.recordedPageTime}</p>
+                         </div>
+                       </div>
                       
                       {/* Quiz-specific summary stats */}
                       <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-4 p-3 bg-card rounded-lg border-l-4 border-l-warning">
@@ -1302,6 +1319,13 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
           </div>
         )}
       </CardContent>
+      <UserActivityTimelineDialog
+        open={!!timelineUser}
+        onOpenChange={(o) => { if (!o) setTimelineUser(null); }}
+        userId={timelineUser?.id ?? null}
+        userLabel={timelineUser?.label ?? ''}
+        createdAt={timelineUser?.createdAt ?? null}
+      />
     </Card>
   );
 });
