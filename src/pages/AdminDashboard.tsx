@@ -1,5 +1,4 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { useCompany } from '@/contexts/CompanyContext';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -25,6 +24,10 @@ import { format, subDays } from 'date-fns';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import NotificationCenter from '@/components/NotificationCenter';
+
+const navigateTo = (path: string) => {
+  window.location.assign(path);
+};
 
 // Admin Components - refactored
 import { AdminCharts } from '@/components/admin/AdminCharts';
@@ -98,7 +101,6 @@ interface QuizAttempt {
 }
 
 export default function AdminDashboard() {
-  const navigate = useNavigate();
   const { user, profile, loading, isAdmin } = useAuth();
   const { isSuperAdmin, isCompanyAdmin, company, branding } = useCompany();
   const { t } = useLanguage();
@@ -132,11 +134,11 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     if (!loading && !user) {
-      navigate('/auth');
+      navigateTo('/auth');
     } else if (!loading && !hasAdminAccess) {
-      navigate('/');
+      navigateTo('/');
     }
-  }, [user, loading, hasAdminAccess, navigate]);
+  }, [user, loading, hasAdminAccess]);
 
   useEffect(() => {
     if (hasAdminAccess) {
@@ -484,7 +486,7 @@ export default function AdminDashboard() {
               <Button 
                 variant="outline" 
                 size="icon" 
-                onClick={() => navigate('/')}
+                onClick={() => navigateTo('/')}
                 className="bg-white/10 border-white/30 text-white hover:bg-white/20 hover:text-white"
               >
                 <ArrowLeft className="h-4 w-4" />
