@@ -561,6 +561,8 @@ export function UserManagement() {
       });
     }
   };
+
+  const approveRequest = async (request: RegistrationRequest) => {
     try {
       if (request.user_id) {
         await supabase.from('company_users').insert({
