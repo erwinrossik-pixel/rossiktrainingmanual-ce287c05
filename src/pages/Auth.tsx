@@ -151,8 +151,7 @@ export default function Auth() {
 
       if (isIndependent) {
         await supabase.rpc('register_independent_user');
-        await refreshCompany();
-        navigate('/');
+        setRegistrationSuccess(true);
       } else {
         const status = selectedCompany.require_approval ? 'pending' : 'approved';
         await supabase.from('company_users').insert({
