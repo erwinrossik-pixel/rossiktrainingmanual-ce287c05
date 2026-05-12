@@ -71,6 +71,14 @@ interface UserProgress {
   email: string;
   first_name: string | null;
   last_name: string | null;
+  created_at: string;
+  session_count: number;
+  first_session_at: string | null;
+  last_activity_at: string | null;
+  app_open_seconds: number;
+  active_app_seconds: number;
+  training_timer_seconds: number;
+  page_view_seconds: number;
   chapters_completed: number;
   total_chapters: number;
   progress_percentage: number;
@@ -95,6 +103,7 @@ interface UserProgress {
 const RECOMMENDED_TIME_PER_CHAPTER = 48 * 60; // 48 minutes in seconds
 const TOTAL_CHAPTERS = 50;
 const TOTAL_RECOMMENDED_SECONDS = RECOMMENDED_TIME_PER_CHAPTER * TOTAL_CHAPTERS;
+const MAX_AUDITED_PAGE_VIEW_SECONDS = 600;
 
 export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
   const { company, isSuperAdmin, isCompanyAdmin } = useCompany();
@@ -198,6 +207,12 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
       difficulty: 'Dificultate',
       quizHistory: 'Istoric Quiz',
       totalAppTime: 'Timp Total Aplicație',
+      activeAppTime: 'Timp activ în aplicație',
+      appOpenTime: 'Aplicația deschisă',
+      timerRecorded: 'Timer training',
+      auditPeriod: 'Perioadă audit',
+      sessions: 'Sesiuni',
+      recordedPageTime: 'Timp pagini înregistrat',
       recommendedTime: 'Timp Recomandat',
       timeStatus: 'Status Timp',
       belowRecommended: 'Sub recomandat',
@@ -262,6 +277,12 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
       difficulty: 'Schwierigkeit',
       quizHistory: 'Quiz-Verlauf',
       totalAppTime: 'Gesamte App-Zeit',
+      activeAppTime: 'Aktive App-Zeit',
+      appOpenTime: 'App geöffnet',
+      timerRecorded: 'Training-Timer',
+      auditPeriod: 'Audit-Zeitraum',
+      sessions: 'Sitzungen',
+      recordedPageTime: 'Aufgezeichnete Seitenzeit',
       recommendedTime: 'Empfohlene Zeit',
       timeStatus: 'Zeit-Status',
       belowRecommended: 'Unter empfohlen',
@@ -326,6 +347,12 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
       difficulty: 'Difficulty',
       quizHistory: 'Quiz History',
       totalAppTime: 'Total App Time',
+      activeAppTime: 'Active App Time',
+      appOpenTime: 'App Open Time',
+      timerRecorded: 'Training Timer',
+      auditPeriod: 'Audit Period',
+      sessions: 'Sessions',
+      recordedPageTime: 'Recorded Page Time',
       recommendedTime: 'Recommended Time',
       timeStatus: 'Time Status',
       belowRecommended: 'Below recommended',
