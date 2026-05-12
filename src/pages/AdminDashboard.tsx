@@ -1027,7 +1027,8 @@ export default function AdminDashboard() {
             <AICronsDashboard />
           </TabsContent>
 
-          <TabsContent value="debug-events" className="mt-6">
+          <TabsContent value="debug-events" className="mt-6 space-y-6">
+            <RecordingHealthCheck />
             <DebugEventsPanel />
           </TabsContent>
 
