@@ -142,22 +142,22 @@ export function UserActivityTimelineDialog({ open, onOpenChange, userId, userLab
   }, [open, userId]);
 
   const totals = useMemo(() => {
-    const appOpen = sessions.reduce((acc, s) =>
+    const appOpen = filteredSessions.reduce((acc, s) =>
       acc + Math.max(0, differenceInSeconds(new Date(s.last_activity_at), new Date(s.started_at))), 0);
-    const activeApp = sessions.reduce((acc, s) => acc + s.total_duration_seconds, 0);
-    const pageTime = pageViews.reduce((acc, p) => acc + p.duration_seconds, 0);
-    const trainingTimer = trainingTime.reduce((acc, t) => acc + (t.total_seconds ?? 0), 0);
-    const days = new Set(sessions.map(s => format(new Date(s.started_at), 'yyyy-MM-dd')));
+    const activeApp = filteredSessions.reduce((acc, s) => acc + s.total_duration_seconds, 0);
+    const pageTime = filteredPageViews.reduce((acc, p) => acc + p.duration_seconds, 0);
+    const trainingTimer = trainingTimerInRange ? trainingTime.reduce((acc, t) => acc + (t.total_seconds ?? 0), 0) : 0;
+    const days = new Set(filteredSessions.map(s => format(new Date(s.started_at), 'yyyy-MM-dd')));
     return {
-      sessionCount: sessions.length,
-      pageViewCount: pageViews.length,
+      sessionCount: filteredSessions.length,
+      pageViewCount: filteredPageViews.length,
       activeDays: days.size,
       appOpen,
       activeApp,
       pageTime,
       trainingTimer,
     };
-  }, [sessions, pageViews, trainingTime]);
+  }, [filteredSessions, filteredPageViews, trainingTime, trainingTimerInRange]);
 
   // Build per-day timeline grouping sessions and page views
   const timeline = useMemo(() => {
@@ -169,7 +169,7 @@ export function UserActivityTimelineDialog({ open, onOpenChange, userId, userLab
       activeApp: number;
       pageTime: number;
     }>();
-    for (const s of sessions) {
+    for (const s of filteredSessions) {
       const day = format(new Date(s.started_at), 'yyyy-MM-dd');
       const entry = byDay.get(day) ?? { day, sessions: [], pageViews: [], appOpen: 0, activeApp: 0, pageTime: 0 };
       entry.sessions.push(s);
@@ -177,7 +177,7 @@ export function UserActivityTimelineDialog({ open, onOpenChange, userId, userLab
       entry.activeApp += s.total_duration_seconds;
       byDay.set(day, entry);
     }
-    for (const p of pageViews) {
+    for (const p of filteredPageViews) {
       const day = format(new Date(p.created_at), 'yyyy-MM-dd');
       const entry = byDay.get(day) ?? { day, sessions: [], pageViews: [], appOpen: 0, activeApp: 0, pageTime: 0 };
       entry.pageViews.push(p);
@@ -185,7 +185,7 @@ export function UserActivityTimelineDialog({ open, onOpenChange, userId, userLab
       byDay.set(day, entry);
     }
     return Array.from(byDay.values()).sort((a, b) => b.day.localeCompare(a.day));
-  }, [sessions, pageViews]);
+  }, [filteredSessions, filteredPageViews]);
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
