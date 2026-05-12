@@ -901,7 +901,7 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
                       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-2 p-3 bg-card rounded-lg">
                         <div className="text-center">
                           <p className="text-2xl font-bold text-success">{formatTime(up.total_training_seconds)}</p>
-                          <p className="text-xs text-muted-foreground">{t.totalAppTime}</p>
+                          <p className="text-xs text-muted-foreground">{t.activeAppTime}</p>
                         </div>
                         <div className="text-center">
                           <p className="text-2xl font-bold text-info">{formatTime(up.recommended_time_seconds)}</p>
@@ -914,6 +914,34 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
                         <div className="text-center">
                           <p className="text-2xl font-bold text-primary">{up.passed_quizzes}</p>
                           <p className="text-xs text-muted-foreground">{t.passedQuizzes}</p>
+                        </div>
+                      </div>
+                      <div className="grid grid-cols-2 md:grid-cols-6 gap-4 mb-4 p-3 bg-card rounded-lg border-l-4 border-l-info">
+                        <div className="text-center">
+                          <p className="text-sm font-semibold text-foreground">
+                            {format(new Date(up.created_at), 'dd.MM.yyyy')} → {up.last_activity_at ? format(new Date(up.last_activity_at), 'dd.MM.yyyy') : '-'}
+                          </p>
+                          <p className="text-xs text-muted-foreground">{t.auditPeriod}</p>
+                        </div>
+                        <div className="text-center">
+                          <p className="text-2xl font-bold text-info">{up.session_count}</p>
+                          <p className="text-xs text-muted-foreground">{t.sessions}</p>
+                        </div>
+                        <div className="text-center">
+                          <p className="text-2xl font-bold text-primary">{formatTime(up.app_open_seconds)}</p>
+                          <p className="text-xs text-muted-foreground">{t.appOpenTime}</p>
+                        </div>
+                        <div className="text-center">
+                          <p className="text-2xl font-bold text-success">{formatTime(up.total_app_time_seconds)}</p>
+                          <p className="text-xs text-muted-foreground">{t.activeAppTime}</p>
+                        </div>
+                        <div className="text-center">
+                          <p className="text-2xl font-bold text-warning">{formatTime(up.training_timer_seconds)}</p>
+                          <p className="text-xs text-muted-foreground">{t.timerRecorded}</p>
+                        </div>
+                        <div className="text-center">
+                          <p className="text-2xl font-bold text-muted-foreground">{formatTime(up.page_view_seconds)}</p>
+                          <p className="text-xs text-muted-foreground">{t.recordedPageTime}</p>
                         </div>
                       </div>
                       
