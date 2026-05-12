@@ -6,7 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/hooks/useAuth";
 import { CompanyProvider } from "@/contexts/CompanyContext";
 import { LanguageProvider } from "@/contexts/LanguageContext";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useState } from "react";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import Index from "./pages/Index";
 
