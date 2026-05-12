@@ -116,6 +116,17 @@ export function useChapterProgress() {
   ): Promise<boolean> => {
     if (!user) return false;
 
+    // Idempotency guard: prevent double-submit (e.g. fast double-click, StrictMode re-fire)
+    const submitKey = `${user.id}:${chapterId}:${score}`;
+    const w = window as unknown as { __quizSubmitInflight?: Set<string> };
+    if (!w.__quizSubmitInflight) w.__quizSubmitInflight = new Set();
+    if (w.__quizSubmitInflight.has(submitKey)) {
+      logger.warn('Quiz submit already in flight, skipping duplicate:', submitKey);
+      return false;
+    }
+    w.__quizSubmitInflight.add(submitKey);
+    setTimeout(() => w.__quizSubmitInflight?.delete(submitKey), 3000);
+
     const passed = score >= PASSING_SCORE;
     
     // Record the attempt
