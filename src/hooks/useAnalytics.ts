@@ -188,12 +188,21 @@ export function useAnalytics() {
     }
   }, [updatePageViewDuration, updateSessionActivity]);
 
+  const lastTrackedPath = useRef<{ path: string; ts: number }>({ path: '', ts: 0 });
+
   // Track page view - debounced
   const trackPageView = useCallback(async (pagePath: string, chapterId?: string) => {
     if (!user || !sessionId.current) return;
 
     // Prevent duplicate tracking for same page
     if (currentPath.current === pagePath) return;
+
+    // Extra dedup: ignore re-fire of same path within 2s (StrictMode / fast remount)
+    const now = Date.now();
+    if (lastTrackedPath.current.path === pagePath && now - lastTrackedPath.current.ts < 2000) {
+      return;
+    }
+    lastTrackedPath.current = { path: pagePath, ts: now };
 
     // Save duration for previous page
     await savePreviousPageDuration();
