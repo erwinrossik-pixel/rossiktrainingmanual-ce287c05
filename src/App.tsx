@@ -6,7 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/hooks/useAuth";
 import { CompanyProvider } from "@/contexts/CompanyContext";
 import { LanguageProvider } from "@/contexts/LanguageContext";
-import { lazy, Suspense, useState } from "react";
+import { lazy, Suspense } from "react";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import Index from "./pages/Index";
 
@@ -25,19 +25,18 @@ const PageLoader = () => (
   </div>
 );
 
-const App = () => {
-  // Create QueryClient inside component to ensure it's available before child providers
-  const [queryClient] = useState(() => new QueryClient({
-    defaultOptions: {
-      queries: {
-        staleTime: 5 * 60 * 1000,
-        gcTime: 10 * 60 * 1000,
-        refetchOnWindowFocus: false,
-        retry: 1,
-      },
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 5 * 60 * 1000,
+      gcTime: 10 * 60 * 1000,
+      refetchOnWindowFocus: false,
+      retry: 1,
     },
-  }));
+  },
+});
 
+const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <ErrorBoundary>
