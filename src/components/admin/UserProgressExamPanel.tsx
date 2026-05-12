@@ -1319,6 +1319,13 @@ export const UserProgressExamPanel = memo(function UserProgressExamPanel() {
           </div>
         )}
       </CardContent>
+      <UserActivityTimelineDialog
+        open={!!timelineUser}
+        onOpenChange={(o) => { if (!o) setTimelineUser(null); }}
+        userId={timelineUser?.id ?? null}
+        userLabel={timelineUser?.label ?? ''}
+        createdAt={timelineUser?.createdAt ?? null}
+      />
     </Card>
   );
 });
