@@ -175,6 +175,35 @@ export function AdminAlertsBell() {
             {running ? <Loader2 className="h-3 w-3 animate-spin" /> : "Scanează"}
           </Button>
         </div>
+        <div className="p-3 border-b bg-muted/30 space-y-2">
+          <div className="flex items-center justify-between">
+            <Label htmlFor="quiet-toggle" className="flex items-center gap-2 text-xs">
+              <Moon className="h-3 w-3" /> Quiet hours (suprimă toast non-critic)
+            </Label>
+            <Switch
+              id="quiet-toggle"
+              checked={quiet.enabled}
+              onCheckedChange={(v) => persistQuiet({ ...quiet, enabled: v })}
+            />
+          </div>
+          {quiet.enabled && (
+            <div className="flex items-center gap-2 text-xs">
+              <span className="text-muted-foreground">De la</span>
+              <Input
+                type="number" min={0} max={23} className="h-7 w-16"
+                value={quiet.start}
+                onChange={(e) => persistQuiet({ ...quiet, start: Math.max(0, Math.min(23, +e.target.value || 0)) })}
+              />
+              <span className="text-muted-foreground">până la</span>
+              <Input
+                type="number" min={0} max={23} className="h-7 w-16"
+                value={quiet.end}
+                onChange={(e) => persistQuiet({ ...quiet, end: Math.max(0, Math.min(23, +e.target.value || 0)) })}
+              />
+              <span className="text-muted-foreground">h</span>
+            </div>
+          )}
+        </div>
         <ScrollArea className="max-h-96">
           {loading && (
             <div className="p-6 text-center text-sm text-muted-foreground">
