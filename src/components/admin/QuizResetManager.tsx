@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { logger } from "@/utils/logger";
 import { supabase } from '@/integrations/supabase/client';
 import { useAdminQuizReset } from '@/hooks/useQuizDifficulty';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -220,7 +221,7 @@ export function QuizResetManager() {
       const historyData = await getResetHistory();
       setHistory(historyData);
     } catch (error) {
-      console.error('Error loading data:', error);
+      logger.error('Error loading data:', error);
     } finally {
       setLoading(false);
     }

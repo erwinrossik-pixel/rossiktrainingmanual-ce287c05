@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import { logger } from "@/utils/logger";
 import { useAuth } from '@/hooks/useAuth';
 import { useCompany } from '@/contexts/CompanyContext';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -157,7 +158,7 @@ export default function AdminDashboard() {
       .order('created_at', { ascending: false });
 
     if (profilesError) {
-      console.error('Error fetching profiles:', profilesError);
+      logger.error('Error fetching profiles:', profilesError);
       setLoadingUsers(false);
       return;
     }
@@ -257,7 +258,7 @@ export default function AdminDashboard() {
       .eq('chapter_id', chapterId);
 
     if (error) {
-      console.error('Error resetting score:', error);
+      logger.error('Error resetting score:', error);
       toast.error(t('admin.profiles.errorResetScore'));
       return;
     }
@@ -290,7 +291,7 @@ export default function AdminDashboard() {
       .eq('user_id', userId);
 
     if (error) {
-      console.error('Error resetting all scores:', error);
+      logger.error('Error resetting all scores:', error);
       toast.error(t('admin.profiles.errorResetAll'));
       return;
     }
@@ -336,7 +337,7 @@ export default function AdminDashboard() {
         .eq('chapter_id', chapterId);
 
       if (error) {
-        console.error('Error unlocking chapter:', error);
+        logger.error('Error unlocking chapter:', error);
         toast.error(t('admin.profiles.errorUnlock'));
         return;
       }
@@ -353,7 +354,7 @@ export default function AdminDashboard() {
         });
 
       if (error) {
-        console.error('Error unlocking chapter:', error);
+        logger.error('Error unlocking chapter:', error);
         toast.error(t('admin.profiles.errorUnlock'));
         return;
       }
@@ -379,7 +380,7 @@ export default function AdminDashboard() {
       .eq('user_id', userId);
 
     if (error) {
-      console.error('Error resetting training time:', error);
+      logger.error('Error resetting training time:', error);
       toast.error(t('admin.profiles.errorTrainingTime'));
       return;
     }
