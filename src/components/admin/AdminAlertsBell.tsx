@@ -87,13 +87,19 @@ export function AdminAlertsBell() {
         (payload) => {
           const a = payload.new as AdminAlert;
           if (a?.title) {
-            const fn =
-              a.severity === "critical"
-                ? toast.error
-                : a.severity === "warning"
-                ? toast.warning
-                : toast.info;
-            fn(a.title, { description: a.message });
+            // During quiet hours, suppress toast for non-critical alerts.
+            // Critical alerts always notify.
+            const inQuiet = isInQuietHours(quiet);
+            const shouldToast = !inQuiet || a.severity === "critical";
+            if (shouldToast) {
+              const fn =
+                a.severity === "critical"
+                  ? toast.error
+                  : a.severity === "warning"
+                  ? toast.warning
+                  : toast.info;
+              fn(a.title, { description: a.message });
+            }
           }
           load();
         }
