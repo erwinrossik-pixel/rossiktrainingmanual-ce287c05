@@ -208,10 +208,10 @@ export function UserManagement() {
         .from('quiz_attempts')
         .select('user_id, passed');
 
-      // Fetch training sessions for total time
+      // Fetch training time (real timer source, not scheduled sessions)
       const { data: trainingSessions } = await supabase
-        .from('training_sessions')
-        .select('user_id, duration_minutes');
+        .from('training_time')
+        .select('user_id, total_seconds');
 
       // Fetch ALL final exam attempts (not just the latest)
       const { data: examAttempts } = await supabase

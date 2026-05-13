@@ -233,14 +233,14 @@ export function FinalExam({ onComplete, onBack }: FinalExamProps) {
         ? chapterProgress.reduce((sum, c) => sum + (c.best_score || 0), 0) / chapterProgress.length 
         : 0;
       
-      // Get total training time
-      const { data: trainingSessions } = await supabase
-        .from('training_sessions')
-        .select('duration_minutes')
+      // Get total training time from the real timer (training_time.total_seconds)
+      const { data: trainingTimeRows } = await supabase
+        .from('training_time')
+        .select('total_seconds')
         .eq('user_id', userId);
-      
-      const totalTrainingMinutes = trainingSessions?.reduce((sum, s) => sum + (s.duration_minutes || 0), 0) || 0;
-      const totalTrainingHours = Math.round((totalTrainingMinutes / 60) * 10) / 10;
+
+      const totalTrainingSeconds = trainingTimeRows?.reduce((sum, t) => sum + (t.total_seconds || 0), 0) || 0;
+      const totalTrainingHours = Math.round((totalTrainingSeconds / 3600) * 10) / 10;
       
       // Generate unique certificate code
       const { data: codeData, error: codeError } = await supabase.rpc('generate_certificate_code');
