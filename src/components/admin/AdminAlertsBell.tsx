@@ -51,9 +51,33 @@ export function AdminAlertsBell() {
     load();
     const channel = supabase
       .channel("admin_alerts_changes")
-      .on("postgres_changes", { event: "*", schema: "public", table: "admin_alerts" }, () => {
-        load();
-      })
+      .on(
+        "postgres_changes",
+        { event: "INSERT", schema: "public", table: "admin_alerts" },
+        (payload) => {
+          const a = payload.new as AdminAlert;
+          if (a?.title) {
+            const fn =
+              a.severity === "critical"
+                ? toast.error
+                : a.severity === "warning"
+                ? toast.warning
+                : toast.info;
+            fn(a.title, { description: a.message });
+          }
+          load();
+        }
+      )
+      .on(
+        "postgres_changes",
+        { event: "UPDATE", schema: "public", table: "admin_alerts" },
+        () => load()
+      )
+      .on(
+        "postgres_changes",
+        { event: "DELETE", schema: "public", table: "admin_alerts" },
+        () => load()
+      )
       .subscribe();
     return () => {
       supabase.removeChannel(channel);
