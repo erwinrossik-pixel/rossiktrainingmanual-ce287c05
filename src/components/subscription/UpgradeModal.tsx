@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { logger } from "@/utils/logger";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -113,7 +114,7 @@ export function UpgradeModal({ open, onOpenChange, highlightPlan }: UpgradeModal
       await refreshCompany();
       onOpenChange(false);
     } catch (error) {
-      console.error('Error updating plan:', error);
+      logger.error('Error updating plan:', error);
       toast({
         title: 'Eroare',
         description: 'Nu s-a putut actualiza planul. Încercați din nou.',

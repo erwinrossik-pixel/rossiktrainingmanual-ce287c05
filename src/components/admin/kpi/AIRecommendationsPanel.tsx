@@ -111,7 +111,7 @@ export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
       if (error) throw error;
       setRecommendations((data as AIRecommendation[]) || []);
     } catch (error) {
-      console.error('Error fetching recommendations:', error);
+      logger.error('Error fetching recommendations:', error);
       toast.error(t('admin.general.error'));
     } finally {
       setLoading(false);
@@ -148,7 +148,7 @@ export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
       toast.success(`${t('admin.ai.totalRecommendations')}: ${data.recommendations?.length || 0}`);
       await fetchRecommendations();
     } catch (error) {
-      console.error('Error running analysis:', error);
+      logger.error('Error running analysis:', error);
       toast.error(t('admin.general.error'));
     } finally {
       setAnalyzing(false);
@@ -177,7 +177,7 @@ export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
       }
       await fetchRecommendations();
     } catch (error) {
-      console.error('Error applying recommendations:', error);
+      logger.error('Error applying recommendations:', error);
       toast.error(t('admin.ai.applyError'));
     } finally {
       setApplying(false);
@@ -196,7 +196,7 @@ export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
       toast.success(t('admin.ai.applySuccess').replace('{count}', data.applied));
       await fetchRecommendations();
     } catch (error) {
-      console.error('Error applying recommendations:', error);
+      logger.error('Error applying recommendations:', error);
       toast.error(t('admin.ai.applyError'));
     } finally {
       setApplying(false);
@@ -245,7 +245,7 @@ export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
       
       await fetchRecommendations();
     } catch (error) {
-      console.error('Error updating recommendation:', error);
+      logger.error('Error updating recommendation:', error);
       toast.error(t('admin.general.error'));
       setApplying(false);
     }
@@ -305,7 +305,7 @@ export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
                   });
 
                   if (error) {
-                    console.error('Implementation error:', error);
+                    logger.error('Implementation error:', error);
                     totalFailed++;
                     break;
                   }
@@ -349,7 +349,7 @@ export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
 
                 await fetchRecommendations();
               } catch (error) {
-                console.error('Error implementing recommendations:', error);
+                logger.error('Error implementing recommendations:', error);
                 toast.error(t('admin.general.error'));
               } finally {
                 setImplementing(false);
@@ -672,7 +672,7 @@ export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
                                 toast.success(t('admin.ai.markedImplemented'));
                                 await fetchRecommendations();
                               } catch (error) {
-                                console.error('Error marking as implemented:', error);
+                                logger.error('Error marking as implemented:', error);
                                 toast.error(t('admin.general.error'));
                               }
                             }}

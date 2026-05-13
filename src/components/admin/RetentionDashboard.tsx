@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import { logger } from "@/utils/logger";
 import { supabase } from '@/integrations/supabase/client';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -78,7 +79,7 @@ export function RetentionDashboard() {
         .limit(100);
       
       if (retentionError) {
-        console.error('Error fetching retention data:', retentionError);
+        logger.error('Error fetching retention data:', retentionError);
       }
 
       // Fetch profiles for these users
@@ -125,7 +126,7 @@ export function RetentionDashboard() {
         .limit(50);
       
       if (logsError) {
-        console.error('Error fetching retention logs:', logsError);
+        logger.error('Error fetching retention logs:', logsError);
       }
 
       // Fetch profiles for logs
@@ -144,7 +145,7 @@ export function RetentionDashboard() {
       })) as RetentionLog[]);
 
     } catch (error) {
-      console.error('Error fetching retention data:', error);
+      logger.error('Error fetching retention data:', error);
       toast.error(t('admin.retention.errorLoading'));
     } finally {
       setLoading(false);
@@ -167,7 +168,7 @@ export function RetentionDashboard() {
       toast.success(t('admin.retention.analysisComplete').replace('{count}', data.messages?.messagesSent || 0));
       fetchData();
     } catch (error) {
-      console.error('Error running analysis:', error);
+      logger.error('Error running analysis:', error);
       toast.error(t('admin.retention.errorAnalysis'));
     } finally {
       setAnalyzing(false);

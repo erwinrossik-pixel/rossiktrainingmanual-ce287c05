@@ -184,7 +184,7 @@ export function UserManagement() {
         setAllUsers(usersWithCompanyInfo);
       }
     } catch (error) {
-      console.error('Error fetching users:', error);
+      logger.error('Error fetching users:', error);
     } finally {
       setLoading(false);
     }
@@ -304,7 +304,7 @@ export function UserManagement() {
         setUserProgress(progressData);
       }
     } catch (error) {
-      console.error('Error fetching user progress:', error);
+      logger.error('Error fetching user progress:', error);
     } finally {
       setProgressLoading(false);
     }
@@ -532,7 +532,7 @@ export function UserManagement() {
       setSelectedCompanyId('');
       fetchAllUsers();
     } catch (error: any) {
-      console.error('Error assigning user:', error);
+      logger.error('Error assigning user:', error);
       toast({
         title: t('admin.general.error'),
         description: error.message || t('admin.users.assignError'),

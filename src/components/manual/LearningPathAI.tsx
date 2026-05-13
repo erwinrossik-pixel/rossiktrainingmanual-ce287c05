@@ -1,4 +1,5 @@
 import React, { memo, useState, useEffect } from 'react';
+import { logger } from "@/utils/logger";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -214,7 +215,7 @@ export const LearningPathAI = memo(function LearningPathAI() {
 
       setRecommendations(recs.slice(0, 5));
     } catch (error) {
-      console.error('Error generating recommendations:', error);
+      logger.error('Error generating recommendations:', error);
     } finally {
       setLoading(false);
     }

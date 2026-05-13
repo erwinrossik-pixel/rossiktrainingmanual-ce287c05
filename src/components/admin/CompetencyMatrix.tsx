@@ -1,4 +1,5 @@
 import { useState, useEffect, memo } from 'react';
+import { logger } from "@/utils/logger";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
@@ -115,7 +116,7 @@ export const CompetencyMatrix = memo(() => {
 
       setTeamData(teamArray.sort((a, b) => b.avg_score - a.avg_score));
     } catch (error) {
-      console.error('Error fetching team data:', error);
+      logger.error('Error fetching team data:', error);
     } finally {
       setLoading(false);
     }

@@ -4,57 +4,60 @@ import { Language } from '@/contexts/LanguageContext';
 type ChapterTranslations = Record<string, Record<string, string>>;
 
 // Map of chapterId -> dynamic loader (each becomes its own chunk via Vite code-splitting)
-const chapterLoaders: Record<string, () => Promise<{ default?: ChapterTranslations } & Record<string, ChapterTranslations>>> = {
-  intro: () => import('./chapters/intro') as any,
-  mindset: () => import('./chapters/mindset') as any,
-  'soft-skills': () => import('./chapters/softskills') as any,
-  workflow: () => import('./chapters/workflow') as any,
-  vehicle: () => import('./chapters/vehicle') as any,
-  loading: () => import('./chapters/loading') as any,
-  documents: () => import('./chapters/documents') as any,
-  customs: () => import('./chapters/customs') as any,
-  pricing: () => import('./chapters/pricing') as any,
-  incoterms: () => import('./chapters/incoterms') as any,
-  adr: () => import('./chapters/adr') as any,
-  claims: () => import('./chapters/claims') as any,
-  insurance: () => import('./chapters/insurance') as any,
-  payment: () => import('./chapters/payment') as any,
-  negotiation: () => import('./chapters/negotiation') as any,
-  communication: () => import('./chapters/communication') as any,
-  'carrier-management': () => import('./chapters/carrier-management') as any,
-  'case-studies': () => import('./chapters/case-studies') as any,
-  checklists: () => import('./chapters/checklists') as any,
-  commercial: () => import('./chapters/commercial') as any,
-  compliance: () => import('./chapters/compliance') as any,
-  'driving-time': () => import('./chapters/driving-time') as any,
-  kpi: () => import('./chapters/kpi') as any,
-  'red-flags': () => import('./chapters/red-flags') as any,
-  reefer: () => import('./chapters/reefer') as any,
-  'licenses-oversize': () => import('./chapters/licenses-oversize') as any,
-  accounting: () => import('./chapters/accounting') as any,
-  clients: () => import('./chapters/clients') as any,
-  emergency: () => import('./chapters/emergency') as any,
-  environment: () => import('./chapters/environment') as any,
-  'europe-zones': () => import('./chapters/europe-zones') as any,
-  exchanges: () => import('./chapters/exchanges') as any,
-  fleet: () => import('./chapters/fleet') as any,
-  glossary: () => import('./chapters/glossary') as any,
-  'risk-management': () => import('./chapters/risk-management') as any,
-  'supply-chain': () => import('./chapters/supply-chain') as any,
-  technology: () => import('./chapters/technology') as any,
-  training: () => import('./chapters/training') as any,
-  translogica: () => import('./chapters/translogica') as any,
-  warehouse: () => import('./chapters/warehouse') as any,
-  intermodal: () => import('./chapters/intermodal') as any,
-  authorities: () => import('./chapters/authorities') as any,
-  sustainability: () => import('./chapters/sustainability') as any,
-  'express-transport': () => import('./chapters/express-transport') as any,
-  'european-countries': () => import('./chapters/european-countries') as any,
-  'high-value-goods': () => import('./chapters/high-value-goods') as any,
-  digitalization: () => import('./chapters/digitalization') as any,
-  'stress-management': () => import('./chapters/stress-management') as any,
-  networking: () => import('./chapters/networking') as any,
-  'professional-development': () => import('./chapters/professional-development') as any,
+// Loaders return arbitrary module shapes (each chapter file uses a unique
+// named export); the actual lookup happens in `doLoad` against `exportNames`.
+type ChapterModule = Record<string, ChapterTranslations | unknown>;
+const chapterLoaders: Record<string, () => Promise<ChapterModule>> = {
+  intro: () => import('./chapters/intro'),
+  mindset: () => import('./chapters/mindset'),
+  'soft-skills': () => import('./chapters/softskills'),
+  workflow: () => import('./chapters/workflow'),
+  vehicle: () => import('./chapters/vehicle'),
+  loading: () => import('./chapters/loading'),
+  documents: () => import('./chapters/documents'),
+  customs: () => import('./chapters/customs'),
+  pricing: () => import('./chapters/pricing'),
+  incoterms: () => import('./chapters/incoterms'),
+  adr: () => import('./chapters/adr'),
+  claims: () => import('./chapters/claims'),
+  insurance: () => import('./chapters/insurance'),
+  payment: () => import('./chapters/payment'),
+  negotiation: () => import('./chapters/negotiation'),
+  communication: () => import('./chapters/communication'),
+  'carrier-management': () => import('./chapters/carrier-management'),
+  'case-studies': () => import('./chapters/case-studies'),
+  checklists: () => import('./chapters/checklists'),
+  commercial: () => import('./chapters/commercial'),
+  compliance: () => import('./chapters/compliance'),
+  'driving-time': () => import('./chapters/driving-time'),
+  kpi: () => import('./chapters/kpi'),
+  'red-flags': () => import('./chapters/red-flags'),
+  reefer: () => import('./chapters/reefer'),
+  'licenses-oversize': () => import('./chapters/licenses-oversize'),
+  accounting: () => import('./chapters/accounting'),
+  clients: () => import('./chapters/clients'),
+  emergency: () => import('./chapters/emergency'),
+  environment: () => import('./chapters/environment'),
+  'europe-zones': () => import('./chapters/europe-zones'),
+  exchanges: () => import('./chapters/exchanges'),
+  fleet: () => import('./chapters/fleet'),
+  glossary: () => import('./chapters/glossary'),
+  'risk-management': () => import('./chapters/risk-management'),
+  'supply-chain': () => import('./chapters/supply-chain'),
+  technology: () => import('./chapters/technology'),
+  training: () => import('./chapters/training'),
+  translogica: () => import('./chapters/translogica'),
+  warehouse: () => import('./chapters/warehouse'),
+  intermodal: () => import('./chapters/intermodal'),
+  authorities: () => import('./chapters/authorities'),
+  sustainability: () => import('./chapters/sustainability'),
+  'express-transport': () => import('./chapters/express-transport'),
+  'european-countries': () => import('./chapters/european-countries'),
+  'high-value-goods': () => import('./chapters/high-value-goods'),
+  digitalization: () => import('./chapters/digitalization'),
+  'stress-management': () => import('./chapters/stress-management'),
+  networking: () => import('./chapters/networking'),
+  'professional-development': () => import('./chapters/professional-development'),
 };
 
 // Maps the chapterId to the named export inside that module
@@ -140,7 +143,7 @@ interface ChapterMetric {
 
 const metrics: Record<string, ChapterMetric> = {};
 const isDev =
-  typeof import.meta !== 'undefined' && (import.meta as any)?.env?.DEV === true;
+  typeof import.meta !== 'undefined' && (import.meta as ImportMeta).env?.DEV === true;
 
 function getMetric(chapterId: string): ChapterMetric {
   if (!metrics[chapterId]) {
@@ -248,7 +251,7 @@ export function printTranslationMetrics(): void {
 
 // Expose for in-browser debugging (no-op on server)
 if (typeof window !== 'undefined') {
-  (window as any).__translationMetrics = printTranslationMetrics;
+  (window as Window & { __translationMetrics?: () => void }).__translationMetrics = printTranslationMetrics;
 }
 
 /**
@@ -341,8 +344,8 @@ function doLoad(chapterId: string): Promise<ChapterTranslations | null> {
 
   // Note: deliberately NOT swallowing the error here so the retry loop
   // above can detect and react to transient failures (network, chunk load).
-  return loader().then((mod: any) => {
-    const translations = mod[exportName] as ChapterTranslations | undefined;
+  return loader().then((mod) => {
+    const translations = (mod as Record<string, ChapterTranslations | undefined>)[exportName];
     if (translations) cache[chapterId] = translations;
     return translations ?? null;
   });

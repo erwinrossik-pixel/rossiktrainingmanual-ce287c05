@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { logger } from "@/utils/logger";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -309,7 +310,7 @@ export function ContentVisualAnalyzer() {
       if (logsData) setFixerLogs(logsData as FixerLog[]);
 
     } catch (error) {
-      console.error('Error fetching data:', error);
+      logger.error('Error fetching data:', error);
     } finally {
       setLoading(false);
     }
@@ -350,7 +351,7 @@ export function ContentVisualAnalyzer() {
       toast.success(`${tr.analysisComplete}: ${data.analyzed} chapters`);
       fetchData();
     } catch (error) {
-      console.error('Error running analysis:', error);
+      logger.error('Error running analysis:', error);
       toast.error('Analysis failed');
     } finally {
       setAnalyzing(false);
@@ -367,7 +368,7 @@ export function ContentVisualAnalyzer() {
       toast.success(tr.toggleSuccess);
       fetchData();
     } catch (error) {
-      console.error('Error toggling schedule:', error);
+      logger.error('Error toggling schedule:', error);
     }
   };
 

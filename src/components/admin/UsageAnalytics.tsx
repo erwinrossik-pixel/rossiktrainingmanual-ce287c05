@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { logger } from "@/utils/logger";
 import { supabase } from '@/integrations/supabase/client';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, PieChart, Pie, Cell, Legend, AreaChart, Area } from 'recharts';
@@ -56,7 +57,7 @@ export function UsageAnalytics() {
       setPageViews(pageViewsData || []);
       setSessions(sessionsData || []);
     } catch (error) {
-      console.error('Error fetching analytics:', error);
+      logger.error('Error fetching analytics:', error);
     }
     setLoading(false);
   };

@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect } from "react";
+import { logger } from "@/utils/logger";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -75,7 +76,7 @@ export function OfficialDiploma({ certificate, open, onOpenChange }: OfficialDip
           });
           setQrCodeDataUrl(dataUrl);
         } catch (err) {
-          console.error('Error generating QR code:', err);
+          logger.error('Error generating QR code:', err);
         }
       }
     };
@@ -117,7 +118,7 @@ export function OfficialDiploma({ certificate, open, onOpenChange }: OfficialDip
         "Diploma downloaded successfully!"
       );
     } catch (error) {
-      console.error("Error generating PDF:", error);
+      logger.error("Error generating PDF:", error);
       toast.error(
         language === 'ro' ? "Eroare la generarea PDF-ului" :
         language === 'de' ? "Fehler beim Erstellen des PDF" :

@@ -1,12 +1,36 @@
 import { useEffect, useState, useCallback } from "react";
-import { Bell, AlertTriangle, AlertCircle, Info, Check, Trash2, Loader2 } from "lucide-react";
+import { Bell, AlertTriangle, AlertCircle, Info, Check, Trash2, Loader2, Moon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
+
+const QUIET_HOURS_KEY = "admin_alerts_quiet_hours_v1";
+interface QuietHours { enabled: boolean; start: number; end: number; }
+const defaultQuiet: QuietHours = { enabled: false, start: 22, end: 7 };
+
+const loadQuietHours = (): QuietHours => {
+  try {
+    const raw = localStorage.getItem(QUIET_HOURS_KEY);
+    if (!raw) return defaultQuiet;
+    const parsed = JSON.parse(raw);
+    return { ...defaultQuiet, ...parsed };
+  } catch { return defaultQuiet; }
+};
+
+const isInQuietHours = (q: QuietHours, now = new Date()): boolean => {
+  if (!q.enabled) return false;
+  const h = now.getHours();
+  // Window crosses midnight when start > end
+  return q.start <= q.end ? (h >= q.start && h < q.end) : (h >= q.start || h < q.end);
+};
+
 
 interface AdminAlert {
   id: string;
@@ -34,6 +58,12 @@ export function AdminAlertsBell() {
   const [alerts, setAlerts] = useState<AdminAlert[]>([]);
   const [loading, setLoading] = useState(false);
   const [running, setRunning] = useState(false);
+  const [quiet, setQuiet] = useState<QuietHours>(loadQuietHours);
+
+  const persistQuiet = (next: QuietHours) => {
+    setQuiet(next);
+    try { localStorage.setItem(QUIET_HOURS_KEY, JSON.stringify(next)); } catch { /* ignore */ }
+  };
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -57,13 +87,19 @@ export function AdminAlertsBell() {
         (payload) => {
           const a = payload.new as AdminAlert;
           if (a?.title) {
-            const fn =
-              a.severity === "critical"
-                ? toast.error
-                : a.severity === "warning"
-                ? toast.warning
-                : toast.info;
-            fn(a.title, { description: a.message });
+            // During quiet hours, suppress toast for non-critical alerts.
+            // Critical alerts always notify.
+            const inQuiet = isInQuietHours(quiet);
+            const shouldToast = !inQuiet || a.severity === "critical";
+            if (shouldToast) {
+              const fn =
+                a.severity === "critical"
+                  ? toast.error
+                  : a.severity === "warning"
+                  ? toast.warning
+                  : toast.info;
+              fn(a.title, { description: a.message });
+            }
           }
           load();
         }
@@ -82,7 +118,7 @@ export function AdminAlertsBell() {
     return () => {
       supabase.removeChannel(channel);
     };
-  }, [load]);
+  }, [load, quiet]);
 
   const acknowledge = async (id: string) => {
     const { error } = await supabase
@@ -138,6 +174,35 @@ export function AdminAlertsBell() {
           <Button size="sm" variant="ghost" onClick={runScan} disabled={running}>
             {running ? <Loader2 className="h-3 w-3 animate-spin" /> : "Scanează"}
           </Button>
+        </div>
+        <div className="p-3 border-b bg-muted/30 space-y-2">
+          <div className="flex items-center justify-between">
+            <Label htmlFor="quiet-toggle" className="flex items-center gap-2 text-xs">
+              <Moon className="h-3 w-3" /> Quiet hours (suprimă toast non-critic)
+            </Label>
+            <Switch
+              id="quiet-toggle"
+              checked={quiet.enabled}
+              onCheckedChange={(v) => persistQuiet({ ...quiet, enabled: v })}
+            />
+          </div>
+          {quiet.enabled && (
+            <div className="flex items-center gap-2 text-xs">
+              <span className="text-muted-foreground">De la</span>
+              <Input
+                type="number" min={0} max={23} className="h-7 w-16"
+                value={quiet.start}
+                onChange={(e) => persistQuiet({ ...quiet, start: Math.max(0, Math.min(23, +e.target.value || 0)) })}
+              />
+              <span className="text-muted-foreground">până la</span>
+              <Input
+                type="number" min={0} max={23} className="h-7 w-16"
+                value={quiet.end}
+                onChange={(e) => persistQuiet({ ...quiet, end: Math.max(0, Math.min(23, +e.target.value || 0)) })}
+              />
+              <span className="text-muted-foreground">h</span>
+            </div>
+          )}
         </div>
         <ScrollArea className="max-h-96">
           {loading && (

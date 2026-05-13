@@ -39,7 +39,7 @@ export function useProgress() {
             totalChapters: parsed.totalChapters || 50,
           });
         } else {
-          console.warn('Invalid progress data structure, resetting to defaults');
+          logger.warn('Invalid progress data structure, resetting to defaults');
           localStorage.removeItem(STORAGE_KEY);
         }
       } catch (e) {

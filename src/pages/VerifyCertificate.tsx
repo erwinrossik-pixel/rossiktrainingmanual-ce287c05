@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { logger } from "@/utils/logger";
 import { useParams, useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -49,7 +50,7 @@ export default function VerifyCertificate() {
         .rpc('verify_certificate_by_code', { p_code: certCode.trim() });
 
       if (error) {
-        console.error("Error verifying certificate:", error);
+        logger.error("Error verifying certificate:", error);
         setStatus("NOT_FOUND");
         setCertificate(null);
         setIsSearching(false);
@@ -74,7 +75,7 @@ export default function VerifyCertificate() {
         setStatus("VALID");
       }
     } catch (err) {
-      console.error("Error verifying certificate:", err);
+      logger.error("Error verifying certificate:", err);
       setStatus("NOT_FOUND");
       setCertificate(null);
     } finally {
