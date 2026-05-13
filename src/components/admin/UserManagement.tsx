@@ -208,10 +208,10 @@ export function UserManagement() {
         .from('quiz_attempts')
         .select('user_id, passed');
 
-      // Fetch training sessions for total time
+      // Fetch training time (real timer source, not scheduled sessions)
       const { data: trainingSessions } = await supabase
-        .from('training_sessions')
-        .select('user_id, duration_minutes');
+        .from('training_time')
+        .select('user_id, total_seconds');
 
       // Fetch ALL final exam attempts (not just the latest)
       const { data: examAttempts } = await supabase
@@ -245,9 +245,9 @@ export function UserManagement() {
         const userQuizAttempts = quizAttempts?.filter(qa => qa.user_id === profile.id) || [];
         const totalQuizAttempts = userQuizAttempts.length;
 
-        // Calculate total training time (duration_minutes -> convert to seconds)
+        // Calculate total training time from real timer (training_time.total_seconds)
         const userTrainingSessions = trainingSessions?.filter(ts => ts.user_id === profile.id) || [];
-        const totalTrainingSeconds = userTrainingSessions.reduce((sum, ts) => sum + ((ts.duration_minutes || 0) * 60), 0);
+        const totalTrainingSeconds = userTrainingSessions.reduce((sum, ts) => sum + (ts.total_seconds || 0), 0);
 
         // Get ALL exam attempts for this user
         const userExams = (examAttempts?.filter(ea => ea.user_id === profile.id) || []).map(ea => ({
