@@ -2684,6 +2684,7 @@ export type Database = {
       quiz_attempts: {
         Row: {
           chapter_id: string
+          client_attempt_id: string | null
           created_at: string
           id: string
           language: string
@@ -2695,6 +2696,7 @@ export type Database = {
         }
         Insert: {
           chapter_id: string
+          client_attempt_id?: string | null
           created_at?: string
           id?: string
           language: string
@@ -2706,6 +2708,7 @@ export type Database = {
         }
         Update: {
           chapter_id?: string
+          client_attempt_id?: string | null
           created_at?: string
           id?: string
           language?: string
