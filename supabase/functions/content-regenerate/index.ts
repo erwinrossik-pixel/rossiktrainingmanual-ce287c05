@@ -176,7 +176,12 @@ async function processChapter(
       : 0;
     const newVersionNumber = currentVersionNumber + 1;
 
-    // Prepare simpler update prompt for faster AI response
+    // Detect which locked terms appear in the current version — AI MUST preserve them
+    const currentSnapshotStr = JSON.stringify(currentVersion?.content_snapshot || '').toLowerCase();
+    const requiredTerms = LOCKED_TERMINOLOGY.filter(
+      (term) => currentSnapshotStr.includes(term.toLowerCase())
+    );
+
     const updatePrompt = `Update freight forwarding training content for chapter "${chId}".
 
 CHANGE: ${change?.title || 'Content refresh'}
@@ -184,13 +189,18 @@ DETAILS: ${change?.description || 'Update based on latest standards'}
 SEVERITY: ${change?.severity || 'minor'}
 ${change?.new_value ? `NEW VALUE: ${change.new_value}` : ''}
 
-Generate a brief content update in JSON:
+MANDATORY TERMINOLOGY — you MUST include every one of these exact terms (case-insensitive) in EACH language version (ro, de, en). Removing or paraphrasing any of them will cause automatic rejection:
+${requiredTerms.length > 0 ? requiredTerms.map((t) => `- ${t}`).join('\n') : '(none specifically required for this chapter)'}
+
+Do NOT shrink the content: each language must be at least 500 words and must keep the same regulatory references, numeric thresholds, and compliance patterns from the previous version.
+
+Generate the content update as strict JSON only (no markdown, no commentary):
 {
   "sections_updated": ["section1"],
   "content": {
-    "ro": "Conținut actualizat în română (min 500 cuvinte)",
-    "de": "Aktualisierter Inhalt auf Deutsch (min 500 Wörter)",
-    "en": "Updated content in English (min 500 words)"
+    "ro": "Conținut actualizat în română (min 500 cuvinte, include toți termenii obligatorii)",
+    "de": "Aktualisierter Inhalt auf Deutsch (min 500 Wörter, alle Pflichtbegriffe enthalten)",
+    "en": "Updated content in English (min 500 words, include every required term)"
   },
   "summary": "Brief summary of changes",
   "word_counts": { "ro": 500, "de": 500, "en": 500 }
