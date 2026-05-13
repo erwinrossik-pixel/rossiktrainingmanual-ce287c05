@@ -245,9 +245,9 @@ export function UserManagement() {
         const userQuizAttempts = quizAttempts?.filter(qa => qa.user_id === profile.id) || [];
         const totalQuizAttempts = userQuizAttempts.length;
 
-        // Calculate total training time (duration_minutes -> convert to seconds)
+        // Calculate total training time from real timer (training_time.total_seconds)
         const userTrainingSessions = trainingSessions?.filter(ts => ts.user_id === profile.id) || [];
-        const totalTrainingSeconds = userTrainingSessions.reduce((sum, ts) => sum + ((ts.duration_minutes || 0) * 60), 0);
+        const totalTrainingSeconds = userTrainingSessions.reduce((sum, ts) => sum + (ts.total_seconds || 0), 0);
 
         // Get ALL exam attempts for this user
         const userExams = (examAttempts?.filter(ea => ea.user_id === profile.id) || []).map(ea => ({
