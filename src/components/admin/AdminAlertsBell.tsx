@@ -118,7 +118,7 @@ export function AdminAlertsBell() {
     return () => {
       supabase.removeChannel(channel);
     };
-  }, [load]);
+  }, [load, quiet]);
 
   const acknowledge = async (id: string) => {
     const { error } = await supabase
