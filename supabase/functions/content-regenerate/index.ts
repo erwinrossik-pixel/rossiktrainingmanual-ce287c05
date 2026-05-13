@@ -253,30 +253,35 @@ Generate the content update as strict JSON only (no markdown, no commentary):
     };
 
     if (!regeneratedContent || !validateContent(regeneratedContent)) {
-      console.log(`[BG-REGEN] Content validation failed for ${chId}, using fallback`);
-      regeneratedContent = {
-        sections_updated: ['general'],
-        content: { 
-          ro: `Capitol ${chId} actualizat conform ultimelor standarde din industrie. Acest conținut va fi revizuit manual.`,
-          de: `Kapitel ${chId} gemäß den neuesten Industriestandards aktualisiert. Dieser Inhalt wird manuell überprüft.`,
-          en: `Chapter ${chId} updated according to latest industry standards. This content will be reviewed manually.`
-        },
-        summary: 'Fallback update - AI content did not meet minimum requirements',
-        word_counts: { ro: 15, de: 14, en: 16 }
-      };
-      
-      // Log the validation failure for admin review
+      console.log(`[BG-REGEN] Content validation failed for ${chId} — aborting (no fallback save)`);
+
       await supabase.from('update_audit_log').insert({
         action: 'content_validation_failed',
         entity_type: 'chapter',
         chapter_id: chId,
-        details: { 
+        details: {
           reason: 'AI content did not meet minimum word count requirement',
           min_required: MIN_WORD_COUNT,
-          job_id: jobId
+          job_id: jobId,
         },
-        performed_by: 'system'
+        performed_by: 'system',
       } as Record<string, unknown>);
+
+      return {
+        success: false,
+        error: 'AI did not return valid content (insufficient word count). No changes saved.',
+      };
+    }
+
+    // Extra guard: ensure all required locked terms survived AI generation BEFORE governance
+    const generatedStr = JSON.stringify(regeneratedContent).toLowerCase();
+    const missingTerms = requiredTerms.filter((t) => !generatedStr.includes(t.toLowerCase()));
+    if (missingTerms.length > 0) {
+      console.log(`[BG-REGEN] AI dropped required terms for ${chId}:`, missingTerms);
+      return {
+        success: false,
+        error: `AI omitted required locked terms: ${missingTerms.join(', ')}. Retry the regeneration.`,
+      };
     }
 
     // ============================================================
