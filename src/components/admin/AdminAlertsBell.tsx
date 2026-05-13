@@ -1,12 +1,36 @@
 import { useEffect, useState, useCallback } from "react";
-import { Bell, AlertTriangle, AlertCircle, Info, Check, Trash2, Loader2 } from "lucide-react";
+import { Bell, AlertTriangle, AlertCircle, Info, Check, Trash2, Loader2, Moon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
+
+const QUIET_HOURS_KEY = "admin_alerts_quiet_hours_v1";
+interface QuietHours { enabled: boolean; start: number; end: number; }
+const defaultQuiet: QuietHours = { enabled: false, start: 22, end: 7 };
+
+const loadQuietHours = (): QuietHours => {
+  try {
+    const raw = localStorage.getItem(QUIET_HOURS_KEY);
+    if (!raw) return defaultQuiet;
+    const parsed = JSON.parse(raw);
+    return { ...defaultQuiet, ...parsed };
+  } catch { return defaultQuiet; }
+};
+
+const isInQuietHours = (q: QuietHours, now = new Date()): boolean => {
+  if (!q.enabled) return false;
+  const h = now.getHours();
+  // Window crosses midnight when start > end
+  return q.start <= q.end ? (h >= q.start && h < q.end) : (h >= q.start || h < q.end);
+};
+
 
 interface AdminAlert {
   id: string;
