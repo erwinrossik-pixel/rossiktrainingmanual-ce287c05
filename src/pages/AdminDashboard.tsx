@@ -41,6 +41,7 @@ import { UsageAnalytics } from '@/components/admin/UsageAnalytics';
 import { TrainingTimeAnalytics } from '@/components/admin/TrainingTimeAnalytics';
 import { LearningAnalyticsDashboard } from '@/components/admin/kpi/LearningAnalyticsDashboard';
 import { CronJobsMonitor } from '@/components/admin/CronJobsMonitor';
+import { EdgeFunctionsObservability } from '@/components/admin/EdgeFunctionsObservability';
 import { ContentQualityDashboard } from '@/components/admin/ContentQualityDashboard';
 import { DebugEventsPanel } from '@/components/admin/DebugEventsPanel';
 import { RecordingHealthCheck } from '@/components/admin/RecordingHealthCheck';
@@ -1020,7 +1021,8 @@ export default function AdminDashboard() {
             <CompetencyGapAnalysis />
           </TabsContent>
 
-          <TabsContent value="cron-jobs" className="mt-6">
+          <TabsContent value="cron-jobs" className="mt-6 space-y-6">
+            <EdgeFunctionsObservability />
             <CronJobsMonitor />
           </TabsContent>
 
