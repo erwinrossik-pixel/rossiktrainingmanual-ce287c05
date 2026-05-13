@@ -116,7 +116,9 @@ export function useChapterProgress() {
   ): Promise<boolean> => {
     if (!user) return false;
 
-    // Idempotency guard: prevent double-submit (e.g. fast double-click, StrictMode re-fire)
+    // Idempotency: per-submit UUID enforced by DB unique index
+    // (user_id, chapter_id, client_attempt_id). Also keep a short in-flight
+    // guard to absorb StrictMode/double-click before the network round-trip.
     const submitKey = `${user.id}:${chapterId}:${score}`;
     const w = window as unknown as { __quizSubmitInflight?: Set<string> };
     if (!w.__quizSubmitInflight) w.__quizSubmitInflight = new Set();
@@ -128,7 +130,10 @@ export function useChapterProgress() {
     setTimeout(() => w.__quizSubmitInflight?.delete(submitKey), 3000);
 
     const passed = score >= PASSING_SCORE;
-    
+    const clientAttemptId = (typeof crypto !== 'undefined' && 'randomUUID' in crypto)
+      ? crypto.randomUUID()
+      : `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+
     // Record the attempt
     const { error: attemptError } = await supabase
       .from('quiz_attempts')
@@ -140,6 +145,7 @@ export function useChapterProgress() {
         total_questions: TOTAL_QUESTIONS,
         passed,
         questions_answered: questionsAnswered,
+        client_attempt_id: clientAttemptId,
       }]);
 
     if (attemptError) {
