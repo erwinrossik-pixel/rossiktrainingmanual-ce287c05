@@ -21,13 +21,24 @@ export default defineConfig(({ mode }) => ({
     rollupOptions: {
       output: {
         manualChunks: {
-          // Vendor chunks for better caching
           'react-vendor': ['react', 'react-dom', 'react-router-dom'],
-          'ui-vendor': ['@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu', '@radix-ui/react-tabs', '@radix-ui/react-accordion', '@radix-ui/react-scroll-area'],
+          'ui-radix': [
+            '@radix-ui/react-dialog',
+            '@radix-ui/react-dropdown-menu',
+            '@radix-ui/react-tabs',
+            '@radix-ui/react-accordion',
+            '@radix-ui/react-scroll-area',
+            '@radix-ui/react-popover',
+            '@radix-ui/react-select',
+            '@radix-ui/react-toast',
+            '@radix-ui/react-tooltip',
+          ],
           'icons': ['lucide-react'],
           'chart-vendor': ['recharts'],
+          'pdf-vendor': ['jspdf'],
           'supabase': ['@supabase/supabase-js'],
-          'utils': ['date-fns', 'clsx', 'tailwind-merge'],
+          'date-utils': ['date-fns'],
+          'utils': ['clsx', 'tailwind-merge'],
         },
       },
     },
