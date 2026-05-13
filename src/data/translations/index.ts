@@ -4,7 +4,10 @@ import { Language } from '@/contexts/LanguageContext';
 type ChapterTranslations = Record<string, Record<string, string>>;
 
 // Map of chapterId -> dynamic loader (each becomes its own chunk via Vite code-splitting)
-const chapterLoaders: Record<string, () => Promise<{ default?: ChapterTranslations } & Record<string, ChapterTranslations>>> = {
+// Loaders return arbitrary module shapes (each chapter file uses a unique
+// named export); the actual lookup happens in `doLoad` against `exportNames`.
+type ChapterModule = Record<string, ChapterTranslations | unknown>;
+const chapterLoaders: Record<string, () => Promise<ChapterModule>> = {
   intro: () => import('./chapters/intro'),
   mindset: () => import('./chapters/mindset'),
   'soft-skills': () => import('./chapters/softskills'),
@@ -140,7 +143,7 @@ interface ChapterMetric {
 
 const metrics: Record<string, ChapterMetric> = {};
 const isDev =
-  typeof import.meta !== 'undefined' && (import.meta as any)?.env?.DEV === true;
+  typeof import.meta !== 'undefined' && (import.meta as ImportMeta).env?.DEV === true;
 
 function getMetric(chapterId: string): ChapterMetric {
   if (!metrics[chapterId]) {
@@ -248,7 +251,7 @@ export function printTranslationMetrics(): void {
 
 // Expose for in-browser debugging (no-op on server)
 if (typeof window !== 'undefined') {
-  (window as any).__translationMetrics = printTranslationMetrics;
+  (window as Window & { __translationMetrics?: () => void }).__translationMetrics = printTranslationMetrics;
 }
 
 /**
@@ -341,8 +344,8 @@ function doLoad(chapterId: string): Promise<ChapterTranslations | null> {
 
   // Note: deliberately NOT swallowing the error here so the retry loop
   // above can detect and react to transient failures (network, chunk load).
-  return loader().then((mod: any) => {
-    const translations = mod[exportName] as ChapterTranslations | undefined;
+  return loader().then((mod) => {
+    const translations = (mod as Record<string, ChapterTranslations | undefined>)[exportName];
     if (translations) cache[chapterId] = translations;
     return translations ?? null;
   });
