@@ -58,6 +58,12 @@ export function AdminAlertsBell() {
   const [alerts, setAlerts] = useState<AdminAlert[]>([]);
   const [loading, setLoading] = useState(false);
   const [running, setRunning] = useState(false);
+  const [quiet, setQuiet] = useState<QuietHours>(loadQuietHours);
+
+  const persistQuiet = (next: QuietHours) => {
+    setQuiet(next);
+    try { localStorage.setItem(QUIET_HOURS_KEY, JSON.stringify(next)); } catch { /* ignore */ }
+  };
 
   const load = useCallback(async () => {
     setLoading(true);
