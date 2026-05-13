@@ -55,7 +55,7 @@ export function AnalyticsExportPanel() {
     const dateColMap: Record<DatasetKey, string> = {
       page_views: 'created_at',
       quiz_attempts: 'created_at',
-      training_time: 'started_at',
+      training_time: 'created_at',
       chapter_progress: 'updated_at',
     };
     const dateCol = dateColMap[dataset];
@@ -64,7 +64,7 @@ export function AnalyticsExportPanel() {
       switch (dataset) {
         case 'page_views': return supabase.from('page_views').select('*');
         case 'quiz_attempts': return supabase.from('quiz_attempts').select('*');
-        case 'training_time': return supabase.from('training_sessions').select('*');
+        case 'training_time': return supabase.from('training_time').select('*');
         case 'chapter_progress': return supabase.from('chapter_progress').select('*');
       }
     };
