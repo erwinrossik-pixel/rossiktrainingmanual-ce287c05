@@ -59,7 +59,7 @@ function shuffleArray<T>(array: T[]): T[] {
 const HARD_TIER_MIN_LEVEL = 4;
 const HARD_TIER_RATIO = 0.5;
 
-function selectQuestionsByDifficulty<T extends { difficultyLevel?: number }>(
+export function selectQuestionsByDifficulty<T extends { difficultyLevel?: number }>(
   questions: T[],
   userDifficulty: number,
   count: number
@@ -131,8 +131,8 @@ function selectQuestionsByDifficulty<T extends { difficultyLevel?: number }>(
         }
       }
       if (!found) {
-        // Prefer harder leftovers first.
-        for (let l = 5; l >= 1; l--) {
+        // Fill the easier half from the lowest remaining levels.
+        for (let l = 1; l <= 5; l++) {
           if (takeFromLevel(l)) {
             found = true;
             break;
