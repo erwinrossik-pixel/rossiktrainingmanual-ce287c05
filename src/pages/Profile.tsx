@@ -77,9 +77,9 @@ function ProfileContent() {
       // Fetch training time
       const { data: timeData } = await supabase
         .from('training_time')
-        .select('date, total_seconds')
+        .select('day_number, total_seconds, updated_at')
         .eq('user_id', user.id)
-        .order('date', { ascending: false })
+        .order('day_number', { ascending: false })
         .limit(30);
       setTrainingTime(timeData || []);
     };
