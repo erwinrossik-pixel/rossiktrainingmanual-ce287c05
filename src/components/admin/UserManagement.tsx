@@ -155,6 +155,15 @@ export function UserManagement() {
         .from('companies')
         .select('id, name');
 
+      // Source of truth for platform roles
+      const { data: platformRoles } = await supabase
+        .from('user_roles')
+        .select('user_id, role');
+
+      const adminIds = new Set(
+        (platformRoles || []).filter(r => r.role === 'admin').map(r => r.user_id)
+      );
+
       const companiesMap = new Map(companiesData?.map(c => [c.id, c.name]) || []);
 
       // Merge profiles with company_users
@@ -163,6 +172,7 @@ export function UserManagement() {
         
         return {
           ...profile,
+          role: adminIds.has(profile.id) ? 'admin' : 'user',
           company_user: companyUser ? {
             id: companyUser.id,
             company_id: companyUser.company_id,
@@ -172,6 +182,7 @@ export function UserManagement() {
           } : null
         };
       });
+
 
       // Filter based on admin type
       if (!isSuperAdmin && company) {
