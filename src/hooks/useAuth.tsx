@@ -136,7 +136,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     toast({
       title: "Cont creat cu succes!",
-      description: "Te poți autentifica acum.",
+      description: "Confirmă adresa de email din mesajul primit, apoi așteaptă aprobarea.",
     });
     return { error: null };
   };
