@@ -38,7 +38,8 @@ interface ChapterProgress {
 }
 
 interface TrainingTime {
-  date: string;
+  day_number?: number;
+  updated_at?: string;
   total_seconds: number;
 }
 
