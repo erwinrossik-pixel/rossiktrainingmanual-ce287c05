@@ -131,47 +131,24 @@ export default function Auth() {
     }
 
     setIsSubmitting(true);
-    
-    const { error: signUpError } = await signUp(email, password, firstName, lastName);
-    if (signUpError) {
-      setIsSubmitting(false);
-      return;
-    }
 
-    const { error: signInError } = await signIn(email, password);
-    if (signInError) {
-      setIsSubmitting(false);
-      return;
-    }
+    const isIndependent = selectedCompany.id === '00000000-0000-0000-0000-000000000001';
 
-    const { data: { user: newUser } } = await supabase.auth.getUser();
-    
-    if (newUser) {
-      const isIndependent = selectedCompany.id === '00000000-0000-0000-0000-000000000001';
+    // Membership is created automatically on signup (server side), so the account
+    // is registered correctly even before the email address is confirmed.
+    const { error: signUpError } = await signUp(
+      email,
+      password,
+      firstName,
+      lastName,
+      isIndependent ? undefined : selectedCompany.id
+    );
 
-      if (isIndependent) {
-        await supabase.rpc('register_independent_user');
-        setRegistrationSuccess(true);
-      } else {
-        const status = selectedCompany.require_approval ? 'pending' : 'approved';
-        await supabase.from('company_users').insert({
-          user_id: newUser.id,
-          company_id: selectedCompany.id,
-          role: 'user',
-          status: status,
-          approved_at: status === 'approved' ? new Date().toISOString() : null
-        });
-
-        if (selectedCompany.require_approval) {
-          setRegistrationSuccess(true);
-        } else {
-          await refreshCompany();
-          navigate('/');
-        }
-      }
-    }
-    
     setIsSubmitting(false);
+
+    if (signUpError) return;
+
+    setRegistrationSuccess(true);
   };
 
   const handleBackToCompanySelect = () => {
