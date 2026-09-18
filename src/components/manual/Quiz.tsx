@@ -59,7 +59,7 @@ function shuffleArray<T>(array: T[]): T[] {
 const HARD_TIER_MIN_LEVEL = 4;
 const HARD_TIER_RATIO = 0.5;
 
-function selectQuestionsByDifficulty<T extends { difficultyLevel?: number }>(
+export function selectQuestionsByDifficulty<T extends { difficultyLevel?: number }>(
   questions: T[],
   userDifficulty: number,
   count: number
