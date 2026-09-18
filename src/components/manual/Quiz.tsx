@@ -48,13 +48,17 @@ function shuffleArray<T>(array: T[]): T[] {
 
 /**
  * Selects questions based on user's difficulty level.
- * At level N, questions alternate between levels N, N+1, and N+2.
- * This creates a progressive, balanced quiz experience.
- * 
+ * HARD MODE: at least 50% of every round comes from the hard tier
+ * (difficultyLevel 4-5). The remaining questions alternate between the
+ * user's current level N, N+1 and N+2.
+ *
  * @param questions - All available questions with difficultyLevel
  * @param userDifficulty - User's current difficulty level (1-5)
  * @param count - Number of questions to select
  */
+const HARD_TIER_MIN_LEVEL = 4;
+const HARD_TIER_RATIO = 0.5;
+
 function selectQuestionsByDifficulty<T extends { difficultyLevel?: number }>(
   questions: T[],
   userDifficulty: number,
@@ -81,58 +85,71 @@ function selectQuestionsByDifficulty<T extends { difficultyLevel?: number }>(
     questionsByLevel[Number(level)] = shuffleArray(questionsByLevel[Number(level)]);
   });
 
-  // Calculate how many questions to take from each level
-  // Distribute evenly with slight preference for lower levels
-  const questionsPerLevel = Math.ceil(count / 3);
   const selected: T[] = [];
-  
-  // Collect questions alternating between levels
-  let levelIndex = 0;
   const usedIndices: Record<number, number> = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
 
-  while (selected.length < count) {
-    const currentLevel = targetLevels[levelIndex % 3];
-    const levelQuestions = questionsByLevel[currentLevel];
-    const usedCount = usedIndices[currentLevel];
+  const takeFromLevel = (level: number): boolean => {
+    const pool = questionsByLevel[level];
+    if (!pool || usedIndices[level] >= pool.length) return false;
+    selected.push(pool[usedIndices[level]]);
+    usedIndices[level]++;
+    return true;
+  };
 
-    if (usedCount < levelQuestions.length) {
-      selected.push(levelQuestions[usedCount]);
-      usedIndices[currentLevel]++;
-    } else {
-      // If current level is exhausted, try to find questions from adjacent levels
-      const adjacentLevels = [currentLevel - 1, currentLevel + 1].filter(l => l >= 1 && l <= 5);
+  // 1) Fill the mandatory hard quota (levels 5 then 4, alternating).
+  const hardQuota = Math.ceil(count * HARD_TIER_RATIO);
+  const hardLevels = [5, HARD_TIER_MIN_LEVEL];
+  let hardIndex = 0;
+  let hardGuard = 0;
+  while (selected.length < hardQuota && hardGuard < count * 10) {
+    const level = hardLevels[hardIndex % hardLevels.length];
+    if (!takeFromLevel(level)) {
+      // If both hard levels are exhausted, stop trying.
+      const exhausted = hardLevels.every(
+        l => usedIndices[l] >= (questionsByLevel[l]?.length ?? 0)
+      );
+      if (exhausted) break;
+    }
+    hardIndex++;
+    hardGuard++;
+  }
+
+  // 2) Fill the rest alternating between the user's target levels,
+  //    falling back to adjacent and then any remaining level.
+  let levelIndex = 0;
+  let guard = 0;
+  while (selected.length < count && guard < count * 10) {
+    const currentLevel = targetLevels[levelIndex % 3];
+
+    if (!takeFromLevel(currentLevel)) {
+      const adjacentLevels = [currentLevel + 1, currentLevel - 1].filter(l => l >= 1 && l <= 5);
       let found = false;
-      
       for (const adjLevel of adjacentLevels) {
-        if (usedIndices[adjLevel] < questionsByLevel[adjLevel].length) {
-          selected.push(questionsByLevel[adjLevel][usedIndices[adjLevel]]);
-          usedIndices[adjLevel]++;
+        if (takeFromLevel(adjLevel)) {
           found = true;
           break;
         }
       }
-      
-      // If still not found, take from any available level
       if (!found) {
-        for (let l = 1; l <= 5; l++) {
-          if (usedIndices[l] < questionsByLevel[l].length) {
-            selected.push(questionsByLevel[l][usedIndices[l]]);
-            usedIndices[l]++;
+        // Prefer harder leftovers first.
+        for (let l = 5; l >= 1; l--) {
+          if (takeFromLevel(l)) {
+            found = true;
             break;
           }
         }
+        if (!found) break; // nothing left at all
       }
     }
-    
+
     levelIndex++;
-    
-    // Safety check to prevent infinite loop
-    if (levelIndex > count * 5) break;
+    guard++;
   }
 
   // Final shuffle to avoid predictable ordering
   return shuffleArray(selected);
 }
+
 
 const DEFAULT_PASSING_SCORE = 9;
 const QUESTIONS_PER_ROUND = 10;

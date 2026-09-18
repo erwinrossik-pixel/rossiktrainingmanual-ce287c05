@@ -232,15 +232,16 @@ function assignDifficultyLevels(
         level = 5;
       }
     } else {
-      // Base questions: levels 1-3
+      // Base questions: levels 2-4 (harder baseline)
       if (positionRatio < 0.33) {
-        level = 1;
-      } else if (positionRatio < 0.66) {
         level = 2;
-      } else {
+      } else if (positionRatio < 0.66) {
         level = 3;
+      } else {
+        level = 4;
       }
     }
+
 
     return { ...q, difficultyLevel: level };
   });
