@@ -26,7 +26,8 @@ export function RegistrationSuccess({ companyName }: RegistrationSuccessProps) {
         </CardHeader>
         <CardContent className="text-center space-y-4">
           <p className="text-muted-foreground">
-            Un administrator va revizui cererea ta în curând. Vei primi acces după aprobare.
+            Confirmă adresa de email folosind linkul primit pe email, apoi un administrator va
+            revizui cererea ta. Vei primi acces după aprobare.
           </p>
           <Button onClick={() => navigate('/')} variant="outline" className="w-full">
             Înapoi la pagina principală
