@@ -15,6 +15,13 @@
       "when": 1794575070455,
       "tag": "0001_tighten_open_read_policies",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1794582248245,
+      "tag": "0002_scope_admin_visibility_to_own_company",
+      "breakpoints": true
     }
   ]
 }
