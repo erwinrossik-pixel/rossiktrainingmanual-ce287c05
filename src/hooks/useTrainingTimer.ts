@@ -16,6 +16,41 @@ interface TrainingTimerData {
 }
 
 const STORAGE_KEY = 'rossik-training-timer';
+// While a timer runs, the auto-tracker refreshes last_start_time every HEARTBEAT_MS.
+// A "running" row older than STALE_MS was abandoned (crash / closed tab without
+// flush): treat it as paused so the time away is never counted as training.
+const HEARTBEAT_MS = 60_000;
+const STALE_MS = 3 * 60_000;
+
+interface TrainingTimeRow {
+  day_number: number;
+  total_seconds: number;
+  last_start_time: string | null;
+  is_running: boolean;
+  training_started_at: string | null;
+}
+
+export function mapRowsToTimerData(rows: TrainingTimeRow[], now: number): TrainingTimerData {
+  const days: Record<number, DayTimerData> = { ...defaultTimerData.days };
+  let currentActiveDay: number | null = null;
+  let trainingStartedAt: string | null = null;
+
+  rows.forEach((row) => {
+    const lastStart = row.last_start_time ? new Date(row.last_start_time).getTime() : null;
+    const isFresh = row.is_running && lastStart !== null && now - lastStart <= STALE_MS;
+    days[row.day_number] = {
+      totalSeconds: row.total_seconds,
+      lastStartTime: isFresh ? lastStart : null,
+      isRunning: isFresh,
+    };
+    if (isFresh) currentActiveDay = row.day_number;
+    if (row.training_started_at && !trainingStartedAt) {
+      trainingStartedAt = row.training_started_at;
+    }
+  });
+
+  return { days, currentActiveDay, trainingStartedAt };
+}
 
 const defaultDayData: DayTimerData = {
   totalSeconds: 0,
@@ -35,7 +70,12 @@ const defaultTimerData: TrainingTimerData = {
   trainingStartedAt: null,
 };
 
-export function useTrainingTimer() {
+interface UseTrainingTimerOptions {
+  /** Only the single app-level tracker sets this: it heartbeats and flushes on tab hide. */
+  autoTrack?: boolean;
+}
+
+export function useTrainingTimer({ autoTrack = false }: UseTrainingTimerOptions = {}) {
   const { user } = useAuth();
   const [timerData, setTimerData] = useState<TrainingTimerData>(defaultTimerData);
   const [currentTime, setCurrentTime] = useState(Date.now());
@@ -64,25 +104,7 @@ export function useTrainingTimer() {
           .eq('user_id', user.id);
 
         if (!error && data && data.length > 0) {
-          const days: Record<number, DayTimerData> = { ...defaultTimerData.days };
-          let currentActiveDay: number | null = null;
-          let trainingStartedAt: string | null = null;
-
-          data.forEach((row) => {
-            days[row.day_number] = {
-              totalSeconds: row.total_seconds,
-              lastStartTime: row.last_start_time ? new Date(row.last_start_time).getTime() : null,
-              isRunning: row.is_running,
-            };
-            if (row.is_running) {
-              currentActiveDay = row.day_number;
-            }
-            if (row.training_started_at && !trainingStartedAt) {
-              trainingStartedAt = row.training_started_at;
-            }
-          });
-
-          setTimerData({ days, currentActiveDay, trainingStartedAt });
+          setTimerData(mapRowsToTimerData(data, Date.now()));
         } else if (!error && (!data || data.length === 0)) {
           // Reset to default if no data found (e.g., after admin reset)
           clearPendingSync();
@@ -158,25 +180,7 @@ export function useTrainingTimer() {
               .eq('user_id', user.id);
 
             if (!error && data && data.length > 0) {
-              const days: Record<number, DayTimerData> = { ...defaultTimerData.days };
-              let currentActiveDay: number | null = null;
-              let trainingStartedAt: string | null = null;
-
-              data.forEach((row) => {
-                days[row.day_number] = {
-                  totalSeconds: row.total_seconds,
-                  lastStartTime: row.last_start_time ? new Date(row.last_start_time).getTime() : null,
-                  isRunning: row.is_running,
-                };
-                if (row.is_running) {
-                  currentActiveDay = row.day_number;
-                }
-                if (row.training_started_at && !trainingStartedAt) {
-                  trainingStartedAt = row.training_started_at;
-                }
-              });
-
-              setTimerData({ days, currentActiveDay, trainingStartedAt });
+              setTimerData(mapRowsToTimerData(data, Date.now()));
             } else if (!error && (!data || data.length === 0)) {
               clearPendingSync();
               setTimerData(defaultTimerData);
@@ -374,9 +378,10 @@ export function useTrainingTimer() {
     }
   }, [user]);
 
-  // Persist any running timer when the tab is hidden or closed (prevents lost time)
+  // Auto-tracker: pause and persist the running timer when the tab is hidden
+  // or closed, so time away from the app is never counted.
   useEffect(() => {
-    if (!user) return;
+    if (!user || !autoTrack) return;
 
     const flushRunningTime = () => {
       const now = Date.now();
@@ -387,36 +392,30 @@ export function useTrainingTimer() {
         const dayNum = parseInt(key);
         const d = updatedDays[dayNum];
         if (d.isRunning && d.lastStartTime) {
-          const elapsed = Math.floor((now - d.lastStartTime) / 1000);
-          if (elapsed > 0) {
-            updatedDays[dayNum] = {
-              ...d,
-              totalSeconds: d.totalSeconds + elapsed,
-              lastStartTime: now,
-            };
-            needsFlush = true;
-          }
+          const elapsed = Math.max(0, Math.floor((now - d.lastStartTime) / 1000));
+          updatedDays[dayNum] = {
+            totalSeconds: d.totalSeconds + elapsed,
+            lastStartTime: null,
+            isRunning: false,
+          };
+          needsFlush = true;
+          // Fire-and-forget; on unload the browser still sends it
+          void supabase.from('training_time').upsert({
+            user_id: user.id,
+            day_number: dayNum,
+            total_seconds: d.totalSeconds + elapsed,
+            last_start_time: null,
+            is_running: false,
+            training_started_at: timerData.trainingStartedAt,
+          }, { onConflict: 'user_id,day_number' });
         }
       });
 
       if (!needsFlush) return;
-
-      // Synchronous-ish flush: write each running day immediately, no debounce
-      Object.entries(updatedDays).forEach(([dayNum, dayData]) => {
-        if (!dayData.isRunning) return;
-        // Fire-and-forget; on unload the browser will still send it
-        void supabase.from('training_time').upsert({
-          user_id: user.id,
-          day_number: parseInt(dayNum),
-          total_seconds: dayData.totalSeconds,
-          last_start_time: dayData.lastStartTime ? new Date(dayData.lastStartTime).toISOString() : null,
-          is_running: dayData.isRunning,
-          training_started_at: timerData.trainingStartedAt,
-        }, { onConflict: 'user_id,day_number' });
-      });
-
-      // Update local state too
-      localStorage.setItem(STORAGE_KEY, JSON.stringify({ ...timerData, days: updatedDays }));
+      clearPendingSync();
+      const newData: TrainingTimerData = { ...timerData, days: updatedDays, currentActiveDay: null };
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(newData));
+      setTimerData(newData);
     };
 
     const onVisibility = () => {
@@ -432,7 +431,46 @@ export function useTrainingTimer() {
       window.removeEventListener('pagehide', flushRunningTime);
       document.removeEventListener('visibilitychange', onVisibility);
     };
-  }, [user, timerData]);
+  }, [user, autoTrack, timerData]);
+
+  // Auto-tracker heartbeat: every minute, fold elapsed time into the saved total
+  // (computed from the database row so other tabs / a manual pause are respected).
+  const isRunningNow = Object.values(timerData.days).some(d => d.isRunning);
+  useEffect(() => {
+    if (!user || !autoTrack || !isRunningNow) return;
+
+    const beat = async () => {
+      if (document.visibilityState !== 'visible' || isResettingRef.current) return;
+      const { data, error } = await supabase
+        .from('training_time')
+        .select('*')
+        .eq('user_id', user.id);
+      if (error || !data) return;
+
+      const now = Date.now();
+      const fresh = mapRowsToTimerData(data, now);
+      for (const [key, d] of Object.entries(fresh.days)) {
+        if (!d.isRunning || !d.lastStartTime) continue;
+        const elapsed = Math.max(0, Math.floor((now - d.lastStartTime) / 1000));
+        const updated = { totalSeconds: d.totalSeconds + elapsed, lastStartTime: now, isRunning: true };
+        fresh.days[Number(key)] = updated;
+        const { error: upsertError } = await supabase.from('training_time').upsert({
+          user_id: user.id,
+          day_number: Number(key),
+          total_seconds: updated.totalSeconds,
+          last_start_time: new Date(now).toISOString(),
+          is_running: true,
+          training_started_at: fresh.trainingStartedAt,
+        }, { onConflict: 'user_id,day_number' });
+        if (upsertError) logger.error('Training time heartbeat failed:', upsertError);
+      }
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(fresh));
+      setTimerData(fresh);
+    };
+
+    const interval = setInterval(() => { void beat(); }, HEARTBEAT_MS);
+    return () => clearInterval(interval);
+  }, [user, autoTrack, isRunningNow]);
 
   // Cleanup on unmount
   useEffect(() => {

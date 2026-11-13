@@ -79,7 +79,8 @@ export const LearningPathAI = memo(function LearningPathAI() {
         .from('user_gamification')
         .select('*')
         .eq('user_id', user.id)
-        .single();
+        .limit(1)
+        .maybeSingle();
 
       // Analyze performance per chapter
       const chapterPerformance = new Map<string, { scores: number[], attempts: number, passed: boolean }>();

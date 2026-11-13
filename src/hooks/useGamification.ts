@@ -160,21 +160,23 @@ export function useGamification() {
         .from('user_gamification')
         .select('*')
         .eq('user_id', user.id)
-        .single();
+        .limit(1)
+        .maybeSingle();
 
-      if (gamError && gamError.code !== 'PGRST116') {
+      if (gamError) {
         logger.error('Error fetching gamification:', gamError);
       }
 
       if (gamData) {
         setGamification(gamData);
       } else {
-        // Create initial record
+        // Create initial record (upsert: several widgets may mount at once for a new user)
         const { data: newData, error: insertError } = await supabase
           .from('user_gamification')
-          .insert({ user_id: user.id })
+          .upsert({ user_id: user.id }, { onConflict: 'user_id', ignoreDuplicates: false })
           .select()
-          .single();
+          .limit(1)
+          .maybeSingle();
 
         if (!insertError && newData) {
           setGamification(newData);

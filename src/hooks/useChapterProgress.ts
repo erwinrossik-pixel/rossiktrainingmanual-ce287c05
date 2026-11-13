@@ -21,6 +21,18 @@ const MAX_CONSECUTIVE_FAILS = 3;
 const PASSING_SCORE = 9;
 const TOTAL_QUESTIONS = 10;
 
+/** Status rules after a quiz attempt. Exported for tests. */
+export function resolveAttemptOutcome({ passed, wasCompleted, currentConsecutiveFails }: {
+  passed: boolean;
+  wasCompleted: boolean;
+  currentConsecutiveFails: number;
+}): { status: 'completed' | 'locked_out' | 'in_progress'; consecutiveFails: number; lockOut: boolean } {
+  if (passed || wasCompleted) return { status: 'completed', consecutiveFails: 0, lockOut: false };
+  const consecutiveFails = currentConsecutiveFails + 1;
+  const lockOut = consecutiveFails >= MAX_CONSECUTIVE_FAILS;
+  return { status: lockOut ? 'locked_out' : 'in_progress', consecutiveFails, lockOut };
+}
+
 export function useChapterProgress() {
   const { user } = useAuth();
   const queryClient = useQueryClient();
@@ -163,19 +175,11 @@ export function useChapterProgress() {
     const cappedScore = Math.min(score, TOTAL_QUESTIONS); // Ensure score never exceeds 10
     const newBestScore = Math.min(Math.max(currentBestScore, cappedScore), TOTAL_QUESTIONS);
     
-    // Track consecutive failures
-    const newConsecutiveFails = passed ? 0 : currentConsecutiveFails + 1;
-    const shouldLockOut = newConsecutiveFails >= MAX_CONSECUTIVE_FAILS;
-    
-    // Determine new status
-    let newStatus: string;
-    if (shouldLockOut) {
-      newStatus = 'locked_out';
-    } else if (passed) {
-      newStatus = 'completed';
-    } else {
-      newStatus = 'in_progress';
-    }
+    // A chapter that was already passed stays completed: a weaker retake
+    // must never downgrade it, count toward lockout, or erase completed_at.
+    const wasCompleted = currentProgress?.status === 'completed' || !!currentProgress?.completed_at;
+    const { status: newStatus, consecutiveFails: newConsecutiveFails, lockOut: shouldLockOut } =
+      resolveAttemptOutcome({ passed, wasCompleted, currentConsecutiveFails });
 
     const { error: progressError } = await supabase
       .from('chapter_progress')
@@ -219,7 +223,8 @@ export function useChapterProgress() {
         if (currentIndex >= 0 && currentIndex < chapters.length - 1) {
           const nextChapter = chapters[currentIndex + 1];
           
-          // Unlock next chapter if not already unlocked
+          // Unlock next chapter only if it has no progress yet — never
+          // overwrite an existing (possibly completed) next chapter on a retake.
           await supabase
             .from('chapter_progress')
             .upsert({
@@ -230,6 +235,7 @@ export function useChapterProgress() {
               attempts_count: 0,
             }, {
               onConflict: 'user_id,chapter_id',
+              ignoreDuplicates: true,
             });
         }
       }

@@ -151,7 +151,7 @@ export function useLearningGoals() {
       const [chaptersRes, quizRes, gamificationRes] = await Promise.all([
         supabase.from('chapter_progress').select('*').eq('user_id', user.id).eq('status', 'completed'),
         supabase.from('quiz_attempts').select('score').eq('user_id', user.id),
-        supabase.from('user_gamification').select('streak_days').eq('user_id', user.id).single(),
+        supabase.from('user_gamification').select('streak_days').eq('user_id', user.id).limit(1).maybeSingle(),
       ]);
 
       const completedChapters = chaptersRes.data?.length || 0;
