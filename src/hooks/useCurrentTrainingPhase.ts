@@ -1,22 +1,20 @@
 import { useCallback } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import { useChapterProgress } from '@/hooks/useChapterProgress';
-import { useProgressContext } from '@/contexts/ProgressContext';
 import { TRAINING_PHASES, getChapterIdByNumber, type PhaseInfo } from '@/data/chaptersConfig';
 
-/** Returns the training phase (1-5) the learner is currently working in. */
+/** Returns the training phase (1-5) the signed-in learner is currently working in. */
 export function useCurrentTrainingPhase(): number {
   const { user } = useAuth();
   const { getChapterStatus } = useChapterProgress();
-  const { progress } = useProgressContext();
 
   const completedIn = useCallback((phaseInfo: PhaseInfo): number => (
     phaseInfo.chapters.filter((n) => {
       const id = getChapterIdByNumber(n);
       if (!id) return false;
-      return user ? getChapterStatus(id) === 'completed' : !!progress.chapters[id]?.completed;
+      return !!user && getChapterStatus(id) === 'completed';
     }).length
-  ), [user, getChapterStatus, progress.chapters]);
+  ), [user, getChapterStatus]);
 
   const statusOf = (phaseInfo: PhaseInfo): 'completed' | 'in-progress' | 'locked' => {
     const done = completedIn(phaseInfo);

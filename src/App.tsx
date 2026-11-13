@@ -9,6 +9,7 @@ import { LanguageProvider } from "@/contexts/LanguageContext";
 import { lazy, Suspense } from "react";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import Index from "./pages/Index";
+import { TrainingTimeAutoTracker } from "@/components/manual/TrainingTimeAutoTracker";
 
 // Lazy load non-critical pages
 const Auth = lazy(() => import("./pages/Auth"));
@@ -47,6 +48,7 @@ const App = () => {
                 <Toaster />
                 <Sonner />
                 <BrowserRouter>
+                  <TrainingTimeAutoTracker />
                   <Routes>
                     <Route path="/" element={<Index />} />
                     <Route path="/auth" element={

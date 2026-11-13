@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { Sidebar } from "@/components/manual/Sidebar";
 import { ManualContent } from "@/components/manual/ManualContent";
 import { ProgressDashboard } from "@/components/manual/ProgressDashboard";
-import { TrainingTimeAutoTracker } from "@/components/manual/TrainingTimeAutoTracker";
 import { ProgressProvider, useProgressContext } from "@/contexts/ProgressContext";
 import { useAuth } from "@/hooks/useAuth";
 import { useCompany } from "@/contexts/CompanyContext";
@@ -186,7 +185,6 @@ function ManualApp() {
         )}
       </div>
       
-      <TrainingTimeAutoTracker />
       <Sidebar 
         activeChapter={activeChapter} 
         onChapterChange={handleChapterChange}

@@ -1,35 +1,51 @@
 import { useEffect, useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
+import { useCompany } from '@/contexts/CompanyContext';
 import { useTrainingTimer } from '@/hooks/useTrainingTimer';
 import { useCurrentTrainingPhase } from '@/hooks/useCurrentTrainingPhase';
 
+/** Pages where time counts as training: the manual (chapters, dashboard, simulations) and the final exam. */
+const TRAINING_PATHS = ['/', '/final-exam'];
+
 /**
- * Invisible tracker mounted once in the manual: records study time automatically
- * while the learner has the app open, pauses when the tab is hidden, resumes on return.
+ * Invisible app-wide tracker: records study time for every approved, signed-in learner
+ * while a training page is open and visible; pauses on other pages, hidden tabs and closing.
  */
 export function TrainingTimeAutoTracker() {
   const { user } = useAuth();
+  const { isPendingApproval } = useCompany();
+  const { pathname } = useLocation();
   const currentPhase = useCurrentTrainingPhase();
-  const { startTraining, isAnyTimerRunning, isLoading } = useTrainingTimer({ autoTrack: true });
-  const startedRef = useRef(false);
+  const timer = useTrainingTimer({ autoTrack: true });
+  const shouldTrack = !!user && !isPendingApproval && TRAINING_PATHS.includes(pathname);
+
+  // Latest values in refs so the effects below fire only on real transitions
+  // (page change, load finished, tab return) — not on every timer tick, which
+  // would override a manual pause.
+  const latest = useRef({ timer, currentPhase });
+  latest.current = { timer, currentPhase };
 
   useEffect(() => {
-    if (!user || isLoading || startedRef.current) return;
-    startedRef.current = true;
-    if (document.visibilityState === 'visible' && !isAnyTimerRunning()) {
-      startTraining(currentPhase);
+    if (timer.isLoading) return;
+    const { timer: t, currentPhase: phase } = latest.current;
+    if (shouldTrack) {
+      if (document.visibilityState === 'visible' && !t.isAnyTimerRunning()) t.startTraining(phase);
+    } else if (t.isAnyTimerRunning()) {
+      t.pauseTraining();
     }
-  }, [user, isLoading, currentPhase, isAnyTimerRunning, startTraining]);
+  }, [shouldTrack, timer.isLoading, user?.id]);
 
   useEffect(() => {
-    if (!user) return;
+    if (!shouldTrack) return;
     const onVisibility = () => {
-      if (document.visibilityState !== 'visible' || isLoading) return;
-      if (!isAnyTimerRunning()) startTraining(currentPhase);
+      const { timer: t, currentPhase: phase } = latest.current;
+      if (document.visibilityState !== 'visible' || t.isLoading) return;
+      if (!t.isAnyTimerRunning()) t.startTraining(phase);
     };
     document.addEventListener('visibilitychange', onVisibility);
     return () => document.removeEventListener('visibilitychange', onVisibility);
-  }, [user, isLoading, currentPhase, isAnyTimerRunning, startTraining]);
+  }, [shouldTrack]);
 
   return null;
 }
