@@ -8,6 +8,13 @@
       "when": 1789742322453,
       "tag": "0000_signup_auto_company_membership",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1794575070455,
+      "tag": "0001_tighten_open_read_policies",
+      "breakpoints": true
     }
   ]
 }

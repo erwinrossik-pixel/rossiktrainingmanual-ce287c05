@@ -4412,6 +4412,7 @@ export type Database = {
         Returns: boolean
       }
       is_admin_user: { Args: { user_id: string }; Returns: boolean }
+      is_approved_member: { Args: { _user_id: string }; Returns: boolean }
       is_chapter_locked: {
         Args: { p_chapter_id: string; p_user_id: string }
         Returns: boolean
@@ -4429,6 +4430,10 @@ export type Database = {
         }[]
       }
       register_independent_user: { Args: never; Returns: Json }
+      shares_company: {
+        Args: { _owner: string; _viewer: string }
+        Returns: boolean
+      }
       user_belongs_to_company: {
         Args: { _company_id: string; _user_id: string }
         Returns: boolean
