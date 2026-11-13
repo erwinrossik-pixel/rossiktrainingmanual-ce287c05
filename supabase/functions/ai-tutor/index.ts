@@ -1,3 +1,4 @@
+import { classifyAiGatewayError, aiFailureResponse } from "../_shared/aiGatewayError.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
@@ -413,20 +414,12 @@ ${learningContext}`;
     });
 
     if (!response.ok) {
-      if (response.status === 429) {
-        return new Response(
-          JSON.stringify({ error: "Rate limit exceeded. Please try again later." }),
-          { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-        );
-      }
-      if (response.status === 402) {
-        return new Response(
-          JSON.stringify({ error: "Payment required. Please add credits." }),
-          { status: 402, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-        );
-      }
       const errorText = await response.text();
       console.error("AI gateway error:", response.status, errorText);
+      const failure = classifyAiGatewayError(response.status, errorText);
+      if (failure) {
+        return aiFailureResponse(failure, corsHeaders);
+      }
       throw new Error(`AI gateway error: ${response.status}`);
     }
 

@@ -1,3 +1,4 @@
+import { classifyAiGatewayError, aiFailureResponse } from "../_shared/aiGatewayError.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
@@ -109,7 +110,7 @@ Returnează analiza în format JSON cu structura:
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "google/gemini-2.5-flash",
+        model: "google/gemini-3.8-flash",
         messages: [
           { role: "system", content: systemPrompt },
           { role: "user", content: userPrompt },
@@ -224,17 +225,9 @@ Returnează analiza în format JSON cu structura:
       const errorText = await aiResponse.text();
       console.error("AI Gateway error:", aiResponse.status, errorText);
       
-      if (aiResponse.status === 429) {
-        return new Response(
-          JSON.stringify({ error: "Rate limit exceeded, please try again later." }),
-          { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-        );
-      }
-      if (aiResponse.status === 402) {
-        return new Response(
-          JSON.stringify({ error: "Payment required, please add funds." }),
-          { status: 402, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-        );
+      const failure = classifyAiGatewayError(aiResponse.status, errorText);
+      if (failure) {
+        return aiFailureResponse(failure, corsHeaders);
       }
       throw new Error(`AI Gateway error: ${aiResponse.status}`);
     }
@@ -285,7 +278,7 @@ Returnează analiza în format JSON cu structura:
         suggested_corrections: analysisResult.suggested_corrections || [],
         analysis_version: nextVersion,
         status: "analyzed",
-        ai_model_used: "google/gemini-2.5-flash",
+        ai_model_used: "google/gemini-3.8-flash",
       })
       .select()
       .single();

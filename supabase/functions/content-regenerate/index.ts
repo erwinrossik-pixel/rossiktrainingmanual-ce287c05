@@ -216,7 +216,7 @@ Generate the content update as strict JSON only (no markdown, no commentary):
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          model: 'google/gemini-2.5-flash-lite',
+          model: 'google/gemini-3.1-flash-lite',
           messages: [
             { 
               role: 'system', 
@@ -408,7 +408,7 @@ Generate the content update as strict JSON only (no markdown, no commentary):
         updated_content: regeneratedContent,
         sections_affected: regeneratedContent.sections_updated,
         languages_updated: ['ro', 'de', 'en'],
-        ai_model_used: 'google/gemini-2.5-flash-lite',
+        ai_model_used: 'google/gemini-3.1-flash-lite',
         requires_approval: requiresApproval,
         applied_at: auto_apply && !requiresApproval ? new Date().toISOString() : null,
       } as Record<string, unknown>);

@@ -191,8 +191,24 @@ export function CompanyProvider({ children }: { children: ReactNode }) {
       .order('approved_at', { ascending: false, nullsFirst: false })
       .limit(1)
       .maybeSingle();
-    
-    if (data) setCompanyUser(data as CompanyUser);
+
+    if (data) {
+      setCompanyUser(data as CompanyUser);
+      return;
+    }
+
+    // Not a member of the site's company (e.g. independent learners): use the user's
+    // own latest membership so approval status (pending, approved) is still known.
+    const { data: memberships } = await supabase
+      .from('company_users')
+      .select('*')
+      .eq('user_id', userId)
+      .order('created_at', { ascending: false })
+      .limit(20);
+
+    const list = (memberships ?? []) as CompanyUser[];
+    const fallback = list.find(m => m.status === 'approved') ?? list.find(m => m.status === 'pending') ?? list[0] ?? null;
+    setCompanyUser(fallback);
   };
 
   const refreshCompany = useCallback(async () => {

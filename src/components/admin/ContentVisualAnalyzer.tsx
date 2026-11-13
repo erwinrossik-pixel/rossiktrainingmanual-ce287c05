@@ -11,6 +11,7 @@ import { Switch } from '@/components/ui/switch';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { supabase } from '@/integrations/supabase/client';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { getAiErrorMessage } from '@/lib/aiFunctionError';
 import { toast } from 'sonner';
 import { 
   Eye, RefreshCw, CheckCircle, XCircle, AlertTriangle, Clock, 
@@ -352,7 +353,7 @@ export function ContentVisualAnalyzer() {
       fetchData();
     } catch (error) {
       logger.error('Error running analysis:', error);
-      toast.error('Analysis failed');
+      toast.error((await getAiErrorMessage(error, language)) ?? 'Analysis failed');
     } finally {
       setAnalyzing(false);
     }

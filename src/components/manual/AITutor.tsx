@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useChapterProgress } from "@/hooks/useChapterProgress";
 import { supabase } from "@/integrations/supabase/client";
+import { getAiErrorMessage } from '@/lib/aiFunctionError';
 import { 
   Bot, 
   Send, 
@@ -180,7 +181,7 @@ export const AITutor = memo(function AITutor({ chapterId, chapterTitle }: AITuto
     } catch (error: any) {
       logger.error("AI Tutor error:", error);
       
-      let errorMessage = t.error;
+      let errorMessage = (await getAiErrorMessage(error, language)) ?? t.error;
       if (error.message?.includes("429") || error.status === 429) {
         errorMessage = t.rateLimit;
       }

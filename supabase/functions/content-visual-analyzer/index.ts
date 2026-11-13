@@ -1,3 +1,4 @@
+import { classifyAiGatewayError, aiFailureResponse, type AiGatewayFailure } from "../_shared/aiGatewayError.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
@@ -147,6 +148,7 @@ serve(async (req) => {
     }
 
     const results: any[] = [];
+    let blockingFailure: AiGatewayFailure | null = null;
 
     for (const chapterId of chaptersToAnalyze) {
       try {
@@ -239,7 +241,7 @@ Dacă o problemă poate fi rezolvată automat, pune autoFixable: true și specif
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            model: "google/gemini-2.5-flash",
+            model: "google/gemini-3.8-flash",
             messages: [
               { role: "system", content: systemPrompt },
               { role: "user", content: userPrompt },
@@ -301,18 +303,18 @@ Dacă o problemă poate fi rezolvată automat, pune autoFixable: true și specif
           const errorText = await aiResponse.text();
           console.error("AI Gateway error:", aiResponse.status, errorText);
           
-          // Handle specific error codes gracefully
-          if (aiResponse.status === 402) {
-            // Insufficient credits - mark as skipped, not failed
+          // Credits exhausted / workspace limit / access denied: no further call in this
+          // run can succeed, so record it once and stop the batch (one probe per run).
+          const failure = classifyAiGatewayError(aiResponse.status, errorText);
+          if (failure?.blocking) {
             await supabase
               .from("content_visual_analysis")
-              .update({ 
-                status: "skipped", 
-                error_message: "AI credits insufficient - will retry later"
+              .update({
+                status: "skipped",
+                error_message: `${failure.code}: ${failure.message}`,
               })
               .eq("id", analysisRecord.id);
-            
-            // Log to cron_job_logs for visibility
+
             await supabase
               .from("cron_job_logs")
               .insert({
@@ -320,13 +322,14 @@ Dacă o problemă poate fi rezolvată automat, pune autoFixable: true și specif
                 status: "skipped",
                 started_at: new Date().toISOString(),
                 completed_at: new Date().toISOString(),
-                result_summary: "Skipped due to insufficient AI credits",
+                result_summary: `Skipped: ${failure.message}`,
                 execution_type: is_cron ? "scheduled" : "manual",
               });
-            
-            continue;
+
+            blockingFailure = failure;
+            break;
           }
-          
+
           if (aiResponse.status === 429) {
             // Rate limited - mark as pending for retry
             await supabase
@@ -437,7 +440,7 @@ Dacă o problemă poate fi rezolvată automat, pune autoFixable: true și specif
             status: fixesApplied > 0 ? "auto_fixed" : "completed",
             analyzed_at: new Date().toISOString(),
             fixed_at: fixesApplied > 0 ? new Date().toISOString() : null,
-            ai_model_used: "google/gemini-2.5-flash",
+            ai_model_used: "google/gemini-3.8-flash",
           })
           .eq("id", analysisRecord.id);
 
@@ -488,6 +491,10 @@ Dacă o problemă poate fi rezolvată automat, pune autoFixable: true și specif
         last_run_at: new Date().toISOString(),
       })
       .eq("job_name", "visual_analyzer_main");
+
+    if (blockingFailure) {
+      return aiFailureResponse(blockingFailure, corsHeaders, { analyzed: results.length, results });
+    }
 
     return new Response(
       JSON.stringify({

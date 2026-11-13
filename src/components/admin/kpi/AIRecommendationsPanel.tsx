@@ -8,6 +8,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { logger } from '@/utils/logger';
+import { getAiErrorMessage } from '@/lib/aiFunctionError';
 import {
   Brain,
   RefreshCw,
@@ -61,7 +62,7 @@ const typeIcons: Record<string, React.ReactNode> = {
 };
 
 export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [recommendations, setRecommendations] = useState<AIRecommendation[]>([]);
   const [allCounts, setAllCounts] = useState({ pending: 0, applied: 0, dismissed: 0, completed: 0, total: 0 });
   const [loading, setLoading] = useState(true);
@@ -149,7 +150,7 @@ export const AIRecommendationsPanel = memo(function AIRecommendationsPanel() {
       await fetchRecommendations();
     } catch (error) {
       logger.error('Error running analysis:', error);
-      toast.error(t('admin.general.error'));
+      toast.error((await getAiErrorMessage(error, language)) ?? t('admin.general.error'));
     } finally {
       setAnalyzing(false);
     }

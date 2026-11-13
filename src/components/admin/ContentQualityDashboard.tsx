@@ -17,6 +17,7 @@ import {
 import { toast } from "sonner";
 import { format } from "date-fns";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { getAiErrorMessage } from '@/lib/aiFunctionError';
 
 interface QualityIssue {
   type: string;
@@ -63,7 +64,7 @@ interface ChapterQualitySummary {
 
 export function ContentQualityDashboard() {
   const queryClient = useQueryClient();
-  const { t } = useLanguage();
+  const { t, language: uiLanguage } = useLanguage();
   const [selectedChapter, setSelectedChapter] = useState<string | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [analyzingChapter, setAnalyzingChapter] = useState<string | null>(null);
@@ -162,7 +163,10 @@ export function ContentQualityDashboard() {
         body: { chapter_id: chapterId, language },
       });
 
-      if (response.error) throw response.error;
+      if (response.error) {
+        const aiMessage = await getAiErrorMessage(response.error, uiLanguage);
+        throw aiMessage ? new Error(aiMessage) : response.error;
+      }
       return response.data;
     },
     onSuccess: (data) => {

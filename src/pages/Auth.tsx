@@ -22,18 +22,20 @@ interface SelectedCompany {
 export default function Auth() {
   const navigate = useNavigate();
   const { user, loading, signIn, signUp } = useAuth();
-  const { company, branding, settings, companyUser, refreshCompany } = useCompany();
+  const { company, branding, settings, loading: companyLoading, refreshCompany } = useCompany();
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [registrationStep, setRegistrationStep] = useState<'company' | 'details'>('company');
   const [selectedCompany, setSelectedCompany] = useState<SelectedCompany | null>(null);
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
 
+  // Once signed in, always leave the login page: the main page shows the training for
+  // approved members and the "awaiting approval" screen for pending ones.
   useEffect(() => {
-    if (user && !loading && companyUser?.status === 'approved') {
-      navigate('/');
+    if (user && !loading && !companyLoading) {
+      navigate('/', { replace: true });
     }
-  }, [user, loading, companyUser, navigate]);
+  }, [user, loading, companyLoading, navigate]);
 
   useEffect(() => {
     if (company && !company.is_master && settings) {
