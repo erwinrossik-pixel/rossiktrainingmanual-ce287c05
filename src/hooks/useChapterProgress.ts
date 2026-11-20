@@ -33,6 +33,37 @@ export function resolveAttemptOutcome({ passed, wasCompleted, currentConsecutive
   return { status: lockOut ? 'locked_out' : 'in_progress', consecutiveFails, lockOut };
 }
 
+type ProgressClient = Pick<typeof supabase, 'from'>;
+
+/**
+ * Unlock a chapter for a learner. Creates the row if missing; an existing row
+ * is only changed when it is still 'locked' (e.g. after an admin reset), so a
+ * started or completed chapter is never overwritten. Exported for tests.
+ */
+export async function unlockChapter(client: ProgressClient, userId: string, chapterId: string): Promise<void> {
+  const { error: insertError } = await client
+    .from('chapter_progress')
+    .upsert({
+      user_id: userId,
+      chapter_id: chapterId,
+      status: 'unlocked',
+      best_score: 0,
+      attempts_count: 0,
+    }, {
+      onConflict: 'user_id,chapter_id',
+      ignoreDuplicates: true,
+    });
+  if (insertError) logger.error('Error unlocking chapter:', insertError);
+
+  const { error: updateError } = await client
+    .from('chapter_progress')
+    .update({ status: 'unlocked' })
+    .eq('user_id', userId)
+    .eq('chapter_id', chapterId)
+    .eq('status', 'locked');
+  if (updateError) logger.error('Error unlocking reset chapter:', updateError);
+}
+
 export function useChapterProgress() {
   const { user } = useAuth();
   const queryClient = useQueryClient();
@@ -223,20 +254,7 @@ export function useChapterProgress() {
         if (currentIndex >= 0 && currentIndex < chapters.length - 1) {
           const nextChapter = chapters[currentIndex + 1];
           
-          // Unlock next chapter only if it has no progress yet — never
-          // overwrite an existing (possibly completed) next chapter on a retake.
-          await supabase
-            .from('chapter_progress')
-            .upsert({
-              user_id: user.id,
-              chapter_id: nextChapter.id,
-              status: 'unlocked',
-              best_score: 0,
-              attempts_count: 0,
-            }, {
-              onConflict: 'user_id,chapter_id',
-              ignoreDuplicates: true,
-            });
+          await unlockChapter(supabase, user.id, nextChapter.id);
         }
       }
     }
@@ -316,18 +334,7 @@ export function useChapterProgress() {
       if (introIndex >= 0 && introIndex < chapters.length - 1) {
         const nextChapter = chapters[introIndex + 1];
         
-        // Unlock next chapter
-        await supabase
-          .from('chapter_progress')
-          .upsert({
-            user_id: user.id,
-            chapter_id: nextChapter.id,
-            status: 'unlocked',
-            best_score: 0,
-            attempts_count: 0,
-          }, {
-            onConflict: 'user_id,chapter_id',
-          });
+        await unlockChapter(supabase, user.id, nextChapter.id);
       }
     }
 
