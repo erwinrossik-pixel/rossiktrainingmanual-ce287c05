@@ -1950,6 +1950,258 @@ export type Database = {
         }
         Relationships: []
       }
+      homework_answer_keys: {
+        Row: {
+          correct: Json
+          question_id: string
+        }
+        Insert: {
+          correct: Json
+          question_id: string
+        }
+        Update: {
+          correct?: Json
+          question_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "homework_answer_keys_question_id_fkey"
+            columns: ["question_id"]
+            isOneToOne: true
+            referencedRelation: "homework_questions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      homework_assignments: {
+        Row: {
+          course_id: string
+          created_at: string
+          description: string | null
+          due_at: string | null
+          id: string
+          lesson_no: number
+          max_points: number
+          pass_points: number
+          published: boolean
+          show_solutions: boolean
+          title: string
+        }
+        Insert: {
+          course_id: string
+          created_at?: string
+          description?: string | null
+          due_at?: string | null
+          id?: string
+          lesson_no: number
+          max_points: number
+          pass_points: number
+          published?: boolean
+          show_solutions?: boolean
+          title: string
+        }
+        Update: {
+          course_id?: string
+          created_at?: string
+          description?: string | null
+          due_at?: string | null
+          id?: string
+          lesson_no?: number
+          max_points?: number
+          pass_points?: number
+          published?: boolean
+          show_solutions?: boolean
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "homework_assignments_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "homework_courses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      homework_courses: {
+        Row: {
+          company_id: string
+          created_at: string
+          id: string
+          title: string
+        }
+        Insert: {
+          company_id: string
+          created_at?: string
+          id?: string
+          title: string
+        }
+        Update: {
+          company_id?: string
+          created_at?: string
+          id?: string
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "homework_courses_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      homework_enrollments: {
+        Row: {
+          course_id: string
+          created_at: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          course_id: string
+          created_at?: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          course_id?: string
+          created_at?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "homework_enrollments_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "homework_courses"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      homework_questions: {
+        Row: {
+          assignment_id: string
+          exercise_intro: string | null
+          exercise_no: number
+          exercise_title: string
+          id: string
+          options: Json | null
+          points: number
+          prompt: string
+          q_key: string
+          show_calc_box: boolean
+          sort: number
+          type: string
+          unit: string | null
+        }
+        Insert: {
+          assignment_id: string
+          exercise_intro?: string | null
+          exercise_no: number
+          exercise_title: string
+          id?: string
+          options?: Json | null
+          points: number
+          prompt: string
+          q_key: string
+          show_calc_box?: boolean
+          sort?: number
+          type: string
+          unit?: string | null
+        }
+        Update: {
+          assignment_id?: string
+          exercise_intro?: string | null
+          exercise_no?: number
+          exercise_title?: string
+          id?: string
+          options?: Json | null
+          points?: number
+          prompt?: string
+          q_key?: string
+          show_calc_box?: boolean
+          sort?: number
+          type?: string
+          unit?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "homework_questions_assignment_id_fkey"
+            columns: ["assignment_id"]
+            isOneToOne: false
+            referencedRelation: "homework_assignments"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      homework_submissions: {
+        Row: {
+          answers: Json
+          assignment_id: string
+          auto_points: number | null
+          calc_notes: Json
+          created_at: string
+          feedback: string | null
+          graded_at: string | null
+          graded_by: string | null
+          id: string
+          manual_points: number | null
+          manual_scores: Json
+          status: string
+          submitted_at: string | null
+          total_points: number | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          answers?: Json
+          assignment_id: string
+          auto_points?: number | null
+          calc_notes?: Json
+          created_at?: string
+          feedback?: string | null
+          graded_at?: string | null
+          graded_by?: string | null
+          id?: string
+          manual_points?: number | null
+          manual_scores?: Json
+          status?: string
+          submitted_at?: string | null
+          total_points?: number | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          answers?: Json
+          assignment_id?: string
+          auto_points?: number | null
+          calc_notes?: Json
+          created_at?: string
+          feedback?: string | null
+          graded_at?: string | null
+          graded_by?: string | null
+          id?: string
+          manual_points?: number | null
+          manual_scores?: Json
+          status?: string
+          submitted_at?: string | null
+          total_points?: number | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "homework_submissions_assignment_id_fkey"
+            columns: ["assignment_id"]
+            isOneToOne: false
+            referencedRelation: "homework_assignments"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       incident_timeline: {
         Row: {
           created_at: string
@@ -4392,6 +4644,13 @@ export type Database = {
           welcome_message: string
         }[]
       }
+      get_homework_solutions: {
+        Args: { p_assignment: string }
+        Returns: {
+          correct: Json
+          q_key: string
+        }[]
+      }
       get_quiz_difficulty: {
         Args: { p_chapter_id: string; p_user_id: string }
         Returns: number
@@ -4405,12 +4664,38 @@ export type Database = {
         Args: { _user_id: string }
         Returns: Database["public"]["Enums"]["app_role"]
       }
+      grade_homework_submission: {
+        Args: { p_feedback: string; p_manual: Json; p_submission: string }
+        Returns: Json
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
           _user_id: string
         }
         Returns: boolean
+      }
+      homework_assignment_course: {
+        Args: { _assignment: string }
+        Returns: string
+      }
+      homework_course_company: { Args: { _course: string }; Returns: string }
+      homework_import_assignment_internal: {
+        Args: { p_course: string; p_payload: Json }
+        Returns: string
+      }
+      homework_is_course_admin: { Args: { _course: string }; Returns: boolean }
+      homework_is_enrolled: { Args: { _course: string }; Returns: boolean }
+      homework_jtype: { Args: { j: Json }; Returns: string }
+      homework_learner_can_see_assignment: {
+        Args: { _assignment: string }
+        Returns: boolean
+      }
+      homework_parse_number: { Args: { p: string }; Returns: number }
+      homework_question_course: { Args: { _question: string }; Returns: string }
+      import_homework_assignment: {
+        Args: { p_course: string; p_payload: Json }
+        Returns: string
       }
       is_admin_user: { Args: { user_id: string }; Returns: boolean }
       is_approved_member: { Args: { _user_id: string }; Returns: boolean }
@@ -4431,9 +4716,17 @@ export type Database = {
         }[]
       }
       register_independent_user: { Args: never; Returns: Json }
+      reopen_homework_submission: {
+        Args: { p_submission: string }
+        Returns: Json
+      }
       shares_company: {
         Args: { _owner: string; _viewer: string }
         Returns: boolean
+      }
+      submit_homework: {
+        Args: { p_answers: Json; p_assignment: string; p_calc: Json }
+        Returns: Json
       }
       user_belongs_to_company: {
         Args: { _company_id: string; _user_id: string }

@@ -18,6 +18,8 @@ const Profile = lazy(() => import("./pages/Profile"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const VerifyCertificate = lazy(() => import("./pages/VerifyCertificate"));
 const FinalExamPage = lazy(() => import("./pages/FinalExamPage"));
+const Homework = lazy(() => import("./pages/Homework"));
+const HomeworkAssignment = lazy(() => import("./pages/HomeworkAssignment"));
 
 // Loading fallback
 const PageLoader = () => (
@@ -79,6 +81,16 @@ const App = () => {
                     <Route path="/final-exam" element={
                       <Suspense fallback={<PageLoader />}>
                         <FinalExamPage />
+                      </Suspense>
+                    } />
+                    <Route path="/teme" element={
+                      <Suspense fallback={<PageLoader />}>
+                        <Homework />
+                      </Suspense>
+                    } />
+                    <Route path="/teme/:assignmentId" element={
+                      <Suspense fallback={<PageLoader />}>
+                        <HomeworkAssignment />
                       </Suspense>
                     } />
                     {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

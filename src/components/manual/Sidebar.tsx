@@ -16,6 +16,8 @@ import { useAuth } from "@/hooks/useAuth";
 import { useChapterProgress } from "@/hooks/useChapterProgress";
 import { usePremiumChapters } from "@/hooks/usePremiumChapters";
 import { useGamification } from "@/hooks/useGamification";
+import { useHomeworkEnrollment } from "@/hooks/useHomeworkEnrollment";
+import { useHomeworkT } from "@/lib/homework/i18n";
 import { GlobalSearch } from "./GlobalSearch";
 import { LanguageSelector } from "./LanguageSelector";
 import { CompactDailyTracker } from "./CompactDailyTracker";
@@ -136,6 +138,8 @@ export function Sidebar({ activeChapter, onChapterChange, onShowDashboard, onSho
   } = useChapterProgress();
   const { isChapterLocked: isPremiumLocked, getChapterMinPlan } = usePremiumChapters();
   const { gamification, calculateLevel } = useGamification();
+  const { enrolled: homeworkEnrolled } = useHomeworkEnrollment();
+  const { t: hwT } = useHomeworkT();
 
   const overallProgress = getOverallProgress();
   const sections = getSections(t);
@@ -472,6 +476,31 @@ export function Sidebar({ activeChapter, onChapterChange, onShowDashboard, onSho
                   </p>
                 </div>
                 <Zap className="w-4 h-4 text-violet-400 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0" />
+              </button>
+            </div>
+          )}
+
+          {/* Homework ("Teme") - only for learners enrolled in a homework course */}
+          {user && homeworkEnrolled && (
+            <div className="px-4 py-3 border-t border-border">
+              <button
+                onClick={() => {
+                  navigate('/teme');
+                  setMobileOpen(false);
+                }}
+                className="w-full flex items-center gap-3 p-3 rounded-lg bg-accent border border-primary/20 hover:border-primary/50 transition-all group"
+              >
+                <div className="p-2 rounded-lg bg-primary text-primary-foreground flex-shrink-0 text-sm leading-none" aria-hidden="true">
+                  📝
+                </div>
+                <div className="flex-1 text-left min-w-0">
+                  <span className="text-sm font-medium text-foreground group-hover:text-primary transition-colors block truncate">
+                    {hwT('nav.title')}
+                  </span>
+                  <p className="text-[10px] text-muted-foreground truncate">
+                    {hwT('nav.desc')}
+                  </p>
+                </div>
               </button>
             </div>
           )}

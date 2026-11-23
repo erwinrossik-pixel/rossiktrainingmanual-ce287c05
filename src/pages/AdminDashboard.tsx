@@ -50,6 +50,8 @@ import { CertificatesDashboard } from '@/components/admin/CertificatesDashboard'
 import RealTimeActivityPanel from '@/components/admin/RealTimeActivityPanel';
 import { CompanyManagement } from '@/components/admin/CompanyManagement';
 import { UserManagement } from '@/components/admin/UserManagement';
+import { HomeworkAdminPanel } from '@/components/admin/homework/HomeworkAdminPanel';
+import { useHomeworkT } from '@/lib/homework/i18n';
 import { SubscriptionPlansManager } from '@/components/admin/SubscriptionPlansManager';
 import { ChapterManagement } from '@/components/admin/ChapterManagement';
 import { EnterpriseMonitoring } from '@/components/admin/EnterpriseMonitoring';
@@ -107,6 +109,7 @@ export default function AdminDashboard() {
   const { user, profile, loading, isAdmin } = useAuth();
   const { isSuperAdmin, isCompanyAdmin, company, branding } = useCompany();
   const { t } = useLanguage();
+  const { t: hwT } = useHomeworkT();
   const { requestNotificationPermission, areNotificationsEnabled } = useCertificateNotifications(isAdmin || isCompanyAdmin);
   const [users, setUsers] = useState<UserWithProgress[]>([]);
   const [loadingUsers, setLoadingUsers] = useState(true);
@@ -661,6 +664,10 @@ export default function AdminDashboard() {
                   <FileBarChart className="h-4 w-4" />
                   {t('admin.tab.reports')}
                 </TabsTrigger>
+                <TabsTrigger value="homework" className="admin-tab-trigger flex items-center gap-2 data-[state=active]:text-primary data-[state=active]:border-b-2 data-[state=active]:border-primary">
+                  <span aria-hidden="true">📝</span>
+                  {hwT('admin.tab')}
+                </TabsTrigger>
               </>
             )}
             
@@ -871,6 +878,9 @@ export default function AdminDashboard() {
               </TabsContent>
               <TabsContent value="reports" className="mt-6">
                 <CompanyReportGenerator />
+              </TabsContent>
+              <TabsContent value="homework" className="mt-6">
+                <HomeworkAdminPanel />
               </TabsContent>
             </>
           )}
