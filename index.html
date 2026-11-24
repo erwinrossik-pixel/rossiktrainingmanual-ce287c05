@@ -28,6 +28,11 @@
   <meta name="twitter:description" content="Complete training manual for freight forwarding trainees. Learn EU road transport operations, Translogica TMS, compliance, pricing, and more.">
   <link rel="icon" type="image/x-icon" href="https://storage.googleapis.com/gpt-engineer-file-uploads/I8wO90r1SVSoTaLEyfUiCyfk7ZZ2/uploads/1764751717814-Rossik Vector.jpg">
   <script>
+    // Password-reset email links may land on the site root; send them to the reset page
+    // (keeping the sign-in data in the hash) before the app reads and clears it.
+    if (/[#&]type=recovery(&|$)/.test(location.hash) && location.pathname !== '/reset-password') {
+      location.replace('/reset-password' + location.hash);
+    }
     if (!location.hostname.endsWith('.lovableproject.com')) {
       const manifestLink = document.createElement('link');
       manifestLink.rel = 'manifest';

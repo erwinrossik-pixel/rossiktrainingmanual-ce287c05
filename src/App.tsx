@@ -13,6 +13,7 @@ import { TrainingTimeAutoTracker } from "@/components/manual/TrainingTimeAutoTra
 
 // Lazy load non-critical pages
 const Auth = lazy(() => import("./pages/Auth"));
+const ResetPassword = lazy(() => import("./pages/ResetPassword"));
 const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
 const Profile = lazy(() => import("./pages/Profile"));
 const NotFound = lazy(() => import("./pages/NotFound"));
@@ -56,6 +57,11 @@ const App = () => {
                     <Route path="/auth" element={
                       <Suspense fallback={<PageLoader />}>
                         <Auth />
+                      </Suspense>
+                    } />
+                    <Route path="/reset-password" element={
+                      <Suspense fallback={<PageLoader />}>
+                        <ResetPassword />
                       </Suspense>
                     } />
                     <Route path="/admin" element={

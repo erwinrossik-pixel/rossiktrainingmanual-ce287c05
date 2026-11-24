@@ -6,11 +6,8 @@ import { Label } from '@/components/ui/label';
 import { Mail, Lock } from 'lucide-react';
 import { lovable } from '@/integrations/lovable/index';
 import { toast } from 'sonner';
-
-const loginSchema = z.object({
-  email: z.string().email('Email invalid'),
-  password: z.string().min(6, 'Parola trebuie să aibă minim 6 caractere'),
-});
+import { useAuth } from '@/hooks/useAuth';
+import { useAuthT } from '@/lib/authI18n';
 
 interface LoginFormProps {
   onSubmit: (email: string, password: string) => Promise<void>;
@@ -21,6 +18,76 @@ export function LoginForm({ onSubmit, isSubmitting }: LoginFormProps) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [mode, setMode] = useState<'login' | 'forgot'>('login');
+  const [resetSending, setResetSending] = useState(false);
+  const [resetSent, setResetSent] = useState(false);
+  const { requestPasswordReset } = useAuth();
+  const at = useAuthT();
+
+  // Only check that the fields are filled in: existing accounts may have older/shorter
+  // passwords, and the server is the judge of whether they are correct.
+  const loginSchema = z.object({
+    email: z.string().trim().email(at('email.invalid')),
+    password: z.string().min(1, at('password.required')),
+  });
+
+  const handleForgot = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setErrors({});
+    const parsed = z.string().trim().email().safeParse(email);
+    if (!parsed.success) {
+      setErrors({ email: at('email.invalid') });
+      return;
+    }
+    setResetSending(true);
+    const { error } = await requestPasswordReset(parsed.data);
+    setResetSending(false);
+    if (!error) setResetSent(true);
+  };
+
+  if (mode === 'forgot') {
+    return (
+      <form onSubmit={handleForgot} className="space-y-4 mt-4">
+        <div className="space-y-1">
+          <h3 className="font-semibold">{at('forgot.title')}</h3>
+          <p className="text-sm text-muted-foreground">{at('forgot.desc')}</p>
+        </div>
+        {resetSent ? (
+          <p role="status" className="text-sm rounded-md border border-border bg-muted p-3">{at('forgot.sent')}</p>
+        ) : (
+          <>
+            <div className="space-y-2">
+              <Label htmlFor="forgot-email">Email</Label>
+              <div className="relative">
+                <Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                <Input
+                  id="forgot-email"
+                  type="email"
+                  autoComplete="email"
+                  placeholder="email@exemplu.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="pl-10"
+                />
+              </div>
+              {errors.email && <p className="text-sm text-destructive">{errors.email}</p>}
+            </div>
+            <Button type="submit" className="w-full" disabled={resetSending}>
+              {resetSending ? at('forgot.sending') : at('forgot.send')}
+            </Button>
+          </>
+        )}
+        <Button
+          type="button"
+          variant="link"
+          className="w-full"
+          onClick={() => { setMode('login'); setResetSent(false); setErrors({}); }}
+        >
+          {at('forgot.back')}
+        </Button>
+      </form>
+    );
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -38,7 +105,7 @@ export function LoginForm({ onSubmit, isSubmitting }: LoginFormProps) {
       return;
     }
 
-    await onSubmit(email, password);
+    await onSubmit(result.data.email, password);
   };
 
   return (
@@ -50,6 +117,7 @@ export function LoginForm({ onSubmit, isSubmitting }: LoginFormProps) {
           <Input
             id="login-email"
             type="email"
+            autoComplete="email"
             placeholder="email@exemplu.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -60,12 +128,22 @@ export function LoginForm({ onSubmit, isSubmitting }: LoginFormProps) {
       </div>
       
       <div className="space-y-2">
-        <Label htmlFor="login-password">Parolă</Label>
+        <div className="flex items-center justify-between">
+          <Label htmlFor="login-password">Parolă</Label>
+          <button
+            type="button"
+            className="text-sm text-primary hover:underline"
+            onClick={() => { setMode('forgot'); setErrors({}); }}
+          >
+            {at('forgot.link')}
+          </button>
+        </div>
         <div className="relative">
           <Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
           <Input
             id="login-password"
             type="password"
+            autoComplete="current-password"
             placeholder="••••••••"
             value={password}
             onChange={(e) => setPassword(e.target.value)}

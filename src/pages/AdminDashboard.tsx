@@ -107,7 +107,7 @@ interface QuizAttempt {
 
 export default function AdminDashboard() {
   const { user, profile, loading, isAdmin } = useAuth();
-  const { isSuperAdmin, isCompanyAdmin, company, branding } = useCompany();
+  const { isSuperAdmin, isCompanyAdmin, company, branding, loading: companyLoading } = useCompany();
   const { t } = useLanguage();
   const { t: hwT } = useHomeworkT();
   const { requestNotificationPermission, areNotificationsEnabled } = useCertificateNotifications(isAdmin || isCompanyAdmin);
@@ -138,13 +138,16 @@ export default function AdminDashboard() {
   // Check access - allow both old admin role and new company admin roles
   const hasAdminAccess = isAdmin || isSuperAdmin || isCompanyAdmin;
 
+  // Decide only once both the roles and the company membership of this user are loaded;
+  // deciding earlier sent company admins back to the main page.
   useEffect(() => {
-    if (!loading && !user) {
+    if (loading) return;
+    if (!user) {
       navigateTo('/auth');
-    } else if (!loading && !hasAdminAccess) {
+    } else if (!companyLoading && !hasAdminAccess) {
       navigateTo('/');
     }
-  }, [user, loading, hasAdminAccess]);
+  }, [user, loading, companyLoading, hasAdminAccess]);
 
   useEffect(() => {
     if (hasAdminAccess) {

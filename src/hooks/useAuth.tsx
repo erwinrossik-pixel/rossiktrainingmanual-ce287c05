@@ -1,8 +1,9 @@
-import { useState, useEffect, createContext, useContext, ReactNode } from 'react';
+import { useState, useEffect, useRef, createContext, useContext, ReactNode } from 'react';
 import { User, Session } from '@supabase/supabase-js';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { logger } from '@/utils/logger';
+import { normalizeEmail, authErrorMessage } from '@/lib/authErrors';
 
 interface Profile {
   id: string;
@@ -26,6 +27,8 @@ interface AuthContextType {
   signUp: (email: string, password: string, firstName: string, lastName: string, companyId?: string) => Promise<{ error: Error | null }>;
   signIn: (email: string, password: string) => Promise<{ error: Error | null }>;
   signOut: () => Promise<void>;
+  requestPasswordReset: (email: string) => Promise<{ error: Error | null }>;
+  updatePassword: (password: string) => Promise<{ error: Error | null }>;
   updateProfile: (updates: Partial<Profile>) => Promise<{ error: Error | null }>;
 }
 
@@ -37,6 +40,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [userRoles, setUserRoles] = useState<AppRole[]>([]);
   const [loading, setLoading] = useState(true);
+  // Id of the user whose profile/roles are loaded (or being loaded); null when signed out.
+  const currentUserIdRef = useRef<string | null>(null);
   const { toast } = useToast();
 
   const fetchProfile = async (userId: string) => {
@@ -44,7 +49,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       .from('profiles')
       .select('*')
       .eq('id', userId)
-      .single();
+      .maybeSingle();
     
     if (error) {
       logger.error('Error fetching profile:', error);
@@ -68,52 +73,70 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   useEffect(() => {
-    // Set up auth state listener FIRST
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (event, session) => {
-        setSession(session);
-        setUser(session?.user ?? null);
-        
-        // Defer profile and roles fetch with setTimeout to prevent deadlock
-        if (session?.user) {
-          setTimeout(() => {
-            fetchProfile(session.user.id).then(setProfile);
-            fetchUserRoles(session.user.id).then(setUserRoles);
-          }, 0);
-        } else {
-          setProfile(null);
-          setUserRoles([]);
-        }
-      }
-    );
+    let active = true;
 
-    // THEN check for existing session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-      setUser(session?.user ?? null);
-      
-      if (session?.user) {
-        Promise.all([
-          fetchProfile(session.user.id),
-          fetchUserRoles(session.user.id)
-        ]).then(([profileData, roles]) => {
-          setProfile(profileData);
-          setUserRoles(roles);
-          setLoading(false);
-        });
+    const loadUserData = async (userId: string) => {
+      try {
+        const [profileData, roles] = await Promise.all([fetchProfile(userId), fetchUserRoles(userId)]);
+        if (!active || currentUserIdRef.current !== userId) return;
+        setProfile(profileData);
+        setUserRoles(roles);
+      } catch (error) {
+        logger.error('Error loading user data:', error);
+      } finally {
+        if (active && currentUserIdRef.current === userId) setLoading(false);
+      }
+    };
+
+    // Profile and roles are reloaded only when the signed-in user changes (not on hourly
+    // token refreshes), and `loading` stays true until they are known, so pages never
+    // decide on access with a user but without their roles.
+    const applySession = (nextSession: Session | null) => {
+      setSession(nextSession);
+      setUser(nextSession?.user ?? null);
+      const nextId = nextSession?.user?.id ?? null;
+
+      if (nextId === currentUserIdRef.current) {
+        if (!nextId) setLoading(false);
+        return;
+      }
+
+      currentUserIdRef.current = nextId;
+      if (nextId) {
+        setLoading(true);
+        // Defer the fetch to avoid a deadlock inside the auth state callback
+        setTimeout(() => { void loadUserData(nextId); }, 0);
       } else {
+        setProfile(null);
+        setUserRoles([]);
         setLoading(false);
       }
+    };
+
+    // Set up auth state listener FIRST
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, nextSession) => {
+      applySession(nextSession);
     });
 
-    return () => subscription.unsubscribe();
+    // THEN check for existing session
+    supabase.auth.getSession()
+      .then(({ data: { session: existing } }) => applySession(existing))
+      .catch((error) => {
+        logger.error('Error reading session:', error);
+        applySession(null);
+      });
+
+    return () => {
+      active = false;
+      subscription.unsubscribe();
+    };
   }, []);
 
   const signUp = async (email: string, password: string, firstName: string, lastName: string, companyId?: string) => {
     const redirectUrl = `${window.location.origin}/`;
     
     const { error } = await supabase.auth.signUp({
-      email,
+      email: normalizeEmail(email),
       password,
       options: {
         emailRedirectTo: redirectUrl,
@@ -128,7 +151,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (error) {
       toast({
         title: "Eroare la înregistrare",
-        description: error.message,
+        description: authErrorMessage(error),
         variant: "destructive",
       });
       return { error };
@@ -143,18 +166,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const signIn = async (email: string, password: string) => {
     const { error } = await supabase.auth.signInWithPassword({
-      email,
+      email: normalizeEmail(email),
       password,
     });
 
     if (error) {
-      let message = error.message;
-      if (error.message.includes('Invalid login credentials')) {
-        message = 'Email sau parolă incorectă';
-      }
       toast({
         title: "Eroare la autentificare",
-        description: message,
+        description: authErrorMessage(error),
         variant: "destructive",
       });
       return { error };
@@ -177,6 +196,27 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       title: "Deconectat",
       description: "Ai fost deconectat cu succes.",
     });
+  };
+
+  const requestPasswordReset = async (email: string) => {
+    const { error } = await supabase.auth.resetPasswordForEmail(normalizeEmail(email), {
+      redirectTo: `${window.location.origin}/reset-password`,
+    });
+    if (error) {
+      toast({ title: "Eroare", description: authErrorMessage(error), variant: "destructive" });
+      return { error };
+    }
+    return { error: null };
+  };
+
+  // Used on the /reset-password page (recovery session), so no current password is sent.
+  const updatePassword = async (password: string) => {
+    const { error } = await supabase.auth.updateUser({ password });
+    if (error) {
+      toast({ title: "Eroare", description: authErrorMessage(error), variant: "destructive" });
+      return { error };
+    }
+    return { error: null };
   };
 
   const updateProfile = async (updates: Partial<Profile>) => {
@@ -221,6 +261,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       signUp,
       signIn,
       signOut,
+      requestPasswordReset,
+      updatePassword,
       updateProfile,
     }}>
       {children}

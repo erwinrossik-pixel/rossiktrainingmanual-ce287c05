@@ -6,7 +6,7 @@ import { Label } from '@/components/ui/label';
 import { Mail, Lock, User, Building2, ArrowLeft } from 'lucide-react';
 
 const signupSchema = z.object({
-  email: z.string().email('Email invalid'),
+  email: z.string().trim().email('Email invalid'),
   password: z.string().min(6, 'Parola trebuie să aibă minim 6 caractere'),
   firstName: z.string().min(2, 'Prenumele trebuie să aibă minim 2 caractere'),
   lastName: z.string().min(2, 'Numele trebuie să aibă minim 2 caractere'),
@@ -56,7 +56,7 @@ export function SignupForm({
       return;
     }
 
-    await onSubmit(email, password, firstName, lastName);
+    await onSubmit(result.data.email, password, result.data.firstName.trim(), result.data.lastName.trim());
   };
 
   return (

@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, useCallback, useMemo, ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, useCallback, useMemo, useRef, ReactNode } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
 
@@ -95,12 +95,17 @@ const CompanyContext = createContext<CompanyContextType | undefined>(undefined);
 
 export function CompanyProvider({ children }: { children: ReactNode }) {
   const { user } = useAuth();
+  const userId = user?.id ?? null;
   const [company, setCompany] = useState<Company | null>(null);
   const [branding, setBranding] = useState<CompanyBranding | null>(null);
   const [settings, setSettings] = useState<CompanySettings | null>(null);
   const [subscription, setSubscription] = useState<CompanySubscription | null>(null);
   const [companyUser, setCompanyUser] = useState<CompanyUser | null>(null);
-  const [loading, setLoading] = useState(true);
+  // Which signed-in user (or null for signed out) the membership data was last loaded for.
+  // `loading` stays true until data for the current user has arrived, so pages never decide
+  // (admin access, pending screen, redirects) on the previous user's or empty data.
+  const [loadedFor, setLoadedFor] = useState<string | null | undefined>(undefined);
+  const requestIdRef = useRef(0);
 
   const detectCompanyFromDomain = async (): Promise<Company | null> => {
     const hostname = window.location.hostname;
@@ -182,19 +187,18 @@ export function CompanyProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  const fetchUserCompanyRole = async (userId: string, companyId: string) => {
-    const { data } = await supabase
-      .from('company_users')
-      .select('*')
-      .eq('user_id', userId)
-      .eq('company_id', companyId)
-      .order('approved_at', { ascending: false, nullsFirst: false })
-      .limit(1)
-      .maybeSingle();
+  const fetchUserCompanyRole = async (uid: string, companyId: string | null): Promise<CompanyUser | null> => {
+    if (companyId) {
+      const { data } = await supabase
+        .from('company_users')
+        .select('*')
+        .eq('user_id', uid)
+        .eq('company_id', companyId)
+        .order('approved_at', { ascending: false, nullsFirst: false })
+        .limit(1)
+        .maybeSingle();
 
-    if (data) {
-      setCompanyUser(data as CompanyUser);
-      return;
+      if (data) return data as CompanyUser;
     }
 
     // Not a member of the site's company (e.g. independent learners): use the user's
@@ -202,35 +206,42 @@ export function CompanyProvider({ children }: { children: ReactNode }) {
     const { data: memberships } = await supabase
       .from('company_users')
       .select('*')
-      .eq('user_id', userId)
+      .eq('user_id', uid)
       .order('created_at', { ascending: false })
       .limit(20);
 
     const list = (memberships ?? []) as CompanyUser[];
-    const fallback = list.find(m => m.status === 'approved') ?? list.find(m => m.status === 'pending') ?? list[0] ?? null;
-    setCompanyUser(fallback);
+    return list.find(m => m.status === 'approved') ?? list.find(m => m.status === 'pending') ?? list[0] ?? null;
   };
 
   const refreshCompany = useCallback(async () => {
-    setLoading(true);
+    const requestId = ++requestIdRef.current;
+    let membership: CompanyUser | null = null;
     try {
       const detectedCompany = await detectCompanyFromDomain();
       if (detectedCompany) {
         setCompany(detectedCompany);
         await fetchCompanyData(detectedCompany.id);
-        
-        if (user) {
-          await fetchUserCompanyRole(user.id, detectedCompany.id);
-        }
       }
+      if (userId) {
+        membership = await fetchUserCompanyRole(userId, detectedCompany?.id ?? null);
+      }
+    } catch (error) {
+      console.error('Error loading company data:', error);
     } finally {
-      setLoading(false);
+      // Ignore results of an older request (e.g. the user changed while it was running).
+      if (requestId === requestIdRef.current) {
+        setCompanyUser(membership);
+        setLoadedFor(userId);
+      }
     }
-  }, [user]);
+  }, [userId]);
 
   useEffect(() => {
     refreshCompany();
   }, [refreshCompany]);
+
+  const loading = loadedFor !== userId;
 
   // Apply branding to CSS variables
   useEffect(() => {

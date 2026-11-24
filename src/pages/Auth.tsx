@@ -22,7 +22,7 @@ interface SelectedCompany {
 export default function Auth() {
   const navigate = useNavigate();
   const { user, loading, signIn, signUp } = useAuth();
-  const { company, branding, settings, loading: companyLoading, refreshCompany } = useCompany();
+  const { company, branding, settings, loading: companyLoading } = useCompany();
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [registrationStep, setRegistrationStep] = useState<'company' | 'details'>('company');
@@ -108,12 +108,9 @@ export default function Auth() {
 
   const handleLogin = async (email: string, password: string) => {
     setIsSubmitting(true);
-    const { error } = await signIn(email, password);
+    // Company membership reloads automatically when the signed-in user changes.
+    await signIn(email, password);
     setIsSubmitting(false);
-
-    if (!error) {
-      await refreshCompany();
-    }
   };
 
   const handleSelectIndependent = () => {

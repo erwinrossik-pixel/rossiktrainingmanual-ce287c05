@@ -101,7 +101,8 @@ const UserMenu = memo(function UserMenu() {
 });
 
 function ManualApp() {
-  const { isPendingApproval, company, branding } = useCompany();
+  const { isPendingApproval, company, branding, loading: companyLoading } = useCompany();
+  const { user } = useAuth();
   const [activeChapter, setActiveChapter] = useState("intro");
   const [showDashboard, setShowDashboard] = useState(false);
   const [showSimulations, setShowSimulations] = useState(false);
@@ -152,6 +153,15 @@ function ManualApp() {
       lastTrackedChapter[0] = activeChapter;
     }
   }, [activeChapter, showDashboard, showSimulations]);
+
+  // Wait for the signed-in user's membership so pending users never glimpse the training
+  if (user && companyLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+      </div>
+    );
+  }
 
   // Show pending approval screen if user is waiting for approval
   if (isPendingApproval) {
