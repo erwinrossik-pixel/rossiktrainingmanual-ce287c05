@@ -14,11 +14,12 @@ const TRAINING_PATHS = ['/', '/final-exam'];
  */
 export function TrainingTimeAutoTracker() {
   const { user } = useAuth();
-  const { isPendingApproval } = useCompany();
+  const { isPendingApproval, loading: companyLoading } = useCompany();
   const { pathname } = useLocation();
   const currentPhase = useCurrentTrainingPhase();
   const timer = useTrainingTimer({ autoTrack: true });
-  const shouldTrack = !!user && !isPendingApproval && TRAINING_PATHS.includes(pathname);
+  // Wait until the user's approval status is known, so pending users never start a timer.
+  const shouldTrack = !!user && !companyLoading && !isPendingApproval && TRAINING_PATHS.includes(pathname);
 
   // Latest values in refs so the effects below fire only on real transitions
   // (page change, load finished, tab return) — not on every timer tick, which

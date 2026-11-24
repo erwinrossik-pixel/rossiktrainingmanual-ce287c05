@@ -37,6 +37,9 @@ export function authErrorMessage(error: AuthLikeError): string {
   if (code === 'email_address_invalid' || msg.includes('email address is not allowed') || msg.includes('is invalid')) {
     return 'Această adresă de email nu poate primi emailuri. Verifică dacă este scrisă corect.';
   }
+  if (code === 'reauthentication_needed' || msg.includes('current password')) {
+    return 'Pentru siguranță, deconectează-te și folosește „Ai uitat parola?” ca să primești un link de schimbare a parolei.';
+  }
   if (msg.includes('failed to fetch') || msg.includes('network')) {
     return 'Nu există conexiune la internet. Verifică conexiunea și încearcă din nou.';
   }
